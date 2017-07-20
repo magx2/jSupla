@@ -55,4 +55,7 @@ public class CallTypes {
      * @since 5
      */
     public static final int SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT = 310 + MIN_VALUE;
+
+    private CallTypes() {
+    }
 }
