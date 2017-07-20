@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TSC_SuplaEvent {
+public final class TSC_SuplaEvent implements Proto  {
     public final int event;
     public final int channelId;
     /**

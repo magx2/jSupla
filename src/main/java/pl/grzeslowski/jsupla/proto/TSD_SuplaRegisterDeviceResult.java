@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public  final class TSD_SuplaRegisterDeviceResult {
+public  final class TSD_SuplaRegisterDeviceResult  implements Proto {
     public final int resultCode;
     public final byte activityTimeout;
     public final byte version;

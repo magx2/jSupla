@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public final class TDS_FirmwareUpdateParams {
+public final class TDS_FirmwareUpdateParams  implements Proto {
     public final byte platform;
     public final int param1;
     public final int param2;

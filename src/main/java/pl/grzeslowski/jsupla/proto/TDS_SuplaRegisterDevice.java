@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TDS_SuplaRegisterDevice {
+public final class TDS_SuplaRegisterDevice implements Proto  {
     public final int locationId;
     /**
      * UTF-8

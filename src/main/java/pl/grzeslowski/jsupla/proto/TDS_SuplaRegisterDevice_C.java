@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @since ver 6
  */
-public final class TDS_SuplaRegisterDevice_C {
+public final class TDS_SuplaRegisterDevice_C implements Proto  {
     public final int locationId;
     /**
      * UTF-8

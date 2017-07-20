@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public  final class TSC_SuplaChannelPack {
+public  final class TSC_SuplaChannelPack  implements Proto {
     public final int count;
     public final int totalLeft;
     public final TSC_SuplaChannel[] channels;

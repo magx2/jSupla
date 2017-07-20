@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TSuplaChannelValue {
+public final class TSuplaChannelValue  implements Proto {
     /**
      * unsigned
      */

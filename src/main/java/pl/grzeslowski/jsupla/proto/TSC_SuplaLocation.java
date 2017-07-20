@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TSC_SuplaLocation {
+public final class TSC_SuplaLocation  implements Proto {
     public final byte eol;
     public final int id;
     /**

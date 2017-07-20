@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public final class TSD_FirmwareUpdate_UrlResult {
+public final class TSD_FirmwareUpdate_UrlResult  implements Proto {
     public final byte exists;
     public final TSD_FirmwareUpdate_Url url;
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @since ver 2
  */
-public  final class TDS_SuplaDeviceChannel_B {
+public  final class TDS_SuplaDeviceChannel_B  implements Proto {
     /**
      * unsigned
      */

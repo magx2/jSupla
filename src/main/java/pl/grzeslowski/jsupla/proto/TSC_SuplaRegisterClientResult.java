@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public final  class TSC_SuplaRegisterClientResult {
+public final  class TSC_SuplaRegisterClientResult  implements Proto {
     public final int resultCode;
     public final int clientId;
     public final int locationCount;

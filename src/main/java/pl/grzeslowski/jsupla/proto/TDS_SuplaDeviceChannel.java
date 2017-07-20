@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public  final class TDS_SuplaDeviceChannel {
+public  final class TDS_SuplaDeviceChannel  implements Proto {
     /**
      * unsigned
      */

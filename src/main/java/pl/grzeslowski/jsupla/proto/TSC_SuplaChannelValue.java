@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public  final class TSC_SuplaChannelValue {
+public  final class TSC_SuplaChannelValue implements Proto  {
     public final byte eol;
     public final int id;
     public final byte online;

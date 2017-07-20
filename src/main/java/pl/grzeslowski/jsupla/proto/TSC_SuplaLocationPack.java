@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public  final class TSC_SuplaLocationPack {
+public  final class TSC_SuplaLocationPack  implements Proto {
     public final int count;
     public final int totalLeft;
     public final TSC_SuplaLocation[] locations;

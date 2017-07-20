@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TSD_SuplaChannelNewValue {
+public final class TSD_SuplaChannelNewValue implements Proto  {
     public final int senderId;
     /**
      * unsigned

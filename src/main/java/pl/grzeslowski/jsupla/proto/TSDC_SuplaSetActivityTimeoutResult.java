@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public  final class TSDC_SuplaSetActivityTimeoutResult {
+public  final class TSDC_SuplaSetActivityTimeoutResult  implements Proto {
     /**
      * unsigned
      */

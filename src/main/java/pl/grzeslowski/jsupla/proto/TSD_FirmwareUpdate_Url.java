@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public final class TSD_FirmwareUpdate_Url {
+public final class TSD_FirmwareUpdate_Url implements Proto  {
     public final byte avaiableProtocols;
     public final byte[] host;
     public final int port;
