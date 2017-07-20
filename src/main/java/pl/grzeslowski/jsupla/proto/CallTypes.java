@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import static java.lang.Integer.MIN_VALUE;
 
-public class CallTypes {
+public final class CallTypes {
     public static final int SUPLA_DCS_CALL_GETVERSION = 10 + MIN_VALUE;
     public static final int SUPLA_SDC_CALL_GETVERSION_RESULT = 20 + MIN_VALUE;
     public static final int SUPLA_SDC_CALL_VERSIONERROR = 30 + MIN_VALUE;
