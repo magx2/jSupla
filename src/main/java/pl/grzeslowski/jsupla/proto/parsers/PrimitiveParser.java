@@ -5,7 +5,7 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
 final class PrimitiveParser {
-    static int parseInt(byte[] bytes, int offset) {
+    static int parseUnsignedInt(byte[] bytes, int offset) {
         assert bytes.length - offset >= INT_SIZE;
 
         final StringBuilder sb = new StringBuilder();
