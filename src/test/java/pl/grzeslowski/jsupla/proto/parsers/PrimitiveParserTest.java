@@ -60,30 +60,4 @@ public class PrimitiveParserTest {
         // then
         assertThat(parseInt).isEqualTo(MIN_VALUE);
     }
-
-    @Test
-    public void shouldParseMinIntFromFullInt2() {
-
-        // given
-        byte[] bytes = new byte[]{(byte) 0, (byte) -1, (byte) 0, (byte) 0};
-
-        // when
-        final int parseInt = PrimitiveParser.parseInt(bytes, 0);
-
-        // then
-        assertThat(parseInt).isEqualTo(MIN_VALUE + 65_280);
-    }
-
-    @Test
-    public void shouldParseMinIntFromFullInt3() {
-
-        // given
-        byte[] bytes = new byte[]{(byte) -1, (byte) 0, (byte) 0, (byte) 0};
-
-        // when
-        final int parseInt = PrimitiveParser.parseInt(bytes, 0);
-
-        // then
-        assertThat(parseInt).isEqualTo(MIN_VALUE + 255);
-    }
 }
