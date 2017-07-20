@@ -1,25 +1,33 @@
 package pl.grzeslowski.jsupla.proto;
 
+import java.util.Arrays;
+
 public final class TSD_SuplaChannelNewValue {
+    public final int senderId;
     /**
      * unsigned
      */
-    public final char channelNumber;
-    public final int senderId;
-    public final byte success;
+    public final byte channelNumber;
+    /**
+     * unsigned
+     */
+    public final int durationMs;
+    public final byte[] value;
 
-    public TSD_SuplaChannelNewValue(char channelNumber, int senderId, byte success) {
-        this.channelNumber = channelNumber;
+    public TSD_SuplaChannelNewValue(int senderId, byte channelNumber, int durationMs, byte[] value) {
         this.senderId = senderId;
-        this.success = success;
+        this.channelNumber = channelNumber;
+        this.durationMs = durationMs;
+        this.value = value;
     }
 
     @Override
     public String toString() {
         return "TSD_SuplaChannelNewValue{" +
-                "channelNumber=" + channelNumber +
-                ", senderId=" + senderId +
-                ", success=" + success +
+                "senderId=" + senderId +
+                ", channelNumber=" + channelNumber +
+                ", durationMs=" + durationMs +
+                ", value=" + Arrays.toString(value) +
                 '}';
     }
 }
