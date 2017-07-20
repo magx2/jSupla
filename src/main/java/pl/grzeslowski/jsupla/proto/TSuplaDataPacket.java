@@ -6,7 +6,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
-public final class TSuplaDataPacket {
+public final class TSuplaDataPacket implements Proto {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 3;
 
     private final byte version;
