@@ -9,7 +9,7 @@ final class PrimitiveParser {
         assert bytes.length - offset >= INT_SIZE;
 
         final StringBuilder sb = new StringBuilder();
-        for (int i = bytes.length - 1; i >= offset; i--) {
+        for (int i = offset + INT_SIZE - 1; i >= offset; i--) {
             sb.append(binaryRepresentation(bytes[i]).replace(' ', '0'));
         }
 

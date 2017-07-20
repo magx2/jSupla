@@ -36,6 +36,19 @@ public class PrimitiveParserTest {
     }
 
     @Test
+    public void shouldParseIntFromOneByteWithBiggerArray() {
+
+        // given
+        byte[] bytes = new byte[]{1, 2, 3, (byte) 5, 0, 0, 0, 5, 6, 7, 8};
+
+        // when
+        final int parseInt = PrimitiveParser.parseInt(bytes, 3);
+
+        // then
+        assertThat(parseInt).isEqualTo(MIN_VALUE + 5);
+    }
+
+    @Test
     public void shouldParseIntFromTwoByte() {
 
         // given
