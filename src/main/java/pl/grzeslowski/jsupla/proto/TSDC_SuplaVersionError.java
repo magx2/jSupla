@@ -1,8 +1,14 @@
 package pl.grzeslowski.jsupla.proto;
 
 public class TSDC_SuplaVersionError {
-    public final /*u*/ byte serverVersionMin;
-    public final /*u*/ byte serverVersion;
+    /**
+     * unsigned
+     */
+    public final byte serverVersionMin;
+    /**
+     * unsigned
+     */
+    public final byte serverVersion;
 
     public TSDC_SuplaVersionError(byte serverVersionMin, byte serverVersion) {
         this.serverVersionMin = serverVersionMin;

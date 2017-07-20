@@ -3,8 +3,14 @@ package pl.grzeslowski.jsupla.proto;
 import java.util.Arrays;
 
 public class TSDC_SuplaGetVersionResult {
-    public final /*u*/ byte protoVersionMin;
-    public final /*u*/ byte protoVersion;
+    /**
+     * unsigned
+     */
+    public final byte protoVersionMin;
+    /**
+     * unsigned
+     */
+    public final byte protoVersion;
     public final byte[] softVer;
 
     public TSDC_SuplaGetVersionResult(byte protoVersionMin, byte protoVersion, byte[] softVer) {
