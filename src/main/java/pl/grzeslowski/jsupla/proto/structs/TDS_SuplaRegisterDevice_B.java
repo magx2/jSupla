@@ -7,6 +7,7 @@ import java.util.Arrays;
 /**
  * @since ver 2
  */
+@Deprecated
 public final class TDS_SuplaRegisterDevice_B implements Proto {
     public final int locationId;
     /**

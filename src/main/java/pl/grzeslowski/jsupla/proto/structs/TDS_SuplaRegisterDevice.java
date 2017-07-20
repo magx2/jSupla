@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+@Deprecated
 public final class TDS_SuplaRegisterDevice implements Proto {
     public final int locationId;
     /**

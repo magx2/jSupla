@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+@Deprecated
 public  final class TDS_SuplaDeviceChannel  implements Proto {
     /**
      * unsigned
