@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public class TSDC_SuplaGetVersionResult {
+public  final class TSDC_SuplaGetVersionResult {
     /**
      * unsigned
      */

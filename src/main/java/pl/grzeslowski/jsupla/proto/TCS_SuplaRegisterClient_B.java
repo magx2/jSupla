@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @since ver 6
  */
-public class TCS_SuplaRegisterClient_B {
+public  final class TCS_SuplaRegisterClient_B {
         public final int accessId;
     /**
      * UTF-8

@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public class TCS_SuplaRegisterClient {
+public final  class TCS_SuplaRegisterClient {
     public final int accessId;
     /**
      * UTF-8

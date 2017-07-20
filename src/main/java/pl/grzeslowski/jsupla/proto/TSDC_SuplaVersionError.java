@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public class TSDC_SuplaVersionError {
+public final class TSDC_SuplaVersionError {
     /**
      * unsigned
      */

@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public class TCS_SuplaChannelNewValue_B {
+public final  class TCS_SuplaChannelNewValue_B {
     public final int channelId;
     public final byte[] value;
 

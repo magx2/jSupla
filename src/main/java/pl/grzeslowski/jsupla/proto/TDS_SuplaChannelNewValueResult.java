@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto;
 
-public class TDS_SuplaChannelNewValueResult {
+public  final class TDS_SuplaChannelNewValueResult {
     /**
      * unsigned
      */

@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import java.util.Arrays;
 
-public class TDS_SuplaDeviceChannelValue {
+public  final class TDS_SuplaDeviceChannelValue {
     /**
      * unsigned
      */
