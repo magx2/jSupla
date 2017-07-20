@@ -15,7 +15,6 @@ import java.nio.channels.SocketChannel;
 import java.util.Arrays;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 
 public class Server implements AutoCloseable {
     private final int port;
@@ -66,7 +65,7 @@ public class Server implements AutoCloseable {
         serverSocketChannel.socket().bind(new InetSocketAddress("192.168.0.230", port));
         serverSocketChannel.configureBlocking(false);
 
-        ByteBuffer buf = ByteBuffer.allocate(SUPLA_MAX_DATA_SIZE + TSuplaDataPacket.SIZE);
+        ByteBuffer buf = ByteBuffer.allocate(TSuplaDataPacket.SIZE);
         while (true) {
             SocketChannel socketChannel = serverSocketChannel.accept();
 
