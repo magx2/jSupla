@@ -17,23 +17,9 @@ public class Server implements AutoCloseable {
     private ServerSocketChannel serverSocketChannel;
 
     public static void main(String[] args) throws Exception {
-        Runnable run16 = () -> {
-            try (Server server = new Server(2016)) {
-                server.start();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        };
-        Runnable run15 = () -> {
-            try (Server server = new Server(2015)) {
-                server.start();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        };
-
-        new Thread(run16).start();
-        new Thread(run15).start();
+        try (Server server = new Server(2016)) {
+            server.start();
+        }
     }
 
     private Server(int port) {
