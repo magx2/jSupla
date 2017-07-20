@@ -1,9 +1,14 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.proto.structs;
+
+import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
-public final  class TCS_SuplaRegisterClient implements Proto  {
-    public final int accessId;
+/**
+ * @since ver 6
+ */
+public  final class TCS_SuplaRegisterClient_B  implements Proto {
+        public final int accessId;
     /**
      * UTF-8
      */
@@ -14,23 +19,26 @@ public final  class TCS_SuplaRegisterClient implements Proto  {
      */
     public final byte[] name;
     public final byte[] softVer;
+    public final byte[] serverName;
 
-    public TCS_SuplaRegisterClient(int accessId, byte[] accessIdPwd, byte[] guid, byte[] name, byte[] softVer) {
+    public TCS_SuplaRegisterClient_B(int accessId, byte[] accessIdPwd, byte[] guid, byte[] name, byte[] softVer, byte[] serverName) {
         this.accessId = accessId;
         this.accessIdPwd = accessIdPwd;
         this.guid = guid;
         this.name = name;
         this.softVer = softVer;
+        this.serverName = serverName;
     }
 
     @Override
     public String toString() {
-        return "TCS_SuplaRegisterClient{" +
+        return "TCS_SuplaRegisterClient_B{" +
                 "accessId=" + accessId +
                 ", accessIdPwd=" + Arrays.toString(accessIdPwd) +
                 ", guid=" + Arrays.toString(guid) +
                 ", name=" + Arrays.toString(name) +
                 ", softVer=" + Arrays.toString(softVer) +
+                ", serverName=" + Arrays.toString(serverName) +
                 '}';
     }
 }

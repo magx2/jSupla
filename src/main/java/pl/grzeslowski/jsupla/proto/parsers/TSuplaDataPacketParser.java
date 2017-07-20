@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto.parsers;
 
-import pl.grzeslowski.jsupla.proto.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseInt;

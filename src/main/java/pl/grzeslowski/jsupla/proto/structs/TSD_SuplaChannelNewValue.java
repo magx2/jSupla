@@ -1,8 +1,10 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.proto.structs;
+
+import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
-public final class TSD_SuplaChannelNewValue implements Proto  {
+public final class TSD_SuplaChannelNewValue implements Proto {
     public final int senderId;
     /**
      * unsigned

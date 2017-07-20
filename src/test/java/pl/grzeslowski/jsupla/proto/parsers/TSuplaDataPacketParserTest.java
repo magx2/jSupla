@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.proto.parsers;
 
 import org.junit.Test;
-import pl.grzeslowski.jsupla.proto.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;

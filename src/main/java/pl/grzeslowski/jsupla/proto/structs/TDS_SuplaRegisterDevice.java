@@ -1,11 +1,10 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.proto.structs;
+
+import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
-/**
- * @since ver 2
- */
-public final class TDS_SuplaRegisterDevice_B implements Proto {
+public final class TDS_SuplaRegisterDevice implements Proto {
     public final int locationId;
     /**
      * UTF-8
@@ -20,28 +19,28 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
     /**
      * unsigned
      */
-    public final byte chennelCount;
-    public final TDS_SuplaDeviceChannel_B[] channels;
+    public final byte channelCount;
+    public final  TDS_SuplaDeviceChannel[] channels;
 
-    public TDS_SuplaRegisterDevice_B(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte chennelCount, TDS_SuplaDeviceChannel_B[] channels) {
+    public TDS_SuplaRegisterDevice(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte channelCount, TDS_SuplaDeviceChannel[] channels) {
         this.locationId = locationId;
         this.locationPwd = locationPwd;
         this.guid = guid;
         this.name = name;
         this.softVer = softVer;
-        this.chennelCount = chennelCount;
+        this.channelCount = channelCount;
         this.channels = channels;
     }
 
     @Override
     public String toString() {
-        return "TDS_SuplaRegisterDevice_B{" +
+        return "TDS_SuplaRegisterDevice{" +
                 "locationId=" + locationId +
                 ", locationPwd=" + Arrays.toString(locationPwd) +
                 ", guid=" + Arrays.toString(guid) +
                 ", name=" + Arrays.toString(name) +
                 ", softVer=" + Arrays.toString(softVer) +
-                ", chennelCount=" + chennelCount +
+                ", channelCount=" + channelCount +
                 ", channels=" + Arrays.toString(channels) +
                 '}';
     }

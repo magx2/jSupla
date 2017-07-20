@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server;
 
-import pl.grzeslowski.jsupla.proto.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import javax.net.ssl.SSLServerSocketFactory;
 import java.io.IOException;

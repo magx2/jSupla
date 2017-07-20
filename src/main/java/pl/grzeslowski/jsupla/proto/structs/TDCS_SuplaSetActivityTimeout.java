@@ -1,6 +1,8 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.proto.structs;
 
-public final class TDCS_SuplaSetActivityTimeout implements Proto  {
+import pl.grzeslowski.jsupla.proto.Proto;
+
+public final class TDCS_SuplaSetActivityTimeout implements Proto {
     /**
      * unsigned
      */

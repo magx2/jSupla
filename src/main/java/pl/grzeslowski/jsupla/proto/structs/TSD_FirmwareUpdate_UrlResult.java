@@ -1,4 +1,6 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.proto.structs;
+
+import pl.grzeslowski.jsupla.proto.Proto;
 
 public final class TSD_FirmwareUpdate_UrlResult  implements Proto {
     public final byte exists;
