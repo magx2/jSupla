@@ -55,6 +55,26 @@ public class PrimitiveIntSerizaliserTest {
         assertThat(bytes[3]).isEqualTo((byte) 0);
     }
 
+    @Test
+    public void shouldPutFullUnsignedIntIntoBuffer() {
+
+        // given
+        /*
+         * 2857749555 + Integer.MIN_VALUE = 710265907
+         */
+        int value = 710265907; // 2857749555(10) is 10101010 01010101 11001100 00110011(2)
+        byte[] bytes = new byte[INT_SIZE];
+
+        // when
+        PrimitiveSerizaliser.putUnsignedInt(value, bytes, 0);
+
+        // then
+        assertThat(bytes[0]).isEqualTo((byte) 51);
+        assertThat(bytes[1]).isEqualTo((byte) 204);
+        assertThat(bytes[2]).isEqualTo((byte) 85);
+        assertThat(bytes[3]).isEqualTo((byte) 170);
+    }
+
     @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void shouldPutMinimalUnsignedIntIntoBuffer() {
