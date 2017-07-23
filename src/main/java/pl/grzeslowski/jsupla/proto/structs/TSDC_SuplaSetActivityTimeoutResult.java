@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+
 public  final class TSDC_SuplaSetActivityTimeoutResult  implements Proto {
     /**
      * unsigned
@@ -20,6 +22,11 @@ public  final class TSDC_SuplaSetActivityTimeoutResult  implements Proto {
         this.activityTimeout = activityTimeout;
         this.min = min;
         this.max = max;
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE *3;
     }
 
     @Override

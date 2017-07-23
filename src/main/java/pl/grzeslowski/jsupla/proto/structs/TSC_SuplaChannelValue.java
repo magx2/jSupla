@@ -2,6 +2,9 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
+
 public  final class TSC_SuplaChannelValue implements Proto {
     public final byte eol;
     public final int id;
@@ -13,6 +16,11 @@ public  final class TSC_SuplaChannelValue implements Proto {
         this.id = id;
         this.online = online;
         this.value = value;
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE*2 + INT_SIZE + value.size();
     }
 
     @Override

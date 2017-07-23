@@ -4,6 +4,8 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
@@ -34,6 +36,12 @@ public final class TDS_SuplaRegisterDevice implements Proto {
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = channelCount;
         this.channels = checkArrayLength(channels, SUPLA_CHANNELMAXCOUNT);
+    }
+
+    @Override
+    public int size() {
+        assert channels[0] != null;
+        return BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE+SUPLA_GUID_SIZE+SUPLA_DEVICE_NAME_MAXSIZE+SUPLA_SOFTVER_MAXSIZE+channels[0].size() *SUPLA_CHANNELMAXCOUNT;
     }
 
     @Override

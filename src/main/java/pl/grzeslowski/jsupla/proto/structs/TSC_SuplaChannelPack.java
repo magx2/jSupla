@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
@@ -16,6 +17,12 @@ public  final class TSC_SuplaChannelPack  implements Proto {
         this.count = count;
         this.totalLeft = totalLeft;
         this.channels = checkArrayLength(channels, SUPLA_CHANNELPACK_MAXSIZE);
+    }
+
+    @Override
+    public int size() {
+        assert channels[0] != null;
+        return INT_SIZE * 2+ SUPLA_CHANNELPACK_MAXSIZE * channels[0].size() ;
     }
 
     @Override

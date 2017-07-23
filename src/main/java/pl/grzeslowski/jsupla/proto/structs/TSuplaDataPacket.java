@@ -40,6 +40,11 @@ public final class TSuplaDataPacket implements Proto {
     }
 
     @Override
+    public int size() {
+        return BYTE_SIZE + INT_SIZE * 3 + SUPLA_MAX_DATA_SIZE;
+    }
+
+    @Override
     public String toString() {
         return "TSuplaDataPacket{" +
                 "version=" + version +

@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
@@ -31,6 +32,11 @@ public  final class TCS_SuplaRegisterClient_B  implements Proto {
         this.name = checkArrayLength(name, SUPLA_CLIENT_NAME_MAXSIZE);
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
         this.serverName = checkArrayLength(serverName, SUPLA_SERVER_NAME_MAXSIZE);
+    }
+
+    @Override
+    public int size() {
+        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE+SUPLA_GUID_SIZE+SUPLA_CLIENT_NAME_MAXSIZE+SUPLA_SOFTVER_MAXSIZE+SUPLA_SERVER_NAME_MAXSIZE;
     }
 
     @Override

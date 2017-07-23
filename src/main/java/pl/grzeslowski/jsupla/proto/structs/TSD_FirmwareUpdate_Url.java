@@ -4,6 +4,8 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
@@ -19,6 +21,11 @@ public final class TSD_FirmwareUpdate_Url implements Proto {
         this.host = checkArrayLength(host, SUPLA_URL_HOST_MAXSIZE );
         this.port = port;
         this.path = checkArrayLength(path, SUPLA_URL_PATH_MAXSIZE );
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE + INT_SIZE + SUPLA_URL_HOST_MAXSIZE+SUPLA_URL_PATH_MAXSIZE;
     }
 
     @Override

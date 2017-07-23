@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+
 public final class TSDC_SuplaVersionError  implements Proto {
     /**
      * unsigned
@@ -15,6 +17,11 @@ public final class TSDC_SuplaVersionError  implements Proto {
     public TSDC_SuplaVersionError(byte serverVersionMin, byte serverVersion) {
         this.serverVersionMin = serverVersionMin;
         this.serverVersion = serverVersion;
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE *2;
     }
 
     @Override

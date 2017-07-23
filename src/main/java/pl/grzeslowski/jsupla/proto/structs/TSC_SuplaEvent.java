@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
@@ -31,6 +32,11 @@ public final class TSC_SuplaEvent implements Proto {
         this.senderId = senderId;
         this.senderNameSize = senderNameSize;
         this.senderName = checkArrayLength(senderName, SUPLA_SENDER_NAME_MAXSIZE);
+    }
+
+    @Override
+    public int size() {
+        return INT_SIZE *5 + SUPLA_SENDER_NAME_MAXSIZE;
     }
 
     @Override

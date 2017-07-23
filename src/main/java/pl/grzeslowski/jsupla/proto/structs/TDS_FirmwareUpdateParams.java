@@ -2,6 +2,9 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
+
 public final class TDS_FirmwareUpdateParams  implements Proto {
     public final byte platform;
     public final int param1;
@@ -15,6 +18,11 @@ public final class TDS_FirmwareUpdateParams  implements Proto {
         this.param2 = param2;
         this.param3 = param3;
         this.param4 = param4;
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE + INT_SIZE  * 4;
     }
 
     @Override

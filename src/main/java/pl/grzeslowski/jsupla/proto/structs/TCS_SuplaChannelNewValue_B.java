@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
@@ -14,6 +15,11 @@ public final  class TCS_SuplaChannelNewValue_B  implements Proto {
     public TCS_SuplaChannelNewValue_B(int channelId, byte[] value) {
         this.channelId = channelId;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
+    }
+
+    @Override
+    public int size() {
+        return  INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
     }
 
     @Override

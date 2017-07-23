@@ -2,6 +2,9 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
+
 public  final class TSD_SuplaRegisterDeviceResult  implements Proto {
     public final int resultCode;
     public final byte activityTimeout;
@@ -13,6 +16,11 @@ public  final class TSD_SuplaRegisterDeviceResult  implements Proto {
         this.activityTimeout = activityTimeout;
         this.version = version;
         this.versionMin = versionMin;
+    }
+
+    @Override
+    public int size() {
+        return BYTE_SIZE *3+ INT_SIZE ;
     }
 
     @Override
