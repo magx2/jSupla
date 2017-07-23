@@ -7,7 +7,6 @@ import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG_SIZE;
 
 public class TSuplaDataPacketParserTest {
@@ -17,7 +16,7 @@ public class TSuplaDataPacketParserTest {
     public void shouldParseTSuplaDataPacketFromArrayWithSuplaTag() {
 
         // given
-        byte[] bytes = new byte[SUPLA_TAG_SIZE + BYTE_SIZE + INT_SIZE * 3 + SUPLA_MAX_DATA_SIZE];
+        byte[] bytes = new byte[SUPLA_TAG_SIZE + BYTE_SIZE + INT_SIZE * 3 + 297];
         int i = 0;
 
         // supla tag

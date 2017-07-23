@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.proto.ProtoPreconditions;
 
 import java.util.Arrays;
 
+import static java.lang.Integer.MIN_VALUE;
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
@@ -36,12 +38,15 @@ public final class TSuplaDataPacket implements Proto {
         this.rrId = rrId;
         this.callType = callType;
         this.dataSize = dataSize;
-        this.data = ProtoPreconditions.checkArrayLength(data, SUPLA_MAX_DATA_SIZE);
+        if(dataSize - MIN_VALUE > SUPLA_MAX_DATA_SIZE) {
+            throw new IllegalArgumentException(format("dataSize %s is bigger than SUPLA_MAX_DATA_SIZE %s", (dataSize - MIN_VALUE), SUPLA_MAX_DATA_SIZE));
+        }
+        this.data = ProtoPreconditions.checkArrayLength(data, dataSize - MIN_VALUE);
     }
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 3 + SUPLA_MAX_DATA_SIZE;
+        return BYTE_SIZE + INT_SIZE * 3 + (dataSize - MIN_VALUE);
     }
 
     @Override
