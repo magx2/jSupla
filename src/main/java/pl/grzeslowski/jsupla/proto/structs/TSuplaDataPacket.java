@@ -13,8 +13,6 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 
 public final class TSuplaDataPacket implements Proto {
-    public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + (SUPLA_MAX_DATA_SIZE - BYTE_SIZE - INT_SIZE * 3 );
-
     /**
      * unsigned
      */
