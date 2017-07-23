@@ -7,7 +7,7 @@ import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PrimitiveParserTest {
+public class PrimitiveIntParserTest {
 
     @Test
     public void shouldParseIntFromOneByte() {
