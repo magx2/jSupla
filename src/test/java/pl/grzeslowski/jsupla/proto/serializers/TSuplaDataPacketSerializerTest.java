@@ -13,7 +13,6 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 public class TSuplaDataPacketSerializerTest {
     private final TSuplaDataPacketSerializer serializer = new TSuplaDataPacketSerializer();
 
-
     @Test
     public void shouldParseEntityIntoArray() {
 
