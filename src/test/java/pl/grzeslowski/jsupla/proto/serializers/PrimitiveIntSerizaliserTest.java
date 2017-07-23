@@ -75,6 +75,28 @@ public class PrimitiveIntSerizaliserTest {
         assertThat(bytes[3]).isEqualTo((byte) 170);
     }
 
+    @Test
+    public void shouldPutFullUnsignedIntIntoBufferWithOffset() {
+
+        // given
+        /*
+         * 2857749555 + Integer.MIN_VALUE = 710265907
+         */
+        int value = 710265907; // 2857749555(10) is 10101010 01010101 11001100 00110011(2)
+        int offset = 5;
+        byte[] bytes = new byte[INT_SIZE + offset];
+
+        // when
+        PrimitiveSerizaliser.putUnsignedInt(value, bytes, offset);
+
+        // then
+        //noinspection PointlessArithmeticExpression
+        assertThat(bytes[offset + 0]).isEqualTo((byte) 51);
+        assertThat(bytes[offset + 1]).isEqualTo((byte) 204);
+        assertThat(bytes[offset + 2]).isEqualTo((byte) 85);
+        assertThat(bytes[offset + 3]).isEqualTo((byte) 170);
+    }
+
     @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void shouldPutMinimalUnsignedIntIntoBuffer() {
