@@ -5,6 +5,10 @@ import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG_SIZE;
 
 public class TSuplaDataPacketParserTest {
     private final TSuplaDataPacketParser parser = new TSuplaDataPacketParser();
@@ -13,14 +17,49 @@ public class TSuplaDataPacketParserTest {
     public void shouldParseTSuplaDataPacketFromArrayWithSuplaTag() {
 
         // given
-        byte[] bytes = new byte[]{
-                83, 85, 80, 76, 65,
-                5,
-                1, 0, 0, 0,
-                65, 0, 0, 0,
-                41, 1, 0, 0,
-                -77, 1, 0, 0, 120, 120, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,- 33, 22, - 81, 125, - 64, 116, - 19, 2, 101, 103, - 127, 16, -6 - 66, 96, 60, 90, 65, 77, 69, 76, 32, 82, 79, 87, 45, 48, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 46, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 84, 11, 0, 0, 96, 0, 0, 0 - 116, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 83, 85, 80, 76, 65
-        };
+        byte[] bytes = new byte[SUPLA_TAG_SIZE + BYTE_SIZE + INT_SIZE * 3 + SUPLA_MAX_DATA_SIZE];
+        int i = 0;
+
+        // supla tag
+        bytes[i++] = (byte) 83;
+        bytes[i++] = (byte) 85;
+        bytes[i++] = (byte) 80;
+        bytes[i++] = (byte) 76;
+        bytes[i++] = (byte) 65;
+
+        // version
+        bytes[i++] = (byte) 5;
+
+        // rrId
+        bytes[i++] = (byte) 1;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+
+        // callType
+        bytes[i++] = (byte) 65;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+
+        // dataSize
+        bytes[i++] = (byte) 41;
+        bytes[i++] = (byte) 1;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+
+        // data
+        bytes[i++] = (byte) -71;
+        bytes[i++] = (byte) 1;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 0;
+        bytes[i++] = (byte) 120;
+        bytes[i++] = (byte) 120;
+        bytes[i++] = (byte) 120;
+
+        for (; i < bytes.length; i++) {
+            bytes[i] = 0;
+        }
 
         // when
         final TSuplaDataPacket packet = parser.parse(bytes);
@@ -30,6 +69,12 @@ public class TSuplaDataPacketParserTest {
         assertThat(packet.rrId).isEqualTo(MIN_VALUE + 1);
         assertThat(packet.callType).isEqualTo(MIN_VALUE + 65);
         assertThat(packet.dataSize).isEqualTo(MIN_VALUE + 297);
-        assertThat(packet.data).isEqualTo(new byte[]{-77, 1, 0, 0, 120, 120, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -33, 22, -81, 125, -64, 116, -19, 2, 101, 103, -127, 16, -6 - 66, 96, 60, 90, 65, 77, 69, 76, 32, 82, 79, 87, 45, 48, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 46, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 84, 11, 0, 0, 96, 0, 0, 0 - 116, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 83, 85, 80, 76, 65});
+        assertThat(packet.data[0]).isEqualTo((byte) -71);
+        assertThat(packet.data[1]).isEqualTo((byte) 1);
+        assertThat(packet.data[2]).isEqualTo((byte) 0);
+        assertThat(packet.data[3]).isEqualTo((byte) 0);
+        assertThat(packet.data[4]).isEqualTo((byte) 120);
+        assertThat(packet.data[5]).isEqualTo((byte) 120);
+        assertThat(packet.data[6]).isEqualTo((byte) 120);
     }
 }
