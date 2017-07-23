@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 /**
  * @since ver 2
  */
@@ -23,17 +26,17 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
     /**
      * unsigned
      */
-    public final byte chennelCount;
+    public final byte channelCount;
     public final TDS_SuplaDeviceChannel_B[] channels;
 
-    public TDS_SuplaRegisterDevice_B(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte chennelCount, TDS_SuplaDeviceChannel_B[] channels) {
+    public TDS_SuplaRegisterDevice_B(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte channelCount, TDS_SuplaDeviceChannel_B[] channels) {
         this.locationId = locationId;
-        this.locationPwd = locationPwd;
-        this.guid = guid;
-        this.name = name;
-        this.softVer = softVer;
-        this.chennelCount = chennelCount;
-        this.channels = channels;
+        this.locationPwd = checkArrayLength(locationPwd, SUPLA_LOCATION_PWD_MAXSIZE);
+        this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
+        this.name = checkArrayLength(name, SUPLA_DEVICE_NAME_MAXSIZE);
+        this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
+        this.channelCount = channelCount;
+        this.channels = checkArrayLength(channels, SUPLA_CHANNELMAXCOUNT);
     }
 
     @Override
@@ -44,7 +47,7 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
                 ", guid=" + Arrays.toString(guid) +
                 ", name=" + Arrays.toString(name) +
                 ", softVer=" + Arrays.toString(softVer) +
-                ", chennelCount=" + chennelCount +
+                ", channelCount=" + channelCount +
                 ", channels=" + Arrays.toString(channels) +
                 '}';
     }

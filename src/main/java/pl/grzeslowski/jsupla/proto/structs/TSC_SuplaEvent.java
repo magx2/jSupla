@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 public final class TSC_SuplaEvent implements Proto {
     public final int event;
     public final int channelId;
@@ -27,7 +30,7 @@ public final class TSC_SuplaEvent implements Proto {
         this.durationMs = durationMs;
         this.senderId = senderId;
         this.senderNameSize = senderNameSize;
-        this.senderName = senderName;
+        this.senderName = checkArrayLength(senderName, SUPLA_SENDER_NAME_MAXSIZE);
     }
 
     @Override

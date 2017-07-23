@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 @Deprecated
 public final class TDS_SuplaRegisterDevice implements Proto {
     public final int locationId;
@@ -21,16 +24,16 @@ public final class TDS_SuplaRegisterDevice implements Proto {
      * unsigned
      */
     public final byte channelCount;
-    public final  TDS_SuplaDeviceChannel[] channels;
+    public final TDS_SuplaDeviceChannel[] channels;
 
     public TDS_SuplaRegisterDevice(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte channelCount, TDS_SuplaDeviceChannel[] channels) {
         this.locationId = locationId;
-        this.locationPwd = locationPwd;
-        this.guid = guid;
-        this.name = name;
-        this.softVer = softVer;
+        this.locationPwd = checkArrayLength(locationPwd, SUPLA_LOCATION_PWD_MAXSIZE);
+        this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
+        this.name = checkArrayLength(name, SUPLA_DEVICE_NAME_MAXSIZE);
+        this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = channelCount;
-        this.channels = channels;
+        this.channels = checkArrayLength(channels, SUPLA_CHANNELMAXCOUNT);
     }
 
     @Override

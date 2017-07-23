@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 public  final class TSDC_SuplaGetVersionResult  implements Proto {
     /**
      * unsigned
@@ -18,7 +21,7 @@ public  final class TSDC_SuplaGetVersionResult  implements Proto {
     public TSDC_SuplaGetVersionResult(byte protoVersionMin, byte protoVersion, byte[] softVer) {
         this.protoVersionMin = protoVersionMin;
         this.protoVersion = protoVersion;
-        this.softVer = softVer;
+        this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
     }
 
     @Override

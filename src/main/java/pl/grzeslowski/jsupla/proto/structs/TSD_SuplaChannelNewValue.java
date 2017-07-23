@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 public final class TSD_SuplaChannelNewValue implements Proto {
     public final int senderId;
     /**
@@ -20,7 +23,7 @@ public final class TSD_SuplaChannelNewValue implements Proto {
         this.senderId = senderId;
         this.channelNumber = channelNumber;
         this.durationMs = durationMs;
-        this.value = value;
+        this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override

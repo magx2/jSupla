@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 public final  class TSC_SuplaChannel implements Proto {
     public final byte eol;
     public final int id;
@@ -27,7 +30,7 @@ public final  class TSC_SuplaChannel implements Proto {
         this.online = online;
         this.value = value;
         this.captionSize = captionSize;
-        this.caption = caption;
+        this.caption = checkArrayLength(caption, SUPLA_CHANNEL_CAPTION_MAXSIZE);
     }
 
     @Override

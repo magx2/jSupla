@@ -2,6 +2,11 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 
+import java.util.Arrays;
+
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 @Deprecated
 public  final class TDS_SuplaDeviceChannel  implements Proto {
     /**
@@ -9,12 +14,12 @@ public  final class TDS_SuplaDeviceChannel  implements Proto {
      */
     public final byte number;
     public final int type;
-    public final byte value;
+    public final byte[] value;
 
-    public TDS_SuplaDeviceChannel(byte number, int type, byte value) {
+    public TDS_SuplaDeviceChannel(byte number, int type, byte[] value) {
         this.number = number;
         this.type = type;
-        this.value = value;
+        this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override
@@ -22,7 +27,7 @@ public  final class TDS_SuplaDeviceChannel  implements Proto {
         return "TDS_SuplaDeviceChannel{" +
                 "number=" + number +
                 ", type=" + type +
-                ", value=" + value +
+                ", value=" + Arrays.toString(value) +
                 '}';
     }
 }

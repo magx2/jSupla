@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 /**
  * @since ver 6
  */
@@ -23,11 +26,11 @@ public  final class TCS_SuplaRegisterClient_B  implements Proto {
 
     public TCS_SuplaRegisterClient_B(int accessId, byte[] accessIdPwd, byte[] guid, byte[] name, byte[] softVer, byte[] serverName) {
         this.accessId = accessId;
-        this.accessIdPwd = accessIdPwd;
-        this.guid = guid;
-        this.name = name;
-        this.softVer = softVer;
-        this.serverName = serverName;
+        this.accessIdPwd = checkArrayLength(accessIdPwd, SUPLA_ACCESSID_PWD_MAXSIZE);
+        this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
+        this.name = checkArrayLength(name, SUPLA_CLIENT_NAME_MAXSIZE);
+        this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
+        this.serverName = checkArrayLength(serverName, SUPLA_SERVER_NAME_MAXSIZE);
     }
 
     @Override

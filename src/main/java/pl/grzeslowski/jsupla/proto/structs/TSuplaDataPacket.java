@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.proto.structs;
 
 
 import pl.grzeslowski.jsupla.proto.Proto;
+import pl.grzeslowski.jsupla.proto.ProtoPreconditions;
 
 import java.util.Arrays;
 
@@ -35,7 +36,7 @@ public final class TSuplaDataPacket implements Proto {
         this.rrId = rrId;
         this.callType = callType;
         this.dataSize = dataSize;
-        this.data = data;
+        this.data = ProtoPreconditions.checkArrayLength(data, SUPLA_MAX_DATA_SIZE);
     }
 
     @Override

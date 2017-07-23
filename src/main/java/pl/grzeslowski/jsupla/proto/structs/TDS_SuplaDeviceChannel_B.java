@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 /**
  * @since ver 2
  */
@@ -25,7 +28,7 @@ public  final class TDS_SuplaDeviceChannel_B  implements Proto {
         this.type = type;
         this.funcList = funcList;
         this.default_ = default_;
-        this.value = value;
+        this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override

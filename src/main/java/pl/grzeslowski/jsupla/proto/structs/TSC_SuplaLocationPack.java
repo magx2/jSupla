@@ -4,6 +4,9 @@ import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
+
 public  final class TSC_SuplaLocationPack  implements Proto {
     public final int count;
     public final int totalLeft;
@@ -12,7 +15,7 @@ public  final class TSC_SuplaLocationPack  implements Proto {
     public TSC_SuplaLocationPack(int count, int totalLeft, TSC_SuplaLocation[] locations) {
         this.count = count;
         this.totalLeft = totalLeft;
-        this.locations = locations;
+        this.locations = checkArrayLength(locations, SUPLA_LOCATIONPACK_MAXSIZE);
     }
 
     @Override
