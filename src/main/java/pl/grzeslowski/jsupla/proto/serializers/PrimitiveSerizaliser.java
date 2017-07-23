@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.proto.serializers;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
 final class PrimitiveSerizaliser {
@@ -17,5 +18,13 @@ final class PrimitiveSerizaliser {
         for(int i = 0; i < INT_SIZE; i++) {
             bytes[offset + i] = (byte) (value >> (i * 8));
         }
+    }
+
+    public static void putUnsignedByte(byte value, byte[] bytes, int offset) {
+        if (bytes.length - offset < BYTE_SIZE) {
+            throw new IllegalArgumentException(format("Bytes array has length %s and is not sufficient to put here byte (%s) with offset %s",
+                    bytes.length, BYTE_SIZE, offset));
+        }
+        bytes[offset] = value;
     }
 }
