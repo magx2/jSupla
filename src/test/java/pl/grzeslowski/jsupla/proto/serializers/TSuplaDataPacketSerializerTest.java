@@ -9,7 +9,6 @@ import static java.lang.Byte.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 
 public class TSuplaDataPacketSerializerTest {
     private final TSuplaDataPacketSerializer serializer = new TSuplaDataPacketSerializer();
@@ -23,7 +22,7 @@ public class TSuplaDataPacketSerializerTest {
         int rrId = 15 + Integer.MIN_VALUE; // 00000000 00000000 00000000  00001111
         int callType = 100 + Integer.MIN_VALUE; // 00000000 00000000 00000000 01100100
         int dataSize = 10222 + Integer.MIN_VALUE; // 00000000 00000000 00100111 11101110
-        byte[] data = randomBytes(SUPLA_MAX_DATA_SIZE);
+        byte[] data = randomBytes(dataSize - Integer.MIN_VALUE);
         final TSuplaDataPacket packet = new TSuplaDataPacket(version, rrId, callType, dataSize, data);
 
         // when
@@ -54,7 +53,7 @@ public class TSuplaDataPacketSerializerTest {
         assertThat(bytes[BYTE_SIZE + INT_SIZE * 2]).isEqualTo((byte) -18);
 
         // data
-        byte[] newData = new byte[SUPLA_MAX_DATA_SIZE];
+        byte[] newData = new byte[dataSize - Integer.MIN_VALUE];
         System.arraycopy(bytes, BYTE_SIZE + INT_SIZE * 3, newData, 0, newData.length);
         assertThat(newData).isEqualTo(data);
     }
