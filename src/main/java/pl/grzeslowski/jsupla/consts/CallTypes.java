@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto;
+package pl.grzeslowski.jsupla.consts;
 
 import static java.lang.Integer.MIN_VALUE;
 
