@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto;
 
 import static java.lang.String.format;
 
-public class ProtoPreconditions {
+public final class ProtoPreconditions {
     public static byte[] checkArrayLength(byte[] bytes, int length) {
         if (bytes.length != length) {
             throw new IllegalArgumentException(format("Length of array should be %s but was %s!", length, bytes.length));
@@ -15,5 +15,8 @@ public class ProtoPreconditions {
             throw new IllegalArgumentException(format("Length of array should be %s but was %s!", length, array.length));
         }
         return array;
+    }
+
+    private ProtoPreconditions() {
     }
 }
