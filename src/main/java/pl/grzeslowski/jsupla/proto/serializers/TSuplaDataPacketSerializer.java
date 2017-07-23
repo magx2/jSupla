@@ -4,8 +4,8 @@ import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static java.lang.System.arraycopy;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.proto.serializers.PrimitiveSerizaliser.putUnsignedByte;
-import static pl.grzeslowski.jsupla.proto.serializers.PrimitiveSerizaliser.putUnsignedInt;
+import static pl.grzeslowski.jsupla.proto.serializers.PrimitiveSerializer.putUnsignedByte;
+import static pl.grzeslowski.jsupla.proto.serializers.PrimitiveSerializer.putUnsignedInt;
 
 public final class TSuplaDataPacketSerializer implements Serializer<TSuplaDataPacket> {
     @Override

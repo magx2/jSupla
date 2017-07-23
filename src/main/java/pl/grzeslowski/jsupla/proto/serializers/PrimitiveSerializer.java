@@ -4,7 +4,7 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
-final class PrimitiveSerizaliser {
+final class PrimitiveSerializer {
 
     public static void putUnsignedInt(int value, byte[] bytes, int offset) {
         if (bytes.length - offset < INT_SIZE) {

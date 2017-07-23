@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
-public class PrimitiveIntSerizaliserTest {
+public class PrimitiveIntSerializerTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
 
     @Test(expected = IllegalArgumentException.class)
@@ -18,7 +18,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE - 1];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
+        PrimitiveSerializer.putUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
 
         // then
         fail("Should throw IllegalArgumentException");
@@ -32,7 +32,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[offset + INT_SIZE - 1];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
+        PrimitiveSerializer.putUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
 
         // then
         fail("Should throw IllegalArgumentException");
@@ -46,7 +46,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(value, bytes, 0);
+        PrimitiveSerializer.putUnsignedInt(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 5);
@@ -66,7 +66,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(value, bytes, 0);
+        PrimitiveSerializer.putUnsignedInt(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 51);
@@ -87,7 +87,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE + offset];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(value, bytes, offset);
+        PrimitiveSerializer.putUnsignedInt(value, bytes, offset);
 
         // then
         //noinspection PointlessArithmeticExpression
@@ -106,7 +106,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(value, bytes, 0);
+        PrimitiveSerializer.putUnsignedInt(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 0);
@@ -124,7 +124,7 @@ public class PrimitiveIntSerizaliserTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveSerizaliser.putUnsignedInt(value, bytes, 0);
+        PrimitiveSerializer.putUnsignedInt(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) -1);
