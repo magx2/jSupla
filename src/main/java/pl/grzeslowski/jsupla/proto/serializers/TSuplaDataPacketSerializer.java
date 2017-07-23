@@ -6,7 +6,7 @@ import static java.lang.System.arraycopy;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.proto.serializers.PrimitiveSerizaliser.putUnsignedInt;
 
-public class TSuplaDataPacketSerializer implements Serializer<TSuplaDataPacket> {
+public final class TSuplaDataPacketSerializer implements Serializer<TSuplaDataPacket> {
     @Override
     public byte[] serialise(TSuplaDataPacket proto) {
         final byte[] bytes = new byte[proto.size()];
