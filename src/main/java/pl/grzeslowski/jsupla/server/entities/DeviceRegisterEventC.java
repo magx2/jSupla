@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.server.entities;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.C;
 
 public class DeviceRegisterEventC extends DeviceRegisterEventB {
+    @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
     private final String serverName;
 

@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.entities;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,19 @@ import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 public class DeviceRegisterEvent implements Entity {
     @Min(0)
     private final int locationId;
+    @NotNull
     @Size(min = 1, max = SUPLA_LOCATION_PWD_MAXSIZE)
     private final String locationPassword;
+    @NotNull
     @Size(min = 1, max = SUPLA_GUID_SIZE)
     private final String guid;
+    @NotNull
     @Size(min = 1, max = SUPLA_DEVICE_NAME_MAXSIZE)
     private final String name;
+    @NotNull
     @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE)
     private final String softVersion;
+    @NotNull
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final List<DeviceChannel> channels;
 

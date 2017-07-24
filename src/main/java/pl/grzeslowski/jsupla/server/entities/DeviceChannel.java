@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.entities;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 
@@ -13,6 +14,7 @@ public class DeviceChannel implements Entity {
     private final int number;
     @Min(0)
     private final int type;
+    @NotNull
     @Size(max = SUPLA_CHANNELVALUE_SIZE)
     private final byte[] value;
 
