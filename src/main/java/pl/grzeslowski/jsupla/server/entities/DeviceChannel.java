@@ -16,7 +16,7 @@ public class DeviceChannel implements Entity {
     private final int type;
     @NotNull
     @Size(max = SUPLA_CHANNELVALUE_SIZE)
-    private final byte[] value;
+    private final byte[] value; // TODO should be some object that can be mapped from `type`
 
     public DeviceChannel(int number, int type, byte[] value) {
         this.number = min(number, 0);
