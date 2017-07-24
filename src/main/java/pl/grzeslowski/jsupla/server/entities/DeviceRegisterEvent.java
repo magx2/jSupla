@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 
@@ -29,7 +30,7 @@ public class DeviceRegisterEvent implements Entity {
         this.guid = size(guid, 1, SUPLA_GUID_SIZE);
         this.name = size(name, 1, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVersion = size(softVersion, 1, SUPLA_SOFTVER_MAXSIZE);
-        this.channels = new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT));
+        this.channels = unmodifiableList(new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
     }
 
     public int getLocationId() {
