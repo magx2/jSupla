@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.logic;
+package pl.grzeslowski.jsupla.server.listeners;
 
 import pl.grzeslowski.jsupla.server.entities.ActivityTimeoutRequest;
 import pl.grzeslowski.jsupla.server.entities.ActivityTimeoutResponse;
