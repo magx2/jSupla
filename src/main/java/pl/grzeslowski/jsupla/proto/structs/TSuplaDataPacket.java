@@ -36,15 +36,15 @@ public final class TSuplaDataPacket implements Proto {
         this.rrId = rrId;
         this.callType = callType;
         this.dataSize = dataSize;
-        if(dataSize - MIN_VALUE > SUPLA_MAX_DATA_SIZE) {
-            throw new IllegalArgumentException(format("dataSize %s is bigger than SUPLA_MAX_DATA_SIZE %s", (dataSize - MIN_VALUE), SUPLA_MAX_DATA_SIZE));
+        if (data.length > SUPLA_MAX_DATA_SIZE) {
+            throw new IllegalArgumentException(format("data.length %s is bigger than SUPLA_MAX_DATA_SIZE %s", data.length, SUPLA_MAX_DATA_SIZE));
         }
         this.data = ProtoPreconditions.checkArrayLength(data, dataSize - MIN_VALUE);
     }
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 3 + (dataSize - MIN_VALUE);
+        return BYTE_SIZE + INT_SIZE * 3 + data.length;
     }
 
     @Override
