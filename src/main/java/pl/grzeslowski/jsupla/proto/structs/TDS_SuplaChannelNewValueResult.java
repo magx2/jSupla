@@ -8,11 +8,11 @@ public  final class TDS_SuplaChannelNewValueResult implements Proto {
     /**
      * unsigned
      */
-    public final char channelNumber;
+    public final byte channelNumber;
     public final int senderId;
     public final byte success;
 
-    public TDS_SuplaChannelNewValueResult(char channelNumber, int senderId, byte success) {
+    public TDS_SuplaChannelNewValueResult(byte channelNumber, int senderId, byte success) {
         this.channelNumber = channelNumber;
         this.senderId = senderId;
         this.success = success;
