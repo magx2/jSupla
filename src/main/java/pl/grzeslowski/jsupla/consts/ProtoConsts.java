@@ -1,6 +1,9 @@
 package pl.grzeslowski.jsupla.consts;
 
 public final class ProtoConsts {
+
+    public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
+
     /**
      * Max data packet that server can get is 10kB
      */
