@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG;
 import static pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket.MIN_SIZE;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
+    private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
@@ -24,6 +27,7 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         moveThoughtSuplaTag(in);
         final TSuplaDataPacket suplaDataPacket = readTSuplaDataPacket(in);
 
+        logger.trace("Decoded {}", suplaDataPacket);
         out.add(suplaDataPacket);
     }
 

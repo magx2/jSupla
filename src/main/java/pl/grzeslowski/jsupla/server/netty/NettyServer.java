@@ -7,6 +7,8 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
 import pl.grzeslowski.jsupla.server.listeners.Listeners;
 
@@ -15,6 +17,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static java.util.Objects.requireNonNull;
 
 public class NettyServer implements Server {
+    private final Logger logger = LoggerFactory.getLogger(NettyServer.class);
+
     private final AtomicBoolean started = new AtomicBoolean();
     private final NettyConfig nettyConfig;
     private final Listeners listeners;
@@ -30,6 +34,7 @@ public class NettyServer implements Server {
 
     @Override
     public void run() throws Exception {
+        logger.debug("NettyServer.run()");
         if (started.getAndSet(true)) {
             throw new IllegalStateException("Server can be started only once!");
         }
@@ -55,8 +60,10 @@ public class NettyServer implements Server {
     @Override
     public void close() throws Exception {
         try {
+            logger.debug("Closing channel");
             channelFuture.channel().closeFuture().sync();
         } finally {
+            logger.debug("Closing workerGroup and bossGroup");
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
