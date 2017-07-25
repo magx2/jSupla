@@ -10,26 +10,41 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 
+/**
+ * <pre>
+ * {@code
+ * typedef struct {
+ * char tag[SUPLA_TAG_SIZE];
+ * unsigned char version;
+ * unsigned _supla_int_t rr_id; // Request/Response ID
+ * unsigned _supla_int_t call_type;
+ * unsigned _supla_int_t data_size;
+ * char data[SUPLA_MAX_DATA_SIZE]; // Last variable in struct!
+ * }TSuplaDataPacket;
+ * }
+ * </pre>
+ */
 public final class TSuplaDataPacket implements Proto {
+    public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
     /**
-     * unsigned
+     * unsigned byte
      */
-    public final byte version;
+    public final short version;
     /**
-     * unsigned
+     * unsigned int
      */
-    public final int rrId;
+    public final long rrId;
     /**
-     * unsigned
+     * unsigned int
      */
-    public final int callType;
+    public final long callType;
     /**
-     * unsigned
+     * unsigned int
      */
-    public final int dataSize;
+    public final long dataSize;
     public final byte[] data;
 
-    public TSuplaDataPacket(byte version, int rrId, int callType, int dataSize, byte[] data) {
+    public TSuplaDataPacket(short version, long rrId, long callType, long dataSize, byte[] data) {
         this.version = version;
         this.rrId = rrId;
         this.callType = callType;
@@ -39,7 +54,7 @@ public final class TSuplaDataPacket implements Proto {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 3 + data.length;
+        return MIN_SIZE + data.length;
     }
 
     @Override

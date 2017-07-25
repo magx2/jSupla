@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.proto.serializers;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
@@ -13,6 +14,7 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 public class TSuplaDataPacketSerializerTest {
     private final TSuplaDataPacketSerializer serializer = new TSuplaDataPacketSerializer();
 
+    @Ignore
     @Test
     public void shouldParseEntityIntoArray() {
 
