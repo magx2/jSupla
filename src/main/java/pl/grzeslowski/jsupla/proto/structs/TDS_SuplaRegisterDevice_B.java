@@ -20,7 +20,7 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
      * UTF-8
      */
     public final byte[] locationPwd;
-    public final byte[] guid;
+    public final char[] guid;
     /**
      * UTF-8
      */
@@ -29,10 +29,10 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
     /**
      * unsigned
      */
-    public final byte channelCount;
+    public final short channelCount;
     public final TDS_SuplaDeviceChannel_B[] channels;
 
-    public TDS_SuplaRegisterDevice_B(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte channelCount, TDS_SuplaDeviceChannel_B[] channels) {
+    public TDS_SuplaRegisterDevice_B(int locationId, byte[] locationPwd, char[] guid, byte[] name, byte[] softVer, short channelCount, TDS_SuplaDeviceChannel_B[] channels) {
         this.locationId = locationId;
         this.locationPwd = checkArrayLength(locationPwd, SUPLA_LOCATION_PWD_MAXSIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);

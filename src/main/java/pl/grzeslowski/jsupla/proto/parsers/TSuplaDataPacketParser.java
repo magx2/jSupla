@@ -7,12 +7,12 @@ import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUnsignedI
 
 public final class TSuplaDataPacketParser implements Parser<TSuplaDataPacket> {
     @Override
-    public TSuplaDataPacket parse(byte[] bytes) {
-        final byte version = bytes[5];
-        int rrId = parseUnsignedInt(bytes, 6);
-        int callType = parseUnsignedInt(bytes, 10);
-        int dataSize = parseUnsignedInt(bytes, 14);
-        byte[] data = copyOfRange(bytes, 18, bytes.length);
+    public TSuplaDataPacket parse(byte[] bytes, int offset) {
+        final byte version = bytes[offset + 5];
+        int rrId = parseUnsignedInt(bytes, offset + 6);
+        int callType = parseUnsignedInt(bytes, offset + 10);
+        int dataSize = parseUnsignedInt(bytes, offset + 14);
+        byte[] data = copyOfRange(bytes, offset + 18, offset + bytes.length);
         return new TSuplaDataPacket(version, rrId, callType, dataSize, data);
     }
 }

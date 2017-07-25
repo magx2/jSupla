@@ -15,9 +15,9 @@ import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 public  final class TDS_SuplaDeviceChannel_B  implements Proto {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
     /**
-     * unsigned
+     * unsigned byte
      */
-    public final byte number;
+    public final short number;
     public final int type;
     public final int funcList;
     /**
@@ -26,7 +26,7 @@ public  final class TDS_SuplaDeviceChannel_B  implements Proto {
     public final int default_;
     public final byte[] value;
 
-    public TDS_SuplaDeviceChannel_B(byte number, int type, int funcList, int default_, byte[] value) {
+    public TDS_SuplaDeviceChannel_B(short number, int type, int funcList, int default_, byte[] value) {
         this.number = number;
         this.type = type;
         this.funcList = funcList;

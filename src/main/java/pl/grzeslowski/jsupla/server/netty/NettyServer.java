@@ -11,6 +11,7 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
+import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.listeners.Listeners;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,14 +23,16 @@ public class NettyServer implements Server {
 
     private final AtomicBoolean started = new AtomicBoolean();
     private final NettyConfig nettyConfig;
+    private final SuplaDataPacketDispatcher suplaDataPacketDispatcher;
     private final Listeners listeners;
 
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
 
-    public NettyServer(NettyConfig nettyConfig, Listeners listeners) {
+    public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher, Listeners listeners) {
         this.nettyConfig = requireNonNull(nettyConfig);
+        this.suplaDataPacketDispatcher = requireNonNull(suplaDataPacketDispatcher);
         this.listeners = requireNonNull(listeners);
     }
 
@@ -48,7 +51,7 @@ public class NettyServer implements Server {
         ServerBootstrap b = new ServerBootstrap(); // (2)
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new NettyServerInitializer(() -> new SuplaHandler(listeners), sslCtx))
+                .childHandler(new NettyServerInitializer(() -> new SuplaHandler(suplaDataPacketDispatcher), sslCtx))
                 .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 

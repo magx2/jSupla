@@ -5,22 +5,22 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
-import pl.grzeslowski.jsupla.server.listeners.Listeners;
+import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
 
 import static java.util.Objects.requireNonNull;
 
 class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
-    private final Listeners listeners;
+    private final SuplaDataPacketDispatcher dispatcher;
 
-    SuplaHandler(Listeners listeners) {
-        this.listeners = requireNonNull(listeners);
+    SuplaHandler(SuplaDataPacketDispatcher dispatcher) {
+        this.dispatcher = requireNonNull(dispatcher);
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, TSuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        listeners.getSuplaDataPacketListener().ifPresent(listener -> listener.onSuplaDataPacket(msg));
+        dispatcher.dispatch(msg);
         // Calculate the cumulative factorial and send it to the client.
 //          lastMultiplier = msg;
 //          factorial = factorial.multiply(msg);
