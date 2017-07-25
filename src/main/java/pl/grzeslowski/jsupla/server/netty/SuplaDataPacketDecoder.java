@@ -33,7 +33,7 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
 
     private void moveThoughtSuplaTag(ByteBuf in) {
         for (int charPosition = 0; charPosition < SUPLA_TAG.length; charPosition++) {
-            final char tagChar = in.readChar();
+            final byte tagChar = in.readByte();
             if (tagChar != SUPLA_TAG[charPosition]) {
                 in.resetReaderIndex();
                 throw new CorruptedFrameException(format("Read char at position %s wsa '%s' but should be '%s'!", charPosition, tagChar, SUPLA_TAG[charPosition]));
