@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.requireNonNull;
 
-class NettyServer implements Server {
+public class NettyServer implements Server {
     private final AtomicBoolean started = new AtomicBoolean();
     private final NettyConfig nettyConfig;
     private final Listeners listeners;
@@ -30,7 +30,7 @@ class NettyServer implements Server {
 
     @Override
     public void run() throws Exception {
-        if (!started.getAndSet(true)) {
+        if (started.getAndSet(true)) {
             throw new IllegalStateException("Server can be started only once!");
         }
 
