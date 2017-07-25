@@ -5,6 +5,10 @@ apply plugin: 'osgi'
 
 sourceCompatibility = 1.8
 
+ext {
+	slf4j_version = '1.7.25'
+}
+
 repositories {
 	mavenLocal()
 	mavenCentral()
@@ -13,7 +17,7 @@ repositories {
 dependencies {
 	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
 	compile group: 'io.netty', name: 'netty-all', version: '4.1.13.Final'
-	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
 	testCompile 'junit:junit:4.12'
 	testCompile 'org.assertj:assertj-core:3.8.0'

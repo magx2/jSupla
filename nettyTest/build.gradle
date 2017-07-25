@@ -8,4 +8,6 @@ repositories {
 }
 
 dependencies {
+    compile rootProject
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
 }
