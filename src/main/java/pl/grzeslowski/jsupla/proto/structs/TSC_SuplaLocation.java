@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
@@ -7,14 +8,13 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
-import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
 
-public final class TSC_SuplaLocation  implements Proto {
+public final class TSC_SuplaLocation implements Proto {
     public final byte eol;
     public final int id;
     /**
      * including the terminating null byte ('\0')
-     *
+     * <p>
      * unsigned
      */
     public final int captionSize;
@@ -27,12 +27,12 @@ public final class TSC_SuplaLocation  implements Proto {
         this.eol = eol;
         this.id = id;
         this.captionSize = captionSize;
-        this.caption = checkArrayLength(caption, SUPLA_LOCATION_CAPTION_MAXSIZE);
+        this.caption = Preconditions.size(caption, 0, SUPLA_LOCATION_CAPTION_MAXSIZE);
     }
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE *2+ SUPLA_LOCATION_CAPTION_MAXSIZE;
+        return BYTE_SIZE + INT_SIZE * 2 + caption.length;
     }
 
     @Override
