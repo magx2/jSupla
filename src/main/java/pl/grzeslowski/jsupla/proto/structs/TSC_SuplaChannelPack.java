@@ -21,9 +21,15 @@ public  final class TSC_SuplaChannelPack  implements Proto {
 
     @Override
     public int size() {
-        assert channels[0] != null;
-        return INT_SIZE * 2+ SUPLA_CHANNELPACK_MAXSIZE * channels[0].size() ;
+        return INT_SIZE * 2 + channelsSize();
     }
+
+    private int channelsSize() {
+        return Arrays.stream(channels)
+                .mapToInt(TSC_SuplaChannel::size)
+                .sum();
+    }
+
 
     @Override
     public String toString() {
