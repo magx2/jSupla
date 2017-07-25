@@ -20,11 +20,10 @@ class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, TSuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        dispatcher.dispatch(msg);
-        // Calculate the cumulative factorial and send it to the client.
-//          lastMultiplier = msg;
-//          factorial = factorial.multiply(msg);
-//          ctx.writeAndFlush(factorial);
+        final TSuplaDataPacket dataPacket = dispatcher.dispatch(msg);
+        if (dataPacket != null) {
+            ctx.writeAndFlush(dataPacket);
+        }
     }
 
     @Override
