@@ -27,11 +27,7 @@ public class TDS_SuplaRegisterDevice_BParser implements Parser<TDS_SuplaRegister
         byte[] locationPwd = copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
         offset += SUPLA_LOCATION_PWD_MAXSIZE;
 
-        final byte[] tmpguid = copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
-        char[] guid = new char[tmpguid.length];
-        for (int i = 0; i < guid.length; i++) {
-            guid[i] = (char) tmpguid[i];
-        }
+        byte[] guid = copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
         byte[] name = copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);

@@ -33,7 +33,7 @@ public class DeviceRegisterEvent implements Entity {
                                List<? extends DeviceChannel> channels) {
         this.locationId = min(locationId, 0);
         this.locationPassword = size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
-        this.guid = size(guid, 1, SUPLA_GUID_SIZE);
+        this.guid = size(guid, 1, SUPLA_GUID_HEXSIZE);
         this.name = size(name, 1, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVersion = size(softVersion, 1, SUPLA_SOFTVER_MAXSIZE);
         this.channels = unmodifiableList(new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));

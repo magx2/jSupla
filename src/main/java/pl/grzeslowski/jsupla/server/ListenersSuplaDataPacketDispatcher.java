@@ -15,7 +15,7 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.consts.CallTypes.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 import static pl.grzeslowski.jsupla.consts.CallTypes.SUPLA_SDC_CALL_VERSIONERROR;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseString;
+import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseHexString;
 import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUtf8String;
 
 public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispatcher {
@@ -34,7 +34,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
             int locationId = registerDeviceB.locationId;
             String locationPassword = parseUtf8String(registerDeviceB.locationPwd);
-            String guid = parseString(registerDeviceB.guid);
+            String guid = parseHexString(registerDeviceB.guid); // TODO better converting, use special method, not this shitty one
             String name = parseUtf8String(registerDeviceB.name);
             String softVersion = parseUtf8String(registerDeviceB.softVer);
             List<? extends DeviceChannelB> channels = new ArrayList<>(); // TODO implement parsing channels
