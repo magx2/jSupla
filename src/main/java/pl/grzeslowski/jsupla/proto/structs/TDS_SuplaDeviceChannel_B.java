@@ -13,6 +13,7 @@ import static pl.grzeslowski.jsupla.proto.ProtoPreconditions.checkArrayLength;
  * @since ver 2
  */
 public  final class TDS_SuplaDeviceChannel_B  implements Proto {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
     /**
      * unsigned
      */
@@ -35,7 +36,7 @@ public  final class TDS_SuplaDeviceChannel_B  implements Proto {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
+        return SIZE;
     }
 
     @Override

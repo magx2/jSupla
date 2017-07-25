@@ -43,8 +43,7 @@ public final class TDS_SuplaRegisterDevice_B implements Proto {
 
     @Override
     public int size() {
-        assert channels[0] != null;
-        return BYTE_SIZE + INT_SIZE +SUPLA_LOCATION_PWD_MAXSIZE+SUPLA_GUID_SIZE+SUPLA_DEVICE_NAME_MAXSIZE+ SUPLA_SOFTVER_MAXSIZE+channels[0].size() * SUPLA_CHANNELMAXCOUNT;
+        return BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE + TDS_SuplaDeviceChannel_B.SIZE * SUPLA_CHANNELMAXCOUNT;
     }
 
     @Override
