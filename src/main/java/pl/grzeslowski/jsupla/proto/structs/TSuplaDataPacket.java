@@ -1,13 +1,11 @@
 package pl.grzeslowski.jsupla.proto.structs;
 
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.proto.Proto;
-import pl.grzeslowski.jsupla.proto.ProtoPreconditions;
 
 import java.util.Arrays;
 
-import static java.lang.Integer.MIN_VALUE;
-import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
@@ -36,10 +34,7 @@ public final class TSuplaDataPacket implements Proto {
         this.rrId = rrId;
         this.callType = callType;
         this.dataSize = dataSize;
-        if (data.length > SUPLA_MAX_DATA_SIZE) {
-            throw new IllegalArgumentException(format("data.length %s is bigger than SUPLA_MAX_DATA_SIZE %s", data.length, SUPLA_MAX_DATA_SIZE));
-        }
-        this.data = ProtoPreconditions.checkArrayLength(data, dataSize - MIN_VALUE);
+        this.data = Preconditions.size(data, 0, SUPLA_MAX_DATA_SIZE);
     }
 
     @Override

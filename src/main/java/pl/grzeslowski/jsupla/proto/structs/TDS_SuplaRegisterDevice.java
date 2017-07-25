@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.proto.Proto;
 
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public final class TDS_SuplaRegisterDevice implements Proto {
         this.name = checkArrayLength(name, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = channelCount;
-        this.channels = checkArrayLength(channels, SUPLA_CHANNELMAXCOUNT);
+        this.channels = Preconditions.size(channels, 0, SUPLA_CHANNELMAXCOUNT);
     }
 
     @Override
