@@ -2,11 +2,12 @@ package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
@@ -39,17 +40,15 @@ public class NettyServer implements Server {
             throw new IllegalStateException("Server can be started only once!");
         }
 
+        SelfSignedCertificate ssc = new SelfSignedCertificate();
+        SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
+
         bossGroup = new NioEventLoopGroup(); // (1)
         workerGroup = new NioEventLoopGroup();
         ServerBootstrap b = new ServerBootstrap(); // (2)
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
-                    @Override
-                    public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new SuplaDataPacketDecoder(), new SuplaDataPacketEncoder(), new SuplaHandler(listeners));
-                    }
-                })
+                .childHandler(new NettyServerInitializer(() -> new SuplaHandler(listeners), sslCtx))
                 .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
