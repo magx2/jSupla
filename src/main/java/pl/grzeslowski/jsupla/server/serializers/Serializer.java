@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
-import pl.grzeslowski.jsupla.proto.Proto;
-import pl.grzeslowski.jsupla.server.entities.Entity;
+import pl.grzeslowski.jsupla.proto.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.server.entities.responses.Response;
 
-public interface Serializer<E extends Entity, P extends Proto> {
-    P serialize(E entity);
+public interface Serializer<Rsp extends Response, SD extends ServerDevice> {
+    SD serialize(Rsp entity);
 }

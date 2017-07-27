@@ -1,7 +1,8 @@
 package pl.grzeslowski.jsupla.proto.encoders;
 
-import pl.grzeslowski.jsupla.proto.Proto;
+import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.proto.structs.sd.ServerDevice;
 
-public interface Encoder<T extends Proto> {
-    void encode(T proto, byte[] bytes, int offset);
+public interface Encoder<SD extends ServerDevice> {
+    TSuplaDataPacket encode(SD proto);
 }

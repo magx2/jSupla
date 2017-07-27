@@ -68,7 +68,7 @@ public enum CallTypes {
         return value;
     }
 
-    public static Optional<CallTypes> findByValue(int value) {
+    public static Optional<CallTypes> findByValue(long value) {
         return stream(CallTypes.values()).filter(e -> e.value == value).findFirst();
     }
 }

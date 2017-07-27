@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.server.parsers;
 
-import pl.grzeslowski.jsupla.proto.Proto;
-import pl.grzeslowski.jsupla.server.entities.Entity;
+import pl.grzeslowski.jsupla.proto.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
-public interface Parser<E extends Entity, P extends Proto> {
-    E parse(P proto);
+public interface Parser<Rq extends Request, DS extends DeviceServer> {
+    DS getProtoClass();
+
+    Rq parse(DS proto);
 }

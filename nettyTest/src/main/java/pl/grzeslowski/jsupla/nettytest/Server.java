@@ -25,7 +25,7 @@ public class Server {
                 logger.info("Got: {}", dataPacket);
             }
         });
-        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(listeners), listeners)) {
+        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(null, null, null, null, null), listeners)) {
             logger.info("Run...");
             nettyServer.run();
 

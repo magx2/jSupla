@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.proto.decoders;
 
-import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaDeviceChannel_B;
+import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.proto.structs.ds.TDS_SuplaDeviceChannel_B;
 
 import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
@@ -11,7 +12,9 @@ import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUnsigned
 
 public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceChannel_B> {
     @Override
-    public TDS_SuplaDeviceChannel_B decode(byte[] bytes, int offset) {
+    public TDS_SuplaDeviceChannel_B decode(TSuplaDataPacket dataPacket) {
+        byte[] bytes = dataPacket.data;
+        int offset = 0;
         short number = parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
