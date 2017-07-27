@@ -21,7 +21,7 @@ public final class DelegatingCodec<T extends Proto> implements Codec<T> {
     }
 
     @Override
-    public byte[] encode(T proto) {
-        return encoder.encode(proto);
+    public void encode(T proto, byte[] bytes, int offset) {
+        encoder.encode(proto, bytes, offset);
     }
 }

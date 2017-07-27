@@ -27,7 +27,8 @@ public class TSuplaDataPacketEncoderTest {
         final TSuplaDataPacket packet = new TSuplaDataPacket(version, rrId, callType, dataSize, data);
 
         // when
-        final byte[] bytes = serializer.encode(packet);
+        final byte[] bytes = new byte[TSuplaDataPacket.MIN_SIZE + dataSize];
+        serializer.encode(packet, bytes, 0);
 
         // then
         assertThat(bytes).hasSize(packet.size());

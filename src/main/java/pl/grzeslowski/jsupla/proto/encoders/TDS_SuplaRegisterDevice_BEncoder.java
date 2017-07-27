@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaRegisterDevice_B;
 @SuppressWarnings("DeprecatedIsStillUsed")
 public class TDS_SuplaRegisterDevice_BEncoder implements Encoder<TDS_SuplaRegisterDevice_B> {
     @Override
-    public byte[] encode(TDS_SuplaRegisterDevice_B proto) {
+    public void encode(TDS_SuplaRegisterDevice_B proto, byte[] bytes, int offset) {
         throw new UnsupportedOperationException();
     }
 }
