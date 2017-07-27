@@ -1,6 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.requests;
-
-import pl.grzeslowski.jsupla.server.entities.Entity;
+package pl.grzeslowski.jsupla.server.entities;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

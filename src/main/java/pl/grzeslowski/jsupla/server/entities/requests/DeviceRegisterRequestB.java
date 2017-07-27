@@ -1,15 +1,16 @@
 package pl.grzeslowski.jsupla.server.entities.requests;
 
+import pl.grzeslowski.jsupla.server.entities.DeviceChannelB;
 import pl.grzeslowski.jsupla.server.entities.Entity;
 
 import java.util.List;
 
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.B;
 
-public class DeviceRegisterEventB extends DeviceRegisterEvent {
+public class DeviceRegisterRequestB extends DeviceRegisterRequest {
 
-    public DeviceRegisterEventB(int locationId, String locationPassword, String guid, String name, String softVersion,
-                                List<? extends DeviceChannelB> channels) {
+    public DeviceRegisterRequestB(int locationId, String locationPassword, String guid, String name, String softVersion,
+                                  List<? extends DeviceChannelB> channels) {
         super(locationId, locationPassword, guid, name, softVersion, channels);
     }
 
@@ -26,6 +27,6 @@ public class DeviceRegisterEventB extends DeviceRegisterEvent {
 
     @Override
     public String toString() {
-        return "DeviceRegisterEventB{} " + super.toString();
+        return "DeviceRegisterRequestB{} " + super.toString();
     }
 }

@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.server.entities.requests;
 
+import pl.grzeslowski.jsupla.server.entities.DeviceChannel;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,7 +12,7 @@ import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 
-public class DeviceRegisterEvent implements Request {
+public class DeviceRegisterRequest implements Request {
     @Min(0)
     private final int locationId;
     @NotNull
@@ -29,8 +31,8 @@ public class DeviceRegisterEvent implements Request {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final List<DeviceChannel> channels;
 
-    public DeviceRegisterEvent(int locationId, String locationPassword, String guid, String name, String softVersion,
-                               List<? extends DeviceChannel> channels) {
+    public DeviceRegisterRequest(int locationId, String locationPassword, String guid, String name, String softVersion,
+                                 List<? extends DeviceChannel> channels) {
         this.locationId = min(locationId, 0);
         this.locationPassword = size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
         this.guid = size(guid, 1, SUPLA_GUID_HEXSIZE);
@@ -65,7 +67,7 @@ public class DeviceRegisterEvent implements Request {
 
     @Override
     public String toString() {
-        return "DeviceRegisterEvent{" +
+        return "DeviceRegisterRequest{" +
                 "locationId=" + locationId +
                 ", locationPassword='" + locationPassword + '\'' +
                 ", guid='" + guid + '\'' +

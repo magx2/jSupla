@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.server.entities.requests;
 
+import pl.grzeslowski.jsupla.server.entities.DeviceChannelB;
 import pl.grzeslowski.jsupla.server.entities.Entity;
 
 import javax.validation.constraints.NotNull;
@@ -10,13 +11,13 @@ import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.C;
 
-public class DeviceRegisterEventC extends DeviceRegisterEventB {
+public class DeviceRegisterRequestC extends DeviceRegisterRequestB {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
     private final String serverName;
 
-    public DeviceRegisterEventC(int locationId, String locationPassword, String guid, String name, String softVersion,
-                                List<? extends DeviceChannelB> channels, String serverName) {
+    public DeviceRegisterRequestC(int locationId, String locationPassword, String guid, String name, String softVersion,
+                                  List<? extends DeviceChannelB> channels, String serverName) {
         super(locationId, locationPassword, guid, name, softVersion, channels);
         this.serverName = size(serverName, 1, SUPLA_SERVER_NAME_MAXSIZE);
     }
@@ -32,7 +33,7 @@ public class DeviceRegisterEventC extends DeviceRegisterEventB {
 
     @Override
     public String toString() {
-        return "DeviceRegisterEventC{" +
+        return "DeviceRegisterRequestC{" +
                 "serverName='" + serverName + '\'' +
                 "} " + super.toString();
     }

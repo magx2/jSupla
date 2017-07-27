@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.server.listeners;
 
-import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterEvent;
-import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterEventB;
-import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterEventC;
-import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResult;
+import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
+import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
+import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestC;
+import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResponse;
 
 public interface DeviceRegisterListener {
-    RegisterDeviceResult onDeviceRegisterEvent(DeviceRegisterEvent event);
+    RegisterDeviceResponse onDeviceRegisterEvent(DeviceRegisterRequest event);
 
-    RegisterDeviceResult onDeviceRegisterEvent(DeviceRegisterEventB event);
+    RegisterDeviceResponse onDeviceRegisterEvent(DeviceRegisterRequestB event);
 
-    RegisterDeviceResult onDeviceRegisterEvent(DeviceRegisterEventC event);
+    RegisterDeviceResponse onDeviceRegisterEvent(DeviceRegisterRequestC event);
 }

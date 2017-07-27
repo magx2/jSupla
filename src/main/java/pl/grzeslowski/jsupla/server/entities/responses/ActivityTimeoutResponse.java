@@ -1,13 +1,11 @@
 package pl.grzeslowski.jsupla.server.entities.responses;
 
-import pl.grzeslowski.jsupla.server.entities.Entity;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
 
-public class ActivityTimeoutResponse implements Entity {
+public class ActivityTimeoutResponse implements Response {
     @Min(0)
     @Max(255)
     private final int activityTimeout;

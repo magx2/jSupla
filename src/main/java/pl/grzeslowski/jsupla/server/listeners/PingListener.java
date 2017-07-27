@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server.listeners;
 
 import pl.grzeslowski.jsupla.server.entities.requests.ClientPingRequest;
-import pl.grzeslowski.jsupla.server.entities.responses.ServerPing;
+import pl.grzeslowski.jsupla.server.entities.responses.ServerPingResponse;
 
 public interface PingListener {
-    ServerPing onPing(ClientPingRequest clientPingRequest);
+    ServerPingResponse onPing(ClientPingRequest clientPingRequest);
 }

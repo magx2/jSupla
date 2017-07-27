@@ -1,7 +1,5 @@
 package pl.grzeslowski.jsupla.server.entities.responses;
 
-import pl.grzeslowski.jsupla.server.entities.Entity;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -9,7 +7,7 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 
-public class RegisterDeviceResult implements Entity {
+public class RegisterDeviceResponse implements Response {
     @Min(0)
     private final int resultCode;
     @Min(0)
@@ -22,7 +20,7 @@ public class RegisterDeviceResult implements Entity {
     @Max(255)
     private final int versionMin;
 
-    public RegisterDeviceResult(int resultCode, int activityTimeout, int version, int versionMin) {
+    public RegisterDeviceResponse(int resultCode, int activityTimeout, int version, int versionMin) {
         this.resultCode = min(resultCode, 0);
         this.activityTimeout = size(activityTimeout, 0, 255);
         this.version = size(version, 0, 255);
@@ -50,7 +48,7 @@ public class RegisterDeviceResult implements Entity {
 
     @Override
     public String toString() {
-        return "RegisterDeviceResult{" +
+        return "RegisterDeviceResponse{" +
                 "resultCode=" + resultCode +
                 ", activityTimeout=" + activityTimeout +
                 ", version=" + version +
