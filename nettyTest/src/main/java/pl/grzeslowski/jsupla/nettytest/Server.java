@@ -2,10 +2,7 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 import pl.grzeslowski.jsupla.server.ListenersSuplaDataPacketDispatcher;
-import pl.grzeslowski.jsupla.server.listeners.Listeners;
-import pl.grzeslowski.jsupla.server.listeners.SuplaDataPacketListener;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;
 import pl.grzeslowski.jsupla.server.netty.NettyServer;
 
@@ -19,13 +16,7 @@ public class Server {
 
     private void run() throws Exception {
         logger.info("Starting...");
-        final Listeners listeners = new Listeners().setSuplaDataPacketListener(new SuplaDataPacketListener() {
-            @Override
-            public void onSuplaDataPacket(TSuplaDataPacket dataPacket) {
-                logger.info("Got: {}", dataPacket);
-            }
-        });
-        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(null, null, null, null, null), listeners)) {
+        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(null, null, null, null, null))) {
             logger.info("Run...");
             nettyServer.run();
 

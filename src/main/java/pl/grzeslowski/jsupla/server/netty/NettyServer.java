@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
 import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
-import pl.grzeslowski.jsupla.server.listeners.Listeners;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -24,16 +23,14 @@ public class NettyServer implements Server {
     private final AtomicBoolean started = new AtomicBoolean();
     private final NettyConfig nettyConfig;
     private final SuplaDataPacketDispatcher suplaDataPacketDispatcher;
-    private final Listeners listeners;
 
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
 
-    public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher, Listeners listeners) {
+    public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher) {
         this.nettyConfig = requireNonNull(nettyConfig);
         this.suplaDataPacketDispatcher = requireNonNull(suplaDataPacketDispatcher);
-        this.listeners = requireNonNull(listeners);
     }
 
     @Override
