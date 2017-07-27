@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
 
 import static java.util.Objects.requireNonNull;
 
+@ChannelHandler.Sharable
 class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final SuplaDataPacketDispatcher dispatcher;

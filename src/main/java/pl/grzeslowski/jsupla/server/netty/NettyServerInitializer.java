@@ -5,17 +5,21 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
 
-import java.util.function.Supplier;
-
 import static java.util.Objects.requireNonNull;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
-    private final Supplier<SuplaHandler> suplaHandler;
+    private final SuplaHandler suplaHandler;
+
+    private final SuplaDataPacketDecoder decoder;
+    private final SuplaDataPacketEncoder encoder;
+
     private final SslContext sslCtx;
 
 
-    public NettyServerInitializer(Supplier<SuplaHandler> suplaHandler, SslContext sslCtx) {
+    public NettyServerInitializer(SuplaHandler suplaHandler, SuplaDataPacketDecoder decoder, SuplaDataPacketEncoder encoder, SslContext sslCtx) {
         this.suplaHandler = requireNonNull(suplaHandler);
+        this.decoder = requireNonNull(decoder);
+        this.encoder = requireNonNull(encoder);
         this.sslCtx = sslCtx;
     }
 
@@ -27,13 +31,11 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
 
-        // Add the text line codec combination first,
-//        pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
         // the encoder and decoder are static as these are sharable
-        pipeline.addLast(new SuplaDataPacketDecoder());
-        pipeline.addLast(new SuplaDataPacketEncoder());
+        pipeline.addLast(decoder);
+        pipeline.addLast(encoder);
 
         // and then business logic.
-        pipeline.addLast(suplaHandler.get());
+        pipeline.addLast(suplaHandler);
     }
 }

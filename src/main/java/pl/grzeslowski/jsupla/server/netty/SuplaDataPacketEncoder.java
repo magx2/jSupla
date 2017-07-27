@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG;
 
+@ChannelHandler.Sharable
 final class SuplaDataPacketEncoder extends MessageToByteEncoder<TSuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketEncoder.class);
 

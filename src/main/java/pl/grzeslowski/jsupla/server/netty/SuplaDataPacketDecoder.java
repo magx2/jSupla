@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
@@ -14,6 +15,7 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG;
 import static pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket.MIN_SIZE;
 
+@ChannelHandler.Sharable
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
