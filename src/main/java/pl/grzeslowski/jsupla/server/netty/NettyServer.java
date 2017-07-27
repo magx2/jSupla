@@ -11,7 +11,7 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
+import pl.grzeslowski.jsupla.server.dispatchers.SuplaDataPacketDispatcher;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

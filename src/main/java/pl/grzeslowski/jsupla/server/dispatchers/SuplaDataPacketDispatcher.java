@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server;
+package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 

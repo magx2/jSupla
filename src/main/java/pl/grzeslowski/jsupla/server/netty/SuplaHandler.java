@@ -6,7 +6,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
-import pl.grzeslowski.jsupla.server.SuplaDataPacketDispatcher;
+import pl.grzeslowski.jsupla.server.dispatchers.SuplaDataPacketDispatcher;
 
 import static java.util.Objects.requireNonNull;
 

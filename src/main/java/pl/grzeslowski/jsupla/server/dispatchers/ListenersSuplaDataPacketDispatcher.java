@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server;
+package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.consts.CallType;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactory;
