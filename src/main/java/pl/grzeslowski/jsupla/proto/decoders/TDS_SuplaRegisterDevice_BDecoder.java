@@ -20,7 +20,7 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
     }
 
     @Override
-    public TDS_SuplaRegisterDevice_B parse(byte[] bytes, int offset) {
+    public TDS_SuplaRegisterDevice_B decode(byte[] bytes, int offset) {
         int locationId = parseInt(bytes, offset);
         offset += INT_SIZE;
 
@@ -41,7 +41,7 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
 
         TDS_SuplaDeviceChannel_B[] channels = new TDS_SuplaDeviceChannel_B[channelCount];
         for (int i = 0; i < channelCount; i++) {
-            channels[i] = channelDecoder.parse(bytes, offset);
+            channels[i] = channelDecoder.decode(bytes, offset);
             offset += channels[i].size();
         }
 

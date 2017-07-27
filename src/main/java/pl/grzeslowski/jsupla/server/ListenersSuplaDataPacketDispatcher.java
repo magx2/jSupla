@@ -29,7 +29,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     public TSuplaDataPacket dispatch(TSuplaDataPacket dataPacket) {
         if (dataPacket.callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
             final TDS_SuplaRegisterDevice_BDecoder parser = new TDS_SuplaRegisterDevice_BDecoder(new TDS_SuplaDeviceChannel_BDecoder());
-            final TDS_SuplaRegisterDevice_B registerDeviceB = parser.parse(dataPacket.data);
+            final TDS_SuplaRegisterDevice_B registerDeviceB = parser.decode(dataPacket.data);
 
 
             int locationId = registerDeviceB.locationId;

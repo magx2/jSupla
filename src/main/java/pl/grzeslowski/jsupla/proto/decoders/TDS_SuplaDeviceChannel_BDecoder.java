@@ -11,7 +11,7 @@ import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUnsigned
 
 public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceChannel_B> {
     @Override
-    public TDS_SuplaDeviceChannel_B parse(byte[] bytes, int offset) {
+    public TDS_SuplaDeviceChannel_B decode(byte[] bytes, int offset) {
         short number = parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 

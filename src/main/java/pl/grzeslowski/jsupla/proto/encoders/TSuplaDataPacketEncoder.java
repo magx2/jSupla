@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 public final class TSuplaDataPacketEncoder implements Encoder<TSuplaDataPacket> {
     @Override
-    public byte[] serialise(TSuplaDataPacket proto) {
+    public byte[] encode(TSuplaDataPacket proto) {
         final byte[] bytes = new byte[proto.size()];
 
         // TODO

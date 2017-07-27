@@ -7,7 +7,7 @@ import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUnsigned
 
 public final class TSuplaDataPacketDecoder implements Decoder<TSuplaDataPacket> {
     @Override
-    public TSuplaDataPacket parse(byte[] bytes, int offset) {
+    public TSuplaDataPacket decode(byte[] bytes, int offset) {
         final byte version = bytes[offset + 5];
         int rrId = parseUnsignedInt(bytes, offset + 6);
         int callType = parseUnsignedInt(bytes, offset + 10);

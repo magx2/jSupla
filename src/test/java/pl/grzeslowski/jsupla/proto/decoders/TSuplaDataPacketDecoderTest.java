@@ -61,7 +61,7 @@ public class TSuplaDataPacketDecoderTest {
         }
 
         // when
-        final TSuplaDataPacket packet = parser.parse(bytes);
+        final TSuplaDataPacket packet = parser.decode(bytes);
 
         // then
         assertThat(packet.version).isEqualTo((byte) 5);
