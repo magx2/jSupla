@@ -27,7 +27,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     @Override
     public TSuplaDataPacket dispatch(TSuplaDataPacket dataPacket) {
-        if (dataPacket.callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
+        if (dataPacket.callType == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
             final TDS_SuplaRegisterDevice_BDecoder parser = new TDS_SuplaRegisterDevice_BDecoder(new TDS_SuplaDeviceChannel_BDecoder());
             final TDS_SuplaRegisterDevice_B registerDeviceB = parser.decode(dataPacket.data);
 
@@ -55,7 +55,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
         short version = (short) registerDeviceResult.getVersion();
         long rrId = id++;
-        long callType = SUPLA_SDC_CALL_VERSIONERROR;
+        long callType = SUPLA_SDC_CALL_VERSIONERROR.getValue();
         long dataSize = 0;
         byte[] data = new byte[0];
 
