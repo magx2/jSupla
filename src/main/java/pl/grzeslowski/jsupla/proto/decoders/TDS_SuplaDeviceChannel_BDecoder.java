@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaDeviceChannel_B;
 
@@ -6,8 +6,8 @@ import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseInt;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUnsignedByte;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseInt;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUnsignedByte;
 
 public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceChannel_B> {
     @Override

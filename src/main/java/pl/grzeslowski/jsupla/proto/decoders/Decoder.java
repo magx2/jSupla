@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import pl.grzeslowski.jsupla.proto.Proto;
 

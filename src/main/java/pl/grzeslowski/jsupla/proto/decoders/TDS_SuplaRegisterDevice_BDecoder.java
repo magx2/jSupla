@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaDeviceChannel_B;
 import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaRegisterDevice_B;
@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseInt;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseInt;
 
 @Deprecated
 @SuppressWarnings("DeprecatedIsStillUsed")

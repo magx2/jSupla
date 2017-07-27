@@ -1,9 +1,9 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
 import static java.util.Arrays.copyOfRange;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUnsignedInt;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUnsignedInt;
 
 public final class TSuplaDataPacketDecoder implements Decoder<TSuplaDataPacket> {
     @Override

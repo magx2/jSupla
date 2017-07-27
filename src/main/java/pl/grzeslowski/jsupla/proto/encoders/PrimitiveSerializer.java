@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.serializers;
+package pl.grzeslowski.jsupla.proto.encoders;
 
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import org.junit.Test;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;

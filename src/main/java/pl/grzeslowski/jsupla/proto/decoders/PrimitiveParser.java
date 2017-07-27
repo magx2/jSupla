@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.proto.parsers;
+package pl.grzeslowski.jsupla.proto.decoders;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;

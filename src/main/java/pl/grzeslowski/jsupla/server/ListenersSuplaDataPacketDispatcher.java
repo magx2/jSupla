@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaDeviceChannel_BDecoder;
-import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaRegisterDevice_BDecoder;
+import pl.grzeslowski.jsupla.proto.decoders.TDS_SuplaDeviceChannel_BDecoder;
+import pl.grzeslowski.jsupla.proto.decoders.TDS_SuplaRegisterDevice_BDecoder;
 import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaRegisterDevice_B;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 import pl.grzeslowski.jsupla.server.entities.DeviceChannelB;
@@ -15,8 +15,8 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.consts.CallTypes.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 import static pl.grzeslowski.jsupla.consts.CallTypes.SUPLA_SDC_CALL_VERSIONERROR;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseHexString;
-import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUtf8String;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseHexString;
+import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUtf8String;
 
 public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispatcher {
     private final Listeners listeners;
