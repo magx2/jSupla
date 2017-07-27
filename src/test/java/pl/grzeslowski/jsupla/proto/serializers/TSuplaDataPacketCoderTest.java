@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
 public class TSuplaDataPacketCoderTest {
-    private final TSuplaDataPacketCoder serializer = new TSuplaDataPacketCoder();
+//    private final TSuplaDataPacketCoder serializer = new TSuplaDataPacketCoder();
 
     @Ignore
     @Test
@@ -27,7 +27,7 @@ public class TSuplaDataPacketCoderTest {
         final TSuplaDataPacket packet = new TSuplaDataPacket(version, rrId, callType, dataSize, data);
 
         // when
-        final byte[] bytes = serializer.serialise(packet);
+        final byte[] bytes = new byte[0];//serializer.serialise(packet);
 
         // then
         assertThat(bytes).hasSize(packet.size());
