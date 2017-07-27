@@ -11,8 +11,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
-public class TSuplaDataPacketSerializerTest {
-    private final TSuplaDataPacketSerializer serializer = new TSuplaDataPacketSerializer();
+public class TSuplaDataPacketCoderTest {
+    private final TSuplaDataPacketCoder serializer = new TSuplaDataPacketCoder();
 
     @Ignore
     @Test

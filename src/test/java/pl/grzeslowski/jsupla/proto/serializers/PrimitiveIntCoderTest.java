@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
-public class PrimitiveIntSerializerTest {
+public class PrimitiveIntCoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
 
     @Test(expected = IllegalArgumentException.class)

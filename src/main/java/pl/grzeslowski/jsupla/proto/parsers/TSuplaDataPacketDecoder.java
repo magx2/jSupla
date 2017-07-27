@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUnsignedInt;
 
-public final class TSuplaDataPacketParser implements Parser<TSuplaDataPacket> {
+public final class TSuplaDataPacketDecoder implements Decoder<TSuplaDataPacket> {
     @Override
     public TSuplaDataPacket parse(byte[] bytes, int offset) {
         final byte version = bytes[offset + 5];

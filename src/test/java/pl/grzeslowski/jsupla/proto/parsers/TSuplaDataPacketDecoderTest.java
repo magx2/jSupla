@@ -9,8 +9,8 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_TAG_SIZE;
 
-public class TSuplaDataPacketParserTest {
-    private final TSuplaDataPacketParser parser = new TSuplaDataPacketParser();
+public class TSuplaDataPacketDecoderTest {
+    private final TSuplaDataPacketDecoder parser = new TSuplaDataPacketDecoder();
 
     @Test
     public void shouldParseTSuplaDataPacketFromArrayWithSuplaTag() {

@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseInt;
 import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseUnsignedByte;
 
-public class TDS_SuplaDeviceChannel_BParser implements Parser<TDS_SuplaDeviceChannel_B> {
+public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceChannel_B> {
     @Override
     public TDS_SuplaDeviceChannel_B parse(byte[] bytes, int offset) {
         short number = parseUnsignedByte(bytes, offset);

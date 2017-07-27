@@ -12,11 +12,11 @@ import static pl.grzeslowski.jsupla.proto.parsers.PrimitiveParser.parseInt;
 
 @Deprecated
 @SuppressWarnings("DeprecatedIsStillUsed")
-public class TDS_SuplaRegisterDevice_BParser implements Parser<TDS_SuplaRegisterDevice_B> {
-    private final Parser<TDS_SuplaDeviceChannel_B> channelParser;
+public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegisterDevice_B> {
+    private final Decoder<TDS_SuplaDeviceChannel_B> channelDecoder;
 
-    public TDS_SuplaRegisterDevice_BParser(Parser<TDS_SuplaDeviceChannel_B> channelParser) {
-        this.channelParser = requireNonNull(channelParser);
+    public TDS_SuplaRegisterDevice_BDecoder(Decoder<TDS_SuplaDeviceChannel_B> channelDecoder) {
+        this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TDS_SuplaRegisterDevice_BParser implements Parser<TDS_SuplaRegister
 
         TDS_SuplaDeviceChannel_B[] channels = new TDS_SuplaDeviceChannel_B[channelCount];
         for (int i = 0; i < channelCount; i++) {
-            channels[i] = channelParser.parse(bytes, offset);
+            channels[i] = channelDecoder.parse(bytes, offset);
             offset += channels[i].size();
         }
 

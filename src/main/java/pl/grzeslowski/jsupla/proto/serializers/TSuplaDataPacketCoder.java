@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto.serializers;
 
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 
-public final class TSuplaDataPacketSerializer implements Serializer<TSuplaDataPacket> {
+public final class TSuplaDataPacketCoder implements Coder<TSuplaDataPacket> {
     @Override
     public byte[] serialise(TSuplaDataPacket proto) {
         final byte[] bytes = new byte[proto.size()];

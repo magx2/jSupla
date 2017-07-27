@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaDeviceChannel_BParser;
-import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaRegisterDevice_BParser;
+import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaDeviceChannel_BDecoder;
+import pl.grzeslowski.jsupla.proto.parsers.TDS_SuplaRegisterDevice_BDecoder;
 import pl.grzeslowski.jsupla.proto.structs.TDS_SuplaRegisterDevice_B;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
 import pl.grzeslowski.jsupla.server.entities.DeviceChannelB;
@@ -28,7 +28,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     @Override
     public TSuplaDataPacket dispatch(TSuplaDataPacket dataPacket) {
         if (dataPacket.callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
-            final TDS_SuplaRegisterDevice_BParser parser = new TDS_SuplaRegisterDevice_BParser(new TDS_SuplaDeviceChannel_BParser());
+            final TDS_SuplaRegisterDevice_BDecoder parser = new TDS_SuplaRegisterDevice_BDecoder(new TDS_SuplaDeviceChannel_BDecoder());
             final TDS_SuplaRegisterDevice_B registerDeviceB = parser.parse(dataPacket.data);
 
 
