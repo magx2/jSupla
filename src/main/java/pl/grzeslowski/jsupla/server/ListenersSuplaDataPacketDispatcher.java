@@ -11,6 +11,7 @@ import pl.grzeslowski.jsupla.server.listeners.Listeners;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.consts.CallTypes.SUPLA_DS_CALL_REGISTER_DEVICE_B;
@@ -26,7 +27,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     }
 
     @Override
-    public TSuplaDataPacket dispatch(TSuplaDataPacket dataPacket) {
+    public Optional<TSuplaDataPacket> dispatch(TSuplaDataPacket dataPacket) {
         if (dataPacket.callType == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
             final TDS_SuplaRegisterDevice_BDecoder parser = new TDS_SuplaRegisterDevice_BDecoder(new TDS_SuplaDeviceChannel_BDecoder());
             final TDS_SuplaRegisterDevice_B registerDeviceB = parser.decode(dataPacket.data);
@@ -42,10 +43,9 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
             return listeners.getDeviceRegisterListener()
                     .map(l -> l.onDeviceRegisterEvent(deviceRegisterEventB))
-                    .map(this::parseDataPacket)
-                    .orElse(null);
+                    .map(this::parseDataPacket);
         }
-        return null;
+        return Optional.empty();
     }
 
     int id = 1;

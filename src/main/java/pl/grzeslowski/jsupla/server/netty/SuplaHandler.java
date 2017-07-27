@@ -20,10 +20,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, TSuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        final TSuplaDataPacket dataPacket = dispatcher.dispatch(msg);
-        if (dataPacket != null) {
-            ctx.writeAndFlush(dataPacket);
-        }
+        dispatcher.dispatch(msg).ifPresent(ctx::writeAndFlush);
     }
 
     @Override
