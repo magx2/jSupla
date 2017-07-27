@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server;
 
-import pl.grzeslowski.jsupla.consts.CallTypes;
+import pl.grzeslowski.jsupla.consts.CallType;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.proto.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
@@ -33,7 +33,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     @Override
     public Optional<TSuplaDataPacket> dispatch(TSuplaDataPacket dataPacket) {
-        return CallTypes.findByValue(dataPacket.callType)
+        return CallType.findByValue(dataPacket.callType)
                 .map(decoderFactory::getDecoderForCallType)
                 .map(codec -> codec.decode(dataPacket))
                 .map(proto -> parsersFactory.getParser(proto).parse(proto))

@@ -6,6 +6,6 @@ import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import java.util.Optional;
 
 public interface RequestListener<Rq extends Request, Rsp extends Response> {
-    //    void listenerForCallType(CallTypes callTypes);
+    //    void listenerForCallType(CallType callTypes);
     Optional<Rsp> onRequest(Rq request);
 }

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs.sd;
 
-import pl.grzeslowski.jsupla.consts.CallTypes;
+import pl.grzeslowski.jsupla.consts.CallType;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ public final class TSD_FirmwareUpdate_Url implements ServerDevice {
     }
 
     @Override
-    public CallTypes callType() {
+    public CallType callType() {
         throw new UnsupportedOperationException();
     }
 

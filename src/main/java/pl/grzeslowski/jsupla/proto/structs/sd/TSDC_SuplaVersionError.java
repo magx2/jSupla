@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs.sd;
 
-import pl.grzeslowski.jsupla.consts.CallTypes;
+import pl.grzeslowski.jsupla.consts.CallType;
 
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 
@@ -20,7 +20,7 @@ public final class TSDC_SuplaVersionError implements ServerDevice {
     }
 
     @Override
-    public CallTypes callType() {
+    public CallType callType() {
         throw new UnsupportedOperationException();
     }
 

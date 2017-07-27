@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import static java.util.Arrays.stream;
 
-public enum CallTypes {
+public enum CallType {
     SUPLA_DCS_CALL_GETVERSION(10),
     SUPLA_SDC_CALL_GETVERSION_RESULT(20),
     SUPLA_SDC_CALL_VERSIONERROR(30),
@@ -60,7 +60,7 @@ public enum CallTypes {
 
     private final int value;
 
-    CallTypes(int value) {
+    CallType(int value) {
         this.value = value;
     }
 
@@ -68,7 +68,7 @@ public enum CallTypes {
         return value;
     }
 
-    public static Optional<CallTypes> findByValue(long value) {
-        return stream(CallTypes.values()).filter(e -> e.value == value).findFirst();
+    public static Optional<CallType> findByValue(long value) {
+        return stream(CallType.values()).filter(e -> e.value == value).findFirst();
     }
 }

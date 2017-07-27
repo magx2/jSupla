@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs.sd;
 
-import pl.grzeslowski.jsupla.consts.CallTypes;
+import pl.grzeslowski.jsupla.consts.CallType;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ public final class TSC_SuplaChannelPack implements ServerDevice {
     }
 
     @Override
-    public CallTypes callType() {
+    public CallType callType() {
         throw new UnsupportedOperationException();
     }
 

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.proto.structs.ds;
 
-import pl.grzeslowski.jsupla.consts.CallTypes;
+import pl.grzeslowski.jsupla.consts.CallType;
 
 import java.util.Arrays;
 
@@ -19,7 +19,7 @@ public final class TCS_SuplaChannelNewValue_B implements DeviceServer {
 
 
     @Override
-    public CallTypes callType() {
+    public CallType callType() {
         throw new UnsupportedOperationException();
     }
 
