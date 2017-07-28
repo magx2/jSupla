@@ -22,7 +22,7 @@ public class DeviceRegisterRequest implements Request {
     @Size(min = 1, max = SUPLA_GUID_SIZE)
     private final String guid;
     @NotNull
-    @Size(min = 1, max = SUPLA_DEVICE_NAME_MAXSIZE)
+    @Size(min = 0, max = SUPLA_DEVICE_NAME_MAXSIZE)
     private final String name;
     @NotNull
     @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE)
@@ -36,7 +36,7 @@ public class DeviceRegisterRequest implements Request {
         this.locationId = min(locationId, 0);
         this.locationPassword = size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
         this.guid = size(guid, 1, SUPLA_GUID_HEXSIZE);
-        this.name = size(name, 1, SUPLA_DEVICE_NAME_MAXSIZE);
+        this.name = sizeMax(name, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVersion = size(softVersion, 1, SUPLA_SOFTVER_MAXSIZE);
         this.channels = unmodifiableList(new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
     }
