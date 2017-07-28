@@ -10,16 +10,11 @@ import static java.util.Objects.requireNonNull;
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private final SuplaHandler suplaHandler;
 
-    private final SuplaDataPacketDecoder decoder;
-    private final SuplaDataPacketEncoder encoder;
-
     private final SslContext sslCtx;
 
 
-    public NettyServerInitializer(SuplaHandler suplaHandler, SuplaDataPacketDecoder decoder, SuplaDataPacketEncoder encoder, SslContext sslCtx) {
+    public NettyServerInitializer(SuplaHandler suplaHandler, SslContext sslCtx) {
         this.suplaHandler = requireNonNull(suplaHandler);
-        this.decoder = requireNonNull(decoder);
-        this.encoder = requireNonNull(encoder);
         this.sslCtx = sslCtx;
     }
 
@@ -31,9 +26,8 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
 
-        // the encoder and decoder are static as these are sharable
-        pipeline.addLast(decoder);
-        pipeline.addLast(encoder);
+        pipeline.addLast(new SuplaDataPacketDecoder());
+        pipeline.addLast(new SuplaDataPacketEncoder());
 
         // and then business logic.
         pipeline.addLast(suplaHandler);

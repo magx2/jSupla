@@ -48,10 +48,7 @@ public class NettyServer implements Server {
         ServerBootstrap b = new ServerBootstrap(); // (2)
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new NettyServerInitializer(new SuplaHandler(suplaDataPacketDispatcher),
-                        new SuplaDataPacketDecoder(),
-                        new SuplaDataPacketEncoder(),
-                        sslCtx))
+                .childHandler(new NettyServerInitializer(new SuplaHandler(suplaDataPacketDispatcher), sslCtx))
                 .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
