@@ -31,10 +31,6 @@ public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceC
         byte[] value = copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
         offset += SUPLA_CHANNELVALUE_SIZE;
 
-
-        if (offset != bytes.length) { // TODO remove
-            throw new RuntimeException(offset + " " + bytes.length);
-        }
         return new TDS_SuplaDeviceChannel_B(number, type, funcList, default_, value);
     }
 }
