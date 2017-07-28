@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.consts.CallType;
 import pl.grzeslowski.jsupla.proto.decoders.Decoder;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactory;
@@ -19,6 +21,8 @@ import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("WeakerAccess")
 public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispatcher {
+    private final Logger logger = LoggerFactory.getLogger(ListenersSuplaDataPacketDispatcher.class);
+    
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
 
@@ -49,26 +53,32 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     }
 
     protected Decoder<DeviceServer> getDecoderForCallType(CallType callType) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.getDecoderForCallType(callType)");
         return decoderFactory.getDecoderForCallType(callType);
     }
 
     protected DeviceServer decode(Decoder<DeviceServer> deviceServerDecoder, TSuplaDataPacket dataPacket) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.decode(deviceServerDecoder, dataPacket)");
         return deviceServerDecoder.decode(dataPacket);
     }
 
     protected Request parse(DeviceServer deviceServer) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.parse(deviceServer)");
         return parsersFactory.getParser(deviceServer).parse(deviceServer);
     }
 
     protected Optional<Response> onRequest(Request request) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.onRequest(request)");
         return listenersFactory.getRequestListener(request).onRequest(request);
     }
 
     protected ServerDevice serialize(Response response) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.serialize(response)");
         return serializersFactory.getSerializerForResponse(response).serialize(response);
     }
 
     protected TSuplaDataPacket encode(ServerDevice proto) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.encode(proto)");
         return encoderFactory.getEncoderForServerDevice(proto).encode(proto);
     }
 }
