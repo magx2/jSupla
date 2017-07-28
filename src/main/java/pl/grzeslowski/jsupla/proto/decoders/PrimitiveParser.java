@@ -37,15 +37,11 @@ public final class PrimitiveParser {
      * TODO can be optimized!!!
      */
     public static short parseUnsignedByte(byte[] bytes, int offset) {
-        try {
-            byte b = bytes[offset];
-            if (b < 0) {
-                return (short) (b + Byte.MAX_VALUE);
-            } else {
-                return b;
-            }
-        } catch (Exception e) {
-            throw e;
+        byte b = bytes[offset];
+        if (b < 0) {
+            return (short) (b + Byte.MAX_VALUE);
+        } else {
+            return b;
         }
     }
 
