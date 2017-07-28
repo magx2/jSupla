@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.proto.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.server.SImpleDataPacketIdGenerator;
+import pl.grzeslowski.jsupla.server.SimpleDataPacketIdGenerator;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResponse;
@@ -33,7 +33,7 @@ public class Server {
         try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016),
                 new ListenersSuplaDataPacketDispatcher(
                         new DecoderFactoryImpl(),
-                        new EncoderFactoryImpl(6, new SImpleDataPacketIdGenerator()),
+                        new EncoderFactoryImpl(6, new SimpleDataPacketIdGenerator()),
                         new ParsersFactoryImpl(),
                         new SerializersFactoryImpl(),
                         new ListenersFactoryImpl(new DeviceRegisterListener())))) {

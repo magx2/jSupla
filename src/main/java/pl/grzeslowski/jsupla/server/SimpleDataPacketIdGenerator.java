@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.server;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class SImpleDataPacketIdGenerator implements DataPacketIdGenerator {
+public class SimpleDataPacketIdGenerator implements DataPacketIdGenerator {
     private final AtomicInteger id = new AtomicInteger(1);
 
     @Override
