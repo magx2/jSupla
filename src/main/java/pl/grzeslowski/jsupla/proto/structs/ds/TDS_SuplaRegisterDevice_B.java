@@ -27,7 +27,7 @@ public final class TDS_SuplaRegisterDevice_B implements DeviceServer {
     public final byte[] name;
     public final byte[] softVer;
     /**
-     * unsigned
+     * unsigned char
      */
     public final short channelCount;
     public final TDS_SuplaDeviceChannel_B[] channels;
@@ -44,7 +44,7 @@ public final class TDS_SuplaRegisterDevice_B implements DeviceServer {
 
     @Override
     public CallType callType() {
-        throw new UnsupportedOperationException();
+        return CallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
     }
 
     @Override
