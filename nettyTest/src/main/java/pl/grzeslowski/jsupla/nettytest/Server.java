@@ -47,7 +47,7 @@ public class Server {
         @Override
         public Optional<RegisterDeviceResponse> onRequest(DeviceRegisterRequest request) {
             logger.info("Got {} returning response", request);
-            return of(new RegisterDeviceResponse(ProtoConsts.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT, 100, 2, 2));
+            return of(new RegisterDeviceResponse(ProtoConsts.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT, 100, 6, 2));
         }
     }
 }
