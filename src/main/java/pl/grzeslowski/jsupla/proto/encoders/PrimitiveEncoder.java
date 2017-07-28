@@ -14,7 +14,7 @@ final class PrimitiveEncoder {
         // TODO ca be done faster...
         byte[] integer = ByteBuffer.allocate(INT_SIZE).putInt(value).array();
         for (int i = 0; i < INT_SIZE; i++) {
-            int j = INT_SIZE - i;
+            int j = INT_SIZE - i - 1;
             bytes[offset + i] = integer[j];
         }
         return INT_SIZE;
