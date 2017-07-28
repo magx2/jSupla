@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;
 import pl.grzeslowski.jsupla.server.netty.NettyServer;
+import pl.grzeslowski.jsupla.server.parsers.ParsersFactoryImpl;
+import pl.grzeslowski.jsupla.server.serializers.SerializersFactoryImpl;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -16,7 +18,7 @@ public class Server {
 
     private void run() throws Exception {
         logger.info("Starting...");
-        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(null, null, null, null, null))) {
+        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(null, null, new ParsersFactoryImpl(), new SerializersFactoryImpl(), null))) {
             logger.info("Run...");
             nettyServer.run();
 
