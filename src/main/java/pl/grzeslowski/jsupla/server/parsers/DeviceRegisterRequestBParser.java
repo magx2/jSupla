@@ -12,11 +12,6 @@ import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseUtf8Stri
 
 public class DeviceRegisterRequestBParser implements Parser<DeviceRegisterRequestB, TDS_SuplaRegisterDevice_B> {
     @Override
-    public Class<TDS_SuplaRegisterDevice_B> getProtoClass() {
-        return TDS_SuplaRegisterDevice_B.class;
-    }
-
-    @Override
     public DeviceRegisterRequestB parse(TDS_SuplaRegisterDevice_B proto) {
         int locationId = proto.locationId;
         String locationPassword = parseUtf8String(proto.locationPwd);
