@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.proto.decoders.PrimitiveParser.parseInt;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegisterDevice_B> {
     private final Decoder<TDS_SuplaDeviceChannel_B> channelDecoder;
