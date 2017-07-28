@@ -12,17 +12,17 @@ public enum CallType {
     SUPLA_SDC_CALL_PING_SERVER_RESULT(50),
     SUPLA_DS_CALL_REGISTER_DEVICE(60),
     /**
-     * @since 2
+     * @since ver. 2
      */
     SUPLA_DS_CALL_REGISTER_DEVICE_B(65),
     /**
-     * @since 6
+     * @since ver. 6
      */
     SUPLA_DS_CALL_REGISTER_DEVICE_C(67),
     SUPLA_SD_CALL_REGISTER_DEVICE_RESULT(70),
     SUPLA_CS_CALL_REGISTER_CLIENT(80),
     /**
-     * @since 6
+     * @since ver. 6
      */
     SUPLA_CS_CALL_REGISTER_CLIENT_B(85),
     SUPLA_SC_CALL_REGISTER_CLIENT_RESULT(90),
@@ -38,23 +38,23 @@ public enum CallType {
     SUPLA_SC_CALL_EVENT(190),
     SUPLA_CS_CALL_CHANNEL_SET_VALUE(200),
     /**
-     * @since 3
+     * @since ver. 3
      */
     SUPLA_CS_CALL_CHANNEL_SET_VALUE_B(205),
     /**
-     * @since 2
+     * @since ver. 2
      */
     SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT(210),
     /**
-     * @since 2
+     * @since ver. 2
      */
     SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT(220),
     /**
-     * @since 5
+     * @since ver. 5
      */
     SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL(300),
     /**
-     * @since 5
+     * @since ver. 5
      */
     SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT(310);
 
