@@ -30,7 +30,7 @@ public class Server {
 
     private void run() throws Exception {
         logger.info("Starting...");
-        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(new DecoderFactoryImpl(), new EncoderFactoryImpl(2, new SImpleDataPacketIdGenerator()), new ParsersFactoryImpl(), new SerializersFactoryImpl(), new ListenersFactoryImpl(new DeviceRegisterListener())))) {
+        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016), new ListenersSuplaDataPacketDispatcher(new DecoderFactoryImpl(), new EncoderFactoryImpl(6, new SImpleDataPacketIdGenerator()), new ParsersFactoryImpl(), new SerializersFactoryImpl(), new ListenersFactoryImpl(new DeviceRegisterListener())))) {
             logger.info("Run...");
             nettyServer.run();
 
