@@ -35,11 +35,11 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
         byte[] guid = Arrays.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
-        byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
-        offset += SUPLA_SOFTVER_MAXSIZE;
-
         byte[] name = Arrays.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
         offset += SUPLA_DEVICE_NAME_MAXSIZE;
+
+        byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
+        offset += SUPLA_SOFTVER_MAXSIZE;
 
         short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
