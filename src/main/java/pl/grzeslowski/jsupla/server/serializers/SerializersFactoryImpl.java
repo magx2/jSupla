@@ -13,7 +13,7 @@ public class SerializersFactoryImpl implements SerializersFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <Rsp extends Response> Serializer<Rsp, ? extends Proto> getSerializerForResponse(Rsp response) {
-        if (response instanceof RegisterDeviceResponseSerializer) {
+        if (response instanceof RegisterDeviceResponse) {
             return (Serializer<Rsp, ? extends Proto>) registerDeviceResponseSerializer;
         }
 
