@@ -22,7 +22,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, TSuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        dispatcher.dispatch(msg).ifPresent(ctx::writeAndFlush);
+        dispatcher.dispatch(msg).ifPresent(dataPacket -> sendTSuplaDataPacket(ctx, dataPacket));
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    protected void sendTSuplaDataPacket(ChannelHandlerContext ctx, TSuplaDataPacket dataPacket) {
+        logger.trace("Sending {}", dataPacket);
+        ctx.writeAndFlush(dataPacket);
     }
 
     @Override
