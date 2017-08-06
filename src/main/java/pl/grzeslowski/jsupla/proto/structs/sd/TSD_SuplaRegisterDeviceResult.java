@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.proto.structs.sd;
 
 import pl.grzeslowski.jsupla.consts.CallType;
 
-import static pl.grzeslowski.jsupla.consts.CallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
+import static pl.grzeslowski.jsupla.consts.CallType.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.consts.JavaConsts.INT_SIZE;
 
@@ -21,7 +21,7 @@ public final class TSD_SuplaRegisterDeviceResult implements ServerDevice {
 
     @Override
     public CallType callType() {
-        return SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
+        return SUPLA_SD_CALL_REGISTER_DEVICE_RESULT;
     }
 
     @Override
