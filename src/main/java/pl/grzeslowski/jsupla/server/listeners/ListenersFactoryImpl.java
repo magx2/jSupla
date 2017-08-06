@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
-import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
+import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterDeviceResponse;
 
 import java.util.Optional;
 

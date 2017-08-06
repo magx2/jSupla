@@ -2,13 +2,13 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.proto.encoders.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.SimpleDataPacketIdGenerator;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
-import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.entities.responses.register_device.OkRegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.listeners.ListenersFactoryImpl;
 import pl.grzeslowski.jsupla.server.listeners.RequestListener;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;
@@ -53,7 +53,7 @@ public class Server {
         @Override
         public Optional<RegisterDeviceResponse> onRequest(DeviceRegisterRequest request) {
             logger.info("Got {} returning response", request);
-            return of(new RegisterDeviceResponse(ProtoConsts.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT, 100, 6, 2));
+            return of(new OkRegisterDeviceResponse(100, 5, 2));
         }
     }
 }

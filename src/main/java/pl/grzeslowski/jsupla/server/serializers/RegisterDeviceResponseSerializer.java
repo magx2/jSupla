@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
 import pl.grzeslowski.jsupla.proto.structs.sd.TSD_SuplaRegisterDeviceResult;
-import pl.grzeslowski.jsupla.server.entities.responses.RegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterDeviceResponse;
 
 class RegisterDeviceResponseSerializer implements Serializer<RegisterDeviceResponse, TSD_SuplaRegisterDeviceResult> {
     @Override
