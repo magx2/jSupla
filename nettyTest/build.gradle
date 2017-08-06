@@ -1,4 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'java'
+
+mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
 
 sourceCompatibility = 1.8
 
