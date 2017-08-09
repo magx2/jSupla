@@ -6,11 +6,11 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
 public final class TSDC_SuplaVersionError implements ServerClientDevice {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte serverVersionMin;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte serverVersion;
 
