@@ -5,6 +5,6 @@ import pl.grzeslowski.jsupla.server.entities.responses.Response;
 
 import java.util.Optional;
 
-public interface RequestListener<Rq extends Request, Rsp extends Response> {
-    Optional<Rsp> onRequest(Rq request);
+public interface RequestListener<RequestT extends Request, ResponseT extends Response> {
+    Optional<ResponseT> onRequest(RequestT request);
 }
