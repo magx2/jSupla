@@ -21,19 +21,19 @@ public class ListenersFactoryImpl implements ListenersFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <Rq extends Request, Rsp extends Response> RequestListener<Rq, Rsp> getRequestListener(Rq request) {
+    public <RequestT extends Request, ResponseT extends Response> RequestListener<RequestT, ResponseT> getRequestListener(RequestT request) {
         if (request instanceof DeviceRegisterRequestB) {
-            return (RequestListener<Rq, Rsp>) deviceRegisterListener;
+            return (RequestListener<RequestT, ResponseT>) deviceRegisterListener;
         }
 
         return new EmptyListener<>();
     }
 
-    private static class EmptyListener<Rq extends Request, Rsp extends Response> implements RequestListener<Rq, Rsp> {
+    private static class EmptyListener<RequestT extends Request, ResponseT extends Response> implements RequestListener<RequestT, ResponseT> {
         private final Logger logger = LoggerFactory.getLogger(EmptyListener.class);
 
         @Override
-        public Optional<Rsp> onRequest(Rq request) {
+        public Optional<ResponseT> onRequest(RequestT request) {
             logger.debug("EmptyListener for {}", request);
             return Optional.empty();
         }
