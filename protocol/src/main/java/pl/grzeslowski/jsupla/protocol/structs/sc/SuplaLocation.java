@@ -19,7 +19,7 @@ public final class SuplaLocation implements ServerClient {
      */
     public final int captionSize;
     /**
-     * Last variable in struct!
+     * Last variable in struct.
      */
     public final byte[] caption;
 
