@@ -26,22 +26,22 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
         final byte[] bytes = dataPacket.data;
         int offset = 0;
 
-        int locationId = parseInt(bytes, offset);
+        final int locationId = parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
+        final byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
         offset += SUPLA_LOCATION_PWD_MAXSIZE;
 
-        byte[] guid = Arrays.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
+        final byte[] guid = Arrays.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
-        byte[] name = Arrays.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
+        final byte[] name = Arrays.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
         offset += SUPLA_DEVICE_NAME_MAXSIZE;
 
-        byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
+        final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
+        final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
         TDS_SuplaDeviceChannel_B[] channels = new TDS_SuplaDeviceChannel_B[0]; // TODO
