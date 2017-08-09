@@ -10,11 +10,11 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MA
 
 public final class TSDC_SuplaGetVersionResult implements ServerClientDevice {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte protoVersionMin;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte protoVersion;
     public final byte[] softVer;
