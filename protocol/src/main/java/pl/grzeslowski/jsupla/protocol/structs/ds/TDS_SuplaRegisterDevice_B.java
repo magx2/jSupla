@@ -11,23 +11,23 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 /**
- * @since ver 2
+ * @since ver 2.
  */
 @Deprecated
 public final class TDS_SuplaRegisterDevice_B implements DeviceServer {
     public final int locationId;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] locationPwd;
     public final byte[] guid;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] name;
     public final byte[] softVer;
     /**
-     * unsigned char
+     * unsigned char.
      */
     public final short channelCount;
     public final TDS_SuplaDeviceChannel_B[] channels;
