@@ -11,7 +11,10 @@ public final class SuplaChannelValue implements ServerClient {
     public final byte online;
     public final pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value;
 
-    public SuplaChannelValue(byte eol, int id, byte online, pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value) {
+    public SuplaChannelValue(byte eol,
+                             int id,
+                             byte online,
+                             pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value) {
         this.eol = eol;
         this.id = id;
         this.online = online;
