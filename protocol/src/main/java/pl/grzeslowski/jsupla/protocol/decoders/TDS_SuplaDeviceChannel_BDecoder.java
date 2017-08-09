@@ -24,12 +24,12 @@ public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceC
         final int funcList = parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int default_ = parseInt(bytes, offset);
+        final int defaultField = parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] value = copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
         offset += SUPLA_CHANNELVALUE_SIZE;
 
-        return new TDS_SuplaDeviceChannel_B(number, type, funcList, default_, value);
+        return new TDS_SuplaDeviceChannel_B(number, type, funcList, defaultField, value);
     }
 }
