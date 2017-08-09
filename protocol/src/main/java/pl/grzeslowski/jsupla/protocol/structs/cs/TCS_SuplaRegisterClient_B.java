@@ -9,17 +9,17 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 /**
- * @since ver 6
+ * @since ver 6.
  */
 public final class TCS_SuplaRegisterClient_B implements ClientServer {
         public final int accessId;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] accessIdPwd;
     public final byte[] guid;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] name;
     public final byte[] softVer;
