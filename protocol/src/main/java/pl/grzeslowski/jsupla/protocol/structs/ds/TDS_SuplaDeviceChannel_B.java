@@ -23,14 +23,14 @@ public final class TDS_SuplaDeviceChannel_B implements DeviceServer {
     /**
      * This field name should be default, but this is keyword in Java.
      */
-    public final int default_;
+    public final int defaultValue;
     public final byte[] value;
 
-    public TDS_SuplaDeviceChannel_B(short number, int type, int funcList, int default_, byte[] value) {
+    public TDS_SuplaDeviceChannel_B(short number, int type, int funcList, int defaultValue, byte[] value) {
         this.number = number;
         this.type = type;
         this.funcList = funcList;
-        this.default_ = default_;
+        this.defaultValue = defaultValue;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
@@ -50,7 +50,7 @@ public final class TDS_SuplaDeviceChannel_B implements DeviceServer {
                 "number=" + number +
                 ", type=" + type +
                 ", funcList=" + funcList +
-                ", default_=" + default_ +
+                ", defaultValue=" + defaultValue +
                 ", value=" + Arrays.toString(value) +
                 '}';
     }
