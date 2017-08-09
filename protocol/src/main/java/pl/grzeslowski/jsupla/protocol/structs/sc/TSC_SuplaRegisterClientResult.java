@@ -23,7 +23,13 @@ public final class TSC_SuplaRegisterClientResult implements ServerClient {
      */
     public final byte versionMin;
 
-    public TSC_SuplaRegisterClientResult(int resultCode, int clientId, int locationCount, int channelCount, byte activityTimeout, byte version, byte versionMin) {
+    public TSC_SuplaRegisterClientResult(int resultCode,
+                                         int clientId,
+                                         int locationCount,
+                                         int channelCount,
+                                         byte activityTimeout,
+                                         byte version,
+                                         byte versionMin) {
         this.resultCode = resultCode;
         this.clientId = clientId;
         this.locationCount = locationCount;
