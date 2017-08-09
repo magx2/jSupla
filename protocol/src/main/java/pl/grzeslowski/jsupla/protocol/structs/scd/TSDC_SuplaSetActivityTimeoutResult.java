@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.call_types.ServerDeviceClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class TSDC_SuplaSetActivityTimeoutResult implements ServerDeviceClient {
+public final class TSDC_SuplaSetActivityTimeoutResult implements ServerClientDevice {
     /**
      * unsigned
      */

@@ -8,7 +8,7 @@ import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class TSDC_SuplaGetVersionResult implements ServerDeviceClient {
+public final class TSDC_SuplaGetVersionResult implements ServerClientDevice {
     /**
      * unsigned
      */
