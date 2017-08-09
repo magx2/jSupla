@@ -25,9 +25,10 @@ public final class TDS_FirmwareUpdateParams implements DeviceServer {
     public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE  * 4;
+        return BYTE_SIZE + INT_SIZE * 4;
     }
 
     @Override
