@@ -10,12 +10,12 @@ final class PrimitiveSerializer {
         if (bytes.length - offset < INT_SIZE) {
             throw new IllegalArgumentException(
                     format("Bytes array has length %s and is not sufficient to put here int (%s) with offset %s",
-                    bytes.length, INT_SIZE, offset));
+                            bytes.length, INT_SIZE, offset));
         }
 
         value += Integer.MIN_VALUE;
         // https://stackoverflow.com/a/1936865/1819402
-        for(int i = 0; i < INT_SIZE; i++) {
+        for (int i = 0; i < INT_SIZE; i++) {
             bytes[offset + i] = (byte) (value >> (i * 8));
         }
     }
@@ -24,7 +24,7 @@ final class PrimitiveSerializer {
         if (bytes.length - offset < BYTE_SIZE) {
             throw new IllegalArgumentException(
                     format("Bytes array has length %s and is not sufficient to put here byte (%s) with offset %s",
-                    bytes.length, BYTE_SIZE, offset));
+                            bytes.length, BYTE_SIZE, offset));
         }
         bytes[offset] = value;
     }
