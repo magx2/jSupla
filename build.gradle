@@ -1,13 +1,13 @@
-version '0.1.0-SNAPSHOT'
-
 apply plugin: 'java'
 apply plugin: 'osgi'
 
-sourceCompatibility = 1.8
-
 ext {
+	java_version = '0.1.0-SNAPSHOT'
 	slf4j_version = '1.7.25'
 }
+
+version java_version
+sourceCompatibility = 1.8
 
 repositories {
 	mavenLocal()
@@ -15,12 +15,6 @@ repositories {
 }
 
 dependencies {
-	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
-	compile group: 'io.netty', name: 'netty-all', version: '4.1.13.Final'
-	compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
-
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.assertj:assertj-core:3.8.0'
 }
 
 task wrapper(type: Wrapper) {

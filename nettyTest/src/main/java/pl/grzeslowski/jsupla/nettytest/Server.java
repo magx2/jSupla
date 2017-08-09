@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.proto.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.proto.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.server.SimpleDataPacketIdGenerator;
+import pl.grzeslowski.jsupla.proto.encoders.SimpleDataPacketIdGenerator;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.register_device.OkRegisterDeviceResponse;
