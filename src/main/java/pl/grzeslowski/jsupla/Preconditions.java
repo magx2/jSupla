@@ -27,8 +27,44 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
+    public static <T extends CharSequence> T size(T collection, int min, int max) {
+        return sizeMax(sizeMin(collection, min), max);
+    }
+
+    public static <T> T[] size(T[] collection, int min, int max) {
+        return sizeMax(sizeMin(collection, min), max);
+    }
+
+    public static <T> byte[] size(byte[] collection, int min, int max) {
+        return sizeMax(sizeMin(collection, min), max);
+    }
+
     public static <T> Collection<T> sizeMax(Collection<T> collection, int max) {
         final int size = collection.size();
+        if (size > max) {
+            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+        }
+        return collection;
+    }
+
+    public static <T extends CharSequence> T sizeMax(T collection, int max) {
+        final int size = collection.length();
+        if (size > max) {
+            throw new IllegalArgumentException(format("CharSequence size %s is too big, max %s!", size, max));
+        }
+        return collection;
+    }
+
+    public static <T> T[] sizeMax(T[] collection, int max) {
+        final int size = collection.length;
+        if (size > max) {
+            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+        }
+        return collection;
+    }
+
+    public static <T> byte[] sizeMax(byte[] collection, int max) {
+        final int size = collection.length;
         if (size > max) {
             throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
         }
@@ -43,18 +79,6 @@ public final class Preconditions {
         return collection;
     }
 
-    public static <T extends CharSequence> T size(T collection, int min, int max) {
-        return sizeMax(sizeMin(collection, min), max);
-    }
-
-    public static <T extends CharSequence> T sizeMax(T collection, int max) {
-        final int size = collection.length();
-        if (size > max) {
-            throw new IllegalArgumentException(format("CharSequence size %s is too big, max %s!", size, max));
-        }
-        return collection;
-    }
-
     public static <T extends CharSequence> T sizeMin(T collection, int min) {
         final int size = collection.length();
         if (size < min) {
@@ -63,34 +87,10 @@ public final class Preconditions {
         return collection;
     }
 
-    public static <T> T[] size(T[] collection, int min, int max) {
-        return sizeMax(sizeMin(collection, min), max);
-    }
-
-    public static <T> T[] sizeMax(T[] collection, int max) {
-        final int size = collection.length;
-        if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
-        }
-        return collection;
-    }
-
     public static <T> T[] sizeMin(T[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
             throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
-        }
-        return collection;
-    }
-
-    public static <T> byte[] size(byte[] collection, int min, int max) {
-        return sizeMax(sizeMin(collection, min), max);
-    }
-
-    public static <T> byte[] sizeMax(byte[] collection, int max) {
-        final int size = collection.length;
-        if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
