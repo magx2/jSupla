@@ -15,10 +15,10 @@ import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
-public class TDS_SuplaRegisterDevice_BDecoder implements DeviceServerDecoder<SuplaRegisterDeviceB> {
+public class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<SuplaRegisterDeviceB> {
     private final Decoder<SuplaDeviceChannelB> channelDecoder;
 
-    public TDS_SuplaRegisterDevice_BDecoder(Decoder<SuplaDeviceChannelB> channelDecoder) {
+    public SuplaRegisterDeviceBDecoder(Decoder<SuplaDeviceChannelB> channelDecoder) {
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 

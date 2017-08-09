@@ -1,17 +1,17 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.TDS_SuplaDeviceChannel_BDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.TDS_SuplaRegisterDevice_BDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 
 public class DecoderFactoryImpl implements DecoderFactory {
-    private final TDS_SuplaDeviceChannel_BDecoder channelDecoder = new TDS_SuplaDeviceChannel_BDecoder();
-    private final TDS_SuplaRegisterDevice_BDecoder registerDeviceDecoder =
-            new TDS_SuplaRegisterDevice_BDecoder(channelDecoder);
+    private final SuplaDeviceChannelBDecoder channelDecoder = new SuplaDeviceChannelBDecoder();
+    private final SuplaRegisterDeviceBDecoder registerDeviceDecoder =
+            new SuplaRegisterDeviceBDecoder(channelDecoder);
 
     @SuppressWarnings("unchecked")
     @Override
