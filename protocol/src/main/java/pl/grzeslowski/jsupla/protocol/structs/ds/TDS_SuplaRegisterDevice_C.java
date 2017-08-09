@@ -32,7 +32,14 @@ public final class TDS_SuplaRegisterDevice_C implements DeviceServer {
     public final byte channelCount;
     public final TDS_SuplaDeviceChannel_B[] channels;
 
-    public TDS_SuplaRegisterDevice_C(int locationId, byte[] locationPwd, byte[] guid, byte[] name, byte[] softVer, byte[] serverName, byte channelCount, TDS_SuplaDeviceChannel_B[] channels) {
+    public TDS_SuplaRegisterDevice_C(int locationId,
+                                     byte[] locationPwd,
+                                     byte[] guid,
+                                     byte[] name,
+                                     byte[] softVer,
+                                     byte[] serverName,
+                                     byte channelCount,
+                                     TDS_SuplaDeviceChannel_B[] channels) {
         this.locationId = locationId;
         this.locationPwd = checkArrayLength(locationPwd, SUPLA_LOCATION_PWD_MAXSIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
@@ -50,7 +57,9 @@ public final class TDS_SuplaRegisterDevice_C implements DeviceServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE + TDS_SuplaDeviceChannel_B.SIZE * SUPLA_CHANNELMAXCOUNT;
+        return BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE +
+                SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE +
+                TDS_SuplaDeviceChannel_B.SIZE * SUPLA_CHANNELMAXCOUNT;
     }
 
     @Override
