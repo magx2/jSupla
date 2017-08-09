@@ -14,7 +14,7 @@ public final class TSuplaChannelValue implements Proto {
     public final byte[] value;
     /**
      * For example sensor value.
-     *
+     * <p>
      * unsigned
      */
     public final byte[] subValue;
@@ -26,7 +26,7 @@ public final class TSuplaChannelValue implements Proto {
 
     @Override
     public int size() {
-        return SUPLA_CHANNELVALUE_SIZE+ SUPLA_CHANNELVALUE_SIZE;
+        return SUPLA_CHANNELVALUE_SIZE + SUPLA_CHANNELVALUE_SIZE;
     }
 
     @Override
