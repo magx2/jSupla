@@ -16,9 +16,11 @@ allprojects {
 
 // Add check style to all projects
 allprojects { p ->
-	apply plugin: 'checkstyle'
-	p.tasks.withType(Checkstyle) {
-		configFile = "${projectDir.path}/../config/checkstyle/checkstyle.xml" as File
+	if(!p.name.toLowerCase().contains("test")) { // only for non test projects
+		apply plugin: 'checkstyle'
+		p.tasks.withType(Checkstyle) {
+			configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
+		}
 	}
 }
 
