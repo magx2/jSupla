@@ -12,11 +12,11 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 public final class TSD_SuplaChannelNewValue implements ServerDevice {
     public final int senderId;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte channelNumber;
     /**
-     * unsigned
+     * unsigned.
      */
     public final int durationMs;
     public final byte[] value;
