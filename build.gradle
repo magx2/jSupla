@@ -16,12 +16,16 @@ allprojects {
 
 // Add check style to all projects
 allprojects { p ->
-	if(!p.name.toLowerCase().contains("test")) { // only for non test projects
+	if(!isTestProject(p)) { // only for non test projects
 		apply plugin: 'checkstyle'
 		p.tasks.withType(Checkstyle) {
 			configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
 		}
 	}
+}
+
+private static boolean isTestProject(Project p) {
+	p.name.toLowerCase().contains("test")
 }
 
 task wrapper(type: Wrapper) {
