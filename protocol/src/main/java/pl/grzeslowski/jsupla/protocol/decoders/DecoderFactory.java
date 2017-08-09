@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 
 public interface DecoderFactory {
-    <DS extends DeviceServer> Decoder<DS> getDecoderForCallType(CallType callType);
+    <T extends DeviceServer> Decoder<T> getDecoderForCallType(CallType callType);
 }
