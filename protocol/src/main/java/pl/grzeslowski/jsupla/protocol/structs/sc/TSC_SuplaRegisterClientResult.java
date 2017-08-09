@@ -11,15 +11,15 @@ public final class TSC_SuplaRegisterClientResult implements ServerClient {
     public final int locationCount;
     public final int channelCount;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte activityTimeout;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte version;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte versionMin;
 
