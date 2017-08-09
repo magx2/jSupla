@@ -19,7 +19,7 @@ public final class SuplaChannel implements ServerClient {
     public final SuplaChannelValue value;
     /**
      * Including the terminating null byte ('\0').
-     *
+     * <p>
      * <p>unsigned
      */
     public final int captionSize;
@@ -48,6 +48,7 @@ public final class SuplaChannel implements ServerClient {
     public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
         return BYTE_SIZE * 2 + INT_SIZE * 4 + value.size() + caption.length;
