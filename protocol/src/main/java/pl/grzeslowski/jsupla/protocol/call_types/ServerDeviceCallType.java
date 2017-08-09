@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum ServerDeviceCallType {
+public enum ServerDeviceCallType implements CallType {
     SUPLA_SD_CALL_REGISTER_DEVICE_RESULT(70),
     SUPLA_SD_CALL_CHANNEL_SET_VALUE(110),
     /**
@@ -14,6 +14,7 @@ public enum ServerDeviceCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

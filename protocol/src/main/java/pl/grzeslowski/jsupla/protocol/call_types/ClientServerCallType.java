@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum ClientServerCallType {
+public enum ClientServerCallType implements CallType {
     SUPLA_CS_CALL_REGISTER_CLIENT(80),
     /**
      * @since ver. 6
@@ -19,6 +19,7 @@ public enum ClientServerCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

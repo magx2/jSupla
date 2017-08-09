@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum ServerClientCallType {
+public enum ServerClientCallType implements CallType {
     SUPLA_SC_CALL_REGISTER_CLIENT_RESULT(90),
     SUPLA_SC_CALL_LOCATION_UPDATE(130),
     SUPLA_SC_CALL_LOCATIONPACK_UPDATE(140),
@@ -15,6 +15,7 @@ public enum ServerClientCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

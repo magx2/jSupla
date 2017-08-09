@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum DeviceClientServerCallType {
+public enum DeviceClientServerCallType implements CallType {
     SUPLA_DCS_CALL_GETVERSION(10),
     SUPLA_DCS_CALL_PING_SERVER(40),
     /**
@@ -14,6 +14,7 @@ public enum DeviceClientServerCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

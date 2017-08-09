@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum DeviceServerCallType {
+public enum DeviceServerCallType implements CallType {
     SUPLA_DS_CALL_REGISTER_DEVICE(60),
     /**
      * @since ver. 2
@@ -23,6 +23,7 @@ public enum DeviceServerCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }

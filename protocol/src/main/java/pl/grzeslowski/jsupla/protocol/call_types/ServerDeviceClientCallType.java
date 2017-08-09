@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.call_types;
 
-public enum ServerDeviceClientCallType {
+public enum ServerDeviceClientCallType implements CallType {
     SUPLA_SDC_CALL_GETVERSION_RESULT(20),
     SUPLA_SDC_CALL_VERSIONERROR(30),
     SUPLA_SDC_CALL_PING_SERVER_RESULT(50),
@@ -16,6 +16,7 @@ public enum ServerDeviceClientCallType {
         this.value = value;
     }
 
+    @Override
     public int getValue() {
         return value;
     }
