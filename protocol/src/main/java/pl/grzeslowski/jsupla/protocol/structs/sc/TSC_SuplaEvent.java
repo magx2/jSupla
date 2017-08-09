@@ -12,16 +12,16 @@ public final class TSC_SuplaEvent implements ServerClient {
     public final int event;
     public final int channelId;
     /**
-     * unsigned
+     * unsigned.
      */
     public final int durationMs;
     public final int senderId;
     /**
-     * Including the terminating null byte ('\0')
+     * Including the terminating null byte ('\0').
      */
     public final int senderNameSize;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] senderName;
 
