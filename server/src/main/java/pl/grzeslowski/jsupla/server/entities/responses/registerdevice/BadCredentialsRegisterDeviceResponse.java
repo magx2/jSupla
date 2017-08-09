@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.responses.register_device;
+package pl.grzeslowski.jsupla.server.entities.responses.registerdevice;
 
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_RESULTCODE_BAD_CREDENTIALS;
 

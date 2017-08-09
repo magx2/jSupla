@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
-import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 
 import java.util.Optional;
 

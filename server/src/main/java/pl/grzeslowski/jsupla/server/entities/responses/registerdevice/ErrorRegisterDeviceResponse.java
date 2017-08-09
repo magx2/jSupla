@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.responses.register_device;
+package pl.grzeslowski.jsupla.server.entities.responses.registerdevice;
 
 abstract class ErrorRegisterDeviceResponse extends RegisterDeviceResponse {
     ErrorRegisterDeviceResponse(int resultCode) {
