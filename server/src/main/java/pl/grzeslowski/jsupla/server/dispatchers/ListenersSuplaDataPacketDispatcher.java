@@ -2,7 +2,10 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.ClientServerCallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceClientServerCallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.encoders.EncoderFactory;
@@ -15,14 +18,17 @@ import pl.grzeslowski.jsupla.server.listeners.ListenersFactory;
 import pl.grzeslowski.jsupla.server.parsers.ParsersFactory;
 import pl.grzeslowski.jsupla.server.serializers.SerializersFactory;
 
+import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Stream.concat;
 
 @SuppressWarnings("WeakerAccess")
 public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispatcher {
     private final Logger logger = LoggerFactory.getLogger(ListenersSuplaDataPacketDispatcher.class);
-    
+
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
 
@@ -43,13 +49,23 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     @Override
     public Optional<TSuplaDataPacket> dispatch(TSuplaDataPacket dataPacket) {
-        return CallType.findByValue(dataPacket.callType)
+        getAllValuesThatCanComeToServer();
+
+        return getAllValuesThatCanComeToServer().filter(callType -> callType.getValue() == dataPacket.callType)
+                .findFirst()
                 .map(this::getDecoderForCallType)
                 .map(decoder -> this.decode(decoder, dataPacket))
                 .map(this::parse)
                 .flatMap(this::onRequest)
                 .map(this::serialize)
                 .map(this::encode);
+    }
+
+    private static Stream<CallType> getAllValuesThatCanComeToServer() {
+        final Stream<ClientServerCallType> cs = Arrays.stream(ClientServerCallType.values());
+        final Stream<DeviceServerCallType> ds = Arrays.stream(DeviceServerCallType.values());
+        final Stream<DeviceClientServerCallType> dcs = Arrays.stream(DeviceClientServerCallType.values());
+        return concat(cs, concat(ds, dcs));
     }
 
     protected Decoder<DeviceServer> getDecoderForCallType(CallType callType) {
