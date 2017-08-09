@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
 
 import java.util.Arrays;
 
@@ -43,8 +43,8 @@ public final class TDS_SuplaRegisterDevice_B implements DeviceServer {
     }
 
     @Override
-    public CallType callType() {
-        return CallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
+    public DeviceServerCallType callType() {
+        return DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
     }
 
     @Override

@@ -1,11 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.structs.dcs;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceClientServerCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class TDCS_SuplaSetActivityTimeout implements DeviceServer {
+public final class TDCS_SuplaSetActivityTimeout implements DeviceClientServer {
     /**
      * unsigned
      */
@@ -17,12 +16,13 @@ public final class TDCS_SuplaSetActivityTimeout implements DeviceServer {
 
 
     @Override
-    public CallType callType() {
+    public DeviceClientServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
-        return BYTE_SIZE ;
+        return BYTE_SIZE;
     }
 
     @Override

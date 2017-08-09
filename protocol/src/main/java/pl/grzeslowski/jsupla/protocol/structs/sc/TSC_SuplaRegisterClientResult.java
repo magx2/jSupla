@@ -1,12 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class TSC_SuplaRegisterClientResult implements ServerDevice {
+public final class TSC_SuplaRegisterClientResult implements ServerClient {
     public final int resultCode;
     public final int clientId;
     public final int locationCount;
@@ -35,7 +34,7 @@ public final class TSC_SuplaRegisterClientResult implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

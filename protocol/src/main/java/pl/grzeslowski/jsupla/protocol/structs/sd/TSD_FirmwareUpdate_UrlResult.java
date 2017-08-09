@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.sd;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerDeviceCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
@@ -15,7 +15,7 @@ public final class TSD_FirmwareUpdate_UrlResult implements ServerDevice {
 
 
     @Override
-    public CallType callType() {
+    public ServerDeviceCallType callType() {
         throw new UnsupportedOperationException();
     }
     @Override

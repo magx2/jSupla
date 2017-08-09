@@ -1,11 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.structs.scd;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerDeviceClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class TSDC_SuplaVersionError implements ServerDevice {
+public final class TSDC_SuplaVersionError implements ServerDeviceClient {
     /**
      * unsigned
      */
@@ -21,7 +20,7 @@ public final class TSDC_SuplaVersionError implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerDeviceClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

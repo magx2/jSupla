@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
@@ -22,7 +22,7 @@ public final class TDS_FirmwareUpdateParams implements DeviceServer {
 
 
     @Override
-    public CallType callType() {
+    public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
     @Override

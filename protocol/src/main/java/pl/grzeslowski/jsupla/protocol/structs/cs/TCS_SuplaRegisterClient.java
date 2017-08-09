@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.cs;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.protocol.call_types.ClientServerCallType;
 
 import java.util.Arrays;
 
@@ -10,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 @Deprecated
-public final class TCS_SuplaRegisterClient implements DeviceServer {
+public final class TCS_SuplaRegisterClient implements ClientServer {
     public final int accessId;
     /**
      * UTF-8
@@ -33,7 +32,7 @@ public final class TCS_SuplaRegisterClient implements DeviceServer {
 
 
     @Override
-    public CallType callType() {
+    public ClientServerCallType callType() {
         throw new UnsupportedOperationException();
     }
     @Override

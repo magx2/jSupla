@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.*;
 
@@ -20,7 +20,7 @@ public final class TDS_SuplaChannelNewValueResult implements DeviceServer {
 
 
     @Override
-    public CallType callType() {
+    public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
     @Override

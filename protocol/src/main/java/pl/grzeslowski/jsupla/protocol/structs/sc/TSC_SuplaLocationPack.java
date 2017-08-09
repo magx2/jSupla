@@ -1,15 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
 
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
 
-public final class TSC_SuplaLocationPack implements ServerDevice {
+public final class TSC_SuplaLocationPack implements ServerClient {
     public final int count;
     public final int totalLeft;
     public final TSC_SuplaLocation[] locations;
@@ -21,7 +20,7 @@ public final class TSC_SuplaLocationPack implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

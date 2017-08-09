@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
 
 import java.util.Arrays;
 
@@ -9,7 +8,7 @@ import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 
-public final class TSC_SuplaChannelPack implements ServerDevice {
+public final class TSC_SuplaChannelPack implements ServerClient {
     public final int count;
     public final int totalLeft;
     public final TSC_SuplaChannel[] channels;
@@ -21,7 +20,7 @@ public final class TSC_SuplaChannelPack implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

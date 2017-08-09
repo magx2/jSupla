@@ -1,13 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
 import pl.grzeslowski.jsupla.protocol.structs.TSuplaChannelValue;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class TSC_SuplaChannelValue implements ServerDevice {
+public final class TSC_SuplaChannelValue implements ServerClient {
     public final byte eol;
     public final int id;
     public final byte online;
@@ -21,7 +20,7 @@ public final class TSC_SuplaChannelValue implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

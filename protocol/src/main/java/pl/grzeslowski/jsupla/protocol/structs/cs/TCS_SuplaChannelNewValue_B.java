@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.cs;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.protocol.call_types.ClientServerCallType;
 
 import java.util.Arrays;
 
@@ -9,7 +8,7 @@ import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public final class TCS_SuplaChannelNewValue_B implements DeviceServer {
+public final class TCS_SuplaChannelNewValue_B implements ClientServer {
     public final int channelId;
     public final byte[] value;
 
@@ -20,7 +19,7 @@ public final class TCS_SuplaChannelNewValue_B implements DeviceServer {
 
 
     @Override
-    public CallType callType() {
+    public ClientServerCallType callType() {
         throw new UnsupportedOperationException();
     }
 

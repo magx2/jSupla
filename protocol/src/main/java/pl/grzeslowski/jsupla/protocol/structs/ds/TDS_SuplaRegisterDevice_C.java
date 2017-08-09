@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
 
 import java.util.Arrays;
 
@@ -44,7 +44,7 @@ public final class TDS_SuplaRegisterDevice_C implements DeviceServer {
     }
 
     @Override
-    public CallType callType() {
+    public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
 

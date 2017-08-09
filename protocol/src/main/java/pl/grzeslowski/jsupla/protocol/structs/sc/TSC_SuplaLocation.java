@@ -1,8 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
 
 import java.util.Arrays;
 
@@ -10,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
 
-public final class TSC_SuplaLocation implements ServerDevice {
+public final class TSC_SuplaLocation implements ServerClient {
     public final byte eol;
     public final int id;
     /**
@@ -32,7 +31,7 @@ public final class TSC_SuplaLocation implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

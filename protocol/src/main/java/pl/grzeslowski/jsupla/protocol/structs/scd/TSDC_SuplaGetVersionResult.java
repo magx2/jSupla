@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.scd;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerDeviceClientCallType;
 
 import java.util.Arrays;
 
@@ -9,7 +8,7 @@ import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class TSDC_SuplaGetVersionResult implements ServerDevice {
+public final class TSDC_SuplaGetVersionResult implements ServerDeviceClient {
     /**
      * unsigned
      */
@@ -27,7 +26,7 @@ public final class TSDC_SuplaGetVersionResult implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerDeviceClientCallType callType() {
         throw new UnsupportedOperationException();
     }
 

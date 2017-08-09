@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.sd;
 
-import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.call_types.ServerDeviceCallType;
 
 import java.util.Arrays;
 
@@ -29,7 +29,7 @@ public final class TSD_SuplaChannelNewValue implements ServerDevice {
     }
 
     @Override
-    public CallType callType() {
+    public ServerDeviceCallType callType() {
         throw new UnsupportedOperationException();
     }
 
