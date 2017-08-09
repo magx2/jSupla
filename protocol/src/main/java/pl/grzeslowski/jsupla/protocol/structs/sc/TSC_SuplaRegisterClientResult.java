@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
-import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;

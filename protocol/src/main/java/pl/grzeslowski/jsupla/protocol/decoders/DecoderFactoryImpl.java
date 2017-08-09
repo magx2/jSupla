@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
-import pl.grzeslowski.jsupla.protocol.call_types.CallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 
 public class DecoderFactoryImpl implements DecoderFactory {
     private final TDS_SuplaDeviceChannel_BDecoder channelDecoder = new TDS_SuplaDeviceChannel_BDecoder();

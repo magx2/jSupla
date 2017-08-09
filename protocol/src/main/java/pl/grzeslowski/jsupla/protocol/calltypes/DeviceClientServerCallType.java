@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.call_types;
+package pl.grzeslowski.jsupla.protocol.calltypes;
 
 public enum DeviceClientServerCallType implements CallType {
     SUPLA_DCS_CALL_GETVERSION(10),

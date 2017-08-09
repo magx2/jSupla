@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.call_types;
+package pl.grzeslowski.jsupla.protocol.calltypes;
 
 public enum DeviceServerCallType implements CallType {
     SUPLA_DS_CALL_REGISTER_DEVICE(60),

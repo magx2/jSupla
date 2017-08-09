@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
-import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.*;
 

@@ -2,10 +2,10 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.call_types.CallType;
-import pl.grzeslowski.jsupla.protocol.call_types.ClientServerCallType;
-import pl.grzeslowski.jsupla.protocol.call_types.DeviceClientServerCallType;
-import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.encoders.EncoderFactory;

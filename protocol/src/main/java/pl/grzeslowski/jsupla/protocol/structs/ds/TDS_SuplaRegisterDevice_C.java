@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.call_types.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 
 import java.util.Arrays;
 

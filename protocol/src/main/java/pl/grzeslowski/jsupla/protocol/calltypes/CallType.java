@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.call_types;
+package pl.grzeslowski.jsupla.protocol.calltypes;
 
 public interface CallType {
     int getValue();

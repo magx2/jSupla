@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.call_types;
+package pl.grzeslowski.jsupla.protocol.calltypes;
 
 public enum ServerClientCallType implements CallType {
     SUPLA_SC_CALL_REGISTER_CLIENT_RESULT(90),

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.sc;
 
-import pl.grzeslowski.jsupla.protocol.call_types.ServerClientCallType;
+import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
