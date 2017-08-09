@@ -8,7 +8,8 @@ final class PrimitiveSerializer {
 
     public static void putUnsignedInt(int value, byte[] bytes, int offset) {
         if (bytes.length - offset < INT_SIZE) {
-            throw new IllegalArgumentException(format("Bytes array has length %s and is not sufficient to put here int (%s) with offset %s",
+            throw new IllegalArgumentException(
+                    format("Bytes array has length %s and is not sufficient to put here int (%s) with offset %s",
                     bytes.length, INT_SIZE, offset));
         }
 
@@ -21,7 +22,8 @@ final class PrimitiveSerializer {
 
     public static void putUnsignedByte(byte value, byte[] bytes, int offset) {
         if (bytes.length - offset < BYTE_SIZE) {
-            throw new IllegalArgumentException(format("Bytes array has length %s and is not sufficient to put here byte (%s) with offset %s",
+            throw new IllegalArgumentException(
+                    format("Bytes array has length %s and is not sufficient to put here byte (%s) with offset %s",
                     bytes.length, BYTE_SIZE, offset));
         }
         bytes[offset] = value;
