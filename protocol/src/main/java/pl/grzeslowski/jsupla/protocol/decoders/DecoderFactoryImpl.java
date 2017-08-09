@@ -8,7 +8,8 @@ import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPL
 
 public class DecoderFactoryImpl implements DecoderFactory {
     private final TDS_SuplaDeviceChannel_BDecoder channelDecoder = new TDS_SuplaDeviceChannel_BDecoder();
-    private final TDS_SuplaRegisterDevice_BDecoder registerDeviceDecoder = new TDS_SuplaRegisterDevice_BDecoder(channelDecoder);
+    private final TDS_SuplaRegisterDevice_BDecoder registerDeviceDecoder =
+            new TDS_SuplaRegisterDevice_BDecoder(channelDecoder);
 
     @SuppressWarnings("unchecked")
     @Override
