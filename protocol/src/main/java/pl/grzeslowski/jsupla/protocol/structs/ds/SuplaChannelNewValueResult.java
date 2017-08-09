@@ -6,7 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.*;
 
 public final class SuplaChannelNewValueResult implements DeviceServer {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte channelNumber;
     public final int senderId;
