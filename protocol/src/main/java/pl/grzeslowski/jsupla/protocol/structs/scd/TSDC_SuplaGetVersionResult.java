@@ -32,7 +32,7 @@ public final class TSDC_SuplaGetVersionResult implements ServerClientDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE*2 + SUPLA_SOFTVER_MAXSIZE;
+        return BYTE_SIZE * 2 + SUPLA_SOFTVER_MAXSIZE;
     }
 
     @Override
