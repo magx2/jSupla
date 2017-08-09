@@ -35,9 +35,11 @@ public final class TCS_SuplaRegisterClient implements ClientServer {
     public ClientServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
-        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE+SUPLA_GUID_SIZE+SUPLA_CLIENT_NAME_MAXSIZE+SUPLA_SOFTVER_MAXSIZE;
+        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE +
+                SUPLA_SOFTVER_MAXSIZE;
     }
 
     @Override
