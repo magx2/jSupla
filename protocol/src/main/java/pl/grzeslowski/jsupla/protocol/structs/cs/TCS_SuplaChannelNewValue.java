@@ -1,22 +1,23 @@
-package pl.grzeslowski.jsupla.protocol.structs.ds;
+package pl.grzeslowski.jsupla.protocol.structs.cs;
 
 import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public final class TCS_SuplaChannelNewValue_B implements DeviceServer {
-    public final int channelId;
+@Deprecated
+public final class TCS_SuplaChannelNewValue implements DeviceServer {
+    public final byte  channelId;
     public final byte[] value;
 
-    public TCS_SuplaChannelNewValue_B(int channelId, byte[] value) {
+    public TCS_SuplaChannelNewValue(byte channelId, byte[] value) {
         this.channelId = channelId;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
-
 
     @Override
     public CallType callType() {
@@ -25,12 +26,12 @@ public final class TCS_SuplaChannelNewValue_B implements DeviceServer {
 
     @Override
     public int size() {
-        return  INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
+        return BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE ;
     }
 
     @Override
     public String toString() {
-        return "TCS_SuplaChannelNewValue_B{" +
+        return "TCS_SuplaChannelNewValue{" +
                 "channelId=" + channelId +
                 ", value=" + Arrays.toString(value) +
                 '}';

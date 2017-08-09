@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.structs.sd;
+package pl.grzeslowski.jsupla.protocol.structs.scd;
 
 import pl.grzeslowski.jsupla.protocol.consts.CallType;
+import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 

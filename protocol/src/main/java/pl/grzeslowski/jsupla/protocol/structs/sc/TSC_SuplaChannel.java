@@ -1,8 +1,9 @@
-package pl.grzeslowski.jsupla.protocol.structs.sd;
+package pl.grzeslowski.jsupla.protocol.structs.sc;
 
 import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.consts.CallType;
 import pl.grzeslowski.jsupla.protocol.structs.TSuplaChannelValue;
+import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
 
 import java.util.Arrays;
 
