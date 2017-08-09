@@ -25,7 +25,14 @@ public final class TSC_SuplaChannel implements ServerClient {
     public final int captionSize;
     public final byte[] caption;
 
-    public TSC_SuplaChannel(byte eol, int id, int locationId, int func, byte online, TSuplaChannelValue value, int captionSize, byte[] caption) {
+    public TSC_SuplaChannel(byte eol,
+                            int id,
+                            int locationId,
+                            int func,
+                            byte online,
+                            TSuplaChannelValue value,
+                            int captionSize,
+                            byte[] caption) {
         this.eol = eol;
         this.id = id;
         this.locationId = locationId;
