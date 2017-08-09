@@ -18,6 +18,7 @@ public final class TSD_FirmwareUpdate_UrlResult implements ServerDevice {
     public ServerDeviceCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
         assert url != null;
