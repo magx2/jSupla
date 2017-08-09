@@ -24,6 +24,15 @@ allprojects { p ->
 	}
 }
 
+allprojects {
+	dependencies {
+		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+
+		testCompile 'junit:junit:4.12'
+		testCompile 'org.assertj:assertj-core:3.8.0'
+	}
+}
+
 private static boolean isTestProject(Project p) {
 	p.name.toLowerCase().contains("test")
 }
