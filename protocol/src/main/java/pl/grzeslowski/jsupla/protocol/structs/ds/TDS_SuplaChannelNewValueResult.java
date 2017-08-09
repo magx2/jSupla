@@ -18,11 +18,11 @@ public final class TDS_SuplaChannelNewValueResult implements DeviceServer {
         this.success = success;
     }
 
-
     @Override
     public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
         return BYTE_SIZE + INT_SIZE + CHAR_SIZE;
