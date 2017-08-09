@@ -12,8 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_S
 
 /**
  * This structure is send through the wire.
- * <p>
- * <pre>
+ *
+ * <p><pre>
  * {@code
  * typedef struct {
  * char tag[SUPLA_TAG_SIZE];
