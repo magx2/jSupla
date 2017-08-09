@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
 import pl.grzeslowski.jsupla.protocol.Proto;
-import pl.grzeslowski.jsupla.protocol.structs.sd.TSD_SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
@@ -18,7 +18,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Proto> Encoder<T> getEncoderForServerDevice(T t) {
-        if (t instanceof TSD_SuplaRegisterDeviceResult) {
+        if (t instanceof SuplaRegisterDeviceResult) {
             return (Encoder<T>) new TSD_SuplaRegisterDeviceResultEncoder(version, idGenerator);
         }
 

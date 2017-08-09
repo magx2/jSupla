@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 import pl.grzeslowski.jsupla.protocol.Proto;
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 public interface Decoder<T extends Proto> {
-    T decode(TSuplaDataPacket dataPacket);
+    T decode(SuplaDataPacket dataPacket);
 }

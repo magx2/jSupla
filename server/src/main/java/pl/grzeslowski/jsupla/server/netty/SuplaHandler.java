@@ -5,13 +5,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.server.dispatchers.SuplaDataPacketDispatcher;
 
 import static java.util.Objects.requireNonNull;
 
 @ChannelHandler.Sharable
-class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
+class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final SuplaDataPacketDispatcher dispatcher;
 
@@ -20,13 +20,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<TSuplaDataPacket> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, TSuplaDataPacket msg) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
         dispatcher.dispatch(msg).ifPresent(dataPacket -> sendTSuplaDataPacket(ctx, dataPacket));
     }
 
     @SuppressWarnings("WeakerAccess")
-    protected void sendTSuplaDataPacket(ChannelHandlerContext ctx, TSuplaDataPacket dataPacket) {
+    protected void sendTSuplaDataPacket(ChannelHandlerContext ctx, SuplaDataPacket dataPacket) {
         logger.trace("Sending {}", dataPacket);
         ctx.writeAndFlush(dataPacket);
     }

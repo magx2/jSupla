@@ -1,19 +1,19 @@
 package pl.grzeslowski.jsupla.server.parsers;
 
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
-import pl.grzeslowski.jsupla.protocol.structs.ds.TDS_SuplaRegisterDevice_B;
+import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
 import static java.lang.String.format;
 
 public class ParsersFactoryImpl implements ParsersFactory {
-    private final Parser<DeviceRegisterRequestB, TDS_SuplaRegisterDevice_B> deviceRegisterRequestBParser = new DeviceRegisterRequestBParser();
+    private final Parser<DeviceRegisterRequestB, SuplaRegisterDeviceB> deviceRegisterRequestBParser = new DeviceRegisterRequestBParser();
 
     @SuppressWarnings("unchecked")
     @Override
     public <DS extends DeviceServer> Parser<? extends Request, DS> getParser(DS ds) {
-        if (ds instanceof TDS_SuplaRegisterDevice_B) {
+        if (ds instanceof SuplaRegisterDeviceB) {
             return (Parser<? extends Request, DS>) deviceRegisterRequestBParser;
         }
 

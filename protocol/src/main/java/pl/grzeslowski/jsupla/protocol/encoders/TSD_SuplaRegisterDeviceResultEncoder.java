@@ -1,13 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.structs.sd.TSD_SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder.writeInteger;
 
-public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<TSD_SuplaRegisterDeviceResult> {
+public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<SuplaRegisterDeviceResult> {
     private final int version;
     private final DataPacketIdGenerator idGenerator;
 
@@ -18,7 +18,7 @@ public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<TSD_SuplaRe
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public TSuplaDataPacket encode(TSD_SuplaRegisterDeviceResult proto) {
+    public SuplaDataPacket encode(SuplaRegisterDeviceResult proto) {
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
@@ -27,7 +27,7 @@ public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<TSD_SuplaRe
         offset += PrimitiveEncoder.writeByte(proto.version, data, offset);
         offset += PrimitiveEncoder.writeByte(proto.versionMin, data, offset);
 
-        return new TSuplaDataPacket(
+        return new SuplaDataPacket(
                 (short) version,
                 idGenerator.nextId(),
                 proto.callType().getValue(),

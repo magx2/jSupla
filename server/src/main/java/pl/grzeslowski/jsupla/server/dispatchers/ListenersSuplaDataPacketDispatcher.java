@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
@@ -48,7 +48,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     }
 
     @Override
-    public Optional<TSuplaDataPacket> dispatch(TSuplaDataPacket dataPacket) {
+    public Optional<SuplaDataPacket> dispatch(SuplaDataPacket dataPacket) {
         getAllValuesThatCanComeToServer();
 
         return getAllValuesThatCanComeToServer().filter(callType -> callType.getValue() == dataPacket.callType)
@@ -73,7 +73,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return decoderFactory.getDecoderForCallType(callType);
     }
 
-    protected DeviceServer decode(Decoder<DeviceServer> deviceServerDecoder, TSuplaDataPacket dataPacket) {
+    protected DeviceServer decode(Decoder<DeviceServer> deviceServerDecoder, SuplaDataPacket dataPacket) {
         logger.trace("ListenersSuplaDataPacketDispatcher.decode({}, {})", deviceServerDecoder, dataPacket);
         return deviceServerDecoder.decode(dataPacket);
     }
@@ -93,7 +93,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return serializersFactory.getSerializerForResponse(response).serialize(response);
     }
 
-    protected TSuplaDataPacket encode(ServerDevice proto) {
+    protected SuplaDataPacket encode(ServerDevice proto) {
         logger.trace("ListenersSuplaDataPacketDispatcher.encode({})", proto);
         return encoderFactory.getEncoderForServerDevice(proto).encode(proto);
     }

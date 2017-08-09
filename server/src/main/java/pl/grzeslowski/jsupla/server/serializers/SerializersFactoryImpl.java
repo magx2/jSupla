@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
 import pl.grzeslowski.jsupla.protocol.Proto;
-import pl.grzeslowski.jsupla.protocol.structs.sd.TSD_SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterDeviceResponse;
 
 import static java.lang.String.format;
 
 public class SerializersFactoryImpl implements SerializersFactory {
-    private final Serializer<RegisterDeviceResponse, TSD_SuplaRegisterDeviceResult> registerDeviceResponseSerializer = new RegisterDeviceResponseSerializer();
+    private final Serializer<RegisterDeviceResponse, SuplaRegisterDeviceResult> registerDeviceResponseSerializer = new RegisterDeviceResponseSerializer();
 
     @SuppressWarnings("unchecked")
     @Override

@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.structs.ds.TDS_SuplaDeviceChannel_B;
-import pl.grzeslowski.jsupla.protocol.structs.ds.TDS_SuplaRegisterDevice_B;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
+import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 
 import java.util.Arrays;
 
@@ -13,15 +13,15 @@ import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
-public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegisterDevice_B> {
-    private final Decoder<TDS_SuplaDeviceChannel_B> channelDecoder;
+public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<SuplaRegisterDeviceB> {
+    private final Decoder<SuplaDeviceChannelB> channelDecoder;
 
-    public TDS_SuplaRegisterDevice_BDecoder(Decoder<TDS_SuplaDeviceChannel_B> channelDecoder) {
+    public TDS_SuplaRegisterDevice_BDecoder(Decoder<SuplaDeviceChannelB> channelDecoder) {
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
-    public TDS_SuplaRegisterDevice_B decode(TSuplaDataPacket dataPacket) {
+    public SuplaRegisterDeviceB decode(SuplaDataPacket dataPacket) {
         final byte[] bytes = dataPacket.data;
         int offset = 0;
 
@@ -42,8 +42,8 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
 
         final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
 
-        TDS_SuplaDeviceChannel_B[] channels = new TDS_SuplaDeviceChannel_B[0]; // TODO
+        SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[0]; // TODO
 
-        return new TDS_SuplaRegisterDevice_B(locationId, locationPwd, guid, name, softVer, channelCount, channels);
+        return new SuplaRegisterDeviceB(locationId, locationPwd, guid, name, softVer, channelCount, channels);
     }
 }

@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
-import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import java.util.Optional;
 
 public interface SuplaDataPacketDispatcher {
-    Optional<TSuplaDataPacket> dispatch(TSuplaDataPacket dataPacket);
+    Optional<SuplaDataPacket> dispatch(SuplaDataPacket dataPacket);
 }
