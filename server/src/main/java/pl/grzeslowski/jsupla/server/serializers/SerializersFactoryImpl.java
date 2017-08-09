@@ -12,9 +12,9 @@ public class SerializersFactoryImpl implements SerializersFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <Rsp extends Response> Serializer<Rsp, ? extends Proto> getSerializerForResponse(Rsp response) {
+    public <ResponseT extends Response> Serializer<ResponseT, ? extends Proto> getSerializerForResponse(ResponseT response) {
         if (response instanceof RegisterDeviceResponse) {
-            return (Serializer<Rsp, ? extends Proto>) registerDeviceResponseSerializer;
+            return (Serializer<ResponseT, ? extends Proto>) registerDeviceResponseSerializer;
         }
 
         throw new IllegalArgumentException(format("Can't find serializer for class %s!", response.getClass().getSimpleName()));
