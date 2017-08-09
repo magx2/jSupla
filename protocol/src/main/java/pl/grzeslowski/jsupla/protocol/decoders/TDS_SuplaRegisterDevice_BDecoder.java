@@ -7,7 +7,6 @@ import pl.grzeslowski.jsupla.protocol.structs.ds.TDS_SuplaRegisterDevice_B;
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
@@ -42,7 +41,6 @@ public class TDS_SuplaRegisterDevice_BDecoder implements Decoder<TDS_SuplaRegist
         offset += SUPLA_SOFTVER_MAXSIZE;
 
         final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
 
         TDS_SuplaDeviceChannel_B[] channels = new TDS_SuplaDeviceChannel_B[0]; // TODO
 
