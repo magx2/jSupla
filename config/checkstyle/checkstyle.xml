@@ -43,7 +43,6 @@
 		</module>
 		<module name="LineLength">
 			<property name="max" value="120"/>
-			zz
 			<property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
 		</module>
 		<module name="AvoidStarImport"/>
