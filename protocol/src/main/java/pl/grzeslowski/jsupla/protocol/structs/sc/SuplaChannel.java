@@ -19,8 +19,8 @@ public final class SuplaChannel implements ServerClient {
     public final SuplaChannelValue value;
     /**
      * Including the terminating null byte ('\0').
-     * <p>
-     * unsigned
+     *
+     * <p>unsigned
      */
     public final int captionSize;
     public final byte[] caption;
