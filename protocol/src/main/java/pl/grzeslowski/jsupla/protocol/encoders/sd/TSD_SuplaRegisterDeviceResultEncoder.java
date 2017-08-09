@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.encoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.encoders.DataPacketIdGenerator;
-import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
@@ -10,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder.writeInteger;
 
-public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<SuplaRegisterDeviceResult> {
+public class TSD_SuplaRegisterDeviceResultEncoder implements ServerDeviceEncoder<SuplaRegisterDeviceResult> {
     private final int version;
     private final DataPacketIdGenerator idGenerator;
 
