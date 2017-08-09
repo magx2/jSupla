@@ -1,6 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.TDS_SuplaDeviceChannel_BDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.TDS_SuplaRegisterDevice_BDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 
 import static java.lang.String.format;

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.decoders;
+package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseUnsignedByte;
 
-public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<SuplaDeviceChannelB> {
+public class TDS_SuplaDeviceChannel_BDecoder implements DeviceServerDecoder<SuplaDeviceChannelB> {
     @Override
     public SuplaDeviceChannelB decode(SuplaDataPacket dataPacket) {
         byte[] bytes = dataPacket.data;
