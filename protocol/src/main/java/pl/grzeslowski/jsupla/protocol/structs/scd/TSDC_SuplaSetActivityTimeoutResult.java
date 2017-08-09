@@ -6,15 +6,15 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
 public final class TSDC_SuplaSetActivityTimeoutResult implements ServerClientDevice {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte activityTimeout;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte min;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte max;
 
