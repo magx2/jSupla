@@ -29,9 +29,10 @@ public final class SuplaSetActivityTimeoutResult implements ServerClientDevice {
     public ServerDeviceClientCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
-        return BYTE_SIZE *3;
+        return BYTE_SIZE * 3;
     }
 
     @Override
