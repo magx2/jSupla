@@ -29,7 +29,7 @@ public abstract class RegisterDeviceResponse implements Response {
         this.versionMin = size(versionMin, 0, 255);
         if (versionMin > version) {
             throw new IllegalArgumentException(
-                    format("Min version %s can not be larger that version %s!", versionMin, version));
+                    format("Min version %s can not be larger than version %s!", versionMin, version));
         }
     }
 
