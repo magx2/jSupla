@@ -14,8 +14,8 @@ public final class SuplaChannelValue implements Proto {
     public final byte[] value;
     /**
      * For example sensor value.
-     * <p>
-     * unsigned
+     *
+     * <p>unsigned
      */
     public final byte[] subValue;
 
