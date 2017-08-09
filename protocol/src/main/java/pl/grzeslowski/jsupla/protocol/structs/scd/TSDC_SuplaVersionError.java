@@ -26,7 +26,7 @@ public final class TSDC_SuplaVersionError implements ServerClientDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE *2;
+        return BYTE_SIZE * 2;
     }
 
     @Override
