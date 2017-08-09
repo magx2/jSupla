@@ -26,7 +26,7 @@ public final class TSD_SuplaRegisterDeviceResult implements ServerDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE *3+ INT_SIZE ;
+        return BYTE_SIZE * 3 + INT_SIZE;
     }
 
     @Override
