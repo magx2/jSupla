@@ -10,18 +10,18 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 /**
- * @since ver 2
+ * @since ver 2.
  */
 public final class TDS_SuplaDeviceChannel_B implements DeviceServer {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
     /**
-     * unsigned byte
+     * unsigned byte.
      */
     public final short number;
     public final int type;
     public final int funcList;
     /**
-     * This field name should be default, but this is keyword in Java
+     * This field name should be default, but this is keyword in Java.
      */
     public final int default_;
     public final byte[] value;
