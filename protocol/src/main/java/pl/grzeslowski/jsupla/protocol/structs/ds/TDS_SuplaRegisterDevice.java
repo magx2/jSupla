@@ -14,17 +14,17 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 public final class TDS_SuplaRegisterDevice implements DeviceServer {
     public final int locationId;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] locationPwd;
     public final byte[] guid;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] name;
     public final byte[] softVer;
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte channelCount;
     public final TDS_SuplaDeviceChannel[] channels;
