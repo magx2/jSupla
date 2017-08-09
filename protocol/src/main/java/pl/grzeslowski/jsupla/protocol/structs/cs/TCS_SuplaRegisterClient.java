@@ -12,12 +12,12 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 public final class TCS_SuplaRegisterClient implements ClientServer {
     public final int accessId;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] accessIdPwd;
     public final byte[] guid;
     /**
-     * UTF-8
+     * UTF-8.
      */
     public final byte[] name;
     public final byte[] softVer;
