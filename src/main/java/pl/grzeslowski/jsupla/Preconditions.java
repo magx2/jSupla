@@ -35,7 +35,7 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
-    public static <T> byte[] size(byte[] collection, int min, int max) {
+    public static byte[] size(byte[] collection, int min, int max) {
         return sizeMax(sizeMin(collection, min), max);
     }
 
@@ -63,7 +63,7 @@ public final class Preconditions {
         return collection;
     }
 
-    public static <T> byte[] sizeMax(byte[] collection, int max) {
+    public static byte[] sizeMax(byte[] collection, int max) {
         final int size = collection.length;
         if (size > max) {
             throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
@@ -95,7 +95,7 @@ public final class Preconditions {
         return collection;
     }
 
-    public static <T> byte[] sizeMin(byte[] collection, int min) {
+    public static byte[] sizeMin(byte[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
             throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
