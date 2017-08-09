@@ -18,9 +18,9 @@ public final class TSD_FirmwareUpdate_Url implements ServerDevice {
 
     public TSD_FirmwareUpdate_Url(byte availableProtocols, byte[] host, int port, byte[] path) {
         this.availableProtocols = availableProtocols;
-        this.host = checkArrayLength(host, SUPLA_URL_HOST_MAXSIZE );
+        this.host = checkArrayLength(host, SUPLA_URL_HOST_MAXSIZE);
         this.port = port;
-        this.path = checkArrayLength(path, SUPLA_URL_PATH_MAXSIZE );
+        this.path = checkArrayLength(path, SUPLA_URL_PATH_MAXSIZE);
     }
 
     @Override
@@ -30,7 +30,7 @@ public final class TSD_FirmwareUpdate_Url implements ServerDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE + SUPLA_URL_HOST_MAXSIZE+SUPLA_URL_PATH_MAXSIZE;
+        return BYTE_SIZE + INT_SIZE + SUPLA_URL_HOST_MAXSIZE + SUPLA_URL_PATH_MAXSIZE;
     }
 
     @Override
