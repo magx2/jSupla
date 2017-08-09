@@ -41,7 +41,7 @@ public final class TSC_SuplaEvent implements ServerClient {
 
     @Override
     public int size() {
-        return INT_SIZE *5 + SUPLA_SENDER_NAME_MAXSIZE;
+        return INT_SIZE * 5 + SUPLA_SENDER_NAME_MAXSIZE;
     }
 
     @Override
