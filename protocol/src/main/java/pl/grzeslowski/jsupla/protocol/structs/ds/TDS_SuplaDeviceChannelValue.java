@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 
 public final class TDS_SuplaDeviceChannelValue implements DeviceServer {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte channelNumber;
     public final byte[] value;
