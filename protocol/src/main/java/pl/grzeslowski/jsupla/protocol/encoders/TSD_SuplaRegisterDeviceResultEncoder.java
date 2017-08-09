@@ -27,6 +27,11 @@ public class TSD_SuplaRegisterDeviceResultEncoder implements Encoder<TSD_SuplaRe
         offset += PrimitiveEncoder.writeByte(proto.version, data, offset);
         offset += PrimitiveEncoder.writeByte(proto.versionMin, data, offset);
 
-        return new TSuplaDataPacket((short) version, idGenerator.nextId(), proto.callType().getValue(), data.length, data);
+        return new TSuplaDataPacket(
+                (short) version,
+                idGenerator.nextId(),
+                proto.callType().getValue(),
+                data.length,
+                data);
     }
 }
