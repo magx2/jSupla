@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply plugin: 'checkstyle'
 
 ext {
 	java_version = '0.1.0-SNAPSHOT'
@@ -12,6 +11,14 @@ sourceCompatibility = 1.8
 repositories {
 	mavenLocal()
 	mavenCentral()
+}
+
+// Add check style to all projects
+allprojects { p ->
+	apply plugin: 'checkstyle'
+	p.tasks.withType(Checkstyle) {
+		configFile = "${projectDir.path}/../config/checkstyle/checkstyle.xml" as File
+	}
 }
 
 task wrapper(type: Wrapper) {
