@@ -31,6 +31,7 @@ public final class TDS_SuplaDeviceChannel implements DeviceServer {
     public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
         return SIZE;
