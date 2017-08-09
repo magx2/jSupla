@@ -10,7 +10,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.*;
-import static pl.grzeslowski.jsupla.proto.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 public class DeviceRegisterRequest implements Request {
     @Min(0)

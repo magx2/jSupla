@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.proto.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.C;
 
 public class DeviceRegisterRequestC extends DeviceRegisterRequestB {

@@ -6,13 +6,13 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket;
 
 import java.util.List;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.proto.consts.ProtoConsts.SUPLA_TAG;
-import static pl.grzeslowski.jsupla.proto.structs.TSuplaDataPacket.MIN_SIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_TAG;
+import static pl.grzeslowski.jsupla.protocol.structs.TSuplaDataPacket.MIN_SIZE;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);

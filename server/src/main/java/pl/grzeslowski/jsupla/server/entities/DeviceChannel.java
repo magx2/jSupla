@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.*;
-import static pl.grzeslowski.jsupla.proto.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class DeviceChannel implements Entity {
     @Min(0)
