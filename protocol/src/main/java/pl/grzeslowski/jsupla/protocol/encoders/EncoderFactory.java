@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.Proto;
 
 public interface EncoderFactory {
-    <SD extends ServerDevice> Encoder<SD> getEncoderForServerDevice(SD sd);
+    <T extends Proto> Encoder<T> getEncoderForServerDevice(T t);
 }

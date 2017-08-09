@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
+import pl.grzeslowski.jsupla.protocol.Proto;
 import pl.grzeslowski.jsupla.protocol.structs.sd.TSD_SuplaRegisterDeviceResult;
 
 import static java.lang.String.format;
@@ -17,11 +17,11 @@ public class EncoderFactoryImpl implements EncoderFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <SD extends ServerDevice> Encoder<SD> getEncoderForServerDevice(SD sd) {
-        if (sd instanceof TSD_SuplaRegisterDeviceResult) {
-            return (Encoder<SD>) new TSD_SuplaRegisterDeviceResultEncoder(version, idGenerator);
+    public <T extends Proto> Encoder<T> getEncoderForServerDevice(T t) {
+        if (t instanceof TSD_SuplaRegisterDeviceResult) {
+            return (Encoder<T>) new TSD_SuplaRegisterDeviceResultEncoder(version, idGenerator);
         }
 
-        throw new IllegalArgumentException(format("Don't know encoder for class %s!", sd.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know encoder for class %s!", t.getClass().getSimpleName()));
     }
 }
