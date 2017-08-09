@@ -14,8 +14,8 @@ public final class SuplaLocation implements ServerClient {
     public final int id;
     /**
      * Including the terminating null byte ('\0').
-     * <p>
-     * unsigned
+     *
+     * <p>unsigned
      */
     public final int captionSize;
     /**
