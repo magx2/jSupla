@@ -40,7 +40,7 @@ public final class TSC_SuplaRegisterClientResult implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE*3 + INT_SIZE *4;
+        return BYTE_SIZE * 3 + INT_SIZE * 4;
     }
 
     @Override
