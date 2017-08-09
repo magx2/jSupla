@@ -6,7 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
 public final class TDCS_SuplaSetActivityTimeout implements DeviceClientServer {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte activityTimeout;
 
