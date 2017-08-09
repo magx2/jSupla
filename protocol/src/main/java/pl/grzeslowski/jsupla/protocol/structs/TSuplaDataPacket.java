@@ -11,6 +11,8 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 
 /**
+ * This structure is send through the wire.
+ * <p>
  * <pre>
  * {@code
  * typedef struct {
@@ -27,19 +29,19 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_S
 public final class TSuplaDataPacket implements Proto {
     public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
     /**
-     * unsigned byte
+     * unsigned byte.
      */
     public final short version;
     /**
-     * unsigned int
+     * unsigned int.
      */
     public final long rrId;
     /**
-     * unsigned int
+     * unsigned int.
      */
     public final long callType;
     /**
-     * unsigned int
+     * unsigned int.
      */
     public final long dataSize;
     public final byte[] data;
