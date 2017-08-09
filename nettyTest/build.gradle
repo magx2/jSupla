@@ -9,11 +9,8 @@ buildscript {
 
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'java'
 
 mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
-
-sourceCompatibility = 1.8
 
 repositories {
     mavenLocal()

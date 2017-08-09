@@ -1,16 +1,17 @@
-apply plugin: 'java'
-
 ext {
-	java_version = '0.1.0-SNAPSHOT'
 	slf4j_version = '1.7.25'
 }
-
-version java_version
-sourceCompatibility = 1.8
 
 repositories {
 	mavenLocal()
 	mavenCentral()
+}
+
+allprojects {
+	apply plugin: 'java'
+	group = 'pl.grzeslowski.jSupla'
+	version = '0.1.0-SNAPSHOT'
+	sourceCompatibility = 1.8
 }
 
 // Add check style to all projects

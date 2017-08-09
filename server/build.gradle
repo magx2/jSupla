@@ -1,9 +1,3 @@
-version java_version
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
 repositories {
     mavenLocal()
     mavenCentral()
