@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
  * @since ver 6.
  */
 public final class TCS_SuplaRegisterClient_B implements ClientServer {
-        public final int accessId;
+    public final int accessId;
     /**
      * UTF-8.
      */
@@ -25,7 +25,12 @@ public final class TCS_SuplaRegisterClient_B implements ClientServer {
     public final byte[] softVer;
     public final byte[] serverName;
 
-    public TCS_SuplaRegisterClient_B(int accessId, byte[] accessIdPwd, byte[] guid, byte[] name, byte[] softVer, byte[] serverName) {
+    public TCS_SuplaRegisterClient_B(int accessId,
+                                     byte[] accessIdPwd,
+                                     byte[] guid,
+                                     byte[] name,
+                                     byte[] softVer,
+                                     byte[] serverName) {
         this.accessId = accessId;
         this.accessIdPwd = checkArrayLength(accessIdPwd, SUPLA_ACCESSID_PWD_MAXSIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
@@ -41,7 +46,8 @@ public final class TCS_SuplaRegisterClient_B implements ClientServer {
 
     @Override
     public int size() {
-        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE+SUPLA_GUID_SIZE+SUPLA_CLIENT_NAME_MAXSIZE+SUPLA_SOFTVER_MAXSIZE+SUPLA_SERVER_NAME_MAXSIZE;
+        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE +
+                SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE;
     }
 
     @Override
