@@ -9,11 +9,11 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 
 public final class TSuplaChannelValue implements Proto {
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte[] value;
     /**
-     * For example sensor value
+     * For example sensor value.
      *
      * unsigned
      */
