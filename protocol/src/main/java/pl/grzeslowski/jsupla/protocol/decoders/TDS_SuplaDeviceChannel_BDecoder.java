@@ -15,19 +15,19 @@ public class TDS_SuplaDeviceChannel_BDecoder implements Decoder<TDS_SuplaDeviceC
     public TDS_SuplaDeviceChannel_B decode(TSuplaDataPacket dataPacket) {
         byte[] bytes = dataPacket.data;
         int offset = 0;
-        short number = parseUnsignedByte(bytes, offset);
+        final short number = parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        int type = parseInt(bytes, offset);
+        final int type = parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        int funcList = parseInt(bytes, offset);
+        final int funcList = parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        int default_ = parseInt(bytes, offset);
+        final int default_ = parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        byte[] value = copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        final byte[] value = copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
         offset += SUPLA_CHANNELVALUE_SIZE;
 
         return new TDS_SuplaDeviceChannel_B(number, type, funcList, default_, value);
