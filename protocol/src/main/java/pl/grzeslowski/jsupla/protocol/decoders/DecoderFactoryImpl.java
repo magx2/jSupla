@@ -13,10 +13,10 @@ public class DecoderFactoryImpl implements DecoderFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <DS extends DeviceServer> Decoder<DS> getDecoderForCallType(CallType callType) {
+    public <T extends DeviceServer> Decoder<T> getDecoderForCallType(CallType callType) {
         final int value = callType.getValue();
         if (value == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
-            return (Decoder<DS>) registerDeviceDecoder;
+            return (Decoder<T>) registerDeviceDecoder;
         }
         throw new IllegalArgumentException(format("Don't know decoder for call type %s", callType));
     }
