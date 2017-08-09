@@ -12,7 +12,6 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public class SuplaDataPacketEncoderTest {
-//    private final TSuplaDataPacketEncoder serializer = new TSuplaDataPacketEncoder();
 
     @Ignore
     @Test
@@ -28,7 +27,6 @@ public class SuplaDataPacketEncoderTest {
 
         // when
         final byte[] bytes = new byte[SuplaDataPacket.MIN_SIZE + dataSize];
-//        serializer.encode(packet, bytes, 0);
 
         // then
         assertThat(bytes).hasSize(packet.size());

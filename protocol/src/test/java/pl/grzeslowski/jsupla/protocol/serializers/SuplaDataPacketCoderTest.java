@@ -12,7 +12,6 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public class SuplaDataPacketCoderTest {
-//    private final TSuplaDataPacketCoder serializer = new TSuplaDataPacketCoder();
 
     @Ignore
     @Test
