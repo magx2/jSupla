@@ -25,6 +25,7 @@ public final class TDS_SuplaDeviceChannelValue implements DeviceServer {
     public DeviceServerCallType callType() {
         throw new UnsupportedOperationException();
     }
+
     @Override
     public int size() {
         return BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE;
