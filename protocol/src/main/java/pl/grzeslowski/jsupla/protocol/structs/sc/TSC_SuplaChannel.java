@@ -18,7 +18,7 @@ public final class TSC_SuplaChannel implements ServerClient {
     public final byte online;
     public final TSuplaChannelValue value;
     /**
-     * Including the terminating null byte ('\0')
+     * Including the terminating null byte ('\0').
      * <p>
      * unsigned
      */
