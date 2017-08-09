@@ -8,15 +8,18 @@ import pl.grzeslowski.jsupla.server.entities.responses.register_device.RegisterD
 import static java.lang.String.format;
 
 public class SerializersFactoryImpl implements SerializersFactory {
-    private final Serializer<RegisterDeviceResponse, SuplaRegisterDeviceResult> registerDeviceResponseSerializer = new RegisterDeviceResponseSerializer();
+    private final Serializer<RegisterDeviceResponse, SuplaRegisterDeviceResult> registerDeviceResponseSerializer =
+            new RegisterDeviceResponseSerializer();
 
     @SuppressWarnings("unchecked")
     @Override
-    public <ResponseT extends Response> Serializer<ResponseT, ? extends Proto> getSerializerForResponse(ResponseT response) {
+    public <ResponseT extends Response> Serializer<ResponseT, ? extends Proto> getSerializerForResponse(
+            ResponseT response) {
         if (response instanceof RegisterDeviceResponse) {
             return (Serializer<ResponseT, ? extends Proto>) registerDeviceResponseSerializer;
         }
 
-        throw new IllegalArgumentException(format("Can't find serializer for class %s!", response.getClass().getSimpleName()));
+        throw new IllegalArgumentException(
+                format("Can't find serializer for class %s!", response.getClass().getSimpleName()));
     }
 }
