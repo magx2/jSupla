@@ -13,7 +13,7 @@ public final class TSC_SuplaLocation implements ServerClient {
     public final byte eol;
     public final int id;
     /**
-     * including the terminating null byte ('\0')
+     * Including the terminating null byte ('\0').
      * <p>
      * unsigned
      */
