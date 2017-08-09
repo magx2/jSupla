@@ -25,7 +25,7 @@ public final class PrimitiveParser {
     }
 
     /**
-     * TODO can be optimized!!!
+     * TODO can be optimized!!!.
      */
     public static int parseInt(byte[] bytes, int offset) {
         final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
@@ -34,7 +34,7 @@ public final class PrimitiveParser {
     }
 
     /**
-     * TODO can be optimized!!!
+     * TODO can be optimized!!!.
      */
     public static short parseUnsignedByte(byte[] bytes, int offset) {
         byte b = bytes[offset];
