@@ -14,7 +14,7 @@ public final class TDS_SuplaDeviceChannel implements DeviceServer {
     public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
 
     /**
-     * unsigned
+     * unsigned.
      */
     public final byte number;
     public final int type;
