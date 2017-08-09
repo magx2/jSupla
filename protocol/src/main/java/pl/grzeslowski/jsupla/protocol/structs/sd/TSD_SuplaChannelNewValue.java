@@ -35,7 +35,7 @@ public final class TSD_SuplaChannelNewValue implements ServerDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE*2 + SUPLA_CHANNELVALUE_SIZE;
+        return BYTE_SIZE + INT_SIZE * 2 + SUPLA_CHANNELVALUE_SIZE;
     }
 
     @Override
