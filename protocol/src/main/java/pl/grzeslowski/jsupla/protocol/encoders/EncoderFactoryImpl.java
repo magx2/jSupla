@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
 import pl.grzeslowski.jsupla.protocol.Proto;
+import pl.grzeslowski.jsupla.protocol.encoders.sd.TSD_SuplaRegisterDeviceResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.lang.String.format;

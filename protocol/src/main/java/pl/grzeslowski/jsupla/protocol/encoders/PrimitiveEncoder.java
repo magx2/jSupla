@@ -6,8 +6,8 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-final class PrimitiveEncoder {
-    static int writeInteger(int value, byte[] bytes, int offset) {
+public final class PrimitiveEncoder {
+    public static int writeInteger(int value, byte[] bytes, int offset) {
         if (bytes.length < INT_SIZE + offset) {
             throw new IllegalArgumentException(
                     format("bytes length %s is too small to have int with offset %s", bytes.length, offset));
@@ -21,7 +21,7 @@ final class PrimitiveEncoder {
         return INT_SIZE;
     }
 
-    static int writeByte(byte value, byte[] bytes, int offset) {
+    public static int writeByte(byte value, byte[] bytes, int offset) {
         if (bytes.length < BYTE_SIZE + offset) {
             throw new IllegalArgumentException(
                     format("bytes length %s is too small to have byte with offset %s", bytes.length, offset));

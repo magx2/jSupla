@@ -1,5 +1,8 @@
-package pl.grzeslowski.jsupla.protocol.encoders;
+package pl.grzeslowski.jsupla.protocol.encoders.sd;
 
+import pl.grzeslowski.jsupla.protocol.encoders.DataPacketIdGenerator;
+import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
+import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
