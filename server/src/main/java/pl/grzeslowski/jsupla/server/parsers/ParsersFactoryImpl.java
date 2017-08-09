@@ -12,11 +12,11 @@ public class ParsersFactoryImpl implements ParsersFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <DS extends DeviceServer> Parser<? extends Request, DS> getParser(DS ds) {
-        if (ds instanceof SuplaRegisterDeviceB) {
-            return (Parser<? extends Request, DS>) deviceRegisterRequestBParser;
+    public <DeviceServerT extends DeviceServer> Parser<? extends Request, DeviceServerT> getParser(DeviceServerT deviceServer) {
+        if (deviceServer instanceof SuplaRegisterDeviceB) {
+            return (Parser<? extends Request, DeviceServerT>) deviceRegisterRequestBParser;
         }
 
-        throw new IllegalArgumentException(format("Don't know which parser suits for DeviceServer class %s!", ds.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know which parser suits for DeviceServer class %s!", deviceServer.getClass().getSimpleName()));
     }
 }
