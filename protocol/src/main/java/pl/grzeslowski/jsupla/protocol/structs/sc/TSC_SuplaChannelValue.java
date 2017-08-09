@@ -26,7 +26,7 @@ public final class TSC_SuplaChannelValue implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE*2 + INT_SIZE + value.size();
+        return BYTE_SIZE * 2 + INT_SIZE + value.size();
     }
 
     @Override
