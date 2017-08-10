@@ -8,12 +8,11 @@ public final class SuplaSetActivityTimeout implements DeviceClientServer {
     /**
      * unsigned.
      */
-    public final byte activityTimeout;
+    public final short activityTimeout;
 
-    public SuplaSetActivityTimeout(byte activityTimeout) {
+    public SuplaSetActivityTimeout(short activityTimeout) {
         this.activityTimeout = activityTimeout;
     }
-
 
     @Override
     public DeviceClientServerCallType callType() {
