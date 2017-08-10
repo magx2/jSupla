@@ -58,7 +58,16 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
                 .map(this::parse)
                 .flatMap(this::onRequest)
                 .map(this::serialize)
-                .map(this::encode);
+                .map(this::encode)
+                .map(this::newSuplaDataPacket);
+    }
+
+    private SuplaDataPacket newSuplaDataPacket(BytesWithCallType bytesWithCallType) {
+        return new SuplaDataPacket((short) 1,
+                1L, // TODO return next int
+                bytesWithCallType.callType.getValue(),
+                bytesWithCallType.data.length,
+                bytesWithCallType.data);
     }
 
     private static Stream<CallType> getAllValuesThatCanComeToServer() {
@@ -93,9 +102,19 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return serializersFactory.getSerializerForResponse(response).serialize(response);
     }
 
-    protected SuplaDataPacket encode(ServerDevice proto) {
+    protected BytesWithCallType encode(ServerDevice proto) {
         logger.trace("ListenersSuplaDataPacketDispatcher.encode({})", proto);
-        //        return encoderFactory.getEncoderForServerDevice(proto).encode(proto);
-        throw new UnsupportedOperationException(); // TODO
+        final byte[] data = encoderFactory.getEncoderForServerDevice(proto).encode(proto);
+        return new BytesWithCallType(data, proto.callType());
+    }
+
+    protected static final class BytesWithCallType {
+        protected final byte[] data;
+        protected final CallType callType;
+
+        public BytesWithCallType(byte[] data, CallType callType) {
+            this.data = data;
+            this.callType = requireNonNull(callType);
+        }
     }
 }
