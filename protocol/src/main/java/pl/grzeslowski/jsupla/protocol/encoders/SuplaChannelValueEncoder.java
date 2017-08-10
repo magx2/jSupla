@@ -3,8 +3,15 @@ package pl.grzeslowski.jsupla.protocol.encoders;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue;
 
 public class SuplaChannelValueEncoder implements Encoder<SuplaChannelValue> {
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaChannelValue proto) {
-        throw new UnsupportedOperationException();
+        byte[] data = new byte[proto.size()];
+        int offset = 0;
+
+        offset += PrimitiveEncoder.writeBytes(proto.value, data, offset);
+        offset += PrimitiveEncoder.writeBytes(proto.subValue, data, offset);
+
+        return data;
     }
 }
