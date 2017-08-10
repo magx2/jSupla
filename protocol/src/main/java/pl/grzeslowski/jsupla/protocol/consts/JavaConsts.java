@@ -7,6 +7,4 @@ public final class JavaConsts {
 
     private JavaConsts() {
     }
-
-
 }
