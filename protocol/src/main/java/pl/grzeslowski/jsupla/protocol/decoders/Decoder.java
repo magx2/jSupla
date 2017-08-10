@@ -9,6 +9,4 @@ public interface Decoder<T extends ProtoWithSize> {
     default T decode(SuplaDataPacket dataPacket) {
         return decode(dataPacket.data, 0);
     }
-
-    ;
 }
