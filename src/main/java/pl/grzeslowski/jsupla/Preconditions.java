@@ -19,6 +19,13 @@ public final class Preconditions {
         return value;
     }
 
+    public static long max(long value, long max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+        }
+        return value;
+    }
+
     public static int size(int value, int min, int max) {
         return max(min(value, min), max);
     }

@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocol.Proto;
 
 import java.util.Arrays;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
@@ -50,8 +51,12 @@ public final class SuplaDataPacket implements Proto {
         this.version = version;
         this.rrId = rrId;
         this.callType = callType;
-        this.dataSize = dataSize;
-        this.data = Preconditions.size(data, 0, SUPLA_MAX_DATA_SIZE);
+        this.dataSize = Preconditions.max(dataSize, SUPLA_MAX_DATA_SIZE);
+        if (data.length != dataSize) {
+            throw new IllegalArgumentException(format("data length (%s) is different than given dataSize (%s)!",
+                    data.length, dataSize));
+        }
+        this.data = data;
     }
 
     @Override
