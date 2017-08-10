@@ -2,9 +2,18 @@ package pl.grzeslowski.jsupla.protocol.decoders;
 
 import pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue;
 
+import java.util.Arrays;
+
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+
 public final class SuplaChannelValueDecoder implements Decoder<SuplaChannelValue> {
     @Override
     public SuplaChannelValue decode(byte[] bytes, int offset) {
-        throw new UnsupportedOperationException();
+        final byte[] value = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        offset += SUPLA_CHANNELVALUE_SIZE;
+
+        final byte[] subValue = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+
+        return new SuplaChannelValue(value, subValue);
     }
 }
