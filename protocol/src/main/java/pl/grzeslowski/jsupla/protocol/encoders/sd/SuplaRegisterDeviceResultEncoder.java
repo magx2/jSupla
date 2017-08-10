@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.protocol.encoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.encoders.DataPacketIdGenerator;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.util.Objects.requireNonNull;
@@ -20,7 +19,7 @@ public class SuplaRegisterDeviceResultEncoder implements ServerDeviceEncoder<Sup
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public SuplaDataPacket encode(SuplaRegisterDeviceResult proto) {
+    public byte[] encode(SuplaRegisterDeviceResult proto) {
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
@@ -29,11 +28,6 @@ public class SuplaRegisterDeviceResultEncoder implements ServerDeviceEncoder<Sup
         offset += PrimitiveEncoder.writeByte(proto.version, data, offset);
         offset += PrimitiveEncoder.writeByte(proto.versionMin, data, offset);
 
-        return new SuplaDataPacket(
-                (short) version,
-                idGenerator.nextId(),
-                proto.callType().getValue(),
-                data.length,
-                data);
+        return data;
     }
 }
