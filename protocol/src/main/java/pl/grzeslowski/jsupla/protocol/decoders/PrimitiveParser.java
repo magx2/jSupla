@@ -3,21 +3,13 @@ package pl.grzeslowski.jsupla.protocol.decoders;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 
-import static java.lang.Integer.MIN_VALUE;
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveParser {
-    static int parseUnsignedInt(byte[] bytes, int offset) {
-        assert bytes.length - offset >= INT_SIZE;
-
-        final StringBuilder sb = new StringBuilder();
-        for (int i = offset + INT_SIZE - 1; i >= offset; i--) {
-            sb.append(binaryRepresentation(bytes[i]).replace(' ', '0'));
-        }
-
-        return MIN_VALUE + Integer.parseUnsignedInt(sb.toString(), 2);
+    public static long parseUnsignedInt(byte[] bytes, int offset) {
+        throw new UnsupportedOperationException();
     }
 
     private static String binaryRepresentation(byte bit) {

@@ -22,7 +22,7 @@ public final class SuplaChannel implements ServerClient {
      *
      * <p>unsigned
      */
-    public final int captionSize;
+    public final long captionSize;
     public final byte[] caption;
 
     public SuplaChannel(byte eol,
@@ -31,7 +31,7 @@ public final class SuplaChannel implements ServerClient {
                         int func,
                         byte online,
                         SuplaChannelValue value,
-                        int captionSize,
+                        long captionSize,
                         byte[] caption) {
         this.eol = eol;
         this.id = id;
