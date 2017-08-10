@@ -21,6 +21,10 @@ public final class PrimitiveEncoder {
         return INT_SIZE;
     }
 
+    public static int writeUnsignedInteger(long value, byte[] bytes, int offset) {
+        return writeInteger((int) value, bytes, offset);
+    }
+
     public static int writeByte(byte value, byte[] bytes, int offset) {
         if (bytes.length < BYTE_SIZE + offset) {
             throw new IllegalArgumentException(
@@ -28,6 +32,10 @@ public final class PrimitiveEncoder {
         }
         bytes[offset] = value;
         return BYTE_SIZE;
+    }
+
+    public static int writeUnsignedByte(short value, byte[] bytes, int offset) {
+        return writeByte((byte) value, bytes, offset);
     }
 
     public static int writeBytes(byte[] from, byte[] to, int toOffset) {
