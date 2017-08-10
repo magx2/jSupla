@@ -95,6 +95,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     protected SuplaDataPacket encode(ServerDevice proto) {
         logger.trace("ListenersSuplaDataPacketDispatcher.encode({})", proto);
-        return encoderFactory.getEncoderForServerDevice(proto).encode(proto);
+        //        return encoderFactory.getEncoderForServerDevice(proto).encode(proto);
+        throw new UnsupportedOperationException(); // TODO
     }
 }
