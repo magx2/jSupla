@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
-import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 
 import static java.util.Arrays.copyOfRange;
@@ -12,9 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseUnsig
 
 public class SuplaDeviceChannelBDecoder implements DeviceServerDecoder<SuplaDeviceChannelB> {
     @Override
-    public SuplaDeviceChannelB decode(SuplaDataPacket dataPacket) {
-        byte[] bytes = dataPacket.data;
-        int offset = 0;
+    public SuplaDeviceChannelB decode(byte[] bytes, int offset) {
         final short number = parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 

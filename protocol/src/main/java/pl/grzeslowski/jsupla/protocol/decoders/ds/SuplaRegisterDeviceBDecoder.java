@@ -2,13 +2,13 @@ package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
-import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
@@ -23,10 +23,7 @@ public class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<SuplaReg
     }
 
     @Override
-    public SuplaRegisterDeviceB decode(SuplaDataPacket dataPacket) {
-        final byte[] bytes = dataPacket.data;
-        int offset = 0;
-
+    public SuplaRegisterDeviceB decode(byte[] bytes, int offset) {
         final int locationId = parseInt(bytes, offset);
         offset += INT_SIZE;
 
@@ -43,8 +40,13 @@ public class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<SuplaReg
         offset += SUPLA_SOFTVER_MAXSIZE;
 
         final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
+        offset += BYTE_SIZE;
 
-        SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[0]; // TODO
+        SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[channelCount];
+        for (int i = 0; i < channelCount; i++) {
+            channels[i] = channelDecoder.decode(bytes, offset);
+            offset += channels[i].size();
+        }
 
         return new SuplaRegisterDeviceB(locationId, locationPwd, guid, name, softVer, channelCount, channels);
     }
