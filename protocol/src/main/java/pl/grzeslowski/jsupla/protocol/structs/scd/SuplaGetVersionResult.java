@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 
 import java.util.Arrays;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
@@ -23,6 +24,11 @@ public final class SuplaGetVersionResult implements ServerClientDevice {
         this.protoVersionMin = protoVersionMin;
         this.protoVersion = protoVersion;
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
+        if (protoVersionMin > protoVersion) {
+            throw new IllegalArgumentException(
+                    format("protoVersionMin (%s) need to be smaller than protoVersion (%s)!",
+                            protoVersionMin, protoVersion));
+        }
     }
 
     @Override
