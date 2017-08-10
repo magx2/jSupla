@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
 
@@ -15,8 +16,12 @@ public final class SuplaLocationPack implements ServerClient {
 
     public SuplaLocationPack(int count, int totalLeft, SuplaLocation[] locations) {
         this.count = count;
+        if (count > SUPLA_LOCATIONPACK_MAXSIZE) {
+            throw new IllegalArgumentException(format("count (%s) is bigger than SUPLA_LOCATIONPACK_MAXSIZE (%S)",
+                    count, SUPLA_LOCATIONPACK_MAXSIZE));
+        }
         this.totalLeft = totalLeft;
-        this.locations = Preconditions.size(locations, 0, SUPLA_LOCATIONPACK_MAXSIZE);
+        this.locations = Preconditions.size(locations, 0, count);
     }
 
     @Override
