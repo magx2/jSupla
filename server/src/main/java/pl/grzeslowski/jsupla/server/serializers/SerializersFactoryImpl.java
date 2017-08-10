@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
-import pl.grzeslowski.jsupla.protocol.Proto;
+import pl.grzeslowski.jsupla.protocol.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
@@ -13,10 +13,10 @@ public class SerializersFactoryImpl implements SerializersFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <ResponseT extends Response> Serializer<ResponseT, ? extends Proto> getSerializerForResponse(
+    public <ResponseT extends Response> Serializer<ResponseT, ? extends ProtoWithCallType> getSerializerForResponse(
             ResponseT response) {
         if (response instanceof RegisterDeviceResponse) {
-            return (Serializer<ResponseT, ? extends Proto>) registerDeviceResponseSerializer;
+            return (Serializer<ResponseT, ? extends ProtoWithCallType>) registerDeviceResponseSerializer;
         }
 
         throw new IllegalArgumentException(
