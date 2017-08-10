@@ -16,11 +16,11 @@ public final class SuplaDeviceChannel implements DeviceServer {
     /**
      * unsigned.
      */
-    public final byte number;
+    public final short number;
     public final int type;
     public final byte[] value;
 
-    public SuplaDeviceChannel(byte number, int type, byte[] value) {
+    public SuplaDeviceChannel(short number, int type, byte[] value) {
         this.number = number;
         this.type = type;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
