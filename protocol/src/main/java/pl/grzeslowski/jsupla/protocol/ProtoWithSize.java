@@ -1,5 +1,5 @@
 package pl.grzeslowski.jsupla.protocol;
 
-public interface ProtoWithSize {
+public interface ProtoWithSize extends Proto {
     int size();
 }
