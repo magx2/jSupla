@@ -1,0 +1,9 @@
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile rootProject.project("server")
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.13.Final'
+}

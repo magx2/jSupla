@@ -6,5 +6,4 @@ repositories {
 dependencies {
     compile rootProject.project("protocol")
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.13.Final'
 }
