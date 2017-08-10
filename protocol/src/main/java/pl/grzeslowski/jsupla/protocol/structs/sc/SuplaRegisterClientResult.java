@@ -13,23 +13,23 @@ public final class SuplaRegisterClientResult implements ServerClient {
     /**
      * unsigned.
      */
-    public final byte activityTimeout;
+    public final short activityTimeout;
     /**
      * unsigned.
      */
-    public final byte version;
+    public final short version;
     /**
      * unsigned.
      */
-    public final byte versionMin;
+    public final short versionMin;
 
     public SuplaRegisterClientResult(int resultCode,
                                      int clientId,
                                      int locationCount,
                                      int channelCount,
-                                     byte activityTimeout,
-                                     byte version,
-                                     byte versionMin) {
+                                     short activityTimeout,
+                                     short version,
+                                     short versionMin) {
         this.resultCode = resultCode;
         this.clientId = clientId;
         this.locationCount = locationCount;
