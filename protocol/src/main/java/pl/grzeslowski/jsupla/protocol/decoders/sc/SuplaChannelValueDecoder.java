@@ -27,7 +27,8 @@ public class SuplaChannelValueDecoder implements ServerClientDecoder<SuplaChanne
         final byte online = PrimitiveParser.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value = channelValueDecoder.decode(bytes, offset);
+        final pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value =
+                channelValueDecoder.decode(bytes, offset);
 
         return new SuplaChannelValue(eol, id, online, value);
     }
