@@ -7,8 +7,8 @@ import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 import java.util.ArrayList;
 import java.util.List;
 
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseHexString;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseUtf8String;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseHexString;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseUtf8String;
 
 public class DeviceRegisterRequestBParser implements Parser<DeviceRegisterRequestB, SuplaRegisterDeviceB> {
     @Override

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDevice;
 
@@ -20,7 +20,7 @@ public class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<SuplaRegi
 
     @Override
     public SuplaRegisterDevice decode(byte[] bytes, int offset) {
-        final int locationId = PrimitiveParser.parseInt(bytes, offset);
+        final int locationId = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
@@ -35,7 +35,7 @@ public class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<SuplaRegi
         final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
+        final short channelCount = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaDeviceChannel[] channels = new SuplaDeviceChannel[channelCount];

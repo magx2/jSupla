@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelPack;
 
@@ -16,10 +16,10 @@ public class SuplaChannelPackDecoder implements ServerClientDecoder<SuplaChannel
 
     @Override
     public SuplaChannelPack decode(byte[] bytes, int offset) {
-        final int count = PrimitiveParser.parseInt(bytes, offset);
+        final int count = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int totalLeft = PrimitiveParser.parseInt(bytes, offset);
+        final int totalLeft = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaChannel[] channels = new SuplaChannel[count];

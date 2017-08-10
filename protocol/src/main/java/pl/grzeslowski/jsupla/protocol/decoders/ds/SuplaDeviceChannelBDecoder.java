@@ -6,8 +6,8 @@ import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseUnsignedByte;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseInt;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseUnsignedByte;
 
 public class SuplaDeviceChannelBDecoder implements DeviceServerDecoder<SuplaDeviceChannelB> {
     @Override

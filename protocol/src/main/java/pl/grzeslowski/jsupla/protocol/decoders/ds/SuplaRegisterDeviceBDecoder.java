@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 
@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser.parseInt;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseInt;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
@@ -39,7 +39,7 @@ public class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<SuplaReg
         final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        final short channelCount = PrimitiveParser.parseUnsignedByte(bytes, offset);
+        final short channelCount = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
         SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[channelCount];

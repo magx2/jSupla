@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.SuplaChannelValueDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
@@ -21,25 +21,25 @@ public class SuplaChannelDecoder implements ServerClientDecoder<SuplaChannel> {
 
     @Override
     public SuplaChannel decode(byte[] bytes, int offset) {
-        final byte eol = PrimitiveParser.parseByte(bytes, offset);
+        final byte eol = PrimitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final int id = PrimitiveParser.parseInt(bytes, offset);
+        final int id = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int locationId = PrimitiveParser.parseInt(bytes, offset);
+        final int locationId = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int func = PrimitiveParser.parseInt(bytes, offset);
+        final int func = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte online = PrimitiveParser.parseByte(bytes, offset);
+        final byte online = PrimitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
         final SuplaChannelValue value = suplaChannelValueDecoder.decode(bytes, offset);
         offset += value.size();
 
-        final long captionSize = PrimitiveParser.parseUnsignedInt(bytes, offset);
+        final long captionSize = PrimitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] caption = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNEL_CAPTION_MAXSIZE);

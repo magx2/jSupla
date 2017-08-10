@@ -7,7 +7,7 @@ import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class PrimitiveParser {
+public final class PrimitiveDecoder {
     public static long parseUnsignedInt(byte[] bytes, int offset) {
         throw new UnsupportedOperationException();
     }

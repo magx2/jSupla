@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sd;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaChannelNewValue;
 
 import java.util.Arrays;
@@ -12,13 +12,13 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 public class SuplaChannelNewValueDecoder implements ServerDeviceDecoder<SuplaChannelNewValue> {
     @Override
     public SuplaChannelNewValue decode(byte[] bytes, int offset) {
-        final int senderId = PrimitiveParser.parseInt(bytes, offset);
+        final int senderId = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final short channelNumber = PrimitiveParser.parseUnsignedByte(bytes, offset);
+        final short channelNumber = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final long durationMs = PrimitiveParser.parseUnsignedInt(bytes, offset);
+        final long durationMs = PrimitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] value = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);

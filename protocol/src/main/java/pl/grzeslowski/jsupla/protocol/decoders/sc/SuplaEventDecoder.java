@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaEvent;
 
 import java.util.Arrays;
@@ -11,19 +11,19 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SENDER_NAM
 public class SuplaEventDecoder implements ServerClientDecoder<SuplaEvent> {
     @Override
     public SuplaEvent decode(byte[] bytes, int offset) {
-        final int event = PrimitiveParser.parseInt(bytes, offset);
+        final int event = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int channelId = PrimitiveParser.parseInt(bytes, offset);
+        final int channelId = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final long durationMs = PrimitiveParser.parseUnsignedInt(bytes, offset);
+        final long durationMs = PrimitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int senderId = PrimitiveParser.parseInt(bytes, offset);
+        final int senderId = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int senderNameSize = PrimitiveParser.parseInt(bytes, offset);
+        final int senderNameSize = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] senderName = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SENDER_NAME_MAXSIZE);

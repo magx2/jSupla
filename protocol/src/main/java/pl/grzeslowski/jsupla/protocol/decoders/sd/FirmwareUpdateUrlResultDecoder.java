@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sd;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrlResult;
 
@@ -16,7 +16,7 @@ public class FirmwareUpdateUrlResultDecoder implements ServerDeviceDecoder<Firmw
 
     @Override
     public FirmwareUpdateUrlResult decode(byte[] bytes, int offset) {
-        final byte exists = PrimitiveParser.parseByte(bytes, offset);
+        final byte exists = PrimitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
         final FirmwareUpdateUrl url = firmwareUpdateUrlDecoder.decode(bytes, offset);

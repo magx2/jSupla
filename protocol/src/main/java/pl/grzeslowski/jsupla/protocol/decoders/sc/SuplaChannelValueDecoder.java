@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveParser;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelValue;
 
 import static java.util.Objects.requireNonNull;
@@ -18,13 +18,13 @@ public class SuplaChannelValueDecoder implements ServerClientDecoder<SuplaChanne
 
     @Override
     public SuplaChannelValue decode(byte[] bytes, int offset) {
-        final byte eol = PrimitiveParser.parseByte(bytes, offset);
+        final byte eol = PrimitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final int id = PrimitiveParser.parseInt(bytes, offset);
+        final int id = PrimitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte online = PrimitiveParser.parseByte(bytes, offset);
+        final byte online = PrimitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
         final pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue value =
