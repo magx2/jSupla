@@ -45,6 +45,10 @@ public final class PrimitiveParser {
         }
     }
 
+    public static byte parseByte(byte[] bytes, int offset) {
+        return bytes[offset];
+    }
+
     public static String parseString(byte[] bytes, int offset, int length) {
         int end = length;
         for (int i = offset; i < length; i++) {
