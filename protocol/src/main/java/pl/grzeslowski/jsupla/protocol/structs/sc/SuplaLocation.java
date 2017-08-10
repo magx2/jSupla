@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
@@ -17,17 +18,22 @@ public final class SuplaLocation implements ServerClient {
      *
      * <p>unsigned
      */
-    public final int captionSize;
+    public final long captionSize;
     /**
      * Last variable in struct.
      */
     public final byte[] caption;
 
-    public SuplaLocation(byte eol, int id, int captionSize, byte[] caption) {
+    public SuplaLocation(byte eol, int id, long captionSize, byte[] caption) {
         this.eol = eol;
         this.id = id;
         this.captionSize = captionSize;
-        this.caption = Preconditions.size(caption, 0, SUPLA_LOCATION_CAPTION_MAXSIZE);
+        if (captionSize > SUPLA_LOCATION_CAPTION_MAXSIZE) {
+            throw new IllegalArgumentException(
+                    format("captionSize (%s) is bigger than SUPLA_LOCATION_CAPTION_MAXSIZE (%s)!",
+                            captionSize, SUPLA_LOCATION_CAPTION_MAXSIZE));
+        }
+        this.caption = Preconditions.size(caption, 0, captionSize);
     }
 
     @Override
