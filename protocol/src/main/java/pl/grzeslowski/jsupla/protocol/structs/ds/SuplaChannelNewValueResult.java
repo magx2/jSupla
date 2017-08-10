@@ -8,11 +8,11 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
     /**
      * unsigned.
      */
-    public final byte channelNumber;
+    public final short channelNumber;
     public final int senderId;
     public final byte success;
 
-    public SuplaChannelNewValueResult(byte channelNumber, int senderId, byte success) {
+    public SuplaChannelNewValueResult(short channelNumber, int senderId, byte success) {
         this.channelNumber = channelNumber;
         this.senderId = senderId;
         this.success = success;
