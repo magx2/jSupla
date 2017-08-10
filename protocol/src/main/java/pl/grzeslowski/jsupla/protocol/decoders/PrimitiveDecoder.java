@@ -2,14 +2,25 @@ package pl.grzeslowski.jsupla.protocol.decoders;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.Arrays;
 
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveDecoder {
+
+    /**
+     * TODO can be optimized!!!.
+     *
+     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
+     */
     public static long parseUnsignedInt(byte[] bytes, int offset) {
-        throw new UnsupportedOperationException();
+        final byte[] intBytes = Arrays.copyOfRange(bytes, offset, offset + INT_SIZE);
+        ByteBuffer bb = ByteBuffer.wrap(intBytes);
+        bb.order(ByteOrder.LITTLE_ENDIAN);
+        return bb.getInt() & 0xffffffffL;
     }
 
     private static String binaryRepresentation(byte bit) {

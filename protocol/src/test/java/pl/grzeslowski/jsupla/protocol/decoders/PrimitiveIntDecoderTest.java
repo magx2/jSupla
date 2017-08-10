@@ -1,14 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class PrimitiveIntDecoderTest {
 
     @Test
@@ -73,7 +70,7 @@ public class PrimitiveIntDecoderTest {
         final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
 
         // then
-        assertThat(parseInt).isEqualTo(MAX_VALUE);
+        assertThat(parseInt).isEqualTo(MAX_VALUE * 2L + 1);
     }
 
     @Test
@@ -86,6 +83,6 @@ public class PrimitiveIntDecoderTest {
         final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
 
         // then
-        assertThat(parseInt).isEqualTo(MIN_VALUE);
+        assertThat(parseInt).isEqualTo(0L);
     }
 }
