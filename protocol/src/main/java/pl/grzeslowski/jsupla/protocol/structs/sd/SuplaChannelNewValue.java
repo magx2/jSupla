@@ -14,14 +14,14 @@ public final class SuplaChannelNewValue implements ServerDevice {
     /**
      * unsigned.
      */
-    public final byte channelNumber;
+    public final short channelNumber;
     /**
      * unsigned.
      */
-    public final int durationMs;
+    public final long durationMs;
     public final byte[] value;
 
-    public SuplaChannelNewValue(int senderId, byte channelNumber, int durationMs, byte[] value) {
+    public SuplaChannelNewValue(int senderId, short channelNumber, long durationMs, byte[] value) {
         this.senderId = senderId;
         this.channelNumber = channelNumber;
         this.durationMs = durationMs;
