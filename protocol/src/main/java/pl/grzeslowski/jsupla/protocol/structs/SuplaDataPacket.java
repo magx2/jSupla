@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs;
 
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.PackableProto;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 
 import java.util.Arrays;
 
@@ -27,7 +27,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_S
  * }
  * </pre>
  */
-public final class SuplaDataPacket implements PackableProto {
+public final class SuplaDataPacket implements ProtoWithSize {
     public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
     /**
      * unsigned byte.

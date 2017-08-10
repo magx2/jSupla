@@ -1,13 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.structs;
 
-import pl.grzeslowski.jsupla.protocol.PackableProto;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public final class SuplaChannelValue implements PackableProto {
+public final class SuplaChannelValue implements ProtoWithSize {
     /**
      * unsigned.
      */

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
-import pl.grzeslowski.jsupla.protocol.PackableProto;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
@@ -15,7 +15,7 @@ public class DecoderFactoryImpl implements DecoderFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends PackableProto> Decoder<T> getDecoderForCallType(CallType callType) {
+    public <T extends ProtoWithSize> Decoder<T> getDecoderForCallType(CallType callType) {
         final int value = callType.getValue();
         if (value == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
             return (Decoder<T>) registerDeviceDecoder;

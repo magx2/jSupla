@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
-import pl.grzeslowski.jsupla.protocol.PackableProto;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.encoders.sd.SuplaRegisterDeviceResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
@@ -18,7 +18,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends PackableProto> Encoder<T> getEncoderForServerDevice(T t) {
+    public <T extends ProtoWithSize> Encoder<T> getEncoderForServerDevice(T t) {
         if (t instanceof SuplaRegisterDeviceResult) {
             return (Encoder<T>) new SuplaRegisterDeviceResultEncoder(version, idGenerator);
         }
