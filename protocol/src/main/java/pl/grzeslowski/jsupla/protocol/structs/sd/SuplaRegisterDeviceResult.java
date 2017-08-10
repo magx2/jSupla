@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.sd;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
@@ -17,6 +18,10 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
         this.activityTimeout = activityTimeout;
         this.version = version;
         this.versionMin = versionMin;
+        if (versionMin > version) {
+            throw new IllegalArgumentException(format("versionMin (%s) is bigger than version (%s)!",
+                    versionMin, version));
+        }
     }
 
     @Override
