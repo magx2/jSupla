@@ -14,7 +14,7 @@ public final class SuplaEvent implements ServerClient {
     /**
      * unsigned.
      */
-    public final int durationMs;
+    public final long durationMs;
     public final int senderId;
     /**
      * Including the terminating null byte ('\0').
@@ -25,7 +25,7 @@ public final class SuplaEvent implements ServerClient {
      */
     public final byte[] senderName;
 
-    public SuplaEvent(int event, int channelId, int durationMs, int senderId, int senderNameSize, byte[] senderName) {
+    public SuplaEvent(int event, int channelId, long durationMs, int senderId, int senderNameSize, byte[] senderName) {
         this.event = event;
         this.channelId = channelId;
         this.durationMs = durationMs;
