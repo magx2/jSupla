@@ -7,7 +7,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrlResult;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public class FirmwareUpdateUrlResultDecoder implements ServerDeviceDecoder<FirmwareUpdateUrlResult> {
+public final class FirmwareUpdateUrlResultDecoder implements ServerDeviceDecoder<FirmwareUpdateUrlResult> {
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
 
     public FirmwareUpdateUrlResultDecoder(FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder) {

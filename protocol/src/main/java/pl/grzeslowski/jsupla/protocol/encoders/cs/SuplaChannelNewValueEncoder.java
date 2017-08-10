@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaChannelNewValue;
 
 @Deprecated
-public class SuplaChannelNewValueEncoder implements ClientServerEncoder<SuplaChannelNewValue> {
+public final class SuplaChannelNewValueEncoder implements ClientServerEncoder<SuplaChannelNewValue> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaChannelNewValue proto) {

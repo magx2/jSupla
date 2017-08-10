@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public class SuplaGetVersionResultDecoder implements ServerClientDeviceDecoder<SuplaGetVersionResult> {
+public final class SuplaGetVersionResultDecoder implements ServerClientDeviceDecoder<SuplaGetVersionResult> {
     @Override
     public SuplaGetVersionResult decode(byte[] bytes, int offset) {
         final short protoVersionMin = PrimitiveDecoder.parseUnsignedByte(bytes, offset);

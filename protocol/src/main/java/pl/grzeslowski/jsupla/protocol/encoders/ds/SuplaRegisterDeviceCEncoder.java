@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceC;
 
 import static java.util.Objects.requireNonNull;
 
-public class SuplaRegisterDeviceCEncoder implements DeviceServerEncoder<SuplaRegisterDeviceC> {
+public final class SuplaRegisterDeviceCEncoder implements DeviceServerEncoder<SuplaRegisterDeviceC> {
     private final SuplaDeviceChannelBEncoder deviceChannelBEncoder;
 
     public SuplaRegisterDeviceCEncoder(SuplaDeviceChannelBEncoder deviceChannelBEncoder) {

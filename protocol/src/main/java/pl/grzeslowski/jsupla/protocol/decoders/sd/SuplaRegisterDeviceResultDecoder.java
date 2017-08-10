@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaRegisterDeviceResultDecoder implements ServerDeviceDecoder<SuplaRegisterDeviceResult> {
+public final class SuplaRegisterDeviceResultDecoder implements ServerDeviceDecoder<SuplaRegisterDeviceResult> {
     @Override
     public SuplaRegisterDeviceResult decode(byte[] bytes, int offset) {
         final int resultCode = PrimitiveDecoder.parseInt(bytes, offset);

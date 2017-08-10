@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocationPack;
 
 import static java.util.Objects.requireNonNull;
 
-public class SuplaLocationPackEncoder implements ServerClientEncoder<SuplaLocationPack> {
+public final class SuplaLocationPackEncoder implements ServerClientEncoder<SuplaLocationPack> {
     private final SuplaLocationEncoder locationEncoder;
 
     public SuplaLocationPackEncoder(SuplaLocationEncoder locationEncoder) {

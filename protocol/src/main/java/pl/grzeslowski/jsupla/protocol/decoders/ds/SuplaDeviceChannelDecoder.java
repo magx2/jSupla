@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 @Deprecated
-public class SuplaDeviceChannelDecoder implements DeviceServerDecoder<SuplaDeviceChannel> {
+public final class SuplaDeviceChannelDecoder implements DeviceServerDecoder<SuplaDeviceChannel> {
     @Override
     public SuplaDeviceChannel decode(byte[] bytes, int offset) {
         final short number = PrimitiveDecoder.parseUnsignedByte(bytes, offset);

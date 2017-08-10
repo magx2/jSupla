@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaEvent;
 
-public class SuplaEventEncoder implements ServerClientEncoder<SuplaEvent> {
+public final class SuplaEventEncoder implements ServerClientEncoder<SuplaEvent> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaEvent proto) {

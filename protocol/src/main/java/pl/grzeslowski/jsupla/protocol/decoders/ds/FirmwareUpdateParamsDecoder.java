@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.ds.FirmwareUpdateParams;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class FirmwareUpdateParamsDecoder implements DeviceServerDecoder<FirmwareUpdateParams> {
+public final class FirmwareUpdateParamsDecoder implements DeviceServerDecoder<FirmwareUpdateParams> {
     @Override
     public FirmwareUpdateParams decode(byte[] bytes, int offset) {
         final byte platform = PrimitiveDecoder.parseByte(bytes, offset);

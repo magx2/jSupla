@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrlResult;
 
 import static java.util.Objects.requireNonNull;
 
-public class FirmwareUpdateUrlResultEncoder implements ServerDeviceEncoder<FirmwareUpdateUrlResult> {
+public final class FirmwareUpdateUrlResultEncoder implements ServerDeviceEncoder<FirmwareUpdateUrlResult> {
     private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
     public FirmwareUpdateUrlResultEncoder(FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {

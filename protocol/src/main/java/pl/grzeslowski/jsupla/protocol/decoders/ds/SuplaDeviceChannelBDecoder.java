@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseInt;
 import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseUnsignedByte;
 
-public class SuplaDeviceChannelBDecoder implements DeviceServerDecoder<SuplaDeviceChannelB> {
+public final class SuplaDeviceChannelBDecoder implements DeviceServerDecoder<SuplaDeviceChannelB> {
     @Override
     public SuplaDeviceChannelB decode(byte[] bytes, int offset) {
         final short number = parseUnsignedByte(bytes, offset);

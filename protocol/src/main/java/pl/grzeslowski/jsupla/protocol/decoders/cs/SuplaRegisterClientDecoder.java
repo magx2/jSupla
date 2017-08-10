@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 @Deprecated
-public class SuplaRegisterClientDecoder implements ClientServerDecoder<SuplaRegisterClient> {
+public final class SuplaRegisterClientDecoder implements ClientServerDecoder<SuplaRegisterClient> {
     @Override
     public SuplaRegisterClient decode(byte[] bytes, int offset) {
         final int accessId = PrimitiveDecoder.parseInt(bytes, offset);

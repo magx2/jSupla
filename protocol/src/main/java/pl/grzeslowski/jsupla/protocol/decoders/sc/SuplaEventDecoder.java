@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
 
-public class SuplaEventDecoder implements ServerClientDecoder<SuplaEvent> {
+public final class SuplaEventDecoder implements ServerClientDecoder<SuplaEvent> {
     @Override
     public SuplaEvent decode(byte[] bytes, int offset) {
         final int event = PrimitiveDecoder.parseInt(bytes, offset);

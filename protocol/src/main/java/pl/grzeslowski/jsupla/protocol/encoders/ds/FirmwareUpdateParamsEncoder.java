@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.ds;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.FirmwareUpdateParams;
 
-public class FirmwareUpdateParamsEncoder implements DeviceServerEncoder<FirmwareUpdateParams> {
+public final class FirmwareUpdateParamsEncoder implements DeviceServerEncoder<FirmwareUpdateParams> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(FirmwareUpdateParams proto) {

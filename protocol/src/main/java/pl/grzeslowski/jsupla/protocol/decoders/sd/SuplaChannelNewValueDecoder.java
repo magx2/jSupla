@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public class SuplaChannelNewValueDecoder implements ServerDeviceDecoder<SuplaChannelNewValue> {
+public final class SuplaChannelNewValueDecoder implements ServerDeviceDecoder<SuplaChannelNewValue> {
     @Override
     public SuplaChannelNewValue decode(byte[] bytes, int offset) {
         final int senderId = PrimitiveDecoder.parseInt(bytes, offset);

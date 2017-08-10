@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocation;
 
-public class SuplaLocationEncoder implements ServerClientEncoder<SuplaLocation> {
+public final class SuplaLocationEncoder implements ServerClientEncoder<SuplaLocation> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaLocation proto) {

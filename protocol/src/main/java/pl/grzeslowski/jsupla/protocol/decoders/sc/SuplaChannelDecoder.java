@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
-public class SuplaChannelDecoder implements ServerClientDecoder<SuplaChannel> {
+public final class SuplaChannelDecoder implements ServerClientDecoder<SuplaChannel> {
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelDecoder(SuplaChannelValueDecoder suplaChannelValueDecoder) {

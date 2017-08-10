@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
-public class FirmwareUpdateUrlDecoder implements ServerDeviceDecoder<FirmwareUpdateUrl> {
+public final class FirmwareUpdateUrlDecoder implements ServerDeviceDecoder<FirmwareUpdateUrl> {
     @Override
     public FirmwareUpdateUrl decode(byte[] bytes, int offset) {
         final byte availableProtocols = PrimitiveDecoder.parseByte(bytes, offset);

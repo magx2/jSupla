@@ -11,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
-public class SuplaRegisterDeviceCDecoder implements DeviceServerDecoder<SuplaRegisterDeviceC> {
+public final class SuplaRegisterDeviceCDecoder implements DeviceServerDecoder<SuplaRegisterDeviceC> {
     private final SuplaDeviceChannelBDecoder channelBDecoder;
 
     public SuplaRegisterDeviceCDecoder(SuplaDeviceChannelBDecoder channelBDecoder) {

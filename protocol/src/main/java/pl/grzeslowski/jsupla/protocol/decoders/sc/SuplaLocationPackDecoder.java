@@ -7,7 +7,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocationPack;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaLocationPackDecoder implements ServerClientDecoder<SuplaLocationPack> {
+public final class SuplaLocationPackDecoder implements ServerClientDecoder<SuplaLocationPack> {
     private final SuplaLocationDecoder locationDecoder;
 
     public SuplaLocationPackDecoder(SuplaLocationDecoder locationDecoder) {

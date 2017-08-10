@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaChannelNewValueResult;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaChannelNewValueResultDecoder implements DeviceServerDecoder<SuplaChannelNewValueResult> {
+public final class SuplaChannelNewValueResultDecoder implements DeviceServerDecoder<SuplaChannelNewValueResult> {
     @Override
     public SuplaChannelNewValueResult decode(byte[] bytes, int offset) {
         final short channelNumber = PrimitiveDecoder.parseUnsignedByte(bytes, offset);

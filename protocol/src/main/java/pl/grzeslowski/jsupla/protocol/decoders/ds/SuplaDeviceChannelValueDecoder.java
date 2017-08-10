@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public class SuplaDeviceChannelValueDecoder implements DeviceServerDecoder<SuplaDeviceChannelValue> {
+public final class SuplaDeviceChannelValueDecoder implements DeviceServerDecoder<SuplaDeviceChannelValue> {
     @Override
     public SuplaDeviceChannelValue decode(byte[] bytes, int offset) {
         final short channelNumber = PrimitiveDecoder.parseUnsignedByte(bytes, offset);

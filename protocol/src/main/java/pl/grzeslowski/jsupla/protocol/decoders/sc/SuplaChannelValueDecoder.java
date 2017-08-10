@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaChannelValueDecoder implements ServerClientDecoder<SuplaChannelValue> {
+public final class SuplaChannelValueDecoder implements ServerClientDecoder<SuplaChannelValue> {
     private final pl.grzeslowski.jsupla.protocol.decoders.SuplaChannelValueDecoder channelValueDecoder;
 
     public SuplaChannelValueDecoder(

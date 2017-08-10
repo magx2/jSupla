@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
-public class SuplaRegisterClientBDecoder implements ClientServerDecoder<SuplaRegisterClientB> {
+public final class SuplaRegisterClientBDecoder implements ClientServerDecoder<SuplaRegisterClientB> {
     @Override
     public SuplaRegisterClientB decode(byte[] bytes, int offset) {
         final int accessId = PrimitiveDecoder.parseInt(bytes, offset);

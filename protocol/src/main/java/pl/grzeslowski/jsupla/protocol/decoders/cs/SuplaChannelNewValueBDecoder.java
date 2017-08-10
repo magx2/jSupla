@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public class SuplaChannelNewValueBDecoder implements ClientServerDecoder<SuplaChannelNewValueB> {
+public final class SuplaChannelNewValueBDecoder implements ClientServerDecoder<SuplaChannelNewValueB> {
     @Override
     public SuplaChannelNewValueB decode(byte[] bytes, int offset) {
         final int channelId = PrimitiveDecoder.parseInt(bytes, offset);

@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.sd;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
 
-public class FirmwareUpdateUrlEncoder implements ServerDeviceEncoder<FirmwareUpdateUrl> {
+public final class FirmwareUpdateUrlEncoder implements ServerDeviceEncoder<FirmwareUpdateUrl> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(FirmwareUpdateUrl proto) {

@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 import static pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder.writeByte;
 import static pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder.writeInteger;
 
-public class SuplaRegisterDeviceResultEncoder implements ServerDeviceEncoder<SuplaRegisterDeviceResult> {
+public final class SuplaRegisterDeviceResultEncoder implements ServerDeviceEncoder<SuplaRegisterDeviceResult> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaRegisterDeviceResult proto) {

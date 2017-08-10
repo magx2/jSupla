@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannel;
 
 @Deprecated
-public class SuplaDeviceChannelEncoder implements DeviceServerEncoder<SuplaDeviceChannel> {
+public final class SuplaDeviceChannelEncoder implements DeviceServerEncoder<SuplaDeviceChannel> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaDeviceChannel proto) {

@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaRegisterClient;
 
 @Deprecated
-public class SuplaRegisterClientEncoder implements ClientServerEncoder<SuplaRegisterClient> {
+public final class SuplaRegisterClientEncoder implements ClientServerEncoder<SuplaRegisterClient> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaRegisterClient proto) {

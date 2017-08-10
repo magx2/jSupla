@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.ds;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 
-public class SuplaDeviceChannelBEncoder implements DeviceServerEncoder<SuplaDeviceChannelB> {
+public final class SuplaDeviceChannelBEncoder implements DeviceServerEncoder<SuplaDeviceChannelB> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaDeviceChannelB proto) {

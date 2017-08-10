@@ -11,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 @Deprecated
-public class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<SuplaRegisterDevice> {
+public final class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<SuplaRegisterDevice> {
     private final SuplaDeviceChannelDecoder channelDecoder;
 
     public SuplaRegisterDeviceDecoder(SuplaDeviceChannelDecoder channelDecoder) {

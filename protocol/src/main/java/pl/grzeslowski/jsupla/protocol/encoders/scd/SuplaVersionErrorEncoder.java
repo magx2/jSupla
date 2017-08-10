@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.scd;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaVersionError;
 
-public class SuplaVersionErrorEncoder implements ServerClientDeviceEncoder<SuplaVersionError> {
+public final class SuplaVersionErrorEncoder implements ServerClientDeviceEncoder<SuplaVersionError> {
     @Override
     public byte[] encode(SuplaVersionError proto) {
         byte[] data = new byte[proto.size()];

@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelValue;
 
 import static java.util.Objects.requireNonNull;
 
-public class SuplaChannelValueEncoder implements ServerClientEncoder<SuplaChannelValue> {
+public final class SuplaChannelValueEncoder implements ServerClientEncoder<SuplaChannelValue> {
     private final pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder channelValueEncoder;
 
     public SuplaChannelValueEncoder(

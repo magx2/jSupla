@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaLocationDecoder implements ServerClientDecoder<SuplaLocation> {
+public final class SuplaLocationDecoder implements ServerClientDecoder<SuplaLocation> {
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
         final byte eol = PrimitiveDecoder.parseByte(bytes, offset);

@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.cs;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaRegisterClientB;
 
-public class SuplaRegisterClientBEncoder implements ClientServerEncoder<SuplaRegisterClientB> {
+public final class SuplaRegisterClientBEncoder implements ClientServerEncoder<SuplaRegisterClientB> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaRegisterClientB proto) {

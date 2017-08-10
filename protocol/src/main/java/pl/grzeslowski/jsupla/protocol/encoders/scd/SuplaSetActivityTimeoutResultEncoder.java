@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.encoders.scd;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaSetActivityTimeoutResult;
 
-public class SuplaSetActivityTimeoutResultEncoder implements ServerClientDeviceEncoder<SuplaSetActivityTimeoutResult> {
+public final class SuplaSetActivityTimeoutResultEncoder implements ServerClientDeviceEncoder<SuplaSetActivityTimeoutResult> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaSetActivityTimeoutResult proto) {

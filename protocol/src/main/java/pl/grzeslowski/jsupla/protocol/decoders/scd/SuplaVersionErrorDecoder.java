@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaVersionError;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public class SuplaVersionErrorDecoder implements ServerClientDeviceDecoder<SuplaVersionError> {
+public final class SuplaVersionErrorDecoder implements ServerClientDeviceDecoder<SuplaVersionError> {
     @Override
     public SuplaVersionError decode(byte[] bytes, int offset) {
         final short serverVersionMin = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
