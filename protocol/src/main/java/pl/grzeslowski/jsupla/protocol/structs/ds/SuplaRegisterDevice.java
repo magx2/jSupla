@@ -26,7 +26,7 @@ public final class SuplaRegisterDevice implements DeviceServer {
     /**
      * unsigned.
      */
-    public final byte channelCount;
+    public final short channelCount;
     public final SuplaDeviceChannel[] channels;
 
     public SuplaRegisterDevice(int locationId,
@@ -34,7 +34,7 @@ public final class SuplaRegisterDevice implements DeviceServer {
                                byte[] guid,
                                byte[] name,
                                byte[] softVer,
-                               byte channelCount,
+                               short channelCount,
                                SuplaDeviceChannel[] channels) {
         this.locationId = locationId;
         this.locationPwd = checkArrayLength(locationPwd, SUPLA_LOCATION_PWD_MAXSIZE);
