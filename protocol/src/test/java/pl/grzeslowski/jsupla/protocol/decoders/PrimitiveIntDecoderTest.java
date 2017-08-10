@@ -1,12 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore
 public class PrimitiveIntDecoderTest {
 
     @Test
