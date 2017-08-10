@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 
 import java.util.Arrays;
 
-import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public final class SuplaChannelValue implements ProtoWithSize {

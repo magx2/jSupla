@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 import java.util.Arrays;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.ProtoPreconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
