@@ -1,11 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.structs.sd;
 
+import pl.grzeslowski.jsupla.protocol.PackableProto;
 import pl.grzeslowski.jsupla.protocol.Proto;
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType;
 
 /**
  * Structs send from server to device (client).
  */
-public interface ServerDevice extends Proto {
+public interface ServerDevice extends Proto, PackableProto {
     ServerDeviceCallType callType();
 }
