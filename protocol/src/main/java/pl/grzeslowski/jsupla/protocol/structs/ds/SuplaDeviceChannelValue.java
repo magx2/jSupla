@@ -12,10 +12,10 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
     /**
      * unsigned.
      */
-    public final byte channelNumber;
+    public final short channelNumber;
     public final byte[] value;
 
-    public SuplaDeviceChannelValue(byte channelNumber, byte[] value) {
+    public SuplaDeviceChannelValue(short channelNumber, byte[] value) {
         this.channelNumber = channelNumber;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
