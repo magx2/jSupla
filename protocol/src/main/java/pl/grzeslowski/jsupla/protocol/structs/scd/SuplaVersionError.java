@@ -8,13 +8,13 @@ public final class SuplaVersionError implements ServerClientDevice {
     /**
      * unsigned.
      */
-    public final byte serverVersionMin;
+    public final short serverVersionMin;
     /**
      * unsigned.
      */
-    public final byte serverVersion;
+    public final short serverVersion;
 
-    public SuplaVersionError(byte serverVersionMin, byte serverVersion) {
+    public SuplaVersionError(short serverVersionMin, short serverVersion) {
         this.serverVersionMin = serverVersionMin;
         this.serverVersion = serverVersion;
     }

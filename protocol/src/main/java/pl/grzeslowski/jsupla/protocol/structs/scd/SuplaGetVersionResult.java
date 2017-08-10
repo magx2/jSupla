@@ -12,14 +12,14 @@ public final class SuplaGetVersionResult implements ServerClientDevice {
     /**
      * unsigned.
      */
-    public final byte protoVersionMin;
+    public final short protoVersionMin;
     /**
      * unsigned.
      */
-    public final byte protoVersion;
+    public final short protoVersion;
     public final byte[] softVer;
 
-    public SuplaGetVersionResult(byte protoVersionMin, byte protoVersion, byte[] softVer) {
+    public SuplaGetVersionResult(short protoVersionMin, short protoVersion, byte[] softVer) {
         this.protoVersionMin = protoVersionMin;
         this.protoVersion = protoVersion;
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);

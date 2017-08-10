@@ -8,17 +8,17 @@ public final class SuplaSetActivityTimeoutResult implements ServerClientDevice {
     /**
      * unsigned.
      */
-    public final byte activityTimeout;
+    public final short activityTimeout;
     /**
      * unsigned.
      */
-    public final byte min;
+    public final short min;
     /**
      * unsigned.
      */
-    public final byte max;
+    public final short max;
 
-    public SuplaSetActivityTimeoutResult(byte activityTimeout, byte min, byte max) {
+    public SuplaSetActivityTimeoutResult(short activityTimeout, short min, short max) {
         this.activityTimeout = activityTimeout;
         this.min = min;
         this.max = max;
