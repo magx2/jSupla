@@ -29,4 +29,11 @@ public final class PrimitiveEncoder {
         bytes[offset] = value;
         return BYTE_SIZE;
     }
+
+    public static int writeBytes(byte[] from, byte[] to, int toOffset) {
+        for (int i = 0; i < from.length; i++) {
+            to[toOffset + i] = from[i];
+        }
+        return from.length;
+    }
 }
