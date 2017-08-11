@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.protocol.ProtoToSend;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType;
@@ -9,7 +11,6 @@ import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
-import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.listeners.ListenersFactory;
@@ -80,12 +81,12 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return decoderFactory.getDecoderForCallType(callType);
     }
 
-    protected DeviceServer decode(Decoder<DeviceServer> deviceServerDecoder, SuplaDataPacket dataPacket) {
+    protected ProtoWithSize decode(Decoder<DeviceServer> deviceServerDecoder, SuplaDataPacket dataPacket) {
         logger.trace("ListenersSuplaDataPacketDispatcher.decode({}, {})", deviceServerDecoder, dataPacket);
         return deviceServerDecoder.decode(dataPacket);
     }
 
-    protected Request parse(DeviceServer deviceServer) {
+    protected Request parse(ProtoWithSize deviceServer) {
         logger.trace("ListenersSuplaDataPacketDispatcher.parse({})", deviceServer);
         return parsersFactory.getParser(deviceServer).parse(deviceServer);
     }
@@ -95,12 +96,12 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return listenersFactory.getRequestListener(request).onRequest(request);
     }
 
-    protected ServerDevice serialize(Response response) {
+    protected ProtoToSend serialize(Response response) {
         logger.trace("ListenersSuplaDataPacketDispatcher.serialize({})", response);
         return serializersFactory.getSerializerForResponse(response).serialize(response);
     }
 
-    protected BytesWithCallType encode(ServerDevice proto) {
+    protected BytesWithCallType encode(ProtoToSend proto) {
         logger.trace("ListenersSuplaDataPacketDispatcher.encode({})", proto);
         final byte[] data = encoderFactory.getEncoderForServerDevice(proto).encode(proto);
         return new BytesWithCallType(data, proto.callType());

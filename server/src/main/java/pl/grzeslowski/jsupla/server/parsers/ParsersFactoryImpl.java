@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.parsers;
 
-import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
@@ -13,13 +14,14 @@ public class ParsersFactoryImpl implements ParsersFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <DeviceServerT extends DeviceServer> Parser<? extends Request, DeviceServerT> getParser(
-            DeviceServerT deviceServer) {
-        if (deviceServer instanceof SuplaRegisterDeviceB) {
-            return (Parser<? extends Request, DeviceServerT>) deviceRegisterRequestBParser;
+    public <ProtoT extends ProtoWithSize> Parser<? extends Request, ProtoT> getParser(ProtoT proto) {
+        if (proto instanceof SuplaRegisterDeviceB) {
+            return (Parser<? extends Request, ProtoT>) deviceRegisterRequestBParser;
+        } else if (proto instanceof SuplaSetActivityTimeout) {
+            return (Parser<? extends Request, ProtoT>) new ActivityTimeoutRequestParser();
         }
 
         throw new IllegalArgumentException(format("Don't know which parser suits for DeviceServer class %s!",
-                deviceServer.getClass().getSimpleName()));
+                proto.getClass().getSimpleName()));
     }
 }
