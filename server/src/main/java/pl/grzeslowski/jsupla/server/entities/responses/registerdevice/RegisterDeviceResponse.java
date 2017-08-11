@@ -1,17 +1,19 @@
 package pl.grzeslowski.jsupla.server.entities.responses.registerdevice;
 
+import pl.grzeslowski.jsupla.protocol.ResultCode;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.Preconditions.min;
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 
 public abstract class RegisterDeviceResponse implements Response {
-    @Min(0)
-    private final int resultCode;
+    @NotNull
+    private final ResultCode resultCode;
     @Min(0)
     @Max(255)
     private final int activityTimeout;
@@ -22,8 +24,8 @@ public abstract class RegisterDeviceResponse implements Response {
     @Max(255)
     private final int versionMin;
 
-    RegisterDeviceResponse(int resultCode, int activityTimeout, int version, int versionMin) {
-        this.resultCode = min(resultCode, 0);
+    RegisterDeviceResponse(ResultCode resultCode, int activityTimeout, int version, int versionMin) {
+        this.resultCode = requireNonNull(resultCode);
         this.activityTimeout = size(activityTimeout, 0, 255);
         this.version = size(version, 0, 255);
         this.versionMin = size(versionMin, 0, 255);
@@ -33,7 +35,7 @@ public abstract class RegisterDeviceResponse implements Response {
         }
     }
 
-    public int getResultCode() {
+    public ResultCode getResultCode() {
         return resultCode;
     }
 

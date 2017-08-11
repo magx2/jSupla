@@ -34,24 +34,6 @@ public final class ProtoConsts {
     public static final int SUPLA_RESULT_FALSE = 0;
     public static final int SUPLA_RESULT_TRUE = 1;
 
-    public static final int SUPLA_RESULTCODE_NONE = 0;
-    public static final int SUPLA_RESULTCODE_UNSUPORTED = 1;
-    public static final int SUPLA_RESULTCODE_FALSE = 2;
-    public static final int SUPLA_RESULTCODE_TRUE = 3;
-    public static final int SUPLA_RESULTCODE_TEMPORARILY_UNAVAILABLE = 4;
-    public static final int SUPLA_RESULTCODE_BAD_CREDENTIALS = 5;
-    public static final int SUPLA_RESULTCODE_LOCATION_CONFLICT = 6;
-    public static final int SUPLA_RESULTCODE_CHANNEL_CONFLICT = 7;
-    public static final int SUPLA_RESULTCODE_DEVICE_DISABLED = 8;
-    public static final int SUPLA_RESULTCODE_ACCESSID_DISABLED = 9;
-    public static final int SUPLA_RESULTCODE_LOCATION_DISABLED = 10;
-    public static final int SUPLA_RESULTCODE_CLIENT_DISABLED = 11;
-    public static final int SUPLA_RESULTCODE_CLIENT_LIMITEXCEEDED = 12;
-    public static final int SUPLA_RESULTCODE_DEVICE_LIMITEXCEEDED = 13;
-    public static final int SUPLA_RESULTCODE_GUID_ERROR = 14;
-    public static final int SUPLA_RESULTCODE_HOSTNOTFOUND = 15; // ver. >= 5
-    public static final int SUPLA_RESULTCODE_CANTCONNECTTOHOST = 16; // ver. >= 5
-
     public static final int SUPLA_DEVICE_NAME_MAXSIZE = 201;
     public static final int SUPLA_DEVICE_NAMEHEX_MAXSIZE = 401;
     public static final int SUPLA_CLIENT_NAME_MAXSIZE = 201;
