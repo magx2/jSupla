@@ -27,7 +27,6 @@ public final class SuplaDataPacketDecoder implements Decoder<SuplaDataPacket> {
 
         final byte[] data = Arrays.copyOfRange(bytes, offset, offset + (int) dataSize);
 
-
         return new SuplaDataPacket(version, rrId, callType, dataSize, data);
     }
 }
