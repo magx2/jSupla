@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_GETVERSION_RESULT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
@@ -33,7 +34,7 @@ public final class SuplaGetVersionResult implements ServerClientDevice {
 
     @Override
     public ServerDeviceClientCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_SDC_CALL_GETVERSION_RESULT;
     }
 
     @Override
