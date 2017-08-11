@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_B;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
@@ -41,7 +42,7 @@ public final class SuplaRegisterClientB implements ClientServer {
 
     @Override
     public ClientServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_CS_CALL_REGISTER_CLIENT_B;
     }
 
     @Override
