@@ -53,6 +53,7 @@ public class NettyServer implements Server {
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
         // Bind and start to accept incoming connections.
+        logger.trace("Binding to port {}", nettyConfig.getPort());
         channelFuture = b.bind(nettyConfig.getPort());
     }
 
