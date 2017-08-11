@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
+import pl.grzeslowski.jsupla.server.entities.Entity;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
-public class DeviceChannels {
+public class DeviceChannels implements Entity {
     @NotNull
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final List<? extends DeviceChannel> channels;
