@@ -35,14 +35,16 @@ public class ChannelNewValueResultRequest {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelNewValueResultRequest)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelNewValueResultRequest)) {
+            return false;
+        }
 
         ChannelNewValueResultRequest that = (ChannelNewValueResultRequest) o;
 
-        if (channelNumber != that.channelNumber) return false;
-        if (senderId != that.senderId) return false;
-        return success == that.success;
+        return channelNumber == that.channelNumber && senderId == that.senderId && success == that.success;
     }
 
     @Override

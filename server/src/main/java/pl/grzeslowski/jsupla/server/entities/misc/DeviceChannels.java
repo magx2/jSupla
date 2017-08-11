@@ -24,8 +24,12 @@ public class DeviceChannels {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DeviceChannels)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DeviceChannels)) {
+            return false;
+        }
 
         DeviceChannels that = (DeviceChannels) o;
 

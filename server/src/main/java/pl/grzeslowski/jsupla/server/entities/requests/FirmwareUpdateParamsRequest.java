@@ -44,16 +44,20 @@ public class FirmwareUpdateParamsRequest implements Request {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FirmwareUpdateParamsRequest)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FirmwareUpdateParamsRequest)) {
+            return false;
+        }
 
         FirmwareUpdateParamsRequest that = (FirmwareUpdateParamsRequest) o;
 
-        if (platform != that.platform) return false;
-        if (param1 != that.param1) return false;
-        if (param2 != that.param2) return false;
-        if (param3 != that.param3) return false;
-        return param4 == that.param4;
+        return platform == that.platform
+                && param1 == that.param1
+                && param2 == that.param2
+                && param3 == that.param3
+                && param4 == that.param4;
     }
 
     @Override
