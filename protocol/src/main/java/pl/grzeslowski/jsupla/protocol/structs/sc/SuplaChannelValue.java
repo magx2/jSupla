@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.sc;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 
+import static pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
@@ -23,7 +24,7 @@ public final class SuplaChannelValue implements ServerClient {
 
     @Override
     public ServerClientCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE;
     }
 
     @Override

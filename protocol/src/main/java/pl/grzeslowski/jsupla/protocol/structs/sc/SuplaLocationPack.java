@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType;
 import java.util.Arrays;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
 
@@ -26,7 +27,7 @@ public final class SuplaLocationPack implements ServerClient {
 
     @Override
     public ServerClientCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
     }
 
     @Override
