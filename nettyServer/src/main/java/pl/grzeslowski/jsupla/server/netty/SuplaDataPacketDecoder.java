@@ -19,13 +19,14 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        if (in.readableBytes() < MIN_SIZE + SUPLA_TAG.length) {
+        if (in.readableBytes() < MIN_SIZE + SUPLA_TAG.length * 2) {
             return;
         }
 
         in.markReaderIndex();
         moveThoughtSuplaTag(in);
         final SuplaDataPacket suplaDataPacket = readTSuplaDataPacket(in);
+        moveThoughtSuplaTag(in);
 
         logger.trace("Decoded {}", suplaDataPacket);
         out.add(suplaDataPacket);

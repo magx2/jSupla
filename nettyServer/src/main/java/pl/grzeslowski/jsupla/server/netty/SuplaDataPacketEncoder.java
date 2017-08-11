@@ -20,6 +20,7 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
                 .writeIntLE((int) msg.rrId)
                 .writeIntLE((int) msg.callType)
                 .writeIntLE((int) msg.dataSize)
-                .writeBytes(msg.data);
+                .writeBytes(msg.data)
+                .writeBytes(SUPLA_TAG);
     }
 }
