@@ -160,4 +160,8 @@ public final class Preconditions {
         }
         return array;
     }
+
+    public static int byteSize(int platform) {
+        return size(platform, Byte.MIN_VALUE, Byte.MAX_VALUE);
+    }
 }
