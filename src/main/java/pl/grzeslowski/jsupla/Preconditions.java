@@ -165,7 +165,7 @@ public final class Preconditions {
         return size(byteValue, Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
-    public static int unsignedByteSize(int uByteValue) {
-        return size(uByteValue, 0, 255);
+    public static int unsignedByteSize(int unsignedByteValue) {
+        return size(unsignedByteValue, 0, 255);
     }
 }
