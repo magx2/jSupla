@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.sd;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType;
 
+import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
 public final class FirmwareUpdateUrlResult implements ServerDevice {
@@ -16,7 +17,7 @@ public final class FirmwareUpdateUrlResult implements ServerDevice {
 
     @Override
     public ServerDeviceCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT;
     }
 
     @Override
