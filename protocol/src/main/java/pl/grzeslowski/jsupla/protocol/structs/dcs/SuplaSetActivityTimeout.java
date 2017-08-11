@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.dcs;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType;
 
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaSetActivityTimeout implements DeviceClientServer {
@@ -16,7 +17,7 @@ public final class SuplaSetActivityTimeout implements DeviceClientServer {
 
     @Override
     public DeviceClientServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
     }
 
     @Override
