@@ -161,7 +161,11 @@ public final class Preconditions {
         return array;
     }
 
-    public static int byteSize(int platform) {
-        return size(platform, Byte.MIN_VALUE, Byte.MAX_VALUE);
+    public static int byteSize(int byteValue) {
+        return size(byteValue, Byte.MIN_VALUE, Byte.MAX_VALUE);
+    }
+
+    public static int unsignedByteSize(int uByteValue) {
+        return size(uByteValue, 0, 255);
     }
 }
