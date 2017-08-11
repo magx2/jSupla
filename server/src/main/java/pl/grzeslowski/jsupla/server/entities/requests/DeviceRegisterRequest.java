@@ -1,15 +1,13 @@
 package pl.grzeslowski.jsupla.server.entities.requests;
 
-import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannel;
+import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannels;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
-import static java.util.Collections.unmodifiableList;
-import static pl.grzeslowski.jsupla.Preconditions.*;
+import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 public class DeviceRegisterRequest implements Request {
@@ -27,18 +25,16 @@ public class DeviceRegisterRequest implements Request {
     @NotNull
     @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE)
     private final String softVersion;
-    @NotNull
-    @Size(max = SUPLA_CHANNELMAXCOUNT)
-    private final List<DeviceChannel> channels;
+    private final DeviceChannels channels;
 
     public DeviceRegisterRequest(int locationId, String locationPassword, String guid, String name, String softVersion,
-                                 List<? extends DeviceChannel> channels) {
+                                 DeviceChannels channels) {
         this.locationId = min(locationId, 0);
         this.locationPassword = size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
         this.guid = size(guid, 1, SUPLA_GUID_HEXSIZE);
         this.name = size(name, 1, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVersion = size(softVersion, 1, SUPLA_SOFTVER_MAXSIZE);
-        this.channels = unmodifiableList(new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
+        this.channels = channels;
     }
 
     public int getLocationId() {
@@ -61,7 +57,7 @@ public class DeviceRegisterRequest implements Request {
         return softVersion;
     }
 
-    public List<? extends DeviceChannel> getChannels() {
+    public DeviceChannels getChannels() {
         return channels;
     }
 
