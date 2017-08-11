@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.encoders;
 
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
-public class SuplaDataPacketEncoder implements Encoder<SuplaDataPacket> {
+public final class SuplaDataPacketEncoder implements Encoder<SuplaDataPacket> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaDataPacket proto) {

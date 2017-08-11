@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public class SuplaDataPacketDecoder implements Decoder<SuplaDataPacket> {
+public final class SuplaDataPacketDecoder implements Decoder<SuplaDataPacket> {
     @Override
     public SuplaDataPacket decode(byte[] bytes, int offset) {
         offset += ProtoConsts.SUPLA_TAG_SIZE;
