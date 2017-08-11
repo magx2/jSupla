@@ -21,7 +21,6 @@ public final class FirmwareUpdateParams implements DeviceServer {
         this.param4 = param4;
     }
 
-
     @Override
     public DeviceServerCallType callType() {
         return SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL;
