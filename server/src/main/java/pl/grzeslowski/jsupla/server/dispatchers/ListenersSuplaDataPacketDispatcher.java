@@ -23,10 +23,13 @@ import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Stream.concat;
+import static pl.grzeslowski.jsupla.Preconditions.size;
 
 @SuppressWarnings("WeakerAccess")
 public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispatcher {
     private final Logger logger = LoggerFactory.getLogger(ListenersSuplaDataPacketDispatcher.class);
+
+    private final int version;
 
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
@@ -36,9 +39,10 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     private final ListenersFactory listenersFactory;
 
-    public ListenersSuplaDataPacketDispatcher(DecoderFactory decoderFactory, EncoderFactory encoderFactory,
+    public ListenersSuplaDataPacketDispatcher(int version, DecoderFactory decoderFactory, EncoderFactory encoderFactory,
                                               ParsersFactory parsersFactory, SerializersFactory serializersFactory,
                                               ListenersFactory listenersFactory) {
+        this.version = size(version, 0, 255);
         this.decoderFactory = requireNonNull(decoderFactory);
         this.encoderFactory = requireNonNull(encoderFactory);
         this.parsersFactory = requireNonNull(parsersFactory);
@@ -62,7 +66,7 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
     }
 
     private SuplaDataPacket newSuplaDataPacket(BytesWithCallType bytesWithCallType) {
-        return new SuplaDataPacket((short) 1,
+        return new SuplaDataPacket((short) version,
                 1L, // TODO return next int
                 bytesWithCallType.callType.getValue(),
                 bytesWithCallType.data.length,

@@ -31,6 +31,7 @@ public class Server {
         logger.info("Starting...");
         try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016),
                 new ListenersSuplaDataPacketDispatcher(
+                        6,
                         new DecoderFactoryImpl(),
                         new EncoderFactoryImpl(),
                         new ParsersFactoryImpl(),
