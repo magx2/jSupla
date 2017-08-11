@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.server.entities.requests;
+package pl.grzeslowski.jsupla.server.entities.requests.ds;
 
 import pl.grzeslowski.jsupla.server.entities.Entity;
-import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannelsB;
+import pl.grzeslowski.jsupla.server.entities.misc.ds.DeviceChannelsB;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

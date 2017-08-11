@@ -2,9 +2,9 @@ package pl.grzeslowski.jsupla.server.listeners;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.entities.requests.RegisterDeviceRequest;
-import pl.grzeslowski.jsupla.server.entities.requests.RegisterDeviceRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
+import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
+import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequestB;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 

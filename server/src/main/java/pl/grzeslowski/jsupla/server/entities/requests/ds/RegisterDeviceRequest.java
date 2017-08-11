@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.server.entities.requests;
+package pl.grzeslowski.jsupla.server.entities.requests.ds;
 
-import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannels;
+import pl.grzeslowski.jsupla.server.entities.misc.ds.DeviceChannels;
+import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

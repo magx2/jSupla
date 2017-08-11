@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.misc;
+package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.misc;
+package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
 import java.util.List;
 

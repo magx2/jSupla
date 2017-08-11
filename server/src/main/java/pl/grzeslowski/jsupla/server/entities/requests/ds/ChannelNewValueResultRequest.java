@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.entities.requests;
+package pl.grzeslowski.jsupla.server.entities.requests.ds;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
