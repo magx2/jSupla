@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
-public class DeviceRegisterRequest implements Request {
+public class RegisterDeviceRequest implements Request {
     @Min(0)
     private final int locationId;
     @NotNull
@@ -27,7 +27,7 @@ public class DeviceRegisterRequest implements Request {
     private final String softVersion;
     private final DeviceChannels channels;
 
-    public DeviceRegisterRequest(int locationId, String locationPassword, String guid, String name, String softVersion,
+    public RegisterDeviceRequest(int locationId, String locationPassword, String guid, String name, String softVersion,
                                  DeviceChannels channels) {
         this.locationId = min(locationId, 0);
         this.locationPassword = size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
@@ -63,7 +63,7 @@ public class DeviceRegisterRequest implements Request {
 
     @Override
     public String toString() {
-        return "DeviceRegisterRequest{" +
+        return "RegisterDeviceRequest{" +
                 "locationId=" + locationId +
                 ", locationPassword='" + locationPassword + '\'' +
                 ", guid='" + guid + '\'' +

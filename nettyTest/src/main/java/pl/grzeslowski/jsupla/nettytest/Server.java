@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.dispatchers.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
-import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
+import pl.grzeslowski.jsupla.server.entities.requests.RegisterDeviceRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.OkRegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.listeners.ListenersFactoryImpl;
@@ -47,11 +47,11 @@ public class Server {
     }
 
 
-    private static class DeviceRegisterListener implements RequestListener<DeviceRegisterRequest, RegisterDeviceResponse> {
+    private static class DeviceRegisterListener implements RequestListener<RegisterDeviceRequest, RegisterDeviceResponse> {
         private final Logger logger = LoggerFactory.getLogger(DeviceRegisterListener.class);
 
         @Override
-        public Optional<RegisterDeviceResponse> onRequest(DeviceRegisterRequest request) {
+        public Optional<RegisterDeviceResponse> onRequest(RegisterDeviceRequest request) {
             logger.info("Got {} returning response", request);
             return of(new OkRegisterDeviceResponse(100, 5, 2));
         }

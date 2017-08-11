@@ -5,9 +5,9 @@ import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannelsB;
 
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.B;
 
-public class DeviceRegisterRequestB extends DeviceRegisterRequest {
+public class RegisterDeviceRequestB extends RegisterDeviceRequest {
 
-    public DeviceRegisterRequestB(int locationId, String locationPassword, String guid, String name, String softVersion,
+    public RegisterDeviceRequestB(int locationId, String locationPassword, String guid, String name, String softVersion,
                                   DeviceChannelsB channels) {
         super(locationId, locationPassword, guid, name, softVersion, channels);
     }
@@ -24,6 +24,6 @@ public class DeviceRegisterRequestB extends DeviceRegisterRequest {
 
     @Override
     public String toString() {
-        return "DeviceRegisterRequestB{} " + super.toString();
+        return "RegisterDeviceRequestB{} " + super.toString();
     }
 }

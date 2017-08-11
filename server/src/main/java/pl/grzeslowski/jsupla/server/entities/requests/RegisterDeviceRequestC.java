@@ -11,12 +11,12 @@ import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.server.entities.Entity.Version.C;
 
-public class DeviceRegisterRequestC extends DeviceRegisterRequestB {
+public class RegisterDeviceRequestC extends RegisterDeviceRequestB {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
     private final String serverName;
 
-    public DeviceRegisterRequestC(int locationId, String locationPassword, String guid, String name, String softVersion,
+    public RegisterDeviceRequestC(int locationId, String locationPassword, String guid, String name, String softVersion,
                                   List<? extends DeviceChannelB> channels, String serverName) {
         super(locationId, locationPassword, guid, name, softVersion, channels);
         this.serverName = size(serverName, 1, SUPLA_SERVER_NAME_MAXSIZE);
@@ -33,7 +33,7 @@ public class DeviceRegisterRequestC extends DeviceRegisterRequestB {
 
     @Override
     public String toString() {
-        return "DeviceRegisterRequestC{" +
+        return "RegisterDeviceRequestC{" +
                 "serverName='" + serverName + '\'' +
                 "} " + super.toString();
     }

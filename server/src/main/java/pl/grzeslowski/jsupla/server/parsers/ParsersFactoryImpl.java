@@ -3,13 +3,13 @@ package pl.grzeslowski.jsupla.server.parsers;
 import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
-import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
+import pl.grzeslowski.jsupla.server.entities.requests.RegisterDeviceRequestB;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
 import static java.lang.String.format;
 
 public class ParsersFactoryImpl implements ParsersFactory {
-    private final Parser<DeviceRegisterRequestB, SuplaRegisterDeviceB> deviceRegisterRequestBParser =
+    private final Parser<RegisterDeviceRequestB, SuplaRegisterDeviceB> deviceRegisterRequestBParser =
             new DeviceRegisterRequestBParser();
 
     @SuppressWarnings("unchecked")
