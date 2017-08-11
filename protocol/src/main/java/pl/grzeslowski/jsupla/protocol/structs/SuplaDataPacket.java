@@ -13,19 +13,6 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_MAX_DATA_S
 
 /**
  * This structure is send through the wire.
- *
- * <p><pre>
- * {@code
- * typedef struct {
- * char tag[SUPLA_TAG_SIZE];
- * unsigned char version;
- * unsigned _supla_int_t rr_id; // Request/Response ID
- * unsigned _supla_int_t call_type;
- * unsigned _supla_int_t data_size;
- * char data[SUPLA_MAX_DATA_SIZE]; // Last variable in struct!
- * }SuplaDataPacket;
- * }
- * </pre>
  */
 public final class SuplaDataPacket implements ProtoWithSize {
     public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
