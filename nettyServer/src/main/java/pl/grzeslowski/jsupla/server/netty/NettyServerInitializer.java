@@ -26,6 +26,7 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
 
+        // TODO add DelimiterBasedFrameDecoder
         pipeline.addLast(new SuplaDataPacketDecoder());
         pipeline.addLast(new SuplaDataPacketEncoder());
 
