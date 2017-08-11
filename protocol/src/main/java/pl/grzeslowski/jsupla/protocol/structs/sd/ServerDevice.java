@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceCallType;
 
 /**
- * Structs send from server to device (client).
+ * Structs send from server to device.
  */
 public interface ServerDevice extends ProtoWithCallType, ProtoWithSize {
     ServerDeviceCallType callType();
