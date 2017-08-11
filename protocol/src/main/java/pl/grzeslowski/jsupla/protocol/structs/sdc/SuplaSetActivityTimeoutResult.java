@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.structs.scd;
+package pl.grzeslowski.jsupla.protocol.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 
@@ -6,7 +6,7 @@ import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class SuplaSetActivityTimeoutResult implements ServerClientDevice {
+public final class SuplaSetActivityTimeoutResult implements ServerDeviceClient {
     /**
      * unsigned.
      */

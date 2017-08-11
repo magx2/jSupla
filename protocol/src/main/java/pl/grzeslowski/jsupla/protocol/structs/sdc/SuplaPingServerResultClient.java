@@ -1,10 +1,10 @@
-package pl.grzeslowski.jsupla.protocol.structs.scd;
+package pl.grzeslowski.jsupla.protocol.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 
-public class SuplaPingServerResult implements ServerClientDevice {
+public class SuplaPingServerResultClient implements ServerDeviceClient {
     // TODO implement
     //    typedef struct {
     //

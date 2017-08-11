@@ -1,11 +1,11 @@
-package pl.grzeslowski.jsupla.protocol.structs.scd;
+package pl.grzeslowski.jsupla.protocol.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 
 import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_VERSIONERROR;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class SuplaVersionError implements ServerClientDevice {
+public final class SuplaVersionError implements ServerDeviceClient {
     /**
      * unsigned.
      */

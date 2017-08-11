@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.encoders.scd;
+package pl.grzeslowski.jsupla.protocol.encoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaVersionError;
 
 public final class SuplaVersionErrorEncoder implements ServerClientDeviceEncoder<SuplaVersionError> {
     @Override

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.structs.scd;
+package pl.grzeslowski.jsupla.protocol.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallType;
 
@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.calltypes.ServerDeviceClientCallTyp
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class SuplaGetVersionResult implements ServerClientDevice {
+public final class SuplaGetVersionResult implements ServerDeviceClient {
     /**
      * unsigned.
      */

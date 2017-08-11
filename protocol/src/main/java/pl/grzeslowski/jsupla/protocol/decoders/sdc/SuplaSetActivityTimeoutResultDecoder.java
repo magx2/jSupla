@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.scd;
+package pl.grzeslowski.jsupla.protocol.decoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaSetActivityTimeoutResult;
+import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaSetActivityTimeoutResult;
 
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 

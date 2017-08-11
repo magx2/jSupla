@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.encoders.scd;
+package pl.grzeslowski.jsupla.protocol.encoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaSetActivityTimeoutResult;
+import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaSetActivityTimeoutResult;
 
 public final class SuplaSetActivityTimeoutResultEncoder
         implements ServerClientDeviceEncoder<SuplaSetActivityTimeoutResult> {

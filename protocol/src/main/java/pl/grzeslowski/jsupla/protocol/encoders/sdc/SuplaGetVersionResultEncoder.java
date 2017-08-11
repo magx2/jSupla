@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.encoders.scd;
+package pl.grzeslowski.jsupla.protocol.encoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.scd.SuplaGetVersionResult;
+import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
 
 public final class SuplaGetVersionResultEncoder implements ServerClientDeviceEncoder<SuplaGetVersionResult> {
     @SuppressWarnings("UnusedAssignment")
