@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.structs.ds;
 
-import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 
 import java.util.Arrays;
 
@@ -10,8 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 @Deprecated
-// TODO should be proto with size
-public final class SuplaDeviceChannel implements DeviceServer {
+public final class SuplaDeviceChannel implements ProtoWithSize {
     public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
 
     /**
@@ -25,12 +24,6 @@ public final class SuplaDeviceChannel implements DeviceServer {
         this.number = number;
         this.type = type;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
-    }
-
-
-    @Override
-    public DeviceServerCallType callType() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

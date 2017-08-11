@@ -1,10 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.encoders.ds;
 
+import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannel;
 
 @Deprecated
-public final class SuplaDeviceChannelEncoder implements DeviceServerEncoder<SuplaDeviceChannel> {
+public final class SuplaDeviceChannelEncoder implements Encoder<SuplaDeviceChannel> {
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaDeviceChannel proto) {
