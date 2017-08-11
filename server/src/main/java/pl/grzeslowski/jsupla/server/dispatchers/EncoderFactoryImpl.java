@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.encoders;
+package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.encoders.sd.SuplaRegisterDeviceResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 

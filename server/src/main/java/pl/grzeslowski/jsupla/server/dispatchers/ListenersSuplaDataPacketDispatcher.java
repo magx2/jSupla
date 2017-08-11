@@ -7,8 +7,6 @@ import pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
-import pl.grzeslowski.jsupla.protocol.decoders.DecoderFactory;
-import pl.grzeslowski.jsupla.protocol.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
 import pl.grzeslowski.jsupla.protocol.structs.sd.ServerDevice;

@@ -2,8 +2,8 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.encoders.EncoderFactoryImpl;
+import pl.grzeslowski.jsupla.server.dispatchers.DecoderFactoryImpl;
+import pl.grzeslowski.jsupla.server.dispatchers.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.OkRegisterDeviceResponse;

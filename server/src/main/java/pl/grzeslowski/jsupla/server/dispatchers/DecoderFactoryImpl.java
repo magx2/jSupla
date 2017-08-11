@@ -1,7 +1,8 @@
-package pl.grzeslowski.jsupla.protocol.decoders;
+package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
+import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
 
