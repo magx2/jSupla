@@ -24,6 +24,13 @@ allprojects { p ->
 	}
 }
 
+// Add JaCoCO to all projects
+allprojects { p ->
+	if(!isTestProject(p)) { // only for non test projects
+		apply plugin: "jacoco"
+	}
+}
+
 allprojects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
