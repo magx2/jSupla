@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.ds;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.*;
 
 public final class SuplaChannelNewValueResult implements DeviceServer {
@@ -20,7 +21,7 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
     }
 
     @Override

@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
@@ -23,7 +24,7 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
     }
 
     @Override

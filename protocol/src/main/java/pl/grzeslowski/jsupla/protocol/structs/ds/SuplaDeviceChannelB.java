@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVAL
 /**
  * @since ver 2.
  */
+// TODO should be proto with size
 public final class SuplaDeviceChannelB implements DeviceServer {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
     /**

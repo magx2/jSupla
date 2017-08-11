@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs.ds;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
@@ -23,7 +24,7 @@ public final class FirmwareUpdateParams implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL;
     }
 
     @Override

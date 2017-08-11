@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_C;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
@@ -52,7 +53,7 @@ public final class SuplaRegisterDeviceC implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        throw new UnsupportedOperationException();
+        return SUPLA_DS_CALL_REGISTER_DEVICE_C;
     }
 
     @Override
