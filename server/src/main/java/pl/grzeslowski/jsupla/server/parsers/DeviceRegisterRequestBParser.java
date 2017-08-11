@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server.parsers;
 
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.server.entities.DeviceChannelB;
+import pl.grzeslowski.jsupla.server.entities.misc.DeviceChannelB;
 import pl.grzeslowski.jsupla.server.entities.requests.DeviceRegisterRequestB;
 
 import java.util.ArrayList;
