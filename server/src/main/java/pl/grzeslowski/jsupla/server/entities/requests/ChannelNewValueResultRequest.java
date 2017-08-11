@@ -6,7 +6,7 @@ import javax.validation.constraints.Min;
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 
-public class SuplaChannelNewValueResultRequest {
+public class ChannelNewValueResultRequest {
     @Min(0)
     @Max(255)
     private final int channelNumber;
@@ -15,7 +15,7 @@ public class SuplaChannelNewValueResultRequest {
     @Max(Byte.MAX_VALUE)
     private final int success;
 
-    public SuplaChannelNewValueResultRequest(int channelNumber, int senderId, int success) {
+    public ChannelNewValueResultRequest(int channelNumber, int senderId, int success) {
         this.channelNumber = unsignedByteSize(channelNumber);
         this.senderId = senderId;
         this.success = byteSize(success);
@@ -36,9 +36,9 @@ public class SuplaChannelNewValueResultRequest {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SuplaChannelNewValueResultRequest)) return false;
+        if (!(o instanceof ChannelNewValueResultRequest)) return false;
 
-        SuplaChannelNewValueResultRequest that = (SuplaChannelNewValueResultRequest) o;
+        ChannelNewValueResultRequest that = (ChannelNewValueResultRequest) o;
 
         if (channelNumber != that.channelNumber) return false;
         if (senderId != that.senderId) return false;
@@ -54,7 +54,7 @@ public class SuplaChannelNewValueResultRequest {
 
     @Override
     public String toString() {
-        return "SuplaChannelNewValueResultRequest{" +
+        return "ChannelNewValueResultRequest{" +
                 "channelNumber=" + channelNumber +
                 ", senderId=" + senderId +
                 ", success=" + success +
