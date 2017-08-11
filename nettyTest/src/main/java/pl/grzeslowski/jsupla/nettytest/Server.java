@@ -29,7 +29,7 @@ public class Server {
 
     private void run() throws Exception {
         logger.info("Starting...");
-        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2015),
+        try (NettyServer nettyServer = new NettyServer(new NettyConfig(2016),
                 new ListenersSuplaDataPacketDispatcher(
                         new DecoderFactoryImpl(),
                         new EncoderFactoryImpl(),
