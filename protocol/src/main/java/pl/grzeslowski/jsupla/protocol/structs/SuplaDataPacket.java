@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.structs;
 
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 import java.util.Arrays;
 

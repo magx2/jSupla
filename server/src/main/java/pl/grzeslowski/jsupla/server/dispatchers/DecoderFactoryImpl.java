@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
-import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.dcs.SuplaSetActivityTimeoutDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
+import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;

@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
-import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.encoders.sd.SuplaRegisterDeviceResultEncoder;
 import pl.grzeslowski.jsupla.protocol.encoders.sdc.SuplaSetActivityTimeoutResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaSetActivityTimeoutResult;
+import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 import static java.lang.String.format;
 

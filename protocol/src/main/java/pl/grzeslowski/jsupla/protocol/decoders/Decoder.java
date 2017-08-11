@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
-import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 public interface Decoder<T extends ProtoWithSize> {
     T decode(byte[] bytes, int offset);

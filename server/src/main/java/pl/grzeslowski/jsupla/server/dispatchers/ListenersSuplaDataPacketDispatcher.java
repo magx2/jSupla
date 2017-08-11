@@ -2,8 +2,6 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.ProtoToSend;
-import pl.grzeslowski.jsupla.protocol.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.ClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType;
@@ -11,6 +9,8 @@ import pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.structs.ds.DeviceServer;
+import pl.grzeslowski.jsupla.protocol.types.ProtoToSend;
+import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.listeners.ListenersFactory;

@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
-import pl.grzeslowski.jsupla.protocol.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.types.ProtoToSend;
 
 public interface ToSuplaDataPacketEncoder<T extends ProtoToSend> extends Encoder<T> {
     default SuplaDataPacket encode(T proto, short version, long rrId) {

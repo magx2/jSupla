@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol;
+package pl.grzeslowski.jsupla.protocol.types;
 
 /**
  * Mark interface.
