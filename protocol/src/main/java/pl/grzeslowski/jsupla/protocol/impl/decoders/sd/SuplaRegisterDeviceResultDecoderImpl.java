@@ -1,7 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
+package pl.grzeslowski.jsupla.protocol.decoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sd.ServerDeviceDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.util.Objects.requireNonNull;

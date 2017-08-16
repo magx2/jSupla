@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
+package pl.grzeslowski.jsupla.protocol.decoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;

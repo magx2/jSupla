@@ -1,8 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
+package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sc.ServerClientDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelValue;
 
 import static java.util.Objects.requireNonNull;

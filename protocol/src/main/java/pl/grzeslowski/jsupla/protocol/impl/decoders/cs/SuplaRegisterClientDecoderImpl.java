@@ -1,14 +1,16 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.cs;
+package pl.grzeslowski.jsupla.protocol.decoders.cs;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.cs.ClientServerDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaRegisterClient;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 @Deprecated
 public final class SuplaRegisterClientDecoderImpl implements ClientServerDecoder<SuplaRegisterClient> {

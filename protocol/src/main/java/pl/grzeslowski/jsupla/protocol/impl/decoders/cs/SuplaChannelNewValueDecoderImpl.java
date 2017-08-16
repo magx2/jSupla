@@ -1,7 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.cs;
+package pl.grzeslowski.jsupla.protocol.decoders.cs;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.cs.ClientServerDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaChannelNewValue;
 
 import java.util.Arrays;

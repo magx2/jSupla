@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.encoders;
 
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaDataPacketEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import java.util.Random;
@@ -11,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public class ToSuplaDataPacketEncoderTest {
-    private final SuplaDataPacketEncoder encoder = new SuplaDataPacketEncoder(PrimitiveEncoderImpl.INSTANCE);
+    private final SuplaDataPacketEncoderImpl encoder = new SuplaDataPacketEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
 
     @Test
     public void shouldParseEntityIntoArray() {

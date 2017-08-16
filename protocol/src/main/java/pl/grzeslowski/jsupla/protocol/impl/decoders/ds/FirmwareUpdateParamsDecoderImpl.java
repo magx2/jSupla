@@ -1,7 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
+package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.DeviceServerDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.FirmwareUpdateParams;
 
 import static java.util.Objects.requireNonNull;

@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder;
 import pl.grzeslowski.jsupla.protocol.encoders.sc.ServerClientEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelValue;
 
@@ -9,11 +10,10 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelValueEncoderImpl implements ServerClientEncoder<SuplaChannelValue> {
     private final PrimitiveEncoder primitiveEncoder;
-    private final pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder channelValueEncoder;
+    private final SuplaChannelValueEncoder channelValueEncoder;
 
-    public SuplaChannelValueEncoderImpl(
-            PrimitiveEncoder primitiveEncoder,
-            pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder channelValueEncoder) {
+    public SuplaChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder,
+                                        SuplaChannelValueEncoder channelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelValueEncoder = requireNonNull(channelValueEncoder);
     }

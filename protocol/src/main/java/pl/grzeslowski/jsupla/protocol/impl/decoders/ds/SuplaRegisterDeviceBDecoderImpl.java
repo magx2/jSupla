@@ -1,8 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
+package pl.grzeslowski.jsupla.protocol.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.DeviceServerDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 
@@ -11,7 +10,10 @@ import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
@@ -19,7 +21,8 @@ public final class SuplaRegisterDeviceBDecoderImpl implements DeviceServerDecode
     private final PrimitiveDecoder primitiveDecoder;
     private final Decoder<SuplaDeviceChannelB> channelDecoder;
 
-    public SuplaRegisterDeviceBDecoderImpl(PrimitiveDecoder primitiveDecoder, Decoder<SuplaDeviceChannelB> channelDecoder) {
+    public SuplaRegisterDeviceBDecoderImpl(PrimitiveDecoder primitiveDecoder,
+                                           Decoder<SuplaDeviceChannelB> channelDecoder) {
         this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }

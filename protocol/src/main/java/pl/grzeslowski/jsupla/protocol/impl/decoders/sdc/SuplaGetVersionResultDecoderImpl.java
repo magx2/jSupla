@@ -1,7 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.sdc;
+package pl.grzeslowski.jsupla.protocol.decoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sdc.ServerClientDeviceDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
 
 import java.util.Arrays;

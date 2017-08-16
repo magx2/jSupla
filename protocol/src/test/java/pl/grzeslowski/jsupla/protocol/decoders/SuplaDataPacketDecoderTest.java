@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.decoders;
 
 import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaDataPacketDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_TAG_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public class SuplaDataPacketDecoderTest {
-    private final SuplaDataPacketDecoder parser = new SuplaDataPacketDecoder(INSTANCE);
+    private final SuplaDataPacketDecoderImpl parser = new SuplaDataPacketDecoderImpl(INSTANCE);
 
     @Test
     public void shouldParseTSuplaDataPacketFromArrayWithSuplaTag() {

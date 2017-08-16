@@ -1,8 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
+package pl.grzeslowski.jsupla.protocol.decoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.SuplaChannelValueDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sc.ServerClientDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
 
@@ -17,7 +16,8 @@ public final class SuplaChannelDecoderImpl implements ServerClientDecoder<SuplaC
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
-    public SuplaChannelDecoderImpl(PrimitiveDecoder primitiveDecoder, SuplaChannelValueDecoder suplaChannelValueDecoder) {
+    public SuplaChannelDecoderImpl(PrimitiveDecoder primitiveDecoder,
+                                   SuplaChannelValueDecoder suplaChannelValueDecoder) {
         this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.suplaChannelValueDecoder = requireNonNull(suplaChannelValueDecoder);
     }

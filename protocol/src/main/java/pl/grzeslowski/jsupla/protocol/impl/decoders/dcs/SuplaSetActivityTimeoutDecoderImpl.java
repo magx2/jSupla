@@ -1,7 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.impl.decoders.dcs;
+package pl.grzeslowski.jsupla.protocol.decoders.dcs;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.dcs.DeviceClientServerDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 
 import static java.util.Objects.requireNonNull;
