@@ -7,9 +7,11 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocationPack;
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaLocationPackEncoder implements ServerClientEncoder<SuplaLocationPack> {
+    private final PrimitiveEncoder primitiveEncoder;
     private final SuplaLocationEncoder locationEncoder;
 
-    public SuplaLocationPackEncoder(SuplaLocationEncoder locationEncoder) {
+    public SuplaLocationPackEncoder(PrimitiveEncoder primitiveEncoder, SuplaLocationEncoder locationEncoder) {
+        this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.locationEncoder = requireNonNull(locationEncoder);
     }
 
@@ -18,11 +20,11 @@ public final class SuplaLocationPackEncoder implements ServerClientEncoder<Supla
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.writeInteger(proto.count, data, offset);
-        offset += PrimitiveEncoder.writeInteger(proto.totalLeft, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.count, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.totalLeft, data, offset);
         for (SuplaLocation location : proto.locations) {
             final byte[] locationBytes = locationEncoder.encode(location);
-            offset += PrimitiveEncoder.writeBytes(locationBytes, data, offset);
+            offset += primitiveEncoder.writeBytes(locationBytes, data, offset);
         }
 
         return data;

@@ -6,9 +6,12 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrlResult;
 import static java.util.Objects.requireNonNull;
 
 public final class FirmwareUpdateUrlResultEncoder implements ServerDeviceEncoder<FirmwareUpdateUrlResult> {
+    private final PrimitiveEncoder primitiveEncoder;
     private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
-    public FirmwareUpdateUrlResultEncoder(FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {
+    public FirmwareUpdateUrlResultEncoder(PrimitiveEncoder primitiveEncoder,
+                                          FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {
+        this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.firmwareUpdateUrlEncoder = requireNonNull(firmwareUpdateUrlEncoder);
     }
 
@@ -17,9 +20,9 @@ public final class FirmwareUpdateUrlResultEncoder implements ServerDeviceEncoder
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.writeByte(proto.exists, data, offset);
+        offset += primitiveEncoder.writeByte(proto.exists, data, offset);
         final byte[] url = firmwareUpdateUrlEncoder.encode(proto.url);
-        PrimitiveEncoder.writeBytes(url, data, offset);
+        primitiveEncoder.writeBytes(url, data, offset);
 
         return data;
     }

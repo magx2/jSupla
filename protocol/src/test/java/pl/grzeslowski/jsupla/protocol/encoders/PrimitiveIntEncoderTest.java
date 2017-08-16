@@ -9,6 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public class PrimitiveIntEncoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
+    private PrimitiveEncoderImpl primitiveEncoder = PrimitiveEncoderImpl.INSTANCE;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenArrayIsToSmall() {
@@ -17,7 +18,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE - 1];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
+        primitiveEncoder.writeUnsignedInteger(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
 
         // then
         fail("Should throw IllegalArgumentException");
@@ -31,7 +32,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[offset + INT_SIZE - 1];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
+        primitiveEncoder.writeUnsignedInteger(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
 
         // then
         fail("Should throw IllegalArgumentException");
@@ -45,7 +46,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(value, bytes, 0);
+        primitiveEncoder.writeUnsignedInteger(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 5);
@@ -65,7 +66,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(value, bytes, 0);
+        primitiveEncoder.writeUnsignedInteger(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 51);
@@ -86,7 +87,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE + offset];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(value, bytes, offset);
+        primitiveEncoder.writeUnsignedInteger(value, bytes, offset);
 
         // then
         //noinspection PointlessArithmeticExpression
@@ -105,7 +106,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(value, bytes, 0);
+        primitiveEncoder.writeUnsignedInteger(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) 0);
@@ -123,7 +124,7 @@ public class PrimitiveIntEncoderTest {
         byte[] bytes = new byte[INT_SIZE];
 
         // when
-        PrimitiveEncoder.writeUnsignedInteger(value, bytes, 0);
+        primitiveEncoder.writeUnsignedInteger(value, bytes, 0);
 
         // then
         assertThat(bytes[0]).isEqualTo((byte) -1);

@@ -10,7 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public class ToSuplaDataPacketEncoderTest {
-    private final SuplaDataPacketEncoder encoder = new SuplaDataPacketEncoder();
+    private final SuplaDataPacketEncoder encoder = new SuplaDataPacketEncoder(PrimitiveEncoderImpl.INSTANCE);
 
     @Test
     public void shouldParseEntityIntoArray() {

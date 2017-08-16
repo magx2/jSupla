@@ -7,9 +7,11 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelPack;
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelPackEncoder implements ServerClientEncoder<SuplaChannelPack> {
+    private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelEncoder channelEncoder;
 
-    public SuplaChannelPackEncoder(SuplaChannelEncoder channelEncoder) {
+    public SuplaChannelPackEncoder(PrimitiveEncoder primitiveEncoder, SuplaChannelEncoder channelEncoder) {
+        this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelEncoder = requireNonNull(channelEncoder);
     }
 
@@ -18,11 +20,11 @@ public final class SuplaChannelPackEncoder implements ServerClientEncoder<SuplaC
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.writeInteger(proto.count, data, offset);
-        offset += PrimitiveEncoder.writeInteger(proto.totalLeft, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.count, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.totalLeft, data, offset);
         for (SuplaChannel channel : proto.channels) {
             final byte[] channelBytes = channelEncoder.encode(channel);
-            offset += PrimitiveEncoder.writeBytes(channelBytes, data, offset);
+            offset += primitiveEncoder.writeBytes(channelBytes, data, offset);
         }
 
         return data;

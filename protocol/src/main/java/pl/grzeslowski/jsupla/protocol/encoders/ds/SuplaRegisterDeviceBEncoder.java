@@ -8,9 +8,12 @@ import static java.util.Objects.requireNonNull;
 
 @Deprecated
 public final class SuplaRegisterDeviceBEncoder implements DeviceServerEncoder<SuplaRegisterDeviceB> {
+    private final PrimitiveEncoder primitiveEncoder;
     private final SuplaDeviceChannelBEncoder deviceChannelBEncoder;
 
-    public SuplaRegisterDeviceBEncoder(SuplaDeviceChannelBEncoder deviceChannelBEncoder) {
+    public SuplaRegisterDeviceBEncoder(PrimitiveEncoder primitiveEncoder,
+                                       SuplaDeviceChannelBEncoder deviceChannelBEncoder) {
+        this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.deviceChannelBEncoder = requireNonNull(deviceChannelBEncoder);
     }
 
@@ -19,15 +22,15 @@ public final class SuplaRegisterDeviceBEncoder implements DeviceServerEncoder<Su
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.writeInteger(proto.locationId, data, offset);
-        offset += PrimitiveEncoder.writeBytes(proto.locationPwd, data, offset);
-        offset += PrimitiveEncoder.writeBytes(proto.guid, data, offset);
-        offset += PrimitiveEncoder.writeBytes(proto.name, data, offset);
-        offset += PrimitiveEncoder.writeBytes(proto.softVer, data, offset);
-        offset += PrimitiveEncoder.writeUnsignedByte(proto.channelCount, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.locationId, data, offset);
+        offset += primitiveEncoder.writeBytes(proto.locationPwd, data, offset);
+        offset += primitiveEncoder.writeBytes(proto.guid, data, offset);
+        offset += primitiveEncoder.writeBytes(proto.name, data, offset);
+        offset += primitiveEncoder.writeBytes(proto.softVer, data, offset);
+        offset += primitiveEncoder.writeUnsignedByte(proto.channelCount, data, offset);
         for (SuplaDeviceChannelB channel : proto.channels) {
             final byte[] channelBytes = deviceChannelBEncoder.encode(channel);
-            offset += PrimitiveEncoder.writeBytes(channelBytes, data, offset);
+            offset += primitiveEncoder.writeBytes(channelBytes, data, offset);
         }
 
         return data;

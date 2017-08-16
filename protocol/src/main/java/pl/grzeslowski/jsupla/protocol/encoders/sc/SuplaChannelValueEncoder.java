@@ -7,10 +7,13 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelValue;
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelValueEncoder implements ServerClientEncoder<SuplaChannelValue> {
+    private final PrimitiveEncoder primitiveEncoder;
     private final pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder channelValueEncoder;
 
     public SuplaChannelValueEncoder(
+            PrimitiveEncoder primitiveEncoder,
             pl.grzeslowski.jsupla.protocol.encoders.SuplaChannelValueEncoder channelValueEncoder) {
+        this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelValueEncoder = requireNonNull(channelValueEncoder);
     }
 
@@ -19,11 +22,11 @@ public final class SuplaChannelValueEncoder implements ServerClientEncoder<Supla
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.writeByte(proto.eol, data, offset);
-        offset += PrimitiveEncoder.writeInteger(proto.id, data, offset);
-        offset += PrimitiveEncoder.writeByte(proto.online, data, offset);
+        offset += primitiveEncoder.writeByte(proto.eol, data, offset);
+        offset += primitiveEncoder.writeInteger(proto.id, data, offset);
+        offset += primitiveEncoder.writeByte(proto.online, data, offset);
         final byte[] channelBytes = channelValueEncoder.encode(proto.value);
-        PrimitiveEncoder.writeBytes(channelBytes, data, offset);
+        primitiveEncoder.writeBytes(channelBytes, data, offset);
 
         return data;
     }
