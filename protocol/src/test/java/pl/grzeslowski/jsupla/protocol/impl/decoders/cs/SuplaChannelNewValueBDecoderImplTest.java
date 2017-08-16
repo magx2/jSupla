@@ -25,7 +25,6 @@ public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest {
         // when
         decoder.decode(bytes, 0);
 
-
         // then
         verify(primitiveDecoder).parseInt(bytes, 0);
         verify(primitiveDecoder).copyOfRange(bytes, INT_SIZE, INT_SIZE + SUPLA_CHANNELVALUE_SIZE);
