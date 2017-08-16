@@ -2,6 +2,21 @@ ext {
 	slf4j_version = '1.7.25'
 }
 
+@SuppressWarnings("UnnecessaryQualifiedReference")
+def prodProjects(Closure c) {
+	allprojects { p ->
+		if(!isTestProject(p)) { // only for non test projects
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
+private static boolean isTestProject(Project p) {
+	p.name.toLowerCase().contains("test")
+}
+
 allprojects {
 	repositories {
 		mavenLocal()
@@ -17,20 +32,16 @@ allprojects {
 }
 
 // Add check style to all projects
-allprojects { p ->
-	if(!isTestProject(p)) { // only for non test projects
-		apply plugin: 'checkstyle'
-		p.tasks.withType(Checkstyle) {
-			configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
-		}
+prodProjects { p ->
+	apply plugin: 'checkstyle'
+	p.tasks.withType(Checkstyle) {
+		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
 	}
 }
 
 // Add JaCoCO to all projects
-allprojects { p ->
-	if(!isTestProject(p)) { // only for non test projects
-		apply plugin: "jacoco"
-	}
+prodProjects { p ->
+	apply plugin: "jacoco"
 }
 
 allprojects {
@@ -40,10 +51,6 @@ allprojects {
 		testCompile 'junit:junit:4.12'
 		testCompile 'org.assertj:assertj-core:3.8.0'
 	}
-}
-
-private static boolean isTestProject(Project p) {
-	p.name.toLowerCase().contains("test")
 }
 
 task wrapper(type: Wrapper) {
