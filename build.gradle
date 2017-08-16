@@ -1,5 +1,6 @@
 ext {
 	slf4j_version = '1.7.25'
+	checkerFrameworkVersion = '2.1.14'
 }
 
 allprojects {
@@ -30,6 +31,37 @@ allprojects { p ->
 allprojects { p ->
 	if(!isTestProject(p)) { // only for non test projects
 		apply plugin: "jacoco"
+	}
+}
+
+// Add Checker to all projects
+allprojects { p ->
+	if(!isTestProject(p)) { // only for non test projects
+		configurations {
+			checkerFrameworkAnnotatedJDK {
+				description = 'a copy of JDK classes with Checker Framework type qualifers inserted'
+			}
+			checkerFramework {
+				description = 'The Checker Framework: custom pluggable types for Java'
+			}
+		}
+		dependencies {
+			checkerFrameworkAnnotatedJDK "org.checkerframework:jdk8:${checkerFrameworkVersion}"
+			checkerFramework "org.checkerframework:checker:${checkerFrameworkVersion}"
+			compile "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
+		}
+		tasks.withType(JavaCompile).all { JavaCompile compile ->
+			compile.options.compilerArgs = [
+//					'-processor', 'org.checkerframework.checker.nullness.NullnessChecker',
+					'-processor', 'org.checkerframework.checker.signedness.SignednessChecker',
+					'-processorpath', "${configurations.checkerFramework.asPath}",
+					'-Xmaxerrs', '10000',
+					'-AprintErrorStack',
+					// uncomment to turn Checker Framework errors into warnings
+					// '-Awarns', '-Xmaxwarns', '10000',
+					"-Xbootclasspath/p:${configurations.checkerFrameworkAnnotatedJDK.asPath}"
+			]
+		}
 	}
 }
 
