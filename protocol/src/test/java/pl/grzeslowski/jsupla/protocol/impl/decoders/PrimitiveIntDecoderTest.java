@@ -1,11 +1,11 @@
-package pl.grzeslowski.jsupla.protocol.decoders;
+package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
 
 import org.junit.Test;
 
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public class PrimitiveIntDecoderTest {
 

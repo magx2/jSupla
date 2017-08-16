@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequestB;
 
 import java.util.ArrayList;
 
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public class DeviceRegisterRequestBParser implements Parser<RegisterDeviceRequestB, SuplaRegisterDeviceB> {
     @Override

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_TAG_SIZE;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public class SuplaDataPacketDecoderTest {
     private final SuplaDataPacketDecoder parser = new SuplaDataPacketDecoder(INSTANCE);
