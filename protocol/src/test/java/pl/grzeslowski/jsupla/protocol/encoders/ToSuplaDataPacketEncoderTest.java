@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.encoders;
 
 import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import java.util.Random;

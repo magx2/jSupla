@@ -1,4 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.encoders;
+package pl.grzeslowski.jsupla.protocol.impl.encoders;
+
+import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
 
 import java.nio.ByteBuffer;
 

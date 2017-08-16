@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.encoders;
+package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
 import org.junit.Test;
 
