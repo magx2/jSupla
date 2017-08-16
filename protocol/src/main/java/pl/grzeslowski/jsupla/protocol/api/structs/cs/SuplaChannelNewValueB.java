@@ -10,6 +10,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public final class SuplaChannelNewValueB implements ClientServer {
+    public static final int SIZE = INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
+
     public final int channelId;
     public final byte[] value;
 
@@ -26,7 +28,7 @@ public final class SuplaChannelNewValueB implements ClientServer {
 
     @Override
     public int size() {
-        return  INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
+        return SIZE;
     }
 
     @Override
