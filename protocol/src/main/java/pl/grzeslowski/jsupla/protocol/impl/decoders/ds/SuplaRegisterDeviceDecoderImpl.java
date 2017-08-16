@@ -6,8 +6,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceDecoder
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
 
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
@@ -30,16 +28,16 @@ public final class SuplaRegisterDeviceDecoderImpl implements SuplaRegisterDevice
         final int locationId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
+        final byte[] locationPwd = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
         offset += SUPLA_LOCATION_PWD_MAXSIZE;
 
-        final byte[] guid = Arrays.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
+        final byte[] guid = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
-        final byte[] name = Arrays.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
+        final byte[] name = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
         offset += SUPLA_DEVICE_NAME_MAXSIZE;
 
-        final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
+        final byte[] softVer = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
         final short channelCount = primitiveDecoder.parseUnsignedByte(bytes, offset);

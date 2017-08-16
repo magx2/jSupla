@@ -4,8 +4,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaChannelNewValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
@@ -23,7 +21,7 @@ public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewVal
         final byte channelId = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final byte[] value = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        final byte[] value = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
 
         return new SuplaChannelNewValue(channelId, value);
     }

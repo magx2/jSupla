@@ -21,7 +21,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
      */
     @Override
     public long parseUnsignedInt(byte[] bytes, int offset) {
-        final byte[] intBytes = Arrays.copyOfRange(bytes, offset, offset + INT_SIZE);
+        final byte[] intBytes = copyOfRange(bytes, offset, offset + INT_SIZE);
         ByteBuffer bb = ByteBuffer.wrap(intBytes);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         return bb.getInt() & 0xffffffffL;
@@ -124,5 +124,10 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
                 bytes[14],
                 bytes[15]
         );
+    }
+
+    @Override
+    public byte[] copyOfRange(final byte[] original, final int from, final int to) {
+        return Arrays.copyOfRange(original, from, to);
     }
 }

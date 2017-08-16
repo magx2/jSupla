@@ -5,8 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaDataPacketDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -34,7 +32,7 @@ public final class SuplaDataPacketDecoderImpl implements SuplaDataPacketDecoder 
         final long dataSize = primitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte[] data = Arrays.copyOfRange(bytes, offset, offset + (int) dataSize);
+        final byte[] data = primitiveDecoder.copyOfRange(bytes, offset, offset + (int) dataSize);
 
         return new SuplaDataPacket(version, rrId, callType, dataSize, data);
     }

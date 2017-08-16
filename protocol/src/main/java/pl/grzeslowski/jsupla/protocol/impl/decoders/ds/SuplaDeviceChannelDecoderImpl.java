@@ -4,8 +4,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -27,7 +25,7 @@ public final class SuplaDeviceChannelDecoderImpl implements SuplaDeviceChannelDe
         final int type = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte[] value = Arrays.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        final byte[] value = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
 
         return new SuplaDeviceChannel(number, type, value);
     }
