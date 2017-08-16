@@ -3,22 +3,29 @@ package pl.grzeslowski.jsupla.protocol.decoders.sd;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaRegisterDeviceResultDecoder implements ServerDeviceDecoder<SuplaRegisterDeviceResult> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public SuplaRegisterDeviceResultDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public SuplaRegisterDeviceResult decode(byte[] bytes, int offset) {
-        final int resultCode = PrimitiveDecoder.parseInt(bytes, offset);
+        final int resultCode = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final byte activityTimeout = PrimitiveDecoder.parseByte(bytes, offset);
+        final byte activityTimeout = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final byte version = PrimitiveDecoder.parseByte(bytes, offset);
+        final byte version = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final byte versionMin = PrimitiveDecoder.parseByte(bytes, offset);
+        final byte versionMin = primitiveDecoder.parseByte(bytes, offset);
 
         return new SuplaRegisterDeviceResult(resultCode, activityTimeout, version, versionMin);
     }

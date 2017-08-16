@@ -5,16 +5,23 @@ import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public final class SuplaGetVersionResultDecoder implements ServerClientDeviceDecoder<SuplaGetVersionResult> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public SuplaGetVersionResultDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public SuplaGetVersionResult decode(byte[] bytes, int offset) {
-        final short protoVersionMin = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
+        final short protoVersionMin = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final short protoVersion = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
+        final short protoVersion = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
         final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);

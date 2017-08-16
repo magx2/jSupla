@@ -11,20 +11,21 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
-import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder.parseInt;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public final class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<SuplaRegisterDeviceB> {
+    private final PrimitiveDecoder primitiveDecoder;
     private final Decoder<SuplaDeviceChannelB> channelDecoder;
 
-    public SuplaRegisterDeviceBDecoder(Decoder<SuplaDeviceChannelB> channelDecoder) {
+    public SuplaRegisterDeviceBDecoder(PrimitiveDecoder primitiveDecoder, Decoder<SuplaDeviceChannelB> channelDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
     public SuplaRegisterDeviceB decode(byte[] bytes, int offset) {
-        final int locationId = parseInt(bytes, offset);
+        final int locationId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
@@ -39,7 +40,7 @@ public final class SuplaRegisterDeviceBDecoder implements DeviceServerDecoder<Su
         final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        final short channelCount = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
+        final short channelCount = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
         SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[channelCount];

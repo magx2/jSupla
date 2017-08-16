@@ -5,14 +5,21 @@ import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaRegisterClient;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 @Deprecated
 public final class SuplaRegisterClientDecoder implements ClientServerDecoder<SuplaRegisterClient> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public SuplaRegisterClientDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public SuplaRegisterClient decode(byte[] bytes, int offset) {
-        final int accessId = PrimitiveDecoder.parseInt(bytes, offset);
+        final int accessId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] accessIdPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_ACCESSID_PWD_MAXSIZE);

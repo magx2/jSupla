@@ -8,18 +8,20 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaLocationPackDecoder implements ServerClientDecoder<SuplaLocationPack> {
+    private final PrimitiveDecoder primitiveDecoder;
     private final SuplaLocationDecoder locationDecoder;
 
-    public SuplaLocationPackDecoder(SuplaLocationDecoder locationDecoder) {
+    public SuplaLocationPackDecoder(PrimitiveDecoder primitiveDecoder, SuplaLocationDecoder locationDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.locationDecoder = requireNonNull(locationDecoder);
     }
 
     @Override
     public SuplaLocationPack decode(byte[] bytes, int offset) {
-        final int count = PrimitiveDecoder.parseInt(bytes, offset);
+        final int count = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int totalLeft = PrimitiveDecoder.parseInt(bytes, offset);
+        final int totalLeft = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaLocation[] locations = new SuplaLocation[count];

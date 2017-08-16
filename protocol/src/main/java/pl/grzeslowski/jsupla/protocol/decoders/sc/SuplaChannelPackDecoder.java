@@ -8,18 +8,20 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelPackDecoder implements ServerClientDecoder<SuplaChannelPack> {
+    private final PrimitiveDecoder primitiveDecoder;
     private final SuplaChannelDecoder channelDecoder;
 
-    public SuplaChannelPackDecoder(SuplaChannelDecoder channelDecoder) {
+    public SuplaChannelPackDecoder(PrimitiveDecoder primitiveDecoder, SuplaChannelDecoder channelDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
     public SuplaChannelPack decode(byte[] bytes, int offset) {
-        final int count = PrimitiveDecoder.parseInt(bytes, offset);
+        final int count = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int totalLeft = PrimitiveDecoder.parseInt(bytes, offset);
+        final int totalLeft = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaChannel[] channels = new SuplaChannel[count];

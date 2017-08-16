@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.decoders.dcs.SuplaSetActivityTimeoutDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
@@ -12,9 +13,10 @@ import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallTyp
 import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 
 public class DecoderFactoryImpl implements DecoderFactory {
-    private final SuplaDeviceChannelBDecoder channelDecoder = new SuplaDeviceChannelBDecoder();
+    private final SuplaDeviceChannelBDecoder channelDecoder =
+            new SuplaDeviceChannelBDecoder(PrimitiveDecoderImpl.INSTANCE);
     private final SuplaRegisterDeviceBDecoder registerDeviceDecoder =
-            new SuplaRegisterDeviceBDecoder(channelDecoder);
+            new SuplaRegisterDeviceBDecoder(PrimitiveDecoderImpl.INSTANCE, channelDecoder);
 
     @SuppressWarnings("unchecked")
     @Override
@@ -23,7 +25,7 @@ public class DecoderFactoryImpl implements DecoderFactory {
         if (value == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
             return (Decoder<T>) registerDeviceDecoder;
         } else if (value == SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT.getValue()) {
-            return (Decoder<T>) new SuplaSetActivityTimeoutDecoder();
+            return (Decoder<T>) new SuplaSetActivityTimeoutDecoder(PrimitiveDecoderImpl.INSTANCE);
         }
 
         throw new IllegalArgumentException(format("Don't know decoder for call type %s", callType));

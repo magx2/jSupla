@@ -5,19 +5,26 @@ import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocation;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaLocationDecoder implements ServerClientDecoder<SuplaLocation> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public SuplaLocationDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
-        final byte eol = PrimitiveDecoder.parseByte(bytes, offset);
+        final byte eol = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final int id = PrimitiveDecoder.parseInt(bytes, offset);
+        final int id = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final long captionSize = PrimitiveDecoder.parseUnsignedInt(bytes, offset);
+        final long captionSize = primitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] caption = Arrays.copyOfRange(bytes, offset, offset + (int) captionSize);

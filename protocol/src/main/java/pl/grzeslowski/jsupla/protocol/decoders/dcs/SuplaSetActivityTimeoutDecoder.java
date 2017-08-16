@@ -3,10 +3,18 @@ package pl.grzeslowski.jsupla.protocol.decoders.dcs;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 
+import static java.util.Objects.requireNonNull;
+
 public final class SuplaSetActivityTimeoutDecoder implements DeviceClientServerDecoder<SuplaSetActivityTimeout> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public SuplaSetActivityTimeoutDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public SuplaSetActivityTimeout decode(byte[] bytes, int offset) {
-        final short activityTimeout = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
+        final short activityTimeout = primitiveDecoder.parseUnsignedByte(bytes, offset);
         return new SuplaSetActivityTimeout(activityTimeout);
     }
 }

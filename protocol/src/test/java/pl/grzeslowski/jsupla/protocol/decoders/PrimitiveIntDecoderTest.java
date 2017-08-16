@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public class PrimitiveIntDecoderTest {
 
@@ -15,7 +16,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{(byte) 5, 0, 0, 0};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
 
         // then
         assertThat(parseInt).isEqualTo(5);
@@ -28,7 +29,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{1, 2, 3, (byte) 5, 0, 0, 0};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 3);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 3);
 
         // then
         assertThat(parseInt).isEqualTo(5);
@@ -41,7 +42,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{1, 2, 3, (byte) 5, 0, 0, 0, 5, 6, 7, 8};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 3);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 3);
 
         // then
         assertThat(parseInt).isEqualTo(5);
@@ -54,7 +55,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{(byte) 5, 0, 0, 21};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
 
         // then
         assertThat(parseInt).isEqualTo(352_321_541);
@@ -67,7 +68,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{(byte) -1, (byte) -1, (byte) -1, (byte) -1};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
 
         // then
         assertThat(parseInt).isEqualTo(MAX_VALUE * 2L + 1);
@@ -80,7 +81,7 @@ public class PrimitiveIntDecoderTest {
         byte[] bytes = new byte[]{(byte) 0, (byte) 0, (byte) 0, (byte) 0};
 
         // when
-        final long parseInt = PrimitiveDecoder.parseUnsignedInt(bytes, 0);
+        final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
 
         // then
         assertThat(parseInt).isEqualTo(0L);

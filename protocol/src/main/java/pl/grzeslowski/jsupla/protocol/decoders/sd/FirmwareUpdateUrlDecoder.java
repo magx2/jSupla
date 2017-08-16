@@ -6,21 +6,28 @@ import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 public final class FirmwareUpdateUrlDecoder implements Decoder<FirmwareUpdateUrl> {
+    private final PrimitiveDecoder primitiveDecoder;
+
+    public FirmwareUpdateUrlDecoder(PrimitiveDecoder primitiveDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
+    }
+
     @Override
     public FirmwareUpdateUrl decode(byte[] bytes, int offset) {
-        final byte availableProtocols = PrimitiveDecoder.parseByte(bytes, offset);
+        final byte availableProtocols = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
         final byte[] host = Arrays.copyOfRange(bytes, offset, offset + SUPLA_URL_HOST_MAXSIZE);
         offset += SUPLA_URL_HOST_MAXSIZE;
 
-        final int port = PrimitiveDecoder.parseInt(bytes, offset);
+        final int port = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] path = Arrays.copyOfRange(bytes, offset, offset + SUPLA_URL_PATH_MAXSIZE);

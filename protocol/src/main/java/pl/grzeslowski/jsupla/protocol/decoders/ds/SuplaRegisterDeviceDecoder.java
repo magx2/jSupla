@@ -12,15 +12,17 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
 
 @Deprecated
 public final class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<SuplaRegisterDevice> {
+    private final PrimitiveDecoder primitiveDecoder;
     private final SuplaDeviceChannelDecoder channelDecoder;
 
-    public SuplaRegisterDeviceDecoder(SuplaDeviceChannelDecoder channelDecoder) {
+    public SuplaRegisterDeviceDecoder(PrimitiveDecoder primitiveDecoder, SuplaDeviceChannelDecoder channelDecoder) {
+        this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
     public SuplaRegisterDevice decode(byte[] bytes, int offset) {
-        final int locationId = PrimitiveDecoder.parseInt(bytes, offset);
+        final int locationId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final byte[] locationPwd = Arrays.copyOfRange(bytes, offset, offset + SUPLA_LOCATION_PWD_MAXSIZE);
@@ -35,7 +37,7 @@ public final class SuplaRegisterDeviceDecoder implements DeviceServerDecoder<Sup
         final byte[] softVer = Arrays.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        final short channelCount = PrimitiveDecoder.parseUnsignedByte(bytes, offset);
+        final short channelCount = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaDeviceChannel[] channels = new SuplaDeviceChannel[channelCount];
