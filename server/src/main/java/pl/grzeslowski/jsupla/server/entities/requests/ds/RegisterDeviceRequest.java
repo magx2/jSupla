@@ -9,7 +9,11 @@ import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_HEXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public class RegisterDeviceRequest implements Request {
     @Min(0)

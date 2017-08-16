@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sdc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sdc.SuplaGetVersionResultDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaGetVersionResultDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public final class SuplaGetVersionResultDecoderImpl implements SuplaGetVersionResultDecoder {
     private final PrimitiveDecoder primitiveDecoder;

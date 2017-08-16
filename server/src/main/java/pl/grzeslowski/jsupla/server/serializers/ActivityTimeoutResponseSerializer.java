@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
-import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaSetActivityTimeoutResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.server.entities.responses.ActivityTimeoutResponse;
 
 public class ActivityTimeoutResponseSerializer

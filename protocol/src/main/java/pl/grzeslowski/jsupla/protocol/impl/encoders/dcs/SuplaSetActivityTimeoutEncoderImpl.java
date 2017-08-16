@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.dcs;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.dcs.SuplaSetActivityTimeoutEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaSetActivityTimeoutEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 
 import static java.util.Objects.requireNonNull;
 

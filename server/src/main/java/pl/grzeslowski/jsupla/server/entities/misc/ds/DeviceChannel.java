@@ -8,8 +8,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 
-import static pl.grzeslowski.jsupla.Preconditions.*;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.Preconditions.size;
+import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class DeviceChannel implements Entity {
     @Min(0)

@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
-import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 import java.util.Optional;
 

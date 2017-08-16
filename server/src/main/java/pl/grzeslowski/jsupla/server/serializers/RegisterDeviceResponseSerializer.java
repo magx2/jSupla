@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
-import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 
 class RegisterDeviceResponseSerializer implements Serializer<RegisterDeviceResponse, SuplaRegisterDeviceResult> {

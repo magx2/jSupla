@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sc.SuplaEventDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaEvent;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaEventDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
 
 public final class SuplaEventDecoderImpl implements SuplaEventDecoder {
     private final PrimitiveDecoder primitiveDecoder;

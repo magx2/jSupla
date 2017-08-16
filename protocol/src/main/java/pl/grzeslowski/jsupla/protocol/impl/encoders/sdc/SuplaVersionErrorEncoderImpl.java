@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sdc;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sdc.SuplaVersionErrorEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaVersionErrorEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 
 import static java.util.Objects.requireNonNull;
 

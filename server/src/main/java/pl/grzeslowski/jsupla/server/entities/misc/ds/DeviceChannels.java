@@ -9,7 +9,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
 public class DeviceChannels implements Entity {
     @NotNull

@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.SuplaDataPacketEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaDataPacketEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 import static java.util.Objects.requireNonNull;
 

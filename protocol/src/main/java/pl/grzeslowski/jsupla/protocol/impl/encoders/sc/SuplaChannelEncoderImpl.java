@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sc.SuplaChannelEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl;
-import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
 
 import static java.util.Objects.requireNonNull;
 

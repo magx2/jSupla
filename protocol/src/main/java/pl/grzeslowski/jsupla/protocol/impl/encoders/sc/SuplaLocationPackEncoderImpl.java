@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sc.SuplaLocationPackEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocationPack;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 
 import static java.util.Objects.requireNonNull;
 

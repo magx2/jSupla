@@ -1,21 +1,21 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceCDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceC;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelBDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceCDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDeviceCDecoder {
     private final PrimitiveDecoder primitiveDecoder;

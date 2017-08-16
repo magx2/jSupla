@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
 import java.nio.ByteBuffer;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public static final PrimitiveEncoderImpl INSTANCE = new PrimitiveEncoderImpl();

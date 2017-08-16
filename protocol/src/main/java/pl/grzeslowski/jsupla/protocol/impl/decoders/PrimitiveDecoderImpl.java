@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     public static final PrimitiveDecoderImpl INSTANCE = new PrimitiveDecoderImpl();

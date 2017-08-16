@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.entities.responses.registerdevice;
 
-import pl.grzeslowski.jsupla.protocol.ResultCode;
+import pl.grzeslowski.jsupla.protocol.api.ResultCode;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 
 import javax.validation.constraints.Max;

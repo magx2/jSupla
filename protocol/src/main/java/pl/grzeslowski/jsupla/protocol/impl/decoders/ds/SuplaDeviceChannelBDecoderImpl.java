@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelBDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 
 import static java.util.Arrays.copyOfRange;
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public final class SuplaDeviceChannelBDecoderImpl implements SuplaDeviceChannelBDecoder {
     private final PrimitiveDecoder primitiveDecoder;

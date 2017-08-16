@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sdc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sdc.SuplaVersionErrorDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaVersionErrorDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaVersionErrorDecoderImpl implements SuplaVersionErrorDecoder {
     private final PrimitiveDecoder primitiveDecoder;

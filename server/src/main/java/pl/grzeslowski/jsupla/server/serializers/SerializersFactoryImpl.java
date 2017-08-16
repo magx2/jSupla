@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server.serializers;
 
-import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.server.entities.responses.ActivityTimeoutResponse;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;

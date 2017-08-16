@@ -1,17 +1,17 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
-import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.SuplaChannelValueDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.sc.SuplaChannelDecoder;
-import pl.grzeslowski.jsupla.protocol.structs.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaChannelValueDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
 public final class SuplaChannelDecoderImpl implements SuplaChannelDecoder {
     private final PrimitiveDecoder primitiveDecoder;

@@ -1,16 +1,16 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
-import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
-import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
+import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
-import static pl.grzeslowski.jsupla.protocol.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 
 public class DecoderFactoryImpl implements DecoderFactory {
     private final SuplaDeviceChannelBDecoderImpl channelDecoder =

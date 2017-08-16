@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server.parsers;
 
-import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequestB;
 

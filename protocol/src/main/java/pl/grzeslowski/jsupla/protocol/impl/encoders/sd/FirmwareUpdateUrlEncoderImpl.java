@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 
-import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sd.FirmwareUpdateUrlEncoder;
-import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
 
 import static java.util.Objects.requireNonNull;
 
