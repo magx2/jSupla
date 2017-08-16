@@ -1,8 +1,3 @@
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
     compile rootProject
 }

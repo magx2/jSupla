@@ -2,9 +2,11 @@ ext {
 	slf4j_version = '1.7.25'
 }
 
-repositories {
-	mavenLocal()
-	mavenCentral()
+allprojects {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
 }
 
 allprojects {

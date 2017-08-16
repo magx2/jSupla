@@ -12,11 +12,6 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
     compile rootProject.project("nettyServer")
     compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
