@@ -1,11 +1,12 @@
-package pl.grzeslowski.jsupla.protocol.decoders.dcs;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.dcs;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.dcs.SuplaSetActivityTimeoutDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaSetActivityTimeoutDecoderImpl implements DeviceClientServerDecoder<SuplaSetActivityTimeout> {
+public final class SuplaSetActivityTimeoutDecoderImpl implements SuplaSetActivityTimeoutDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaSetActivityTimeoutDecoderImpl(PrimitiveDecoder primitiveDecoder) {

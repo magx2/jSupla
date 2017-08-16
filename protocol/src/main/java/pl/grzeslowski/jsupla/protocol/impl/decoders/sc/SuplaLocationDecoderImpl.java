@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sc;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sc.SuplaLocationDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocation;
 
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class SuplaLocationDecoderImpl implements ServerClientDecoder<SuplaLocation> {
+public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaLocationDecoderImpl(PrimitiveDecoder primitiveDecoder) {

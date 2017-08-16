@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.DeviceServerDecoder;
 import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceCDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceC;
 
@@ -17,7 +17,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_LOCATION_P
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class SuplaRegisterDeviceCDecoderImpl implements DeviceServerDecoder<SuplaRegisterDeviceC> {
+public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDeviceCDecoder {
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaDeviceChannelBDecoder channelBDecoder;
 

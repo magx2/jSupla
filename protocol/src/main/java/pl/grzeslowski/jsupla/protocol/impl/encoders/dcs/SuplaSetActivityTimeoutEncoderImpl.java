@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.dcs;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.dcs.DeviceClientServerEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.dcs.SuplaSetActivityTimeoutEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.dcs.SuplaSetActivityTimeout;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaSetActivityTimeoutEncoderImpl implements DeviceClientServerEncoder<SuplaSetActivityTimeout> {
+public final class SuplaSetActivityTimeoutEncoderImpl implements SuplaSetActivityTimeoutEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaSetActivityTimeoutEncoderImpl(PrimitiveEncoder primitiveEncoder) {

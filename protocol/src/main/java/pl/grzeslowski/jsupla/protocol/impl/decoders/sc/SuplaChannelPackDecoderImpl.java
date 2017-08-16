@@ -1,13 +1,14 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sc;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sc.SuplaChannelPackDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaChannelPack;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class SuplaChannelPackDecoderImpl implements ServerClientDecoder<SuplaChannelPack> {
+public final class SuplaChannelPackDecoderImpl implements SuplaChannelPackDecoder {
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaChannelDecoderImpl channelDecoder;
 

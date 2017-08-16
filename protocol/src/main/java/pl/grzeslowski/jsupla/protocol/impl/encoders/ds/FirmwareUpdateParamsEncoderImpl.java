@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.ds.DeviceServerEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.ds.FirmwareUpdateParamsEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.FirmwareUpdateParams;
 
 import static java.util.Objects.requireNonNull;
 
-public final class FirmwareUpdateParamsEncoderImpl implements DeviceServerEncoder<FirmwareUpdateParams> {
+public final class FirmwareUpdateParamsEncoderImpl implements FirmwareUpdateParamsEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public FirmwareUpdateParamsEncoderImpl(PrimitiveEncoder primitiveEncoder) {

@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sdc.ServerClientDeviceEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.sdc.SuplaGetVersionResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaGetVersionResultEncoderImpl implements ServerClientDeviceEncoder<SuplaGetVersionResult> {
+public final class SuplaGetVersionResultEncoderImpl implements SuplaGetVersionResultEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaGetVersionResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

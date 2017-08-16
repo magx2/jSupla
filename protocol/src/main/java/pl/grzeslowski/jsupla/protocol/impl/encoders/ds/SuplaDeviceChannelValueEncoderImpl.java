@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.ds.DeviceServerEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.ds.SuplaDeviceChannelValueEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelValue;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaDeviceChannelValueEncoderImpl implements DeviceServerEncoder<SuplaDeviceChannelValue> {
+public final class SuplaDeviceChannelValueEncoderImpl implements SuplaDeviceChannelValueEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaDeviceChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {

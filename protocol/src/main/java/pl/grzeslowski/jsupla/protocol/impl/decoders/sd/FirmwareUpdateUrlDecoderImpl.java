@@ -1,7 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sd;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
 
-import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sd.FirmwareUpdateUrlDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
-public final class FirmwareUpdateUrlDecoderImpl implements Decoder<FirmwareUpdateUrl> {
+public final class FirmwareUpdateUrlDecoderImpl implements FirmwareUpdateUrlDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public FirmwareUpdateUrlDecoderImpl(PrimitiveDecoder primitiveDecoder) {

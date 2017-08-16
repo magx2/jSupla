@@ -2,10 +2,10 @@ package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.protocol.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
-import pl.grzeslowski.jsupla.protocol.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaDeviceChannelBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelBDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.types.ProtoWithSize;
 
 import static java.lang.String.format;

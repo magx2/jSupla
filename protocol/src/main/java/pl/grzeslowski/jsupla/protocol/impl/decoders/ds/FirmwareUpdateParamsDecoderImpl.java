@@ -1,13 +1,14 @@
-package pl.grzeslowski.jsupla.protocol.decoders.ds;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.FirmwareUpdateParamsDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.FirmwareUpdateParams;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class FirmwareUpdateParamsDecoderImpl implements DeviceServerDecoder<FirmwareUpdateParams> {
+public final class FirmwareUpdateParamsDecoderImpl implements FirmwareUpdateParamsDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public FirmwareUpdateParamsDecoderImpl(PrimitiveDecoder primitiveDecoder) {

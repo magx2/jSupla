@@ -1,7 +1,8 @@
-package pl.grzeslowski.jsupla.protocol.decoders.ds;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.ds.SuplaRegisterDeviceBDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDeviceB;
 
@@ -17,7 +18,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MA
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
-public final class SuplaRegisterDeviceBDecoderImpl implements DeviceServerDecoder<SuplaRegisterDeviceB> {
+public final class SuplaRegisterDeviceBDecoderImpl implements SuplaRegisterDeviceBDecoder {
     private final PrimitiveDecoder primitiveDecoder;
     private final Decoder<SuplaDeviceChannelB> channelDecoder;
 

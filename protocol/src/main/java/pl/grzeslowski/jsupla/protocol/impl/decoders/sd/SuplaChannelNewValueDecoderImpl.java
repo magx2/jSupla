@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sd;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sd.SuplaChannelNewValueDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaChannelNewValue;
 
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-public final class SuplaChannelNewValueDecoderImpl implements ServerDeviceDecoder<SuplaChannelNewValue> {
+public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewValueDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaChannelNewValueDecoderImpl(PrimitiveDecoder primitiveDecoder) {

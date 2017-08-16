@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
 import pl.grzeslowski.jsupla.protocol.consts.ProtoConsts;
-import pl.grzeslowski.jsupla.protocol.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.SuplaDataPacketDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class SuplaDataPacketDecoderImpl implements Decoder<SuplaDataPacket> {
+public final class SuplaDataPacketDecoderImpl implements SuplaDataPacketDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaDataPacketDecoderImpl(PrimitiveDecoder primitiveDecoder) {

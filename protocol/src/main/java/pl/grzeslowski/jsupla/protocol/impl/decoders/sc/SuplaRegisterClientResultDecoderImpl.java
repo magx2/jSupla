@@ -1,13 +1,14 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sc;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sc.SuplaRegisterClientResultDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaRegisterClientResult;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.INT_SIZE;
 
-public final class SuplaRegisterClientResultDecoderImpl implements ServerClientDecoder<SuplaRegisterClientResult> {
+public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegisterClientResultDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaRegisterClientResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {

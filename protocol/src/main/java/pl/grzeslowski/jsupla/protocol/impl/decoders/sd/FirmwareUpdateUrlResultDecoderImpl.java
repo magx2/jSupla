@@ -1,13 +1,14 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sd;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sd.FirmwareUpdateUrlResultDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.structs.sd.FirmwareUpdateUrlResult;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 
-public final class FirmwareUpdateUrlResultDecoderImpl implements ServerDeviceDecoder<FirmwareUpdateUrlResult> {
+public final class FirmwareUpdateUrlResultDecoderImpl implements FirmwareUpdateUrlResultDecoder {
     private final PrimitiveDecoder primitiveDecoder;
     private final FirmwareUpdateUrlDecoderImpl firmwareUpdateUrlDecoder;
 

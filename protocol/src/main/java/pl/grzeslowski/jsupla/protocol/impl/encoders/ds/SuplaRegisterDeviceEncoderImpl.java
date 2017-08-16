@@ -1,14 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.ds.DeviceServerEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.ds.SuplaRegisterDeviceEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.structs.ds.SuplaRegisterDevice;
 
 import static java.util.Objects.requireNonNull;
 
 @Deprecated
-public final class SuplaRegisterDeviceEncoderImpl implements DeviceServerEncoder<SuplaRegisterDevice> {
+public final class SuplaRegisterDeviceEncoderImpl implements SuplaRegisterDeviceEncoder {
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaDeviceChannelEncoderImpl deviceChannelEncoder;
 

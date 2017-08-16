@@ -1,13 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.cs;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.cs.ClientServerEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.cs.SuplaChannelNewValueEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaChannelNewValue;
 
 import static java.util.Objects.requireNonNull;
 
 @Deprecated
-public final class SuplaChannelNewValueEncoderImpl implements ClientServerEncoder<SuplaChannelNewValue> {
+public final class SuplaChannelNewValueEncoderImpl implements SuplaChannelNewValueEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaChannelNewValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {

@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
-import pl.grzeslowski.jsupla.protocol.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.SuplaDataPacketEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.SuplaDataPacket;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaDataPacketEncoderImpl implements Encoder<SuplaDataPacket> {
+public final class SuplaDataPacketEncoderImpl implements SuplaDataPacketEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaDataPacketEncoderImpl(PrimitiveEncoder primitiveEncoder) {

@@ -1,13 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sc.ServerClientEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.sc.SuplaLocationPackEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaLocationPack;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaLocationPackEncoderImpl implements ServerClientEncoder<SuplaLocationPack> {
+public final class SuplaLocationPackEncoderImpl implements SuplaLocationPackEncoder {
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaLocationEncoderImpl locationEncoder;
 

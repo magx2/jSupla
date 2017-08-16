@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sc.ServerClientEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.sc.SuplaRegisterClientResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaRegisterClientResult;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaRegisterClientResultEncoderImpl implements ServerClientEncoder<SuplaRegisterClientResult> {
+public final class SuplaRegisterClientResultEncoderImpl implements SuplaRegisterClientResultEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaRegisterClientResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

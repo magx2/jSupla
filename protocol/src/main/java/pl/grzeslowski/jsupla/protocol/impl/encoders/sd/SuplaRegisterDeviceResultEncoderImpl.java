@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sd.ServerDeviceEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.sd.SuplaRegisterDeviceResultEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sd.SuplaRegisterDeviceResult;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaRegisterDeviceResultEncoderImpl implements ServerDeviceEncoder<SuplaRegisterDeviceResult> {
+public final class SuplaRegisterDeviceResultEncoderImpl implements SuplaRegisterDeviceResultEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaRegisterDeviceResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

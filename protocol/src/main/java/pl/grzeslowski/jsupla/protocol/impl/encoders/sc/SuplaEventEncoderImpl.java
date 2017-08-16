@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.encoders.sc.ServerClientEncoder;
+import pl.grzeslowski.jsupla.protocol.encoders.sc.SuplaEventEncoder;
 import pl.grzeslowski.jsupla.protocol.structs.sc.SuplaEvent;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaEventEncoderImpl implements ServerClientEncoder<SuplaEvent> {
+public final class SuplaEventEncoderImpl implements SuplaEventEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 
     public SuplaEventEncoderImpl(PrimitiveEncoder primitiveEncoder) {

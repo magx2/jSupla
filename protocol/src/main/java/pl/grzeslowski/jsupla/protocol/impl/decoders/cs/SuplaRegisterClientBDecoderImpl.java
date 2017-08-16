@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.cs;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.cs;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.cs.SuplaRegisterClientBDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.cs.SuplaRegisterClientB;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class SuplaRegisterClientBDecoderImpl implements ClientServerDecoder<SuplaRegisterClientB> {
+public final class SuplaRegisterClientBDecoderImpl implements SuplaRegisterClientBDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaRegisterClientBDecoderImpl(PrimitiveDecoder primitiveDecoder) {

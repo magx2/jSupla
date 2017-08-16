@@ -1,6 +1,7 @@
-package pl.grzeslowski.jsupla.protocol.decoders.sdc;
+package pl.grzeslowski.jsupla.protocol.impl.decoders.sdc;
 
 import pl.grzeslowski.jsupla.protocol.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.decoders.sdc.SuplaGetVersionResultDecoder;
 import pl.grzeslowski.jsupla.protocol.structs.sdc.SuplaGetVersionResult;
 
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-public final class SuplaGetVersionResultDecoderImpl implements ServerClientDeviceDecoder<SuplaGetVersionResult> {
+public final class SuplaGetVersionResultDecoderImpl implements SuplaGetVersionResultDecoder {
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaGetVersionResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {
