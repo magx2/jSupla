@@ -6,6 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCal
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaVersionError implements ServerDeviceClient {
+    public static final int SIZE = BYTE_SIZE * 2;
     /**
      * unsigned.
      */
@@ -27,7 +28,7 @@ public final class SuplaVersionError implements ServerDeviceClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 2;
+        return SIZE;
     }
 
     @Override
