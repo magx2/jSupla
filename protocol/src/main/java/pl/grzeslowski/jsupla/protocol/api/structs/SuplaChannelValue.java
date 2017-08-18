@@ -8,6 +8,7 @@ import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public final class SuplaChannelValue implements ProtoWithSize {
+    public static final int SIZE = SUPLA_CHANNELVALUE_SIZE + SUPLA_CHANNELVALUE_SIZE;
     /**
      * unsigned.
      */
@@ -26,7 +27,7 @@ public final class SuplaChannelValue implements ProtoWithSize {
 
     @Override
     public int size() {
-        return SUPLA_CHANNELVALUE_SIZE + SUPLA_CHANNELVALUE_SIZE;
+        return SIZE;
     }
 
     @Override

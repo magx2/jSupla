@@ -7,6 +7,9 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelValue implements ServerClient {
+    public static final int SIZE = BYTE_SIZE * 2 + INT_SIZE
+                                           + pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.SIZE;
+
     public final byte eol;
     public final int id;
     public final byte online;
@@ -29,16 +32,16 @@ public final class SuplaChannelValue implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 2 + INT_SIZE + value.size();
+        return SIZE;
     }
 
     @Override
     public String toString() {
         return "SuplaChannelValue{" +
-                "eol=" + eol +
-                ", id=" + id +
-                ", online=" + online +
-                ", value=" + value +
-                '}';
+                       "eol=" + eol +
+                       ", id=" + id +
+                       ", online=" + online +
+                       ", value=" + value +
+                       '}';
     }
 }
