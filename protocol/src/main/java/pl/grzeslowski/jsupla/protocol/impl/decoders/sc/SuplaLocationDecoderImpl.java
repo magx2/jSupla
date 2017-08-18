@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
@@ -17,6 +18,8 @@ public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
 
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaLocation.MIN_SIZE);
+
         final byte eol = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
@@ -26,6 +29,7 @@ public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
         final long captionSize = primitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaLocation.MIN_SIZE + (int) captionSize);
         final byte[] caption = primitiveDecoder.copyOfRange(bytes, offset, offset + (int) captionSize);
 
         return new SuplaLocation(eol, id, captionSize, caption);
