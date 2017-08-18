@@ -18,13 +18,20 @@ public abstract class DecoderTest {
             final byte[] original = invocation.getArgumentAt(0, byte[].class);
             final Integer from = invocation.getArgumentAt(1, Integer.class);
             final Integer to = invocation.getArgumentAt(2, Integer.class);
-            return PrimitiveDecoderImpl.INSTANCE.copyOfRange(original, from, to);
+            final int newLength = to - from;
+            return new byte[newLength];
         });
     }
 
     @Test
-    public abstract void shouldParseEntity() throws Exception ;
+    public abstract void shouldParseEntity() throws Exception;
 
     @Test(expected = NullPointerException.class)
     public abstract void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception;
+
+    @Test(expected = IllegalArgumentException.class)
+    public abstract void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception;
+
+    @Test(expected = IllegalArgumentException.class)
+    public abstract void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception;
 }

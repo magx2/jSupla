@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.cs;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaChannelNewValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
@@ -7,6 +8,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue.SIZE;
 
 @Deprecated
 public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewValueDecoder {
@@ -18,6 +20,8 @@ public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewVal
 
     @Override
     public SuplaChannelNewValue decode(byte[] bytes, int offset) {
+        Preconditions.checkArrayLength(bytes, offset + SIZE);
+
         final byte channelId = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
