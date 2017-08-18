@@ -53,9 +53,11 @@ public class SuplaLocationDecoderImplTest extends DecoderTest<SuplaLocationDecod
         new SuplaLocationDecoderImpl(null);
     }
 
+    // @formatter:off
     @Test(expected = IllegalArgumentException.class)
     public void
-    shouldShouldThrowIllegalArgumentExceptionIfBytesLengthIsBiggerThanMinSizeButSmallerThanMinSizeWIthCaption() {
+        shouldShouldThrowIllegalArgumentExceptionIfBytesLengthIsBiggerThanMinSizeButSmallerThanMinSizeWIthCaption() {
+        // @formatter:on
 
         // given
         final int offset = 5;
