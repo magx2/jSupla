@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
@@ -19,6 +20,8 @@ public final class FirmwareUpdateUrlDecoderImpl implements FirmwareUpdateUrlDeco
 
     @Override
     public FirmwareUpdateUrl decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + FirmwareUpdateUrl.SIZE);
+
         final byte availableProtocols = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
