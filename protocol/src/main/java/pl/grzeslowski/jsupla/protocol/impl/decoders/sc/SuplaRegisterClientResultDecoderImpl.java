@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaRegisterClientResultDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
@@ -17,6 +18,8 @@ public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegister
 
     @Override
     public SuplaRegisterClientResult decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaRegisterClientResult.SIZE);
+
         final int resultCode = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 

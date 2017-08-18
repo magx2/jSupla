@@ -7,6 +7,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaRegisterClientResult implements ServerClient {
+    public static final int SIZE = BYTE_SIZE * 3 + INT_SIZE * 4;
     public final int resultCode;
     public final int clientId;
     public final int locationCount;
@@ -47,7 +48,7 @@ public final class SuplaRegisterClientResult implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 3 + INT_SIZE * 4;
+        return SIZE;
     }
 
     @Override
