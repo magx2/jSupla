@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
 
 public final class SuplaLocation implements ServerClient {
+    public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 2;
     public final byte eol;
     public final int id;
     /**
@@ -44,7 +45,7 @@ public final class SuplaLocation implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 2 + caption.length;
+        return MIN_SIZE + caption.length;
     }
 
     @Override
