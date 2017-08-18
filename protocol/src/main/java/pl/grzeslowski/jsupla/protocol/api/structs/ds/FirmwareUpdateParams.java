@@ -7,6 +7,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class FirmwareUpdateParams implements DeviceServer {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE * 4;
     public final byte platform;
     public final int param1;
     public final int param2;
@@ -28,7 +29,7 @@ public final class FirmwareUpdateParams implements DeviceServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE * 4;
+        return SIZE;
     }
 
     @Override
