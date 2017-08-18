@@ -13,6 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 public final class SuplaChannel implements ServerClient {
     public static final int MIN_SIZE = BYTE_SIZE * 2 + INT_SIZE * 4 + SuplaChannelValue.SIZE;
+
     public final byte eol;
     public final int id;
     public final int locationId;
