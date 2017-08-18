@@ -8,6 +8,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.CHAR_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelNewValueResult implements DeviceServer {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE + CHAR_SIZE;
     /**
      * unsigned.
      */
@@ -28,7 +29,7 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE + CHAR_SIZE;
+        return SIZE;
     }
 
     @Override
