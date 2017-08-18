@@ -11,6 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 @Deprecated
 public final class SuplaChannelNewValue implements ClientServer {
+    public static final int SIZE = BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE;
     public final byte  channelId;
     public final byte[] value;
 
@@ -26,7 +27,7 @@ public final class SuplaChannelNewValue implements ClientServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE ;
+        return SIZE;
     }
 
     @Override
