@@ -24,6 +24,7 @@ public class SuplaRegisterClientBDecoderImplTest extends DecoderTest<SuplaRegist
         return decoder;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public void verifyParseEntity(final byte[] bytes, final int offset) {
         verify(primitiveDecoder).parseInt(bytes, offset);

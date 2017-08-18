@@ -14,6 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @Deprecated
 public final class SuplaRegisterClient implements ClientServer {
+    public static final int SIZE = INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE
+                                           + SUPLA_SOFTVER_MAXSIZE;
     public final int accessId;
     /**
      * UTF-8.
@@ -42,18 +44,17 @@ public final class SuplaRegisterClient implements ClientServer {
 
     @Override
     public int size() {
-        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE +
-                SUPLA_SOFTVER_MAXSIZE;
+        return SIZE;
     }
 
     @Override
     public String toString() {
         return "SuplaRegisterClient{" +
-                "accessId=" + accessId +
-                ", accessIdPwd=" + Arrays.toString(accessIdPwd) +
-                ", guid=" + Arrays.toString(guid) +
-                ", name=" + Arrays.toString(name) +
-                ", softVer=" + Arrays.toString(softVer) +
-                '}';
+                       "accessId=" + accessId +
+                       ", accessIdPwd=" + Arrays.toString(accessIdPwd) +
+                       ", guid=" + Arrays.toString(guid) +
+                       ", name=" + Arrays.toString(name) +
+                       ", softVer=" + Arrays.toString(softVer) +
+                       '}';
     }
 }
