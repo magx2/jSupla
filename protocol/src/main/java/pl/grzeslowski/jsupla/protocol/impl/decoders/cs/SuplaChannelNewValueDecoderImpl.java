@@ -20,7 +20,7 @@ public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewVal
 
     @Override
     public SuplaChannelNewValue decode(byte[] bytes, int offset) {
-        Preconditions.checkArrayLength(bytes, offset + SIZE);
+        Preconditions.checkMinArrayLength(bytes, offset + SIZE);
 
         final byte channelId = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;

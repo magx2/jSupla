@@ -22,7 +22,7 @@ public final class SuplaRegisterClientDecoderImpl implements SuplaRegisterClient
 
     @Override
     public SuplaRegisterClient decode(byte[] bytes, int offset) {
-        Preconditions.checkArrayLength(bytes, offset + SuplaRegisterClient.SIZE);
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaRegisterClient.SIZE);
 
         final int accessId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;

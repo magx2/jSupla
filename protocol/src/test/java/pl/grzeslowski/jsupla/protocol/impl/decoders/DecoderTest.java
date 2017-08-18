@@ -5,13 +5,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 
 public abstract class DecoderTest<T extends Decoder<?>> {
+    private static final int RANDOM_INT = 123;
     @Mock protected PrimitiveDecoder primitiveDecoder;
 
     @Before
@@ -36,7 +36,7 @@ public abstract class DecoderTest<T extends Decoder<?>> {
 
         // given
         int offset = 5;
-        byte[] bytes = new byte[entitySize() + offset];
+        byte[] bytes = new byte[entitySize() + offset + RANDOM_INT];
 
         // when
         getDecoder().decode(bytes, offset);
@@ -52,7 +52,7 @@ public abstract class DecoderTest<T extends Decoder<?>> {
     public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception {
 
         // given
-        final byte[] bytes = new byte[SuplaChannelNewValueB.SIZE - 1];
+        final byte[] bytes = new byte[entitySize() - 1];
 
         // when
         getDecoder().decode(bytes, 0);
@@ -62,7 +62,7 @@ public abstract class DecoderTest<T extends Decoder<?>> {
     public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception {
 
         // given
-        final byte[] bytes = new byte[SuplaChannelNewValueB.SIZE];
+        final byte[] bytes = new byte[entitySize()];
 
         // when
         getDecoder().decode(bytes, 1);
