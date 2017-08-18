@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
 public final class SuplaChannel implements ServerClient {
+    public static final int MIN_SIZE = BYTE_SIZE * 2 + INT_SIZE * 4 + SuplaChannelValue.SIZE;
     public final byte eol;
     public final int id;
     public final int locationId;
@@ -20,7 +21,7 @@ public final class SuplaChannel implements ServerClient {
     public final SuplaChannelValue value;
     /**
      * Including the terminating null byte ('\0').
-     *
+     * <p>
      * <p>unsigned
      */
     public final long captionSize;
@@ -40,8 +41,8 @@ public final class SuplaChannel implements ServerClient {
         this.func = func;
         this.online = online;
         this.value = value;
-        this.captionSize = captionSize;
-        this.caption = Preconditions.size(caption, 0, SUPLA_CHANNEL_CAPTION_MAXSIZE);
+        this.captionSize = Preconditions.max(captionSize, SUPLA_CHANNEL_CAPTION_MAXSIZE);
+        this.caption = Preconditions.size(caption, 0, captionSize);
     }
 
 
@@ -52,20 +53,20 @@ public final class SuplaChannel implements ServerClient {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 2 + INT_SIZE * 4 + value.size() + caption.length;
+        return MIN_SIZE + caption.length;
     }
 
     @Override
     public String toString() {
         return "SuplaChannel{" +
-                "eol=" + eol +
-                ", id=" + id +
-                ", locationId=" + locationId +
-                ", func=" + func +
-                ", online=" + online +
-                ", value=" + value +
-                ", captionSize=" + captionSize +
-                ", caption=" + Arrays.toString(caption) +
-                '}';
+                       "eol=" + eol +
+                       ", id=" + id +
+                       ", locationId=" + locationId +
+                       ", func=" + func +
+                       ", online=" + online +
+                       ", value=" + value +
+                       ", captionSize=" + captionSize +
+                       ", caption=" + Arrays.toString(caption) +
+                       '}';
     }
 }

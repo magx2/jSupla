@@ -1,6 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
@@ -10,15 +12,17 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelPackDecoderImpl implements SuplaChannelPackDecoder {
     private final PrimitiveDecoder primitiveDecoder;
-    private final SuplaChannelDecoderImpl channelDecoder;
+    private final SuplaChannelDecoder channelDecoder;
 
-    public SuplaChannelPackDecoderImpl(PrimitiveDecoder primitiveDecoder, SuplaChannelDecoderImpl channelDecoder) {
+    public SuplaChannelPackDecoderImpl(PrimitiveDecoder primitiveDecoder, SuplaChannelDecoder channelDecoder) {
         this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
     public SuplaChannelPack decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaChannelPack.MIN_SIZE);
+
         final int count = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
