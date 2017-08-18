@@ -12,45 +12,27 @@ import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue
 
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest {
+public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest<SuplaChannelNewValueBDecoderImpl> {
     @InjectMocks SuplaChannelNewValueBDecoderImpl decoder;
 
     @Override
-    public void shouldParseEntity() throws Exception {
+    public SuplaChannelNewValueBDecoderImpl getDecoder() {
+        return decoder;
+    }
 
-        // given
-        final byte[] bytes = new byte[SIZE];
+    @Override
+    public void verifyParseEntity(final byte[] bytes, final int offset) {
+        verify(primitiveDecoder).parseInt(bytes, offset);
+        verify(primitiveDecoder).copyOfRange(bytes, offset + INT_SIZE, offset + INT_SIZE + SUPLA_CHANNELVALUE_SIZE);
+    }
 
-        // when
-        decoder.decode(bytes, 0);
-
-        // then
-        verify(primitiveDecoder).parseInt(bytes, 0);
-        verify(primitiveDecoder).copyOfRange(bytes, INT_SIZE, INT_SIZE + SUPLA_CHANNELVALUE_SIZE);
+    @Override
+    public int entitySize() {
+        return SIZE;
     }
 
     @Override
     public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
         new SuplaChannelNewValueBDecoderImpl(null);
-    }
-
-    @Override
-    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception {
-
-        // given
-        final byte[] bytes = new byte[SIZE - 1];
-
-        // when
-        decoder.decode(bytes, 0);
-    }
-
-    @Override
-    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception {
-
-        // given
-        final byte[] bytes = new byte[SIZE];
-
-        // when
-        decoder.decode(bytes, 1);
     }
 }

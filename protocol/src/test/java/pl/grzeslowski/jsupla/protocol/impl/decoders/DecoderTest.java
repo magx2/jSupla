@@ -3,13 +3,15 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 
-public abstract class DecoderTest {
+public abstract class DecoderTest<T extends Decoder<?>> {
     @Mock protected PrimitiveDecoder primitiveDecoder;
 
     @Before
@@ -23,15 +25,46 @@ public abstract class DecoderTest {
         });
     }
 
+    public abstract T getDecoder();
+
+    public abstract void verifyParseEntity(final byte[] bytes, final int offset);
+
+    public abstract int entitySize();
+
     @Test
-    public abstract void shouldParseEntity() throws Exception;
+    public void shouldParseEntity() throws Exception {
+
+        // given
+        int offset = 5;
+        byte[] bytes = new byte[entitySize() + offset];
+
+        // when
+        getDecoder().decode(bytes, offset);
+
+        // then
+        verifyParseEntity(bytes, offset);
+    }
 
     @Test(expected = NullPointerException.class)
     public abstract void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception;
 
     @Test(expected = IllegalArgumentException.class)
-    public abstract void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception;
+    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception {
+
+        // given
+        final byte[] bytes = new byte[SuplaChannelNewValueB.SIZE - 1];
+
+        // when
+        getDecoder().decode(bytes, 0);
+    }
 
     @Test(expected = IllegalArgumentException.class)
-    public abstract void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception;
+    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception {
+
+        // given
+        final byte[] bytes = new byte[SuplaChannelNewValueB.SIZE];
+
+        // when
+        getDecoder().decode(bytes, 1);
+    }
 }
