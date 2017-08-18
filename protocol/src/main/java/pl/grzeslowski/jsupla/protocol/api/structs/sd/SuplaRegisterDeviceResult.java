@@ -8,6 +8,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaRegisterDeviceResult implements ServerDevice {
+    public static final int SIZE = BYTE_SIZE * 3 + INT_SIZE;
+
     public final int resultCode;
     public final byte activityTimeout;
     public final byte version;
@@ -31,7 +33,7 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 3 + INT_SIZE;
+        return SIZE;
     }
 
     @Override
