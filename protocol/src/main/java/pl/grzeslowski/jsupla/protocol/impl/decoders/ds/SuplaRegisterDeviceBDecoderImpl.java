@@ -1,7 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
@@ -18,16 +19,18 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 @Deprecated
 public final class SuplaRegisterDeviceBDecoderImpl implements SuplaRegisterDeviceBDecoder {
     private final PrimitiveDecoder primitiveDecoder;
-    private final Decoder<SuplaDeviceChannelB> channelDecoder;
+    private final SuplaDeviceChannelBDecoder channelDecoder;
 
     public SuplaRegisterDeviceBDecoderImpl(PrimitiveDecoder primitiveDecoder,
-                                           Decoder<SuplaDeviceChannelB> channelDecoder) {
+                                           SuplaDeviceChannelBDecoder channelDecoder) {
         this.primitiveDecoder = requireNonNull(primitiveDecoder);
         this.channelDecoder = requireNonNull(channelDecoder);
     }
 
     @Override
     public SuplaRegisterDeviceB decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaRegisterDeviceB.SIZE);
+
         final int locationId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 

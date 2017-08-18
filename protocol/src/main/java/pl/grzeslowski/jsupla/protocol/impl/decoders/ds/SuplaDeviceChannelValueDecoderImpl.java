@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
@@ -17,6 +18,8 @@ public final class SuplaDeviceChannelValueDecoderImpl implements SuplaDeviceChan
 
     @Override
     public SuplaDeviceChannelValue decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaDeviceChannelValue.SIZE);
+
         final short channelNumber = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
