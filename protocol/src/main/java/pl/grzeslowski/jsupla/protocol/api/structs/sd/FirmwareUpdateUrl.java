@@ -11,6 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_HO
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 public final class FirmwareUpdateUrl implements ProtoWithSize {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_URL_HOST_MAXSIZE + SUPLA_URL_PATH_MAXSIZE;
     public final byte availableProtocols;
     public final byte[] host;
     public final int port;
@@ -25,7 +26,7 @@ public final class FirmwareUpdateUrl implements ProtoWithSize {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE + SUPLA_URL_HOST_MAXSIZE + SUPLA_URL_PATH_MAXSIZE;
+        return SIZE;
     }
 
     @Override
