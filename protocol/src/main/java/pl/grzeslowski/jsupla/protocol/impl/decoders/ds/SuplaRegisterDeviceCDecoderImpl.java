@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceCDecoder;
@@ -27,6 +28,8 @@ public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDevic
 
     @Override
     public SuplaRegisterDeviceC decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaRegisterDeviceC.SIZE);
+
         final int locationId = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 

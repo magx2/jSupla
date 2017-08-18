@@ -20,6 +20,9 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
  * @since ver 6.
  */
 public final class SuplaRegisterDeviceC implements DeviceServer {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE +
+                   SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE +
+                   SuplaDeviceChannelB.SIZE * SUPLA_CHANNELMAXCOUNT;
     public final int locationId;
     /**
      * UTF-8.
@@ -63,9 +66,7 @@ public final class SuplaRegisterDeviceC implements DeviceServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE +
-                SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE +
-                SuplaDeviceChannelB.SIZE * SUPLA_CHANNELMAXCOUNT;
+        return SIZE;
     }
 
     @Override
