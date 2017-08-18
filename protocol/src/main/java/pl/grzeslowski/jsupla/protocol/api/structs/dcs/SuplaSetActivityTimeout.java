@@ -6,6 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCal
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaSetActivityTimeout implements DeviceClientServer {
+    public static final int SIZE = BYTE_SIZE;
     /**
      * unsigned.
      */
@@ -22,7 +23,7 @@ public final class SuplaSetActivityTimeout implements DeviceClientServer {
 
     @Override
     public int size() {
-        return BYTE_SIZE;
+        return SIZE;
     }
 
     @Override
