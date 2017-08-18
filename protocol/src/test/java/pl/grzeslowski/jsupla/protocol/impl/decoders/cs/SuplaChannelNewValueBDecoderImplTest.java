@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.cs;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -16,7 +15,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest {
     @InjectMocks SuplaChannelNewValueBDecoderImpl decoder;
 
-    @Test
+    @Override
     public void shouldParseEntity() throws Exception {
 
         // given
@@ -30,7 +29,7 @@ public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest {
         verify(primitiveDecoder).copyOfRange(bytes, INT_SIZE, INT_SIZE + SUPLA_CHANNELVALUE_SIZE);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Override
     public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
         new SuplaChannelNewValueBDecoderImpl(null);
     }
