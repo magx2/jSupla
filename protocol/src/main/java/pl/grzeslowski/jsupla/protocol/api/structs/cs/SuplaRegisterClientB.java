@@ -17,6 +17,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
  * @since ver 6.
  */
 public final class SuplaRegisterClientB implements ClientServer {
+    public static final int SIZE = INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE +
+                   SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE;
     public final int accessId;
     /**
      * UTF-8.
@@ -51,8 +53,7 @@ public final class SuplaRegisterClientB implements ClientServer {
 
     @Override
     public int size() {
-        return INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE +
-                SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE;
+        return SIZE;
     }
 
     @Override
