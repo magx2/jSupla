@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaEventDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
@@ -17,6 +18,8 @@ public final class SuplaEventDecoderImpl implements SuplaEventDecoder {
 
     @Override
     public SuplaEvent decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes, offset + SuplaEvent.SIZE);
+
         final int event = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 

@@ -10,6 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
 
 public final class SuplaEvent implements ServerClient {
+    public static final int SIZE = INT_SIZE * 5 + SUPLA_SENDER_NAME_MAXSIZE;
     public final int event;
     public final int channelId;
     /**
@@ -42,7 +43,7 @@ public final class SuplaEvent implements ServerClient {
 
     @Override
     public int size() {
-        return INT_SIZE * 5 + SUPLA_SENDER_NAME_MAXSIZE;
+        return SIZE;
     }
 
     @Override
