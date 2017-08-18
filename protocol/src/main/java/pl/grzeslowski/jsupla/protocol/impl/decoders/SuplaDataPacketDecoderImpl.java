@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaDataPacketDecoder;
@@ -18,6 +19,9 @@ public final class SuplaDataPacketDecoderImpl implements SuplaDataPacketDecoder 
 
     @Override
     public SuplaDataPacket decode(byte[] bytes, int offset) {
+        Preconditions.checkMinArrayLength(bytes,
+                offset + ProtoConsts.SUPLA_TAG_SIZE + SuplaDataPacket.MIN_SIZE);
+
         offset += ProtoConsts.SUPLA_TAG_SIZE;
 
         final short version = primitiveDecoder.parseUnsignedByte(bytes, offset);
