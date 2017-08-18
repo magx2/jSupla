@@ -27,6 +27,10 @@ public abstract class DecoderTest<T extends Decoder<?>> {
 
     public abstract T getDecoder();
 
+    public void givenParseEntity(final byte[] bytes, final int offset) {
+
+    }
+
     public abstract void verifyParseEntity(final byte[] bytes, final int offset);
 
     public abstract int entitySize();
@@ -37,6 +41,7 @@ public abstract class DecoderTest<T extends Decoder<?>> {
         // given
         int offset = 5;
         byte[] bytes = new byte[entitySize() + offset + RANDOM_INT];
+        givenParseEntity(bytes, offset);
 
         // when
         getDecoder().decode(bytes, offset);
