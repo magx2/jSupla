@@ -25,12 +25,13 @@ public class PrimitiveDecoderImplParametrizedTestForUnsignedInteger {
                 {new byte[]{-1, -1, -1, -1}, 0, 4294967295L},
                 {new byte[]{15, 85, -16, -86}, 0, 2867877135L}, // 10101010 11110000 01010101 00001111
                 {new byte[]{-86, -16, 85, 15}, 0, 257290410}, // 00001111 01010101 11110000 10101010
-                {new byte[]{1, 2, 3, 4, 15, 85, -16, -86}, 4, 2867877135L}, // offset 10101010 11110000 01010101 00001111
+                {new byte[]{1, 2, 3, 4, 15, 85, -16, -86}, 4, 2867877135L},// offset 10101010 11110000 01010101 00001111
                 {new byte[]{-5, -6, -7, -86, -16, 85, 15}, 3, 257290410}, // offset 00001111 01010101 11110000 10101010
         });
     }
 
-    public PrimitiveDecoderImplParametrizedTestForUnsignedInteger(final byte[] intBytes, final int offset, final long intValue) {
+    public PrimitiveDecoderImplParametrizedTestForUnsignedInteger(final byte[] intBytes, final int offset,
+                                                                  final long intValue) {
         this.intBytes = intBytes;
         this.offset = offset;
         this.intValue = intValue;
