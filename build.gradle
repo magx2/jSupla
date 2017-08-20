@@ -32,15 +32,15 @@ allprojects {
 }
 
 // Add check style to all projects
-prodProjects { p ->
+prodProjects {
 	apply plugin: 'checkstyle'
-	p.tasks.withType(Checkstyle) {
+	tasks.withType(Checkstyle) {
 		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
 	}
 }
 
 // Add JaCoCO to all projects
-prodProjects { p ->
+prodProjects {
 	apply plugin: "jacoco"
 	tasks["build"].dependsOn "jacocoTestReport"
 }
