@@ -72,16 +72,6 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         }
     }
 
-    @Override
-    public String parseString(byte[] bytes) {
-        return parseString(bytes, 0, bytes.length);
-    }
-
-    @Override
-    public String parseString(char[] bytes) {
-        return new String(bytes);
-    }
-
     public String parseUtf8String(byte[] bytes, int offset, int length) {
         int end = length;
         for (int i = offset; i < length; i++) {

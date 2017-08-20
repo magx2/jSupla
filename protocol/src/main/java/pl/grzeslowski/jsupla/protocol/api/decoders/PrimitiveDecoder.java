@@ -11,9 +11,5 @@ public interface PrimitiveDecoder {
 
     String parseString(byte[] bytes, int offset, int length);
 
-    String parseString(byte[] bytes);
-
-    String parseString(char[] bytes);
-
     byte[] copyOfRange(byte[] original, int from, int to);
 }
