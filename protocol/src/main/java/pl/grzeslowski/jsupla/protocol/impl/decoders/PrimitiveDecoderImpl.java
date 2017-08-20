@@ -10,6 +10,7 @@ import java.util.Arrays;
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.Preconditions.checkMinArrayLength;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
@@ -58,6 +59,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public byte parseByte(byte[] bytes, int offset) {
+        checkMinArrayLength(bytes, BYTE_SIZE + offset);
         return bytes[offset];
     }
 
