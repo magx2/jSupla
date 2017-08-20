@@ -58,6 +58,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public String parseString(byte[] bytes, int offset, int length) {
+        checkMinArrayLength(bytes, offset + length);
         int end = length;
         for (int i = offset; i < length; i++) {
             if (bytes[i] == (byte) 0) {
