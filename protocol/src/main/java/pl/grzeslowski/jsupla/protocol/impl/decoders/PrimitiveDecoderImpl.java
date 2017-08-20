@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
+import static pl.grzeslowski.jsupla.Preconditions.checkMinArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
@@ -36,6 +37,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
      */
     @Override
     public int parseInt(byte[] bytes, int offset) {
+        checkMinArrayLength(bytes, INT_SIZE + offset);
         final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         byteBuffer.order(LITTLE_ENDIAN);
         return byteBuffer.getInt();
