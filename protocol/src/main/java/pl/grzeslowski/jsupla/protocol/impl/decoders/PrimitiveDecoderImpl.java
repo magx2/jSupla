@@ -73,11 +73,13 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         }
     }
 
+    @Override
     public String parseUtf8String(byte[] bytes, int offset, int length) {
+        checkMinArrayLength(bytes, offset + length);
         int end = length;
         for (int i = offset; i < length; i++) {
             if (bytes[i] == (byte) 0) {
-                end = i;
+                end = i - offset;
                 break;
             }
         }
@@ -86,10 +88,6 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public String parseUtf8String(byte[] bytes) {
-        return parseUtf8String(bytes, 0, bytes.length);
     }
 
     // FIXME this method cannot be here!!!
