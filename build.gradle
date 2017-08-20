@@ -42,7 +42,7 @@ prodProjects { p ->
 // Add JaCoCO to all projects
 prodProjects { p ->
 	apply plugin: "jacoco"
-//	tasks["build"].dependsOn "jacocoTestReport"
+	tasks["build"].dependsOn "jacocoTestReport"
 }
 
 allprojects {
