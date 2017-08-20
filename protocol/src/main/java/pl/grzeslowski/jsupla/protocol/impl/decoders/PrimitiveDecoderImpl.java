@@ -68,7 +68,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         try {
             return new String(bytes, offset, end, "ASCII");
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
