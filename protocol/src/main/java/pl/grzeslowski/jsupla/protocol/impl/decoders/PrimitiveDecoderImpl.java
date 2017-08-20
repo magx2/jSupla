@@ -23,8 +23,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     @Override
     public long parseUnsignedInt(byte[] bytes, int offset) {
         checkMinArrayLength(bytes, INT_SIZE + offset);
-        final byte[] intBytes = copyOfRange(bytes, offset, offset + INT_SIZE);
-        ByteBuffer bb = ByteBuffer.wrap(intBytes);
+        ByteBuffer bb = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         return bb.getInt() & 0xffffffffL;
     }
