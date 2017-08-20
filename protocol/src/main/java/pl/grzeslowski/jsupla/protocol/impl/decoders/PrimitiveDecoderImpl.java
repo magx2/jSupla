@@ -44,17 +44,10 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         return byteBuffer.getInt();
     }
 
-    /**
-     * TODO can be optimized!!!.
-     */
     @Override
     public short parseUnsignedByte(byte[] bytes, int offset) {
-        byte b = bytes[offset];
-        if (b < 0) {
-            return (short) (b + Byte.MAX_VALUE);
-        } else {
-            return b;
-        }
+        checkMinArrayLength(bytes, INT_SIZE + offset);
+        return (short) (bytes[offset] & 0xFF);
     }
 
     @Override
