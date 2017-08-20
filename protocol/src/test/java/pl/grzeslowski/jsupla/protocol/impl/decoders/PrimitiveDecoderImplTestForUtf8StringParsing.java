@@ -35,7 +35,7 @@ public class PrimitiveDecoderImplTestForUtf8StringParsing {
 
         // given
         final String expectedString = "# € Œ ϻ ¥";
-        final byte[] bytes = expectedString.getBytes();
+        final byte[] bytes = expectedString.getBytes("UTF-8");
 
         // when
         final String string = INSTANCE.parseUtf8String(bytes, 0, bytes.length);
@@ -50,16 +50,16 @@ public class PrimitiveDecoderImplTestForUtf8StringParsing {
         // given
         final int offset = 3;
         final String expectedString = "# € Œ ϻ ¥";
-        final byte[] bytes = new byte[offset + expectedString.getBytes().length];
+        final byte[] bytes = new byte[offset + expectedString.getBytes("UTF-8").length];
         for (int i = 0; i < offset; i++) {
             bytes[i] = (byte) 1;
         }
         for (int i = offset; i < bytes.length; i++) {
-            bytes[i] = expectedString.getBytes()[i - offset];
+            bytes[i] = expectedString.getBytes("UTF-8")[i - offset];
         }
 
         // when
-        final String string = INSTANCE.parseUtf8String(bytes, offset, expectedString.getBytes().length);
+        final String string = INSTANCE.parseUtf8String(bytes, offset, expectedString.getBytes("UTF-8").length);
 
         // then
         assertThat(string).isEqualTo(expectedString);
@@ -71,9 +71,9 @@ public class PrimitiveDecoderImplTestForUtf8StringParsing {
         // given
         final String expectedString = "# € Œ ϻ ¥";
         final int numberOfZeros = 100;
-        final byte[] bytes = new byte[expectedString.getBytes().length + numberOfZeros];
-        for (int i = 0; i < expectedString.getBytes().length; i++) {
-            bytes[i] = expectedString.getBytes()[i];
+        final byte[] bytes = new byte[expectedString.getBytes("UTF-8").length + numberOfZeros];
+        for (int i = 0; i < expectedString.getBytes("UTF-8").length; i++) {
+            bytes[i] = expectedString.getBytes("UTF-8")[i];
         }
 
         // when
@@ -90,17 +90,17 @@ public class PrimitiveDecoderImplTestForUtf8StringParsing {
         final String expectedString = "# € Œ ϻ ¥";
         final int offset = 5;
         final int numberOfZeros = 100;
-        final byte[] bytes = new byte[offset + expectedString.getBytes().length + numberOfZeros];
+        final byte[] bytes = new byte[offset + expectedString.getBytes("UTF-8").length + numberOfZeros];
         for (int i = 0; i < offset; i++) {
             bytes[i] = (byte) 1;
         }
-        for (int i = offset; i < expectedString.getBytes().length + offset; i++) {
-            bytes[i] = expectedString.getBytes()[i - offset];
+        for (int i = offset; i < expectedString.getBytes("UTF-8").length + offset; i++) {
+            bytes[i] = expectedString.getBytes("UTF-8")[i - offset];
         }
 
         // when
         final String string = INSTANCE.parseUtf8String(bytes, offset,
-                expectedString.getBytes().length + numberOfZeros);
+                expectedString.getBytes("UTF-8").length + numberOfZeros);
 
         // then
         assertThat(string).isEqualTo(expectedString);
