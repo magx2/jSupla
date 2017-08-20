@@ -46,7 +46,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public short parseUnsignedByte(byte[] bytes, int offset) {
-        checkMinArrayLength(bytes, INT_SIZE + offset);
+        checkMinArrayLength(bytes, BYTE_SIZE + offset);
         return (short) (bytes[offset] & 0xFF);
     }
 
