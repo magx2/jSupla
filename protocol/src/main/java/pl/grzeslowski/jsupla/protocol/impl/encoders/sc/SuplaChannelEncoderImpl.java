@@ -1,18 +1,18 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelEncoderImpl implements SuplaChannelEncoder {
     private final PrimitiveEncoder primitiveEncoder;
-    private final SuplaChannelValueEncoderImpl channelValueEncoder;
+    private final SuplaChannelValueEncoder channelValueEncoder;
 
     public SuplaChannelEncoderImpl(PrimitiveEncoder primitiveEncoder,
-                                   SuplaChannelValueEncoderImpl channelValueEncoder) {
+                                   SuplaChannelValueEncoder channelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelValueEncoder = requireNonNull(channelValueEncoder);
     }
@@ -27,6 +27,7 @@ public final class SuplaChannelEncoderImpl implements SuplaChannelEncoder {
         offset += primitiveEncoder.writeInteger(proto.locationId, data, offset);
         offset += primitiveEncoder.writeInteger(proto.func, data, offset);
         offset += primitiveEncoder.writeInteger(proto.online, data, offset);
+        offset += primitiveEncoder.writeUnsignedInteger(proto.captionSize, data, offset);
         final byte[] value = channelValueEncoder.encode(proto.value);
         primitiveEncoder.writeBytes(value, data, offset);
 
