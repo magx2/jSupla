@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
@@ -23,6 +25,12 @@ public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
         given(primitiveEncoder.writeUnsignedByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);
         given(primitiveEncoder.writeInteger(anyInt(), any(), anyInt())).willReturn(INT_SIZE);
         given(primitiveEncoder.writeUnsignedInteger(anyInt(), any(), anyInt())).willReturn(INT_SIZE);
+        given(primitiveEncoder.writeBytes(any(byte[].class), any(), anyInt())).willAnswer(new Answer<Integer>() {
+            @Override
+            public Integer answer(final InvocationOnMock invocationOnMock) throws Throwable {
+                return invocationOnMock.getArgumentAt(0, byte[].class).length;
+            }
+        });
     }
 
     @Test
@@ -48,4 +56,8 @@ public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
     public abstract Encoder<ProtoT> getEncoder();
 
     public abstract ProtoT getProto();
+
+    protected final byte[] bytesToWriteInto() {
+        return new byte[getProto().size()];
+    }
 }
