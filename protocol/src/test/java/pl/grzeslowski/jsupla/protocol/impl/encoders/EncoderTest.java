@@ -20,7 +20,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
     @Mock protected PrimitiveEncoder primitiveEncoder;
 
-    void givenEncodeEntity() {
+    protected void givenEncodeEntity() {
         given(primitiveEncoder.writeByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);
         given(primitiveEncoder.writeUnsignedByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);
         given(primitiveEncoder.writeInteger(anyInt(), any(), anyInt())).willReturn(INT_SIZE);

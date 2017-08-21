@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
@@ -10,10 +11,10 @@ import static java.util.Objects.requireNonNull;
 @Deprecated
 public final class SuplaRegisterDeviceEncoderImpl implements SuplaRegisterDeviceEncoder {
     private final PrimitiveEncoder primitiveEncoder;
-    private final SuplaDeviceChannelEncoderImpl deviceChannelEncoder;
+    private final SuplaDeviceChannelEncoder deviceChannelEncoder;
 
     public SuplaRegisterDeviceEncoderImpl(PrimitiveEncoder primitiveEncoder,
-                                          SuplaDeviceChannelEncoderImpl deviceChannelEncoder) {
+                                          SuplaDeviceChannelEncoder deviceChannelEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.deviceChannelEncoder = requireNonNull(deviceChannelEncoder);
     }
