@@ -136,7 +136,7 @@ public class PrimitiveDecoderImplTestForStringParsing {
         };
 
         // when
-        final String string = INSTANCE.parseString(bytes, offset, expectedString.length());
+        final String string = INSTANCE.parseString(bytes, offset, bytes.length - offset);
 
         // then
         assertThat(string).isEqualTo(expectedString);

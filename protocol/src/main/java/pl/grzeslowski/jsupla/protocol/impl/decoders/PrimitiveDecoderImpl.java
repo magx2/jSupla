@@ -62,7 +62,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         int end = length;
         for (int i = offset; i < length; i++) {
             if (bytes[i] == (byte) 0) {
-                end = i;
+                end = i - offset;
                 break;
             }
         }
