@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public abstract class DecoderTest<T extends Decoder<?>> {
     private static final int RANDOM_INT = 123;
@@ -48,6 +49,7 @@ public abstract class DecoderTest<T extends Decoder<?>> {
 
         // then
         verifyParseEntity(bytes, offset);
+        verifyNoMoreInteractions(primitiveDecoder);
     }
 
     @Test(expected = NullPointerException.class)
