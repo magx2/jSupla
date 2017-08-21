@@ -31,9 +31,11 @@ public class SuplaRegisterDeviceBEncoderImplTest extends EncoderTest<SuplaRegist
     @Override
     protected void givenEncodeEntity() {
         super.givenEncodeEntity();
+        // @format:off
         given(deviceChannelBEncoder.encode(any(SuplaDeviceChannelB.class))).willAnswer(
                 __ -> new byte[SuplaDeviceChannelB.SIZE]
         );
+        // @format:on
     }
 
     @Override

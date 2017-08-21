@@ -32,8 +32,11 @@ public class SuplaRegisterDeviceEncoderImplTest extends EncoderTest<SuplaRegiste
     @Override
     protected void givenEncodeEntity() {
         super.givenEncodeEntity();
+        // @format:off
         given(deviceChannelEncoder.encode(any(SuplaDeviceChannel.class))).willAnswer(
-                invocationOnMock -> new byte[invocationOnMock.getArgumentAt(0, SuplaDeviceChannel.class).size()]);
+                invocationOnMock -> new byte[invocationOnMock.getArgumentAt(0, SuplaDeviceChannel.class).size()]
+        );
+        // @format:on
     }
 
     @Override
