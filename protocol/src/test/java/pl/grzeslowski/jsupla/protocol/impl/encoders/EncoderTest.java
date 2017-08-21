@@ -30,16 +30,17 @@ public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
 
         // given
         givenEncodeEntity();
+        final ProtoT proto = getProto();
 
         // when
-        final byte[] encode = getEncoder().encode(getProto());
+        final byte[] encode = getEncoder().encode(proto);
 
         // then
-        verifyEncodeEntity(encode);
+        verifyEncodeEntity(encode, proto);
         verifyNoMoreInteractions(primitiveEncoder);
     }
 
-    protected abstract void verifyEncodeEntity(final byte[] encode);
+    protected abstract void verifyEncodeEntity(final byte[] encode, final ProtoT proto);
 
     @Test(expected = NullPointerException.class)
     public abstract void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception;

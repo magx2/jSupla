@@ -19,11 +19,11 @@ public class SuplaChannelNewValueBEncoderImplTest extends EncoderTest<SuplaChann
     @InjectMocks SuplaChannelNewValueBEncoderImpl encoder;
 
     @Override
-    protected void verifyEncodeEntity(final byte[] encode) {
+    protected void verifyEncodeEntity(final byte[] encode, final SuplaChannelNewValueB proto) {
         int offset = 0;
-        verify(primitiveEncoder).writeInteger(eq(getProto().channelId), any(byte[].class), eq(offset));
+        verify(primitiveEncoder).writeInteger(eq(proto.channelId), any(byte[].class), eq(offset));
         offset += INT_SIZE;
-        verify(primitiveEncoder).writeBytes(eq(getProto().value), any(byte[].class), eq(offset));
+        verify(primitiveEncoder).writeBytes(eq(proto.value), any(byte[].class), eq(offset));
     }
 
     @Override
