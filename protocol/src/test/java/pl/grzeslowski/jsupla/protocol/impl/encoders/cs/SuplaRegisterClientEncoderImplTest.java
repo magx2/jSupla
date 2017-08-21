@@ -5,6 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -15,7 +16,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaRegisterClientEncoderImplTest extends pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest<SuplaRegisterClient> {
+public class SuplaRegisterClientEncoderImplTest extends EncoderTest<SuplaRegisterClient> {
     @InjectMocks SuplaRegisterClientEncoderImpl encoder;
 
     @Override
