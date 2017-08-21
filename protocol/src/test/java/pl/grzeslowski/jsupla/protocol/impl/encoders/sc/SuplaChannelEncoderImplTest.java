@@ -27,11 +27,11 @@ public class SuplaChannelEncoderImplTest extends EncoderTest<SuplaChannel> {
     @Override
     protected void givenEncodeEntity() {
         super.givenEncodeEntity();
-        // @format:off
+        // @formatter:off
         given(channelValueEncoder.encode(any(SuplaChannelValue.class))).willAnswer(
-                __ -> new byte[SuplaChannelValue.SIZE]
+            __ -> new byte[SuplaChannelValue.SIZE]
         );
-        // @format:on
+        // @formatter:on
     }
 
     @Override
