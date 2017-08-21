@@ -16,7 +16,7 @@ public class SuplaSetActivityTimeoutEncoderImplTest extends EncoderTest<SuplaSet
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaSetActivityTimeout proto) {
-        verify(primitiveEncoder).writeUnsignedByte(proto.activityTimeout, new byte[proto.size()], 0);
+        verify(primitiveEncoder).writeUnsignedByte(proto.activityTimeout, bytesToWriteInto(), 0);
     }
 
     @Override

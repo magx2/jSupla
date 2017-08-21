@@ -17,8 +17,8 @@ public class SuplaChannelNewValueEncoderImplTest extends EncoderTest<SuplaChanne
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaChannelNewValue proto) {
-        verify(primitiveEncoder).writeByte(proto.channelId, new byte[proto.size()], 0);
-        verify(primitiveEncoder).writeBytes(proto.value, new byte[proto.size()], BYTE_SIZE);
+        verify(primitiveEncoder).writeByte(proto.channelId, bytesToWriteInto(), 0);
+        verify(primitiveEncoder).writeBytes(proto.value, bytesToWriteInto(), BYTE_SIZE);
     }
 
     @Override
