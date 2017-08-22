@@ -62,7 +62,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     }
 
     /**
-     * Visible only for tests!
+     * Visible only for tests.
      */
     String parseGenericString(byte[] bytes, int offset, int length, String charset) {
         checkMinArrayLength(bytes, offset + length);
