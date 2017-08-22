@@ -5,10 +5,10 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_EVENT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
-import static sun.swing.MenuItemLayoutHelper.max;
 
 public final class SuplaEvent implements ServerClient {
     public static final int SIZE = INT_SIZE * 5 + SUPLA_SENDER_NAME_MAXSIZE;
