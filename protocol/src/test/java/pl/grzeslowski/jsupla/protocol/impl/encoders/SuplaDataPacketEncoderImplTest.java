@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
+@SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaDataPacketEncoderImplTest extends EncoderTest<SuplaDataPacket> {
     @InjectMocks SuplaDataPacketEncoderImpl mockedEncoder;
