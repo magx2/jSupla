@@ -61,14 +61,16 @@ public class SuplaChannelValueEncoderImplTest extends EncoderTest<SuplaChannelVa
 
     @Override
     public SuplaChannelValue getProto() {
+        // @formatter:off
         return new SuplaChannelValue(
                                             (byte) 1,
                                             2,
                                             (byte) 3,
                                             new pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue(
-                                                                                                                    new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                                                                    new byte[SUPLA_CHANNELVALUE_SIZE]
+                                                                                      new byte[SUPLA_CHANNELVALUE_SIZE],
+                                                                                      new byte[SUPLA_CHANNELVALUE_SIZE]
                                             )
         );
+        // @formatter:on
     }
 }
