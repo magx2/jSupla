@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
 
@@ -8,10 +9,10 @@ import static java.util.Objects.requireNonNull;
 
 public final class FirmwareUpdateUrlResultEncoderImpl implements FirmwareUpdateUrlResultEncoder {
     private final PrimitiveEncoder primitiveEncoder;
-    private final FirmwareUpdateUrlEncoderImpl firmwareUpdateUrlEncoder;
+    private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
     public FirmwareUpdateUrlResultEncoderImpl(PrimitiveEncoder primitiveEncoder,
-                                              FirmwareUpdateUrlEncoderImpl firmwareUpdateUrlEncoder) {
+                                              FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.firmwareUpdateUrlEncoder = requireNonNull(firmwareUpdateUrlEncoder);
     }
