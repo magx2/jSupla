@@ -8,6 +8,7 @@ import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_EVENT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
+import static sun.swing.MenuItemLayoutHelper.max;
 
 public final class SuplaEvent implements ServerClient {
     public static final int SIZE = INT_SIZE * 5 + SUPLA_SENDER_NAME_MAXSIZE;
@@ -32,8 +33,8 @@ public final class SuplaEvent implements ServerClient {
         this.channelId = channelId;
         this.durationMs = durationMs;
         this.senderId = senderId;
-        this.senderNameSize = senderNameSize;
-        this.senderName = checkArrayLength(senderName, SUPLA_SENDER_NAME_MAXSIZE);
+        this.senderNameSize = max(senderNameSize, SUPLA_SENDER_NAME_MAXSIZE);
+        this.senderName = checkArrayLength(senderName, senderNameSize);
     }
 
     @Override
