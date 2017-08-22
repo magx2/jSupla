@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.protocol.api.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType;
 
+import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_VERSIONERROR;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
@@ -17,8 +19,8 @@ public final class SuplaVersionError implements ServerDeviceClient {
     public final short serverVersion;
 
     public SuplaVersionError(short serverVersionMin, short serverVersion) {
-        this.serverVersionMin = serverVersionMin;
-        this.serverVersion = serverVersion;
+        this.serverVersionMin = max(serverVersionMin, serverVersion);
+        this.serverVersion = min(serverVersion, serverVersionMin);
     }
 
     @Override
