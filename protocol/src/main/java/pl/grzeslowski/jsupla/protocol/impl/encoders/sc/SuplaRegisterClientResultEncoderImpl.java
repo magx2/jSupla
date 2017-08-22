@@ -23,6 +23,9 @@ public final class SuplaRegisterClientResultEncoderImpl implements SuplaRegister
         offset += primitiveEncoder.writeInteger(proto.clientId, data, offset);
         offset += primitiveEncoder.writeInteger(proto.locationCount, data, offset);
         offset += primitiveEncoder.writeInteger(proto.channelCount, data, offset);
+        offset += primitiveEncoder.writeUnsignedByte(proto.activityTimeout, data, offset);
+        offset += primitiveEncoder.writeUnsignedByte(proto.version, data, offset);
+        offset += primitiveEncoder.writeUnsignedByte(proto.versionMin, data, offset);
 
         return data;
     }
