@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
@@ -9,9 +10,9 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelPackEncoderImpl implements SuplaChannelPackEncoder {
     private final PrimitiveEncoder primitiveEncoder;
-    private final SuplaChannelEncoderImpl channelEncoder;
+    private final SuplaChannelEncoder channelEncoder;
 
-    public SuplaChannelPackEncoderImpl(PrimitiveEncoder primitiveEncoder, SuplaChannelEncoderImpl channelEncoder) {
+    public SuplaChannelPackEncoderImpl(PrimitiveEncoder primitiveEncoder, SuplaChannelEncoder channelEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelEncoder = requireNonNull(channelEncoder);
     }

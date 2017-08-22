@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.sc;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
-import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -18,13 +18,8 @@ public final class SuplaChannelPack implements ServerClient {
     public final SuplaChannel[] channels;
 
     public SuplaChannelPack(int count, int totalLeft, SuplaChannel[] channels) {
-        this.count = count;
+        this.count = Preconditions.max(count, SUPLA_CHANNELPACK_MAXSIZE);
         this.totalLeft = totalLeft;
-        if (count > SUPLA_CHANNELPACK_MAXSIZE) {
-            throw new IllegalArgumentException(format(
-                    "count (%s) is bigger that SUPLA_CHANNELPACK_MAXSIZE (%s)", count, SUPLA_CHANNELPACK_MAXSIZE
-            ));
-        }
         this.channels = checkArrayLength(channels, count);
     }
 
