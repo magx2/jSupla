@@ -26,7 +26,7 @@ public class PreconditionsTestSizes {
         int value = 1;
 
         // when
-        final int byteValue = Preconditions.byteSize(value);
+        final int byteValue = Preconditions.unsignedByteSize(value);
 
         // then
         assertThat(byteValue).isEqualTo(value);
