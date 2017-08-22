@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
-import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.Preconditions.checkMinArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -27,10 +26,6 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         ByteBuffer bb = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         return bb.getInt() & 0xffffffffL;
-    }
-
-    private String binaryRepresentation(byte bit) {
-        return format("%8s", Integer.toBinaryString(bit & 0xFF));
     }
 
     /**
@@ -91,26 +86,26 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     }
 
     // FIXME this method cannot be here!!!
-    public String parseHexString(byte[] bytes) {
-        return String.format("%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-                bytes[0],
-                bytes[1],
-                bytes[2],
-                bytes[3],
-                bytes[4],
-                bytes[5],
-                bytes[6],
-                bytes[7],
-                bytes[8],
-                bytes[9],
-                bytes[10],
-                bytes[11],
-                bytes[12],
-                bytes[13],
-                bytes[14],
-                bytes[15]
-        );
-    }
+    //    public String parseHexString(byte[] bytes) {
+    //        return String.format("%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+    //                bytes[0],
+    //                bytes[1],
+    //                bytes[2],
+    //                bytes[3],
+    //                bytes[4],
+    //                bytes[5],
+    //                bytes[6],
+    //                bytes[7],
+    //                bytes[8],
+    //                bytes[9],
+    //                bytes[10],
+    //                bytes[11],
+    //                bytes[12],
+    //                bytes[13],
+    //                bytes[14],
+    //                bytes[15]
+    //        );
+    //    }
 
     @Override
     public byte[] copyOfRange(final byte[] original, final int from, final int to) {
