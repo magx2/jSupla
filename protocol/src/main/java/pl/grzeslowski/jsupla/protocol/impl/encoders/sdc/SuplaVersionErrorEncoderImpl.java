@@ -13,6 +13,7 @@ public final class SuplaVersionErrorEncoderImpl implements SuplaVersionErrorEnco
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(SuplaVersionError proto) {
         byte[] data = new byte[proto.size()];
