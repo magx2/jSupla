@@ -182,4 +182,8 @@ public final class Preconditions {
     public static int unsignedByteSize(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 255);
     }
+
+    private Preconditions() {
+
+    }
 }
