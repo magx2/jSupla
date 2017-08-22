@@ -22,7 +22,7 @@ public final class FirmwareUpdateUrlResultDecoderImpl implements FirmwareUpdateU
 
     @Override
     public FirmwareUpdateUrlResult decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + FirmwareUpdateUrlResult.SIZE);
+        Preconditions.sizeMin(bytes, offset + FirmwareUpdateUrlResult.SIZE);
 
         final byte exists = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;

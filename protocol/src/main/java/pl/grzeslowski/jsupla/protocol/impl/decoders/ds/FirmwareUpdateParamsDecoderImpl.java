@@ -18,7 +18,7 @@ public final class FirmwareUpdateParamsDecoderImpl implements FirmwareUpdatePara
 
     @Override
     public FirmwareUpdateParams decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + FirmwareUpdateParams.SIZE);
+        Preconditions.sizeMin(bytes, offset + FirmwareUpdateParams.SIZE);
 
         final byte platform = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;

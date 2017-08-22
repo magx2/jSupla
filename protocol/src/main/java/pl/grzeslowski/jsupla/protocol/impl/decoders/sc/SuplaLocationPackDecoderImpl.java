@@ -21,7 +21,7 @@ public final class SuplaLocationPackDecoderImpl implements SuplaLocationPackDeco
 
     @Override
     public SuplaLocationPack decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaLocationPack.MIN_SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaLocationPack.MIN_SIZE);
 
         final int count = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
@@ -29,7 +29,7 @@ public final class SuplaLocationPackDecoderImpl implements SuplaLocationPackDeco
         final int totalLeft = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        Preconditions.checkMinArrayLength(bytes,
+        Preconditions.sizeMin(bytes,
                 offset + SuplaLocationPack.MIN_SIZE + SuplaLocation.MIN_SIZE * count);
         final SuplaLocation[] locations = new SuplaLocation[count];
         for (int i = 0; i < count; i++) {

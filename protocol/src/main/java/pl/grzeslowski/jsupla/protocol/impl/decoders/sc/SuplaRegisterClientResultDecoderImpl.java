@@ -18,7 +18,7 @@ public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegister
 
     @Override
     public SuplaRegisterClientResult decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaRegisterClientResult.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaRegisterClientResult.SIZE);
 
         final int resultCode = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;

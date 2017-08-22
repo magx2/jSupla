@@ -18,7 +18,7 @@ public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
 
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaLocation.MIN_SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaLocation.MIN_SIZE);
 
         final byte eol = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
@@ -29,7 +29,7 @@ public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
         final long captionSize = primitiveDecoder.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaLocation.MIN_SIZE + (int) captionSize);
+        Preconditions.sizeMin(bytes, offset + SuplaLocation.MIN_SIZE + (int) captionSize);
         final byte[] caption = primitiveDecoder.copyOfRange(bytes, offset, offset + (int) captionSize);
 
         return new SuplaLocation(eol, id, captionSize, caption);

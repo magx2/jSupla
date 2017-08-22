@@ -16,7 +16,7 @@ public final class SuplaSetActivityTimeoutDecoderImpl implements SuplaSetActivit
 
     @Override
     public SuplaSetActivityTimeout decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaSetActivityTimeout.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaSetActivityTimeout.SIZE);
         final short activityTimeout = primitiveDecoder.parseUnsignedByte(bytes, offset);
         return new SuplaSetActivityTimeout(activityTimeout);
     }

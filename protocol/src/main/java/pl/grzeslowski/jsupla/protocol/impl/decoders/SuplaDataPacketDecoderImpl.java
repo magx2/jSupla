@@ -19,7 +19,7 @@ public final class SuplaDataPacketDecoderImpl implements SuplaDataPacketDecoder 
 
     @Override
     public SuplaDataPacket decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes,
+        Preconditions.sizeMin(bytes,
                 offset + ProtoConsts.SUPLA_TAG_SIZE + SuplaDataPacket.MIN_SIZE);
 
         offset += ProtoConsts.SUPLA_TAG_SIZE;

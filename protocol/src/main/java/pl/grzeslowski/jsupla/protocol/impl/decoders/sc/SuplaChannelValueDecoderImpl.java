@@ -23,7 +23,7 @@ public final class SuplaChannelValueDecoderImpl implements SuplaChannelValueDeco
 
     @Override
     public SuplaChannelValue decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaChannelValue.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaChannelValue.SIZE);
 
         final byte eol = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;

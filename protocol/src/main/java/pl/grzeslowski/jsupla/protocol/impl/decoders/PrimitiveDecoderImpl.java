@@ -8,7 +8,7 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
-import static pl.grzeslowski.jsupla.Preconditions.checkMinArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
@@ -22,7 +22,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
      */
     @Override
     public long parseUnsignedInt(byte[] bytes, int offset) {
-        checkMinArrayLength(bytes, INT_SIZE + offset);
+        sizeMin(bytes, INT_SIZE + offset);
         ByteBuffer bb = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         bb.order(ByteOrder.LITTLE_ENDIAN);
         return bb.getInt() & 0xffffffffL;
@@ -33,7 +33,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
      */
     @Override
     public int parseInt(byte[] bytes, int offset) {
-        checkMinArrayLength(bytes, INT_SIZE + offset);
+        sizeMin(bytes, INT_SIZE + offset);
         final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         byteBuffer.order(LITTLE_ENDIAN);
         return byteBuffer.getInt();
@@ -41,13 +41,13 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public short parseUnsignedByte(byte[] bytes, int offset) {
-        checkMinArrayLength(bytes, BYTE_SIZE + offset);
+        sizeMin(bytes, BYTE_SIZE + offset);
         return (short) (bytes[offset] & 0xFF);
     }
 
     @Override
     public byte parseByte(byte[] bytes, int offset) {
-        checkMinArrayLength(bytes, BYTE_SIZE + offset);
+        sizeMin(bytes, BYTE_SIZE + offset);
         return bytes[offset];
     }
 
@@ -65,7 +65,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
      * Visible only for tests.
      */
     String parseGenericString(byte[] bytes, int offset, int length, String charset) {
-        checkMinArrayLength(bytes, offset + length);
+        sizeMin(bytes, offset + length);
         int end = length;
         for (int i = offset; i < length; i++) {
             if (bytes[i] == (byte) 0) {

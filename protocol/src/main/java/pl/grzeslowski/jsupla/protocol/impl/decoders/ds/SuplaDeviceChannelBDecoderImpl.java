@@ -19,7 +19,7 @@ public final class SuplaDeviceChannelBDecoderImpl implements SuplaDeviceChannelB
 
     @Override
     public SuplaDeviceChannelB decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaDeviceChannelB.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaDeviceChannelB.SIZE);
 
         final short number = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;

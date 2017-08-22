@@ -18,7 +18,7 @@ public final class SuplaChannelNewValueResultDecoderImpl implements SuplaChannel
 
     @Override
     public SuplaChannelNewValueResult decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaChannelNewValueResult.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaChannelNewValueResult.SIZE);
 
         final short channelNumber = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;

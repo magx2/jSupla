@@ -182,12 +182,4 @@ public final class Preconditions {
     public static int unsignedByteSize(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 255);
     }
-
-    public static byte[] checkMinArrayLength(final byte[] array, final int minLength) {
-        if (array.length < minLength) {
-            throw new IllegalArgumentException(
-                    format("Minimal length of array should be %s but was %s!", minLength, array.length));
-        }
-        return array;
-    }
 }

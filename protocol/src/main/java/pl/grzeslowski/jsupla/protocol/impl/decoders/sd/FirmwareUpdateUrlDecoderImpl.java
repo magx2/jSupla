@@ -20,7 +20,7 @@ public final class FirmwareUpdateUrlDecoderImpl implements FirmwareUpdateUrlDeco
 
     @Override
     public FirmwareUpdateUrl decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + FirmwareUpdateUrl.SIZE);
+        Preconditions.sizeMin(bytes, offset + FirmwareUpdateUrl.SIZE);
 
         final byte availableProtocols = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;

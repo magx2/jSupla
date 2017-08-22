@@ -21,7 +21,7 @@ public final class SuplaChannelPackDecoderImpl implements SuplaChannelPackDecode
 
     @Override
     public SuplaChannelPack decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaChannelPack.MIN_SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaChannelPack.MIN_SIZE);
 
         final int count = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;

@@ -17,7 +17,7 @@ public final class SuplaEventDecoderImpl implements SuplaEventDecoder {
 
     @Override
     public SuplaEvent decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaEvent.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaEvent.SIZE);
 
         final int event = primitiveDecoder.parseInt(bytes, offset);
         offset += INT_SIZE;

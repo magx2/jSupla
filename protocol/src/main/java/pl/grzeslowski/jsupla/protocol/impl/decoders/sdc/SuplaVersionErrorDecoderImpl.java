@@ -17,7 +17,7 @@ public final class SuplaVersionErrorDecoderImpl implements SuplaVersionErrorDeco
 
     @Override
     public SuplaVersionError decode(byte[] bytes, int offset) {
-        Preconditions.checkMinArrayLength(bytes, offset + SuplaVersionError.SIZE);
+        Preconditions.sizeMin(bytes, offset + SuplaVersionError.SIZE);
 
         final short serverVersionMin = primitiveDecoder.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
