@@ -53,23 +53,18 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public String parseString(byte[] bytes, int offset, int length) {
-        checkMinArrayLength(bytes, offset + length);
-        int end = length;
-        for (int i = offset; i < length; i++) {
-            if (bytes[i] == (byte) 0) {
-                end = i - offset;
-                break;
-            }
-        }
-        try {
-            return new String(bytes, offset, end, "ASCII");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return parseGenericString(bytes, offset, length, "ASCII");
     }
 
     @Override
     public String parseUtf8String(byte[] bytes, int offset, int length) {
+        return parseGenericString(bytes, offset, length, "UTF-8");
+    }
+
+    /**
+     * Visible only for tests!
+     */
+    String parseGenericString(byte[] bytes, int offset, int length, String charset) {
         checkMinArrayLength(bytes, offset + length);
         int end = length;
         for (int i = offset; i < length; i++) {
@@ -79,10 +74,11 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
             }
         }
         try {
-            return new String(bytes, offset, end, "UTF-8");
+            return new String(bytes, offset, end, charset);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     // FIXME this method cannot be here!!!

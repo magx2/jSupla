@@ -105,4 +105,14 @@ public class PrimitiveDecoderImplTestForUtf8StringParsing {
         // then
         assertThat(string).isEqualTo(expectedString);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldThrowRuntimeExceptionWhenThereIsNoSuchCoding() throws Exception {
+
+        // given
+        final String notExistingCoding = "xxx";
+
+        // when
+        PrimitiveDecoderImpl.INSTANCE.parseGenericString(new byte[]{1, 2, 3, 4}, 0, 4, notExistingCoding);
+    }
 }
