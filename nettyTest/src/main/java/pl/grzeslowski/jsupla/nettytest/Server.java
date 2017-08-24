@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.server.SuplaConnection;
 import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.dispatchers.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.EncoderFactoryImpl;
@@ -41,15 +42,15 @@ public class Server {
                                                                                                             new ListenersFactoryImpl(new DeviceRegisterListener())))) {
             logger.info("Run...");
 
+            final Consumer<SuplaConnection> suplaConnectionConsumer = c -> {
+                logger.info("Sending OkResponse...");
+                final OkRegisterDeviceResponse response = new OkRegisterDeviceResponse(200, 6, 1);
+                c.getChannel().write(response);
+            };
+
             final Consumer<? super SuplaNewConnection> consumer = (Consumer<SuplaNewConnection>) suplaNewConnection -> {
                 logger.info("Server.accept(suplaNewConnection) 1");
-                suplaNewConnection.getFlux().subscribe(c -> {
-                    logger.info("Sending OkResponse...");
-                    final OkRegisterDeviceResponse response = new OkRegisterDeviceResponse(
-                                                                                                  200, 6, 1
-                    );
-                    c.getChannel().write(response);
-                });
+                suplaNewConnection.getFlux().subscribe(suplaConnectionConsumer);
             };
 
             nettyServer.run().log().subscribe(consumer);
