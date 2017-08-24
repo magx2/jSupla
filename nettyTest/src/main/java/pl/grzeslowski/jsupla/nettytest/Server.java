@@ -47,9 +47,10 @@ public class Server {
                 logger.info("Server.accept(suplaNewConnection) 1");
                 suplaNewConnection.getFlux().subscribe(c -> {
                     logger.info("Sending OkResponse...");
-                    c.getChannel().write(new OkRegisterDeviceResponse(
-                                                                             200, 6, 1
-                    ));
+                    final OkRegisterDeviceResponse response = new OkRegisterDeviceResponse(
+                                                                                                  200, 6, 1
+                    );
+                    c.getChannel().write(response);
                 });
             };
             Flux.from(nettyServer).log().subscribe(consumer);

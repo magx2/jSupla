@@ -5,16 +5,22 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
 import pl.grzeslowski.jsupla.server.SuplaChannel;
 import pl.grzeslowski.jsupla.server.SuplaConnection;
 import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
+import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.serializers.RegisterDeviceResponseSerializer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
@@ -65,6 +71,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         logger.trace("Got {}", msg);
         final SuplaConnection suplaConnection = newSuplaConnection(msg, ctx);
         emitters.forEach(e -> e.next(suplaConnection));
+        // ctx.flush(); // TODO maybe use it here
     }
 
     private SuplaConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
@@ -72,7 +79,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     }
 
     private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
-        return ctx::writeAndFlush;
+        return msg -> {
+            final SuplaRegisterDeviceResult result = new RegisterDeviceResponseSerializer().serialize((RegisterDeviceResponse) msg);
+            final byte[] encode = new SuplaRegisterDeviceResultEncoderImpl(INSTANCE).encode(result);
+            final SuplaDataPacket suplaDataPacket = new SuplaDataPacket((short) 5, 1, result.callType().getValue(), encode.length, encode);
+            logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
+            ctx.writeAndFlush(suplaDataPacket);
+        };
     }
 
     private Request parseSuplaDataPacket(final SuplaDataPacket msg) {
