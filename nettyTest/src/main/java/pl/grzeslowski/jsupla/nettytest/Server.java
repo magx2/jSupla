@@ -15,7 +15,6 @@ import pl.grzeslowski.jsupla.server.netty.NettyConfig;
 import pl.grzeslowski.jsupla.server.netty.NettyServer;
 import pl.grzeslowski.jsupla.server.parsers.ParsersFactoryImpl;
 import pl.grzeslowski.jsupla.server.serializers.SerializersFactoryImpl;
-import reactor.core.publisher.Flux;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -41,7 +40,6 @@ public class Server {
                                                                                                             new SerializersFactoryImpl(),
                                                                                                             new ListenersFactoryImpl(new DeviceRegisterListener())))) {
             logger.info("Run...");
-            nettyServer.run();
 
             final Consumer<? super SuplaNewConnection> consumer = (Consumer<SuplaNewConnection>) suplaNewConnection -> {
                 logger.info("Server.accept(suplaNewConnection) 1");
@@ -53,7 +51,8 @@ public class Server {
                     c.getChannel().write(response);
                 });
             };
-            Flux.from(nettyServer).log().subscribe(consumer);
+
+            nettyServer.run().log().subscribe(consumer);
 
             while (true) {
 

@@ -8,7 +8,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
-import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
@@ -32,7 +31,6 @@ public class NettyServer implements Server {
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
     private SuplaHandler suplaHandler;
-    private Flux<SuplaNewConnection> suplaNewConnectionPublisher;
 
     public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher) {
         this.nettyConfig = requireNonNull(nettyConfig);
@@ -40,7 +38,7 @@ public class NettyServer implements Server {
     }
 
     @Override
-    public void run() throws Exception {
+    public Flux<SuplaNewConnection> run() throws Exception {
         logger.debug("NettyServer.run()");
         if (started.getAndSet(true)) {
             throw new IllegalStateException("Server can be started only once!");
@@ -54,7 +52,7 @@ public class NettyServer implements Server {
         ServerBootstrap b = new ServerBootstrap(); // (2)
 
         final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(sslCtx);
-        this.suplaNewConnectionPublisher = Flux.create(emitter -> {
+        final Flux<SuplaNewConnection> suplaNewConnectionPublisher = Flux.create(emitter -> {
             nettyServerInitializer.addOnNewConnectionListener(emitter);
             emitter.onDispose(() -> nettyServerInitializer.removeOnNewConnectionListener(emitter));
         });
@@ -68,6 +66,8 @@ public class NettyServer implements Server {
         // Bind and start to accept incoming connections.
         logger.trace("Binding to port {}", nettyConfig.getPort());
         channelFuture = b.bind(nettyConfig.getPort());
+
+        return suplaNewConnectionPublisher;
     }
 
     @Override
@@ -83,13 +83,5 @@ public class NettyServer implements Server {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }
-    }
-
-    @Override
-    public void subscribe(final Subscriber<? super SuplaNewConnection> subscriber) {
-        if (!started.get()) {
-            throw new IllegalArgumentException("Server not started!");
-        }
-        suplaNewConnectionPublisher.subscribe(subscriber);
     }
 }

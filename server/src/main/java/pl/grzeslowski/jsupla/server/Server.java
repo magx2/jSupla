@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
 
-public interface Server extends AutoCloseable, Publisher<SuplaNewConnection> {
-    void run() throws Exception;
+public interface Server extends AutoCloseable {
+    Flux<SuplaNewConnection> run() throws Exception;
 }
