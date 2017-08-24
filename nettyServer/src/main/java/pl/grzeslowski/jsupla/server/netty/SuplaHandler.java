@@ -2,8 +2,6 @@ package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
@@ -17,7 +15,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implements Publisher<SuplaConnection> {
+class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final NotificationAboutNewChannel notificationAboutNewChannel;
     private Flux<SuplaConnection> flux;
@@ -37,13 +35,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implemen
             emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
         });
         final SuplaNewConnection suplaNewConnection =
-                new SuplaNewConnection(this, null, ctx::write);
+                new SuplaNewConnection(flux, null, ctx::write);
         notificationAboutNewChannel.notify(suplaNewConnection);
     }
 
     @Override
-    public void channelUnregistered(final ChannelHandlerContext ctx) throws Exception {
-        logger.info("SuplaHandler.channelUnregistered(ctx)");
+    public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
+        logger.info("SuplaHandler.channelInactive(ctx)");
         super.channelUnregistered(ctx);
         emitters.forEach(FluxSink::complete);
         dispose();
@@ -75,10 +73,5 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implemen
     private Request parseSuplaDataPacket(final SuplaDataPacket msg) {
 //        throw new UnsupportedOperationException("TODO implement me");
         return null;
-    }
-
-    @Override
-    public void subscribe(final Subscriber<? super SuplaConnection> subscriber) {
-        flux.subscribe(subscriber);
     }
 }

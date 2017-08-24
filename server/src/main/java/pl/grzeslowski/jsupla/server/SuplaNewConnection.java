@@ -1,23 +1,23 @@
 package pl.grzeslowski.jsupla.server;
 
-import org.reactivestreams.Publisher;
 import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
+import reactor.core.publisher.Flux;
 
 public final class SuplaNewConnection {
-    private final Publisher<SuplaConnection> publisher;
+    private final Flux<SuplaConnection> flux;
     private final RegisterDeviceRequest registerDeviceRequest;
     private final SuplaChannel channel;
 
-    public SuplaNewConnection(final Publisher<SuplaConnection> publisher,
+    public SuplaNewConnection(final Flux<SuplaConnection> flux,
                               final RegisterDeviceRequest registerDeviceRequest,
                               final SuplaChannel channel) {
-        this.publisher = publisher;
+        this.flux = flux;
         this.registerDeviceRequest = registerDeviceRequest;
         this.channel = channel;
     }
 
-    public Publisher<SuplaConnection> getPublisher() {
-        return publisher;
+    public Flux<SuplaConnection> getFlux() {
+        return flux;
     }
 
     public RegisterDeviceRequest getRegisterDeviceRequest() {

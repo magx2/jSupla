@@ -43,17 +43,14 @@ public class Server {
             logger.info("Run...");
             nettyServer.run();
 
-            final Consumer<? super SuplaNewConnection> consumer = new Consumer<SuplaNewConnection>() {
-                @Override
-                public void accept(final SuplaNewConnection suplaNewConnection) {
-                    logger.info("Server.accept(suplaNewConnection) 1");
-                    Flux.from(suplaNewConnection.getPublisher()).subscribe(c -> {
-                        logger.info("Server.accept(suplaNewConnection) 2");
-                        c.getChannel().write(new OkRegisterDeviceResponse(
-                                                                                 200, 6, 1
-                        ));
-                    });
-                }
+            final Consumer<? super SuplaNewConnection> consumer = (Consumer<SuplaNewConnection>) suplaNewConnection -> {
+                logger.info("Server.accept(suplaNewConnection) 1");
+                suplaNewConnection.getFlux().subscribe(c -> {
+                    logger.info("Sending OkResponse...");
+                    c.getChannel().write(new OkRegisterDeviceResponse(
+                                                                             200, 6, 1
+                    ));
+                });
             };
             Flux.from(nettyServer).log().subscribe(consumer);
 
