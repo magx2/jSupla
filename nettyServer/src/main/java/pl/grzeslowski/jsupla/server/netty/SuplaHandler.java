@@ -5,6 +5,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.server.SuplaChannel;
 import pl.grzeslowski.jsupla.server.SuplaConnection;
 import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
@@ -35,7 +36,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
         });
         final SuplaNewConnection suplaNewConnection =
-                new SuplaNewConnection(flux, null, ctx::write);
+                new SuplaNewConnection(flux, null, newSuplaChannel(ctx));
         notificationAboutNewChannel.notify(suplaNewConnection);
     }
 
@@ -67,7 +68,11 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     }
 
     private SuplaConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
-        return new SuplaConnection(parseSuplaDataPacket(msg), ctx::write);
+        return new SuplaConnection(parseSuplaDataPacket(msg), newSuplaChannel(ctx));
+    }
+
+    private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
+        return ctx::writeAndFlush;
     }
 
     private Request parseSuplaDataPacket(final SuplaDataPacket msg) {
