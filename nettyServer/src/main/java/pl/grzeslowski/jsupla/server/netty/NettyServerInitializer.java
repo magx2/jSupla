@@ -5,16 +5,14 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
 
-import static java.util.Objects.requireNonNull;
+import java.util.concurrent.ExecutorService;
 
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
-    private final SuplaHandler suplaHandler;
-
+    private final ExecutorService executorService;
     private final SslContext sslCtx;
 
-
-    public NettyServerInitializer(SuplaHandler suplaHandler, SslContext sslCtx) {
-        this.suplaHandler = requireNonNull(suplaHandler);
+    public NettyServerInitializer(ExecutorService executorService, SslContext sslCtx) {
+        this.executorService = executorService;
         this.sslCtx = sslCtx;
     }
 
@@ -31,6 +29,6 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new SuplaDataPacketEncoder());
 
         // and then business logic.
-        pipeline.addLast(suplaHandler);
+        pipeline.addLast(new SuplaHandler(executorService));
     }
 }
