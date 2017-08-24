@@ -4,108 +4,81 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.server.SuplaChannel;
 import pl.grzeslowski.jsupla.server.SuplaConnection;
+import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.FluxSink;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.function.Consumer;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implements Publisher<SuplaConnection> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
+    private final NotificationAboutNewChannel notificationAboutNewChannel;
+    private Flux<SuplaConnection> flux;
+    private List<FluxSink<SuplaConnection>> emitters = Collections.synchronizedList(new LinkedList<>());
 
-    private final Map<Subscriber<? super SuplaConnection>, Long> subscribers = new HashMap<>();
-    private final ReadWriteLock subscribersLock = new ReentrantReadWriteLock();
-    private final ExecutorService executorService;
-
-    private SuplaChannel ctx;
-
-    SuplaHandler(ExecutorService executorService) {
-        this.executorService = executorService;
+    SuplaHandler(final NotificationAboutNewChannel notificationAboutNewChannel) {
+        this.notificationAboutNewChannel = notificationAboutNewChannel;
     }
 
     @Override
     public void channelRegistered(final ChannelHandlerContext ctx) throws Exception {
+        logger.info("SuplaHandler.channelRegistered(ctx)");
         super.channelRegistered(ctx);
-        this.ctx = ctx::write;
+
+        this.flux = Flux.create(emitter -> {
+            SuplaHandler.this.emitters.add(emitter);
+            emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
+        });
+        final SuplaNewConnection suplaNewConnection =
+                new SuplaNewConnection(this, null, ctx::write);
+        notificationAboutNewChannel.notify(suplaNewConnection);
+    }
+
+    @Override
+    public void channelUnregistered(final ChannelHandlerContext ctx) throws Exception {
+        logger.info("SuplaHandler.channelUnregistered(ctx)");
+        super.channelUnregistered(ctx);
+        emitters.forEach(FluxSink::complete);
+        dispose();
+    }
+
+    @Override
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
+        emitters.forEach(e -> e.error(cause));
+        dispose();
+    }
+
+    private void dispose() {
+        emitters.clear();
+        flux = null;
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-
-        readLock(s -> s.entrySet()
-                              .stream()
-                              .filter(entry -> entry.getValue() > 0)
-                              .forEach(entry -> {
-                                  executorService.submit(() -> entry.getKey().onNext(newSuplaConnection(msg)));
-                                  entry.setValue(entry.getValue() - 1);
-                              }));
+        final SuplaConnection suplaConnection = newSuplaConnection(msg, ctx);
+        emitters.forEach(e -> e.next(suplaConnection));
     }
 
-    private SuplaConnection newSuplaConnection(SuplaDataPacket msg) {
-        return new SuplaConnection(parseSuplaDataPacket(msg), SuplaHandler.this.ctx);
+    private SuplaConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
+        return new SuplaConnection(parseSuplaDataPacket(msg), ctx::write);
     }
 
     private Request parseSuplaDataPacket(final SuplaDataPacket msg) {
+//        throw new UnsupportedOperationException("TODO implement me");
         return null;
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        ctx.close();
-        writeLock(s -> {
-            s.forEach((k, v) -> k.onError(cause));
-            s.clear();
-        });
-    }
-
-    @Override
     public void subscribe(final Subscriber<? super SuplaConnection> subscriber) {
-        writeLock(s -> s.remove(subscriber));
-
-        subscriber.onSubscribe(new Subscription() {
-            @Override
-            public void request(final long n) {
-                writeLock(s -> {
-                    final Long requested = s.getOrDefault(subscriber, 0L);
-                    s.put(subscriber, requested + n);
-                });
-            }
-
-            @Override
-            public void cancel() {
-                writeLock(s -> s.remove(subscriber));
-            }
-        });
-    }
-
-    private void writeLock(Consumer<Map<Subscriber<? super SuplaConnection>, Long>> consumer) {
-        final Lock lock = subscribersLock.writeLock();
-        try {
-            lock.lock();
-            consumer.accept(subscribers);
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    private void readLock(Consumer<Map<Subscriber<? super SuplaConnection>, Long>> consumer) {
-        final Lock lock = subscribersLock.readLock();
-        try {
-            lock.lock();
-            consumer.accept(subscribers);
-        } finally {
-            lock.unlock();
-        }
+        flux.subscribe(subscriber);
     }
 }

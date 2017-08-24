@@ -4,15 +4,22 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.server.SuplaNewConnection;
+import reactor.core.publisher.FluxSink;
 
-import java.util.concurrent.ExecutorService;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
-    private final ExecutorService executorService;
+class NettyServerInitializer extends ChannelInitializer<SocketChannel> implements NotificationAboutNewChannel {
+    private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
+
     private final SslContext sslCtx;
+    private List<FluxSink<SuplaNewConnection>> consumers = Collections.synchronizedList(new LinkedList<>());
 
-    public NettyServerInitializer(ExecutorService executorService, SslContext sslCtx) {
-        this.executorService = executorService;
+    NettyServerInitializer(SslContext sslCtx) {
         this.sslCtx = sslCtx;
     }
 
@@ -29,6 +36,21 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new SuplaDataPacketEncoder());
 
         // and then business logic.
-        pipeline.addLast(new SuplaHandler(executorService));
+        pipeline.addLast(new SuplaHandler(this));
+    }
+
+    void addOnNewConnectionListener(FluxSink<SuplaNewConnection> consumer) {
+        logger.info("NettyServerInitializer.addOnNewConnectionListener(consumer)");
+        this.consumers.add(consumer);
+    }
+
+    void removeOnNewConnectionListener(FluxSink<SuplaNewConnection> emitter) {
+        logger.info("NettyServerInitializer.removeOnNewConnectionListener(emitter)");
+        this.consumers.remove(emitter);
+    }
+
+    @Override
+    public void notify(final SuplaNewConnection conn) {
+        consumers.forEach(c -> c.next(conn));
     }
 }

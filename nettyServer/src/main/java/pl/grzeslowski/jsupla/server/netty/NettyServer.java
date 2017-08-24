@@ -12,14 +12,15 @@ import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.SupplaNewConnection;
+import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.dispatchers.SuplaDataPacketDispatcher;
+import reactor.core.publisher.Flux;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("ALL") // FIXME temporary
 public class NettyServer implements Server {
     private final Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
@@ -31,6 +32,7 @@ public class NettyServer implements Server {
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
     private SuplaHandler suplaHandler;
+    private Flux<SuplaNewConnection> suplaNewConnectionPublisher;
 
     public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher) {
         this.nettyConfig = requireNonNull(nettyConfig);
@@ -51,11 +53,15 @@ public class NettyServer implements Server {
         workerGroup = new NioEventLoopGroup();
         ServerBootstrap b = new ServerBootstrap(); // (2)
 
-        suplaHandler = new SuplaHandler(Executors.newFixedThreadPool(10));
+        final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(sslCtx);
+        this.suplaNewConnectionPublisher = Flux.create(emitter -> {
+            nettyServerInitializer.addOnNewConnectionListener(emitter);
+            emitter.onDispose(() -> nettyServerInitializer.removeOnNewConnectionListener(emitter));
+        });
 
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new NettyServerInitializer(Executors.newFixedThreadPool(10), sslCtx))
+                .childHandler(nettyServerInitializer)
                 .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
@@ -80,11 +86,10 @@ public class NettyServer implements Server {
     }
 
     @Override
-    public void subscribe(final Subscriber<? super SupplaNewConnection> subscriber) {
+    public void subscribe(final Subscriber<? super SuplaNewConnection> subscriber) {
         if (!started.get()) {
-            throw new IllegalArgumentException("Not started!");
+            throw new IllegalArgumentException("Server not started!");
         }
-        assert suplaHandler != null;
-//        suplaHandler.subscribe(subscriber);
+        suplaNewConnectionPublisher.subscribe(subscriber);
     }
 }
