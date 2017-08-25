@@ -31,7 +31,6 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     private final int version;
 
-    private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
 
     private final ParsersFactory parsersFactory;
@@ -39,11 +38,10 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
 
     private final ListenersFactory listenersFactory;
 
-    public ListenersSuplaDataPacketDispatcher(int version, DecoderFactory decoderFactory, EncoderFactory encoderFactory,
+    public ListenersSuplaDataPacketDispatcher(int version, EncoderFactory encoderFactory,
                                               ParsersFactory parsersFactory, SerializersFactory serializersFactory,
                                               ListenersFactory listenersFactory) {
         this.version = size(version, 0, 255);
-        this.decoderFactory = requireNonNull(decoderFactory);
         this.encoderFactory = requireNonNull(encoderFactory);
         this.parsersFactory = requireNonNull(parsersFactory);
         this.serializersFactory = requireNonNull(serializersFactory);
