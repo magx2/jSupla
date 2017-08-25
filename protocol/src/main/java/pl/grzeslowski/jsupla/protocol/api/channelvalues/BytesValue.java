@@ -13,8 +13,12 @@ public final class BytesValue implements ChannelValue {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof BytesValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof BytesValue)) {
+            return false;
+        }
 
         final BytesValue that = (BytesValue) o;
 

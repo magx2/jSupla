@@ -40,8 +40,12 @@ public final class DecimalValue implements ChannelValue {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DecimalValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DecimalValue)) {
+            return false;
+        }
 
         final DecimalValue that = (DecimalValue) o;
 
