@@ -11,7 +11,6 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.dispatchers.SuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import reactor.core.publisher.Flux;
 
@@ -25,16 +24,14 @@ public class NettyServer implements Server {
 
     private final AtomicBoolean started = new AtomicBoolean();
     private final NettyConfig nettyConfig;
-    private final SuplaDataPacketDispatcher suplaDataPacketDispatcher;
 
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
     private SuplaHandler suplaHandler;
 
-    public NettyServer(NettyConfig nettyConfig, SuplaDataPacketDispatcher suplaDataPacketDispatcher) {
+    public NettyServer(NettyConfig nettyConfig) {
         this.nettyConfig = requireNonNull(nettyConfig);
-        this.suplaDataPacketDispatcher = requireNonNull(suplaDataPacketDispatcher);
     }
 
     @Override
