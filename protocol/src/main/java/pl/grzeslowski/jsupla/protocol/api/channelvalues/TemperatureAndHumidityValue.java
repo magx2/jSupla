@@ -3,11 +3,11 @@ package pl.grzeslowski.jsupla.protocol.api.channelvalues;
 import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("WeakerAccess")
-public final class TemperatureAndHumidity implements ChannelValue {
+public final class TemperatureAndHumidityValue implements ChannelValue {
     public final DecimalValue temperature;
     public final DecimalValue humidity;
 
-    public TemperatureAndHumidity(final DecimalValue temperature, final DecimalValue humidity) {
+    public TemperatureAndHumidityValue(final DecimalValue temperature, final DecimalValue humidity) {
         this.temperature = requireNonNull(temperature);
         this.humidity = requireNonNull(humidity);
     }
@@ -17,11 +17,11 @@ public final class TemperatureAndHumidity implements ChannelValue {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof TemperatureAndHumidity)) {
+        if (!(o instanceof TemperatureAndHumidityValue)) {
             return false;
         }
 
-        final TemperatureAndHumidity that = (TemperatureAndHumidity) o;
+        final TemperatureAndHumidityValue that = (TemperatureAndHumidityValue) o;
 
         if (!temperature.equals(that.temperature)) {
             return false;
@@ -38,7 +38,7 @@ public final class TemperatureAndHumidity implements ChannelValue {
 
     @Override
     public String toString() {
-        return "TemperatureAndHumidity{" +
+        return "TemperatureAndHumidityValue{" +
                        "temperature=" + temperature +
                        ", humidity=" + humidity +
                        '}';

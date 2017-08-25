@@ -5,6 +5,8 @@ import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
 
 public final class UnknownValue implements ChannelValue {
+    public static final UnknownValue UNKNOWN_VALUE = new UnknownValue(new byte[0], "UNKNOWN_VALUE");
+
     public final byte[] bytes;
     public final String message;
 
