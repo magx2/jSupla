@@ -19,15 +19,27 @@ public final class RgbValue implements ChannelValue {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RgbValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RgbValue)) {
+            return false;
+        }
 
         final RgbValue rgbValue = (RgbValue) o;
 
-        if (brightness != rgbValue.brightness) return false;
-        if (colorBrightness != rgbValue.colorBrightness) return false;
-        if (r != rgbValue.r) return false;
-        if (g != rgbValue.g) return false;
+        if (brightness != rgbValue.brightness) {
+            return false;
+        }
+        if (colorBrightness != rgbValue.colorBrightness) {
+            return false;
+        }
+        if (r != rgbValue.r) {
+            return false;
+        }
+        if (g != rgbValue.g) {
+            return false;
+        }
         return b == rgbValue.b;
     }
 

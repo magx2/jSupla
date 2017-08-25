@@ -14,8 +14,12 @@ public final class PercentValue implements ChannelValue {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PercentValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PercentValue)) {
+            return false;
+        }
 
         final PercentValue that = (PercentValue) o;
 
