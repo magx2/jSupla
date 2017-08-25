@@ -6,6 +6,10 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 public interface Decoder<T extends ProtoWithSize> {
     T decode(byte[] bytes, int offset);
 
+    default T decode(byte[] bytes) {
+        return decode(bytes, 0);
+    }
+
     default T decode(SuplaDataPacket dataPacket) {
         return decode(dataPacket.data, 0);
     }
