@@ -7,6 +7,7 @@ public abstract class SuplaConnection<T> {
     private final SuplaChannel channel;
 
     public SuplaConnection(final T t, final SuplaChannel channel) {
+        // TODO
 //        this.request = requireNonNull(request);
 //        this.channel = requireNonNull(channel);
         this.t = t;
