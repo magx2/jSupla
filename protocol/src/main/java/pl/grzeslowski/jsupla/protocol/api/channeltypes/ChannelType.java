@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.api;
+package pl.grzeslowski.jsupla.protocol.api.channeltypes;
 
 public enum ChannelType {
     SUPLA_CHANNELTYPE_SENSORNO(1000),
