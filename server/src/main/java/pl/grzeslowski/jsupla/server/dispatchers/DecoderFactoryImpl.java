@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server.dispatchers;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
@@ -20,12 +20,12 @@ public class DecoderFactoryImpl implements DecoderFactory {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends ProtoWithSize> Decoder<T> getDecoderForCallType(CallType callType) {
+    public <T extends ProtoWithSize> ProtoWithSizeDecoder<T> getDecoderForCallType(CallType callType) {
         final int value = callType.getValue();
         if (value == SUPLA_DS_CALL_REGISTER_DEVICE_B.getValue()) {
-            return (Decoder<T>) registerDeviceDecoder;
+            return (ProtoWithSizeDecoder<T>) registerDeviceDecoder;
         } else if (value == SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT.getValue()) {
-            return (Decoder<T>) new SuplaSetActivityTimeoutDecoderImpl(PrimitiveDecoderImpl.INSTANCE);
+            return (ProtoWithSizeDecoder<T>) new SuplaSetActivityTimeoutDecoderImpl(PrimitiveDecoderImpl.INSTANCE);
         }
 
         throw new IllegalArgumentException(format("Don't know decoder for call type %s", callType));

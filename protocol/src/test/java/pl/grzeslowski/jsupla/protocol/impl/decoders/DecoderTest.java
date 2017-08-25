@@ -3,15 +3,15 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public abstract class DecoderTest<T extends Decoder<?>> {
+public abstract class DecoderTest<T extends ProtoWithSizeDecoder<?>> {
     private static final int RANDOM_INT = 123;
     @Mock protected PrimitiveDecoder primitiveDecoder;
 

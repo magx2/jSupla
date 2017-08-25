@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
@@ -80,14 +80,14 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return concat(cs, concat(ds, dcs));
     }
 
-    protected Decoder<DeviceServer> getDecoderForCallType(CallType callType) {
+    protected ProtoWithSizeDecoder<DeviceServer> getDecoderForCallType(CallType callType) {
         logger.trace("ListenersSuplaDataPacketDispatcher.getDecoderForCallType({})", callType);
         return decoderFactory.getDecoderForCallType(callType);
     }
 
-    protected ProtoWithSize decode(Decoder<DeviceServer> deviceServerDecoder, SuplaDataPacket dataPacket) {
-        logger.trace("ListenersSuplaDataPacketDispatcher.decode({}, {})", deviceServerDecoder, dataPacket);
-        return deviceServerDecoder.decode(dataPacket);
+    protected ProtoWithSize decode(ProtoWithSizeDecoder<DeviceServer> deviceServerProtoWithSizeDecoder, SuplaDataPacket dataPacket) {
+        logger.trace("ListenersSuplaDataPacketDispatcher.decode({}, {})", deviceServerProtoWithSizeDecoder, dataPacket);
+        return deviceServerProtoWithSizeDecoder.decode(dataPacket);
     }
 
     protected Request parse(ProtoWithSize deviceServer) {
