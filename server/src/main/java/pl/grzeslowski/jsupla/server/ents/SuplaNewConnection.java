@@ -5,11 +5,11 @@ import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
 import reactor.core.publisher.Flux;
 
 public final class SuplaNewConnection {
-    private final Flux<SuplaConnection> flux;
+    private final Flux<SuplaDataPackageConnection> flux;
     private final RegisterDeviceRequest registerDeviceRequest;
     private final SuplaChannel channel;
 
-    public SuplaNewConnection(final Flux<SuplaConnection> flux,
+    public SuplaNewConnection(final Flux<SuplaDataPackageConnection> flux,
                               final RegisterDeviceRequest registerDeviceRequest,
                               final SuplaChannel channel) {
         this.flux = flux;
@@ -17,7 +17,7 @@ public final class SuplaNewConnection {
         this.channel = channel;
     }
 
-    public Flux<SuplaConnection> getFlux() {
+    public Flux<SuplaDataPackageConnection> getFlux() {
         return flux;
     }
 

@@ -1,21 +1,20 @@
 package pl.grzeslowski.jsupla.server.ents;
 
 import pl.grzeslowski.jsupla.server.SuplaChannel;
-import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
-public final class SuplaConnection {
-    private final Request request;
+public abstract class SuplaConnection<T> {
+    private final T t;
     private final SuplaChannel channel;
 
-    public SuplaConnection(final Request request, final SuplaChannel channel) {
+    public SuplaConnection(final T t, final SuplaChannel channel) {
 //        this.request = requireNonNull(request);
 //        this.channel = requireNonNull(channel);
-        this.request = request;
+        this.t = t;
         this.channel = channel;
     }
 
-    public Request getRequest() {
-        return request;
+    public T value() {
+        return t;
     }
 
     public SuplaChannel getChannel() {

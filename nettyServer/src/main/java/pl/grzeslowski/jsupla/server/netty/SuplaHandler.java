@@ -8,9 +8,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
 import pl.grzeslowski.jsupla.server.SuplaChannel;
-import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
-import pl.grzeslowski.jsupla.server.ents.SuplaConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
 import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.serializers.RegisterDeviceResponseSerializer;
 import reactor.core.publisher.Flux;
@@ -25,8 +24,8 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final NotificationAboutNewChannel notificationAboutNewChannel;
-    private Flux<SuplaConnection> flux;
-    private List<FluxSink<SuplaConnection>> emitters = Collections.synchronizedList(new LinkedList<>());
+    private Flux<SuplaDataPackageConnection> flux;
+    private List<FluxSink<SuplaDataPackageConnection>> emitters = Collections.synchronizedList(new LinkedList<>());
 
     SuplaHandler(final NotificationAboutNewChannel notificationAboutNewChannel) {
         this.notificationAboutNewChannel = notificationAboutNewChannel;
@@ -69,13 +68,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        final SuplaConnection suplaConnection = newSuplaConnection(msg, ctx);
+        final SuplaDataPackageConnection suplaConnection = newSuplaConnection(msg, ctx);
         emitters.forEach(e -> e.next(suplaConnection));
         // ctx.flush(); // TODO maybe use it here
     }
 
-    private SuplaConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
-        return new SuplaConnection(parseSuplaDataPacket(msg), newSuplaChannel(ctx));
+    private SuplaDataPackageConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
+        return new SuplaDataPackageConnection(msg, newSuplaChannel(ctx));
     }
 
     private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
@@ -86,10 +85,5 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
             ctx.writeAndFlush(suplaDataPacket);
         };
-    }
-
-    private Request parseSuplaDataPacket(final SuplaDataPacket msg) {
-//        throw new UnsupportedOperationException("TODO implement me");
-        return null;
     }
 }
