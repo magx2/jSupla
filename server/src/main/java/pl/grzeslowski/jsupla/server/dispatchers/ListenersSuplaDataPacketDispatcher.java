@@ -85,7 +85,8 @@ public class ListenersSuplaDataPacketDispatcher implements SuplaDataPacketDispat
         return decoderFactory.getDecoderForCallType(callType);
     }
 
-    protected ProtoWithSize decode(ProtoWithSizeDecoder<DeviceServer> deviceServerProtoWithSizeDecoder, SuplaDataPacket dataPacket) {
+    protected ProtoWithSize decode(ProtoWithSizeDecoder<DeviceServer> deviceServerProtoWithSizeDecoder,
+                                   SuplaDataPacket dataPacket) {
         logger.trace("ListenersSuplaDataPacketDispatcher.decode({}, {})", deviceServerProtoWithSizeDecoder, dataPacket);
         return deviceServerProtoWithSizeDecoder.decode(dataPacket);
     }
