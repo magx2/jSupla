@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
@@ -17,7 +17,7 @@ public class SuplaDeviceChannelValueDecoderImplTest extends DecoderTest {
     @InjectMocks SuplaDeviceChannelValueDecoderImpl decoder;
 
     @Override
-    public Decoder<?> getDecoder() {
+    public ProtoWithSizeDecoder<?> getDecoder() {
         return decoder;
     }
 
