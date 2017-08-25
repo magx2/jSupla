@@ -6,7 +6,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.SuplaNewConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import reactor.core.publisher.FluxSink;
 
 import java.util.Collections;

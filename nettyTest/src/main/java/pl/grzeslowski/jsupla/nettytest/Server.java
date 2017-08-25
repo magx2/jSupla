@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.SuplaConnection;
-import pl.grzeslowski.jsupla.server.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.dispatchers.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.dispatchers.ListenersSuplaDataPacketDispatcher;
 import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.OkRegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
+import pl.grzeslowski.jsupla.server.ents.SuplaConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.listeners.ListenersFactoryImpl;
 import pl.grzeslowski.jsupla.server.listeners.RequestListener;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;

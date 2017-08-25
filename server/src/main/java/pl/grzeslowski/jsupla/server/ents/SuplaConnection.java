@@ -1,5 +1,6 @@
-package pl.grzeslowski.jsupla.server;
+package pl.grzeslowski.jsupla.server.ents;
 
+import pl.grzeslowski.jsupla.server.SuplaChannel;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 
 public final class SuplaConnection {
