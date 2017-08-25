@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
+import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
@@ -57,6 +58,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueDecoderImpl;
@@ -85,6 +87,31 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaSetActivityTimeoutR
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaVersionErrorDecoderImpl;
 
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_CHANNEL_SET_VALUE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_CHANNEL_SET_VALUE_B;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_B;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_C;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_EVENT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATION_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_CHANNEL_SET_VALUE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_GETVERSION_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_VERSIONERROR;
 
 public final class DecoderFactoryImpl implements DecoderFactory {
 
@@ -283,5 +310,97 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
 
         throw new IllegalArgumentException(format("Don't know decoder for %s", proto));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends ProtoWithSize & ProtoWithCallType> Decoder<T> getDecoder(final CallType callType) {
+        requireNonNull(callType);
+
+        // cs
+        if (callType == SUPLA_CS_CALL_CHANNEL_SET_VALUE_B) {
+            return (Decoder<T>) suplaChannelNewValueBDecoder;
+        }
+        if (callType == SUPLA_CS_CALL_CHANNEL_SET_VALUE) {
+            return (Decoder<T>) suplaChannelNewValueDecoder;
+        }
+        if (callType == SUPLA_CS_CALL_REGISTER_CLIENT_B) {
+            return (Decoder<T>) suplaRegisterClientBDecoder;
+        }
+        if (callType == SUPLA_CS_CALL_REGISTER_CLIENT) {
+            return (Decoder<T>) suplaRegisterClientDecoder;
+        }
+
+        // dcs
+        if (callType == SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT) {
+            return (Decoder<T>) suplaSetActivityTimeoutDecoder;
+        }
+
+        // ds
+        if (callType == SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL) {
+            return (Decoder<T>) firmwareUpdateParamsDecoder;
+        }
+        if (callType == SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED) {
+            return (Decoder<T>) suplaChannelNewValueResultDecoder;
+        }
+        if (callType == SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT) {
+            return (Decoder<T>) suplaDeviceChannelValueDecoder;
+        }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
+            return (Decoder<T>) suplaRegisterDeviceBDecoder;
+        }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_C) {
+            return (Decoder<T>) suplaRegisterDeviceCDecoder;
+        }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE) {
+            return (Decoder<T>) suplaRegisterDeviceDecoder;
+        }
+
+        // sc
+        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE) {
+            return (Decoder<T>) suplaChannelDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_CHANNELPACK_UPDATE) {
+            return (Decoder<T>) suplaChannelPackDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE) {
+            return (Decoder<T>) suplaChannelValueDecoderSc;
+        }
+        if (callType == SUPLA_SC_CALL_EVENT) {
+            return (Decoder<T>) suplaEventDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_LOCATION_UPDATE) {
+            return (Decoder<T>) suplaLocationDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_LOCATIONPACK_UPDATE) {
+            return (Decoder<T>) suplaLocationPackDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_REGISTER_CLIENT_RESULT) {
+            return (Decoder<T>) suplaRegisterClientResultDecoder;
+        }
+
+        // sd
+        if (callType == SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT) {
+            return (Decoder<T>) firmwareUpdateUrlResultDecoder;
+        }
+        if (callType == SUPLA_SD_CALL_CHANNEL_SET_VALUE) {
+            return (Decoder<T>) suplaChannelNewValueDecoderSd;
+        }
+        if (callType == SUPLA_SD_CALL_REGISTER_DEVICE_RESULT) {
+            return (Decoder<T>) suplaRegisterDeviceResultDecoder;
+        }
+
+        // sdc
+        if (callType == SUPLA_SDC_CALL_GETVERSION_RESULT) {
+            return (Decoder<T>) suplaGetVersionResultDecoder;
+        }
+        if (callType == SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT) {
+            return (Decoder<T>) suplaSetActivityTimeoutResultDecoder;
+        }
+        if (callType == SUPLA_SDC_CALL_VERSIONERROR) {
+            return (Decoder<T>) suplaVersionErrorDecoder;
+        }
+
+        throw new IllegalArgumentException(format("Don't know decoder for %s", callType));
     }
 }

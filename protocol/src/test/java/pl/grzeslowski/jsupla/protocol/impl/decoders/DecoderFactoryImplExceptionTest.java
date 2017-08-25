@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
@@ -29,4 +30,8 @@ public class DecoderFactoryImplExceptionTest {
         fail("Should throw exception");
     }
 
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionWhenCallTypeIsNull() throws Exception {
+        decoderFactory.getDecoder((CallType) null);
+    }
 }

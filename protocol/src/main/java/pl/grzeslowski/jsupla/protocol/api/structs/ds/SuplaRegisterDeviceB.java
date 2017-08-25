@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
@@ -58,7 +59,7 @@ public final class SuplaRegisterDeviceB implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        return DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
+        return SUPLA_DS_CALL_REGISTER_DEVICE_B;
     }
 
     @Override

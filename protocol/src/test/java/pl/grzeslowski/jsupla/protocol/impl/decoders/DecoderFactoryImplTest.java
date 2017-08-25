@@ -32,6 +32,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueDecoderImpl;
@@ -149,6 +150,24 @@ public class DecoderFactoryImplTest {
 
         // then
         assertThat(decoder).isOfAnyClassIn(decoderClass);
+    }
+
+    @Test
+    public void shouldFindProperDecoderForCallType() throws Exception {
+
+        // given
+        if (!(proto instanceof ProtoWithCallType)) {
+            return; // do not need to test this
+        }
+
+        ProtoWithCallType protoWithCallType = (ProtoWithCallType) proto;
+
+        // when
+        final Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(protoWithCallType.callType());
+
+        // then
+        assertThat(decoder).isOfAnyClassIn(decoderClass);
+
     }
 
     private static int newInt() {
