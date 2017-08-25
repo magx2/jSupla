@@ -1,16 +1,15 @@
 package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
+import pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue;
 import pl.grzeslowski.jsupla.server.entities.Entity;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class DeviceChannel implements Entity {
@@ -21,12 +20,12 @@ public class DeviceChannel implements Entity {
     private final int type;
     @NotNull
     @Size(max = SUPLA_CHANNELVALUE_SIZE)
-    private final byte[] value; // TODO should be some object that can be mapped from `type`
+    private final ChannelValue value;
 
-    public DeviceChannel(int number, int type, byte[] value) {
+    public DeviceChannel(int number, int type, ChannelValue value) {
         this.number = size(number, 0, 255);
         this.type = min(type, 0);
-        this.value = sizeMax(value, SUPLA_CHANNELVALUE_SIZE);
+        this.value = value;
     }
 
     public int getNumber() {
@@ -37,16 +36,16 @@ public class DeviceChannel implements Entity {
         return type;
     }
 
-    public byte[] getValue() {
+    public ChannelValue getValue() {
         return value;
     }
 
     @Override
     public String toString() {
         return "DeviceChannel{" +
-                "number=" + number +
-                ", type=" + type +
-                ", value=" + Arrays.toString(value) +
-                '}';
+                       "number=" + number +
+                       ", type=" + type +
+                       ", value=" + value +
+                       '}';
     }
 }

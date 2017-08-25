@@ -4,11 +4,19 @@ import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
 
-public final class BytesValue implements ChannelValue {
-    public final byte[] bytes;
+public final class UnknownValue implements ChannelValue {
+    public static final UnknownValue UNKNOWN_VALUE = new UnknownValue(new byte[0], "UNKNOWN_VALUE");
 
-    public BytesValue(final byte[] bytes) {
+    public final byte[] bytes;
+    public final String message;
+
+    public UnknownValue(final byte[] bytes, final String message) {
         this.bytes = requireNonNull(bytes);
+        this.message = requireNonNull(message);
+    }
+
+    public UnknownValue(final byte[] bytes) {
+        this(bytes, "Don't know how to parse those bytes!");
     }
 
     @Override
@@ -16,11 +24,11 @@ public final class BytesValue implements ChannelValue {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof BytesValue)) {
+        if (!(o instanceof UnknownValue)) {
             return false;
         }
 
-        final BytesValue that = (BytesValue) o;
+        final UnknownValue that = (UnknownValue) o;
 
         return Arrays.equals(bytes, that.bytes);
     }
@@ -32,8 +40,9 @@ public final class BytesValue implements ChannelValue {
 
     @Override
     public String toString() {
-        return "BytesValue{" +
+        return "UnknownValue{" +
                        "bytes=" + Arrays.toString(bytes) +
+                       ", message='" + message + '\'' +
                        '}';
     }
 }
