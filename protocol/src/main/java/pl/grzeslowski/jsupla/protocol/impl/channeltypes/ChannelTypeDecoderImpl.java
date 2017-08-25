@@ -67,10 +67,12 @@ public final class ChannelTypeDecoderImpl implements ChannelTypeDecoder {
     }
 
     private ChannelType findChannelType(final int type) {
+        // @formatter:off
         return Arrays.stream(ChannelType.values())
                        .filter(x -> x.getValue() == type)
                        .findAny()
                        .orElseThrow(
-                               () -> new IllegalArgumentException(format("Don't know this channel type %s!", type)));
+                           () -> new IllegalArgumentException(format("Don't know this channel type %s!", type)));
+        // @formatter:on
     }
 }
