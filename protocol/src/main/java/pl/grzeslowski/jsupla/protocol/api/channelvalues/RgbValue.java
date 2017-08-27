@@ -1,20 +1,34 @@
 package pl.grzeslowski.jsupla.protocol.api.channelvalues;
 
-import pl.grzeslowski.jsupla.Preconditions;
-
 public final class RgbValue implements ChannelValue {
-    public final int brightness;
-    public final int colorBrightness;
-    public final int red;
-    public final int green;
-    public final int blue;
+    /**
+     * unsigned.
+     */
+    public final short brightness;
+    /**
+     * unsigned.
+     */
+    public final short colorBrightness;
+    /**
+     * unsigned.
+     */
+    public final short red;
+    /**
+     * unsigned.
+     */
+    public final short green;
+    /**
+     * unsigned.
+     */
+    public final short blue;
 
-    public RgbValue(final int brightness, final int colorBrightness, final int red, final int green, final int blue) {
-        this.brightness = Preconditions.unsignedByteSize(brightness);
-        this.colorBrightness = Preconditions.unsignedByteSize(colorBrightness);
-        this.red = Preconditions.unsignedByteSize(red);
-        this.green = Preconditions.unsignedByteSize(green);
-        this.blue = Preconditions.unsignedByteSize(blue);
+    public RgbValue(final short brightness, final short colorBrightness,
+                    final short red, final short green, final short blue) {
+        this.brightness = brightness;
+        this.colorBrightness = colorBrightness;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
     }
 
     @Override
