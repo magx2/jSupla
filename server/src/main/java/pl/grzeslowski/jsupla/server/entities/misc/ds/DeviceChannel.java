@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.min;
-import static pl.grzeslowski.jsupla.Preconditions.size;
+import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class DeviceChannel implements Entity {
@@ -23,7 +23,7 @@ public class DeviceChannel implements Entity {
     private final ChannelValue value;
 
     public DeviceChannel(int number, int type, ChannelValue value) {
-        this.number = size(number, 0, 255);
+        this.number = unsignedByteSize(number);
         this.type = min(type, 0);
         this.value = value;
     }
