@@ -33,7 +33,9 @@ public abstract class SuplaConnection<T> {
 
         final SuplaConnection<?> that = (SuplaConnection<?>) o;
 
-        if (!type.equals(that.type)) return false;
+        if (!type.equals(that.type)) {
+            return false;
+        }
         return getChannel().equals(that.getChannel());
     }
 
