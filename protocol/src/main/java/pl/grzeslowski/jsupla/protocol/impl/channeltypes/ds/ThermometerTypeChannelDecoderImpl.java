@@ -15,7 +15,7 @@ import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.
 
 public class ThermometerTypeChannelDecoderImpl implements ThermometerTypeChannelDecoder {
     private static final int MINIMAL_SIZE = INT_SIZE;
-    private static final int PRECISION = 5;
+    private static final int PRECISION = 6;
     private static final MathContext DIVIDE_MATH_CONTEXT = new MathContext(PRECISION, CEILING);
     private static final BigDecimal DIVISOR = new BigDecimal(1_000);
 
