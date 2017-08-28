@@ -3,15 +3,10 @@ package pl.grzeslowski.jsupla.protocol.impl.channeltypes.ds;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.channelvalues.RgbValue;
-import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 @SuppressWarnings("WeakerAccess")
@@ -19,7 +14,6 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 public class ColorTypeChannelDecoderImplTest {
     static final int BYTES_SIZE = 5;
     @InjectMocks ColorTypeChannelDecoderImpl decoder;
-    @Mock PrimitiveDecoder primitiveDecoder;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenArrayIsTooSmall() throws Exception {
@@ -50,26 +44,6 @@ public class ColorTypeChannelDecoderImplTest {
         offset += INSTANCE.writeUnsignedByte(red, bytes, offset);
         offset += INSTANCE.writeUnsignedByte(green, bytes, offset);
         offset += INSTANCE.writeUnsignedByte(blue, bytes, offset);
-
-        given(primitiveDecoder.parseUnsignedByte(any(byte[].class), anyInt())).willAnswer(
-                invocationOnMock -> {
-                    final int calledOffset = invocationOnMock.getArgumentAt(1, Integer.class);
-                    switch (calledOffset) {
-                        case 0:
-                            return brightness;
-                        case 1:
-                            return colorBrightness;
-                        case 2:
-                            return red;
-                        case 3:
-                            return green;
-                        case 4:
-                            return blue;
-                        default:
-                            throw new IllegalArgumentException(String.valueOf(calledOffset));
-                    }
-                }
-        );
 
         // when
         final RgbValue decode = decoder.decode(bytes);
@@ -102,26 +76,6 @@ public class ColorTypeChannelDecoderImplTest {
         offset += INSTANCE.writeUnsignedByte(green, bytes, offset);
         offset += INSTANCE.writeUnsignedByte(blue, bytes, offset);
 
-        given(primitiveDecoder.parseUnsignedByte(any(byte[].class), anyInt())).willAnswer(
-                invocationOnMock -> {
-                    final int calledOffset = invocationOnMock.getArgumentAt(1, Integer.class);
-                    switch (calledOffset) {
-                        case 0 + initialOffset:
-                            return brightness;
-                        case 1 + initialOffset:
-                            return colorBrightness;
-                        case 2 + initialOffset:
-                            return red;
-                        case 3 + initialOffset:
-                            return green;
-                        case 4 + initialOffset:
-                            return blue;
-                        default:
-                            throw new IllegalArgumentException(String.valueOf(calledOffset));
-                    }
-                }
-        );
-
         // when
         final RgbValue decode = decoder.decode(bytes, initialOffset);
 
@@ -131,10 +85,5 @@ public class ColorTypeChannelDecoderImplTest {
         assertThat(decode.red).isEqualTo(red);
         assertThat(decode.green).isEqualTo(green);
         assertThat(decode.blue).isEqualTo(blue);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void shouldThrowNullPointerExceptionOnNullPrimitiveDecoder() throws Exception {
-        new ColorTypeChannelDecoderImpl(null);
     }
 }
