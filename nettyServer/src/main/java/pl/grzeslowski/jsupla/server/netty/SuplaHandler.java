@@ -79,9 +79,14 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
         return msg -> {
-            final SuplaRegisterDeviceResult result = new RegisterDeviceResponseSerializer().serialize((RegisterDeviceResponse) msg);
+            final SuplaRegisterDeviceResult result = new RegisterDeviceResponseSerializer()
+                                                             .serialize((RegisterDeviceResponse) msg);
             final byte[] encode = new SuplaRegisterDeviceResultEncoderImpl(INSTANCE).encode(result);
-            final SuplaDataPacket suplaDataPacket = new SuplaDataPacket((short) 5, 1, result.callType().getValue(), encode.length, encode);
+            final SuplaDataPacket suplaDataPacket = new SuplaDataPacket((short) 5,
+                                                                               1,
+                                                                               result.callType().getValue(),
+                                                                               encode.length,
+                                                                               encode);
             logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
             ctx.writeAndFlush(suplaDataPacket);
         };
