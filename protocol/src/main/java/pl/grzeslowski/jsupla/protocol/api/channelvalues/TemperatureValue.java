@@ -41,8 +41,12 @@ public final class TemperatureValue implements ChannelValue {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TemperatureValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof TemperatureValue)) {
+            return false;
+        }
 
         final TemperatureValue that = (TemperatureValue) o;
 
