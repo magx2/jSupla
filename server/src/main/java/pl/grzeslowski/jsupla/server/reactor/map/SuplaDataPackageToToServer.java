@@ -24,8 +24,10 @@ public final class SuplaDataPackageToToServer implements Function<SuplaDataPacke
 
     @Override
     public ToServerProto apply(final SuplaDataPacket suplaDataPacket) {
+        // @formatter:off
         final CallType callType = callTypeParser.parse(suplaDataPacket.callType).orElseThrow(
-                () -> new IllegalArgumentException(format("Don't know this call type %s", suplaDataPacket.callType)));
+            () -> new IllegalArgumentException(format("Don't know this call type %s", suplaDataPacket.callType)));
+        // @formatter:on
 
         final Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
         final ProtoWithSize proto = decoder.decode(suplaDataPacket.data);
