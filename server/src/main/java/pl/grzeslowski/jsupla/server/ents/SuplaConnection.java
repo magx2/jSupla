@@ -24,8 +24,12 @@ public abstract class SuplaConnection<T> {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaConnection)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaConnection)) {
+            return false;
+        }
 
         final SuplaConnection<?> that = (SuplaConnection<?>) o;
 

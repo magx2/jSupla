@@ -22,8 +22,12 @@ public class ChannelNewValueRequest implements Request {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelNewValueRequest)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelNewValueRequest)) {
+            return false;
+        }
 
         final ChannelNewValueRequest that = (ChannelNewValueRequest) o;
 
