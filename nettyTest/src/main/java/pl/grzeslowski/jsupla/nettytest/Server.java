@@ -2,23 +2,17 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.OkRegisterDeviceResponse;
-import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.ents.RequestConnection;
 import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.ents.ToServerProtoConnection;
-import pl.grzeslowski.jsupla.server.listeners.RequestListener;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;
 import pl.grzeslowski.jsupla.server.netty.NettyServer;
 import pl.grzeslowski.jsupla.server.reactor.map.SuplaDataPackageToToServer;
 import pl.grzeslowski.jsupla.server.reactor.map.ToServerProtoToRequest;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-
-import static java.util.Optional.of;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -55,16 +49,6 @@ public class Server {
 
             TimeUnit.MINUTES.sleep(10);
             logger.warn("End of sleep; closing server");
-        }
-    }
-
-    private static class DeviceRegisterListener implements RequestListener<RegisterDeviceRequest, RegisterDeviceResponse> {
-        private final Logger logger = LoggerFactory.getLogger(DeviceRegisterListener.class);
-
-        @Override
-        public Optional<RegisterDeviceResponse> onRequest(RegisterDeviceRequest request) {
-            logger.info("Got {} returning response", request);
-            return of(new OkRegisterDeviceResponse(100, 5, 2));
         }
     }
 }
