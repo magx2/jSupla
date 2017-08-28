@@ -3,19 +3,19 @@ package pl.grzeslowski.jsupla.server.ents;
 import pl.grzeslowski.jsupla.server.SuplaChannel;
 
 public abstract class SuplaConnection<T> {
-    private final T t;
+    private final T type;
     private final SuplaChannel channel;
 
-    public SuplaConnection(final T t, final SuplaChannel channel) {
+    public SuplaConnection(final T type, final SuplaChannel channel) {
         // TODO
         //        this.request = requireNonNull(request);
         //        this.channel = requireNonNull(channel);
-        this.t = t;
+        this.type = type;
         this.channel = channel;
     }
 
     public T value() {
-        return t;
+        return type;
     }
 
     public SuplaChannel getChannel() {
@@ -33,13 +33,13 @@ public abstract class SuplaConnection<T> {
 
         final SuplaConnection<?> that = (SuplaConnection<?>) o;
 
-        if (!t.equals(that.t)) return false;
+        if (!type.equals(that.type)) return false;
         return getChannel().equals(that.getChannel());
     }
 
     @Override
     public int hashCode() {
-        int result = t.hashCode();
+        int result = type.hashCode();
         result = 31 * result + getChannel().hashCode();
         return result;
     }
@@ -47,7 +47,7 @@ public abstract class SuplaConnection<T> {
     @Override
     public String toString() {
         return "SuplaConnection{" +
-                       "t=" + t +
+                       "type=" + type +
                        ", channel=" + channel +
                        '}';
     }
