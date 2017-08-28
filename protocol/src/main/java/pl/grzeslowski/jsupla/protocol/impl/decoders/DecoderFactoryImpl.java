@@ -146,7 +146,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     // sd
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
     private final FirmwareUpdateUrlResultDecoder firmwareUpdateUrlResultDecoder;
-    private final pl.grzeslowski.jsupla.protocol.api.decoders.sd.SuplaChannelNewValueDecoder suplaChannelNewValueDecoderSd;
+    private final pl.grzeslowski.jsupla.protocol.api.decoders.sd.SuplaChannelNewValueDecoder
+            suplaChannelNewValueDecoderSd;
     private final SuplaRegisterDeviceResultDecoder suplaRegisterDeviceResultDecoder;
 
     // sdc
@@ -186,7 +187,11 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         // sc
         suplaChannelDecoder = new SuplaChannelDecoderImpl(primitiveDecoder, suplaChannelValueDecoder);
         suplaChannelPackDecoder = new SuplaChannelPackDecoderImpl(primitiveDecoder, suplaChannelDecoder);
-        suplaChannelValueDecoderSc = new pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl(primitiveDecoder, suplaChannelValueDecoder);
+        // @formatter:off
+        suplaChannelValueDecoderSc =
+                new pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl(
+                        primitiveDecoder, suplaChannelValueDecoder);
+        // @formatter:on
         suplaEventDecoder = new SuplaEventDecoderImpl(primitiveDecoder);
         suplaLocationDecoder = new SuplaLocationDecoderImpl(primitiveDecoder);
         suplaLocationPackDecoder = new SuplaLocationPackDecoderImpl(primitiveDecoder, suplaLocationDecoder);
@@ -194,8 +199,10 @@ public final class DecoderFactoryImpl implements DecoderFactory {
 
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
-        firmwareUpdateUrlResultDecoder = new FirmwareUpdateUrlResultDecoderImpl(primitiveDecoder, firmwareUpdateUrlDecoder);
-        suplaChannelNewValueDecoderSd = new pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl(primitiveDecoder);
+        firmwareUpdateUrlResultDecoder = new FirmwareUpdateUrlResultDecoderImpl(primitiveDecoder,
+                                                                                       firmwareUpdateUrlDecoder);
+        suplaChannelNewValueDecoderSd =
+                new pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl(primitiveDecoder);
         suplaRegisterDeviceResultDecoder = new SuplaRegisterDeviceResultDecoderImpl(primitiveDecoder);
 
         // sdc
