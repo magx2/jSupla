@@ -81,6 +81,7 @@ public class Server {
 
         final NettyConfig nettyConfig = new NettyConfig(2016);
         Flux.using(() -> new NettyServer(nettyConfig), this::runNettyServer, this::closeNettyServer)
+                .log()
                 .map(Flux::from)
                 .map(flux -> flux.map(suplaDataPacketToFromServerProtoAndChannel))
                 .map(flux -> flux.map(fromServerProtoToRequestAndChannel))
