@@ -8,23 +8,24 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageAndChannel;
+import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import static java.util.Collections.synchronizedList;
 
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
-        implements Publisher<Publisher<SuplaDataPackageAndChannel>> {
+        implements Publisher<ChannelAndSuplaDataPackageFlux> {
     private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
 
     private final SslContext sslCtx;
-    private final Flux<Publisher<SuplaDataPackageAndChannel>> flux;
+    private final Flux<ChannelAndSuplaDataPackageFlux> flux;
     // TODO maybe not synchronized?
-    private List<FluxSink<Publisher<SuplaDataPackageAndChannel>>> emitters = synchronizedList(new LinkedList<>());
+    private final Collection<FluxSink<ChannelAndSuplaDataPackageFlux>> emitters =
+            synchronizedList(new LinkedList<>());
 
     NettyServerInitializer(SslContext sslCtx) {
         this.sslCtx = sslCtx;
@@ -35,7 +36,7 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     }
 
     @Override
-    public void subscribe(final Subscriber<? super Publisher<SuplaDataPackageAndChannel>> subscriber) {
+    public void subscribe(final Subscriber<? super ChannelAndSuplaDataPackageFlux> subscriber) {
         flux.subscribe(subscriber);
     }
 
@@ -52,6 +53,6 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         pipeline.addLast(new SuplaDataPacketEncoder());
 
         // and then business logic.
-        pipeline.addLast(new SuplaHandler());
+        pipeline.addLast(new SuplaHandler(emitters)); // TODO do new unmodificalbe field so it cant be chaned by user
     }
 }

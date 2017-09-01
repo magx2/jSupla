@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server;
 
 import org.reactivestreams.Publisher;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageAndChannel;
+import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
 
 public interface Server extends AutoCloseable {
-    Publisher<Publisher<SuplaDataPackageAndChannel>> run() throws Exception;
+    Publisher<ChannelAndSuplaDataPackageFlux> run() throws Exception;
 }

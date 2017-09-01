@@ -1,58 +1,12 @@
 package pl.grzeslowski.jsupla.nettytest;
 
-import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
-import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.server.entities.requests.Request;
-import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequest;
-import pl.grzeslowski.jsupla.server.ents.FromServerProtoToRequestAndChannel;
-import pl.grzeslowski.jsupla.server.ents.FromServerProtoToRequestAndChannelImpl;
-import pl.grzeslowski.jsupla.server.ents.RequestAndChannel;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageAndChannel;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketFactory;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketFactoryImpl;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketToFromServerProtoAndChannel;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketToFromServerProtoAndChannelImpl;
-import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.FromServerProtoChannelToResponseChannel;
-import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.FromServerProtoChannelToResponseChannelImpl;
-import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.SuplaDataPacketChannelToFromServerProtoChannel;
-import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.SuplaDataPacketChannelToFromServerProtoChannelImpl;
-import pl.grzeslowski.jsupla.server.netty.NettyConfig;
-import pl.grzeslowski.jsupla.server.netty.NettyServer;
-import pl.grzeslowski.jsupla.server.parsers.ParsersFactory;
-import pl.grzeslowski.jsupla.server.parsers.ParsersFactoryImpl;
-import pl.grzeslowski.jsupla.server.serializers.SerializersFactory;
-import pl.grzeslowski.jsupla.server.serializers.SerializersFactoryImpl;
-import reactor.core.publisher.Flux;
 
 import java.util.concurrent.TimeUnit;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
-
-    private SerializersFactory serializersFactory = new SerializersFactoryImpl();
-    private final FromServerProtoChannelToResponseChannel fromServerProtoChannelToResponseChannel =
-            new FromServerProtoChannelToResponseChannelImpl(serializersFactory);
-
-    private EncoderFactory encoderFactory = new EncoderFactoryImpl();
-    private SuplaDataPacketFactory suplaDataPacketFactory = new SuplaDataPacketFactoryImpl(5);
-    private final SuplaDataPacketChannelToFromServerProtoChannel suplaDataPacketChannelToFromServerProtoChannel =
-            new SuplaDataPacketChannelToFromServerProtoChannelImpl(encoderFactory, suplaDataPacketFactory);
-
-    private DecoderFactory decoderFactory = new DecoderFactoryImpl(PrimitiveDecoderImpl.INSTANCE);
-    private final SuplaDataPacketToFromServerProtoAndChannel suplaDataPacketToFromServerProtoAndChannel =
-            new SuplaDataPacketToFromServerProtoAndChannelImpl(decoderFactory, new CallTypeParserImpl(),
-                                                                      suplaDataPacketChannelToFromServerProtoChannel);
-
-    private ParsersFactory parserFactory = new ParsersFactoryImpl();
-    private final FromServerProtoToRequestAndChannel fromServerProtoToRequestAndChannel =
-            new FromServerProtoToRequestAndChannelImpl(parserFactory, fromServerProtoChannelToResponseChannel);
 
     public static void main(String[] args) throws Exception {
         System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
@@ -62,37 +16,9 @@ public class Server {
     private void run() throws Exception {
         logger.info("Starting...");
 
-        final NettyConfig nettyConfig = new NettyConfig(2016);
-        final Flux<Flux<RequestAndChannel>> suplaStream =
-                Flux.using(() -> new NettyServer(nettyConfig), this::runNettyServer, this::closeNettyServer)
-                        .log()
-                        .map(Flux::from)
-                        .map(flux -> flux.map(suplaDataPacketToFromServerProtoAndChannel))
-                        .map(flux -> flux.map(fromServerProtoToRequestAndChannel))
-                        .map(flux -> flux.skipUntil(this::isRegisterDeviceRequest));
+        // TODO
 
         TimeUnit.MINUTES.sleep(10);
         logger.warn("End of sleep; closing server");
-    }
-
-    private Publisher<Publisher<SuplaDataPackageAndChannel>> runNettyServer(NettyServer nettyServer) {
-        try {
-            return nettyServer.run();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void closeNettyServer(NettyServer nettyServer) {
-        try {
-            nettyServer.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private boolean isRegisterDeviceRequest(final RequestAndChannel requestAndChannel) {
-        final Request request = requestAndChannel.getRequest();
-        return request instanceof RegisterDeviceRequest;
     }
 }
