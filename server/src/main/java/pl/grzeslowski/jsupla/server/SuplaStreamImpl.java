@@ -25,7 +25,6 @@ public class SuplaStreamImpl implements SuplaStream {
     @Override
     public Flux<ChannelAndRequestFlux> fullStream() {
         return Flux.using(serverSupplier, this::runServer, this::closeServer)
-                       .log()
                        .map(suplaDataPacketToFromServerProto)
                        .map(fromServerProtoToRequest);
     }

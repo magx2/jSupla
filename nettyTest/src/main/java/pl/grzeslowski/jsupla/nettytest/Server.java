@@ -56,10 +56,10 @@ public class Server {
         final SuplaStreamImpl suplaStream =
                 new SuplaStreamImpl(() -> new NettyServer(new NettyConfig(2016)), x, y);
 
-        suplaStream.fullStream().subscribe(new Consumer<ChannelAndRequestFlux>() {
+        suplaStream.fullStream().log().subscribe(new Consumer<ChannelAndRequestFlux>() {
             @Override
             public void accept(final ChannelAndRequestFlux in) {
-                in.getFlux().subscribe(new Consumer<Request>() {
+                in.getFlux().log().subscribe(new Consumer<Request>() {
                     @Override
                     public void accept(final Request request) {
                         if (request instanceof RegisterDeviceRequest) {
