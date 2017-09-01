@@ -65,7 +65,8 @@ public class Server {
                         if (request instanceof RegisterDeviceRequest) {
                             in.getChannel().write(new OkRegisterDeviceResponse(200, 5, 1));
                         } else if (request instanceof ActivityTimeoutRequest) {
-                            in.getChannel().write(new ActivityTimeoutResponse(200, 1, 255));
+                            final ActivityTimeoutRequest a = (ActivityTimeoutRequest) request;
+                            in.getChannel().write(new ActivityTimeoutResponse(a.getActivityTimeout(), 1, 255));
                         } else {
                             logger.warn("Doesn't know this type of request {}", request.getClass().getSimpleName());
                         }
