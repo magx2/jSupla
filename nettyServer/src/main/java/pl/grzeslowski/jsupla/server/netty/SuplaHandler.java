@@ -7,12 +7,8 @@ import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
 import pl.grzeslowski.jsupla.server.SuplaChannel;
-import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.RegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
-import pl.grzeslowski.jsupla.server.serializers.RegisterDeviceResponseSerializer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -20,12 +16,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
-
-class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implements Publisher<SuplaDataPackageConnection> {
+class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
+        implements Publisher<SuplaDataPackageConnection> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
-    private Flux<SuplaDataPackageConnection> flux;
-    private List<FluxSink<SuplaDataPackageConnection>> emitters = Collections.synchronizedList(new LinkedList<>()); // TODO maybe not synchronized?
+    private Flux<SuplaDataPackageConnection> flux;// TODO maybe not synchronized?
+    private List<FluxSink<SuplaDataPackageConnection>> emitters = Collections.synchronizedList(new LinkedList<>());
 
     SuplaHandler() {
         this.flux = Flux.create(emitter -> {
@@ -72,17 +67,9 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> implemen
     }
 
     private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
-        return msg -> {
-            final SuplaRegisterDeviceResult result = new RegisterDeviceResponseSerializer()
-                                                             .serialize((RegisterDeviceResponse) msg);
-            final byte[] encode = new SuplaRegisterDeviceResultEncoderImpl(INSTANCE).encode(result);
-            final SuplaDataPacket suplaDataPacket = new SuplaDataPacket((short) 5,
-                                                                               1,
-                                                                               result.callType().getValue(),
-                                                                               encode.length,
-                                                                               encode);
+        return (SuplaDataPacket msg) -> {
             logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
-            ctx.write(suplaDataPacket);
+            ctx.write(msg);
         };
     }
 }

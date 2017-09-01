@@ -33,7 +33,7 @@ public class Server {
             final Consumer<RequestConnection> suplaConnectionConsumer = requestConnection -> {
                 logger.info("Sending OkResponse...");
                 final OkRegisterDeviceResponse response = new OkRegisterDeviceResponse(200, 6, 1);
-                requestConnection.getChannel().write(response);
+                requestConnection.getChannel().write(null); // TODO
             };
 
             final Consumer<? super SuplaNewConnection> consumer = (Consumer<SuplaNewConnection>) suplaNewConnection -> {

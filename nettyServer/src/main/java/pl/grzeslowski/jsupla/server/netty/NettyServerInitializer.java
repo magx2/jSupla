@@ -13,17 +13,20 @@ import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-class NettyServerInitializer extends ChannelInitializer<SocketChannel> implements Publisher<Publisher<SuplaDataPackageConnection>> {
+import static java.util.Collections.synchronizedList;
+
+class NettyServerInitializer extends ChannelInitializer<SocketChannel>
+        implements Publisher<Publisher<SuplaDataPackageConnection>> {
     private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
 
     private final SslContext sslCtx;
     private final Flux<Publisher<SuplaDataPackageConnection>> flux;
-    private List<FluxSink<SuplaNewConnection>> consumers = Collections.synchronizedList(new LinkedList<>());
-    private List<FluxSink<Publisher<SuplaDataPackageConnection>>> emitters = Collections.synchronizedList(new LinkedList<>()); // TODO maybe not synchronized?
+    private List<FluxSink<SuplaNewConnection>> consumers = synchronizedList(new LinkedList<>());
+    // TODO maybe not synchronized?
+    private List<FluxSink<Publisher<SuplaDataPackageConnection>>> emitters = synchronizedList(new LinkedList<>());
 
     NettyServerInitializer(SslContext sslCtx) {
         this.sslCtx = sslCtx;

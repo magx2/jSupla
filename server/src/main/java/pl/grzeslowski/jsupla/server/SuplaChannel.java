@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import pl.grzeslowski.jsupla.server.entities.responses.Response;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 public interface SuplaChannel {
-    void write(Response response);
+    void write(SuplaDataPacket dataPacket);
 }
