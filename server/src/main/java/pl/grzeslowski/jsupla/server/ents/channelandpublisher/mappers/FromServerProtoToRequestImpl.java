@@ -1,11 +1,12 @@
 package pl.grzeslowski.jsupla.server.ents.channelandpublisher.mappers;
 
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
+import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.entities.requests.Request;
 import pl.grzeslowski.jsupla.server.entities.responses.Response;
-import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndFromServerProtoFlux;
 import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndRequestFlux;
 import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndRequestFluxImpl;
+import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndToServerProtoFlux;
 import pl.grzeslowski.jsupla.server.ents.channels.FromServerProtoChannel;
 import pl.grzeslowski.jsupla.server.ents.channels.ResponseChannel;
 import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.FromServerProtoChannelToResponseChannel;
@@ -21,14 +22,14 @@ public class FromServerProtoToRequestImpl implements FromServerProtoToRequest {
 
     public FromServerProtoToRequestImpl(final SerializersFactory serializersFactory,
                                         final ParsersFactory parsersFactory,
-                                        final FromServerProtoChannelToResponseChannel fromServerProtoChannelToResponseChannel) {
+                                        final FromServerProtoChannelToResponseChannel from) {
         this.serializersFactory = serializersFactory;
         this.parsersFactory = parsersFactory;
-        this.fromServerProtoChannelToResponseChannel = fromServerProtoChannelToResponseChannel;
+        this.fromServerProtoChannelToResponseChannel = from;
     }
 
     @Override
-    public ChannelAndRequestFlux apply(final ChannelAndFromServerProtoFlux in) {
+    public ChannelAndRequestFlux apply(final ChannelAndToServerProtoFlux in) {
         return new ChannelAndRequestFluxImpl(buildChannel(in.getChannel()), in.getFlux().map(this::mapFlux));
     }
 
@@ -36,7 +37,7 @@ public class FromServerProtoToRequestImpl implements FromServerProtoToRequest {
         return new ResponseChannelImpl(channel);
     }
 
-    private Request mapFlux(final FromServerProto proto) {
+    private Request mapFlux(final ToServerProto proto) {
         return parsersFactory.getParser(proto).parse(proto);
     }
 

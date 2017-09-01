@@ -13,9 +13,9 @@ public class FromServerProtoToRequestAndChannelImpl implements FromServerProtoTo
     private final FromServerProtoChannelToResponseChannel fromServerProtoChannelToResponseChannel;
 
     public FromServerProtoToRequestAndChannelImpl(final ParsersFactory parsersFactory,
-                                                  final FromServerProtoChannelToResponseChannel fromServerProtoChannelToResponseChannel) {
+                                                  final FromServerProtoChannelToResponseChannel from) {
         this.parsersFactory = requireNonNull(parsersFactory);
-        this.fromServerProtoChannelToResponseChannel = requireNonNull(fromServerProtoChannelToResponseChannel);
+        this.fromServerProtoChannelToResponseChannel = requireNonNull(from);
     }
 
     @Override

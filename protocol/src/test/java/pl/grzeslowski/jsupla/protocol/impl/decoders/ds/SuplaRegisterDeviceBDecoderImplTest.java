@@ -72,7 +72,7 @@ public class SuplaRegisterDeviceBDecoderImplTest extends DecoderTest<SuplaRegist
 
     @Override
     public int entitySize() {
-        return SuplaRegisterDeviceB.SIZE;
+        return SuplaRegisterDeviceB.MIN_SIZE;
     }
 
     @Override

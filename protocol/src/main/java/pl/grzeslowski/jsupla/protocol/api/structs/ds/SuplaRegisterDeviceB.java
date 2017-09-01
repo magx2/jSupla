@@ -20,9 +20,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
  */
 @Deprecated
 public final class SuplaRegisterDeviceB implements DeviceServer {
-    public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE
-                                           + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE
-                                           + SuplaDeviceChannelB.SIZE * SUPLA_CHANNELMAXCOUNT;
+    public static final int MAX_SIZE = BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE
+                                               + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE
+                                               + SuplaDeviceChannelB.SIZE * SUPLA_CHANNELMAXCOUNT;
+    public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE
+                                               + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE;
     public final int locationId;
     /**
      * UTF-8.
@@ -52,9 +54,8 @@ public final class SuplaRegisterDeviceB implements DeviceServer {
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
         this.name = checkArrayLength(name, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
-        // TODO set channels max as channels count
         this.channelCount = channelCount;
-        this.channels = Preconditions.size(channels, 0, SUPLA_CHANNELMAXCOUNT);
+        this.channels = Preconditions.size(channels, channelCount);
     }
 
     @Override
@@ -64,19 +65,19 @@ public final class SuplaRegisterDeviceB implements DeviceServer {
 
     @Override
     public int size() {
-        return SIZE;
+        return MIN_SIZE + channelCount * SuplaDeviceChannelB.SIZE;
     }
 
     @Override
     public String toString() {
         return "SuplaRegisterDeviceB{" +
-                "locationId=" + locationId +
-                ", locationPwd=" + Arrays.toString(locationPwd) +
-                ", guid=" + Arrays.toString(guid) +
-                ", name=" + Arrays.toString(name) +
-                ", softVer=" + Arrays.toString(softVer) +
-                ", channelCount=" + channelCount +
-                ", channels=" + Arrays.toString(channels) +
-                '}';
+                       "locationId=" + locationId +
+                       ", locationPwd=" + Arrays.toString(locationPwd) +
+                       ", guid=" + Arrays.toString(guid) +
+                       ", name=" + Arrays.toString(name) +
+                       ", softVer=" + Arrays.toString(softVer) +
+                       ", channelCount=" + channelCount +
+                       ", channels=" + Arrays.toString(channels) +
+                       '}';
     }
 }

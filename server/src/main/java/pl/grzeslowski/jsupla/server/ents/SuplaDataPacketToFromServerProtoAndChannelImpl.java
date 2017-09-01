@@ -8,6 +8,8 @@ import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.SuplaDataPacketChannelToFromServerProtoChannel;
 
+import java.util.function.Supplier;
+
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
@@ -30,12 +32,15 @@ public class SuplaDataPacketToFromServerProtoAndChannelImpl implements SuplaData
     public FromServerProtoDataAndChannel apply(final SuplaDataPackageAndChannel suplaDataPackageAndChannel) {
         final SuplaDataPacket suplaDataPacket = suplaDataPackageAndChannel.getSuplaDataPacket();
         final long callType = suplaDataPacket.callType;
-        final CallType parse = callTypeParser.parse(callType).orElseThrow(() ->
-                                                                                  new RuntimeException(format("There is not call type with number %s!", callType)));
+        final CallType parse = callTypeParser.parse(callType).orElseThrow(emptyCallType(callType));
 
         final ProtoWithSize decode = decoderFactory.getDecoder(parse).decode(suplaDataPacket.data);
         return new FromServerProtoDataAndChannel((FromServerProto) decode,
                                                         suplaDataPacketChannelToFromServerProtoChannel.apply(
                                                                 suplaDataPackageAndChannel.getChannel()));
+    }
+
+    private Supplier<RuntimeException> emptyCallType(final long callType) {
+        return () -> new RuntimeException(format("There is not call type with number %s!", callType));
     }
 }

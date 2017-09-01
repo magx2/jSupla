@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.server.ents.channels.Channel;
 
 import java.util.function.Function;
 
-public interface ChannelAndFluxMapper<CaFT1 extends ChannelAndFlux<? extends Channel<?>, ?>,
-                                             CaFT2 extends ChannelAndFlux<? extends Channel<?>, ?>>
-        extends Function<CaFT1, CaFT2> {
+public interface ChannelAndFluxMapper<CaF1T extends ChannelAndFlux<? extends Channel<?>, ?>,
+                                             CaF2T extends ChannelAndFlux<? extends Channel<?>, ?>>
+        extends Function<CaF1T, CaF2T> {
 }

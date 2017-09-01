@@ -71,6 +71,14 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
+    public static <T> T[] size(final T[] collection, final int size) {
+        if (collection.length != size) {
+            throw new IllegalArgumentException(format("Collection size is wrong! Should be %s but was %s!",
+                    size, collection.length));
+        }
+        return collection;
+    }
+
     public static <T> Collection<T> sizeMax(Collection<T> collection, int max) {
         final int size = collection.size();
         if (size > max) {
