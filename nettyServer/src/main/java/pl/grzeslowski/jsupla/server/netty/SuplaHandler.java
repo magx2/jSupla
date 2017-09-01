@@ -7,7 +7,7 @@ import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageChannel;
 import pl.grzeslowski.jsupla.server.ents.channels.SuplaDataPacketChannel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -17,10 +17,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
-        implements Publisher<SuplaDataPackageConnection> {
+        implements Publisher<SuplaDataPackageChannel> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
-    private Flux<SuplaDataPackageConnection> flux;// TODO maybe not synchronized?
-    private List<FluxSink<SuplaDataPackageConnection>> emitters = Collections.synchronizedList(new LinkedList<>());
+    private Flux<SuplaDataPackageChannel> flux;// TODO maybe not synchronized?
+    private List<FluxSink<SuplaDataPackageChannel>> emitters = Collections.synchronizedList(new LinkedList<>());
 
     SuplaHandler() {
         this.flux = Flux.create(emitter -> {
@@ -30,7 +30,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     }
 
     @Override
-    public void subscribe(final Subscriber<? super SuplaDataPackageConnection> subscriber) {
+    public void subscribe(final Subscriber<? super SuplaDataPackageChannel> subscriber) {
         flux.subscribe(subscriber);
     }
 
@@ -57,13 +57,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
-        final SuplaDataPackageConnection suplaConnection = newSuplaConnection(msg, ctx);
+        final SuplaDataPackageChannel suplaConnection = newSuplaConnection(msg, ctx);
         emitters.forEach(emitter -> emitter.next(suplaConnection));
         ctx.flush(); // TODO maybe use it here
     }
 
-    private SuplaDataPackageConnection newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
-        return new SuplaDataPackageConnection(msg, newSuplaChannel(ctx));
+    private SuplaDataPackageChannel newSuplaConnection(SuplaDataPacket msg, ChannelHandlerContext ctx) {
+        return new SuplaDataPackageChannel(msg, newSuplaChannel(ctx));
     }
 
     private SuplaDataPacketChannel newSuplaChannel(final ChannelHandlerContext ctx) {

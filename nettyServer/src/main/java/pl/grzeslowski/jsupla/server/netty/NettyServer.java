@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.NotStartedException;
 import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageChannel;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,7 +36,7 @@ public class NettyServer implements Server {
     }
 
     @Override
-    public Publisher<Publisher<SuplaDataPackageConnection>> run() throws Exception {
+    public Publisher<Publisher<SuplaDataPackageChannel>> run() throws Exception {
         logger.debug("NettyServer.run()");
         if (started.getAndSet(true)) {
             throw new IllegalStateException("Server can be started only once!");
