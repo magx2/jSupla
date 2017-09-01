@@ -63,6 +63,7 @@ public class Server {
                     @Override
                     public void accept(final Request request) {
                         if (request instanceof RegisterDeviceRequest) {
+                            logger.info("Sending register OK");
                             in.getChannel().write(new OkRegisterDeviceResponse(200, 5, 1));
                         } else if (request instanceof ActivityTimeoutRequest) {
                             final ActivityTimeoutRequest a = (ActivityTimeoutRequest) request;
