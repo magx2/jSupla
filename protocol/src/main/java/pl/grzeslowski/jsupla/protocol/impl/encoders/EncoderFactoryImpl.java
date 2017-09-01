@@ -12,6 +12,7 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.sdc.SuplaSetActivityTimeoutR
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
+// TODO implement this
 public class EncoderFactoryImpl implements EncoderFactory {
     private final PrimitiveEncoder primitiveEncoder = INSTANCE;
 
