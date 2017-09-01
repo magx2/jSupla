@@ -85,7 +85,7 @@ public class Server {
                 .map(Flux::from)
                 .map(flux -> flux.map(suplaDataPacketToFromServerProtoAndChannel))
                 .map(flux -> flux.map(fromServerProtoToRequestAndChannel))
-                .map(flux -> flux.skipUntil(this::isRegister))
+                .map(flux -> flux.skipUntil(this::isRegisterDeviceRequest))
                 .subscribe(consumer);
 
         TimeUnit.MINUTES.sleep(10);
@@ -108,7 +108,7 @@ public class Server {
         }
     }
 
-    private boolean isRegister(final RequestAndChannel requestAndChannel) {
+    private boolean isRegisterDeviceRequest(final RequestAndChannel requestAndChannel) {
         final Request request = requestAndChannel.getRequest();
         return request instanceof RegisterDeviceRequest;
     }
