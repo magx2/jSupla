@@ -8,7 +8,7 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageChannel;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageAndChannel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -18,13 +18,13 @@ import java.util.List;
 import static java.util.Collections.synchronizedList;
 
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
-        implements Publisher<Publisher<SuplaDataPackageChannel>> {
+        implements Publisher<Publisher<SuplaDataPackageAndChannel>> {
     private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
 
     private final SslContext sslCtx;
-    private final Flux<Publisher<SuplaDataPackageChannel>> flux;
+    private final Flux<Publisher<SuplaDataPackageAndChannel>> flux;
     // TODO maybe not synchronized?
-    private List<FluxSink<Publisher<SuplaDataPackageChannel>>> emitters = synchronizedList(new LinkedList<>());
+    private List<FluxSink<Publisher<SuplaDataPackageAndChannel>>> emitters = synchronizedList(new LinkedList<>());
 
     NettyServerInitializer(SslContext sslCtx) {
         this.sslCtx = sslCtx;
@@ -35,7 +35,7 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     }
 
     @Override
-    public void subscribe(final Subscriber<? super Publisher<SuplaDataPackageChannel>> subscriber) {
+    public void subscribe(final Subscriber<? super Publisher<SuplaDataPackageAndChannel>> subscriber) {
         flux.subscribe(subscriber);
     }
 

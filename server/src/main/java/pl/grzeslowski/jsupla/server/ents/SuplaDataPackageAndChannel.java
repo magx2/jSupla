@@ -5,11 +5,11 @@ import pl.grzeslowski.jsupla.server.ents.channels.SuplaDataPacketChannel;
 
 import static java.util.Objects.requireNonNull;
 
-public final class SuplaDataPackageChannel {
+public final class SuplaDataPackageAndChannel {
     private final SuplaDataPacket suplaDataPacket;
     private final SuplaDataPacketChannel channel;
 
-    public SuplaDataPackageChannel(final SuplaDataPacket suplaDataPacket, final SuplaDataPacketChannel channel) {
+    public SuplaDataPackageAndChannel(final SuplaDataPacket suplaDataPacket, final SuplaDataPacketChannel channel) {
         this.suplaDataPacket = requireNonNull(suplaDataPacket);
         this.channel = requireNonNull(channel);
     }
