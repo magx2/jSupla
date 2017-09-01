@@ -9,7 +9,6 @@ import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
-import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -24,7 +23,6 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
 
     private final SslContext sslCtx;
     private final Flux<Publisher<SuplaDataPackageConnection>> flux;
-    private List<FluxSink<SuplaNewConnection>> consumers = synchronizedList(new LinkedList<>());
     // TODO maybe not synchronized?
     private List<FluxSink<Publisher<SuplaDataPackageConnection>>> emitters = synchronizedList(new LinkedList<>());
 
@@ -55,15 +53,5 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
 
         // and then business logic.
         pipeline.addLast(new SuplaHandler());
-    }
-
-    void addOnNewConnectionListener(FluxSink<SuplaNewConnection> consumer) {
-        logger.info("NettyServerInitializer.addOnNewConnectionListener(consumer)");
-        this.consumers.add(consumer);
-    }
-
-    void removeOnNewConnectionListener(FluxSink<SuplaNewConnection> emitter) {
-        logger.info("NettyServerInitializer.removeOnNewConnectionListener(emitter)");
-        this.consumers.remove(emitter);
     }
 }
