@@ -19,7 +19,6 @@ import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketFactory;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketFactoryImpl;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketToFromServerProtoAndChannel;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPacketToFromServerProtoAndChannelImpl;
-import pl.grzeslowski.jsupla.server.ents.channels.ResponseChannel;
 import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.FromServerProtoChannelToResponseChannel;
 import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.FromServerProtoChannelToResponseChannelImpl;
 import pl.grzeslowski.jsupla.server.ents.channels.channelmappers.SuplaDataPacketChannelToFromServerProtoChannel;
@@ -33,7 +32,6 @@ import pl.grzeslowski.jsupla.server.serializers.SerializersFactoryImpl;
 import reactor.core.publisher.Flux;
 
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -64,29 +62,14 @@ public class Server {
     private void run() throws Exception {
         logger.info("Starting...");
 
-        final Consumer<? super Flux<RequestAndChannel>> consumer = new Consumer<Flux<RequestAndChannel>>() {
-            @Override
-            public void accept(final Flux<RequestAndChannel> flux) {
-                flux.subscribe(new Consumer<RequestAndChannel>() {
-                    @Override
-                    public void accept(final RequestAndChannel requestAndChannel) {
-                        final Request request = requestAndChannel.getRequest();
-                        final ResponseChannel channel = requestAndChannel.getChannel();
-
-                        // TODO handle...
-                    }
-                });
-            }
-        };
-
         final NettyConfig nettyConfig = new NettyConfig(2016);
-        Flux.using(() -> new NettyServer(nettyConfig), this::runNettyServer, this::closeNettyServer)
-                .log()
-                .map(Flux::from)
-                .map(flux -> flux.map(suplaDataPacketToFromServerProtoAndChannel))
-                .map(flux -> flux.map(fromServerProtoToRequestAndChannel))
-                .map(flux -> flux.skipUntil(this::isRegisterDeviceRequest))
-                .subscribe(consumer);
+        final Flux<Flux<RequestAndChannel>> suplaStream =
+                Flux.using(() -> new NettyServer(nettyConfig), this::runNettyServer, this::closeNettyServer)
+                        .log()
+                        .map(Flux::from)
+                        .map(flux -> flux.map(suplaDataPacketToFromServerProtoAndChannel))
+                        .map(flux -> flux.map(fromServerProtoToRequestAndChannel))
+                        .map(flux -> flux.skipUntil(this::isRegisterDeviceRequest));
 
         TimeUnit.MINUTES.sleep(10);
         logger.warn("End of sleep; closing server");
