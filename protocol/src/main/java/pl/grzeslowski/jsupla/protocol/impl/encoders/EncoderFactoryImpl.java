@@ -3,14 +3,13 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaDeviceChannelBEncoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaRegisterDeviceBEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sdc.SuplaSetActivityTimeoutResultEncoderImpl;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 public class EncoderFactoryImpl implements EncoderFactory {
@@ -19,14 +18,12 @@ public class EncoderFactoryImpl implements EncoderFactory {
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ProtoWithSize> Encoder<T> getEncoder(final T proto) {
-        if (proto instanceof SuplaRegisterDeviceB) {
-            final SuplaDeviceChannelBEncoder deviceChannelBEncoder =
-                    new SuplaDeviceChannelBEncoderImpl(primitiveEncoder);
-            return (Encoder<T>) new SuplaRegisterDeviceBEncoderImpl(primitiveEncoder, deviceChannelBEncoder);
+        if (proto instanceof SuplaRegisterDeviceResult) {
+            return (Encoder<T>) new SuplaRegisterDeviceResultEncoderImpl(primitiveEncoder);
         } else if (proto instanceof SuplaSetActivityTimeoutResult) {
             return (Encoder<T>) new SuplaSetActivityTimeoutResultEncoderImpl(primitiveEncoder);
         }
 
-        throw new UnsupportedOperationException("EncoderFactoryImpl.getEncoder(proto)");
+        throw new IllegalArgumentException(format("do not know %s", proto.getClass().getSimpleName()));
     }
 }
