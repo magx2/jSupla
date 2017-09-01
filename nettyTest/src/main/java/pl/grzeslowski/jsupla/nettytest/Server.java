@@ -1,15 +1,18 @@
 package pl.grzeslowski.jsupla.nettytest;
 
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.server.entities.responses.registerdevice.OkRegisterDeviceResponse;
 import pl.grzeslowski.jsupla.server.ents.RequestConnection;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
 import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
 import pl.grzeslowski.jsupla.server.ents.ToServerProtoConnection;
 import pl.grzeslowski.jsupla.server.netty.NettyConfig;
 import pl.grzeslowski.jsupla.server.netty.NettyServer;
 import pl.grzeslowski.jsupla.server.reactor.map.SuplaDataPackageToToServer;
 import pl.grzeslowski.jsupla.server.reactor.map.ToServerProtoToRequest;
+import reactor.core.publisher.Flux;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -45,7 +48,13 @@ public class Server {
                         .subscribe(suplaConnectionConsumer);
             };
 
-            nettyServer.run().log().subscribe(consumer);
+            final Consumer<? super Publisher<SuplaDataPackageConnection>> newConsumer = new Consumer<Publisher<SuplaDataPackageConnection>>() {
+                @Override
+                public void accept(final Publisher<SuplaDataPackageConnection> publisher) {
+                    Flux.from(publisher).subscribe(conn -> conn.getChannel().write(null));
+                }
+            };
+            Flux.from(nettyServer.run()).log().subscribe(newConsumer);
 
             TimeUnit.MINUTES.sleep(10);
             logger.warn("End of sleep; closing server");

@@ -8,11 +8,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.server.NotStartedException;
 import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.ents.SuplaNewConnection;
-import reactor.core.publisher.Flux;
+import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,7 +36,7 @@ public class NettyServer implements Server {
     }
 
     @Override
-    public Flux<SuplaNewConnection> run() throws Exception {
+    public Publisher<Publisher<SuplaDataPackageConnection>> run() throws Exception {
         logger.debug("NettyServer.run()");
         if (started.getAndSet(true)) {
             throw new IllegalStateException("Server can be started only once!");
@@ -49,11 +50,6 @@ public class NettyServer implements Server {
         ServerBootstrap b = new ServerBootstrap(); // (2)
 
         final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(sslCtx);
-        final Flux<SuplaNewConnection> suplaNewConnectionPublisher = Flux.create(emitter -> {
-            nettyServerInitializer.addOnNewConnectionListener(emitter);
-            emitter.onDispose(() -> nettyServerInitializer.removeOnNewConnectionListener(emitter));
-        });
-
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
                 .childHandler(nettyServerInitializer)
@@ -64,13 +60,13 @@ public class NettyServer implements Server {
         logger.trace("Binding to port {}", nettyConfig.getPort());
         channelFuture = b.bind(nettyConfig.getPort());
 
-        return suplaNewConnectionPublisher;
+        return nettyServerInitializer;
     }
 
     @Override
     public void close() throws Exception {
         if (!started.get()) {
-            throw new IllegalArgumentException("Not started!");
+            throw new NotStartedException();
         }
         try {
             logger.debug("Closing channel");
