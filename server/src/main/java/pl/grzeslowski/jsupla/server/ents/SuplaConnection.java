@@ -1,15 +1,15 @@
 package pl.grzeslowski.jsupla.server.ents;
 
-import pl.grzeslowski.jsupla.server.SuplaChannel;
+import pl.grzeslowski.jsupla.server.ents.channels.SuplaDataPacketChannel;
 
 public abstract class SuplaConnection<T> {
     private final T type;
-    private final SuplaChannel channel;
+    private final SuplaDataPacketChannel channel;
 
-    public SuplaConnection(final T type, final SuplaChannel channel) {
+    public SuplaConnection(final T type, final SuplaDataPacketChannel channel) {
         // TODO
         //        this.request = requireNonNull(request);
-        //        this.channel = requireNonNull(channel);
+        //        this.channels = requireNonNull(channels);
         this.type = type;
         this.channel = channel;
     }
@@ -18,7 +18,7 @@ public abstract class SuplaConnection<T> {
         return type;
     }
 
-    public SuplaChannel getChannel() {
+    public SuplaDataPacketChannel getChannel() {
         return channel;
     }
 
@@ -50,7 +50,7 @@ public abstract class SuplaConnection<T> {
     public String toString() {
         return "SuplaConnection{" +
                        "type=" + type +
-                       ", channel=" + channel +
+                       ", channels=" + channel +
                        '}';
     }
 }

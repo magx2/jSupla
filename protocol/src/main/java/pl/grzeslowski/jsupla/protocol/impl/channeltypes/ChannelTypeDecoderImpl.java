@@ -61,7 +61,7 @@ public final class ChannelTypeDecoderImpl implements ChannelTypeDecoder {
             case SUPLA_CHANNELTYPE_DISTANCESENSOR:
                 return colorTypeChannelDecoder.decode(value);
             default:
-                return new UnknownValue(value, format("Don't know how to map channel type %s to channel value!",
+                return new UnknownValue(value, format("Don't know how to map channels type %s to channels value!",
                         channelType));
         }
     }
@@ -72,7 +72,7 @@ public final class ChannelTypeDecoderImpl implements ChannelTypeDecoder {
                        .filter(x -> x.getValue() == type)
                        .findAny()
                        .orElseThrow(
-                           () -> new IllegalArgumentException(format("Don't know this channel type %s!", type)));
+                           () -> new IllegalArgumentException(format("Don't know this channels type %s!", type)));
         // @formatter:on
     }
 }

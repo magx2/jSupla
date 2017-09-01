@@ -69,7 +69,7 @@ public class NettyServer implements Server {
             throw new NotStartedException();
         }
         try {
-            logger.debug("Closing channel");
+            logger.debug("Closing channels");
             channelFuture.channel().closeFuture().sync();
         } finally {
             logger.debug("Closing workerGroup and bossGroup");

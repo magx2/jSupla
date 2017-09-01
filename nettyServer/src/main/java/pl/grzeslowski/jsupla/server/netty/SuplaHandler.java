@@ -7,8 +7,8 @@ import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.server.SuplaChannel;
 import pl.grzeslowski.jsupla.server.ents.SuplaDataPackageConnection;
+import pl.grzeslowski.jsupla.server.ents.channels.SuplaDataPacketChannel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -66,7 +66,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
         return new SuplaDataPackageConnection(msg, newSuplaChannel(ctx));
     }
 
-    private SuplaChannel newSuplaChannel(final ChannelHandlerContext ctx) {
+    private SuplaDataPacketChannel newSuplaChannel(final ChannelHandlerContext ctx) {
         return (SuplaDataPacket msg) -> {
             logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
             ctx.write(msg);
