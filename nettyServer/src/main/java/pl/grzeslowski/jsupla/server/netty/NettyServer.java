@@ -8,9 +8,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.NotStartedException;
-import pl.grzeslowski.jsupla.server.Server;
-import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
+import pl.grzeslowski.jsupla.server.api.NotStartedException;
+import pl.grzeslowski.jsupla.server.api.Server;
+import pl.grzeslowski.jsupla.server.api.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

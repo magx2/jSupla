@@ -10,7 +10,7 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.server.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
+import pl.grzeslowski.jsupla.server.api.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
