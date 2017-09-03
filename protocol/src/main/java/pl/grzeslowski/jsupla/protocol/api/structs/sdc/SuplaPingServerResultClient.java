@@ -1,19 +1,18 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.sdc;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType;
+import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
 
+import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 
 public class SuplaPingServerResultClient implements ServerDeviceClient {
-    // TODO implement
-    //    typedef struct {
-    //
-    //        // server -> device|client
-    //
-    //        struct timeval now;
-    //
-    //    }TSDC_SuplaPingServerResult;
+    public static final int SIZE = Timeval.SIZE;
+    public final Timeval timeval;
 
+    public SuplaPingServerResultClient(final Timeval timeval) {
+        this.timeval = requireNonNull(timeval);
+    }
 
     @Override
     public ServerDeviceClientCallType callType() {
@@ -22,6 +21,13 @@ public class SuplaPingServerResultClient implements ServerDeviceClient {
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return SIZE;
+    }
+
+    @Override
+    public String toString() {
+        return "SuplaPingServerResultClient{" +
+                       "timeval=" + timeval +
+                       '}';
     }
 }
