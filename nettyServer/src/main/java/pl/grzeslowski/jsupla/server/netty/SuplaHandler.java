@@ -68,7 +68,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket msg) throws Exception {
         logger.trace("Got {}", msg);
         emitters.forEach(emitter -> emitter.next(msg));
-        ctx.flush(); // TODO maybe use it here
+        ctx.flush();
     }
 
     private SuplaDataPacketChannel newSuplaChannel(final ChannelHandlerContext ctx) {
