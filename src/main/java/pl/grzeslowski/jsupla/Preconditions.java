@@ -71,6 +71,20 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
+    public static int size(int value, int equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+        }
+        return value;
+    }
+
+    public static short size(short value, short equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+        }
+        return value;
+    }
+
     public static <T> Collection<T> sizeMax(Collection<T> collection, int max) {
         final int size = collection.size();
         if (size > max) {
