@@ -7,10 +7,12 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
@@ -30,6 +32,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
@@ -38,6 +41,7 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDeco
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaPingServerDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.FirmwareUpdateParamsDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaChannelNewValueResultDecoderImpl;
@@ -57,6 +61,7 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlDecoderI
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlResultDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaRegisterDeviceResultDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaGetVersionResultDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaPingServerResultClientDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaSetActivityTimeoutResultDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaVersionErrorDecoderImpl;
 
@@ -98,6 +103,7 @@ public class DecoderFactoryImplTest {
                                            new byte[SUPLA_GUID_SIZE],
                                            new byte[SUPLA_CLIENT_NAME_MAXSIZE],
                                            new byte[SUPLA_SOFTVER_MAXSIZE]);
+    static final SuplaPingServer SUPLA_PING_SERVER = new SuplaPingServer(new Timeval(newInt(), newInt()));
     static final SuplaSetActivityTimeout SUPLA_SET_ACTIVITY_TIMEOUT = new SuplaSetActivityTimeout(newUnsignedByte());
     static final FirmwareUpdateParams FIRMWARE_UPDATE_PARAMS =
             new FirmwareUpdateParams(newByte(), newInt(), newInt(), newInt(), newInt());
@@ -199,6 +205,8 @@ public class DecoderFactoryImplTest {
             new SuplaRegisterDeviceResult(newInt(), newByte(), (byte) 100, (byte) 99);
     static final SuplaGetVersionResult SUPLA_GET_VERSION_RESULT =
             new SuplaGetVersionResult(newUnsignedByte(), newUnsignedByte(), new byte[SUPLA_SOFTVER_MAXSIZE]);
+    static final SuplaPingServerResultClient SUPLA_PING_SERVER_RESULT_CLIENT = new SuplaPingServerResultClient(
+                                                                                                                      new Timeval(newInt(), newInt()));
     static final SuplaSetActivityTimeoutResult SUPLA_SET_ACTIVITY_TIMEOUT_RESULT =
             new SuplaSetActivityTimeoutResult(newUnsignedByte(), newUnsignedByte(), newUnsignedByte());
     static final SuplaVersionError SUPLA_VERSION_ERROR = new SuplaVersionError(newUnsignedByte(), newUnsignedByte());
@@ -206,6 +214,7 @@ public class DecoderFactoryImplTest {
             new SuplaChannelValue(new byte[SUPLA_CHANNELVALUE_SIZE], new byte[SUPLA_CHANNELVALUE_SIZE]);
     static final SuplaDataPacket SUPLA_DATA_PACKET =
             new SuplaDataPacket(newUnsignedByte(), newUnsignedInt(), newUnsignedInt(), 0, new byte[0]);
+    static final Timeval TIMEVAL = new Timeval(newInt(), newInt());
 
     private final DecoderFactoryImpl decoderFactory = new DecoderFactoryImpl(mock(PrimitiveDecoder.class));
 
@@ -232,7 +241,8 @@ public class DecoderFactoryImplTest {
                 {SUPLA_REGISTER_CLIENT_B, SuplaRegisterClientBDecoderImpl.class},
                 {SUPLA_REGISTER_CLIENT, SuplaRegisterClientDecoderImpl.class},
 
-                // dcs                                   
+                // dcs
+                {SUPLA_PING_SERVER, SuplaPingServerDecoderImpl.class},
                 {SUPLA_SET_ACTIVITY_TIMEOUT, SuplaSetActivityTimeoutDecoderImpl.class},
 
                 // ds                                   
@@ -264,12 +274,14 @@ public class DecoderFactoryImplTest {
 
                 // sdc 
                 {SUPLA_GET_VERSION_RESULT, SuplaGetVersionResultDecoderImpl.class},
+                {SUPLA_PING_SERVER_RESULT_CLIENT, SuplaPingServerResultClientDecoderImpl.class},
                 {SUPLA_SET_ACTIVITY_TIMEOUT_RESULT, SuplaSetActivityTimeoutResultDecoderImpl.class},
                 {SUPLA_VERSION_ERROR, SuplaVersionErrorDecoderImpl.class},
 
                 // common 
                 {SUPLA_CHANNEL_VALUE1, SuplaChannelValueDecoderImpl.class},
-                {SUPLA_DATA_PACKET, SuplaDataPacketDecoderImpl.class}
+                {SUPLA_DATA_PACKET, SuplaDataPacketDecoderImpl.class},
+                {TIMEVAL, TimevalDecoderImpl.class}
         });
     }
 
@@ -298,7 +310,6 @@ public class DecoderFactoryImplTest {
 
         // then
         assertThat(decoder).isOfAnyClassIn(decoderClass);
-
     }
 
     private static int newInt() {
