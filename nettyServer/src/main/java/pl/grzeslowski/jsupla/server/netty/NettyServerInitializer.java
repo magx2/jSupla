@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import static java.util.Collections.synchronizedList;
+import static java.util.Collections.unmodifiableCollection;
 
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         implements Publisher<ChannelAndSuplaDataPackageFlux> {
@@ -53,6 +54,6 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         pipeline.addLast(new SuplaDataPacketEncoder());
 
         // and then business logic.
-        pipeline.addLast(new SuplaHandler(emitters)); // TODO do new unmodificalbe field so it cant be chaned by user
+        pipeline.addLast(new SuplaHandler(unmodifiableCollection(emitters)));
     }
 }
