@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
-import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATION_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -17,7 +16,7 @@ public final class SuplaLocation implements ServerClient {
     public final int id;
     /**
      * Including the terminating null byte ('\0').
-     *
+     * <p>
      * <p>unsigned
      */
     public final long captionSize;
@@ -29,13 +28,8 @@ public final class SuplaLocation implements ServerClient {
     public SuplaLocation(byte eol, int id, long captionSize, byte[] caption) {
         this.eol = eol;
         this.id = id;
-        this.captionSize = captionSize;
-        if (captionSize > SUPLA_LOCATION_CAPTION_MAXSIZE) {
-            throw new IllegalArgumentException(
-                    format("captionSize (%s) is bigger than SUPLA_LOCATION_CAPTION_MAXSIZE (%s)!",
-                            captionSize, SUPLA_LOCATION_CAPTION_MAXSIZE));
-        }
-        this.caption = Preconditions.size(caption, 0, captionSize);
+        this.captionSize = Preconditions.max(captionSize, SUPLA_LOCATION_CAPTION_MAXSIZE);
+        this.caption = Preconditions.checkArrayLength(caption, (int) captionSize);
     }
 
     @Override
@@ -51,10 +45,10 @@ public final class SuplaLocation implements ServerClient {
     @Override
     public String toString() {
         return "SuplaLocation{" +
-                "eol=" + eol +
-                ", id=" + id +
-                ", captionSize=" + captionSize +
-                ", caption=" + Arrays.toString(caption) +
-                '}';
+                       "eol=" + eol +
+                       ", id=" + id +
+                       ", captionSize=" + captionSize +
+                       ", caption=" + Arrays.toString(caption) +
+                       '}';
     }
 }

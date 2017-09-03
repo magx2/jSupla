@@ -71,12 +71,18 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
-    public static <T> T[] size(final T[] collection, final int size) {
-        if (collection.length != size) {
-            throw new IllegalArgumentException(format("Collection size is wrong! Should be %s but was %s!",
-                    size, collection.length));
+    public static int size(int value, int equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
         }
-        return collection;
+        return value;
+    }
+
+    public static short size(short value, short equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+        }
+        return value;
     }
 
     public static <T> Collection<T> sizeMax(Collection<T> collection, int max) {
@@ -117,6 +123,20 @@ public final class Preconditions {
             throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
+    }
+
+    public static int sizeMax(int value, long max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
+    }
+
+    public static short sizeMax(short value, short max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
     }
 
     public static <T> Collection<T> sizeMin(Collection<T> collection, int min) {

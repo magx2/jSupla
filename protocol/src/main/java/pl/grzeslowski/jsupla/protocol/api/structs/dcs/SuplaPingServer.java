@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
 
-public class SuplaPingServer implements DeviceClientServer {
+public final class SuplaPingServer implements DeviceClientServer {
     public static final int SIZE = Timeval.SIZE;
     public final Timeval timeval;
 
