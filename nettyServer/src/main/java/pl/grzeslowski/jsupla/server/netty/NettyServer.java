@@ -52,6 +52,7 @@ public class NettyServer implements Server {
 
         return nettyServerInitializer;
     }
+
     protected NioEventLoopGroup newWorkerGroup() {
         return new NioEventLoopGroup();
     }
