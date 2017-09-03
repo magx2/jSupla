@@ -25,7 +25,6 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
 
     private final SslContext sslCtx;
     private final Flux<ChannelAndSuplaDataPackageFlux> flux;
-    // TODO maybe not synchronized?
     private final Collection<FluxSink<ChannelAndSuplaDataPackageFlux>> emitters =
             synchronizedList(new LinkedList<>());
 

@@ -21,7 +21,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
         implements Publisher<SuplaDataPacket> {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final Collection<FluxSink<ChannelAndSuplaDataPackageFlux>> rootEmitters;
-    private Flux<SuplaDataPacket> flux;// TODO maybe not synchronized?
+    private Flux<SuplaDataPacket> flux;
     private Collection<FluxSink<SuplaDataPacket>> emitters = Collections.synchronizedList(new LinkedList<>());
 
     SuplaHandler(final Collection<FluxSink<ChannelAndSuplaDataPackageFlux>> rootEmitters) {
