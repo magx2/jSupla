@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("ALL") // FIXME temporary
+@SuppressWarnings("WeakerAccess")
 public class NettyServer implements Server {
     private final Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
@@ -26,7 +26,6 @@ public class NettyServer implements Server {
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workerGroup;
     private ChannelFuture channelFuture;
-    private SuplaHandler suplaHandler;
 
     public NettyServer(NettyConfig nettyConfig) {
         this.nettyConfig = requireNonNull(nettyConfig);
@@ -53,7 +52,6 @@ public class NettyServer implements Server {
 
         return nettyServerInitializer;
     }
-
     protected NioEventLoopGroup newWorkerGroup() {
         return new NioEventLoopGroup();
     }
