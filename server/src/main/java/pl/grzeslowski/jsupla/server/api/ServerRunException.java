@@ -4,6 +4,6 @@ import static java.lang.String.format;
 
 public class ServerRunException extends RuntimeException {
     public ServerRunException(Server server, final Exception e) {
-        super(format("There was error when starting server!server details: %s", server), e);
+        super(format("There was error when starting server! Server details: %s", server), e);
     }
 }
