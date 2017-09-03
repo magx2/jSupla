@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
@@ -17,6 +19,8 @@ import java.util.LinkedList;
 
 import static java.util.Collections.synchronizedList;
 import static java.util.Collections.unmodifiableCollection;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @SuppressWarnings("WeakerAccess")
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
@@ -70,7 +74,12 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     }
 
     protected void addDelimiterBasedFrameDecoder(final ChannelPipeline pipeline) {
-        // TODO add DelimiterBasedFrameDecoder
+        pipeline.addLast(new DelimiterBasedFrameDecoder(
+                                                               SUPLA_MAX_DATA_SIZE,
+                                                               false,
+                                                               true,
+                                                               Unpooled.copiedBuffer(SUPLA_TAG)
+        ));
     }
 
     protected void addDecoder(final ChannelPipeline pipeline) {
