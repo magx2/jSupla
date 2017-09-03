@@ -205,8 +205,9 @@ public class DecoderFactoryImplTest {
             new SuplaRegisterDeviceResult(newInt(), newByte(), (byte) 100, (byte) 99);
     static final SuplaGetVersionResult SUPLA_GET_VERSION_RESULT =
             new SuplaGetVersionResult(newUnsignedByte(), newUnsignedByte(), new byte[SUPLA_SOFTVER_MAXSIZE]);
-    static final SuplaPingServerResultClient SUPLA_PING_SERVER_RESULT_CLIENT = new SuplaPingServerResultClient(
-                                                                                                                      new Timeval(newInt(), newInt()));
+    static final SuplaPingServerResultClient SUPLA_PING_SERVER_RESULT_CLIENT =
+            new SuplaPingServerResultClient(
+                                                   new Timeval(newInt(), newInt()));
     static final SuplaSetActivityTimeoutResult SUPLA_SET_ACTIVITY_TIMEOUT_RESULT =
             new SuplaSetActivityTimeoutResult(newUnsignedByte(), newUnsignedByte(), newUnsignedByte());
     static final SuplaVersionError SUPLA_VERSION_ERROR = new SuplaVersionError(newUnsignedByte(), newUnsignedByte());
