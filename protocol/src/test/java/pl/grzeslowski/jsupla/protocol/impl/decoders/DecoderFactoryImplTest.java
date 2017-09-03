@@ -133,8 +133,10 @@ public class DecoderFactoryImplTest {
 
                 // sdc 
                 {RANDOM_BEAN.nextObject(SuplaGetVersionResult.class), SuplaGetVersionResultDecoderImpl.class},
-                {RANDOM_BEAN.nextObject(SuplaPingServerResultClient.class), SuplaPingServerResultClientDecoderImpl.class},
-                {RANDOM_BEAN.nextObject(SuplaSetActivityTimeoutResult.class), SuplaSetActivityTimeoutResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaPingServerResultClient.class),
+                        SuplaPingServerResultClientDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaSetActivityTimeoutResult.class),
+                        SuplaSetActivityTimeoutResultDecoderImpl.class},
                 {RANDOM_BEAN.nextObject(SuplaVersionError.class), SuplaVersionErrorDecoderImpl.class},
 
                 // common 
