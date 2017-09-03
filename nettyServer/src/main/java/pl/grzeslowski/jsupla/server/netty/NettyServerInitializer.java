@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import static java.util.Collections.synchronizedList;
 import static java.util.Collections.unmodifiableCollection;
 
+@SuppressWarnings("WeakerAccess")
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         implements Publisher<ChannelAndSuplaDataPackageFlux> {
     private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
@@ -46,15 +47,50 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         logger.debug("Initializing new channel");
         ChannelPipeline pipeline = ch.pipeline();
 
+        initPipeline(pipeline);
+        addSslContext(ch, pipeline);
+        addDelimiterBasedFrameDecoder(pipeline);
+        addDecoder(pipeline);
+        addEncoder(pipeline);
+        addHandler(pipeline);
+        initLastPipeline(pipeline);
+    }
+
+    /**
+     * This method can be overloaded to initialize pipeline before (@link {@link NettyServerInitializer} does.
+     */
+    @SuppressWarnings("unused")
+    protected void initPipeline(final ChannelPipeline pipeline) {
+
+    }
+
+    protected void addSslContext(final SocketChannel ch, final ChannelPipeline pipeline) {
         if (sslCtx != null) {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
+    }
 
+    protected void addDelimiterBasedFrameDecoder(final ChannelPipeline pipeline) {
         // TODO add DelimiterBasedFrameDecoder
-        pipeline.addLast(new SuplaDataPacketDecoder());
-        pipeline.addLast(new SuplaDataPacketEncoder());
+    }
 
-        // and then business logic.
+    protected void addDecoder(final ChannelPipeline pipeline) {
+        pipeline.addLast(new SuplaDataPacketDecoder());
+    }
+
+    protected void addEncoder(final ChannelPipeline pipeline) {
+        pipeline.addLast(new SuplaDataPacketEncoder());
+    }
+
+    protected void addHandler(final ChannelPipeline pipeline) {
         pipeline.addLast(new SuplaHandler(unmodifiableCollection(emitters)));
+    }
+
+    /**
+     * This method can be overloaded to initialize pipeline after (@link {@link NettyServerInitializer} does.
+     */
+    @SuppressWarnings("unused")
+    protected void initLastPipeline(final ChannelPipeline pipeline) {
+
     }
 }
