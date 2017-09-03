@@ -39,22 +39,44 @@ public class NettyServer implements Server {
             throw new IllegalStateException("Server can be started only once!");
         }
 
-        bossGroup = new NioEventLoopGroup(); // (1)
-        workerGroup = new NioEventLoopGroup();
-        ServerBootstrap b = new ServerBootstrap(); // (2)
+        bossGroup = newBossGroup();
+        workerGroup = newWorkerGroup();
+        final ServerBootstrap serverBootstrap = newServerBootstrap();
+        final NettyServerInitializer nettyServerInitializer = newNettyServerInitializer();
 
-        final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(nettyConfig.getSslCtx());
-        b.group(bossGroup, workerGroup)
+        logger.trace("Configuting server bootstrap");
+        configureServerBootstrap(serverBootstrap, nettyServerInitializer);
+
+        // Bind and start to accept incoming connections.
+        logger.trace("Binding to port {}", nettyConfig.getPort());
+        channelFuture = serverBootstrap.bind(nettyConfig.getPort());
+
+        return nettyServerInitializer;
+    }
+
+    protected NioEventLoopGroup newWorkerGroup() {
+        return new NioEventLoopGroup();
+    }
+
+    protected NioEventLoopGroup newBossGroup() {
+        return new NioEventLoopGroup();
+    }
+
+    protected ServerBootstrap newServerBootstrap() {
+        return new ServerBootstrap();
+    }
+
+    protected NettyServerInitializer newNettyServerInitializer() {
+        return new NettyServerInitializer(nettyConfig.getSslCtx());
+    }
+
+    protected void configureServerBootstrap(final ServerBootstrap serverBootstrap,
+                                            final NettyServerInitializer nettyServerInitializer) {
+        serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
                 .childHandler(nettyServerInitializer)
                 .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                 .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
-
-        // Bind and start to accept incoming connections.
-        logger.trace("Binding to port {}", nettyConfig.getPort());
-        channelFuture = b.bind(nettyConfig.getPort());
-
-        return nettyServerInitializer;
     }
 
     @Override
