@@ -125,6 +125,20 @@ public final class Preconditions {
         return collection;
     }
 
+    public static int sizeMax(int value, long max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
+    }
+
+    public static short sizeMax(short value, short max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
+    }
+
     public static <T> Collection<T> sizeMin(Collection<T> collection, int min) {
         final int size = collection.size();
         if (size < min) {

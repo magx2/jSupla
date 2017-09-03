@@ -147,6 +147,10 @@ public class RandomBean extends EnhancedRandom {
         return (byte) nextInt(bound);
     }
 
+    public byte nextPositiveByte() {
+        return (byte) nextInt(Byte.MAX_VALUE);
+    }
+
     public short nextUnsignedByte() {
         return (short) nextInt(255);
     }
@@ -159,7 +163,15 @@ public class RandomBean extends EnhancedRandom {
         return random.nextInt(Integer.MAX_VALUE); // This is not max uint but it's OK
     }
 
+    public long nextUnsignedInt(int bound) {
+        return random.nextInt(bound);
+    }
+
     public int nextPositiveInt() {
         return Math.abs(nextInt());
+    }
+
+    public int nextPositiveInt(int bound) {
+        return Math.abs(nextInt(bound));
     }
 }

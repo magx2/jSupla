@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
 import pl.grzeslowski.jsupla.protocol.common.RandomBean;
 
 import static java.util.stream.Collectors.toList;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
@@ -20,7 +21,7 @@ public class SuplaRegisterDeviceRandomizer implements Randomizer<SuplaRegisterDe
 
     @Override
     public SuplaRegisterDevice getRandomValue() {
-        final short channelCount = randomBean.nextUnsignedByte();
+        final short channelCount = randomBean.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
         final SuplaDeviceChannel[] channels = randomBean.objects(SuplaDeviceChannel.class, channelCount)
                                                       .collect(toList())
                                                       .toArray(new SuplaDeviceChannel[0]);

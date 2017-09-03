@@ -15,11 +15,12 @@ public class SuplaGetVersionResultRandomizer implements Randomizer<SuplaGetVersi
 
     @Override
     public SuplaGetVersionResult getRandomValue() {
+        final short protoVersion = randomBean.nextUnsignedByte();
+        final short protoVersionMin = randomBean.nextUnsignedByte(protoVersion);
         return new SuplaGetVersionResult(
-                                                randomBean.nextUnsignedByte(),
-                                                randomBean.nextUnsignedByte(),
+                                                protoVersionMin,
+                                                protoVersion,
                                                 randomBean.nextByteArray(SUPLA_SOFTVER_MAXSIZE)
-
         );
     }
 }

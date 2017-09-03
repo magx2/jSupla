@@ -13,7 +13,7 @@ public class SuplaRegisterDeviceResultRandomizer implements Randomizer<SuplaRegi
 
     @Override
     public SuplaRegisterDeviceResult getRandomValue() {
-        final byte version = randomBean.nextByte();
+        final byte version = randomBean.nextPositiveByte();
         return new SuplaRegisterDeviceResult(
                                                     randomBean.nextPositiveInt(),
                                                     randomBean.nextByte(),
