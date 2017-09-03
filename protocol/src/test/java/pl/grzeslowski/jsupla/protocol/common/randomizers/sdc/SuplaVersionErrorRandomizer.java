@@ -13,9 +13,11 @@ public class SuplaVersionErrorRandomizer implements Randomizer<SuplaVersionError
 
     @Override
     public SuplaVersionError getRandomValue() {
+        final short serverVersion = randomBean.nextUnsignedByte();
+        final short serverVersionMin = randomBean.nextUnsignedByte(serverVersion);
         return new SuplaVersionError(
-                                            randomBean.nextUnsignedByte(),
-                                            randomBean.nextUnsignedByte()
+                                            serverVersionMin,
+                                            serverVersion
 
         );
     }
