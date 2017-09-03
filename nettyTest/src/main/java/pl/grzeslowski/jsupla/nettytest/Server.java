@@ -1,5 +1,8 @@
 package pl.grzeslowski.jsupla.nettytest;
 
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
@@ -50,8 +53,11 @@ public class Server {
     private void run() throws Exception {
         logger.info("Starting...");
 
+        SelfSignedCertificate ssc = new SelfSignedCertificate();
+        SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
+
         final SuplaStreamImpl suplaStream =
-                new SuplaStreamImpl(() -> new NettyServer(new NettyConfig(2016)), x, y);
+                new SuplaStreamImpl(() -> new NettyServer(new NettyConfig(2016, sslCtx)), x, y);
 
         suplaStream.fullStream().log().subscribe(in -> in.getFlux().log().subscribe(request -> {
             if (request instanceof RegisterDeviceRequest) {

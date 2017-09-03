@@ -5,9 +5,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,14 +39,11 @@ public class NettyServer implements Server {
             throw new IllegalStateException("Server can be started only once!");
         }
 
-        SelfSignedCertificate ssc = new SelfSignedCertificate();
-        SslContext sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
-
         bossGroup = new NioEventLoopGroup(); // (1)
         workerGroup = new NioEventLoopGroup();
         ServerBootstrap b = new ServerBootstrap(); // (2)
 
-        final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(sslCtx);
+        final NettyServerInitializer nettyServerInitializer = new NettyServerInitializer(nettyConfig.getSslCtx());
         b.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class) // (3)
                 .childHandler(nettyServerInitializer)
