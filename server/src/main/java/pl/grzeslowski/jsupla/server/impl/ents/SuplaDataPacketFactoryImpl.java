@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.server.impl.ents;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.server.api.ents.SuplaDataPacketFactory;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
 
