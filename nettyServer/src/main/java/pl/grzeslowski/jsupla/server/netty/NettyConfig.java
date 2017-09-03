@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.server.netty;
 import io.netty.handler.ssl.SslContext;
 import pl.grzeslowski.jsupla.Preconditions;
 
-public final class NettyConfig {
+public class NettyConfig {
     private static final int MAX_PORT_VALUE = 65_535;
     private final int port;
     private final SslContext sslCtx;
