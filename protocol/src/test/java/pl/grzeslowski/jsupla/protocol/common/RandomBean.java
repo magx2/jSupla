@@ -108,11 +108,15 @@ public class RandomBean extends EnhancedRandom {
                          // sdc
                          .randomize(SuplaGetVersionResult.class, new SuplaGetVersionResultRandomizer(this))
                          .randomize(SuplaPingServerResultClient.class, new SuplaPingServerResultClientRandomizer(this))
-                         .randomize(SuplaSetActivityTimeoutResult.class, new SuplaSetActivityTimeoutResultRandomizer(this))
+                         .randomize(SuplaSetActivityTimeoutResult.class,
+                                 new SuplaSetActivityTimeoutResultRandomizer(this))
                          .randomize(SuplaVersionError.class, new SuplaVersionErrorRandomizer(this))
                          // common
+                         // @formatter:off
                          .randomize(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
-                                 new pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaChannelValueRandomizer(this))
+                                 new pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaChannelValueRandomizer(
+                                         this))
+                         // @formatter:on
                          .randomize(SuplaDataPacket.class, new SuplaDataPacketRandomizer(this))
                          .randomize(Timeval.class, new TimevalRandomizer(this))
                          //build

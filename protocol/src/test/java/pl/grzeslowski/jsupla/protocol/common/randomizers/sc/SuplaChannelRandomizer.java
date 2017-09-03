@@ -20,7 +20,8 @@ public class SuplaChannelRandomizer implements Randomizer<SuplaChannel> {
                                        randomBean.nextInt(),
                                        randomBean.nextInt(),
                                        randomBean.nextByte(),
-                                       randomBean.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
+                                       randomBean.nextObject(
+                                               pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
                                        captionSize,
                                        randomBean.nextByteArray((int) captionSize)
         );
