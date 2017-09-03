@@ -14,7 +14,7 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
 
     @Override
     protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) throws Exception {
-        logger.trace("Encoding {}", msg);
+        logger.trace("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
         out.writeBytes(SUPLA_TAG)
                 .writeByte((byte) msg.version)
                 .writeIntLE((int) msg.rrId)
