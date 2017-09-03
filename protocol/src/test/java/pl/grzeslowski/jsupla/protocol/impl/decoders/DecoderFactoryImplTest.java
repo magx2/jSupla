@@ -70,153 +70,11 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomBean.RANDOM_BEAN;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
 public class DecoderFactoryImplTest {
-    static final SuplaChannelNewValueB SUPLA_CHANNEL_NEW_VALUE_B =
-            new SuplaChannelNewValueB(newInt(), new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaChannelNewValue SUPLA_CHANNEL_NEW_VALUE =
-            new SuplaChannelNewValue(newByte(), new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaRegisterClientB SUPLA_REGISTER_CLIENT_B =
-            new SuplaRegisterClientB(
-                                            newInt(),
-                                            new byte[SUPLA_ACCESSID_PWD_MAXSIZE],
-                                            new byte[SUPLA_GUID_SIZE],
-                                            new byte[SUPLA_CLIENT_NAME_MAXSIZE],
-                                            new byte[SUPLA_SOFTVER_MAXSIZE],
-                                            new byte[SUPLA_SERVER_NAME_MAXSIZE]);
-    static final SuplaRegisterClient SUPLA_REGISTER_CLIENT =
-            new SuplaRegisterClient(
-                                           newInt(),
-                                           new byte[SUPLA_ACCESSID_PWD_MAXSIZE],
-                                           new byte[SUPLA_GUID_SIZE],
-                                           new byte[SUPLA_CLIENT_NAME_MAXSIZE],
-                                           new byte[SUPLA_SOFTVER_MAXSIZE]);
-    static final SuplaPingServer SUPLA_PING_SERVER = new SuplaPingServer(new Timeval(newInt(), newInt()));
-    static final SuplaSetActivityTimeout SUPLA_SET_ACTIVITY_TIMEOUT = new SuplaSetActivityTimeout(newUnsignedByte());
-    static final FirmwareUpdateParams FIRMWARE_UPDATE_PARAMS =
-            new FirmwareUpdateParams(newByte(), newInt(), newInt(), newInt(), newInt());
-    static final SuplaChannelNewValueResult SUPLA_CHANNEL_NEW_VALUE_RESULT =
-            new SuplaChannelNewValueResult(newUnsignedByte(), newInt(), newByte());
-    static final SuplaDeviceChannelB SUPLA_DEVICE_CHANNEL_B =
-            new SuplaDeviceChannelB(newUnsignedByte(), newInt(), newInt(), newInt(), new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaDeviceChannel SUPLA_DEVICE_CHANNEL =
-            new SuplaDeviceChannel(newUnsignedByte(), newInt(), new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaDeviceChannelValue SUPLA_DEVICE_CHANNEL_VALUE =
-            new SuplaDeviceChannelValue(newUnsignedByte(), new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaRegisterDeviceB SUPLA_REGISTER_DEVICE_B =
-            new SuplaRegisterDeviceB(
-                                            newInt(),
-                                            new byte[SUPLA_LOCATION_PWD_MAXSIZE],
-                                            new byte[SUPLA_GUID_SIZE],
-                                            new byte[SUPLA_DEVICE_NAME_MAXSIZE],
-                                            new byte[SUPLA_SOFTVER_MAXSIZE],
-                                            (short) 0,
-                                            new SuplaDeviceChannelB[0]);
-    static final SuplaRegisterDeviceC SUPLA_REGISTER_DEVICE_C =
-            new SuplaRegisterDeviceC(
-                                            newInt(),
-                                            new byte[SUPLA_LOCATION_PWD_MAXSIZE],
-                                            new byte[SUPLA_GUID_SIZE],
-                                            new byte[SUPLA_DEVICE_NAME_MAXSIZE],
-                                            new byte[SUPLA_SOFTVER_MAXSIZE],
-                                            new byte[SUPLA_SERVER_NAME_MAXSIZE],
-                                            (short) 0,
-                                            new SuplaDeviceChannelB[0]);
-    static final SuplaRegisterDevice SUPLA_REGISTER_DEVICE =
-            new SuplaRegisterDevice(
-                                           newInt(),
-                                           new byte[SUPLA_LOCATION_PWD_MAXSIZE],
-                                           new byte[SUPLA_GUID_SIZE],
-                                           new byte[SUPLA_DEVICE_NAME_MAXSIZE],
-                                           new byte[SUPLA_SOFTVER_MAXSIZE],
-                                           (short) 0,
-                                           new SuplaDeviceChannel[0]);
-    static final SuplaChannel SUPLA_CHANNEL =
-            new SuplaChannel(
-                                    newByte(),
-                                    newInt(),
-                                    newInt(),
-                                    newInt(),
-                                    newByte(),
-                                    new SuplaChannelValue(
-                                                                 new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                 new byte[SUPLA_CHANNELVALUE_SIZE]),
-                                    0,
-                                    new byte[0]);
-    static final SuplaChannelPack SUPLA_CHANNEL_PACK = new SuplaChannelPack(0, newInt(), new SuplaChannel[0]);
-    // @formatter:off
-    static final pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue SUPLA_CHANNEL_VALUE =
-            new pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue(
-                                                      newByte(),
-                                                      newInt(),
-                                                      newByte(),
-                                                      new SuplaChannelValue(
-                                                                                   new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                                   new byte[SUPLA_CHANNELVALUE_SIZE]));
-    // @formatter:on
-    static final SuplaEvent SUPLA_EVENT =
-            new SuplaEvent(newInt(), newInt(), newUnsignedInt(), newInt(), 0, new byte[0]);
-    static final SuplaLocation SUPLA_LOCATION = new SuplaLocation(newByte(), newInt(), 0, new byte[0]);
-    static final SuplaLocationPack SUPLA_LOCATION_PACK = new SuplaLocationPack(0, newInt(), new SuplaLocation[0]);
-    static final SuplaRegisterClientResult SUPLA_REGISTER_CLIENT_RESULT =
-            new SuplaRegisterClientResult(
-                                                 newInt(),
-                                                 newInt(),
-                                                 newInt(),
-                                                 newInt(),
-                                                 newUnsignedByte(),
-                                                 newUnsignedByte(),
-                                                 newUnsignedByte());
-    static final FirmwareUpdateUrl FIRMWARE_UPDATE_URL =
-            new FirmwareUpdateUrl(
-                                         newByte(),
-                                         new byte[SUPLA_URL_HOST_MAXSIZE],
-                                         newInt(),
-                                         new byte[SUPLA_URL_PATH_MAXSIZE]);
-    static final FirmwareUpdateUrlResult FIRMWARE_UPDATE_URL_RESULT =
-            new FirmwareUpdateUrlResult(
-                                               newByte(),
-                                               new FirmwareUpdateUrl(
-                                                                            newByte(),
-                                                                            new byte[SUPLA_URL_HOST_MAXSIZE],
-                                                                            newInt(),
-                                                                            new byte[SUPLA_URL_PATH_MAXSIZE]));
-    // @formatter:off
-    static final pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue SUPLA_CHANNEL_NEW_VALUE1 =
-            new pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue(
-                                                                                     newInt(),
-                                                                                     newUnsignedByte(),
-                                                                                     newUnsignedInt(),
-                                                                                     new byte[SUPLA_CHANNELVALUE_SIZE]);
-    // @formatter:on
-    static final SuplaRegisterDeviceResult SUPLA_REGISTER_DEVICE_RESULT =
-            new SuplaRegisterDeviceResult(newInt(), newByte(), (byte) 100, (byte) 99);
-    static final SuplaGetVersionResult SUPLA_GET_VERSION_RESULT =
-            new SuplaGetVersionResult(newUnsignedByte(), newUnsignedByte(), new byte[SUPLA_SOFTVER_MAXSIZE]);
-    static final SuplaPingServerResultClient SUPLA_PING_SERVER_RESULT_CLIENT =
-            new SuplaPingServerResultClient(
-                                                   new Timeval(newInt(), newInt()));
-    static final SuplaSetActivityTimeoutResult SUPLA_SET_ACTIVITY_TIMEOUT_RESULT =
-            new SuplaSetActivityTimeoutResult(newUnsignedByte(), newUnsignedByte(), newUnsignedByte());
-    static final SuplaVersionError SUPLA_VERSION_ERROR = new SuplaVersionError(newUnsignedByte(), newUnsignedByte());
-    static final SuplaChannelValue SUPLA_CHANNEL_VALUE1 =
-            new SuplaChannelValue(new byte[SUPLA_CHANNELVALUE_SIZE], new byte[SUPLA_CHANNELVALUE_SIZE]);
-    static final SuplaDataPacket SUPLA_DATA_PACKET =
-            new SuplaDataPacket(newUnsignedByte(), newUnsignedInt(), newUnsignedInt(), 0, new byte[0]);
-    static final Timeval TIMEVAL = new Timeval(newInt(), newInt());
-
     private final DecoderFactoryImpl decoderFactory = new DecoderFactoryImpl(mock(PrimitiveDecoder.class));
 
     private final ProtoWithSize proto;
@@ -237,52 +95,52 @@ public class DecoderFactoryImplTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 // cs
-                {SUPLA_CHANNEL_NEW_VALUE_B, SuplaChannelNewValueBDecoderImpl.class},
-                {SUPLA_CHANNEL_NEW_VALUE, SuplaChannelNewValueDecoderImpl.class},
-                {SUPLA_REGISTER_CLIENT_B, SuplaRegisterClientBDecoderImpl.class},
-                {SUPLA_REGISTER_CLIENT, SuplaRegisterClientDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaChannelNewValueB.class), SuplaChannelNewValueBDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaChannelNewValue.class), SuplaChannelNewValueDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterClientB.class), SuplaRegisterClientBDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterClient.class), SuplaRegisterClientDecoderImpl.class},
 
                 // dcs
-                {SUPLA_PING_SERVER, SuplaPingServerDecoderImpl.class},
-                {SUPLA_SET_ACTIVITY_TIMEOUT, SuplaSetActivityTimeoutDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaPingServer.class), SuplaPingServerDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaSetActivityTimeout.class), SuplaSetActivityTimeoutDecoderImpl.class},
 
                 // ds                                   
-                {FIRMWARE_UPDATE_PARAMS, FirmwareUpdateParamsDecoderImpl.class},
-                {SUPLA_CHANNEL_NEW_VALUE_RESULT, SuplaChannelNewValueResultDecoderImpl.class},
-                {SUPLA_DEVICE_CHANNEL_B, SuplaDeviceChannelBDecoderImpl.class},
-                {SUPLA_DEVICE_CHANNEL, SuplaDeviceChannelDecoderImpl.class},
-                {SUPLA_DEVICE_CHANNEL_VALUE, SuplaDeviceChannelValueDecoderImpl.class},
-                {SUPLA_REGISTER_DEVICE_B, SuplaRegisterDeviceBDecoderImpl.class},
-                {SUPLA_REGISTER_DEVICE_C, SuplaRegisterDeviceCDecoderImpl.class},
-                {SUPLA_REGISTER_DEVICE, SuplaRegisterDeviceDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(FirmwareUpdateParams.class), FirmwareUpdateParamsDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaChannelNewValueResult.class), SuplaChannelNewValueResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaDeviceChannelB.class), SuplaDeviceChannelBDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaDeviceChannel.class), SuplaDeviceChannelDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaDeviceChannelValue.class), SuplaDeviceChannelValueDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterDeviceB.class), SuplaRegisterDeviceBDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterDeviceC.class), SuplaRegisterDeviceCDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterDevice.class), SuplaRegisterDeviceDecoderImpl.class},
 
                 // sc 
-                {SUPLA_CHANNEL, SuplaChannelDecoderImpl.class},
-                {SUPLA_CHANNEL_PACK, SuplaChannelPackDecoderImpl.class},
-                {SUPLA_CHANNEL_VALUE,
+                {RANDOM_BEAN.nextObject(SuplaChannel.class), SuplaChannelDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaChannelPack.class), SuplaChannelPackDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class),
                         pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl.class},
-                {SUPLA_EVENT, SuplaEventDecoderImpl.class},
-                {SUPLA_LOCATION, SuplaLocationDecoderImpl.class},
-                {SUPLA_LOCATION_PACK, SuplaLocationPackDecoderImpl.class},
-                {SUPLA_REGISTER_CLIENT_RESULT, SuplaRegisterClientResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaEvent.class), SuplaEventDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaLocation.class), SuplaLocationDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaLocationPack.class), SuplaLocationPackDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterClientResult.class), SuplaRegisterClientResultDecoderImpl.class},
 
                 // sd
-                {FIRMWARE_UPDATE_URL, FirmwareUpdateUrlDecoderImpl.class},
-                {FIRMWARE_UPDATE_URL_RESULT, FirmwareUpdateUrlResultDecoderImpl.class},
-                {SUPLA_CHANNEL_NEW_VALUE1,
+                {RANDOM_BEAN.nextObject(FirmwareUpdateUrl.class), FirmwareUpdateUrlDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(FirmwareUpdateUrlResult.class), FirmwareUpdateUrlResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class),
                         pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.class},
-                {SUPLA_REGISTER_DEVICE_RESULT, SuplaRegisterDeviceResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaRegisterDeviceResult.class), SuplaRegisterDeviceResultDecoderImpl.class},
 
                 // sdc 
-                {SUPLA_GET_VERSION_RESULT, SuplaGetVersionResultDecoderImpl.class},
-                {SUPLA_PING_SERVER_RESULT_CLIENT, SuplaPingServerResultClientDecoderImpl.class},
-                {SUPLA_SET_ACTIVITY_TIMEOUT_RESULT, SuplaSetActivityTimeoutResultDecoderImpl.class},
-                {SUPLA_VERSION_ERROR, SuplaVersionErrorDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaGetVersionResult.class), SuplaGetVersionResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaPingServerResultClient.class), SuplaPingServerResultClientDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaSetActivityTimeoutResult.class), SuplaSetActivityTimeoutResultDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaVersionError.class), SuplaVersionErrorDecoderImpl.class},
 
                 // common 
-                {SUPLA_CHANNEL_VALUE1, SuplaChannelValueDecoderImpl.class},
-                {SUPLA_DATA_PACKET, SuplaDataPacketDecoderImpl.class},
-                {TIMEVAL, TimevalDecoderImpl.class}
+                {RANDOM_BEAN.nextObject(SuplaChannelValue.class), SuplaChannelValueDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(SuplaDataPacket.class), SuplaDataPacketDecoderImpl.class},
+                {RANDOM_BEAN.nextObject(Timeval.class), TimevalDecoderImpl.class}
         });
     }
 
