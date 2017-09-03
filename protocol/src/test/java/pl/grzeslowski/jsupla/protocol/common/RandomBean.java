@@ -33,7 +33,6 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaChannelValueRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaDataPacketRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.TimevalRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaChannelNewValueBRandomizer;
@@ -52,6 +51,7 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceC
 import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelPackRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelRandomizer;
+import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelValueRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaEventRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaLocationPackRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaLocationRandomizer;
