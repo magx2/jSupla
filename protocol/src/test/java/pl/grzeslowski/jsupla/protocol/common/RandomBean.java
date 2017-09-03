@@ -158,4 +158,8 @@ public class RandomBean extends EnhancedRandom {
     public long nextUnsignedInt() {
         return random.nextInt(Integer.MAX_VALUE); // This is not max uint but it's OK
     }
+
+    public int nextPositiveInt() {
+        return Math.abs(nextInt());
+    }
 }

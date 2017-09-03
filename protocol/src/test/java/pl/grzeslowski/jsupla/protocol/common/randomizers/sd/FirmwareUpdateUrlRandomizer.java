@@ -19,7 +19,7 @@ public class FirmwareUpdateUrlRandomizer implements Randomizer<FirmwareUpdateUrl
         return new FirmwareUpdateUrl(
                                             randomBean.nextByte(),
                                             randomBean.nextByteArray(SUPLA_URL_HOST_MAXSIZE),
-                                            randomBean.nextInt(),
+                                            randomBean.nextPositiveInt(),
                                             randomBean.nextByteArray(SUPLA_URL_PATH_MAXSIZE)
         );
     }

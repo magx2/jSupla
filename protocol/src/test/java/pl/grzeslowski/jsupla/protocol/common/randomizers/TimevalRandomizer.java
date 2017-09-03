@@ -14,8 +14,8 @@ public class TimevalRandomizer implements Randomizer<Timeval> {
     @Override
     public Timeval getRandomValue() {
         return new Timeval(
-                                  randomBean.nextInt(),
-                                  randomBean.nextInt()
+                                  randomBean.nextPositiveInt(),
+                                  randomBean.nextPositiveInt()
         );
     }
 }

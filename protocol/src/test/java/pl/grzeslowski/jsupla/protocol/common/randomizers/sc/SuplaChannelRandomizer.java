@@ -16,9 +16,9 @@ public class SuplaChannelRandomizer implements Randomizer<SuplaChannel> {
         final long captionSize = randomBean.nextUnsignedInt();
         return new SuplaChannel(
                                        randomBean.nextByte(),
-                                       randomBean.nextInt(),
-                                       randomBean.nextInt(),
-                                       randomBean.nextInt(),
+                                       randomBean.nextPositiveInt(),
+                                       randomBean.nextPositiveInt(),
+                                       randomBean.nextPositiveInt(),
                                        randomBean.nextByte(),
                                        randomBean.nextObject(
                                                pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),

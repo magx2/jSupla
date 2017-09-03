@@ -16,13 +16,13 @@ public class SuplaLocationPackRandomizer implements Randomizer<SuplaLocationPack
 
     @Override
     public SuplaLocationPack getRandomValue() {
-        final int count = randomBean.nextInt();
+        final int count = randomBean.nextPositiveInt();
         final SuplaLocation[] locations = randomBean.objects(SuplaLocation.class, count)
                                                   .collect(toList())
                                                   .toArray(new SuplaLocation[0]);
         return new SuplaLocationPack(
                                             count,
-                                            randomBean.nextInt(),
+                                            randomBean.nextPositiveInt(),
                                             locations
         );
     }

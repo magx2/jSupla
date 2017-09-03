@@ -13,7 +13,7 @@ public class SuplaDataPacketRandomizer implements Randomizer<SuplaDataPacket> {
 
     @Override
     public SuplaDataPacket getRandomValue() {
-        final int dataSize = randomBean.nextInt();
+        final int dataSize = randomBean.nextPositiveInt();
         return new SuplaDataPacket(
                                           randomBean.nextUnsignedByte(),
                                           randomBean.nextUnsignedInt(),

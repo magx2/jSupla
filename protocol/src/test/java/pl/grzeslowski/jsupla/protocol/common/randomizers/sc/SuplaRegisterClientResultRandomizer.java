@@ -15,10 +15,10 @@ public class SuplaRegisterClientResultRandomizer implements Randomizer<SuplaRegi
     public SuplaRegisterClientResult getRandomValue() {
         final short version = randomBean.nextUnsignedByte();
         return new SuplaRegisterClientResult(
-                                                    randomBean.nextInt(),
-                                                    randomBean.nextInt(),
-                                                    randomBean.nextInt(),
-                                                    randomBean.nextInt(),
+                                                    randomBean.nextPositiveInt(),
+                                                    randomBean.nextPositiveInt(),
+                                                    randomBean.nextPositiveInt(),
+                                                    randomBean.nextPositiveInt(),
                                                     randomBean.nextUnsignedByte(),
                                                     version,
                                                     randomBean.nextUnsignedByte(version)

@@ -15,7 +15,7 @@ public class SuplaRegisterDeviceResultRandomizer implements Randomizer<SuplaRegi
     public SuplaRegisterDeviceResult getRandomValue() {
         final byte version = randomBean.nextByte();
         return new SuplaRegisterDeviceResult(
-                                                    randomBean.nextInt(),
+                                                    randomBean.nextPositiveInt(),
                                                     randomBean.nextByte(),
                                                     version,
                                                     randomBean.nextByte(version)

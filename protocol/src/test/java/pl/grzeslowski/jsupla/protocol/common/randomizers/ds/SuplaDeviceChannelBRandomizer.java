@@ -17,9 +17,9 @@ public class SuplaDeviceChannelBRandomizer implements Randomizer<SuplaDeviceChan
     public SuplaDeviceChannelB getRandomValue() {
         return new SuplaDeviceChannelB(
                                               randomBean.nextUnsignedByte(),
-                                              randomBean.nextInt(),
-                                              randomBean.nextInt(),
-                                              randomBean.nextInt(),
+                                              randomBean.nextPositiveInt(),
+                                              randomBean.nextPositiveInt(),
+                                              randomBean.nextPositiveInt(),
                                               randomBean.nextByteArray(SUPLA_CHANNELVALUE_SIZE)
         );
     }

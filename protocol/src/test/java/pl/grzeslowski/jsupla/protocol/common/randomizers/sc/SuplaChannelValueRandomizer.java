@@ -15,7 +15,7 @@ public class SuplaChannelValueRandomizer implements Randomizer<SuplaChannelValue
     public SuplaChannelValue getRandomValue() {
         return new SuplaChannelValue(
                                             randomBean.nextByte(),
-                                            randomBean.nextInt(),
+                                            randomBean.nextPositiveInt(),
                                             randomBean.nextByte(),
                                             randomBean.nextObject(
                                                     pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class)

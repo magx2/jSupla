@@ -25,7 +25,7 @@ public class SuplaRegisterDeviceRandomizer implements Randomizer<SuplaRegisterDe
                                                       .collect(toList())
                                                       .toArray(new SuplaDeviceChannel[0]);
         return new SuplaRegisterDevice(
-                                              randomBean.nextInt(),
+                                              randomBean.nextPositiveInt(),
                                               randomBean.nextByteArray(SUPLA_LOCATION_PWD_MAXSIZE),
                                               randomBean.nextByteArray(SUPLA_GUID_SIZE),
                                               randomBean.nextByteArray(SUPLA_DEVICE_NAME_MAXSIZE),

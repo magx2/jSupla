@@ -16,7 +16,7 @@ public class SuplaLocationRandomizer implements Randomizer<SuplaLocation> {
         final long captionSize = randomBean.nextUnsignedInt();
         return new SuplaLocation(
                                         randomBean.nextByte(),
-                                        randomBean.nextInt(),
+                                        randomBean.nextPositiveInt(),
                                         captionSize,
                                         randomBean.nextByteArray((int) captionSize)
         );

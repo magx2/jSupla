@@ -13,12 +13,12 @@ public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
 
     @Override
     public SuplaEvent getRandomValue() {
-        final int senderNameSize = randomBean.nextInt();
+        final int senderNameSize = randomBean.nextPositiveInt();
         return new SuplaEvent(
-                                     randomBean.nextInt(),
-                                     randomBean.nextInt(),
+                                     randomBean.nextPositiveInt(),
+                                     randomBean.nextPositiveInt(),
                                      randomBean.nextUnsignedInt(),
-                                     randomBean.nextInt(),
+                                     randomBean.nextPositiveInt(),
                                      senderNameSize,
                                      randomBean.nextByteArray(senderNameSize)
         );

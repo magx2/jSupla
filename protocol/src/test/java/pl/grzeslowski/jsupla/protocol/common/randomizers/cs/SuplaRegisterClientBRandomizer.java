@@ -20,7 +20,7 @@ public class SuplaRegisterClientBRandomizer implements Randomizer<SuplaRegisterC
     @Override
     public SuplaRegisterClientB getRandomValue() {
         return new SuplaRegisterClientB(
-                                               randomBean.nextInt(),
+                                               randomBean.nextPositiveInt(),
                                                randomBean.nextByteArray(SUPLA_ACCESSID_PWD_MAXSIZE),
                                                randomBean.nextByteArray(SUPLA_GUID_SIZE),
                                                randomBean.nextByteArray(SUPLA_CLIENT_NAME_MAXSIZE),

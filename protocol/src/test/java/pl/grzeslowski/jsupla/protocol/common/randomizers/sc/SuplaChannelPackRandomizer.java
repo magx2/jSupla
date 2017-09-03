@@ -16,13 +16,13 @@ public class SuplaChannelPackRandomizer implements Randomizer<SuplaChannelPack> 
 
     @Override
     public SuplaChannelPack getRandomValue() {
-        final int count = randomBean.nextInt();
+        final int count = randomBean.nextPositiveInt();
         final SuplaChannel[] channels = randomBean.objects(SuplaChannel.class, count)
                                                 .collect(toList())
                                                 .toArray(new SuplaChannel[0]);
         return new SuplaChannelPack(
                                            count,
-                                           randomBean.nextInt(),
+                                           randomBean.nextPositiveInt(),
                                            channels
         );
     }

@@ -15,10 +15,10 @@ public class FirmwareUpdateParamsRandomizer implements Randomizer<FirmwareUpdate
     public FirmwareUpdateParams getRandomValue() {
         return new FirmwareUpdateParams(
                                                randomBean.nextByte(),
-                                               randomBean.nextInt(),
-                                               randomBean.nextInt(),
-                                               randomBean.nextInt(),
-                                               randomBean.nextInt()
+                                               randomBean.nextPositiveInt(),
+                                               randomBean.nextPositiveInt(),
+                                               randomBean.nextPositiveInt(),
+                                               randomBean.nextPositiveInt()
         );
     }
 }
