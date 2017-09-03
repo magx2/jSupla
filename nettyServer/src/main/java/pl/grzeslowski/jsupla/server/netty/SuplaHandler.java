@@ -46,7 +46,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
 
     @Override
     public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
-        logger.info("SuplaHandler.channelInactive(ctx)");
+        logger.debug("SuplaHandler.channelInactive(ctx)");
         super.channelUnregistered(ctx);
         emitters.forEach(FluxSink::complete);
         dispose();
@@ -73,7 +73,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
 
     private SuplaDataPacketChannel newSuplaChannel(final ChannelHandlerContext ctx) {
         return (SuplaDataPacket msg) -> {
-            logger.info("SuplaHandler.newSuplaChannel(" + msg + ")");
+            logger.debug("SuplaHandler.newSuplaChannel(" + msg + ")");
             ctx.write(msg);
         };
     }
