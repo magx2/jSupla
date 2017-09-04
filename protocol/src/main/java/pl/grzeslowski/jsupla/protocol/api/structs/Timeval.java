@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
-public class Timeval implements ProtoWithSize {
+public final class Timeval implements ProtoWithSize {
     public static final int SIZE = INT_SIZE * 2;
 
     public final int seconds;
