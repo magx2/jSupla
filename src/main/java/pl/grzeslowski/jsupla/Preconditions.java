@@ -237,7 +237,7 @@ public final class Preconditions {
     public static <T> Collection<T> checkArrayLength(Collection<T> collection, int length) {
         if (collection.size() != length) {
             throw new IllegalArgumentException(
-                                                      format("Length of array should be %s but was %s!", length, collection.size()));
+                    format("Length of array should be %s but was %s!", length, collection.size()));
         }
         return collection;
     }
