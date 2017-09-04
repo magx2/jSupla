@@ -223,12 +223,27 @@ public final class Preconditions {
         return array;
     }
 
+    public static <T> Collection<T> checkArrayLength(Collection<T> collection, int length) {
+        if (collection.size() != length) {
+            throw new IllegalArgumentException(
+                                                      format("Length of array should be %s but was %s!", length, collection.size()));
+        }
+        return collection;
+    }
+
     public static int byteSize(int byteValue) {
         return size(byteValue, Byte.MIN_VALUE, Byte.MAX_VALUE);
     }
 
     public static int unsignedByteSize(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 255);
+    }
+
+    public static int equlsTo(int value, int equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+        }
+        return value;
     }
 
     private Preconditions() {
