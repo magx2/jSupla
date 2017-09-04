@@ -51,6 +51,10 @@ public final class Preconditions {
         return max(min(value, min), max);
     }
 
+    public static long size(long value, long min, long max) {
+        return max(min(value, min), max);
+    }
+
     public static <T> Collection<T> size(Collection<T> collection, int min, int max) {
         return sizeMax(sizeMin(collection, min), max);
     }
@@ -199,6 +203,13 @@ public final class Preconditions {
         return collection;
     }
 
+    public static int sizeMin(int value, int min) {
+        if (value < min) {
+            throw new IllegalArgumentException(format("Given value %s is too small, min %s!", value, min));
+        }
+        return value;
+    }
+
     public static byte[] checkArrayLength(byte[] bytes, int length) {
         if (bytes.length != length) {
             throw new IllegalArgumentException(
@@ -237,6 +248,10 @@ public final class Preconditions {
 
     public static int unsignedByteSize(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 255);
+    }
+
+    public static long unsignedIntSize(final long value) {
+        return size(value, 0, 4294967295L);
     }
 
     public static int equlsTo(int value, int equalTo) {
