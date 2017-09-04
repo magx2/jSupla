@@ -71,6 +71,10 @@ public final class Preconditions {
         return sizeMax(sizeMin(collection, min), max);
     }
 
+    public static char[] size(char[] collection, int min, int max) {
+        return sizeMax(sizeMin(collection, min), max);
+    }
+
     public static int size(int value, int equalTo) {
         if (value != equalTo) {
             throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
@@ -125,6 +129,14 @@ public final class Preconditions {
         return collection;
     }
 
+    public static char[] sizeMax(char[] collection, long max) {
+        final int size = collection.length;
+        if (size > max) {
+            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+        }
+        return collection;
+    }
+
     public static int sizeMax(int value, long max) {
         if (value > max) {
             throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
@@ -172,6 +184,14 @@ public final class Preconditions {
     }
 
     public static byte[] sizeMin(byte[] collection, long min) {
+        final int size = collection.length;
+        if (size < min) {
+            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+        }
+        return collection;
+    }
+
+    public static char[] sizeMin(char[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
             throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
