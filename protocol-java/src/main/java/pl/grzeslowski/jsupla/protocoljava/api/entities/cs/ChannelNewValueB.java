@@ -16,6 +16,11 @@ public class ChannelNewValueB extends ChannelNewValue {
     }
 
     @Override
+    public Version version() {
+        return B;
+    }
+
+    @Override
     public int getChannelId() {
         return channelId;
     }
@@ -40,11 +45,6 @@ public class ChannelNewValueB extends ChannelNewValue {
     @Override
     public int hashCode() {
         return channelId;
-    }
-
-    @Override
-    public Version version() {
-        return B;
     }
 
     @Override
