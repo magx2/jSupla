@@ -8,10 +8,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 public final class Timeval implements ProtoWithSize {
     public static final int SIZE = INT_SIZE * 2;
 
-    public final int seconds;
-    public final int milliseconds;
+    public final long seconds;
+    public final long milliseconds;
 
-    public Timeval(final int seconds, final int milliseconds) {
+    public Timeval(final long seconds, final long milliseconds) {
         this.seconds = min(seconds, 0);
         this.milliseconds = min(milliseconds, 0);
     }

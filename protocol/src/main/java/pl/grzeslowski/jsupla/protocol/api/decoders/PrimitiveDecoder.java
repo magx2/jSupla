@@ -5,6 +5,8 @@ public interface PrimitiveDecoder {
 
     int parseInt(byte[] bytes, int offset);
 
+    long parseLong(byte[] bytes, int offset);
+
     short parseUnsignedByte(byte[] bytes, int offset);
 
     byte parseByte(byte[] bytes, int offset);

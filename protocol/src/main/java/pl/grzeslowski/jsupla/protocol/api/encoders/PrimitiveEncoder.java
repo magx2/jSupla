@@ -6,6 +6,8 @@ public interface PrimitiveEncoder {
 
     int writeUnsignedInteger(long value, byte[] bytes, int offset);
 
+    long writeLong(long value, byte[] bytes, int offset);
+
     int writeByte(byte value, byte[] bytes, int offset);
 
     int writeUnsignedByte(short value, byte[] bytes, int offset);

@@ -11,6 +11,7 @@ import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     public static final PrimitiveDecoderImpl INSTANCE = new PrimitiveDecoderImpl();
@@ -37,6 +38,17 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         byteBuffer.order(LITTLE_ENDIAN);
         return byteBuffer.getInt();
+    }
+
+    /**
+     * TODO can be optimized!!!.
+     */
+    @Override
+    public long parseLong(byte[] bytes, int offset) {
+        sizeMin(bytes, LONG_SIZE + offset);
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, LONG_SIZE);
+        byteBuffer.order(LITTLE_ENDIAN);
+        return byteBuffer.getLong();
     }
 
     @Override

@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.TimevalDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 public class TimevalDecoderImpl implements TimevalDecoder {
     private final PrimitiveDecoder primitiveDecoder;
@@ -19,9 +19,9 @@ public class TimevalDecoderImpl implements TimevalDecoder {
     public Timeval decode(final byte[] bytes, int offset) {
         Preconditions.sizeMin(bytes, offset + Timeval.SIZE);
 
-        final int seconds = primitiveDecoder.parseInt(bytes, offset);
-        offset += INT_SIZE;
-        final int milliseconds = primitiveDecoder.parseInt(bytes, offset);
+        final long seconds = primitiveDecoder.parseLong(bytes, offset);
+        offset += LONG_SIZE;
+        final long milliseconds = primitiveDecoder.parseLong(bytes, offset);
 
         return new Timeval(seconds, milliseconds);
     }

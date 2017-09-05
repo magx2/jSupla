@@ -19,8 +19,8 @@ public class TimevalEncoderImpl implements TimevalEncoder {
         final byte[] bytes = new byte[proto.size()];
         int offset = 0;
 
-        offset += primitiveEncoder.writeInteger(proto.seconds, bytes, offset);
-        offset += primitiveEncoder.writeInteger(proto.milliseconds, bytes, offset);
+        offset += primitiveEncoder.writeLong(proto.seconds, bytes, offset);
+        offset += primitiveEncoder.writeLong(proto.milliseconds, bytes, offset);
 
         return bytes;
     }

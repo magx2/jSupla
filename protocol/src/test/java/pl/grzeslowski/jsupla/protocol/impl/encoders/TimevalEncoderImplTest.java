@@ -7,7 +7,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
 
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
@@ -18,9 +18,9 @@ public class TimevalEncoderImplTest extends EncoderTest<Timeval> {
     protected void verifyEncodeEntity(final byte[] encode, final Timeval proto) {
         int offset = 0;
 
-        verify(primitiveEncoder).writeInteger(proto.seconds, bytesToWriteInto(), offset);
-        offset += INT_SIZE;
-        verify(primitiveEncoder).writeInteger(proto.milliseconds, bytesToWriteInto(), offset);
+        verify(primitiveEncoder).writeLong(proto.seconds, bytesToWriteInto(), offset);
+        offset += LONG_SIZE;
+        verify(primitiveEncoder).writeLong(proto.milliseconds, bytesToWriteInto(), offset);
     }
 
     @Override
