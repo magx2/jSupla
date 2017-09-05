@@ -10,6 +10,7 @@ import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
+@Deprecated
 public class DeviceChannels implements Entity {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final Collection<DeviceChannel> channels;

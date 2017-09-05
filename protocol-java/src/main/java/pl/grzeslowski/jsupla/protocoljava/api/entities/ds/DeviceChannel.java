@@ -10,6 +10,7 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
+@Deprecated
 public class DeviceChannel implements DeviceServerEntity {
     @Min(0)
     @Max(UNSIGNED_BYTE_MAX)

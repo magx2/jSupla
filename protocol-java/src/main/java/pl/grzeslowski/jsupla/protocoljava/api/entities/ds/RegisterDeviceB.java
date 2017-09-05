@@ -10,6 +10,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATI
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
+@Deprecated
 public class RegisterDeviceB extends RegisterDevice {
     public RegisterDeviceB(final int locationId,
                            final @NotNull @Size(min = 1, max = SUPLA_LOCATION_PWD_MAXSIZE) char[] locationPassword,
