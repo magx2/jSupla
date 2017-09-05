@@ -4,8 +4,8 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlResultDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -27,7 +27,7 @@ public final class FirmwareUpdateUrlResultDecoderImpl implements FirmwareUpdateU
         final byte exists = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final FirmwareUpdateUrl url = firmwareUpdateUrlDecoder.decode(bytes, offset);
+        final SuplaFirmwareUpdateUrl url = firmwareUpdateUrlDecoder.decode(bytes, offset);
 
         return new FirmwareUpdateUrlResult(exists, url);
     }

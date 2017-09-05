@@ -6,8 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
 import static org.mockito.BDDMockito.given;
@@ -19,7 +19,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_HO
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FirmwareUpdateUrlResultDecoderImplTest extends DecoderTest<FirmwareUpdateUrlResultDecoderImpl> {
+public class SuplaFirmwareUpdateUrlResultDecoderImplTest extends DecoderTest<FirmwareUpdateUrlResultDecoderImpl> {
     @InjectMocks FirmwareUpdateUrlResultDecoderImpl decoder;
     @Mock FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
 
@@ -31,7 +31,7 @@ public class FirmwareUpdateUrlResultDecoderImplTest extends DecoderTest<Firmware
     @Override
     public void givenParseEntity(final byte[] bytes, final int offset) {
         given(firmwareUpdateUrlDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new FirmwareUpdateUrl((byte) 1,
+                new SuplaFirmwareUpdateUrl((byte) 1,
                                              new byte[SUPLA_URL_HOST_MAXSIZE],
                                              9090,
                                              new byte[SUPLA_URL_PATH_MAXSIZE]));

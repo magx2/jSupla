@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.Mockito.verify;
@@ -15,11 +15,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class FirmwareUpdateUrlEncoderImplTest extends EncoderTest<FirmwareUpdateUrl> {
+public class SuplaFirmwareUpdateUrlEncoderImplTest extends EncoderTest<SuplaFirmwareUpdateUrl> {
     @InjectMocks FirmwareUpdateUrlEncoderImpl encoder;
 
     @Override
-    protected void verifyEncodeEntity(final byte[] encode, final FirmwareUpdateUrl proto) {
+    protected void verifyEncodeEntity(final byte[] encode, final SuplaFirmwareUpdateUrl proto) {
         int offset = 0;
 
         verify(primitiveEncoder).writeByte(proto.availableProtocols, bytesToWriteInto(), offset);
@@ -37,13 +37,13 @@ public class FirmwareUpdateUrlEncoderImplTest extends EncoderTest<FirmwareUpdate
     }
 
     @Override
-    public Encoder<FirmwareUpdateUrl> getEncoder() {
+    public Encoder<SuplaFirmwareUpdateUrl> getEncoder() {
         return encoder;
     }
 
     @Override
-    public FirmwareUpdateUrl getProto() {
-        return new FirmwareUpdateUrl(
+    public SuplaFirmwareUpdateUrl getProto() {
+        return new SuplaFirmwareUpdateUrl(
                                             (byte) 1,
                                             new byte[SUPLA_URL_HOST_MAXSIZE],
                                             9090,

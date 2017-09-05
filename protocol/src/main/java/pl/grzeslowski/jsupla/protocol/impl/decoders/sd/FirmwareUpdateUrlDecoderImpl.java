@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders.sd;
 import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -19,8 +19,8 @@ public final class FirmwareUpdateUrlDecoderImpl implements FirmwareUpdateUrlDeco
     }
 
     @Override
-    public FirmwareUpdateUrl decode(byte[] bytes, int offset) {
-        Preconditions.sizeMin(bytes, offset + FirmwareUpdateUrl.SIZE);
+    public SuplaFirmwareUpdateUrl decode(byte[] bytes, int offset) {
+        Preconditions.sizeMin(bytes, offset + SuplaFirmwareUpdateUrl.SIZE);
 
         final byte availableProtocols = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
@@ -33,6 +33,6 @@ public final class FirmwareUpdateUrlDecoderImpl implements FirmwareUpdateUrlDeco
 
         final byte[] path = primitiveDecoder.copyOfRange(bytes, offset, offset + SUPLA_URL_PATH_MAXSIZE);
 
-        return new FirmwareUpdateUrl(availableProtocols, host, port, path);
+        return new SuplaFirmwareUpdateUrl(availableProtocols, host, port, path);
     }
 }

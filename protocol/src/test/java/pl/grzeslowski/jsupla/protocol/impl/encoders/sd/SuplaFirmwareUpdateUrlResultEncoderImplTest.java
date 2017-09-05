@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.BDDMockito.given;
@@ -20,7 +20,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class FirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<FirmwareUpdateUrlResult> {
+public class SuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<FirmwareUpdateUrlResult> {
     @InjectMocks FirmwareUpdateUrlResultEncoderImpl encoder;
     @Mock FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
@@ -28,8 +28,8 @@ public class FirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<Firmware
     protected void givenEncodeEntity() {
         super.givenEncodeEntity();
         // @formatter:off
-        given(firmwareUpdateUrlEncoder.encode(any(FirmwareUpdateUrl.class))).willAnswer(
-            __ -> new byte[FirmwareUpdateUrl.SIZE]
+        given(firmwareUpdateUrlEncoder.encode(any(SuplaFirmwareUpdateUrl.class))).willAnswer(
+            __ -> new byte[SuplaFirmwareUpdateUrl.SIZE]
         );
         // @formatter:on
     }
@@ -63,7 +63,7 @@ public class FirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<Firmware
     public FirmwareUpdateUrlResult getProto() {
         return new FirmwareUpdateUrlResult(
                                                   (byte) 1,
-                                                  new FirmwareUpdateUrl(
+                                                  new SuplaFirmwareUpdateUrl(
                                                                                (byte) 1,
                                                                                new byte[SUPLA_URL_HOST_MAXSIZE],
                                                                                9090,

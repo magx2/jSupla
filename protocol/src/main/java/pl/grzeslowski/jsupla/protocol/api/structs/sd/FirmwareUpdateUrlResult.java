@@ -6,12 +6,12 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class FirmwareUpdateUrlResult implements ServerDevice {
-    public static final int SIZE = BYTE_SIZE + FirmwareUpdateUrl.SIZE;
+    public static final int SIZE = BYTE_SIZE + SuplaFirmwareUpdateUrl.SIZE;
 
     public final byte exists;
-    public final FirmwareUpdateUrl url;
+    public final SuplaFirmwareUpdateUrl url;
 
-    public FirmwareUpdateUrlResult(byte exists, FirmwareUpdateUrl url) {
+    public FirmwareUpdateUrlResult(byte exists, SuplaFirmwareUpdateUrl url) {
         this.exists = exists;
         this.url = url;
     }

@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ public final class FirmwareUpdateUrlEncoderImpl implements FirmwareUpdateUrlEnco
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(FirmwareUpdateUrl proto) {
+    public byte[] encode(SuplaFirmwareUpdateUrl proto) {
         byte[] data = new byte[proto.size()];
         int offset = 0;
 
