@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
@@ -38,6 +38,6 @@ public class SuplaPingServerResultClientEncoderImplTest extends EncoderTest<Supl
 
     @Override
     public SuplaPingServerResultClient getProto() {
-        return new SuplaPingServerResultClient(new Timeval(101, 102));
+        return new SuplaPingServerResultClient(new SuplaTimeval(101, 102));
     }
 }

@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ public class TimevalEncoderImpl implements TimevalEncoder {
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(final Timeval proto) {
+    public byte[] encode(final SuplaTimeval proto) {
         final byte[] bytes = new byte[proto.size()];
         int offset = 0;
 

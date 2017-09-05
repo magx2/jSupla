@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.decoders.TimevalDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
@@ -28,7 +28,7 @@ public class SuplaPingServerDecoderImplTest extends DecoderTest<SuplaPingServerD
 
     @Override
     public void givenParseEntity(final byte[] bytes, final int offset) {
-        given(timevalDecoder.decode(any(byte[].class), anyInt())).willReturn(new Timeval(101, 102));
+        given(timevalDecoder.decode(any(byte[].class), anyInt())).willReturn(new SuplaTimeval(101, 102));
     }
 
     @Override

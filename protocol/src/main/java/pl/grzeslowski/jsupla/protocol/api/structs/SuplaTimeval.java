@@ -5,13 +5,13 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
-public final class Timeval implements ProtoWithSize {
+public final class SuplaTimeval implements ProtoWithSize {
     public static final int SIZE = INT_SIZE * 2;
 
     public final long seconds;
     public final long milliseconds;
 
-    public Timeval(final long seconds, final long milliseconds) {
+    public SuplaTimeval(final long seconds, final long milliseconds) {
         this.seconds = min(seconds, 0);
         this.milliseconds = min(milliseconds, 0);
     }
@@ -23,7 +23,7 @@ public final class Timeval implements ProtoWithSize {
 
     @Override
     public String toString() {
-        return "Timeval{" +
+        return "SuplaTimeval{" +
                        "seconds=" + seconds +
                        ", milliseconds=" + milliseconds +
                        '}';

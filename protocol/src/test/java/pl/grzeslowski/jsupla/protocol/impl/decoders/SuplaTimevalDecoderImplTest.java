@@ -3,14 +3,14 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class TimevalDecoderImplTest extends DecoderTest<TimevalDecoderImpl> {
+public class SuplaTimevalDecoderImplTest extends DecoderTest<TimevalDecoderImpl> {
     @InjectMocks TimevalDecoderImpl decoder;
 
     @Override
@@ -27,7 +27,7 @@ public class TimevalDecoderImplTest extends DecoderTest<TimevalDecoderImpl> {
 
     @Override
     public int entitySize() {
-        return Timeval.SIZE;
+        return SuplaTimeval.SIZE;
     }
 
     @Override

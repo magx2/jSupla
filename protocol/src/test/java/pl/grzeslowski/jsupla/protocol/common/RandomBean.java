@@ -5,7 +5,7 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
@@ -118,7 +118,7 @@ public class RandomBean extends EnhancedRandom {
                                          this))
                          // @formatter:on
                          .randomize(SuplaDataPacket.class, new SuplaDataPacketRandomizer(this))
-                         .randomize(Timeval.class, new TimevalRandomizer(this))
+                         .randomize(SuplaTimeval.class, new TimevalRandomizer(this))
                          //build
                          .build();
     }

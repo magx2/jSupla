@@ -4,18 +4,18 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class TimevalEncoderImplTest extends EncoderTest<Timeval> {
+public class SuplaTimevalEncoderImplTest extends EncoderTest<SuplaTimeval> {
     @InjectMocks TimevalEncoderImpl encoder;
 
     @Override
-    protected void verifyEncodeEntity(final byte[] encode, final Timeval proto) {
+    protected void verifyEncodeEntity(final byte[] encode, final SuplaTimeval proto) {
         int offset = 0;
 
         verify(primitiveEncoder).writeLong(proto.seconds, bytesToWriteInto(), offset);
@@ -29,12 +29,12 @@ public class TimevalEncoderImplTest extends EncoderTest<Timeval> {
     }
 
     @Override
-    public Encoder<Timeval> getEncoder() {
+    public Encoder<SuplaTimeval> getEncoder() {
         return encoder;
     }
 
     @Override
-    public Timeval getProto() {
-        return new Timeval(101, 102);
+    public SuplaTimeval getProto() {
+        return new SuplaTimeval(101, 102);
     }
 }
