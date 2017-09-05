@@ -33,7 +33,7 @@ public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     }
 
     @Override
-    public long writeLong(long value, byte[] bytes, int offset) {
+    public int writeLong(long value, byte[] bytes, int offset) {
         if (bytes.length < LONG_SIZE + offset) {
             throw new IllegalArgumentException(format(
                     "bytes length %s is too small to have int with offset %s", bytes.length, offset));
