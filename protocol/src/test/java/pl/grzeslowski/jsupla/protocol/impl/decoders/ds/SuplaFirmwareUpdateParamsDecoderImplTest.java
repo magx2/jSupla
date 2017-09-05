@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
 import static org.mockito.Mockito.verify;
@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class FirmwareUpdateParamsDecoderImplTest extends DecoderTest<FirmwareUpdateParamsDecoderImpl> {
+public class SuplaFirmwareUpdateParamsDecoderImplTest extends DecoderTest<FirmwareUpdateParamsDecoderImpl> {
     @InjectMocks FirmwareUpdateParamsDecoderImpl decoder;
 
     @Override
@@ -40,7 +40,7 @@ public class FirmwareUpdateParamsDecoderImplTest extends DecoderTest<FirmwareUpd
 
     @Override
     public int entitySize() {
-        return FirmwareUpdateParams.SIZE;
+        return SuplaFirmwareUpdateParams.SIZE;
     }
 
     @Override

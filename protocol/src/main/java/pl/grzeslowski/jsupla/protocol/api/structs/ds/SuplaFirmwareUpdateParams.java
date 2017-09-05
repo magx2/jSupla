@@ -6,7 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
-public final class FirmwareUpdateParams implements DeviceServer {
+public final class SuplaFirmwareUpdateParams implements DeviceServer {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 4;
     public final byte platform;
     public final int param1;
@@ -14,7 +14,7 @@ public final class FirmwareUpdateParams implements DeviceServer {
     public final int param3;
     public final int param4;
 
-    public FirmwareUpdateParams(byte platform, int param1, int param2, int param3, int param4) {
+    public SuplaFirmwareUpdateParams(byte platform, int param1, int param2, int param3, int param4) {
         this.platform = platform;
         this.param1 = param1;
         this.param2 = param2;
@@ -34,7 +34,7 @@ public final class FirmwareUpdateParams implements DeviceServer {
 
     @Override
     public String toString() {
-        return "FirmwareUpdateParams{" +
+        return "SuplaFirmwareUpdateParams{" +
                 "platform=" + platform +
                 ", param1=" + param1 +
                 ", param2=" + param2 +

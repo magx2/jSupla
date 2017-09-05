@@ -11,11 +11,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
@@ -84,7 +84,7 @@ public class RandomBean extends EnhancedRandom {
                          .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
                          .randomize(SuplaSetActivityTimeout.class, new SuplaSetActivityTimeoutRandomizer(this))
                          // ds
-                         .randomize(FirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
+                         .randomize(SuplaFirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
                          .randomize(SuplaChannelNewValueResult.class, new SuplaChannelNewValueResultRandomizer(this))
                          .randomize(SuplaDeviceChannelB.class, new SuplaDeviceChannelBRandomizer(this))
                          .randomize(SuplaDeviceChannel.class, new SuplaDeviceChannelRandomizer(this))
