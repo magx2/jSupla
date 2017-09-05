@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
-import pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
 
 import javax.validation.constraints.Min;
 

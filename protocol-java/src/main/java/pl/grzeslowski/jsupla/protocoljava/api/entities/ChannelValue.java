@@ -6,25 +6,25 @@ import java.util.Optional;
 import static java.util.Objects.requireNonNull;
 
 public class ChannelValue {
-    @NotNull private final pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue value;
-    private final pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue subValue;
+    @NotNull private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value;
+    private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue;
 
     @SuppressWarnings("WeakerAccess")
-    public ChannelValue(final @NotNull pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue value,
-                        final pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue subValue) {
+    public ChannelValue(final @NotNull pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value,
+                        final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue) {
         this.value = requireNonNull(value);
         this.subValue = subValue;
     }
 
-    public ChannelValue(final @NotNull pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue value) {
+    public ChannelValue(final @NotNull pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value) {
         this(value, null);
     }
 
-    public pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue getValue() {
+    public pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue getValue() {
         return value;
     }
 
-    public Optional<pl.grzeslowski.jsupla.protocol.api.channelvalues.ChannelValue> getSubValue() {
+    public Optional<pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue> getSubValue() {
         return Optional.ofNullable(subValue);
     }
 
