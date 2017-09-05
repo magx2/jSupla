@@ -35,9 +35,15 @@ public class RegisterDeviceC extends RegisterDeviceB {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RegisterDeviceC)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RegisterDeviceC)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         final RegisterDeviceC that = (RegisterDeviceC) o;
 

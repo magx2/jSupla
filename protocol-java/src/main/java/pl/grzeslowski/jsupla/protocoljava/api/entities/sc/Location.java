@@ -40,13 +40,21 @@ public class Location implements ServerClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Location)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Location)) {
+            return false;
+        }
 
         final Location location = (Location) o;
 
-        if (eol != location.eol) return false;
-        if (id != location.id) return false;
+        if (eol != location.eol) {
+            return false;
+        }
+        if (id != location.id) {
+            return false;
+        }
         return caption.equals(location.caption);
     }
 

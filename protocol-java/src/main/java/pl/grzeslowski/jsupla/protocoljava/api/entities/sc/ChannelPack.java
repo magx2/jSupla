@@ -32,12 +32,18 @@ public class ChannelPack implements ServerClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelPack)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelPack)) {
+            return false;
+        }
 
         final ChannelPack that = (ChannelPack) o;
 
-        if (totalLeft != that.totalLeft) return false;
+        if (totalLeft != that.totalLeft) {
+            return false;
+        }
         return channels.equals(that.channels);
     }
 

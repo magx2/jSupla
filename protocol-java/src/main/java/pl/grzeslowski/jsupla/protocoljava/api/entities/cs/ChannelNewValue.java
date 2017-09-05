@@ -16,7 +16,9 @@ public class ChannelNewValue implements ClientServerEntity {
     @NotNull
     private final ChannelValue value;
 
-    public ChannelNewValue(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int channelId, final @NotNull ChannelValue value) {
+    @SuppressWarnings("WeakerAccess")
+    public ChannelNewValue(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int channelId,
+                           final @NotNull ChannelValue value) {
         this.channelId = byteSize(channelId);
         this.value = requireNonNull(value);
     }

@@ -69,17 +69,33 @@ public class RegisterClientResult implements ServerClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RegisterClientResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RegisterClientResult)) {
+            return false;
+        }
 
         final RegisterClientResult that = (RegisterClientResult) o;
 
-        if (resultCode != that.resultCode) return false;
-        if (clientId != that.clientId) return false;
-        if (locationCount != that.locationCount) return false;
-        if (channelCount != that.channelCount) return false;
-        if (activityTimeout != that.activityTimeout) return false;
-        if (version != that.version) return false;
+        if (resultCode != that.resultCode) {
+            return false;
+        }
+        if (clientId != that.clientId) {
+            return false;
+        }
+        if (locationCount != that.locationCount) {
+            return false;
+        }
+        if (channelCount != that.channelCount) {
+            return false;
+        }
+        if (activityTimeout != that.activityTimeout) {
+            return false;
+        }
+        if (version != that.version) {
+            return false;
+        }
         return versionMin == that.versionMin;
     }
 

@@ -72,17 +72,33 @@ public class Channel implements ServerClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Channel)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Channel)) {
+            return false;
+        }
 
         final Channel channel = (Channel) o;
 
-        if (eol != channel.eol) return false;
-        if (id != channel.id) return false;
-        if (locationId != channel.locationId) return false;
-        if (function != channel.function) return false;
-        if (online != channel.online) return false;
-        if (!channelValue.equals(channel.channelValue)) return false;
+        if (eol != channel.eol) {
+            return false;
+        }
+        if (id != channel.id) {
+            return false;
+        }
+        if (locationId != channel.locationId) {
+            return false;
+        }
+        if (function != channel.function) {
+            return false;
+        }
+        if (online != channel.online) {
+            return false;
+        }
+        if (!channelValue.equals(channel.channelValue)) {
+            return false;
+        }
         return caption.equals(channel.caption);
     }
 

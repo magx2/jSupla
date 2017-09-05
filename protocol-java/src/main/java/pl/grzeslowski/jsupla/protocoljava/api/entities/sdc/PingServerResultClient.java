@@ -22,8 +22,12 @@ public class PingServerResultClient implements ServerDeviceClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o){ return true;}
-        if (!(o instanceof PingServerResultClient)){ return false;}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PingServerResultClient)) {
+            return false;
+        }
 
         final PingServerResultClient that = (PingServerResultClient) o;
 

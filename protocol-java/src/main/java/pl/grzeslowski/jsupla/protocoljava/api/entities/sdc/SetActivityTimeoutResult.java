@@ -8,9 +8,15 @@ import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
-    @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) private final int activityTimeout;
-    @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) private final int min;
-    @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) private final int max;
+    @PositiveOrZero
+    @Max(UNSIGNED_BYTE_MAX)
+    private final int activityTimeout;
+    @PositiveOrZero
+    @Max(UNSIGNED_BYTE_MAX)
+    private final int min;
+    @PositiveOrZero
+    @Max(UNSIGNED_BYTE_MAX)
+    private final int max;
 
     public SetActivityTimeoutResult(@PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int activityTimeout,
                                     @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int min,
@@ -35,13 +41,21 @@ public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {return true;}
-        if (!(o instanceof SetActivityTimeoutResult)){ return false;}
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SetActivityTimeoutResult)) {
+            return false;
+        }
 
         final SetActivityTimeoutResult that = (SetActivityTimeoutResult) o;
 
-        if (activityTimeout != that.activityTimeout){ return false;}
-        if (min != that.min) {return false;}
+        if (activityTimeout != that.activityTimeout) {
+            return false;
+        }
+        if (min != that.min) {
+            return false;
+        }
         return max == that.max;
     }
 

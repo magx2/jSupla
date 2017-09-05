@@ -46,14 +46,24 @@ public class ChannelValue implements ServerClientEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelValue)) {
+            return false;
+        }
 
         final ChannelValue that = (ChannelValue) o;
 
-        if (eol != that.eol) return false;
-        if (id != that.id) return false;
-        if (online != that.online) return false;
+        if (eol != that.eol) {
+            return false;
+        }
+        if (id != that.id) {
+            return false;
+        }
+        if (online != that.online) {
+            return false;
+        }
         return value.equals(that.value);
     }
 

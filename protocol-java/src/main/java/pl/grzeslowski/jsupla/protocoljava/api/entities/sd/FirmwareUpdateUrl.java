@@ -53,14 +53,24 @@ public class FirmwareUpdateUrl implements ServerDeviceEntity {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FirmwareUpdateUrl)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FirmwareUpdateUrl)) {
+            return false;
+        }
 
         final FirmwareUpdateUrl that = (FirmwareUpdateUrl) o;
 
-        if (availableProtocols != that.availableProtocols) return false;
-        if (port != that.port) return false;
-        if (!host.equals(that.host)) return false;
+        if (availableProtocols != that.availableProtocols) {
+            return false;
+        }
+        if (port != that.port) {
+            return false;
+        }
+        if (!host.equals(that.host)) {
+            return false;
+        }
         return path.equals(that.path);
     }
 

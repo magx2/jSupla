@@ -14,7 +14,8 @@ public class LocationPack implements ServerClientEntity {
     @PositiveOrZero private final int totalLeft;
     @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE) private final List<Location> locations;
 
-    public LocationPack(@PositiveOrZero final int totalLeft, final @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE) List<Location> locations) {
+    public LocationPack(@PositiveOrZero final int totalLeft,
+                        final @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE) List<Location> locations) {
         this.totalLeft = sizeMin(totalLeft, 0);
         this.locations = unmodifiableList(new ArrayList<>(requireNonNull(locations)));
     }

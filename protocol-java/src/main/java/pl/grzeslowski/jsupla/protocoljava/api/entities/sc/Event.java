@@ -16,7 +16,7 @@ public class Event implements ServerClientEntity {
     @Max(UNSIGNED_INT_MAX)
     private final long durationMs;
     private final int senderId;
-    @Size(min = 1, max = SUPLA_SENDER_NAME_MAXSIZE) private final String SenderName;
+    @Size(min = 1, max = SUPLA_SENDER_NAME_MAXSIZE) private final String senderName;
 
     public Event(final int event,
                  final int channelId,
@@ -27,7 +27,7 @@ public class Event implements ServerClientEntity {
         this.channelId = channelId;
         this.durationMs = unsignedIntSize(durationMs);
         this.senderId = senderId;
-        SenderName = size(senderName, 1, SUPLA_SENDER_NAME_MAXSIZE);
+        this.senderName = size(senderName, 1, SUPLA_SENDER_NAME_MAXSIZE);
     }
 
     public int getEvent() {
@@ -47,7 +47,7 @@ public class Event implements ServerClientEntity {
     }
 
     public String getSenderName() {
-        return SenderName;
+        return senderName;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Event implements ServerClientEntity {
         if (senderId != event1.senderId) {
             return false;
         }
-        return SenderName.equals(event1.SenderName);
+        return senderName.equals(event1.senderName);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Event implements ServerClientEntity {
                        ", channelId=" + channelId +
                        ", durationMs=" + durationMs +
                        ", senderId=" + senderId +
-                       ", SenderName='" + SenderName + '\'' +
+                       ", senderName='" + senderName + '\'' +
                        '}';
     }
 }

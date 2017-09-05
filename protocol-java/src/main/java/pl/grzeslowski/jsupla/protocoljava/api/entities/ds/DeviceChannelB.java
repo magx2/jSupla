@@ -38,13 +38,21 @@ public class DeviceChannelB extends DeviceChannel {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DeviceChannelB)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof DeviceChannelB)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         final DeviceChannelB that = (DeviceChannelB) o;
 
-        if (function != that.function) return false;
+        if (function != that.function) {
+            return false;
+        }
         return defaultValue == that.defaultValue;
     }
 
