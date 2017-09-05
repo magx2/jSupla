@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.BDDMockito.given;
@@ -20,7 +20,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<FirmwareUpdateUrlResult> {
+public class SuplaSuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<SuplaFirmwareUpdateUrlResult> {
     @InjectMocks FirmwareUpdateUrlResultEncoderImpl encoder;
     @Mock FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
@@ -35,7 +35,7 @@ public class SuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<Fir
     }
 
     @Override
-    protected void verifyEncodeEntity(final byte[] encode, final FirmwareUpdateUrlResult proto) {
+    protected void verifyEncodeEntity(final byte[] encode, final SuplaFirmwareUpdateUrlResult proto) {
         int offset = 0;
 
         verify(primitiveEncoder).writeByte(proto.exists, bytesToWriteInto(), offset);
@@ -55,13 +55,13 @@ public class SuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<Fir
     }
 
     @Override
-    public Encoder<FirmwareUpdateUrlResult> getEncoder() {
+    public Encoder<SuplaFirmwareUpdateUrlResult> getEncoder() {
         return encoder;
     }
 
     @Override
-    public FirmwareUpdateUrlResult getProto() {
-        return new FirmwareUpdateUrlResult(
+    public SuplaFirmwareUpdateUrlResult getProto() {
+        return new SuplaFirmwareUpdateUrlResult(
                                                   (byte) 1,
                                                   new SuplaFirmwareUpdateUrl(
                                                                                (byte) 1,
