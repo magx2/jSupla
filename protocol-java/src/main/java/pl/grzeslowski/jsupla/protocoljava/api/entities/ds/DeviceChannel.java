@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 
 import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -11,7 +12,7 @@ import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 @Deprecated
-public class DeviceChannel implements DeviceServerEntity {
+public class DeviceChannel implements Entity {
     @Min(0)
     @Max(UNSIGNED_BYTE_MAX)
     private final int number;
