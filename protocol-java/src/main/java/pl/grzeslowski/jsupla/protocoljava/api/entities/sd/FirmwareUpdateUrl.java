@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.sd;
 
+import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -11,7 +13,7 @@ import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_HOST_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
-public class FirmwareUpdateUrl implements ServerDeviceEntity {
+public class FirmwareUpdateUrl implements Entity {
     @Min(Byte.MIN_VALUE)
     @Max(Byte.MAX_VALUE)
     private final int availableProtocols;
