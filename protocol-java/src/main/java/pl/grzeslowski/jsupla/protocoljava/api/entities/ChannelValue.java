@@ -1,11 +1,13 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities;
 
+import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
+
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
-public class ChannelValue {
+public class ChannelValue implements Entity {
     @NotNull private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value;
     private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue;
 
