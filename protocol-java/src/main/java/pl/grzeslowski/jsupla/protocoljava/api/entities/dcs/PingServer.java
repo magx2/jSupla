@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-public class PingServer implements DeviceClientServer {
+public class PingServer implements DeviceClientServerEntity {
     @NotNull
     @Valid
     private final Timeval timeval;
