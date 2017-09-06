@@ -67,7 +67,7 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRa
 import java.util.stream.Stream;
 
 public class RandomSupla extends EnhancedRandom {
-    public static final RandomSupla RANDOM_BEAN = new RandomSupla(1337);
+    public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
     @SuppressWarnings("FieldCanBeLocal") private final Logger logger = LoggerFactory.getLogger(RandomSupla.class);
     private final EnhancedRandom random;
 
