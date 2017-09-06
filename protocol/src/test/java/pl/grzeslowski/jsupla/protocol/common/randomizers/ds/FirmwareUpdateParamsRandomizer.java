@@ -2,23 +2,23 @@ package pl.grzeslowski.jsupla.protocol.common.randomizers.ds;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class FirmwareUpdateParamsRandomizer implements Randomizer<SuplaFirmwareUpdateParams> {
-    private final RandomBean randomBean;
+    private final RandomSupla randomSupla;
 
-    public FirmwareUpdateParamsRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public FirmwareUpdateParamsRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
     public SuplaFirmwareUpdateParams getRandomValue() {
         return new SuplaFirmwareUpdateParams(
-                                               randomBean.nextByte(),
-                                               randomBean.nextPositiveInt(),
-                                               randomBean.nextPositiveInt(),
-                                               randomBean.nextPositiveInt(),
-                                               randomBean.nextPositiveInt()
+                                                    randomSupla.nextByte(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt()
         );
     }
 }

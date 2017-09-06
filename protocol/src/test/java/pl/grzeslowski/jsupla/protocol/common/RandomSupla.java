@@ -66,13 +66,13 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRa
 
 import java.util.stream.Stream;
 
-public class RandomBean extends EnhancedRandom {
-    public static final RandomBean RANDOM_BEAN = new RandomBean(1337);
-    @SuppressWarnings("FieldCanBeLocal") private final Logger logger = LoggerFactory.getLogger(RandomBean.class);
+public class RandomSupla extends EnhancedRandom {
+    public static final RandomSupla RANDOM_BEAN = new RandomSupla(1337);
+    @SuppressWarnings("FieldCanBeLocal") private final Logger logger = LoggerFactory.getLogger(RandomSupla.class);
     private final EnhancedRandom random;
 
-    private RandomBean(final long seed) {
-        logger.info("Starting RandomBean with seed {}.", seed);
+    private RandomSupla(final long seed) {
+        logger.info("Starting RandomSupla with seed {}.", seed);
         random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
                          .seed(123L)
                          // cs

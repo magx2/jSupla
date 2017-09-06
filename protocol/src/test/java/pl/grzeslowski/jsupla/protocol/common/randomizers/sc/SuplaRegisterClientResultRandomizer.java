@@ -2,26 +2,26 @@ package pl.grzeslowski.jsupla.protocol.common.randomizers.sc;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaRegisterClientResultRandomizer implements Randomizer<SuplaRegisterClientResult> {
-    private final RandomBean randomBean;
+    private final RandomSupla randomSupla;
 
-    public SuplaRegisterClientResultRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public SuplaRegisterClientResultRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
     public SuplaRegisterClientResult getRandomValue() {
-        final short version = randomBean.nextUnsignedByte();
+        final short version = randomSupla.nextUnsignedByte();
         return new SuplaRegisterClientResult(
-                                                    randomBean.nextPositiveInt(),
-                                                    randomBean.nextPositiveInt(),
-                                                    randomBean.nextPositiveInt(),
-                                                    randomBean.nextPositiveInt(),
-                                                    randomBean.nextUnsignedByte(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextPositiveInt(),
+                                                    randomSupla.nextUnsignedByte(),
                                                     version,
-                                                    randomBean.nextUnsignedByte(version)
+                                                    randomSupla.nextUnsignedByte(version)
         );
     }
 }
