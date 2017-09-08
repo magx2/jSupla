@@ -261,6 +261,10 @@ public final class Preconditions {
         return value;
     }
 
+    public static int id(final int id) {
+        return min(id, 1);
+    }
+
     private Preconditions() {
 
     }

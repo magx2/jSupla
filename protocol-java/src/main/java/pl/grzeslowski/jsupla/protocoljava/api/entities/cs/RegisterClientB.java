@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.cs;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
@@ -16,7 +17,7 @@ public class RegisterClientB extends RegisterClient {
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
     private final String serverName;
 
-    public RegisterClientB(final int accessId,
+    public RegisterClientB(@Positive final int accessId,
                            final @NotNull @Size(min = 1, max = SUPLA_ACCESSID_PWD_MAXSIZE) char[] accessIdPassword,
                            final @NotNull @Size(min = 1, max = SUPLA_GUID_SIZE) String guid,
                            final @NotNull @Size(min = 1, max = SUPLA_CLIENT_NAME_MAXSIZE) String name,

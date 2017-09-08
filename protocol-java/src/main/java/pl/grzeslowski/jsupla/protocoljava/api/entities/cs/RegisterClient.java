@@ -1,10 +1,12 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.cs;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.Preconditions.id;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
@@ -13,7 +15,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @Deprecated
 public class RegisterClient implements ClientServerEntity {
-    private final int accessId;
+    @Positive private final int accessId;
     @NotNull
     @Size(min = 1, max = SUPLA_ACCESSID_PWD_MAXSIZE)
     private final char[] accessIdPassword;
@@ -27,12 +29,12 @@ public class RegisterClient implements ClientServerEntity {
     @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE)
     private final String softVer;
 
-    public RegisterClient(final int accessId,
+    public RegisterClient(@Positive final int accessId,
                           final @NotNull @Size(min = 1, max = SUPLA_ACCESSID_PWD_MAXSIZE) char[] accessIdPassword,
                           final @NotNull @Size(min = 1, max = SUPLA_GUID_SIZE) String guid,
                           final @NotNull @Size(min = 1, max = SUPLA_CLIENT_NAME_MAXSIZE) String name,
                           final @NotNull @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE) String softVer) {
-        this.accessId = accessId;
+        this.accessId = id(accessId);
         this.accessIdPassword = size(accessIdPassword, 1, SUPLA_ACCESSID_PWD_MAXSIZE);
         this.guid = size(requireNonNull(guid), 1, SUPLA_GUID_SIZE);
         this.name = size(requireNonNull(name), 1, SUPLA_CLIENT_NAME_MAXSIZE);
