@@ -3,3 +3,6 @@ sudo: false
 jdk:
   - oraclejdk8
 script: ./gradlew clean build test
+jdk:
+  - oraclejdk8
+  - oraclejdk9
