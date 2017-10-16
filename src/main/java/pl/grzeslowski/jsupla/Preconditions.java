@@ -26,6 +26,13 @@ public final class Preconditions {
         return value;
     }
 
+    public static byte min(byte value, byte min) {
+        if (value < min) {
+            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+        }
+        return value;
+    }
+
     public static short max(short value, short max) {
         if (value > max) {
             throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
@@ -45,6 +52,10 @@ public final class Preconditions {
             throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
         }
         return value;
+    }
+
+    public static short size(short value, short min, short max) {
+        return max(min(value, min), max);
     }
 
     public static int size(int value, int min, int max) {
@@ -250,6 +261,10 @@ public final class Preconditions {
         return size(unsignedByteValue, 0, 255);
     }
 
+    public static short unsignedByteSize(short unsignedByteValue) {
+        return size(unsignedByteValue, (short) 0, (short) 255);
+    }
+
     public static long unsignedIntSize(final long value) {
         return size(value, 0, 4294967295L);
     }
@@ -262,7 +277,27 @@ public final class Preconditions {
     }
 
     public static int id(final int id) {
-        return min(id, 1);
+        return positive(id);
+    }
+
+    public static int positive(final int positive) {
+        return min(positive, 1);
+    }
+
+    public static int positiveOrZero(final int positive) {
+        return min(positive, 0);
+    }
+
+    public static long positiveOrZero(final long positive) {
+        return min(positive, 0);
+    }
+
+    public static short positiveOrZero(final short positive) {
+        return min(positive, (short) 0);
+    }
+
+    public static byte positiveOrZero(final byte positive) {
+        return min(positive, (byte) 0);
     }
 
     private Preconditions() {

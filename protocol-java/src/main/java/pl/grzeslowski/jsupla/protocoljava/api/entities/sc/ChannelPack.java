@@ -8,17 +8,18 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
+import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 
 public class ChannelPack implements ServerClientEntity {
     @PositiveOrZero private final int totalLeft;
     @NotNull
-    @Size(min = 1)
+    @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE)
     private final List<Channel> channels;
 
     public ChannelPack(@PositiveOrZero final int totalLeft,
-                       final @NotNull @Size(min = 1) List<Channel> channels) {
-        this.totalLeft = sizeMin(totalLeft, 0);
+                       final @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<Channel> channels) {
+        this.totalLeft = min(totalLeft, 0);
         this.channels = unmodifiableList(new ArrayList<>(requireNonNull(channels)));
     }
 

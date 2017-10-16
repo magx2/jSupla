@@ -2,18 +2,21 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities;
 
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
 public class ChannelValue implements Entity {
-    @NotNull private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value;
-    private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue;
+    @Valid
+    @NotNull
+    private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value;
+    @Valid private final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue;
 
     @SuppressWarnings("WeakerAccess")
-    public ChannelValue(final @NotNull pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value,
-                        final pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue) {
+    public ChannelValue(final @Valid @NotNull pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue value,
+                        final @Valid pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue subValue) {
         this.value = requireNonNull(value);
         this.subValue = subValue;
     }

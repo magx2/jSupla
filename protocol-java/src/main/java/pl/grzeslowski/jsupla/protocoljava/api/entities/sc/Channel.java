@@ -4,10 +4,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
+import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
@@ -15,26 +17,28 @@ public class Channel implements ServerClientEntity {
     @Min(Byte.MIN_VALUE)
     @Max(Byte.MAX_VALUE)
     private final int eol;
+    @Positive
+    @Min(0) // FIXME remove after random beans are updated
     private final int id;
     private final int locationId;
     private final int function;
     private final boolean online;
     @NotNull
     @Valid
-    private final ChannelValue channelValue;
+    private final pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue channelValue;
     @NotNull
     @Size(min = 1, max = SUPLA_CHANNEL_CAPTION_MAXSIZE)
     private final String caption;
 
     public Channel(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int eol,
-                   final int id,
+                   final @Positive @Min(0) int id,
                    final int locationId,
                    final int function,
                    final boolean online,
-                   final @NotNull @Valid ChannelValue channelValue,
+                   final @NotNull @Valid pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue channelValue,
                    final @NotNull @Size(min = 1, max = SUPLA_CHANNEL_CAPTION_MAXSIZE) String caption) {
         this.eol = byteSize(eol);
-        this.id = id;
+        this.id = min(id, 1);
         this.locationId = locationId;
         this.function = function;
         this.online = online;
@@ -62,7 +66,7 @@ public class Channel implements ServerClientEntity {
         return online;
     }
 
-    public ChannelValue getChannelValue() {
+    public pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue getChannelValue() {
         return channelValue;
     }
 

@@ -4,25 +4,23 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 
-import static pl.grzeslowski.jsupla.Preconditions.byteSize;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class ChannelNewValueResult implements DeviceServerEntity {
+    @Min(0) // FIXME @random-bean problem
     @PositiveOrZero
     @Max(UNSIGNED_BYTE_MAX)
     private final int channelNumber;
     private final int senderId;
-    @Min(Byte.MIN_VALUE)
-    @Max(Byte.MAX_VALUE)
-    private final int success;
+    private final boolean success;
 
     public ChannelNewValueResult(@PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int channelNumber,
                                  final int senderId,
-                                 @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int success) {
+                                 final boolean success) {
         this.channelNumber = unsignedByteSize(channelNumber);
         this.senderId = senderId;
-        this.success = byteSize(success);
+        this.success = success;
     }
 
     public int getChannelNumber() {
@@ -33,7 +31,7 @@ public class ChannelNewValueResult implements DeviceServerEntity {
         return senderId;
     }
 
-    public int getSuccess() {
+    public boolean isSuccess() {
         return success;
     }
 

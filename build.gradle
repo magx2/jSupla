@@ -1,5 +1,6 @@
 ext {
 	slf4j_version = '1.7.25'
+	random_beans_version = '3.7.0'
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
@@ -52,7 +53,8 @@ allprojects {
 		testCompile 'junit:junit:4.12'
 		testCompile 'org.assertj:assertj-core:3.8.0'
 		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-		testCompile group: 'io.github.benas', name: 'random-beans', version: '3.7.0'
+		testCompile group: 'io.github.benas', name: 'random-beans', version: random_beans_version
+		testCompile group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
 	}
 }
 

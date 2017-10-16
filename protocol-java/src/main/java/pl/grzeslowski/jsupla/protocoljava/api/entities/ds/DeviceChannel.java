@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
@@ -13,13 +14,14 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE
 
 @Deprecated
 public class DeviceChannel implements Entity {
-    @Min(0)
+    @Min(0)  // FIXME @random-bean problem
+    @PositiveOrZero
     @Max(UNSIGNED_BYTE_MAX)
     private final int number;
     private final int type;
     @NotNull private final ChannelValue value;
 
-    public DeviceChannel(@Min(0) @Max(UNSIGNED_BYTE_MAX) final int number,
+    public DeviceChannel(@Min(0) @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int number,
                          final int type,
                          final @NotNull ChannelValue value) {
         this.number = unsignedByteSize(number);

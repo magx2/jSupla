@@ -2,12 +2,15 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sd;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.PositiveOrZero;
 
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
+import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 
 public class RegisterDeviceResult implements ServerDeviceEntity {
     private final int resultCode;
-    @Min(Byte.MIN_VALUE)
+    @PositiveOrZero
     @Max(Byte.MAX_VALUE)
     private final int activityTimeout;
     @Min(Byte.MIN_VALUE)
@@ -18,13 +21,14 @@ public class RegisterDeviceResult implements ServerDeviceEntity {
     private final int versionMin;
 
     public RegisterDeviceResult(final int resultCode,
-                                @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int activityTimeout,
+                                @PositiveOrZero @Max(Byte.MAX_VALUE) final int activityTimeout,
                                 @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int version,
                                 @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int versionMin) {
         this.resultCode = resultCode;
-        this.activityTimeout = byteSize(activityTimeout);
+        this.activityTimeout = positiveOrZero(byteSize(activityTimeout));
         this.version = byteSize(version);
         this.versionMin = byteSize(versionMin);
+        min(version, versionMin);
     }
 
     public int getResultCode() {

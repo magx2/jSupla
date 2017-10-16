@@ -6,16 +6,16 @@ import pl.grzeslowski.jsupla.server.entities.requests.ds.RegisterDeviceRequestB;
 
 import java.util.ArrayList;
 
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocoljava.impl.parsers.StringParserImpl.INSTANCE;
 
 public class DeviceRegisterRequestBParser implements Parser<RegisterDeviceRequestB, SuplaRegisterDeviceB> {
     @Override
     public RegisterDeviceRequestB parse(SuplaRegisterDeviceB proto) {
         int locationId = proto.locationId;
-        String locationPassword = INSTANCE.parseUtf8String(proto.locationPwd, 0, proto.locationPwd.length);
-        String guid = "TODO";// TODO INSTANCE.parseHexString(proto.guid);
-        String name = INSTANCE.parseUtf8String(proto.name, 0, proto.name.length);
-        String softVersion = INSTANCE.parseUtf8String(proto.softVer, 0, proto.softVer.length);
+        String locationPassword = INSTANCE.parse(proto.locationPwd);
+        String guid = INSTANCE.parseHexString(proto.guid);
+        String name = INSTANCE.parse(proto.name);
+        String softVersion = INSTANCE.parse(proto.softVer);
         DeviceChannelsB channels = new DeviceChannelsB(new ArrayList<>());// TODO
 
         return new RegisterDeviceRequestB(locationId, locationPassword, guid, name, softVersion, channels);

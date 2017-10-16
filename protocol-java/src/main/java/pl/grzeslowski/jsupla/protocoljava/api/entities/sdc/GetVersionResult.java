@@ -6,6 +6,7 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
@@ -25,8 +26,8 @@ public class GetVersionResult implements ServerDeviceClientEntity {
     public GetVersionResult(@PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int protoVersionMin,
                             @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int protoVersion,
                             final @NotNull @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE) String softVer) {
-        this.protoVersionMin = unsignedByteSize(protoVersionMin);
-        this.protoVersion = unsignedByteSize(protoVersion);
+        this.protoVersionMin = positiveOrZero(unsignedByteSize(protoVersionMin));
+        this.protoVersion = positiveOrZero(unsignedByteSize(protoVersion));
         this.softVer = size(softVer, 1, SUPLA_SOFTVER_MAXSIZE);
         max(protoVersionMin, protoVersion);
     }

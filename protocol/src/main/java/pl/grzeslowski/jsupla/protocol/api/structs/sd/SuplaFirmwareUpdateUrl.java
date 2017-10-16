@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.sd;
 
+import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import java.util.Arrays;
@@ -20,7 +21,7 @@ public final class SuplaFirmwareUpdateUrl implements ProtoWithSize {
     public SuplaFirmwareUpdateUrl(byte availableProtocols, byte[] host, int port, byte[] path) {
         this.availableProtocols = availableProtocols;
         this.host = checkArrayLength(host, SUPLA_URL_HOST_MAXSIZE);
-        this.port = port;
+        this.port = Preconditions.size(port, 0, 65_535);
         this.path = checkArrayLength(path, SUPLA_URL_PATH_MAXSIZE);
     }
 

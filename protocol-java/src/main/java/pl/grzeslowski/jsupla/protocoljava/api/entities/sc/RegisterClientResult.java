@@ -1,16 +1,22 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import static pl.grzeslowski.jsupla.Preconditions.id;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class RegisterClientResult implements ServerClientEntity {
     private final int resultCode;
+    @Positive
     private final int clientId;
+    @PositiveOrZero
     private final int locationCount;
+    @PositiveOrZero
     private final int channelCount;
     @PositiveOrZero
     @Max(UNSIGNED_BYTE_MAX)
@@ -23,16 +29,16 @@ public class RegisterClientResult implements ServerClientEntity {
     private final int versionMin;
 
     public RegisterClientResult(final int resultCode,
-                                final int clientId,
-                                final int locationCount,
-                                final int channelCount,
+                                final @Positive int clientId,
+                                final @PositiveOrZero int locationCount,
+                                final @PositiveOrZero int channelCount,
                                 @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int activityTimeout,
                                 @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int version,
                                 @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int versionMin) {
         this.resultCode = resultCode;
-        this.clientId = clientId;
-        this.locationCount = locationCount;
-        this.channelCount = channelCount;
+        this.clientId = id(clientId);
+        this.locationCount = positiveOrZero(locationCount);
+        this.channelCount = positiveOrZero(channelCount);
         this.activityTimeout = unsignedByteSize(activityTimeout);
         this.version = unsignedByteSize(version);
         this.versionMin = unsignedByteSize(versionMin);

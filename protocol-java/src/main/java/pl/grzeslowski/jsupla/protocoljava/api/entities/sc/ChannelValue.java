@@ -4,14 +4,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
+import static pl.grzeslowski.jsupla.Preconditions.min;
 
 public class ChannelValue implements ServerClientEntity {
     @Min(Byte.MIN_VALUE)
     @Max(Byte.MAX_VALUE)
     private final int eol;
+    @Positive
+    @Min(1) // FIXME change after update of random beans
     private final int id;
     private final boolean online;
     @NotNull
@@ -19,11 +23,11 @@ public class ChannelValue implements ServerClientEntity {
     private final pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue value;
 
     public ChannelValue(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int eol,
-                        final int id,
+                        final @Positive @Min(1) int id,
                         final boolean online,
                         final pl.grzeslowski.jsupla.protocoljava.api.entities.@NotNull @Valid ChannelValue value) {
         this.eol = byteSize(eol);
-        this.id = id;
+        this.id = min(id, 1);
         this.online = online;
         this.value = requireNonNull(value);
     }

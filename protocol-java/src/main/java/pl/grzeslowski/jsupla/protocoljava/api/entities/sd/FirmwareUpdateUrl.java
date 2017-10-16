@@ -20,6 +20,7 @@ public class FirmwareUpdateUrl implements Entity {
     @NotNull
     @Size(min = 1, max = SUPLA_URL_HOST_MAXSIZE)
     private final String host;
+    @Min(0) // FIXME random beans
     @PositiveOrZero
     @Max(65_535)
     private final int port;

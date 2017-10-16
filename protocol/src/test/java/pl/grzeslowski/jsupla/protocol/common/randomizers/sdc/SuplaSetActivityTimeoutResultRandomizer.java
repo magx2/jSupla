@@ -13,7 +13,7 @@ public class SuplaSetActivityTimeoutResultRandomizer implements Randomizer<Supla
 
     @Override
     public SuplaSetActivityTimeoutResult getRandomValue() {
-        final short max = randomSupla.nextUnsignedByte();
+        final short max = (short) (randomSupla.nextUnsignedByte() + 1);
         final short min = randomSupla.nextUnsignedByte(max);
         return new SuplaSetActivityTimeoutResult(
                                                         randomSupla.nextUnsignedByte(),

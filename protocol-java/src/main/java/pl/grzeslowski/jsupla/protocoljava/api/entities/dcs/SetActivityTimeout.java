@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.dcs;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 import static pl.grzeslowski.jsupla.Preconditions.min;
@@ -8,6 +9,7 @@ import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class SetActivityTimeout implements DeviceClientServerEntity {
+    @Min(0) // FIXME @random-bean problem
     @Positive
     @Max(UNSIGNED_BYTE_MAX)
     private final int activityTimeout;

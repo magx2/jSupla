@@ -7,6 +7,7 @@ import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
 
@@ -17,7 +18,10 @@ public class LocationPack implements ServerClientEntity {
     public LocationPack(@PositiveOrZero final int totalLeft,
                         final @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE) List<Location> locations) {
         this.totalLeft = sizeMin(totalLeft, 0);
-        this.locations = unmodifiableList(new ArrayList<>(requireNonNull(locations)));
+        this.locations = unmodifiableList(
+                new ArrayList<>(
+                                       requireNonNull(
+                                               size(locations, 1, SUPLA_LOCATIONPACK_MAXSIZE))));
     }
 
     public int getTotalLeft() {

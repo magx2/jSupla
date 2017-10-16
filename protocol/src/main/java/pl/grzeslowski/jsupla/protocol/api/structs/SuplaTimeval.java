@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
-import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaTimeval implements ProtoWithSize {
@@ -12,8 +12,8 @@ public final class SuplaTimeval implements ProtoWithSize {
     public final long milliseconds;
 
     public SuplaTimeval(final long seconds, final long milliseconds) {
-        this.seconds = min(seconds, 0);
-        this.milliseconds = min(milliseconds, 0);
+        this.seconds = positiveOrZero(seconds);
+        this.milliseconds = positiveOrZero(milliseconds);
     }
 
     @Override

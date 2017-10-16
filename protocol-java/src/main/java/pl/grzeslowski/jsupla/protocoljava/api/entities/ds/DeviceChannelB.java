@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
@@ -13,7 +14,7 @@ public class DeviceChannelB extends DeviceChannel {
     private final int function;
     private final int defaultValue;
 
-    public DeviceChannelB(@Min(0) @Max(UNSIGNED_BYTE_MAX) final int number,
+    public DeviceChannelB(@Min(0) @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int number,
                           final int type,
                           final @NotNull ChannelValue value,
                           final int function,

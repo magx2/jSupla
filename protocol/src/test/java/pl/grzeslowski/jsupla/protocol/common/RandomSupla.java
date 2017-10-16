@@ -103,7 +103,11 @@ public class RandomSupla extends EnhancedRandom {
                          // sd
                          .randomize(SuplaFirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
                          .randomize(SuplaFirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))
-                         .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueRandomizer(this))
+                         // @formatter:off
+                         .randomize(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class,
+                                 new pl.grzeslowski.jsupla.protocol.common.randomizers.sd
+                                             .SuplaChannelNewValueRandomizer(this))
+                         // @formatter:on
                          .randomize(SuplaRegisterDeviceResult.class, new SuplaRegisterDeviceResultRandomizer(this))
                          // sdc
                          .randomize(SuplaGetVersionResult.class, new SuplaGetVersionResultRandomizer(this))

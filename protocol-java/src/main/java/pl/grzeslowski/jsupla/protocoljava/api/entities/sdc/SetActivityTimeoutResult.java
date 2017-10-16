@@ -4,6 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.PositiveOrZero;
 
 import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
@@ -21,9 +22,9 @@ public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
     public SetActivityTimeoutResult(@PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int activityTimeout,
                                     @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int min,
                                     @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int max) {
-        this.activityTimeout = unsignedByteSize(activityTimeout);
-        this.min = unsignedByteSize(min);
-        this.max = unsignedByteSize(max);
+        this.activityTimeout = positiveOrZero(unsignedByteSize(activityTimeout));
+        this.min = positiveOrZero(unsignedByteSize(min));
+        this.max = positiveOrZero(unsignedByteSize(max));
         max(min, max);
     }
 

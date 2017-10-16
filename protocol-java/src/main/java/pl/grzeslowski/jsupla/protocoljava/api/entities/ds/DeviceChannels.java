@@ -3,24 +3,29 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableSet;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
 @Deprecated
 public class DeviceChannels implements Entity {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
-    private final Collection<DeviceChannel> channels;
+    private final Set<DeviceChannel> channels;
 
-    public DeviceChannels(final @Size(max = SUPLA_CHANNELMAXCOUNT) Collection<? extends DeviceChannel> channels) {
-        this.channels = unmodifiableList(new ArrayList<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
+    public DeviceChannels(final @Size(max = SUPLA_CHANNELMAXCOUNT) Set<? extends DeviceChannel> channels) {
+        this.channels = unmodifiableSet(new HashSet<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
     }
 
     public Collection<? extends DeviceChannel> getChannels() {
         return channels;
+    }
+
+    public int size() {
+        return channels.size();
     }
 
     @Override

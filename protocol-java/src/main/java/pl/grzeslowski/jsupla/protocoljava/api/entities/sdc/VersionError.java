@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sdc;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.PositiveOrZero;
 
+import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
@@ -18,6 +19,7 @@ public class VersionError implements ServerDeviceClientEntity {
                         @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int serverVersion) {
         this.serverVersionMin = unsignedByteSize(serverVersionMin);
         this.serverVersion = unsignedByteSize(serverVersion);
+        max(serverVersionMin, serverVersion);
     }
 
     public int getServerVersionMin() {

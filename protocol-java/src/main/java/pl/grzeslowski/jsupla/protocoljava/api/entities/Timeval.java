@@ -2,19 +2,31 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities;
 
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.PositiveOrZero;
+
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
+
 public class Timeval implements Entity {
+    @PositiveOrZero
+    @Min(0) // FIXME random beans
     private final long seconds;
+    @PositiveOrZero
+    @Min(0) // FIXME random beans
     private final long milliseconds;
 
-    public Timeval(final long seconds, final long milliseconds) {
-        this.seconds = seconds;
-        this.milliseconds = milliseconds;
+    public Timeval(final @PositiveOrZero long seconds,
+                   final @PositiveOrZero long milliseconds) {
+        this.seconds = positiveOrZero(seconds);
+        this.milliseconds = positiveOrZero(milliseconds);
     }
 
+    @PositiveOrZero
     public long getSeconds() {
         return seconds;
     }
 
+    @PositiveOrZero
     public long getMilliseconds() {
         return milliseconds;
     }

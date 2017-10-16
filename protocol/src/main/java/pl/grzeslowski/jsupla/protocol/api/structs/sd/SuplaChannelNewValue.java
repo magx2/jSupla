@@ -5,6 +5,9 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.id;
+import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.unsignedIntSize;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_CHANNEL_SET_VALUE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -23,9 +26,9 @@ public final class SuplaChannelNewValue implements ServerDevice {
     public final byte[] value;
 
     public SuplaChannelNewValue(int senderId, short channelNumber, long durationMs, byte[] value) {
-        this.senderId = senderId;
-        this.channelNumber = channelNumber;
-        this.durationMs = durationMs;
+        this.senderId = id(senderId);
+        this.channelNumber = unsignedByteSize(channelNumber);
+        this.durationMs = unsignedIntSize(durationMs);
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
