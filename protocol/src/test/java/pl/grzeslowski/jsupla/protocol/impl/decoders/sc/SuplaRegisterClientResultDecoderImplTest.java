@@ -4,15 +4,23 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
-import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
+@SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaRegisterClientResultDecoderImplTest extends DecoderTest<SuplaRegisterClientResultDecoderImpl> {
+public class SuplaRegisterClientResultDecoderImplTest extends ProperDecoderTest<SuplaRegisterClientResult> {
     @InjectMocks SuplaRegisterClientResultDecoderImpl decoder;
+    private int resultCode;
+    private int clientId;
+    private int locationCount;
+    private int chanelCount;
+    private short activityTimeout;
+    private short version;
+    private short versionMin;
 
     @Override
     public SuplaRegisterClientResultDecoderImpl getDecoder() {
@@ -20,36 +28,47 @@ public class SuplaRegisterClientResultDecoderImplTest extends DecoderTest<SuplaR
     }
 
     @Override
-    public void verifyParseEntity(final byte[] bytes, int offset) {
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(primitiveDecoder).parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(primitiveDecoder).parseUnsignedByte(bytes, offset);
-
-    }
-
-    @Override
     public int entitySize() {
         return SuplaRegisterClientResult.SIZE;
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
-    public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
-        new SuplaRegisterClientResultDecoderImpl(null);
+    protected byte[] givenParseEntity(int offset) {
+        final byte[] bytes = new byte[SuplaRegisterClientResult.SIZE + offset];
+
+        resultCode = RANDOM_SUPLA.nextInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(resultCode, bytes, offset);
+
+        clientId = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(clientId, bytes, offset);
+
+        locationCount = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(locationCount, bytes, offset);
+
+        chanelCount = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(chanelCount, bytes, offset);
+
+        activityTimeout = RANDOM_SUPLA.nextUnsignedByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(activityTimeout, bytes, offset);
+
+        version = RANDOM_SUPLA.nextUnsignedByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(version, bytes, offset);
+
+        versionMin = RANDOM_SUPLA.nextUnsignedByte(version);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(versionMin, bytes, offset);
+
+        return bytes;
+    }
+
+    @Override
+    protected void verifyParseEntity(final SuplaRegisterClientResult entity) {
+        assertThat(entity.resultCode).isEqualTo(resultCode);
+        assertThat(entity.clientId).isEqualTo(clientId);
+        assertThat(entity.locationCount).isEqualTo(locationCount);
+        assertThat(entity.channelCount).isEqualTo(chanelCount);
+        assertThat(entity.activityTimeout).isEqualTo(activityTimeout);
+        assertThat(entity.version).isEqualTo(version);
+        assertThat(entity.versionMin).isEqualTo(versionMin);
     }
 }
