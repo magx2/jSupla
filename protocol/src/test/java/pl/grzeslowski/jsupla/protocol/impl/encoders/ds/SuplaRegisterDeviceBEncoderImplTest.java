@@ -16,11 +16,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
@@ -81,11 +81,7 @@ public class SuplaRegisterDeviceBEncoderImplTest extends EncoderTest<SuplaRegist
         final short channelCount = 100;
         final SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[channelCount];
         for (int i = 0; i < channelCount; i++) {
-            channels[i] = new SuplaDeviceChannelB((short) (i * 5),
-                                                         i * 3,
-                                                         i * 9,
-                                                         i * 2,
-                                                         new byte[SUPLA_CHANNELVALUE_SIZE]);
+            channels[i] = RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class);
         }
         return new SuplaRegisterDeviceB(2,
                                                new byte[SUPLA_LOCATION_PWD_MAXSIZE],
