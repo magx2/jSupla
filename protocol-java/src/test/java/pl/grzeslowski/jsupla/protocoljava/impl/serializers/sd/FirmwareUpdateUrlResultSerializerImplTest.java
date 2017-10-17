@@ -13,7 +13,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
-public class FirmwareUpdateUrlResultSerializerImplTest extends SerializerTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
+public class FirmwareUpdateUrlResultSerializerImplTest
+        extends SerializerTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
     @InjectMocks FirmwareUpdateUrlResultSerializerImpl serializer;
     @Mock FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
 

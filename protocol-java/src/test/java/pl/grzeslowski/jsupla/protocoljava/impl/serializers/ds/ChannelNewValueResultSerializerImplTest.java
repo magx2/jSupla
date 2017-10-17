@@ -9,7 +9,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelNewValueResultSerializerImplTest extends SerializerTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
+public class ChannelNewValueResultSerializerImplTest extends
+        SerializerTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
     @InjectMocks ChannelNewValueResultSerializerImpl serializer;
 
     @Override

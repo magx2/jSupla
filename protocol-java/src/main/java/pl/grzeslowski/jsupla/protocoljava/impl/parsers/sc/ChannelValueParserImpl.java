@@ -11,8 +11,8 @@ import static java.util.Objects.requireNonNull;
 public class ChannelValueParserImpl implements ChannelValueParser {
     private final pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser channelValueParser;
 
-    public ChannelValueParserImpl(
-                                         final pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser channelValueParser) {
+    public ChannelValueParserImpl(final pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser
+                                          channelValueParser) {
         this.channelValueParser = requireNonNull(channelValueParser);
     }
 

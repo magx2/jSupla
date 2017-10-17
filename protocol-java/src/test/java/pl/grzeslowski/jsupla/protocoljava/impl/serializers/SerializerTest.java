@@ -53,9 +53,9 @@ public abstract class SerializerTest<EntityT extends Entity, SuplaProtoT extends
         BDDMockito.given(channelTypeEncoder.encode(any())).willReturn(new byte[SUPLA_CHANNELVALUE_SIZE]);
     }
 
-    abstract protected void then(EntityT entity, SuplaProtoT proto);
+    protected abstract void then(EntityT entity, SuplaProtoT proto);
 
-    abstract protected Serializer<EntityT, SuplaProtoT> serializer();
+    protected abstract Serializer<EntityT, SuplaProtoT> serializer();
 
-    abstract protected Class<EntityT> entityClass();
+    protected abstract Class<EntityT> entityClass();
 }

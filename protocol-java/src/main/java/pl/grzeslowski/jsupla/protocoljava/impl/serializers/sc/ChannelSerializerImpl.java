@@ -14,7 +14,8 @@ public class ChannelSerializerImpl implements ChannelSerializer {
     private final ChannelValueSerializer channelValueSerializer;
     private final StringSerializer stringSerializer;
 
-    public ChannelSerializerImpl(final ChannelValueSerializer channelValueSerializer, final StringSerializer stringSerializer) {
+    public ChannelSerializerImpl(final ChannelValueSerializer channelValueSerializer,
+                                 final StringSerializer stringSerializer) {
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
         this.stringSerializer = requireNonNull(stringSerializer);
     }

@@ -30,7 +30,8 @@ public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
     public SuplaRegisterDevice serialize(@NotNull final RegisterDevice entity) {
         return new SuplaRegisterDevice(
                                               entity.getLocationId(),
-                                              stringSerializer.serializePassword(entity.getLocationPassword(), SUPLA_LOCATION_PWD_MAXSIZE),
+                                              stringSerializer.serializePassword(entity.getLocationPassword(),
+                                                      SUPLA_LOCATION_PWD_MAXSIZE),
                                               stringSerializer.serialize(entity.getGuid(), SUPLA_GUID_SIZE),
                                               stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
                                               stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),

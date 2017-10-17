@@ -9,7 +9,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class SetActivityTimeoutResultSerializerImplTest extends SerializerTest<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
+public class SetActivityTimeoutResultSerializerImplTest
+        extends SerializerTest<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
     @InjectMocks SetActivityTimeoutResultSerializerImpl serializer;
 
     @Override

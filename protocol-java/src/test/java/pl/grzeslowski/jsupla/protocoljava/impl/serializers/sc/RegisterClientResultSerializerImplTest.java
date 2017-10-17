@@ -9,7 +9,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class RegisterClientResultSerializerImplTest extends SerializerTest<RegisterClientResult, SuplaRegisterClientResult> {
+public class RegisterClientResultSerializerImplTest
+        extends SerializerTest<RegisterClientResult, SuplaRegisterClientResult> {
     @InjectMocks RegisterClientResultSerializerImpl serializer;
 
     @Override

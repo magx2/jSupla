@@ -15,7 +15,8 @@ import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
-public class PingServerResultClientSerializerImplTest extends SerializerTest<PingServerResultClient, SuplaPingServerResultClient> {
+public class PingServerResultClientSerializerImplTest
+        extends SerializerTest<PingServerResultClient, SuplaPingServerResultClient> {
     @InjectMocks PingServerResultClientSerializerImpl serializer;
     @Mock TimevalSerializer timevalSerializer;
 
