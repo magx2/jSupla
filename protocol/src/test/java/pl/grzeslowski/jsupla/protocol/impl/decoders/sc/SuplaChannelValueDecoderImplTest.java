@@ -1,55 +1,36 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaChannelValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaChannelValueDecoderImplTest extends DecoderTest<SuplaChannelValueDecoderImpl> {
+public class SuplaChannelValueDecoderImplTest extends ProperDecoderTest<SuplaChannelValue> {
     @InjectMocks SuplaChannelValueDecoderImpl decoder;
     @Mock SuplaChannelValueDecoder channelValueDecoder;
+    private pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue value;
+    private byte eol;
+    private int id;
+    private byte online;
 
     @Override
     public SuplaChannelValueDecoderImpl getDecoder() {
         return decoder;
     }
 
-    @Override
-    public void givenParseEntity(final byte[] bytes, final int offset) {
-        // @formatter:off
-        given(channelValueDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue(
-                                                                                 new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                                 new byte[SUPLA_CHANNELVALUE_SIZE]));
-        // @formatter:on
-    }
-
-    @Override
-    public void verifyParseEntity(final byte[] bytes, int offset) {
-        verify(primitiveDecoder).parseByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(channelValueDecoder).decode(bytes, offset);
-    }
 
     @Override
     public int entitySize() {
@@ -57,11 +38,35 @@ public class SuplaChannelValueDecoderImplTest extends DecoderTest<SuplaChannelVa
     }
 
     @Override
-    public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
-        new SuplaChannelValueDecoderImpl(null, channelValueDecoder);
+    protected byte[] givenParseEntity(int offset) {
+        final byte[] bytes = new byte[SuplaChannelValue.SIZE + offset];
+
+        eol = RANDOM_SUPLA.nextByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeByte(eol, bytes, offset);
+
+        id = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(id, bytes, offset);
+
+        online = RANDOM_SUPLA.nextBoolByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeByte(online, bytes, offset);
+
+        value = RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class);
+        given(channelValueDecoder.decode(any(), eq(offset)))
+                .willReturn(value);
+
+        return bytes;
     }
 
+    @Override
+    protected void verifyParseEntity(final SuplaChannelValue entity) {
+        assertThat(entity.eol).isEqualTo(eol);
+        assertThat(entity.id).isEqualTo(id);
+        assertThat(entity.online).isEqualTo(online);
+        assertThat(entity.value).isEqualTo(value);
+    }
+
+    @Test(expected = NullPointerException.class)
     public void shouldThrowNpeWhenChannelValueDecoderIsNull() throws Exception {
-        new SuplaChannelValueDecoderImpl(primitiveDecoder, null);
+        new SuplaChannelValueDecoderImpl(null);
     }
 }
