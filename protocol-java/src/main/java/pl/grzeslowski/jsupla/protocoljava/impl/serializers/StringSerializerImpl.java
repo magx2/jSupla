@@ -22,21 +22,17 @@ public class StringSerializerImpl implements StringSerializer {
         return bytes;
     }
 
-    private byte[] getBytesFromString(final String string) {
-        return string.getBytes(UTF_8);
-    }
-
     @Override
     public byte[] serialize(final String string) {
         return serialize(string, getBytesFromString(string).length);
     }
 
+    private byte[] getBytesFromString(final String string) {
+        return string.getBytes(UTF_8);
+    }
+
     /**
      * Took from <a href="https://stackoverflow.com/a/9670279/1819402">Stack Overflow</a>.
-     *
-     * @param password
-     * @param length
-     * @return
      */
     @Override
     public byte[] serializePassword(final char[] password, final int length) {
