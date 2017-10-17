@@ -5,19 +5,23 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import java.util.Arrays;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
+
+@SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaLocationDecoderImplTest extends DecoderTest<SuplaLocationDecoderImpl> {
-    private static final long CAPTION_SIZE = 3;
+public class SuplaLocationDecoderImplTest extends ProperDecoderTest<SuplaLocation> {
     @InjectMocks SuplaLocationDecoderImpl decoder;
+    private byte eol;
+    private int id;
+    private byte[] caption;
 
     @Override
     public SuplaLocationDecoderImpl getDecoder() {
@@ -25,32 +29,33 @@ public class SuplaLocationDecoderImplTest extends DecoderTest<SuplaLocationDecod
     }
 
     @Override
-    public void givenParseEntity(final byte[] bytes, final int offset) {
-        given(primitiveDecoder.parseUnsignedInt(eq(bytes), anyInt())).willReturn(CAPTION_SIZE);
+    protected byte[] givenParseEntity(int offset) {
+        caption = RANDOM_SUPLA.nextString(SUPLA_LOCATION_CAPTION_MAXSIZE).getBytes(UTF_8);
+        final byte[] bytes = new byte[offset + entitySize() + caption.length];
+
+        eol = RANDOM_SUPLA.nextByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeByte(eol, bytes, offset);
+
+        id = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(id, bytes, offset);
+
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedInteger(caption.length, bytes, offset);
+        PrimitiveEncoderImpl.INSTANCE.writeBytes(caption, bytes, offset);
+
+        return bytes;
     }
 
     @Override
-    public void verifyParseEntity(final byte[] bytes, int offset) {
-        verify(primitiveDecoder).parseByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseUnsignedInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + (int) CAPTION_SIZE);
+    protected void verifyParseEntity(final SuplaLocation entity) {
+        assertThat(entity.eol).isEqualTo(eol);
+        assertThat(entity.id).isEqualTo(id);
+        assertThat(entity.captionSize).isEqualTo(caption.length);
+        assertThat(entity.caption).isEqualTo(caption);
     }
 
     @Override
     public int entitySize() {
         return SuplaLocation.MIN_SIZE;
-    }
-
-    @Override
-    public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
-        new SuplaLocationDecoderImpl(null);
     }
 
     // @formatter:off
@@ -61,11 +66,10 @@ public class SuplaLocationDecoderImplTest extends DecoderTest<SuplaLocationDecod
 
         // given
         final int offset = 5;
-        final byte[] bytes = new byte[offset + entitySize() + (int) CAPTION_SIZE - 1];
-
-        given(primitiveDecoder.parseUnsignedInt(eq(bytes), anyInt())).willReturn(CAPTION_SIZE);
+        final byte[] bytes = givenParseEntity(offset);
+        final byte[] tooSmallByte = Arrays.copyOfRange(bytes, 0, bytes.length - 1);
 
         // when
-        decoder.decode(bytes, offset);
+        decoder.decode(tooSmallByte, offset);
     }
 }

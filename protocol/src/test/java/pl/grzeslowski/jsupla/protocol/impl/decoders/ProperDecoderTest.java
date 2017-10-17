@@ -7,8 +7,6 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 public abstract class ProperDecoderTest<T extends ProtoWithSize> {
-    private static final int RANDOM_INT = 123;
-
     public abstract ProtoWithSizeDecoder<T> getDecoder();
 
     public abstract int entitySize();
@@ -18,8 +16,7 @@ public abstract class ProperDecoderTest<T extends ProtoWithSize> {
 
         // given
         int offset = RANDOM_SUPLA.nextInt(100);
-        byte[] bytes = new byte[entitySize() + offset + RANDOM_INT];
-        givenParseEntity(bytes, offset);
+        byte[] bytes = givenParseEntity(offset);
 
         // when
         final T entity = getDecoder().decode(bytes, offset);
@@ -28,7 +25,7 @@ public abstract class ProperDecoderTest<T extends ProtoWithSize> {
         verifyParseEntity(entity);
     }
 
-    protected abstract void givenParseEntity(final byte[] bytes, final int offset);
+    protected abstract byte[] givenParseEntity(final int offset);
 
     protected abstract void verifyParseEntity(final T entity);
 
