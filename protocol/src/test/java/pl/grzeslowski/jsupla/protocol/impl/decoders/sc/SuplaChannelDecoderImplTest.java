@@ -81,13 +81,8 @@ public class SuplaChannelDecoderImplTest extends ProperDecoderTest<SuplaChannel>
         return SuplaChannel.MIN_SIZE;
     }
 
-    @Override
-    public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
-        new SuplaChannelDecoderImpl(null, channelValueDecoder);
-    }
-
     @Test(expected = NullPointerException.class)
     public void shouldThrowNpeWhenChannelValueDecoderIsNull() throws Exception {
-        new SuplaChannelDecoderImpl(primitiveDecoder, null);
+        new SuplaChannelDecoderImpl(null);
     }
 }

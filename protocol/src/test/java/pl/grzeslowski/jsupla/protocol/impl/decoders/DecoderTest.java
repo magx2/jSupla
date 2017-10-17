@@ -12,6 +12,8 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
+ * This is old test for Decoders. The old way of testing was checking if primitive decoder was invoked.
+ *
  * @deprecated use {@link ProperDecoderTest} that test entity that was returned
  */
 @Deprecated
