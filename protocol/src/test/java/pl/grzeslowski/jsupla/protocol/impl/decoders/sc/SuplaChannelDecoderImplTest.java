@@ -11,10 +11,12 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
+import java.util.Arrays;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
@@ -38,7 +40,10 @@ public class SuplaChannelDecoderImplTest extends ProperDecoderTest<SuplaChannel>
     }
 
     @Override
-    public void givenParseEntity(final byte[] bytes, int offset) {
+    public byte[] givenParseEntity(int offset) {
+        caption = RANDOM_SUPLA.nextString(SUPLA_CHANNEL_CAPTION_MAXSIZE).getBytes(UTF_8);
+        final byte[] bytes = new byte[offset + entitySize() + caption.length];
+
         eol = RANDOM_SUPLA.nextByte();
         offset += PrimitiveEncoderImpl.INSTANCE.writeByte(eol, bytes, offset);
 
@@ -55,13 +60,14 @@ public class SuplaChannelDecoderImplTest extends ProperDecoderTest<SuplaChannel>
         offset += PrimitiveEncoderImpl.INSTANCE.writeByte(online, bytes, offset);
 
         value = RANDOM_SUPLA.nextObject(SuplaChannelValue.class);
-        given(channelValueDecoder.decode(eq(bytes), anyInt())).willReturn(value);
+        given(channelValueDecoder.decode(any(), eq(offset))).willReturn(value);
         offset += SuplaChannelValue.SIZE;
 
-        caption = RANDOM_SUPLA.nextString(SUPLA_CHANNEL_CAPTION_MAXSIZE).getBytes(UTF_8);
         offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedInteger(caption.length, bytes, offset);
 
         PrimitiveEncoderImpl.INSTANCE.writeBytes(caption, bytes, offset);
+
+        return bytes;
     }
 
     @Override
@@ -84,5 +90,20 @@ public class SuplaChannelDecoderImplTest extends ProperDecoderTest<SuplaChannel>
     @Test(expected = NullPointerException.class)
     public void shouldThrowNpeWhenChannelValueDecoderIsNull() throws Exception {
         new SuplaChannelDecoderImpl(null);
+    }
+
+    // @formatter:off
+    @Test(expected = IllegalArgumentException.class)
+    public void
+        shouldShouldThrowIllegalArgumentExceptionIfBytesLengthIsBiggerThanMinSizeButSmallerThanMinSizeWIthCaption() {
+        // @formatter:on
+
+        // given
+        final int offset = 5;
+        final byte[] bytes = givenParseEntity(offset);
+        final byte[] tooSmallByte = Arrays.copyOfRange(bytes, 0, bytes.length - 1);
+
+        // when
+        decoder.decode(tooSmallByte, offset);
     }
 }

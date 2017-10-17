@@ -43,6 +43,7 @@ public final class SuplaChannelDecoderImpl implements SuplaChannelDecoder {
         final long captionSize = INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
+        Preconditions.sizeMin(bytes, offset + (int) captionSize);
         final byte[] caption = INSTANCE.copyOfRange(bytes, offset, offset + (int) captionSize);
 
         return new SuplaChannel(eol, id, locationId, func, online, value, captionSize, caption);
