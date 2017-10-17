@@ -179,12 +179,20 @@ public class RandomSupla extends EnhancedRandom {
         return Math.abs(nextInt(bound));
     }
 
-    public String nextString(final int maxLenght) {
+    public String nextString(final int maxLength) {
         while (true) {
             final String string = random.nextObject(String.class);
-            if (string.length() >= 1 && string.length() <= maxLenght) {
+            if (string.length() >= 1 && string.length() <= maxLength) {
                 return string;
             }
         }
+    }
+
+    public byte[] nextBytesWithSize(final int size) {
+        final byte[] bytes = new byte[size];
+        for (int i = 0; i < size; i++) {
+            bytes[i] = nextByte();
+        }
+        return bytes;
     }
 }
