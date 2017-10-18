@@ -6,8 +6,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 
-import static com.sun.javafx.fxml.expression.Expression.equalTo;
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.Preconditions.equlsTo;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
@@ -49,7 +49,7 @@ public class RegisterDevice implements DeviceServerEntity {
         this.softVer = Preconditions.size(softVer, 1, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = Preconditions.unsignedByteSize(channelCount);
         this.channels = requireNonNull(channels);
-        equalTo(channels.getChannels().size(), channelCount);
+        equlsTo(channels.getChannels().size(), channelCount);
     }
 
     public int getLocationId() {
