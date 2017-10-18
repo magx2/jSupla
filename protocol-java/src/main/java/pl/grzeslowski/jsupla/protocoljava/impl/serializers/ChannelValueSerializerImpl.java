@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channeltypes.ChannelTypeEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer;
 

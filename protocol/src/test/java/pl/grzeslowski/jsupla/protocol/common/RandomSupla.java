@@ -83,7 +83,7 @@ public class RandomSupla extends EnhancedRandom {
                          // dcs
                          .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
                          .randomize(SuplaSetActivityTimeout.class, new SuplaSetActivityTimeoutRandomizer(this))
-                         // ds
+                         // decoders
                          .randomize(SuplaFirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
                          .randomize(SuplaChannelNewValueResult.class, new SuplaChannelNewValueResultRandomizer(this))
                          .randomize(SuplaDeviceChannelB.class, new SuplaDeviceChannelBRandomizer(this))

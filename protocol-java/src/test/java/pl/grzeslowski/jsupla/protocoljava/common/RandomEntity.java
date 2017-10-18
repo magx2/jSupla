@@ -5,7 +5,7 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
@@ -17,7 +17,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.GetVersionResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.VersionError;
 
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class RandomEntity extends EnhancedRandom {
@@ -31,8 +30,7 @@ public class RandomEntity extends EnhancedRandom {
         random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
                          .stringLengthRange(5, 255)
                          .seed(seed)
-                         .randomize(ChannelValue.class, (Supplier<ChannelValue>) () -> new ChannelValue() {
-                         })
+                         .randomize(ChannelValue.class, new ChannelValueRandomizer(this))
                          .randomize(RegisterDevice.class, new RegisterDeviceRandomizer(this))
                          .randomize(RegisterDeviceB.class, new RegisterDeviceBRandomizer(this))
                          .randomize(RegisterDeviceC.class, new RegisterDeviceCRandomizer(this))

@@ -1,36 +1,44 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs;
 
 import org.junit.Test;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
-import pl.grzeslowski.jsupla.protocoljava.api.channeltypes.ds.ChannelTypeDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueBParserImplTest extends ParserTest<ChannelNewValueB, SuplaChannelNewValueB> {
     @InjectMocks ChannelNewValueBParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
+    @Mock SuplaChannelNewValueBToChannelType suplaChannelNewValueBToChannelType;
+
+    final ChannelValue channelValue = RANDOM_ENTITY.nextObject(ChannelValue.class);
+    final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);
 
     @Override
     protected SuplaChannelNewValueB given() {
         final SuplaChannelNewValueB supla = super.given();
-        when(channelTypeDecoder.decode(supla)).thenReturn(new ChannelValue() {
-        });
+
+        BDDMockito.given(channelTypeDecoder.decode(channelType, supla.value)).willReturn(channelValue);
+        BDDMockito.given(suplaChannelNewValueBToChannelType.toChannelType(supla)).willReturn(channelType);
+
         return supla;
     }
 
     @Override
     protected void then(final ChannelNewValueB entity, final SuplaChannelNewValueB supla) {
         assertThat(entity.getChannelId()).isEqualTo(supla.channelId);
-        verify(channelTypeDecoder).decode(supla);
+        assertThat(entity.getValue()).isEqualTo(channelValue);
     }
 
     @Override
@@ -45,6 +53,11 @@ public class ChannelNewValueBParserImplTest extends ParserTest<ChannelNewValueB,
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionOnNullChannelTypeDecoder() {
-        new ChannelNewValueBParserImpl(null);
+        new ChannelNewValueBParserImpl(null, suplaChannelNewValueBToChannelType);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionOnNullSuplaChannelNewValueBToChannelType() {
+        new ChannelNewValueBParserImpl(channelTypeDecoder, null);
     }
 }

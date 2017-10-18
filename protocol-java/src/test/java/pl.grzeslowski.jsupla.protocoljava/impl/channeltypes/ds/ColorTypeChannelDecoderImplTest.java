@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.RgbValue;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channeltypes.ds.ColorTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.RgbValue;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ColorTypeChannelDecoderImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;

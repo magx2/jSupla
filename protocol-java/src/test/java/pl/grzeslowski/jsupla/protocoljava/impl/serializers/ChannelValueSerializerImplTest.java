@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channeltypes.ChannelTypeEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 

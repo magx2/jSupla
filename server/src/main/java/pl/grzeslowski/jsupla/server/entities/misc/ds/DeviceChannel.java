@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.server.entities.misc.ds;
 
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.server.entities.Entity;
 
 import javax.validation.constraints.Max;

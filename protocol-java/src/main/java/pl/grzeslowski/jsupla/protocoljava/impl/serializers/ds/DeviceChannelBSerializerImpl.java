@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocoljava.api.channeltypes.ChannelTypeEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelB;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelBSerializer;
 

@@ -4,14 +4,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.OnOff;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channeltypes.ds.RelayTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.RelayTypeChannelDecoderImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
-import static pl.grzeslowski.jsupla.protocoljava.api.channelvalues.OnOff.OFF;
-import static pl.grzeslowski.jsupla.protocoljava.api.channelvalues.OnOff.ON;
+import static pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff.OFF;
+import static pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff.ON;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)

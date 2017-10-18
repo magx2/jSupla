@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocoljava.api.decoders.channelvalues;
 
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.PercentValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.PercentValue;
 
 public interface PercentValueDecoder extends ChannelValueDecoder<PercentValue> {
 }

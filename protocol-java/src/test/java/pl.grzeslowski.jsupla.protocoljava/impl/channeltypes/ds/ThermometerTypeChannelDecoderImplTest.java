@@ -4,10 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.TemperatureAndHumidityValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.TemperatureValue;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channeltypes.ds.ThermometerTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureAndHumidityValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureValue;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ThermometerTypeChannelDecoderImpl;
 
 import java.math.BigDecimal;
 

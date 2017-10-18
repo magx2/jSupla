@@ -5,25 +5,33 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocoljava.api.channeltypes.ds.ChannelTypeDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channelvalues.ChannelValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelBToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelB;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.verify;
+import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
 public class DeviceChannelBParserImplTest extends ParserTest<DeviceChannelB, SuplaDeviceChannelB> {
     @InjectMocks DeviceChannelBParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
+    @Mock SuplaDeviceChannelBToChannelType suplaDeviceChannelBToChannelType;
+
+    final ChannelValue channelValue = RANDOM_ENTITY.nextObject(ChannelValue.class);
+    final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);
 
     @Override
     protected SuplaDeviceChannelB given() {
         final SuplaDeviceChannelB supla = super.given();
-        BDDMockito.given(channelTypeDecoder.decode(supla)).willReturn(new ChannelValue() {
-        });
+
+        BDDMockito.given(channelTypeDecoder.decode(channelType, supla.value)).willReturn(channelValue);
+        BDDMockito.given(suplaDeviceChannelBToChannelType.toChannelType(supla)).willReturn(channelType);
+
         return supla;
     }
 
@@ -33,7 +41,7 @@ public class DeviceChannelBParserImplTest extends ParserTest<DeviceChannelB, Sup
         assertThat(entity.getType()).isEqualTo(supla.type);
         assertThat(entity.getFunction()).isEqualTo(supla.funcList);
         assertThat(entity.getDefaultValue()).isEqualTo(supla.defaultValue);
-        verify(channelTypeDecoder).decode(supla);
+        assertThat(entity.getValue()).isEqualTo(channelValue);
     }
 
     @Override
@@ -48,6 +56,11 @@ public class DeviceChannelBParserImplTest extends ParserTest<DeviceChannelB, Sup
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenChannelTypeDecoderIsNull() {
-        new DeviceChannelBParserImpl(null);
+        new DeviceChannelBParserImpl(null, suplaDeviceChannelBToChannelType);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldThrowNullPointerExceptionWhenSuplaDeviceChannelBToChannelTypeIsNull() {
+        new DeviceChannelBParserImpl(channelTypeDecoder, null);
     }
 }
