@@ -5,6 +5,7 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannel;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
@@ -32,6 +33,7 @@ public class RegisterDeviceParserImplTest extends ParserTest<RegisterDevice, Sup
         BDDMockito.given(stringParser.parse(any())).willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         BDDMockito.given(stringParser.parsePassword(any()))
                 .willReturn(Arrays.copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
+        BDDMockito.given(deviceChannelParser.parse(any())).willAnswer(__ -> RANDOM_ENTITY.nextObject(DeviceChannel.class));
         return supla;
     }
 
