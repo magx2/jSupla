@@ -32,14 +32,17 @@ public class ChannelValueParserImpl implements ChannelValueParser {
         );
     }
 
+    // @formatter:off
     @Valid
-    private pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue decodeSubValue(
-                                                                                                      final @NotNull SuplaChannelValue proto,
-                                                                                                      final ChannelType channelTypeSubValue) {
+    private pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue
+        decodeSubValue(
+                          final @NotNull SuplaChannelValue proto,
+                          final ChannelType channelTypeSubValue) {
         if (channelTypeSubValue != null) {
             return channelTypeDecoder.decode(channelTypeSubValue, proto.subValue);
         } else {
             return null;
         }
     }
+    // @formatter:on
 }
