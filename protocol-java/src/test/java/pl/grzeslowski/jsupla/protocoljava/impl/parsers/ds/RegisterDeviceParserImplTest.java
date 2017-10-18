@@ -33,7 +33,8 @@ public class RegisterDeviceParserImplTest extends ParserTest<RegisterDevice, Sup
         BDDMockito.given(stringParser.parse(any())).willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         BDDMockito.given(stringParser.parsePassword(any()))
                 .willReturn(Arrays.copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
-        BDDMockito.given(deviceChannelParser.parse(any())).willAnswer(__ -> RANDOM_ENTITY.nextObject(DeviceChannel.class));
+        BDDMockito.given(deviceChannelParser.parse(any()))
+                .willAnswer(__ -> RANDOM_ENTITY.nextObject(DeviceChannel.class));
         return supla;
     }
 
