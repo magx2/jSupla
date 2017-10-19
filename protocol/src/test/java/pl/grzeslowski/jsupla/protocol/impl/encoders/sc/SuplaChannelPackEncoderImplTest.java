@@ -76,7 +76,7 @@ public class SuplaChannelPackEncoderImplTest extends EncoderTest<SuplaChannelPac
             final byte[] caption = new byte[captionSize];
             channels[i] = new SuplaChannel(
                                                   (byte) 1,
-                                                  i * 2,
+                                                  i * 2 + 1,
                                                   i * 3,
                                                   i * 4,
                                                   (byte) 2,

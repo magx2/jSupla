@@ -1,21 +1,21 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers;
 
 import io.github.benas.randombeans.api.Randomizer;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
-public class TimevalRandomizer implements Randomizer<Timeval> {
-    private final RandomBean randomBean;
+public class TimevalRandomizer implements Randomizer<SuplaTimeval> {
+    private final RandomSupla randomSupla;
 
-    public TimevalRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public TimevalRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
-    public Timeval getRandomValue() {
-        return new Timeval(
-                                  randomBean.nextPositiveInt(),
-                                  randomBean.nextPositiveInt()
+    public SuplaTimeval getRandomValue() {
+        return new SuplaTimeval(
+                                       randomSupla.nextPositiveInt(),
+                                       randomSupla.nextPositiveInt()
         );
     }
 }

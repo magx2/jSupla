@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
@@ -21,7 +22,7 @@ public final class SuplaDeviceChannel implements ProtoWithSize {
     public final byte[] value;
 
     public SuplaDeviceChannel(short number, int type, byte[] value) {
-        this.number = number;
+        this.number = unsignedByteSize(number);
         this.type = type;
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }

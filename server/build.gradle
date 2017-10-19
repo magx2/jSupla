@@ -8,7 +8,7 @@ ext {
 }
 
 dependencies {
-    compile rootProject.project("protocol")
+    compile rootProject.project("protocol-java")
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile "io.projectreactor:reactor-core:$reactorVersion"
 

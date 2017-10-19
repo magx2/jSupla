@@ -8,22 +8,31 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaChannelValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
+import java.util.Arrays;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
-public class SuplaChannelDecoderImplTest extends DecoderTest<SuplaChannelDecoderImpl> {
-    public static final long CAPTION_SIZE = 7L;
+public class SuplaChannelDecoderImplTest extends ProperDecoderTest<SuplaChannel> {
     @InjectMocks SuplaChannelDecoderImpl decoder;
     @Mock SuplaChannelValueDecoder channelValueDecoder;
+    private byte eol;
+    private int id;
+    private int locationId;
+    private int func;
+    private byte online;
+    private byte[] caption;
+    private SuplaChannelValue value;
 
     @Override
     public SuplaChannelDecoderImpl getDecoder() {
@@ -31,36 +40,46 @@ public class SuplaChannelDecoderImplTest extends DecoderTest<SuplaChannelDecoder
     }
 
     @Override
-    public void givenParseEntity(final byte[] bytes, final int offset) {
-        given(primitiveDecoder.parseUnsignedInt(eq(bytes), anyInt())).willReturn(CAPTION_SIZE);
-        given(channelValueDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaChannelValue(new byte[SUPLA_CHANNELVALUE_SIZE], new byte[SUPLA_CHANNELVALUE_SIZE]));
+    public byte[] givenParseEntity(int offset) {
+        caption = RANDOM_SUPLA.nextString(SUPLA_CHANNEL_CAPTION_MAXSIZE).getBytes(UTF_8);
+        final byte[] bytes = new byte[offset + entitySize() + caption.length];
+
+        eol = RANDOM_SUPLA.nextByte();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeByte(eol, bytes, offset);
+
+        id = RANDOM_SUPLA.nextPositiveInt();
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(id, bytes, offset);
+
+        locationId = RANDOM_SUPLA.nextInt(1000);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(locationId, bytes, offset);
+
+        func = RANDOM_SUPLA.nextInt(1000);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(func, bytes, offset);
+
+        online = (byte) (RANDOM_SUPLA.nextBoolean() ? 1 : 0);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeByte(online, bytes, offset);
+
+        value = RANDOM_SUPLA.nextObject(SuplaChannelValue.class);
+        given(channelValueDecoder.decode(any(), eq(offset))).willReturn(value);
+        offset += SuplaChannelValue.SIZE;
+
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedInteger(caption.length, bytes, offset);
+
+        PrimitiveEncoderImpl.INSTANCE.writeBytes(caption, bytes, offset);
+
+        return bytes;
     }
 
     @Override
-    public void verifyParseEntity(final byte[] bytes, int offset) {
-        verify(primitiveDecoder).parseByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).parseByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        verify(channelValueDecoder).decode(bytes, offset);
-        offset += SuplaChannelValue.SIZE;
-
-        verify(primitiveDecoder).parseUnsignedInt(bytes, offset);
-        offset += INT_SIZE;
-
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + (int) CAPTION_SIZE);
+    protected void verifyParseEntity(final SuplaChannel entity) {
+        assertThat(entity.eol).isEqualTo(eol);
+        assertThat(entity.id).isEqualTo(id);
+        assertThat(entity.locationId).isEqualTo(locationId);
+        assertThat(entity.func).isEqualTo(func);
+        assertThat(entity.online).isEqualTo(online);
+        assertThat(entity.value).isEqualTo(value);
+        assertThat(entity.captionSize).isEqualTo(caption.length);
+        assertThat(entity.caption).isEqualTo(caption);
     }
 
     @Override
@@ -68,13 +87,23 @@ public class SuplaChannelDecoderImplTest extends DecoderTest<SuplaChannelDecoder
         return SuplaChannel.MIN_SIZE;
     }
 
-    @Override
-    public void shouldThrowNpeWhenPrimitiveParserIsNull() throws Exception {
-        new SuplaChannelDecoderImpl(null, channelValueDecoder);
-    }
-
     @Test(expected = NullPointerException.class)
     public void shouldThrowNpeWhenChannelValueDecoderIsNull() throws Exception {
-        new SuplaChannelDecoderImpl(primitiveDecoder, null);
+        new SuplaChannelDecoderImpl(null);
+    }
+
+    // @formatter:off
+    @Test(expected = IllegalArgumentException.class)
+    public void
+        shouldShouldThrowIllegalArgumentExceptionIfBytesLengthIsBiggerThanMinSizeButSmallerThanMinSizeWIthCaption() {
+        // @formatter:on
+
+        // given
+        final int offset = 5;
+        final byte[] bytes = givenParseEntity(offset);
+        final byte[] tooSmallByte = Arrays.copyOfRange(bytes, 0, bytes.length - 1);
+
+        // when
+        decoder.decode(tooSmallByte, offset);
     }
 }

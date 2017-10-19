@@ -1,16 +1,16 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.dcs;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
 
 public final class SuplaPingServer implements DeviceClientServer {
-    public static final int SIZE = Timeval.SIZE;
-    public final Timeval timeval;
+    public static final int SIZE = SuplaTimeval.SIZE;
+    public final SuplaTimeval timeval;
 
-    public SuplaPingServer(final Timeval timeval) {
+    public SuplaPingServer(final SuplaTimeval timeval) {
         this.timeval = requireNonNull(timeval);
     }
 

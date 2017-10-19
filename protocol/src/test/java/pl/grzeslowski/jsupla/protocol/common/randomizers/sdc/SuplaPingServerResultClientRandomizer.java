@@ -1,21 +1,21 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.sdc;
 
 import io.github.benas.randombeans.api.Randomizer;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaPingServerResultClientRandomizer implements Randomizer<SuplaPingServerResultClient> {
-    private final RandomBean randomBean;
+    private final RandomSupla randomSupla;
 
-    public SuplaPingServerResultClientRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public SuplaPingServerResultClientRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
     public SuplaPingServerResultClient getRandomValue() {
         return new SuplaPingServerResultClient(
-                                                      randomBean.nextObject(Timeval.class)
+                                                      randomSupla.nextObject(SuplaTimeval.class)
         );
     }
 }

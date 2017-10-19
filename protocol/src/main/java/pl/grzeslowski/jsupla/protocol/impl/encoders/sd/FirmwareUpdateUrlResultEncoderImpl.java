@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 
 import static java.util.Objects.requireNonNull;
 
@@ -18,7 +18,7 @@ public final class FirmwareUpdateUrlResultEncoderImpl implements FirmwareUpdateU
     }
 
     @Override
-    public byte[] encode(FirmwareUpdateUrlResult proto) {
+    public byte[] encode(SuplaFirmwareUpdateUrlResult proto) {
         byte[] data = new byte[proto.size()];
         int offset = 0;
 

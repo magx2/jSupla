@@ -1,22 +1,22 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.sd;
 
 import io.github.benas.randombeans.api.Randomizer;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
-public class FirmwareUpdateUrlResultRandomizer implements Randomizer<FirmwareUpdateUrlResult> {
-    private final RandomBean randomBean;
+public class FirmwareUpdateUrlResultRandomizer implements Randomizer<SuplaFirmwareUpdateUrlResult> {
+    private final RandomSupla randomSupla;
 
-    public FirmwareUpdateUrlResultRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public FirmwareUpdateUrlResultRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
-    public FirmwareUpdateUrlResult getRandomValue() {
-        return new FirmwareUpdateUrlResult(
-                                                  randomBean.nextByte(),
-                                                  randomBean.nextObject(FirmwareUpdateUrl.class)
+    public SuplaFirmwareUpdateUrlResult getRandomValue() {
+        return new SuplaFirmwareUpdateUrlResult(
+                                                       randomSupla.nextByte(),
+                                                       randomSupla.nextObject(SuplaFirmwareUpdateUrl.class)
         );
     }
 }

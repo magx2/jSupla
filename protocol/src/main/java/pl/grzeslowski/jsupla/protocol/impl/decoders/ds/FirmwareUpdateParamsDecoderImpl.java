@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders.ds;
 import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.FirmwareUpdateParamsDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -17,8 +17,8 @@ public final class FirmwareUpdateParamsDecoderImpl implements FirmwareUpdatePara
     }
 
     @Override
-    public FirmwareUpdateParams decode(byte[] bytes, int offset) {
-        Preconditions.sizeMin(bytes, offset + FirmwareUpdateParams.SIZE);
+    public SuplaFirmwareUpdateParams decode(byte[] bytes, int offset) {
+        Preconditions.sizeMin(bytes, offset + SuplaFirmwareUpdateParams.SIZE);
 
         final byte platform = primitiveDecoder.parseByte(bytes, offset);
         offset += BYTE_SIZE;
@@ -34,6 +34,6 @@ public final class FirmwareUpdateParamsDecoderImpl implements FirmwareUpdatePara
 
         final int param4 = primitiveDecoder.parseInt(bytes, offset);
 
-        return new FirmwareUpdateParams(platform, param1, param2, param3, param4);
+        return new SuplaFirmwareUpdateParams(platform, param1, param2, param3, param4);
     }
 }

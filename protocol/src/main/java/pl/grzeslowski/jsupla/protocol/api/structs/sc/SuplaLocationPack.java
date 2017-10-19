@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
-import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
@@ -17,13 +17,9 @@ public final class SuplaLocationPack implements ServerClient {
     public final SuplaLocation[] locations;
 
     public SuplaLocationPack(int count, int totalLeft, SuplaLocation[] locations) {
-        this.count = count;
-        if (count > SUPLA_LOCATIONPACK_MAXSIZE) {
-            throw new IllegalArgumentException(format("count (%s) is bigger than SUPLA_LOCATIONPACK_MAXSIZE (%S)",
-                    count, SUPLA_LOCATIONPACK_MAXSIZE));
-        }
+        this.count = max(count, SUPLA_LOCATIONPACK_MAXSIZE);
         this.totalLeft = totalLeft;
-        this.locations = Preconditions.size(locations, 0, count);
+        this.locations = Preconditions.checkArrayLength(locations, count);
     }
 
     @Override
@@ -38,16 +34,16 @@ public final class SuplaLocationPack implements ServerClient {
 
     private int locationsSize() {
         return Arrays.stream(locations)
-                .mapToInt(SuplaLocation::size)
-                .sum();
+                       .mapToInt(SuplaLocation::size)
+                       .sum();
     }
 
     @Override
     public String toString() {
         return "SuplaLocationPack{" +
-                "count=" + count +
-                ", totalLeft=" + totalLeft +
-                ", locations=" + Arrays.toString(locations) +
-                '}';
+                       "count=" + count +
+                       ", totalLeft=" + totalLeft +
+                       ", locations=" + Arrays.toString(locations) +
+                       '}';
     }
 }

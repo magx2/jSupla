@@ -12,9 +12,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyByte;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
@@ -24,6 +26,7 @@ public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
         given(primitiveEncoder.writeByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);
         given(primitiveEncoder.writeUnsignedByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);
         given(primitiveEncoder.writeInteger(anyInt(), any(), anyInt())).willReturn(INT_SIZE);
+        given(primitiveEncoder.writeLong(anyLong(), any(), anyInt())).willReturn(LONG_SIZE);
         given(primitiveEncoder.writeUnsignedInteger(anyInt(), any(), anyInt())).willReturn(INT_SIZE);
         given(primitiveEncoder.writeBytes(any(byte[].class), any(), anyInt())).willAnswer(new Answer<Integer>() {
             @Override

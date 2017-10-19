@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.structs.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
+import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -20,7 +21,7 @@ public final class SuplaChannelValue implements ServerClient {
                              byte online,
                              pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue value) {
         this.eol = eol;
-        this.id = id;
+        this.id = min(id, 1);
         this.online = online;
         this.value = value;
     }

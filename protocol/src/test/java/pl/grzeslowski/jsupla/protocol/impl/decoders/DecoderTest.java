@@ -11,6 +11,12 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+/**
+ * This is old test for Decoders. The old way of testing was checking if primitive decoder was invoked.
+ *
+ * @deprecated use {@link ProperDecoderTest} that test entity that was returned
+ */
+@Deprecated
 public abstract class DecoderTest<T extends ProtoWithSizeDecoder<?>> {
     private static final int RANDOM_INT = 123;
     @Mock protected PrimitiveDecoder primitiveDecoder;

@@ -1,36 +1,29 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
 import pl.grzeslowski.jsupla.Preconditions;
-import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 
-import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
-    private final PrimitiveDecoder primitiveDecoder;
-
-    public SuplaLocationDecoderImpl(PrimitiveDecoder primitiveDecoder) {
-        this.primitiveDecoder = requireNonNull(primitiveDecoder);
-    }
-
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
         Preconditions.sizeMin(bytes, offset + SuplaLocation.MIN_SIZE);
 
-        final byte eol = primitiveDecoder.parseByte(bytes, offset);
+        final byte eol = INSTANCE.parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        final int id = primitiveDecoder.parseInt(bytes, offset);
+        final int id = INSTANCE.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final long captionSize = primitiveDecoder.parseUnsignedInt(bytes, offset);
+        final long captionSize = INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        Preconditions.sizeMin(bytes, offset + SuplaLocation.MIN_SIZE + (int) captionSize);
-        final byte[] caption = primitiveDecoder.copyOfRange(bytes, offset, offset + (int) captionSize);
+        Preconditions.sizeMin(bytes, offset + (int) captionSize);
+        final byte[] caption = INSTANCE.copyOfRange(bytes, offset, offset + (int) captionSize);
 
         return new SuplaLocation(eol, id, captionSize, caption);
     }

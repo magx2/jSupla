@@ -2,27 +2,27 @@ package pl.grzeslowski.jsupla.protocol.common.randomizers.sc;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.common.RandomBean;
+import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
 
 public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
-    private final RandomBean randomBean;
+    private final RandomSupla randomSupla;
 
-    public SuplaEventRandomizer(final RandomBean randomBean) {
-        this.randomBean = randomBean;
+    public SuplaEventRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
     }
 
     @Override
     public SuplaEvent getRandomValue() {
-        final int senderNameSize = randomBean.nextPositiveInt(SUPLA_SENDER_NAME_MAXSIZE);
+        final int senderNameSize = randomSupla.nextPositiveInt(SUPLA_SENDER_NAME_MAXSIZE);
         return new SuplaEvent(
-                                     randomBean.nextPositiveInt(),
-                                     randomBean.nextPositiveInt(),
-                                     randomBean.nextUnsignedInt(),
-                                     randomBean.nextPositiveInt(),
+                                     randomSupla.nextPositiveInt(),
+                                     randomSupla.nextPositiveInt(),
+                                     randomSupla.nextUnsignedInt(),
+                                     randomSupla.nextPositiveInt(),
                                      senderNameSize,
-                                     randomBean.nextByteArray(senderNameSize)
+                                     randomSupla.nextByteArray(senderNameSize)
         );
     }
 }

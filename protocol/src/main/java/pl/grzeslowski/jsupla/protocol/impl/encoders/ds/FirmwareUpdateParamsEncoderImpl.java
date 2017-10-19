@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.ds.FirmwareUpdateParamsEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,7 +15,7 @@ public final class FirmwareUpdateParamsEncoderImpl implements FirmwareUpdatePara
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(FirmwareUpdateParams proto) {
+    public byte[] encode(SuplaFirmwareUpdateParams proto) {
         byte[] data = new byte[proto.size()];
         int offset = 0;
 

@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 
 import java.util.Arrays;
 
+import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -22,7 +24,7 @@ public final class SuplaChannel implements ServerClient {
     public final SuplaChannelValue value;
     /**
      * Including the terminating null byte ('\0').
-     *
+     * <p>
      * <p>unsigned
      */
     public final long captionSize;
@@ -37,15 +39,14 @@ public final class SuplaChannel implements ServerClient {
                         long captionSize,
                         byte[] caption) {
         this.eol = eol;
-        this.id = id;
+        this.id = min(id, 1);
         this.locationId = locationId;
         this.func = func;
         this.online = online;
         this.value = value;
-        this.captionSize = Preconditions.max(captionSize, SUPLA_CHANNEL_CAPTION_MAXSIZE);
-        this.caption = Preconditions.size(caption, 0, captionSize);
+        this.captionSize = max(captionSize, SUPLA_CHANNEL_CAPTION_MAXSIZE);
+        this.caption = Preconditions.checkArrayLength(caption, (int) captionSize);
     }
-
 
     @Override
     public ServerClientCallType callType() {

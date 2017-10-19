@@ -50,7 +50,7 @@ public final class SuplaRegisterDevice implements DeviceServer {
         this.name = checkArrayLength(name, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVer = checkArrayLength(softVer, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = Preconditions.max(channelCount, (short) SUPLA_CHANNELMAXCOUNT);
-        this.channels = Preconditions.size(channels, 0, channelCount);
+        this.channels = checkArrayLength(channels, channelCount);
     }
 
     @Override
