@@ -36,18 +36,18 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaSetActivityTimeoutRe
 import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaVersionErrorDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.structs.Timeval;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.FirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
@@ -57,8 +57,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
@@ -175,7 +175,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     public DecoderFactoryImpl(final PrimitiveDecoder primitiveDecoder) {
 
         // common
-        suplaChannelValueDecoder = new SuplaChannelValueDecoderImpl(primitiveDecoder);
+        suplaChannelValueDecoder = new SuplaChannelValueDecoderImpl();
         suplaDataPacketDecoder = new SuplaDataPacketDecoderImpl(primitiveDecoder);
         timevalDecoder = new TimevalDecoderImpl(primitiveDecoder);
 
@@ -200,17 +200,16 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         suplaRegisterDeviceDecoder = new SuplaRegisterDeviceDecoderImpl(primitiveDecoder, suplaDeviceChannelDecoder);
 
         // sc
-        suplaChannelDecoder = new SuplaChannelDecoderImpl(primitiveDecoder, suplaChannelValueDecoder);
+        suplaChannelDecoder = new SuplaChannelDecoderImpl(suplaChannelValueDecoder);
         suplaChannelPackDecoder = new SuplaChannelPackDecoderImpl(primitiveDecoder, suplaChannelDecoder);
         // @formatter:off
-        suplaChannelValueDecoderSc =
-                new pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl(
-                        primitiveDecoder, suplaChannelValueDecoder);
+        suplaChannelValueDecoderSc = new pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl(
+                suplaChannelValueDecoder);
         // @formatter:on
         suplaEventDecoder = new SuplaEventDecoderImpl(primitiveDecoder);
-        suplaLocationDecoder = new SuplaLocationDecoderImpl(primitiveDecoder);
+        suplaLocationDecoder = new SuplaLocationDecoderImpl();
         suplaLocationPackDecoder = new SuplaLocationPackDecoderImpl(primitiveDecoder, suplaLocationDecoder);
-        suplaRegisterClientResultDecoder = new SuplaRegisterClientResultDecoderImpl(primitiveDecoder);
+        suplaRegisterClientResultDecoder = new SuplaRegisterClientResultDecoderImpl();
 
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
@@ -254,7 +253,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
 
         // ds
-        if (proto instanceof FirmwareUpdateParams) {
+        if (proto instanceof SuplaFirmwareUpdateParams) {
             return (Decoder<T>) firmwareUpdateParamsDecoder;
         }
         if (proto instanceof SuplaChannelNewValueResult) {
@@ -303,10 +302,10 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
 
         // sd
-        if (proto instanceof FirmwareUpdateUrl) {
+        if (proto instanceof SuplaFirmwareUpdateUrl) {
             return (Decoder<T>) firmwareUpdateUrlDecoder;
         }
-        if (proto instanceof FirmwareUpdateUrlResult) {
+        if (proto instanceof SuplaFirmwareUpdateUrlResult) {
             return (Decoder<T>) firmwareUpdateUrlResultDecoder;
         }
         if (proto instanceof pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue) {
@@ -337,7 +336,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (proto instanceof SuplaDataPacket) {
             return (Decoder<T>) suplaDataPacketDecoder;
         }
-        if (proto instanceof Timeval) {
+        if (proto instanceof SuplaTimeval) {
             return (Decoder<T>) timevalDecoder;
         }
 
