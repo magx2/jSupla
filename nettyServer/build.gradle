@@ -6,4 +6,5 @@ repositories {
 dependencies {
     compile rootProject.project("server")
     compile group: 'io.netty', name: 'netty-all', version: '4.1.13.Final'
+    compile group: 'io.projectreactor.ipc', name: 'reactor-netty', version: '0.7.0.RELEASE'
 }
