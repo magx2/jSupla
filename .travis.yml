@@ -9,7 +9,6 @@ jdk:
 env:
  - bintrayUser=bintrayUser
  - bintrayKey=bintrayKey
-
  - scrapperPassphrase=scrapperPassphrase
  - jSuplaPassphrase=jSuplaPassphrase
  - serverPassphrase=serverPassphrase
