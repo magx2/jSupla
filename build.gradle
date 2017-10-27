@@ -1,3 +1,7 @@
+plugins {
+	id "com.jfrog.bintray" version "1.7.3"
+}
+
 ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.7.0'
@@ -6,7 +10,7 @@ ext {
 @SuppressWarnings("UnnecessaryQualifiedReference")
 def prodProjects(Closure c) {
 	allprojects { p ->
-		if(!isTestProject(p)) { // only for non test projects
+		if (!isTestProject(p)) { // only for non test projects
 			c.delegate = p
 			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
 			c(p)
@@ -16,6 +20,21 @@ def prodProjects(Closure c) {
 
 private static boolean isTestProject(Project p) {
 	p.name.toLowerCase().contains("test")
+}
+
+@SuppressWarnings("UnnecessaryQualifiedReference")
+def releasableProjects(Closure c) {
+	allprojects { p ->
+		if (isReleasableProject(p)) {
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
+private static boolean isReleasableProject(Project p) {
+	true
 }
 
 allprojects {
@@ -56,6 +75,22 @@ allprojects {
 		testCompile group: 'io.github.benas', name: 'random-beans', version: random_beans_version
 		testCompile group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
 	}
+}
+
+releasableProjects { Project project ->
+	ext {
+		bintrayConfig = [
+				repo           : "bigboy",
+				userOrg        : "big-boy",
+				websiteUrl     : "https://github.com/magx2/jSupla",
+				issueTrackerUrl: "https://github.com/magx2/jSupla/issues",
+				vcsUrl         : "https://github.com/magx2/jSupla.git",
+				licenses       : ['MIT'],
+				labels         : ['Supla', "ioT"],
+				githubRepo     : "magx2/jSupla",
+		]
+	}
+	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
 }
 
 task wrapper(type: Wrapper) {
