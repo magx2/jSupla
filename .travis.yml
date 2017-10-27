@@ -7,8 +7,8 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 env:
- - bintrayUser=bintrayUser
- - bintrayKey=bintrayKey
+ - BINTRAY_USER=BINTRAY_USER
+ - BINTRAY_KEY=BINTRAY_KEY
  - scrapperPassphrase=scrapperPassphrase
  - jSuplaPassphrase=jSuplaPassphrase
  - serverPassphrase=serverPassphrase
