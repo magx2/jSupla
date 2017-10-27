@@ -6,3 +6,5 @@ include 'nettyServer'
 // test projects
 include 'nettyTest'
 
+project(":protocol-java").name = "protocolJava"
+
