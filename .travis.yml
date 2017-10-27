@@ -7,15 +7,16 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 env:
-  - BINTRAY_USER=BINTRAY_USER
-  - BINTRAY_KEY=BINTRAY_KEY
-  - scrapperPassphrase=scrapperPassphrase
-  - jSuplaPassphrase=jSuplaPassphrase
-  - serverPassphrase=serverPassphrase
-  - nettyServerPassphrase=nettyServerPassphrase
-  - nettyTestPassphrase=nettyTestPassphrase
-  - protocolPassphrase=protocolPassphrase
-  - protocolJavaPassphrase=protocolJavaPassphrase
+  global:
+    - BINTRAY_USER=BINTRAY_USER
+    - BINTRAY_KEY=BINTRAY_KEY
+    - scrapperPassphrase=scrapperPassphrase
+    - jSuplaPassphrase=jSuplaPassphrase
+    - serverPassphrase=serverPassphrase
+    - nettyServerPassphrase=nettyServerPassphrase
+    - nettyTestPassphrase=nettyTestPassphrase
+    - protocolPassphrase=protocolPassphrase
+    - protocolJavaPassphrase=protocolJavaPassphrase
 os:
   - linux
   - osx
