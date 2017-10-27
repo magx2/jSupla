@@ -6,3 +6,14 @@ script: ./gradlew clean build test
 jdk:
   - oraclejdk8
   - oraclejdk9
+env:
+ - bintrayUser=bintrayUser
+ - bintrayKey=bintrayKey
+
+ - scrapperPassphrase=scrapperPassphrase
+ - jSuplaPassphrase=jSuplaPassphrase
+ - serverPassphrase=serverPassphrase
+ - nettyServerPassphrase=nettyServerPassphrase
+ - nettyTestPassphrase=nettyTestPassphrase
+ - protocolPassphrase=protocolPassphrase
+ - protocolJavaPassphrase=protocolJavaPassphrase
