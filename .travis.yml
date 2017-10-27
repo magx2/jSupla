@@ -16,3 +16,6 @@ env:
   - nettyTestPassphrase=nettyTestPassphrase
   - protocolPassphrase=protocolPassphrase
   - protocolJavaPassphrase=protocolJavaPassphrase
+os:
+  - linux
+  - osx
