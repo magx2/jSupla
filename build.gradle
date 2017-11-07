@@ -1,3 +1,12 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.2.2'
+	}
+}
+
 plugins {
 	id "com.jfrog.bintray" version "1.7.3"
 }
@@ -91,6 +100,17 @@ releasableProjects { Project project ->
 		]
 	}
 	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
+}
+
+prodProjects {
+	// http://gradle-pitest-plugin.solidsoft.info/
+	apply plugin: "info.solidsoft.pitest"
+	build.dependsOn "pitest"
+	pitest.dependsOn 'test'
+	pitest {
+		targetClasses = ['pl.grzeslowski.jsupla.*']
+		outputFormats = ['XML', 'HTML']
+	}
 }
 
 task wrapper(type: Wrapper) {
