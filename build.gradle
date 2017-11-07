@@ -106,7 +106,7 @@ prodProjects {
 	// http://gradle-pitest-plugin.solidsoft.info/
 	apply plugin: "info.solidsoft.pitest"
 	build.dependsOn "pitest"
-	pitest.dependsOn 'test'
+	tasks["pitest"].dependsOn 'test'
 	pitest {
 		targetClasses = ['pl.grzeslowski.jsupla.*']
 		outputFormats = ['XML', 'HTML']
