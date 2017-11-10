@@ -64,6 +64,35 @@ public final class SuplaRegisterDevice implements DeviceServer {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaRegisterDevice)) return false;
+
+        final SuplaRegisterDevice that = (SuplaRegisterDevice) o;
+
+        if (locationId != that.locationId) return false;
+        if (channelCount != that.channelCount) return false;
+        if (!Arrays.equals(locationPwd, that.locationPwd)) return false;
+        if (!Arrays.equals(guid, that.guid)) return false;
+        if (!Arrays.equals(name, that.name)) return false;
+        if (!Arrays.equals(softVer, that.softVer)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(channels, that.channels);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = locationId;
+        result = 31 * result + Arrays.hashCode(locationPwd);
+        result = 31 * result + Arrays.hashCode(guid);
+        result = 31 * result + Arrays.hashCode(name);
+        result = 31 * result + Arrays.hashCode(softVer);
+        result = 31 * result + (int) channelCount;
+        result = 31 * result + Arrays.hashCode(channels);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaRegisterDevice{" +
                        "locationId=" + locationId +

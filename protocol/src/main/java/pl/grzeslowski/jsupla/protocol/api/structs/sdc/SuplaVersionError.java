@@ -34,6 +34,24 @@ public final class SuplaVersionError implements ServerDeviceClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaVersionError)) return false;
+
+        final SuplaVersionError that = (SuplaVersionError) o;
+
+        if (serverVersionMin != that.serverVersionMin) return false;
+        return serverVersion == that.serverVersion;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) serverVersionMin;
+        result = 31 * result + (int) serverVersion;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaVersionError{" +
                 "serverVersionMin=" + serverVersionMin +

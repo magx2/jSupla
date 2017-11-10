@@ -41,7 +41,7 @@ public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -61,7 +61,7 @@ public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = activityTimeout;
         result = 31 * result + min;
         result = 31 * result + max;

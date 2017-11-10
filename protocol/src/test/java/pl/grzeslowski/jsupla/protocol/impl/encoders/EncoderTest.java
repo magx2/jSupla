@@ -61,6 +61,10 @@ public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
     public abstract ProtoT getProto();
 
     protected final byte[] bytesToWriteInto() {
-        return new byte[getProto().size()];
+        return bytesToWriteInto(getProto());
+    }
+
+    protected final byte[] bytesToWriteInto(ProtoT proto) {
+        return new byte[proto.size()];
     }
 }

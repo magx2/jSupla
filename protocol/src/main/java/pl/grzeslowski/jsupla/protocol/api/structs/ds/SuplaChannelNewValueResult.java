@@ -34,6 +34,26 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaChannelNewValueResult)) return false;
+
+        final SuplaChannelNewValueResult that = (SuplaChannelNewValueResult) o;
+
+        if (channelNumber != that.channelNumber) return false;
+        if (senderId != that.senderId) return false;
+        return success == that.success;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) channelNumber;
+        result = 31 * result + senderId;
+        result = 31 * result + (int) success;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaChannelNewValueResult{" +
                 "channelNumber=" + channelNumber +

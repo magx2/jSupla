@@ -39,11 +39,19 @@ public class DeviceChannels implements Entity {
 
         final DeviceChannels that = (DeviceChannels) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
+
         return channels.equals(that.channels);
     }
 
+    protected boolean canEqual(final Object other) {
+        return other instanceof DeviceChannels;
+    }
+
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return channels.hashCode();
     }
 

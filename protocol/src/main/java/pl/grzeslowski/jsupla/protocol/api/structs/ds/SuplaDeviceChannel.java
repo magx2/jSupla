@@ -33,6 +33,26 @@ public final class SuplaDeviceChannel implements ProtoWithSize {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaDeviceChannel)) return false;
+
+        final SuplaDeviceChannel that = (SuplaDeviceChannel) o;
+
+        if (number != that.number) return false;
+        if (type != that.type) return false;
+        return Arrays.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) number;
+        result = 31 * result + type;
+        result = 31 * result + Arrays.hashCode(value);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaDeviceChannel{" +
                 "number=" + number +

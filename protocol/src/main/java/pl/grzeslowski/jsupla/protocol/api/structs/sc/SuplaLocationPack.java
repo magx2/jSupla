@@ -39,6 +39,27 @@ public final class SuplaLocationPack implements ServerClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaLocationPack)) return false;
+
+        final SuplaLocationPack that = (SuplaLocationPack) o;
+
+        if (count != that.count) return false;
+        if (totalLeft != that.totalLeft) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(locations, that.locations);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = count;
+        result = 31 * result + totalLeft;
+        result = 31 * result + Arrays.hashCode(locations);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaLocationPack{" +
                        "count=" + count +

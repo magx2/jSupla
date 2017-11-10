@@ -91,6 +91,9 @@ public class RegisterDevice implements DeviceServerEntity {
 
         final RegisterDevice that = (RegisterDevice) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
         if (locationId != that.locationId) {
             return false;
         }
@@ -110,6 +113,10 @@ public class RegisterDevice implements DeviceServerEntity {
             return false;
         }
         return channels.equals(that.channels);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterDevice;
     }
 
     @Override

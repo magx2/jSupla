@@ -45,7 +45,7 @@ public class GetVersionResult implements ServerDeviceClientEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -65,7 +65,7 @@ public class GetVersionResult implements ServerDeviceClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = protoVersionMin;
         result = 31 * result + protoVersion;
         result = 31 * result + softVer.hashCode();

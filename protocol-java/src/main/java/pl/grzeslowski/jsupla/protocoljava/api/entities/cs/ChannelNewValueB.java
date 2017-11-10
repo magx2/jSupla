@@ -43,7 +43,7 @@ public class ChannelNewValueB extends ChannelNewValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return channelId;
     }
 

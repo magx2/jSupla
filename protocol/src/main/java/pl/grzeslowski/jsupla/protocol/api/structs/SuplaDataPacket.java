@@ -47,6 +47,30 @@ public final class SuplaDataPacket implements ProtoWithSize {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaDataPacket)) return false;
+
+        final SuplaDataPacket that = (SuplaDataPacket) o;
+
+        if (version != that.version) return false;
+        if (rrId != that.rrId) return false;
+        if (callType != that.callType) return false;
+        if (dataSize != that.dataSize) return false;
+        return Arrays.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) version;
+        result = 31 * result + (int) (rrId ^ (rrId >>> 32));
+        result = 31 * result + (int) (callType ^ (callType >>> 32));
+        result = 31 * result + (int) (dataSize ^ (dataSize >>> 32));
+        result = 31 * result + Arrays.hashCode(data);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaDataPacket{" +
                 "version=" + version +

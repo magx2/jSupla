@@ -17,6 +17,15 @@ public class DeviceChannelsB extends DeviceChannels {
         return B;
     }
 
+    @Override
+    public boolean equals(final Object o) {
+        return super.equals(o) && canEqual(o);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof DeviceChannelsB;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Collection<? extends DeviceChannelB> getChannels() {

@@ -74,7 +74,7 @@ public class RegisterClientResult implements ServerClientEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -106,7 +106,7 @@ public class RegisterClientResult implements ServerClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = resultCode;
         result = 31 * result + clientId;
         return result;

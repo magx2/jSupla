@@ -45,6 +45,28 @@ public final class SuplaLocation implements ServerClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaLocation)) return false;
+
+        final SuplaLocation that = (SuplaLocation) o;
+
+        if (eol != that.eol) return false;
+        if (id != that.id) return false;
+        if (captionSize != that.captionSize) return false;
+        return Arrays.equals(caption, that.caption);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) eol;
+        result = 31 * result + id;
+        result = 31 * result + (int) (captionSize ^ (captionSize >>> 32));
+        result = 31 * result + Arrays.hashCode(caption);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaLocation{" +
                        "eol=" + eol +

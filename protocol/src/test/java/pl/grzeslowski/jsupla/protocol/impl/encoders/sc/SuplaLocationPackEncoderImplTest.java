@@ -15,6 +15,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
@@ -36,16 +37,15 @@ public class SuplaLocationPackEncoderImplTest extends EncoderTest<SuplaLocationP
     protected void verifyEncodeEntity(final byte[] encode, final SuplaLocationPack proto) {
         int offset = 0;
 
-        verify(primitiveEncoder).writeInteger(proto.count, bytesToWriteInto(), offset);
+        verify(primitiveEncoder).writeInteger(proto.count, bytesToWriteInto(proto), offset);
         offset += INT_SIZE;
-        verify(primitiveEncoder).writeInteger(proto.totalLeft, bytesToWriteInto(), offset);
+        verify(primitiveEncoder).writeInteger(proto.totalLeft, bytesToWriteInto(proto), offset);
         offset += INT_SIZE;
         for (SuplaLocation location : proto.locations) {
             verify(locationEncoder).encode(location);
-            verify(primitiveEncoder).writeBytes(new byte[location.size()], bytesToWriteInto(), offset);
+            verify(primitiveEncoder).writeBytes(new byte[location.size()], bytesToWriteInto(proto), offset);
             offset += location.size();
         }
-
     }
 
     @Override
@@ -65,11 +65,6 @@ public class SuplaLocationPackEncoderImplTest extends EncoderTest<SuplaLocationP
 
     @Override
     public SuplaLocationPack getProto() {
-        final int count = 5;
-        final SuplaLocation[] locations = new SuplaLocation[count];
-        for (int i = 0; i < count; i++) {
-            locations[i] = new SuplaLocation((byte) 1, 2, 3, new byte[3]);
-        }
-        return new SuplaLocationPack(count, 2, locations);
+        return RANDOM_SUPLA.nextObject(SuplaLocationPack.class);
     }
 }

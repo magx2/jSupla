@@ -25,6 +25,21 @@ public final class SuplaPingServerResultClient implements ServerDeviceClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaPingServerResultClient)) return false;
+
+        final SuplaPingServerResultClient that = (SuplaPingServerResultClient) o;
+
+        return timeval.equals(that.timeval);
+    }
+
+    @Override
+    public int hashCode() {
+        return timeval.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "SuplaPingServerResultClient{" +
                        "timeval=" + timeval +

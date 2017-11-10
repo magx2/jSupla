@@ -28,7 +28,21 @@ public class RegisterDeviceB extends RegisterDevice {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        return canEqual(o) && super.equals(o);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterDeviceB;
+    }
+
+    @Override
     public DeviceChannelsB getChannels() {
         return (DeviceChannelsB) super.getChannels();
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterDeviceB{} " + super.toString();
     }
 }

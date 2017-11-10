@@ -56,6 +56,34 @@ public final class SuplaRegisterClientResult implements ServerClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaRegisterClientResult)) return false;
+
+        final SuplaRegisterClientResult that = (SuplaRegisterClientResult) o;
+
+        if (resultCode != that.resultCode) return false;
+        if (clientId != that.clientId) return false;
+        if (locationCount != that.locationCount) return false;
+        if (channelCount != that.channelCount) return false;
+        if (activityTimeout != that.activityTimeout) return false;
+        if (version != that.version) return false;
+        return versionMin == that.versionMin;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = resultCode;
+        result = 31 * result + clientId;
+        result = 31 * result + locationCount;
+        result = 31 * result + channelCount;
+        result = 31 * result + (int) activityTimeout;
+        result = 31 * result + (int) version;
+        result = 31 * result + (int) versionMin;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaRegisterClientResult{" +
                 "resultCode=" + resultCode +

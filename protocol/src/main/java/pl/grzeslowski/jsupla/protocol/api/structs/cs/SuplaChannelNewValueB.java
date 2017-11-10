@@ -32,6 +32,24 @@ public final class SuplaChannelNewValueB implements ClientServer {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaChannelNewValueB)) return false;
+
+        final SuplaChannelNewValueB that = (SuplaChannelNewValueB) o;
+
+        if (channelId != that.channelId) return false;
+        return Arrays.equals(value, that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = channelId;
+        result = 31 * result + Arrays.hashCode(value);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaChannelNewValueB{" +
                 "channelId=" + channelId +

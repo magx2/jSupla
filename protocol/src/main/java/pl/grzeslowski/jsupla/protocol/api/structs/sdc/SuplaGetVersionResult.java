@@ -39,6 +39,26 @@ public final class SuplaGetVersionResult implements ServerDeviceClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaGetVersionResult)) return false;
+
+        final SuplaGetVersionResult that = (SuplaGetVersionResult) o;
+
+        if (protoVersionMin != that.protoVersionMin) return false;
+        if (protoVersion != that.protoVersion) return false;
+        return Arrays.equals(softVer, that.softVer);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) protoVersionMin;
+        result = 31 * result + (int) protoVersion;
+        result = 31 * result + Arrays.hashCode(softVer);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaGetVersionResult{" +
                 "protoVersionMin=" + protoVersionMin +

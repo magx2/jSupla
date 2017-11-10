@@ -53,7 +53,14 @@ public class RegisterDeviceC extends RegisterDeviceB {
 
         final RegisterDeviceC that = (RegisterDeviceC) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
         return serverName.equals(that.serverName);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterDeviceC;
     }
 
     @Override

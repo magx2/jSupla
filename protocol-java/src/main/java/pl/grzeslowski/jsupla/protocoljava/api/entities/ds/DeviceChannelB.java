@@ -38,7 +38,7 @@ public class DeviceChannelB extends DeviceChannel {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -51,10 +51,17 @@ public class DeviceChannelB extends DeviceChannel {
 
         final DeviceChannelB that = (DeviceChannelB) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
         if (function != that.function) {
             return false;
         }
         return defaultValue == that.defaultValue;
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof DeviceChannelB;
     }
 
     @Override

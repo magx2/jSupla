@@ -5,8 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
-import static java.util.stream.Collectors.toList;
-
 public class SuplaLocationPackRandomizer implements Randomizer<SuplaLocationPack> {
     private final RandomSupla randomSupla;
 
@@ -17,9 +15,7 @@ public class SuplaLocationPackRandomizer implements Randomizer<SuplaLocationPack
     @Override
     public SuplaLocationPack getRandomValue() {
         final int count = randomSupla.nextPositiveInt(20);
-        final SuplaLocation[] locations = randomSupla.objects(SuplaLocation.class, count)
-                                                  .collect(toList())
-                                                  .toArray(new SuplaLocation[0]);
+        final SuplaLocation[] locations = randomSupla.objects(SuplaLocation.class, count).toArray(SuplaLocation[]::new);
         return new SuplaLocationPack(
                                             count,
                                             randomSupla.nextPositiveInt(),

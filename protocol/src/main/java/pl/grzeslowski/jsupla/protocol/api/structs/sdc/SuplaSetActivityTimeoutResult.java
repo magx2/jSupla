@@ -39,6 +39,26 @@ public final class SuplaSetActivityTimeoutResult implements ServerDeviceClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaSetActivityTimeoutResult)) return false;
+
+        final SuplaSetActivityTimeoutResult that = (SuplaSetActivityTimeoutResult) o;
+
+        if (activityTimeout != that.activityTimeout) return false;
+        if (min != that.min) return false;
+        return max == that.max;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) activityTimeout;
+        result = 31 * result + (int) min;
+        result = 31 * result + (int) max;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaSetActivityTimeoutResult{" +
                 "activityTimeout=" + activityTimeout +

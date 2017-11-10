@@ -51,7 +51,7 @@ public class Event implements ServerClientEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -77,7 +77,7 @@ public class Event implements ServerClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = event;
         result = 31 * result + channelId;
         return result;

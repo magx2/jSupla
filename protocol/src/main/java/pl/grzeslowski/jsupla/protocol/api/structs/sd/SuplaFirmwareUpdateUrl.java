@@ -31,6 +31,28 @@ public final class SuplaFirmwareUpdateUrl implements ProtoWithSize {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaFirmwareUpdateUrl)) return false;
+
+        final SuplaFirmwareUpdateUrl that = (SuplaFirmwareUpdateUrl) o;
+
+        if (availableProtocols != that.availableProtocols) return false;
+        if (port != that.port) return false;
+        if (!Arrays.equals(host, that.host)) return false;
+        return Arrays.equals(path, that.path);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) availableProtocols;
+        result = 31 * result + Arrays.hashCode(host);
+        result = 31 * result + port;
+        result = 31 * result + Arrays.hashCode(path);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaFirmwareUpdateUrl{" +
                 "availableProtocols=" + availableProtocols +

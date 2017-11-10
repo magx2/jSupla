@@ -47,7 +47,7 @@ public class FirmwareUpdateParams implements DeviceServerEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -73,7 +73,7 @@ public class FirmwareUpdateParams implements DeviceServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = platform;
         result = 31 * result + param1;
         result = 31 * result + param2;

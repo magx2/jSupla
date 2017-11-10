@@ -52,6 +52,9 @@ public class DeviceChannel implements Entity {
 
         final DeviceChannel that = (DeviceChannel) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
         if (number != that.number) {
             return false;
         }
@@ -61,8 +64,12 @@ public class DeviceChannel implements Entity {
         return value.equals(that.value);
     }
 
+    protected boolean canEqual(final Object other) {
+        return other instanceof DeviceChannel;
+    }
+
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return number;
     }
 

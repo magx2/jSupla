@@ -26,7 +26,7 @@ public class FirmwareUpdateUrlResult implements ServerDeviceEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -43,7 +43,7 @@ public class FirmwareUpdateUrlResult implements ServerDeviceEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (exists ? 1 : 0);
         result = 31 * result + firmwareUpdateUrl.hashCode();
         return result;

@@ -59,6 +59,36 @@ public final class SuplaChannel implements ServerClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaChannel)) return false;
+
+        final SuplaChannel that = (SuplaChannel) o;
+
+        if (eol != that.eol) return false;
+        if (id != that.id) return false;
+        if (locationId != that.locationId) return false;
+        if (func != that.func) return false;
+        if (online != that.online) return false;
+        if (captionSize != that.captionSize) return false;
+        if (!value.equals(that.value)) return false;
+        return Arrays.equals(caption, that.caption);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) eol;
+        result = 31 * result + id;
+        result = 31 * result + locationId;
+        result = 31 * result + func;
+        result = 31 * result + (int) online;
+        result = 31 * result + value.hashCode();
+        result = 31 * result + (int) (captionSize ^ (captionSize >>> 32));
+        result = 31 * result + Arrays.hashCode(caption);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaChannel{" +
                        "eol=" + eol +

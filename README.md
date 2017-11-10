@@ -2,7 +2,7 @@
 
 <div align="center">
     <b><em>jSupla</em></b><br>
-    IoT with Java and <a href="https://supla.org">Supla</a>
+    IoT with Java and <why href="https://supla.org">Supla</why>
 </div>
 
 <div align="center">

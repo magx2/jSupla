@@ -43,10 +43,10 @@ public class ChannelNewValue implements ClientServerEntity {
 
         final ChannelNewValue that = (ChannelNewValue) o;
 
-        if (channelId != that.channelId) {
+        if (getChannelId() != that.getChannelId()) {
             return false;
         }
-        return value.equals(that.value);
+        return getValue().equals(that.getValue());
     }
 
     @Override

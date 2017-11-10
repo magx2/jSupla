@@ -27,6 +27,24 @@ public final class SuplaFirmwareUpdateUrlResult implements ServerDevice {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaFirmwareUpdateUrlResult)) return false;
+
+        final SuplaFirmwareUpdateUrlResult that = (SuplaFirmwareUpdateUrlResult) o;
+
+        if (exists != that.exists) return false;
+        return url.equals(that.url);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) exists;
+        result = 31 * result + url.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaFirmwareUpdateUrlResult{" +
                 "exists=" + exists +

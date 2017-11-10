@@ -37,7 +37,7 @@ public class RegisterClientB extends RegisterClient {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -50,7 +50,23 @@ public class RegisterClientB extends RegisterClient {
 
         final RegisterClientB that = (RegisterClientB) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
+
         return serverName.equals(that.serverName);
+    }
+
+    @Override
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterClientB;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + serverName.hashCode();
+        return result;
     }
 
     @Override

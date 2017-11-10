@@ -35,6 +35,28 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaRegisterDeviceResult)) return false;
+
+        final SuplaRegisterDeviceResult that = (SuplaRegisterDeviceResult) o;
+
+        if (resultCode != that.resultCode) return false;
+        if (activityTimeout != that.activityTimeout) return false;
+        if (version != that.version) return false;
+        return versionMin == that.versionMin;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = resultCode;
+        result = 31 * result + (int) activityTimeout;
+        result = 31 * result + (int) version;
+        result = 31 * result + (int) versionMin;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaRegisterDeviceResult{" +
                 "resultCode=" + resultCode +

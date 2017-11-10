@@ -75,6 +75,8 @@ allprojects {
 		testCompile group: 'io.github.benas', name: 'random-beans', version: random_beans_version
 		testCompile group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
 		testCompile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+		testCompile group: 'com.google.guava', name: 'guava', version: '23.3-jre'
+		testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.3'
 	}
 }
 

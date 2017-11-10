@@ -72,6 +72,10 @@ public class RegisterClient implements ClientServerEntity {
 
         final RegisterClient that = (RegisterClient) o;
 
+        if (!that.canEqual(this)) {
+            return false;
+        }
+
         if (accessId != that.accessId) {
             return false;
         }
@@ -85,6 +89,10 @@ public class RegisterClient implements ClientServerEntity {
             return false;
         }
         return softVer.equals(that.softVer);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterClient;
     }
 
     @Override

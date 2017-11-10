@@ -43,7 +43,7 @@ public class Location implements ServerClientEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -63,7 +63,7 @@ public class Location implements ServerClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return id;
     }
 

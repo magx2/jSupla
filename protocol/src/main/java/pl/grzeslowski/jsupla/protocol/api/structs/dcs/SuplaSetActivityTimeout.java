@@ -28,6 +28,21 @@ public final class SuplaSetActivityTimeout implements DeviceClientServer {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaSetActivityTimeout)) return false;
+
+        final SuplaSetActivityTimeout that = (SuplaSetActivityTimeout) o;
+
+        return activityTimeout == that.activityTimeout;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) activityTimeout;
+    }
+
+    @Override
     public String toString() {
         return "SuplaSetActivityTimeout{" +
                 "activityTimeout=" + activityTimeout +

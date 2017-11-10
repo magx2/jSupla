@@ -36,7 +36,7 @@ public class ChannelNewValueResult implements DeviceServerEntity {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -56,7 +56,7 @@ public class ChannelNewValueResult implements DeviceServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = channelNumber;
         result = 31 * result + senderId;
         return result;

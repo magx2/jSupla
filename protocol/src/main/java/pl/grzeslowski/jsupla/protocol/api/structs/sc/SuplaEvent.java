@@ -48,6 +48,32 @@ public final class SuplaEvent implements ServerClient {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaEvent)) return false;
+
+        final SuplaEvent that = (SuplaEvent) o;
+
+        if (event != that.event) return false;
+        if (channelId != that.channelId) return false;
+        if (durationMs != that.durationMs) return false;
+        if (senderId != that.senderId) return false;
+        if (senderNameSize != that.senderNameSize) return false;
+        return Arrays.equals(senderName, that.senderName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = event;
+        result = 31 * result + channelId;
+        result = 31 * result + (int) (durationMs ^ (durationMs >>> 32));
+        result = 31 * result + senderId;
+        result = 31 * result + senderNameSize;
+        result = 31 * result + Arrays.hashCode(senderName);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaEvent{" +
                 "event=" + event +

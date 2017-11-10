@@ -48,6 +48,30 @@ public final class SuplaRegisterClient implements ClientServer {
     }
 
     @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SuplaRegisterClient)) return false;
+
+        final SuplaRegisterClient that = (SuplaRegisterClient) o;
+
+        if (accessId != that.accessId) return false;
+        if (!Arrays.equals(accessIdPwd, that.accessIdPwd)) return false;
+        if (!Arrays.equals(guid, that.guid)) return false;
+        if (!Arrays.equals(name, that.name)) return false;
+        return Arrays.equals(softVer, that.softVer);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = accessId;
+        result = 31 * result + Arrays.hashCode(accessIdPwd);
+        result = 31 * result + Arrays.hashCode(guid);
+        result = 31 * result + Arrays.hashCode(name);
+        result = 31 * result + Arrays.hashCode(softVer);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "SuplaRegisterClient{" +
                        "accessId=" + accessId +
