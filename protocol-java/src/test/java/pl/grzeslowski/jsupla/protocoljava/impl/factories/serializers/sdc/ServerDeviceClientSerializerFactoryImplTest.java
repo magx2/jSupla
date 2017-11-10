@@ -20,7 +20,7 @@ import pl.grzeslowski.jsupla.protocoljava.impl.factories.serializers.SerializerF
 import java.util.Arrays;
 import java.util.Collection;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 @RunWith(Parameterized.class)
 public class ServerDeviceClientSerializerFactoryImplTest extends SerializerFactoryTest<ServerDeviceClientEntity> {
 
