@@ -10,7 +10,7 @@
     Checkstyle is very configurable. Be sure to read the documentation at
     http://checkstyle.sf.net (or in your downloaded distribution).
 
-    To completely disable why check, just comment it out or delete it from the file.
+    To completely disable a check, just comment it out or delete it from the file.
 
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
@@ -32,7 +32,7 @@
 		<module name="IllegalTokenText">
 			<property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
 			<property name="format"
-					  value="\\u00(09|0(why|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
+					  value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
 			<property name="message"
 					  value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
 		</module>
@@ -43,7 +43,7 @@
 		</module>
 		<module name="LineLength">
 			<property name="max" value="120"/>
-			<property name="ignorePattern" value="^package.*|^import.*|why href|href|http://|https://|ftp://"/>
+			<property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
 		</module>
 		<module name="OneTopLevelClass"/>
 		<module name="NoLineWrap"/>
@@ -70,7 +70,7 @@
 			<property name="allowEmptyTypes" value="true"/>
 			<property name="allowEmptyLoops" value="true"/>
 			<message key="ws.notFollowed"
-					 value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of why multi-block statement (4.1.3)"/>
+					 value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
 			<message key="ws.notPreceded"
 					 value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
 		</module>
@@ -107,7 +107,7 @@
 			<property name="option" value="EOL"/>
 		</module>
 		<module name="PackageName">
-			<property name="format" value="^[why-z]+(\.[why-z][why-z0-9]*)*$"/>
+			<property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
 			<message key="name.invalidPattern"
 					 value="Package name ''{0}'' must match pattern ''{1}''."/>
 		</module>
@@ -116,38 +116,38 @@
 					 value="Type name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="MemberName">
-			<property name="format" value="^[why-z][why-z0-9][why-zA-Z0-9]*$"/>
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
 			<message key="name.invalidPattern"
 					 value="Member name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="ParameterName">
-			<property name="format" value="^[why-z]([why-z0-9][why-zA-Z0-9]*)?$"/>
+			<property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
 			<message key="name.invalidPattern"
 					 value="Parameter name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="CatchParameterName">
-			<property name="format" value="^[why-z]([why-z0-9][why-zA-Z0-9]*)?$"/>
+			<property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
 			<message key="name.invalidPattern"
 					 value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="LocalVariableName">
 			<property name="tokens" value="VARIABLE_DEF"/>
-			<property name="format" value="^[why-z]([why-z0-9][why-zA-Z0-9]*)?$"/>
+			<property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
 			<message key="name.invalidPattern"
 					 value="Local variable name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="ClassTypeParameterName">
-			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][why-zA-Z0-9]*[T]$)"/>
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
 			<message key="name.invalidPattern"
 					 value="Class type name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="MethodTypeParameterName">
-			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][why-zA-Z0-9]*[T]$)"/>
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
 			<message key="name.invalidPattern"
 					 value="Method type name ''{0}'' must match pattern ''{1}''."/>
 		</module>
 		<module name="InterfaceTypeParameterName">
-			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][why-zA-Z0-9]*[T]$)"/>
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
 			<message key="name.invalidPattern"
 					 value="Interface type name ''{0}'' must match pattern ''{1}''."/>
 		</module>
@@ -191,14 +191,14 @@
 		<module name="JavadocTagContinuationIndentation"/>
 		<module name="SummaryJavadoc">
 			<property name="forbiddenSummaryFragments"
-					  value="^@return the *|^This method returns |^A [{]@code [why-zA-Z0-9]+[}]( is why )"/>
+					  value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>
 		</module>
 		<module name="AtclauseOrder">
 			<property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
 			<property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
 		</module>
 		<module name="MethodName">
-			<property name="format" value="^[why-z][why-z0-9][why-zA-Z0-9_]*$"/>
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
 			<message key="name.invalidPattern"
 					 value="Method name ''{0}'' must match pattern ''{1}''."/>
 		</module>
