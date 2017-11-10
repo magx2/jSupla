@@ -14,14 +14,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.FactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings("WeakerAccess")
-public class ClientServerParserFactoryImplTest extends FactoryTest<ClientServerEntity, ClientServer> {
+public class ClientServerParserParserFactoryImplTest extends ParserFactoryTest<ClientServerEntity, ClientServer> {
     @InjectMocks ClientServerParserFactoryImpl factory;
 
     @Mock ChannelNewValueBParser channelNewValueBParser;
@@ -29,20 +29,21 @@ public class ClientServerParserFactoryImplTest extends FactoryTest<ClientServerE
     @Mock RegisterClientBParser registerClientBParser;
     @Mock RegisterClientParser registerClientParser;
 
-    public ClientServerParserFactoryImplTest(final Class<ClientServer> protoToTestClass, final Field resultField) {
+    public ClientServerParserParserFactoryImplTest(final Class<ClientServer> protoToTestClass,
+                                                   final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaChannelNewValue.class, getDeclaredField(ClientServerParserFactoryImplTest.class,
+                {SuplaChannelNewValue.class, getDeclaredField(ClientServerParserParserFactoryImplTest.class,
                         "channelNewValueParser")},
-                {SuplaChannelNewValueB.class, getDeclaredField(ClientServerParserFactoryImplTest.class,
+                {SuplaChannelNewValueB.class, getDeclaredField(ClientServerParserParserFactoryImplTest.class,
                         "channelNewValueBParser")},
-                {SuplaRegisterClient.class, getDeclaredField(ClientServerParserFactoryImplTest.class,
+                {SuplaRegisterClient.class, getDeclaredField(ClientServerParserParserFactoryImplTest.class,
                         "registerClientParser")},
-                {SuplaRegisterClientB.class, getDeclaredField(ClientServerParserFactoryImplTest.class,
+                {SuplaRegisterClientB.class, getDeclaredField(ClientServerParserParserFactoryImplTest.class,
                         "registerClientBParser")}
         });
     }

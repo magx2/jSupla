@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
+import pl.grzeslowski.jsupla.protocoljava.common.TestUtil;
 
 import java.lang.reflect.Field;
 
@@ -18,11 +19,11 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
-public abstract class FactoryTest<EntityT extends Entity, SuplaProtoT extends Proto> {
+public abstract class ParserFactoryTest<EntityT extends Entity, SuplaProtoT extends Proto> {
     final Class<SuplaProtoT> protoToTestClass;
     final Field resultField;
 
-    protected FactoryTest(final Class<SuplaProtoT> protoToTestClass, final Field resultField) {
+    protected ParserFactoryTest(final Class<SuplaProtoT> protoToTestClass, final Field resultField) {
         this.protoToTestClass = protoToTestClass;
         this.resultField = resultField;
     }
@@ -48,8 +49,12 @@ public abstract class FactoryTest<EntityT extends Entity, SuplaProtoT extends Pr
 
     protected abstract ParserFactory<EntityT, SuplaProtoT> parserFactory();
 
+    /**
+     * @deprecated use TestUtil.
+     */
+    @Deprecated
     protected static Field getDeclaredField(Class<?> clazz, String field) throws NoSuchFieldException {
-        return clazz.getDeclaredField(field);
+        return TestUtil.getDeclaredField(clazz, field);
     }
 
     @Test(expected = IllegalArgumentException.class)

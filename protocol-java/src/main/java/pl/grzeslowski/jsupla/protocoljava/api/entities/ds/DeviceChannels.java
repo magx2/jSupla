@@ -1,7 +1,5 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 
-import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
-
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,7 +10,7 @@ import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
 @Deprecated
-public class DeviceChannels implements Entity {
+public class DeviceChannels {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final Set<DeviceChannel> channels;
 

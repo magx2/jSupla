@@ -13,14 +13,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.RegisterDeviceResultParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.FactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class ServerDeviceParserFactoryImplTest extends FactoryTest<ServerDeviceEntity, ServerDevice> {
+public class ServerDeviceParserParserFactoryImplTest extends ParserFactoryTest<ServerDeviceEntity, ServerDevice> {
     @InjectMocks ServerDeviceParserFactoryImpl factory;
 
     @Mock ChannelNewValueParser channelNewValueParser;
@@ -28,7 +28,8 @@ public class ServerDeviceParserFactoryImplTest extends FactoryTest<ServerDeviceE
     @Mock FirmwareUpdateUrlResultParser firmwareUpdateUrlResultParser;
     @Mock RegisterDeviceResultParser registerDeviceResultParser;
 
-    public ServerDeviceParserFactoryImplTest(final Class<ServerDevice> protoToTestClass, final Field resultField) {
+    public ServerDeviceParserParserFactoryImplTest(final Class<ServerDevice> protoToTestClass,
+                                                   final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
@@ -36,11 +37,14 @@ public class ServerDeviceParserFactoryImplTest extends FactoryTest<ServerDeviceE
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
                 {SuplaChannelNewValue.class,
-                        getDeclaredField(ServerDeviceParserFactoryImplTest.class, "channelNewValueParser")},
+                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                                "channelNewValueParser")},
                 {SuplaFirmwareUpdateUrlResult.class,
-                        getDeclaredField(ServerDeviceParserFactoryImplTest.class, "firmwareUpdateUrlResultParser")},
+                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                                "firmwareUpdateUrlResultParser")},
                 {SuplaRegisterDeviceResult.class,
-                        getDeclaredField(ServerDeviceParserFactoryImplTest.class, "registerDeviceResultParser")}
+                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                                "registerDeviceResultParser")}
         });
     }
 

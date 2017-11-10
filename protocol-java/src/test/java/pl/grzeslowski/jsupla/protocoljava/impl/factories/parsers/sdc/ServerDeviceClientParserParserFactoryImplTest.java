@@ -14,14 +14,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.GetVersionResultParser
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.PingServerResultClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.SetActivityTimeoutResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.VersionErrorParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.FactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class ServerDeviceClientParserFactoryImplTest extends FactoryTest<ServerDeviceClientEntity, ServerDeviceClient> {
+public class ServerDeviceClientParserParserFactoryImplTest
+        extends ParserFactoryTest<ServerDeviceClientEntity, ServerDeviceClient> {
     @InjectMocks ServerDeviceClientParserFactoryImpl factory;
 
     @Mock VersionErrorParser versionErrorParser;
@@ -29,21 +30,23 @@ public class ServerDeviceClientParserFactoryImplTest extends FactoryTest<ServerD
     @Mock SetActivityTimeoutResultParser setActivityTimeoutResultParser;
     @Mock PingServerResultClientParser pingServerResultClientParser;
 
-    public ServerDeviceClientParserFactoryImplTest(final Class<ServerDeviceClient> protoToTestClass,
-                                                   final Field resultField) {
+    public ServerDeviceClientParserParserFactoryImplTest(final Class<ServerDeviceClient> protoToTestClass,
+                                                         final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaGetVersionResult.class, getDeclaredField(ServerDeviceClientParserFactoryImplTest.class,
+                {SuplaGetVersionResult.class, getDeclaredField(ServerDeviceClientParserParserFactoryImplTest.class,
                         "getVersionResultParser")},
-                {SuplaPingServerResultClient.class, getDeclaredField(ServerDeviceClientParserFactoryImplTest.class,
-                        "pingServerResultClientParser")},
-                {SuplaSetActivityTimeoutResult.class, getDeclaredField(ServerDeviceClientParserFactoryImplTest.class,
-                        "setActivityTimeoutResultParser")},
-                {SuplaVersionError.class, getDeclaredField(ServerDeviceClientParserFactoryImplTest.class,
+                {SuplaPingServerResultClient.class,
+                        getDeclaredField(ServerDeviceClientParserParserFactoryImplTest.class,
+                                "pingServerResultClientParser")},
+                {SuplaSetActivityTimeoutResult.class,
+                        getDeclaredField(ServerDeviceClientParserParserFactoryImplTest.class,
+                                "setActivityTimeoutResultParser")},
+                {SuplaVersionError.class, getDeclaredField(ServerDeviceClientParserParserFactoryImplTest.class,
                         "versionErrorParser")},
 
         });

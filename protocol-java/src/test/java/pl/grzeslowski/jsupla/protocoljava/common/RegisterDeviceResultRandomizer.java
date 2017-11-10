@@ -13,7 +13,7 @@ class RegisterDeviceResultRandomizer implements Randomizer<RegisterDeviceResult>
 
     @Override
     public RegisterDeviceResult getRandomValue() {
-        final int version = random.nextInt(Byte.MAX_VALUE);
+        final int version = random.nextInt(Byte.MAX_VALUE) + 1;
         final int versionMin = random.nextInt(version);
         return new RegisterDeviceResult(
                                                random.nextInt(100),

@@ -10,21 +10,22 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEnt
 import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.PingServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.SetActivityTimeoutParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.FactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class DeviceClientServerParserFactoryImplTest extends FactoryTest<DeviceClientServerEntity, DeviceClientServer> {
+public class DeviceClientServerParserParserFactoryImplTest
+        extends ParserFactoryTest<DeviceClientServerEntity, DeviceClientServer> {
     @InjectMocks DeviceClientServerParserFactoryImpl factory;
 
     @Mock PingServerParser pingServerParser;
     @Mock SetActivityTimeoutParser setActivityTimeoutParser;
 
-    public DeviceClientServerParserFactoryImplTest(final Class<DeviceClientServer> protoToTestClass,
-                                                   final Field resultField) {
+    public DeviceClientServerParserParserFactoryImplTest(final Class<DeviceClientServer> protoToTestClass,
+                                                         final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
@@ -32,9 +33,10 @@ public class DeviceClientServerParserFactoryImplTest extends FactoryTest<DeviceC
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
                 {SuplaPingServer.class,
-                        getDeclaredField(DeviceClientServerParserFactoryImplTest.class, "pingServerParser")},
+                        getDeclaredField(DeviceClientServerParserParserFactoryImplTest.class, "pingServerParser")},
                 {SuplaSetActivityTimeout.class,
-                        getDeclaredField(DeviceClientServerParserFactoryImplTest.class, "setActivityTimeoutParser")}
+                        getDeclaredField(DeviceClientServerParserParserFactoryImplTest.class,
+                                "setActivityTimeoutParser")}
         });
     }
 
