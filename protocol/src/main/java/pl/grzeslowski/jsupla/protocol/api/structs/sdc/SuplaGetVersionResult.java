@@ -40,13 +40,21 @@ public final class SuplaGetVersionResult implements ServerDeviceClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaGetVersionResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaGetVersionResult)) {
+            return false;
+        }
 
         final SuplaGetVersionResult that = (SuplaGetVersionResult) o;
 
-        if (protoVersionMin != that.protoVersionMin) return false;
-        if (protoVersion != that.protoVersion) return false;
+        if (protoVersionMin != that.protoVersionMin) {
+            return false;
+        }
+        if (protoVersion != that.protoVersion) {
+            return false;
+        }
         return Arrays.equals(softVer, that.softVer);
     }
 

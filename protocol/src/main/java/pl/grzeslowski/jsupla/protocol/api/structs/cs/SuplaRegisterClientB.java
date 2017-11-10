@@ -58,16 +58,36 @@ public final class SuplaRegisterClientB implements ClientServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaRegisterClientB)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaRegisterClientB)) {
+            {
+                return false;
+            }
+        }
 
         final SuplaRegisterClientB that = (SuplaRegisterClientB) o;
 
-        if (accessId != that.accessId) return false;
-        if (!Arrays.equals(accessIdPwd, that.accessIdPwd)) return false;
-        if (!Arrays.equals(guid, that.guid)) return false;
-        if (!Arrays.equals(name, that.name)) return false;
-        if (!Arrays.equals(softVer, that.softVer)) return false;
+        if (accessId != that.accessId) {
+            {
+                return false;
+            }
+        }
+        if (!Arrays.equals(accessIdPwd, that.accessIdPwd)) {
+            {
+                return false;
+            }
+        }
+        if (!Arrays.equals(guid, that.guid)) {
+            return false;
+        }
+        if (!Arrays.equals(name, that.name)) {
+            return false;
+        }
+        if (!Arrays.equals(softVer, that.softVer)) {
+            return false;
+        }
         return Arrays.equals(serverName, that.serverName);
     }
 

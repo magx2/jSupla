@@ -41,13 +41,21 @@ public final class SuplaChannelPack implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaChannelPack)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaChannelPack)) {
+            return false;
+        }
 
         final SuplaChannelPack that = (SuplaChannelPack) o;
 
-        if (count != that.count) return false;
-        if (totalLeft != that.totalLeft) return false;
+        if (count != that.count) {
+            return false;
+        }
+        if (totalLeft != that.totalLeft) {
+            return false;
+        }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(channels, that.channels);
     }

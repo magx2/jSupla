@@ -32,12 +32,18 @@ public final class SuplaChannelValue implements ProtoWithSize {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaChannelValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaChannelValue)) {
+            return false;
+        }
 
         final SuplaChannelValue that = (SuplaChannelValue) o;
 
-        if (!Arrays.equals(value, that.value)) return false;
+        if (!Arrays.equals(value, that.value)) {
+            return false;
+        }
         return Arrays.equals(subValue, that.subValue);
     }
 

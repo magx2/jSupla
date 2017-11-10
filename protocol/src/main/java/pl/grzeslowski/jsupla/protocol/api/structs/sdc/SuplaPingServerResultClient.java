@@ -26,8 +26,12 @@ public final class SuplaPingServerResultClient implements ServerDeviceClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaPingServerResultClient)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaPingServerResultClient)) {
+            return false;
+        }
 
         final SuplaPingServerResultClient that = (SuplaPingServerResultClient) o;
 

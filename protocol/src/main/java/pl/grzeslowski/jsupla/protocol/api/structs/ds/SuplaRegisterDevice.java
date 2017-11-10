@@ -65,17 +65,33 @@ public final class SuplaRegisterDevice implements DeviceServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaRegisterDevice)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaRegisterDevice)) {
+            return false;
+        }
 
         final SuplaRegisterDevice that = (SuplaRegisterDevice) o;
 
-        if (locationId != that.locationId) return false;
-        if (channelCount != that.channelCount) return false;
-        if (!Arrays.equals(locationPwd, that.locationPwd)) return false;
-        if (!Arrays.equals(guid, that.guid)) return false;
-        if (!Arrays.equals(name, that.name)) return false;
-        if (!Arrays.equals(softVer, that.softVer)) return false;
+        if (locationId != that.locationId) {
+            return false;
+        }
+        if (channelCount != that.channelCount) {
+            return false;
+        }
+        if (!Arrays.equals(locationPwd, that.locationPwd)) {
+            return false;
+        }
+        if (!Arrays.equals(guid, that.guid)) {
+            return false;
+        }
+        if (!Arrays.equals(name, that.name)) {
+            return false;
+        }
+        if (!Arrays.equals(softVer, that.softVer)) {
+            return false;
+        }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         return Arrays.equals(channels, that.channels);
     }

@@ -35,13 +35,21 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaChannelNewValueResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaChannelNewValueResult)) {
+            return false;
+        }
 
         final SuplaChannelNewValueResult that = (SuplaChannelNewValueResult) o;
 
-        if (channelNumber != that.channelNumber) return false;
-        if (senderId != that.senderId) return false;
+        if (channelNumber != that.channelNumber) {
+            return false;
+        }
+        if (senderId != that.senderId) {
+            return false;
+        }
         return success == that.success;
     }
 

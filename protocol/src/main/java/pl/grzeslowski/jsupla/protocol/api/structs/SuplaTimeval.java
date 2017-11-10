@@ -23,12 +23,18 @@ public final class SuplaTimeval implements ProtoWithSize {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaTimeval)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaTimeval)) {
+            return false;
+        }
 
         final SuplaTimeval that = (SuplaTimeval) o;
 
-        if (seconds != that.seconds) return false;
+        if (seconds != that.seconds) {
+            return false;
+        }
         return milliseconds == that.milliseconds;
     }
 

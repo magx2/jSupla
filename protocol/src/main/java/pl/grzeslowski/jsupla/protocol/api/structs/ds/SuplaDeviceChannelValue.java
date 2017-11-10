@@ -36,12 +36,18 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaDeviceChannelValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaDeviceChannelValue)) {
+            return false;
+        }
 
         final SuplaDeviceChannelValue that = (SuplaDeviceChannelValue) o;
 
-        if (channelNumber != that.channelNumber) return false;
+        if (channelNumber != that.channelNumber) {
+            return false;
+        }
         return Arrays.equals(value, that.value);
     }
 

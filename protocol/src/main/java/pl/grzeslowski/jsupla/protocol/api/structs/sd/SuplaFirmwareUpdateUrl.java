@@ -32,14 +32,24 @@ public final class SuplaFirmwareUpdateUrl implements ProtoWithSize {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaFirmwareUpdateUrl)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaFirmwareUpdateUrl)) {
+            return false;
+        }
 
         final SuplaFirmwareUpdateUrl that = (SuplaFirmwareUpdateUrl) o;
 
-        if (availableProtocols != that.availableProtocols) return false;
-        if (port != that.port) return false;
-        if (!Arrays.equals(host, that.host)) return false;
+        if (availableProtocols != that.availableProtocols) {
+            return false;
+        }
+        if (port != that.port) {
+            return false;
+        }
+        if (!Arrays.equals(host, that.host)) {
+            return false;
+        }
         return Arrays.equals(path, that.path);
     }
 

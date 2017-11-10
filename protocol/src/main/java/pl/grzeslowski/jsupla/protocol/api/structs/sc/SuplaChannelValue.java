@@ -38,14 +38,24 @@ public final class SuplaChannelValue implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaChannelValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaChannelValue)) {
+            return false;
+        }
 
         final SuplaChannelValue that = (SuplaChannelValue) o;
 
-        if (eol != that.eol) return false;
-        if (id != that.id) return false;
-        if (online != that.online) return false;
+        if (eol != that.eol) {
+            return false;
+        }
+        if (id != that.id) {
+            return false;
+        }
+        if (online != that.online) {
+            return false;
+        }
         return value.equals(that.value);
     }
 

@@ -49,16 +49,30 @@ public final class SuplaEvent implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaEvent)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaEvent)) {
+            return false;
+        }
 
         final SuplaEvent that = (SuplaEvent) o;
 
-        if (event != that.event) return false;
-        if (channelId != that.channelId) return false;
-        if (durationMs != that.durationMs) return false;
-        if (senderId != that.senderId) return false;
-        if (senderNameSize != that.senderNameSize) return false;
+        if (event != that.event) {
+            return false;
+        }
+        if (channelId != that.channelId) {
+            return false;
+        }
+        if (durationMs != that.durationMs) {
+            return false;
+        }
+        if (senderId != that.senderId) {
+            return false;
+        }
+        if (senderNameSize != that.senderNameSize) {
+            return false;
+        }
         return Arrays.equals(senderName, that.senderName);
     }
 

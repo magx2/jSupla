@@ -28,12 +28,18 @@ public final class SuplaFirmwareUpdateUrlResult implements ServerDevice {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaFirmwareUpdateUrlResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaFirmwareUpdateUrlResult)) {
+            return false;
+        }
 
         final SuplaFirmwareUpdateUrlResult that = (SuplaFirmwareUpdateUrlResult) o;
 
-        if (exists != that.exists) return false;
+        if (exists != that.exists) {
+            return false;
+        }
         return url.equals(that.url);
     }
 

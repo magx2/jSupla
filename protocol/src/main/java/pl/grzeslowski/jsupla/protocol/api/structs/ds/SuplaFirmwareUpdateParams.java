@@ -34,15 +34,27 @@ public final class SuplaFirmwareUpdateParams implements DeviceServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaFirmwareUpdateParams)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaFirmwareUpdateParams)) {
+            return false;
+        }
 
         final SuplaFirmwareUpdateParams that = (SuplaFirmwareUpdateParams) o;
 
-        if (platform != that.platform) return false;
-        if (param1 != that.param1) return false;
-        if (param2 != that.param2) return false;
-        if (param3 != that.param3) return false;
+        if (platform != that.platform) {
+            return false;
+        }
+        if (param1 != that.param1) {
+            return false;
+        }
+        if (param2 != that.param2) {
+            return false;
+        }
+        if (param3 != that.param3) {
+            return false;
+        }
         return param4 == that.param4;
     }
 

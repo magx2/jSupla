@@ -40,13 +40,21 @@ public final class SuplaSetActivityTimeoutResult implements ServerDeviceClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaSetActivityTimeoutResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaSetActivityTimeoutResult)) {
+            return false;
+        }
 
         final SuplaSetActivityTimeoutResult that = (SuplaSetActivityTimeoutResult) o;
 
-        if (activityTimeout != that.activityTimeout) return false;
-        if (min != that.min) return false;
+        if (activityTimeout != that.activityTimeout) {
+            return false;
+        }
+        if (min != that.min) {
+            return false;
+        }
         return max == that.max;
     }
 

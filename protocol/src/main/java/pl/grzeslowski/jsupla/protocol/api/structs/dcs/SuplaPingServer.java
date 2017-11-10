@@ -26,8 +26,12 @@ public final class SuplaPingServer implements DeviceClientServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaPingServer)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaPingServer)) {
+            return false;
+        }
 
         final SuplaPingServer that = (SuplaPingServer) o;
 

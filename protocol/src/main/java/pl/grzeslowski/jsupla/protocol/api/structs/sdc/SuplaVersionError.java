@@ -35,12 +35,18 @@ public final class SuplaVersionError implements ServerDeviceClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaVersionError)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaVersionError)) {
+            return false;
+        }
 
         final SuplaVersionError that = (SuplaVersionError) o;
 
-        if (serverVersionMin != that.serverVersionMin) return false;
+        if (serverVersionMin != that.serverVersionMin) {
+            return false;
+        }
         return serverVersion == that.serverVersion;
     }
 
@@ -54,8 +60,8 @@ public final class SuplaVersionError implements ServerDeviceClient {
     @Override
     public String toString() {
         return "SuplaVersionError{" +
-                "serverVersionMin=" + serverVersionMin +
-                ", serverVersion=" + serverVersion +
-                '}';
+                       "serverVersionMin=" + serverVersionMin +
+                       ", serverVersion=" + serverVersion +
+                       '}';
     }
 }

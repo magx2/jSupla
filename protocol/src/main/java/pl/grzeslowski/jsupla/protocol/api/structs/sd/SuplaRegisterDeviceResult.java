@@ -36,14 +36,24 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaRegisterDeviceResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaRegisterDeviceResult)) {
+            return false;
+        }
 
         final SuplaRegisterDeviceResult that = (SuplaRegisterDeviceResult) o;
 
-        if (resultCode != that.resultCode) return false;
-        if (activityTimeout != that.activityTimeout) return false;
-        if (version != that.version) return false;
+        if (resultCode != that.resultCode) {
+            return false;
+        }
+        if (activityTimeout != that.activityTimeout) {
+            return false;
+        }
+        if (version != that.version) {
+            return false;
+        }
         return versionMin == that.versionMin;
     }
 

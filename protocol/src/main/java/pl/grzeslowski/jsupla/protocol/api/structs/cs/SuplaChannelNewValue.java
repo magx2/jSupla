@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @Deprecated
 public final class SuplaChannelNewValue implements ClientServer {
     public static final int SIZE = BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE;
-    public final byte  channelId;
+    public final byte channelId;
     public final byte[] value;
 
     public SuplaChannelNewValue(byte channelId, byte[] value) {
@@ -32,12 +32,18 @@ public final class SuplaChannelNewValue implements ClientServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SuplaChannelNewValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SuplaChannelNewValue)) {
+            return false;
+        }
 
         final SuplaChannelNewValue that = (SuplaChannelNewValue) o;
 
-        if (channelId != that.channelId) return false;
+        if (channelId != that.channelId) {
+            return false;
+        }
         return Arrays.equals(value, that.value);
     }
 
@@ -51,8 +57,8 @@ public final class SuplaChannelNewValue implements ClientServer {
     @Override
     public String toString() {
         return "SuplaChannelNewValue{" +
-                "channelId=" + channelId +
-                ", value=" + Arrays.toString(value) +
-                '}';
+                       "channelId=" + channelId +
+                       ", value=" + Arrays.toString(value) +
+                       '}';
     }
 }
