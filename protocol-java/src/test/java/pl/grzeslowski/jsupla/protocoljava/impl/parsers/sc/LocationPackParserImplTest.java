@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Location;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class LocationPackParserImplTest extends ParserTest<LocationPack, SuplaLocationPack> {
+public class LocationPackParserImplTest extends AbstractParserTest<LocationPack, SuplaLocationPack> {
     @InjectMocks LocationPackParserImpl parser;
     @Mock LocationParser locationParser;
 

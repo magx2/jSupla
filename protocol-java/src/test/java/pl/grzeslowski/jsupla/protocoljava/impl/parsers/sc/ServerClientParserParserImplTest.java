@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.sc;
+package pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc;
 
 import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
@@ -12,7 +12,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelPackParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser;
@@ -20,15 +20,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.EventParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationPackParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.RegisterClientResultParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ForInterfaceParserTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class ServerClientParserParserFactoryImplTest extends ParserFactoryTest<ServerClientEntity, ServerClient> {
-    @InjectMocks ServerClientParserFactoryImpl factory;
+public class ServerClientParserParserImplTest extends ForInterfaceParserTest<ServerClientEntity, ServerClient> {
+    @InjectMocks ServerClientParserImpl parser;
 
     @Mock LocationParser locationParser;
     @Mock ChannelPackParser channelPackParser;
@@ -38,8 +38,8 @@ public class ServerClientParserParserFactoryImplTest extends ParserFactoryTest<S
     @Mock LocationPackParser locationPackParser;
     @Mock RegisterClientResultParser registerClientResultParser;
 
-    public ServerClientParserParserFactoryImplTest(final Class<ServerClient> protoToTestClass,
-                                                   final Field resultField) {
+    public ServerClientParserParserImplTest(final Class<ServerClient> protoToTestClass,
+                                            final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
@@ -47,25 +47,25 @@ public class ServerClientParserParserFactoryImplTest extends ParserFactoryTest<S
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
                 {SuplaChannel.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "channelParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "channelParser")},
                 {SuplaChannelPack.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "channelPackParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "channelPackParser")},
                 {SuplaChannelValue.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "channelValueParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "channelValueParser")},
                 {SuplaEvent.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "eventParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "eventParser")},
                 {SuplaLocation.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "locationParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "locationParser")},
                 {SuplaLocationPack.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "locationPackParser")},
+                        getDeclaredField(ServerClientParserParserImplTest.class, "locationPackParser")},
                 {SuplaRegisterClientResult.class,
-                        getDeclaredField(ServerClientParserParserFactoryImplTest.class, "registerClientResultParser")}
+                        getDeclaredField(ServerClientParserParserImplTest.class, "registerClientResultParser")}
         });
     }
 
     @Override
-    protected ParserFactory<ServerClientEntity, ServerClient> parserFactory() {
-        return factory;
+    protected Parser<ServerClientEntity, ServerClient> getParser() {
+        return parser;
     }
 
     @Override

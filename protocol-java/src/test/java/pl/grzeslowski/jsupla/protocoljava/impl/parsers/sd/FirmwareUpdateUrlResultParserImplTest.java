@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.FirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -17,7 +17,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateUrlResultParserImplTest
-        extends ParserTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
+        extends AbstractParserTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
     @InjectMocks FirmwareUpdateUrlResultParserImpl parser;
     @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
 

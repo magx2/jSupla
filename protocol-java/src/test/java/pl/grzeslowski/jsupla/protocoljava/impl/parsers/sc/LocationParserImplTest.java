@@ -7,13 +7,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Location;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
-public class LocationParserImplTest extends ParserTest<Location, SuplaLocation> {
+public class LocationParserImplTest extends AbstractParserTest<Location, SuplaLocation> {
     @InjectMocks LocationParserImpl parser;
     @Mock StringParser stringParser;
 

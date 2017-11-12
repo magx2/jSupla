@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers;
+package pl.grzeslowski.jsupla.protocoljava.impl.parsers;
 
 import com.google.common.reflect.ClassPath;
 import org.junit.Test;
@@ -8,18 +8,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.cs.ClientServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.dcs.DeviceClientServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ds.DeviceServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sc.ServerClientParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sd.ServerDeviceParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sdc.ServerDeviceClientParserFactory;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Constructor;
@@ -31,14 +31,14 @@ import static org.assertj.core.api.Java6Assertions.fail;
 @SuppressWarnings({"unused", "WeakerAccess"})
 @RunWith(MockitoJUnitRunner.class)
 public class ParserFactoryImplEdgeCasesTest {
-    @InjectMocks ParserFactoryImpl factory;
+    @InjectMocks ParserImpl factory;
 
-    @Mock ClientServerParserFactory clientServerParserFactory;
-    @Mock DeviceClientServerParserFactory deviceClientServerParserFactory;
-    @Mock DeviceServerParserFactory deviceServerParserFactory;
-    @Mock ServerClientParserFactory serverClientParserFactory;
-    @Mock ServerDeviceParserFactory serverDeviceParserFactory;
-    @Mock ServerDeviceClientParserFactory serverDeviceClientParserFactory;
+    @Mock ClientServerEntityParser clientServerParserFactory;
+    @Mock DeviceClientServerEntityParser deviceClientServerParserFactory;
+    @Mock DeviceServerEntityParser deviceServerParserFactory;
+    @Mock ServerClientEntityParser serverClientParserFactory;
+    @Mock ServerDeviceEntityParser serverDeviceParserFactory;
+    @Mock ServerDeviceClientEntityParser serverDeviceClientParserFactory;
 
     @Mock DeviceChannelParser deviceChannelParser;
     @Mock DeviceChannelBParser deviceChannelBParser;
@@ -54,30 +54,30 @@ public class ParserFactoryImplEdgeCasesTest {
         };
 
         // when
-        factory.getParser(proto);
+        factory.parse(proto);
     }
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenProtoIsNullIsNull() {
-        factory.getParser(null);
+        factory.parse(null);
     }
 
     @SuppressWarnings("unchecked")
     @Test
     public void shouldThrowNullPointerExceptionIfOneOfArgsIsNull() throws Exception {
-        ClassPath.from(ParserFactoryImpl.class.getClassLoader())
-                .getTopLevelClassesRecursive(ParserFactoryImpl.class.getPackage().getName())
+        ClassPath.from(ParserImpl.class.getClassLoader())
+                .getTopLevelClassesRecursive(ParserImpl.class.getPackage().getName())
                 .asList()
                 .stream()
                 .map(ClassPath.ClassInfo::load)
                 .filter(clazz -> !clazz.isInterface())
-                .filter(ParserFactory.class::isAssignableFrom)
-                .map(clazz -> (Class<ParserFactory>) clazz)
+                .filter(Parser.class::isAssignableFrom)
+                .map(clazz -> (Class<Parser>) clazz)
                 .forEach(this::passNullForEachClass);
     }
 
-    private void passNullForEachClass(final Class<ParserFactory> factoryClass) {
-        Arrays.stream(factoryClass.getConstructors()).forEach(this::passNullForEachConstructor);
+    private void passNullForEachClass(final Class<Parser> parserClass) {
+        Arrays.stream(parserClass.getConstructors()).forEach(this::passNullForEachConstructor);
     }
 
     private void passNullForEachConstructor(final Constructor<?> constructor) {

@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelPack;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelPackParserImplTest extends ParserTest<ChannelPack, SuplaChannelPack> {
+public class ChannelPackParserImplTest extends AbstractParserTest<ChannelPack, SuplaChannelPack> {
     @InjectMocks ChannelPackParserImpl parser;
     @Mock ChannelParser channelParser;
 

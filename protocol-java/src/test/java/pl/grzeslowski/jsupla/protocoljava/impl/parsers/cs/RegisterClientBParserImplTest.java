@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static java.util.Arrays.copyOfRange;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class RegisterClientBParserImplTest extends ParserTest<RegisterClientB, SuplaRegisterClientB> {
+public class RegisterClientBParserImplTest extends AbstractParserTest<RegisterClientB, SuplaRegisterClientB> {
     @InjectMocks RegisterClientBParserImpl parser;
     @Mock StringParser stringParser;
 

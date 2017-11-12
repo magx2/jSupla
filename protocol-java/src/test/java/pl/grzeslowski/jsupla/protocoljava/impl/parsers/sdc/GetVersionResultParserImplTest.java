@@ -7,13 +7,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.GetVersionResult;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
-public class GetVersionResultParserImplTest extends ParserTest<GetVersionResult, SuplaGetVersionResult> {
+public class GetVersionResultParserImplTest extends AbstractParserTest<GetVersionResult, SuplaGetVersionResult> {
     @InjectMocks GetVersionResultParserImpl parser;
     @Mock StringParser stringParser;
 

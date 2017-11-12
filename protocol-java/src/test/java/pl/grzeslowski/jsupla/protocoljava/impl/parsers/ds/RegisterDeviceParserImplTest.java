@@ -10,7 +10,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import java.util.Arrays;
 
@@ -22,7 +22,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 @Deprecated
-public class RegisterDeviceParserImplTest extends ParserTest<RegisterDevice, SuplaRegisterDevice> {
+public class RegisterDeviceParserImplTest extends AbstractParserTest<RegisterDevice, SuplaRegisterDevice> {
     @InjectMocks RegisterDeviceParserImpl parser;
     @Mock StringParser stringParser;
     @Mock DeviceChannelParser deviceChannelParser;

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.sd;
+package pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd;
 
 import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
@@ -8,28 +8,28 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ServerDeviceEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.RegisterDeviceResultParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers.ParserFactoryTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ForInterfaceParserTest;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class ServerDeviceParserParserFactoryImplTest extends ParserFactoryTest<ServerDeviceEntity, ServerDevice> {
-    @InjectMocks ServerDeviceParserFactoryImpl factory;
+public class ServerDeviceParserParserImplTest extends ForInterfaceParserTest<ServerDeviceEntity, ServerDevice> {
+    @InjectMocks ServerDeviceParserImpl parser;
 
     @Mock ChannelNewValueParser channelNewValueParser;
     @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
     @Mock FirmwareUpdateUrlResultParser firmwareUpdateUrlResultParser;
     @Mock RegisterDeviceResultParser registerDeviceResultParser;
 
-    public ServerDeviceParserParserFactoryImplTest(final Class<ServerDevice> protoToTestClass,
-                                                   final Field resultField) {
+    public ServerDeviceParserParserImplTest(final Class<ServerDevice> protoToTestClass,
+                                            final Field resultField) {
         super(protoToTestClass, resultField);
     }
 
@@ -37,20 +37,20 @@ public class ServerDeviceParserParserFactoryImplTest extends ParserFactoryTest<S
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
                 {SuplaChannelNewValue.class,
-                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                        getDeclaredField(ServerDeviceParserParserImplTest.class,
                                 "channelNewValueParser")},
                 {SuplaFirmwareUpdateUrlResult.class,
-                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                        getDeclaredField(ServerDeviceParserParserImplTest.class,
                                 "firmwareUpdateUrlResultParser")},
                 {SuplaRegisterDeviceResult.class,
-                        getDeclaredField(ServerDeviceParserParserFactoryImplTest.class,
+                        getDeclaredField(ServerDeviceParserParserImplTest.class,
                                 "registerDeviceResultParser")}
         });
     }
 
     @Override
-    protected ParserFactory<ServerDeviceEntity, ServerDevice> parserFactory() {
-        return factory;
+    protected Parser<ServerDeviceEntity, ServerDevice> getParser() {
+        return parser;
     }
 
     @Override

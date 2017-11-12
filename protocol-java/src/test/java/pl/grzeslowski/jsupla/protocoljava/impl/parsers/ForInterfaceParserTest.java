@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers;
+package pl.grzeslowski.jsupla.protocoljava.impl.parsers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,24 +6,23 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.MockitoAnnotations;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ParserFactory;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.protocoljava.common.TestUtil;
 
 import java.lang.reflect.Field;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
-public abstract class ParserFactoryTest<EntityT extends Entity, SuplaProtoT extends Proto> {
+public abstract class ForInterfaceParserTest<EntityT extends Entity, SuplaProtoT extends Proto> {
     final Class<SuplaProtoT> protoToTestClass;
     final Field resultField;
 
-    protected ParserFactoryTest(final Class<SuplaProtoT> protoToTestClass, final Field resultField) {
+    protected ForInterfaceParserTest(final Class<SuplaProtoT> protoToTestClass, final Field resultField) {
         this.protoToTestClass = protoToTestClass;
         this.resultField = resultField;
     }
@@ -34,20 +33,22 @@ public abstract class ParserFactoryTest<EntityT extends Entity, SuplaProtoT exte
         resultField.setAccessible(true);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void shouldFindParser() throws Exception {
 
         // given
+        final Parser<EntityT, SuplaProtoT> parser = (Parser<EntityT, SuplaProtoT>) resultField.get(this);
         final SuplaProtoT proto = RANDOM_SUPLA.nextObject(protoToTestClass);
 
         // when
-        final Parser<? extends EntityT, ? extends SuplaProtoT> parser = parserFactory().getParser(proto);
+        getParser().parse(proto);
 
         // then
-        assertThat(parser).isEqualTo(resultField.get(this));
+        verify(parser).parse(proto);
     }
 
-    protected abstract ParserFactory<EntityT, SuplaProtoT> parserFactory();
+    protected abstract Parser<EntityT, SuplaProtoT> getParser();
 
     /**
      * @deprecated use TestUtil.
@@ -59,13 +60,13 @@ public abstract class ParserFactoryTest<EntityT extends Entity, SuplaProtoT exte
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenProtoTypeIsUnknown() throws Exception {
-        parserFactory().getParser(mock(suplaClass()));
+        getParser().parse(mock(suplaClass()));
     }
 
     protected abstract Class<SuplaProtoT> suplaClass();
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenPassedProtoIsNull() {
-        parserFactory().getParser(null);
+        getParser().parse(null);
     }
 }

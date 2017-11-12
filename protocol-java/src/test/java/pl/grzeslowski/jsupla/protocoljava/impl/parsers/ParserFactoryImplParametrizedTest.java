@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocoljava.impl.factories.parsers;
+package pl.grzeslowski.jsupla.protocoljava.impl.parsers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,17 +38,17 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClien
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.cs.ClientServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.dcs.DeviceClientServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.ds.DeviceServerParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sc.ServerClientParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sd.ServerDeviceParserFactory;
-import pl.grzeslowski.jsupla.protocoljava.api.factories.parsers.sdc.ServerDeviceClientParserFactory;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -100,14 +100,14 @@ public class ParserFactoryImplParametrizedTest {
             SuplaVersionError.class
     );
 
-    @InjectMocks ParserFactoryImpl factory;
+    @InjectMocks ParserImpl parser;
 
-    @Mock ClientServerParserFactory clientServerParserFactory;
-    @Mock DeviceClientServerParserFactory deviceClientServerParserFactory;
-    @Mock DeviceServerParserFactory deviceServerParserFactory;
-    @Mock ServerClientParserFactory serverClientParserFactory;
-    @Mock ServerDeviceParserFactory serverDeviceParserFactory;
-    @Mock ServerDeviceClientParserFactory serverDeviceClientParserFactory;
+    @Mock ClientServerEntityParser clientServerParserFactory;
+    @Mock DeviceClientServerEntityParser deviceClientServerParserFactory;
+    @Mock DeviceServerEntityParser deviceServerParserFactory;
+    @Mock ServerClientEntityParser serverClientParserFactory;
+    @Mock ServerDeviceEntityParser serverDeviceParserFactory;
+    @Mock ServerDeviceClientEntityParser serverDeviceClientParserFactory;
 
     @Mock DeviceChannelParser deviceChannelParser;
     @Mock DeviceChannelBParser deviceChannelBParser;
@@ -144,8 +144,9 @@ public class ParserFactoryImplParametrizedTest {
         });
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyClientServerParserFactory(Proto proto, MockFactories mockFactories) {
-        verify(mockFactories.clientServerParserFactory).getParser((ClientServer) proto);
+        verify(mockFactories.clientServerParserFactory).parse(proto);
         verifyNoMoreInteractions(mockFactories.deviceClientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceServerParserFactory);
         verifyNoMoreInteractions(mockFactories.serverClientParserFactory);
@@ -153,49 +154,54 @@ public class ParserFactoryImplParametrizedTest {
         verifyNoMoreInteractions(mockFactories.serverDeviceClientParserFactory);
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyDeviceClientServerParserFactory(Proto proto, MockFactories mockFactories) {
         verifyNoMoreInteractions(mockFactories.clientServerParserFactory);
-        verify(mockFactories.deviceClientServerParserFactory).getParser((DeviceClientServer) proto);
+        verify(mockFactories.deviceClientServerParserFactory).parse(proto);
         verifyNoMoreInteractions(mockFactories.deviceServerParserFactory);
         verifyNoMoreInteractions(mockFactories.serverClientParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceClientParserFactory);
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyDeviceServerParserFactory(Proto proto, MockFactories mockFactories) {
         verifyNoMoreInteractions(mockFactories.clientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceClientServerParserFactory);
-        verify(mockFactories.deviceServerParserFactory).getParser((DeviceServer) proto);
+        verify(mockFactories.deviceServerParserFactory).parse(proto);
         verifyNoMoreInteractions(mockFactories.serverClientParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceClientParserFactory);
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyServerClientParserFactory(Proto proto, MockFactories mockFactories) {
         verifyNoMoreInteractions(mockFactories.clientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceClientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceServerParserFactory);
-        verify(mockFactories.serverClientParserFactory).getParser((ServerClient) proto);
+        verify(mockFactories.serverClientParserFactory).parse(proto);
         verifyNoMoreInteractions(mockFactories.serverDeviceParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceClientParserFactory);
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyServerDeviceParserFactory(Proto proto, MockFactories mockFactories) {
         verifyNoMoreInteractions(mockFactories.clientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceClientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceServerParserFactory);
         verifyNoMoreInteractions(mockFactories.serverClientParserFactory);
-        verify(mockFactories.serverDeviceParserFactory).getParser((ServerDevice) proto);
+        verify(mockFactories.serverDeviceParserFactory).parse(proto);
         verifyNoMoreInteractions(mockFactories.serverDeviceClientParserFactory);
     }
 
+    @SuppressWarnings("unchecked")
     static void invokeOnlyServerDeviceClientParserFactory(Proto proto, MockFactories mockFactories) {
         verifyNoMoreInteractions(mockFactories.clientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceClientServerParserFactory);
         verifyNoMoreInteractions(mockFactories.deviceServerParserFactory);
         verifyNoMoreInteractions(mockFactories.serverClientParserFactory);
         verifyNoMoreInteractions(mockFactories.serverDeviceParserFactory);
-        verify(mockFactories.serverDeviceClientParserFactory).getParser((ServerDeviceClient) proto);
+        verify(mockFactories.serverDeviceClientParserFactory).parse(proto);
     }
 
     @Before
@@ -213,7 +219,7 @@ public class ParserFactoryImplParametrizedTest {
     void shouldFindAndUserProperFactory(Proto proto) {
 
         // when
-        factory.getParser(proto);
+        parser.parse(proto);
 
         // then
         verify.accept(proto, new MockFactories(
@@ -227,19 +233,19 @@ public class ParserFactoryImplParametrizedTest {
     }
 
     private static class MockFactories {
-        final ClientServerParserFactory clientServerParserFactory;
-        final DeviceClientServerParserFactory deviceClientServerParserFactory;
-        final DeviceServerParserFactory deviceServerParserFactory;
-        final ServerClientParserFactory serverClientParserFactory;
-        final ServerDeviceParserFactory serverDeviceParserFactory;
-        final ServerDeviceClientParserFactory serverDeviceClientParserFactory;
+        final ClientServerEntityParser clientServerParserFactory;
+        final DeviceClientServerEntityParser deviceClientServerParserFactory;
+        final DeviceServerEntityParser deviceServerParserFactory;
+        final ServerClientEntityParser serverClientParserFactory;
+        final ServerDeviceEntityParser serverDeviceParserFactory;
+        final ServerDeviceClientEntityParser serverDeviceClientParserFactory;
 
-        private MockFactories(final ClientServerParserFactory clientServerParserFactory,
-                              final DeviceClientServerParserFactory deviceClientServerParserFactory,
-                              final DeviceServerParserFactory deviceServerParserFactory,
-                              final ServerClientParserFactory serverClientParserFactory,
-                              final ServerDeviceParserFactory serverDeviceParserFactory,
-                              final ServerDeviceClientParserFactory serverDeviceClientParserFactory) {
+        private MockFactories(final ClientServerEntityParser clientServerParserFactory,
+                              final DeviceClientServerEntityParser deviceClientServerParserFactory,
+                              final DeviceServerEntityParser deviceServerParserFactory,
+                              final ServerClientEntityParser serverClientParserFactory,
+                              final ServerDeviceEntityParser serverDeviceParserFactory,
+                              final ServerDeviceClientEntityParser serverDeviceClientParserFactory) {
             this.clientServerParserFactory = clientServerParserFactory;
             this.deviceClientServerParserFactory = deviceClientServerParserFactory;
             this.deviceServerParserFactory = deviceServerParserFactory;

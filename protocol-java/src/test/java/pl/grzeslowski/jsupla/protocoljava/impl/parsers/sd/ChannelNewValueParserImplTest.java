@@ -11,13 +11,13 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Sd
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelNewValueParserImplTest extends ParserTest<ChannelNewValue, SuplaChannelNewValue> {
+public class ChannelNewValueParserImplTest extends AbstractParserTest<ChannelNewValue, SuplaChannelNewValue> {
     @InjectMocks ChannelNewValueParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
     @Mock SdSuplaChannelNewValueToChannelType suplaChannelNewValueToChannelType;

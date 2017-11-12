@@ -4,12 +4,12 @@ import org.mockito.InjectMocks;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.SetActivityTimeout;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class SetActivityTimeoutParserImplTest extends ParserTest<SetActivityTimeout, SuplaSetActivityTimeout> {
+public class SetActivityTimeoutParserImplTest extends AbstractParserTest<SetActivityTimeout, SuplaSetActivityTimeout> {
     @InjectMocks SetActivityTimeoutParserImpl parser;
 
     @Override

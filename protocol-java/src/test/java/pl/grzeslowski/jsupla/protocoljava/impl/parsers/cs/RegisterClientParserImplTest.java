@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static java.util.Arrays.copyOfRange;
 import static org.mockito.Matchers.any;
@@ -18,7 +18,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @Deprecated
 @SuppressWarnings("WeakerAccess")
-public class RegisterClientParserImplTest extends ParserTest<RegisterClient, SuplaRegisterClient> {
+public class RegisterClientParserImplTest extends AbstractParserTest<RegisterClient, SuplaRegisterClient> {
     @InjectMocks RegisterClientParserImpl parser;
     @Mock StringParser stringParser;
 

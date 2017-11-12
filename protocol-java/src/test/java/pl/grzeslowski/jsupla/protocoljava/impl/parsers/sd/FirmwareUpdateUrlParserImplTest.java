@@ -7,13 +7,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
-public class FirmwareUpdateUrlParserImplTest extends ParserTest<FirmwareUpdateUrl, SuplaFirmwareUpdateUrl> {
+public class FirmwareUpdateUrlParserImplTest extends AbstractParserTest<FirmwareUpdateUrl, SuplaFirmwareUpdateUrl> {
     @InjectMocks FirmwareUpdateUrlParserImpl parser;
     @Mock StringParser stringParser;
 

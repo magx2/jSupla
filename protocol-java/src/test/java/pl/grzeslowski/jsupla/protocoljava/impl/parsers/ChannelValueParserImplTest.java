@@ -17,7 +17,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelValueParserImplTest extends ParserTest<ChannelValue, SuplaChannelValue> {
+public class ChannelValueParserImplTest extends AbstractParserTest<ChannelValue, SuplaChannelValue> {
     @InjectMocks ChannelValueParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
     @Mock SuplaChannelValueToChannelType suplaChannelValueToChannelType;

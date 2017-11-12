@@ -17,7 +17,7 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @RunWith(MockitoJUnitRunner.class)
-public abstract class ParserTest<EntityT extends Entity, SuplaProtoT extends Proto> {
+public abstract class AbstractParserTest<EntityT extends Entity, SuplaProtoT extends Proto> {
 
     @Test
     public void shouldParseEntity() throws Exception {

@@ -9,14 +9,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.Timeval;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.PingServerResultClient;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
 public class PingServerResultClientParserImplTest
-        extends ParserTest<PingServerResultClient, SuplaPingServerResultClient> {
+        extends AbstractParserTest<PingServerResultClient, SuplaPingServerResultClient> {
     @InjectMocks PingServerResultClientParserImpl parser;
     @Mock TimevalParser timevalParser;
 

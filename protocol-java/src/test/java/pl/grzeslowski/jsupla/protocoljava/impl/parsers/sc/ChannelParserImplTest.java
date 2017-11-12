@@ -10,14 +10,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelParserImplTest extends ParserTest<Channel, SuplaChannel> {
+public class ChannelParserImplTest extends AbstractParserTest<Channel, SuplaChannel> {
     @InjectMocks ChannelParserImpl parser;
     @Mock ChannelValueParser channelValueParser;
     @Mock StringParser stringParser;

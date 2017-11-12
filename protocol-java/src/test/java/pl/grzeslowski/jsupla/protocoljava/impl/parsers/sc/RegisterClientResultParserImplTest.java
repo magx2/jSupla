@@ -4,12 +4,13 @@ import org.mockito.InjectMocks;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class RegisterClientResultParserImplTest extends ParserTest<RegisterClientResult, SuplaRegisterClientResult> {
+public class RegisterClientResultParserImplTest
+        extends AbstractParserTest<RegisterClientResult, SuplaRegisterClientResult> {
     @InjectMocks RegisterClientResultParserImpl parser;
 
     @Override

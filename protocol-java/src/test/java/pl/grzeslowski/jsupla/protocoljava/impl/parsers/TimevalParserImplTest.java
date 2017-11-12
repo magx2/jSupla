@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class TimevalParserImplTest extends ParserTest<Timeval, SuplaTimeval> {
+public class TimevalParserImplTest extends AbstractParserTest<Timeval, SuplaTimeval> {
     @InjectMocks TimevalParserImpl parser;
 
     @Override

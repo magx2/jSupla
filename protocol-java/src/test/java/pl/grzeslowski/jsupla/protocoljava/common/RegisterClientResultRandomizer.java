@@ -15,7 +15,7 @@ class RegisterClientResultRandomizer implements Randomizer<RegisterClientResult>
 
     @Override
     public RegisterClientResult getRandomValue() {
-        final short version = (short) random.nextInt(UNSIGNED_BYTE_MAX);
+        final short version = (short) (random.nextInt(UNSIGNED_BYTE_MAX) + 1);
         final short versionMin = (short) random.nextInt(version);
         return new RegisterClientResult(
                                                random.nextInt(1000),

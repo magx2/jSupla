@@ -4,12 +4,13 @@ import org.mockito.InjectMocks;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.ChannelNewValueResult;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserTest;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelNewValueResultParserImplTest extends ParserTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
+public class ChannelNewValueResultParserImplTest
+        extends AbstractParserTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
     @InjectMocks ChannelNewValueResultParserImpl parser;
 
     @Override
