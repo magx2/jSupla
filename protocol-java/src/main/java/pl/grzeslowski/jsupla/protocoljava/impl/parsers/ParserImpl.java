@@ -12,6 +12,12 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceServerEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ServerDeviceEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
@@ -32,12 +38,14 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ParserImpl implements Parser<Entity, Proto> {
-    private final ClientServerEntityParser clientServerParserFactory;
-    private final DeviceClientServerEntityParser deviceClientServerParserFactory;
-    private final DeviceServerEntityParser deviceServerParserFactory;
-    private final ServerClientEntityParser serverClientParserFactory;
-    private final ServerDeviceEntityParser serverDeviceParserFactory;
-    private final ServerDeviceClientEntityParser serverDeviceClientParserFactory;
+    private final ClientServerEntityParser<ClientServerEntity, ClientServer> clientServerParserFactory;
+    private final DeviceClientServerEntityParser<DeviceClientServerEntity, DeviceClientServer>
+            deviceClientServerParserFactory;
+    private final DeviceServerEntityParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory;
+    private final ServerClientEntityParser<ServerClientEntity, ServerClient> serverClientParserFactory;
+    private final ServerDeviceEntityParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory;
+    private final ServerDeviceClientEntityParser<ServerDeviceClientEntity, ServerDeviceClient>
+            serverDeviceClientParserFactory;
 
     private final DeviceChannelParser deviceChannelParser;
     private final DeviceChannelBParser deviceChannelBParser;
@@ -45,12 +53,14 @@ public class ParserImpl implements Parser<Entity, Proto> {
     private final ChannelValueParser channelValueParser;
     private final TimevalParser timevalParser;
 
-    public ParserImpl(final ClientServerEntityParser clientServerParserFactory,
-                      final DeviceClientServerEntityParser deviceClientServerParserFactory,
-                      final DeviceServerEntityParser deviceServerParserFactory,
-                      final ServerClientEntityParser serverClientParserFactory,
-                      final ServerDeviceEntityParser serverDeviceParserFactory,
-                      final ServerDeviceClientEntityParser serverDeviceClientParserFactory,
+    public ParserImpl(final ClientServerEntityParser<ClientServerEntity, ClientServer> clientServerParserFactory,
+                      final DeviceClientServerEntityParser<DeviceClientServerEntity, DeviceClientServer>
+                              deviceClientServerParserFactory,
+                      final DeviceServerEntityParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory,
+                      final ServerClientEntityParser<ServerClientEntity, ServerClient> serverClientParserFactory,
+                      final ServerDeviceEntityParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory,
+                      final ServerDeviceClientEntityParser<ServerDeviceClientEntity, ServerDeviceClient>
+                              serverDeviceClientParserFactory,
                       final DeviceChannelParser deviceChannelParser,
                       final DeviceChannelBParser deviceChannelBParser,
                       final FirmwareUpdateUrlParser firmwareUpdateUrlParser,
@@ -69,22 +79,21 @@ public class ParserImpl implements Parser<Entity, Proto> {
         this.timevalParser = requireNonNull(timevalParser);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Entity parse(@NotNull final Proto proto) {
         requireNonNull(proto);
         if (proto instanceof ClientServer) {
-            return clientServerParserFactory.parse(proto);
+            return clientServerParserFactory.parse((ClientServer) proto);
         } else if (proto instanceof DeviceClientServer) {
-            return deviceClientServerParserFactory.parse(proto);
+            return deviceClientServerParserFactory.parse((DeviceClientServer) proto);
         } else if (proto instanceof DeviceServer) {
-            return deviceServerParserFactory.parse(proto);
+            return deviceServerParserFactory.parse((DeviceServer) proto);
         } else if (proto instanceof ServerClient) {
-            return serverClientParserFactory.parse(proto);
+            return serverClientParserFactory.parse((ServerClient) proto);
         } else if (proto instanceof ServerDevice) {
-            return serverDeviceParserFactory.parse(proto);
+            return serverDeviceParserFactory.parse((ServerDevice) proto);
         } else if (proto instanceof ServerDeviceClient) {
-            return serverDeviceClientParserFactory.parse(proto);
+            return serverDeviceClientParserFactory.parse((ServerDeviceClient) proto);
         } else {
             return commonProto(proto);
         }
