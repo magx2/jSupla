@@ -15,7 +15,7 @@ public class SuplaGetVersionResultRandomizer implements Randomizer<SuplaGetVersi
 
     @Override
     public SuplaGetVersionResult getRandomValue() {
-        final short protoVersion = randomSupla.nextUnsignedByte();
+        final short protoVersion = (short) (randomSupla.nextUnsignedByte() + 1);
         final short protoVersionMin = randomSupla.nextUnsignedByte(protoVersion);
         return new SuplaGetVersionResult(
                                                 protoVersionMin,
