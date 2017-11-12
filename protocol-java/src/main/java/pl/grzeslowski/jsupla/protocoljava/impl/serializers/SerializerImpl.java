@@ -21,15 +21,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEnt
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.TimevalSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
 import javax.validation.constraints.NotNull;
@@ -38,13 +38,13 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class SerializerImpl implements Serializer<Entity, Proto> {
-    private final ClientServerEntitySerializer<ClientServerEntity, ClientServer> clientServerSerializer;
-    private final DeviceClientServerEntitySerializer<DeviceClientServerEntity, DeviceClientServer>
+    private final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer;
+    private final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
             deviceClientServerSerializer;
-    private final DeviceServerEntitySerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer;
-    private final ServerClientEntitySerializer<ServerClientEntity, ServerClient> serverClientSerializer;
-    private final ServerDeviceEntitySerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer;
-    private final ServerDeviceClientEntitySerializer<ServerDeviceClientEntity, ServerDeviceClient>
+    private final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer;
+    private final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer;
+    private final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer;
+    private final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
             serverDeviceClientSerializer;
 
     private final DeviceChannelSerializer deviceChannelSerializer;
@@ -53,13 +53,13 @@ public class SerializerImpl implements Serializer<Entity, Proto> {
     private final ChannelValueSerializer channelValueSerializer;
     private final TimevalSerializer timevalSerializer;
 
-    public SerializerImpl(final ClientServerEntitySerializer<ClientServerEntity, ClientServer> clientServerSerializer,
-                          final DeviceClientServerEntitySerializer<DeviceClientServerEntity, DeviceClientServer>
+    public SerializerImpl(final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer,
+                          final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
                                   deviceClientServerSerializer,
-                          final DeviceServerEntitySerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer,
-                          final ServerClientEntitySerializer<ServerClientEntity, ServerClient> serverClientSerializer,
-                          final ServerDeviceEntitySerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer,
-                          final ServerDeviceClientEntitySerializer<ServerDeviceClientEntity, ServerDeviceClient>
+                          final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer,
+                          final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer,
+                          final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer,
+                          final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
                                   serverDeviceClientSerializer,
                           final DeviceChannelSerializer deviceChannelSerializer,
                           final DeviceChannelBSerializer deviceChannelBSerializer,

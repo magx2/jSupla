@@ -16,15 +16,15 @@ import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 import pl.grzeslowski.jsupla.protocoljava.common.TestUtil;
 
 import java.util.Arrays;
@@ -38,12 +38,12 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 public class ParserFactoryImplTestForCommonClasses {
     @InjectMocks ParserImpl parser;
 
-    @Mock ClientServerEntityParser clientServerParserFactory;
-    @Mock DeviceClientServerEntityParser deviceClientServerParserFactory;
-    @Mock DeviceServerEntityParser deviceServerParserFactory;
-    @Mock ServerClientEntityParser serverClientParserFactory;
-    @Mock ServerDeviceEntityParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientEntityParser serverDeviceClientParserFactory;
+    @Mock ClientServerParser clientServerParserFactory;
+    @Mock DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock DeviceServerParser deviceServerParserFactory;
+    @Mock ServerClientParser serverClientParserFactory;
+    @Mock ServerDeviceParser serverDeviceParserFactory;
+    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
 
     @Mock DeviceChannelParser deviceChannelParser;
     @Mock DeviceChannelBParser deviceChannelBParser;

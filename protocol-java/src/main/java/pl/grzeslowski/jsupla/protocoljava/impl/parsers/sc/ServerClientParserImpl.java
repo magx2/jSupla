@@ -16,14 +16,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.EventParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationPackParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.RegisterClientResultParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientParser;
 
 import javax.validation.constraints.NotNull;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class ServerClientParserImpl implements ServerClientEntityParser<ServerClientEntity, ServerClient> {
+public class ServerClientParserImpl implements ServerClientParser<ServerClientEntity, ServerClient> {
     private final LocationParser locationParser;
     private final ChannelPackParser channelPackParser;
     private final EventParser eventParser;

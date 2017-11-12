@@ -4,9 +4,9 @@ import pl.grzeslowski.jsupla.protocol.api.structs.dcs.DeviceClientServer;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.PingServer;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.SetActivityTimeout;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.PingServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.SetActivityTimeoutEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.PingServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.SetActivityTimeoutSerializer;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,12 +14,12 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class DeviceClientServerSerializerImpl
-        implements DeviceClientServerEntitySerializer<DeviceClientServerEntity, DeviceClientServer> {
-    private final PingServerEntitySerializer pingServerSerializer;
-    private final SetActivityTimeoutEntitySerializer setActivityTimeoutSerializer;
+        implements DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer> {
+    private final PingServerSerializer pingServerSerializer;
+    private final SetActivityTimeoutSerializer setActivityTimeoutSerializer;
 
-    public DeviceClientServerSerializerImpl(final PingServerEntitySerializer pingServerSerializer,
-                                            final SetActivityTimeoutEntitySerializer setActivityTimeoutSerializer) {
+    public DeviceClientServerSerializerImpl(final PingServerSerializer pingServerSerializer,
+                                            final SetActivityTimeoutSerializer setActivityTimeoutSerializer) {
         this.pingServerSerializer = requireNonNull(pingServerSerializer);
         this.setActivityTimeoutSerializer = requireNonNull(setActivityTimeoutSerializer);
     }

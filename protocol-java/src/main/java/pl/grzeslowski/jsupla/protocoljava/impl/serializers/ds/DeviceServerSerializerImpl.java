@@ -10,7 +10,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.ChannelNewValueResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelValueSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.FirmwareUpdateParamsSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
@@ -22,7 +22,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class DeviceServerSerializerImpl
-        implements DeviceServerEntitySerializer<DeviceServerEntity, DeviceServer> {
+        implements DeviceServerSerializer<DeviceServerEntity, DeviceServer> {
     private final ChannelNewValueResultSerializer channelNewValueResultSerializer;
     private final RegisterDeviceSerializer registerDeviceSerializer;
     private final RegisterDeviceBSerializer registerDeviceBSerializer;

@@ -21,15 +21,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEnt
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
 import javax.validation.constraints.NotNull;
@@ -38,13 +38,13 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ParserImpl implements Parser<Entity, Proto> {
-    private final ClientServerEntityParser<ClientServerEntity, ClientServer> clientServerParserFactory;
-    private final DeviceClientServerEntityParser<DeviceClientServerEntity, DeviceClientServer>
+    private final ClientServerParser<ClientServerEntity, ClientServer> clientServerParserFactory;
+    private final DeviceClientServerParser<DeviceClientServerEntity, DeviceClientServer>
             deviceClientServerParserFactory;
-    private final DeviceServerEntityParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory;
-    private final ServerClientEntityParser<ServerClientEntity, ServerClient> serverClientParserFactory;
-    private final ServerDeviceEntityParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory;
-    private final ServerDeviceClientEntityParser<ServerDeviceClientEntity, ServerDeviceClient>
+    private final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory;
+    private final ServerClientParser<ServerClientEntity, ServerClient> serverClientParserFactory;
+    private final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory;
+    private final ServerDeviceClientParser<ServerDeviceClientEntity, ServerDeviceClient>
             serverDeviceClientParserFactory;
 
     private final DeviceChannelParser deviceChannelParser;
@@ -53,13 +53,13 @@ public class ParserImpl implements Parser<Entity, Proto> {
     private final ChannelValueParser channelValueParser;
     private final TimevalParser timevalParser;
 
-    public ParserImpl(final ClientServerEntityParser<ClientServerEntity, ClientServer> clientServerParserFactory,
-                      final DeviceClientServerEntityParser<DeviceClientServerEntity, DeviceClientServer>
+    public ParserImpl(final ClientServerParser<ClientServerEntity, ClientServer> clientServerParserFactory,
+                      final DeviceClientServerParser<DeviceClientServerEntity, DeviceClientServer>
                               deviceClientServerParserFactory,
-                      final DeviceServerEntityParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory,
-                      final ServerClientEntityParser<ServerClientEntity, ServerClient> serverClientParserFactory,
-                      final ServerDeviceEntityParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory,
-                      final ServerDeviceClientEntityParser<ServerDeviceClientEntity, ServerDeviceClient>
+                      final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory,
+                      final ServerClientParser<ServerClientEntity, ServerClient> serverClientParserFactory,
+                      final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory,
+                      final ServerDeviceClientParser<ServerDeviceClientEntity, ServerDeviceClient>
                               serverDeviceClientParserFactory,
                       final DeviceChannelParser deviceChannelParser,
                       final DeviceChannelBParser deviceChannelBParser,

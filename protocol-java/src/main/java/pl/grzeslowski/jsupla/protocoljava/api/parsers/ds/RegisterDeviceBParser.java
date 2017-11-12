@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 
 @Deprecated
-public interface RegisterDeviceBParser extends DeviceServerEntityParser<RegisterDeviceB, SuplaRegisterDeviceB> {
+public interface RegisterDeviceBParser extends DeviceServerParser<RegisterDeviceB, SuplaRegisterDeviceB> {
 }

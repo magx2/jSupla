@@ -7,15 +7,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEnt
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.PingServer;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.SetActivityTimeout;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.PingServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.SetActivityTimeoutEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.PingServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.SetActivityTimeoutSerializer;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.AbstractSerializerFactoryTest;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class DeviceClientServerEntitySerializerImplTest
+public class DeviceClientServerSerializerImplTest
         extends AbstractSerializerFactoryTest<DeviceClientServerEntity> {
 
     @Parameterized.Parameters(name = "{0}")
@@ -28,10 +28,10 @@ public class DeviceClientServerEntitySerializerImplTest
 
     @InjectMocks DeviceClientServerSerializerImpl serializer;
 
-    @Mock PingServerEntitySerializer pingServerSerializer;
-    @Mock SetActivityTimeoutEntitySerializer setActivityTimeoutSerializer;
+    @Mock PingServerSerializer pingServerSerializer;
+    @Mock SetActivityTimeoutSerializer setActivityTimeoutSerializer;
 
-    public DeviceClientServerEntitySerializerImplTest(final Class<DeviceClientServerEntity> entityClass) {
+    public DeviceClientServerSerializerImplTest(final Class<DeviceClientServerEntity> entityClass) {
         super(entityClass);
     }
 

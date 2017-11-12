@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutRes
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.VersionError;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.GetVersionResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultClientSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.SetActivityTimeoutResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.VersionErrorSerializer;
 
@@ -18,7 +18,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceClientSerializerImpl
-        implements ServerDeviceClientEntitySerializer<ServerDeviceClientEntity, ServerDeviceClient> {
+        implements ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient> {
     private final GetVersionResultSerializer getVersionResultSerializer;
     private final PingServerResultClientSerializer pingServerResultClientSerializer;
     private final SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer;

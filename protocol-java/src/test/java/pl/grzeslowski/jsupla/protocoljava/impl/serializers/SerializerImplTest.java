@@ -40,15 +40,15 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.VersionError;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.TimevalSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceEntitySerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 
 import java.util.Arrays;
@@ -118,12 +118,12 @@ public class SerializerImplTest {
 
     @InjectMocks SerializerImpl factory;
 
-    @Mock ClientServerEntitySerializer clientServerSerializer;
-    @Mock DeviceClientServerEntitySerializer deviceClientServerSerializer;
-    @Mock DeviceServerEntitySerializer deviceServerSerializer;
-    @Mock ServerClientEntitySerializer serverClientSerializer;
-    @Mock ServerDeviceEntitySerializer serverDeviceSerializer;
-    @Mock ServerDeviceClientEntitySerializer serverDeviceClientSerializer;
+    @Mock ClientServerSerializer clientServerSerializer;
+    @Mock DeviceClientServerSerializer deviceClientServerSerializer;
+    @Mock DeviceServerSerializer deviceServerSerializer;
+    @Mock ServerClientSerializer serverClientSerializer;
+    @Mock ServerDeviceSerializer serverDeviceSerializer;
+    @Mock ServerDeviceClientSerializer serverDeviceClientSerializer;
 
     @Mock DeviceChannelSerializer deviceChannelSerializer;
     @Mock DeviceChannelBSerializer deviceChannelBSerializer;

@@ -4,7 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.dcs.DeviceClientServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.PingServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.SetActivityTimeoutParser;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class DeviceClientServerParserImpl implements DeviceClientServerEntityParser<DeviceClientServerEntity,
+public class DeviceClientServerParserImpl implements DeviceClientServerParser<DeviceClientServerEntity,
                                                                                            DeviceClientServer> {
 
     private final PingServerParser pingServerParser;

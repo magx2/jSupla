@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.ChannelNewValueResult;
 
 public interface ChannelNewValueResultParser
-        extends DeviceServerEntityParser<ChannelNewValueResult, SuplaChannelNewValueResult> {
+        extends DeviceServerParser<ChannelNewValueResult, SuplaChannelNewValueResult> {
 }

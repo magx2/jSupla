@@ -8,14 +8,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ServerDeviceEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.RegisterDeviceResultParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceParser;
 
 import javax.validation.constraints.NotNull;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class ServerDeviceParserImpl implements ServerDeviceEntityParser<ServerDeviceEntity, ServerDevice> {
+public class ServerDeviceParserImpl implements ServerDeviceParser<ServerDeviceEntity, ServerDevice> {
 
     private final ChannelNewValueParser channelNewValueParser;
     private final FirmwareUpdateUrlResultParser firmwareUpdateUrlResultParser;

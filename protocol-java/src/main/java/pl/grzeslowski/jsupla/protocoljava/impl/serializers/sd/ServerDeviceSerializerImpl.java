@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ServerDeviceEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.RegisterDeviceResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
 
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +16,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceSerializerImpl
-        implements ServerDeviceEntitySerializer<ServerDeviceEntity, ServerDevice> {
+        implements ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> {
     private final ChannelNewValueSerializer channelNewValueSerializer;
     private final FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer;
     private final RegisterDeviceResultSerializer registerDeviceResultSerializer;

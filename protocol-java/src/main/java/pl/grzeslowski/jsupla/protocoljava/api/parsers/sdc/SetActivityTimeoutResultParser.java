@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutRes
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutResult;
 
 public interface SetActivityTimeoutResultParser
-        extends ServerDeviceClientEntityParser<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
+        extends ServerDeviceClientParser<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
 }

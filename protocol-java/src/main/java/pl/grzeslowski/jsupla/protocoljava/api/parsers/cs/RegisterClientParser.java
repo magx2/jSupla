@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 
 @Deprecated
-public interface RegisterClientParser extends ClientServerEntityParser<RegisterClient, SuplaRegisterClient> {
+public interface RegisterClientParser extends ClientServerParser<RegisterClient, SuplaRegisterClient> {
 }

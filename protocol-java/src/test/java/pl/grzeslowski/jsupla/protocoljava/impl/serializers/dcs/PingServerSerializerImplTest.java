@@ -17,7 +17,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class PingServerSerializerImplTest extends SerializerTest<PingServer, SuplaPingServer> {
-    @InjectMocks PingServerEntitySerializerImpl serializer;
+    @InjectMocks PingServerSerializerImpl serializer;
     @Mock TimevalSerializer timevalSerializer;
 
     @Override
@@ -46,6 +46,6 @@ public class PingServerSerializerImplTest extends SerializerTest<PingServer, Sup
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenTimevalSerializerIsNull() {
-        new PingServerEntitySerializerImpl(null);
+        new PingServerSerializerImpl(null);
     }
 }

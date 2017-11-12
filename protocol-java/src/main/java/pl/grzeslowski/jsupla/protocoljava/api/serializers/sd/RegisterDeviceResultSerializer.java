@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.RegisterDeviceResult;
 
 public interface RegisterDeviceResultSerializer
-        extends ServerDeviceEntitySerializer<RegisterDeviceResult, SuplaRegisterDeviceResult> {
+        extends ServerDeviceSerializer<RegisterDeviceResult, SuplaRegisterDeviceResult> {
 }

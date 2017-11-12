@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.GetVersionResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.PingServerResultClientParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.SetActivityTimeoutResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.VersionErrorParser;
 
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class ServerDeviceClientParserImpl implements ServerDeviceClientEntityParser<ServerDeviceClientEntity,
+public class ServerDeviceClientParserImpl implements ServerDeviceClientParser<ServerDeviceClientEntity,
                                                                                            ServerDeviceClient> {
     private final VersionErrorParser versionErrorParser;
     private final GetVersionResultParser getVersionResultParser;

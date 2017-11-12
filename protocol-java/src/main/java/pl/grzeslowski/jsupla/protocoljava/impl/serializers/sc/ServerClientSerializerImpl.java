@@ -16,7 +16,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.EventSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.RegisterClientResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +24,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerClientSerializerImpl
-        implements ServerClientEntitySerializer<ServerClientEntity, ServerClient> {
+        implements ServerClientSerializer<ServerClientEntity, ServerClient> {
     private final ChannelPackSerializer channelPackSerializer;
     private final ChannelSerializer channelSerializer;
     private final ChannelValueSerializer channelValueSerializer;

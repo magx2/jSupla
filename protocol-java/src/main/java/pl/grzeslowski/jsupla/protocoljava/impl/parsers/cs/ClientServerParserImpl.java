@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
 
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class ClientServerParserImpl implements ClientServerEntityParser<ClientServerEntity, ClientServer> {
+public class ClientServerParserImpl implements ClientServerParser<ClientServerEntity, ClientServer> {
     private final ChannelNewValueBParser channelNewValueBParser;
     private final ChannelNewValueParser channelNewValueParser;
     private final RegisterClientBParser registerClientBParser;

@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerEntitySerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerSerializer;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +14,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ClientServerSerializerImpl
-        implements ClientServerEntitySerializer<ClientServerEntity, ClientServer> {
+        implements ClientServerSerializer<ClientServerEntity, ClientServer> {
     private final ChannelNewValueSerializerImpl channelNewValueSerializer;
     private final ChannelNewValueBSerializerImpl channelNewValueBSerializer;
     private final RegisterClientSerializerImpl registerClientSerializer;

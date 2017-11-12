@@ -10,7 +10,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.ChannelNewValueResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.FirmwareUpdateParamsParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.RegisterDeviceBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.RegisterDeviceCParser;
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
-public class DeviceServerParserImpl implements DeviceServerEntityParser<DeviceServerEntity, DeviceServer> {
+public class DeviceServerParserImpl implements DeviceServerParser<DeviceServerEntity, DeviceServer> {
     private final ChannelNewValueResultParser channelNewValueResultParser;
     private final DeviceChannelValueParser deviceChannelValueParser;
     private final RegisterDeviceParser registerDeviceParser;

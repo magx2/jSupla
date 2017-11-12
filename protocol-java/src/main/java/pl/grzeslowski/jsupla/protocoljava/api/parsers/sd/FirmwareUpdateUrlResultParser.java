@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResul
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.FirmwareUpdateUrlResult;
 
 public interface FirmwareUpdateUrlResultParser
-        extends ServerDeviceEntityParser<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
+        extends ServerDeviceParser<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
 }

@@ -40,15 +40,15 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.dcs.DeviceClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceServerParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceEntityParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientEntityParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -102,12 +102,12 @@ public class ParserFactoryImplParametrizedTest {
 
     @InjectMocks ParserImpl parser;
 
-    @Mock ClientServerEntityParser clientServerParserFactory;
-    @Mock DeviceClientServerEntityParser deviceClientServerParserFactory;
-    @Mock DeviceServerEntityParser deviceServerParserFactory;
-    @Mock ServerClientEntityParser serverClientParserFactory;
-    @Mock ServerDeviceEntityParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientEntityParser serverDeviceClientParserFactory;
+    @Mock ClientServerParser clientServerParserFactory;
+    @Mock DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock DeviceServerParser deviceServerParserFactory;
+    @Mock ServerClientParser serverClientParserFactory;
+    @Mock ServerDeviceParser serverDeviceParserFactory;
+    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
 
     @Mock DeviceChannelParser deviceChannelParser;
     @Mock DeviceChannelBParser deviceChannelBParser;
@@ -233,19 +233,19 @@ public class ParserFactoryImplParametrizedTest {
     }
 
     private static class MockFactories {
-        final ClientServerEntityParser clientServerParserFactory;
-        final DeviceClientServerEntityParser deviceClientServerParserFactory;
-        final DeviceServerEntityParser deviceServerParserFactory;
-        final ServerClientEntityParser serverClientParserFactory;
-        final ServerDeviceEntityParser serverDeviceParserFactory;
-        final ServerDeviceClientEntityParser serverDeviceClientParserFactory;
+        final ClientServerParser clientServerParserFactory;
+        final DeviceClientServerParser deviceClientServerParserFactory;
+        final DeviceServerParser deviceServerParserFactory;
+        final ServerClientParser serverClientParserFactory;
+        final ServerDeviceParser serverDeviceParserFactory;
+        final ServerDeviceClientParser serverDeviceClientParserFactory;
 
-        private MockFactories(final ClientServerEntityParser clientServerParserFactory,
-                              final DeviceClientServerEntityParser deviceClientServerParserFactory,
-                              final DeviceServerEntityParser deviceServerParserFactory,
-                              final ServerClientEntityParser serverClientParserFactory,
-                              final ServerDeviceEntityParser serverDeviceParserFactory,
-                              final ServerDeviceClientEntityParser serverDeviceClientParserFactory) {
+        private MockFactories(final ClientServerParser clientServerParserFactory,
+                              final DeviceClientServerParser deviceClientServerParserFactory,
+                              final DeviceServerParser deviceServerParserFactory,
+                              final ServerClientParser serverClientParserFactory,
+                              final ServerDeviceParser serverDeviceParserFactory,
+                              final ServerDeviceClientParser serverDeviceClientParserFactory) {
             this.clientServerParserFactory = clientServerParserFactory;
             this.deviceClientServerParserFactory = deviceClientServerParserFactory;
             this.deviceServerParserFactory = deviceServerParserFactory;
