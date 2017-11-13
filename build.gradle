@@ -38,6 +38,21 @@ private static boolean isReleasableProject(Project p) {
 	true
 }
 
+@SuppressWarnings("UnnecessaryQualifiedReference")
+def osgiProjects(Closure c) {
+	allprojects { p ->
+		if (isOsgiProject(p)) {
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
+private static boolean isOsgiProject(Project p) {
+	p.name.toLowerCase().endsWith("osgi")
+}
+
 allprojects {
 	repositories {
 		mavenLocal()
