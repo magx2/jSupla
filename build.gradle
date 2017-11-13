@@ -5,6 +5,7 @@ plugins {
 ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.7.0'
+	reactorVersion = "3.1.1.RELEASE"
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")

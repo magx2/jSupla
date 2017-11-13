@@ -199,4 +199,8 @@ public class RandomSupla extends EnhancedRandom {
     public byte nextBoolByte() {
         return (byte) (random.nextBoolean() ? 1 : 0);
     }
+
+    public long nextLong(final int bound) {
+        return random.nextInt(bound);
+    }
 }

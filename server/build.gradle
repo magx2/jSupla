@@ -3,14 +3,8 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    reactorVersion = "3.1.0.M3"
-}
-
 dependencies {
     compile rootProject.project("protocolJava")
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile "io.projectreactor:reactor-core:$reactorVersion"
-
-    testCompile("io.projectreactor:reactor-test:$reactorVersion")
 }

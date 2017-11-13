@@ -19,7 +19,7 @@ public class SuplaDataPacketRandomizer implements Randomizer<SuplaDataPacket> {
         return new SuplaDataPacket(
                                           randomSupla.nextUnsignedByte(),
                                           randomSupla.nextUnsignedInt(),
-                                          80,
+                                          randomSupla.nextLong(100),
                                           dataSize,
                                           randomSupla.nextByteArray(dataSize)
         );

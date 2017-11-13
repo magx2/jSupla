@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.server.api;
 
-import org.reactivestreams.Publisher;
-import pl.grzeslowski.jsupla.server.api.ents.channelandpublisher.ChannelAndSuplaDataPackageFlux;
+import reactor.core.publisher.Flux;
 
 public interface Server extends AutoCloseable {
-    Publisher<ChannelAndSuplaDataPackageFlux> run() throws Exception;
+    Flux<? extends Channel> getNewChannelsPipe();
+
+    @Override
+    void close();
 }
