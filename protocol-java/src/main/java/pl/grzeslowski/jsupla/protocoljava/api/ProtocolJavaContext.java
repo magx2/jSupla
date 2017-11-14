@@ -3,11 +3,21 @@ package pl.grzeslowski.jsupla.protocoljava.api;
 import pl.grzeslowski.jsupla.JSuplaContext;
 import pl.grzeslowski.jsupla.exceptions.ServiceNotFoundException;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ColorTypeChannelDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.RelayTypeChannelDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ThermometerTypeChannelDecoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SdSuplaChannelNewValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelValueToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelBToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ColorTypeChannelEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.RelayTypeChannelEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.StoppableOpenCloseEncoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ThermometerTypeChannelEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
@@ -82,8 +92,24 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultCl
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.SetActivityTimeoutResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.VersionErrorSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ChannelTypeDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ColorTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.RelayTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ThermometerTypeChannelDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SdSuplaChannelNewValueToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelValueToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaDeviceChannelValueToChannelTypeImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ChannelTypeEncoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ColorTypeChannelEncoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.RelayTypeChannelEncoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.StoppableOpenCloseEncoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ThermometerTypeChannelEncoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.StringParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.TimevalParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ChannelNewValueBParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ClientServerParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.RegisterClientBParserImpl;
@@ -92,6 +118,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.DeviceClientServerPar
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.PingServerParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.SetActivityTimeoutParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.ChannelNewValueResultParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceChannelBParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceChannelParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceChannelValueParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceServerParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.FirmwareUpdateParamsParserImpl;
@@ -107,6 +135,7 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.LocationParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.RegisterClientResultParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.ServerClientParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.ChannelNewValueParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.FirmwareUpdateUrlParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.FirmwareUpdateUrlResultParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.RegisterDeviceResultParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.ServerDeviceParserImpl;
@@ -172,6 +201,16 @@ public enum ProtocolJavaContext implements JSuplaContext {
 
         // common
         put(StringSerializer.class, StringSerializerImpl.INSTANCE);
+        put(ColorTypeChannelEncoder.class, new ColorTypeChannelEncoderImpl());
+        put(RelayTypeChannelEncoder.class, new RelayTypeChannelEncoderImpl());
+        put(ThermometerTypeChannelEncoder.class, new ThermometerTypeChannelEncoderImpl());
+        put(StoppableOpenCloseEncoder.class, new StoppableOpenCloseEncoderImpl());
+        put(ChannelTypeEncoder.class, new ChannelTypeEncoderImpl(
+                                                                        getService(ColorTypeChannelEncoder.class),
+                                                                        getService(RelayTypeChannelEncoder.class),
+                                                                        getService(ThermometerTypeChannelEncoder.class),
+                                                                        getService(StoppableOpenCloseEncoder.class)
+        ));
         put(DeviceChannelSerializer.class, new DeviceChannelSerializerImpl(getService(ChannelTypeEncoder.class)));
         put(DeviceChannelBSerializer.class, new DeviceChannelBSerializerImpl(getService(ChannelTypeEncoder.class)));
         put(FirmwareUpdateUrlSerializer.class, new FirmwareUpdateUrlSerializerImpl(getService(StringSerializer.class)));
@@ -215,12 +254,12 @@ public enum ProtocolJavaContext implements JSuplaContext {
         ));
 
         // ServerClientSerializer
-        put(ChannelPackSerializer.class, new ChannelPackSerializerImpl(getService(ChannelSerializer.class)));
         put(ChannelSerializer.class, new ChannelSerializerImpl(getService(ChannelValueSerializer.class), getService(StringSerializer.class)));
+        put(ChannelPackSerializer.class, new ChannelPackSerializerImpl(getService(ChannelSerializer.class)));
         put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class, new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ChannelValueSerializerImpl(getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer.class)));
         put(EventSerializer.class, new EventSerializerImpl(getService(StringSerializer.class)));
-        put(LocationPackSerializer.class, new LocationPackSerializerImpl(getService(LocationSerializer.class)));
         put(LocationSerializer.class, new LocationSerializerImpl(getService(StringSerializer.class)));
+        put(LocationPackSerializer.class, new LocationPackSerializerImpl(getService(LocationSerializer.class)));
         put(RegisterClientResultSerializer.class, new RegisterClientResultSerializerImpl());
         put(ServerClientSerializer.class, new ServerClientSerializerImpl(
                                                                                 getService(ChannelPackSerializer.class),
@@ -271,8 +310,30 @@ public enum ProtocolJavaContext implements JSuplaContext {
 
     @SuppressWarnings("unchecked")
     private void initParsers() {
-        // parsers
+
+        // commons
         put(StringParser.class, StringParserImpl.INSTANCE);
+        put(ColorTypeChannelDecoder.class, new ColorTypeChannelDecoderImpl());
+        put(RelayTypeChannelDecoder.class, new RelayTypeChannelDecoderImpl());
+        put(ThermometerTypeChannelDecoder.class, new ThermometerTypeChannelDecoderImpl());
+        put(ChannelTypeDecoder.class, new ChannelTypeDecoderImpl(
+                                                                        getService(ColorTypeChannelDecoder.class),
+                                                                        getService(RelayTypeChannelDecoder.class),
+                                                                        getService(ThermometerTypeChannelDecoder.class)
+        ));
+        SuplaDeviceChannelToChannelTypeImpl suplaDeviceChannelToChannelType = new SuplaDeviceChannelToChannelTypeImpl();
+        put(SuplaDeviceChannelToChannelType.class, suplaDeviceChannelToChannelType);
+        put(SuplaDeviceChannelBToChannelType.class, suplaDeviceChannelToChannelType);
+        put(SuplaChannelValueToChannelType.class, new SuplaChannelValueToChannelTypeImpl());
+        put(SuplaChannelNewValueBToChannelType.class, new SuplaChannelNewValueBToChannelTypeImpl());
+        put(SuplaChannelNewValueToChannelType.class, new SuplaChannelNewValueToChannelTypeImpl());
+        put(SuplaDeviceChannelValueToChannelType.class, new SuplaDeviceChannelValueToChannelTypeImpl());
+        put(SdSuplaChannelNewValueToChannelType.class, new SdSuplaChannelNewValueToChannelTypeImpl());
+        put(DeviceChannelParser.class, new DeviceChannelParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelToChannelType.class)));
+        put(DeviceChannelBParser.class, new DeviceChannelBParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelBToChannelType.class)));
+        put(FirmwareUpdateUrlParser.class, new FirmwareUpdateUrlParserImpl(getService(StringParser.class)));
+        put(ChannelValueParser.class, new pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaChannelValueToChannelType.class)));
+        put(TimevalParser.class, new TimevalParserImpl());
 
         // ClientServerParser
         put(ChannelNewValueBParser.class, new ChannelNewValueBParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaChannelNewValueBToChannelType.class)));
@@ -311,11 +372,11 @@ public enum ProtocolJavaContext implements JSuplaContext {
         ));
 
         // ServerClientParser
+        put(ChannelParser.class, new ChannelParserImpl(getService(ChannelValueParser.class), getService(StringParser.class)));
         put(LocationParser.class, new LocationParserImpl(getService(StringParser.class)));
         put(ChannelPackParser.class, new ChannelPackParserImpl(getService(ChannelParser.class)));
         put(EventParser.class, new EventParserImpl(getService(StringParser.class)));
         put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser.class, new ChannelValueParserImpl(getService(ChannelValueParser.class)));
-        put(ChannelParser.class, new ChannelParserImpl(getService(ChannelValueParser.class), getService(StringParser.class)));
         put(LocationPackParser.class, new LocationPackParserImpl(getService(LocationParser.class)));
         put(RegisterClientResultParser.class, new RegisterClientResultParserImpl());
         put(ServerClientParser.class, new ServerClientParserImpl(
