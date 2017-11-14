@@ -56,6 +56,9 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.SetActivityTimeoutPar
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.ChannelNewValueResultParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceChannelValueParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.DeviceServerParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.FirmwareUpdateParamsParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.RegisterDeviceBParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.RegisterDeviceCParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.RegisterDeviceParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.ChannelPackParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.ChannelParserImpl;
@@ -117,8 +120,8 @@ public enum ProtocolJavaContext implements JSuplaContext {
         put(DeviceChannelValueParser.class, new DeviceChannelValueParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelValueToChannelType.class)));
         put(RegisterDeviceParser.class, new RegisterDeviceParserImpl(getService(StringParser.class), getService(DeviceChannelParser.class)));
         put(FirmwareUpdateParamsParser.class, new FirmwareUpdateParamsParserImpl());
-        put(RegisterDeviceBParser.class, new RegisterDeviceBParserImpl());
-        put(RegisterDeviceCParser.class, new RegisterDeviceCParserImpl());
+        put(RegisterDeviceBParser.class, new RegisterDeviceBParserImpl(getService(StringParser.class), getService(DeviceChannelBParser.class)));
+        put(RegisterDeviceCParser.class, new RegisterDeviceCParserImpl(getService(StringParser.class), getService(DeviceChannelBParser.class)));
         put(DeviceServerParser.class, new DeviceServerParserImpl(
                                                                         getService(ChannelNewValueResultParser.class),
                                                                         getService(DeviceChannelValueParser.class),
