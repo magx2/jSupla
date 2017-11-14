@@ -10,10 +10,7 @@ public final class ServiceNotFoundException extends IllegalArgumentException {
         this.serviceClass = serviceClass;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceNotFoundException{" +
-                       "serviceClass=" + serviceClass +
-                       "} " + super.toString();
+    public Class<?> getServiceClass() {
+        return serviceClass;
     }
 }
