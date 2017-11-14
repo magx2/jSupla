@@ -6,6 +6,7 @@ ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.7.0'
 	reactorVersion = "3.1.1.RELEASE"
+	osgiCoreVersion = '4.3.1'
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
@@ -110,6 +111,10 @@ releasableProjects { Project project ->
 		]
 	}
 	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
+}
+
+osgiProjects { Project project ->
+
 }
 
 task wrapper(type: Wrapper) {
