@@ -6,7 +6,11 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ChannelNewValueBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ChannelNewValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientSerializer;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,15 +19,15 @@ import static java.util.Objects.requireNonNull;
 
 public class ClientServerSerializerImpl
         implements ClientServerSerializer<ClientServerEntity, ClientServer> {
-    private final ChannelNewValueSerializerImpl channelNewValueSerializer;
-    private final ChannelNewValueBSerializerImpl channelNewValueBSerializer;
-    private final RegisterClientSerializerImpl registerClientSerializer;
-    private final RegisterClientBSerializerImpl registerClientBSerializer;
+    private final ChannelNewValueSerializer channelNewValueSerializer;
+    private final ChannelNewValueBSerializer channelNewValueBSerializer;
+    private final RegisterClientSerializer registerClientSerializer;
+    private final RegisterClientBSerializer registerClientBSerializer;
 
-    public ClientServerSerializerImpl(final ChannelNewValueSerializerImpl channelNewValueSerializer,
-                                      final ChannelNewValueBSerializerImpl channelNewValueBSerializer,
-                                      final RegisterClientSerializerImpl registerClientSerializer,
-                                      final RegisterClientBSerializerImpl registerClientBSerializer) {
+    public ClientServerSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
+                                      final ChannelNewValueBSerializer channelNewValueBSerializer,
+                                      final RegisterClientSerializer registerClientSerializer,
+                                      final RegisterClientBSerializer registerClientBSerializer) {
         this.channelNewValueSerializer = requireNonNull(channelNewValueSerializer);
         this.channelNewValueBSerializer = requireNonNull(channelNewValueBSerializer);
         this.registerClientSerializer = requireNonNull(registerClientSerializer);

@@ -7,6 +7,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Sd
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelValueToChannelType;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
@@ -44,6 +45,43 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.PingServerResultClient
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.SetActivityTimeoutResultParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.VersionErrorParser;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.TimevalSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ChannelNewValueBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ChannelNewValueSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.ClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.DeviceClientServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.PingServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.dcs.SetActivityTimeoutSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.ChannelNewValueResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelValueSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.FirmwareUpdateParamsSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelPackSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.EventSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.RegisterClientResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.RegisterDeviceResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.GetVersionResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.SetActivityTimeoutResultSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.VersionErrorSerializer;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.StringParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ChannelNewValueBParserImpl;
@@ -77,10 +115,47 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc.PingServerResultClien
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc.ServerDeviceClientParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc.SetActivityTimeoutResultParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc.VersionErrorParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ChannelValueSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.TimevalSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ChannelNewValueBSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ChannelNewValueSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ClientServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.RegisterClientBSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.RegisterClientSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.DeviceClientServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.PingServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.ChannelNewValueResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelBSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelValueSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceBSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceCSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ChannelPackSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ChannelSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.EventSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.LocationPackSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.LocationSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.RegisterClientResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ServerClientSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.FirmwareUpdateUrlResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.FirmwareUpdateUrlSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.RegisterDeviceResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.ServerDeviceSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.GetVersionResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.PingServerResultClientSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.ServerDeviceClientSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.SetActivityTimeoutResultSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.VersionErrorSerializerImpl;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings("unchecked")
 public enum ProtocolJavaContext implements JSuplaContext {
     PROTOCOL_JAVA_CONTEXT;
 
@@ -89,8 +164,111 @@ public enum ProtocolJavaContext implements JSuplaContext {
     @SuppressWarnings("unchecked")
     ProtocolJavaContext() {
         initParsers();
+        initSerializers();
     }
 
+    private void initSerializers() {
+
+        // common
+        put(StringSerializer.class, StringSerializerImpl.INSTANCE);
+        put(DeviceChannelSerializer.class, new DeviceChannelSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(DeviceChannelBSerializer.class, new DeviceChannelBSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(FirmwareUpdateUrlSerializer.class, new FirmwareUpdateUrlSerializerImpl(getService(StringSerializer.class)));
+        put(ChannelValueSerializer.class, new ChannelValueSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(TimevalSerializer.class, new TimevalSerializerImpl());
+
+        // ClientServerSerializer
+        put(ChannelNewValueSerializer.class, new ChannelNewValueSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(ChannelNewValueBSerializer.class, new ChannelNewValueBSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(RegisterClientSerializer.class, new RegisterClientSerializerImpl(getService(StringSerializer.class)));
+        put(RegisterClientBSerializer.class, new RegisterClientBSerializerImpl(getService(StringSerializer.class)));
+        put(ClientServerSerializer.class, new ClientServerSerializerImpl(
+                                                                                getService(ChannelNewValueSerializer.class),
+                                                                                getService(ChannelNewValueBSerializer.class),
+                                                                                getService(RegisterClientSerializer.class),
+                                                                                getService(RegisterClientBSerializer.class)
+        ));
+
+        // DeviceClientServerSerializer
+        put(PingServerSerializer.class, new PingServerSerializerImpl(getService(TimevalSerializer.class)));
+        put(SetActivityTimeoutSerializer.class, new SetActivityTimeoutSerializerImpl());
+        put(DeviceClientServerSerializer.class, new DeviceClientServerSerializerImpl(
+                                                                                            getService(PingServerSerializer.class),
+                                                                                            getService(SetActivityTimeoutSerializer.class)
+        ));
+
+        // DeviceServerSerializer
+        put(ChannelNewValueResultSerializer.class, new ChannelNewValueResultSerializerImpl());
+        put(RegisterDeviceSerializer.class, new RegisterDeviceSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelSerializer.class)));
+        put(RegisterDeviceBSerializer.class, new RegisterDeviceBSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelBSerializer.class)));
+        put(RegisterDeviceCSerializer.class, new RegisterDeviceCSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelBSerializer.class)));
+        put(DeviceChannelValueSerializer.class, new DeviceChannelValueSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(FirmwareUpdateParamsSerializer.class, new FirmwareUpdateParamsSerializerImpl());
+        put(DeviceServerSerializer.class, new DeviceServerSerializerImpl(
+                                                                                getService(ChannelNewValueResultSerializer.class),
+                                                                                getService(RegisterDeviceSerializer.class),
+                                                                                getService(RegisterDeviceBSerializer.class),
+                                                                                getService(RegisterDeviceCSerializer.class),
+                                                                                getService(DeviceChannelValueSerializer.class),
+                                                                                getService(FirmwareUpdateParamsSerializer.class)
+        ));
+
+        // ServerClientSerializer
+        put(ChannelPackSerializer.class, new ChannelPackSerializerImpl(getService(ChannelSerializer.class)));
+        put(ChannelSerializer.class, new ChannelSerializerImpl(getService(ChannelValueSerializer.class), getService(StringSerializer.class)));
+        put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class, new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ChannelValueSerializerImpl(getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer.class)));
+        put(EventSerializer.class, new EventSerializerImpl(getService(StringSerializer.class)));
+        put(LocationPackSerializer.class, new LocationPackSerializerImpl(getService(LocationSerializer.class)));
+        put(LocationSerializer.class, new LocationSerializerImpl(getService(StringSerializer.class)));
+        put(RegisterClientResultSerializer.class, new RegisterClientResultSerializerImpl());
+        put(ServerClientSerializer.class, new ServerClientSerializerImpl(
+                                                                                getService(ChannelPackSerializer.class),
+                                                                                getService(ChannelSerializer.class),
+                                                                                getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class),
+                                                                                getService(EventSerializer.class),
+                                                                                getService(LocationPackSerializer.class),
+                                                                                getService(LocationSerializer.class),
+                                                                                getService(RegisterClientResultSerializer.class)
+        ));
+
+        // ServerDeviceSerializer
+        put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer.class, new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.ChannelNewValueSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(FirmwareUpdateUrlResultSerializer.class, new FirmwareUpdateUrlResultSerializerImpl(getService(FirmwareUpdateUrlSerializer.class)));
+        put(RegisterDeviceResultSerializer.class, new RegisterDeviceResultSerializerImpl());
+        put(ServerDeviceSerializer.class, new ServerDeviceSerializerImpl(
+                                                                                getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer.class),
+                                                                                getService(FirmwareUpdateUrlResultSerializer.class),
+                                                                                getService(RegisterDeviceResultSerializer.class)
+        ));
+
+        // ServerDeviceClientSerializer
+        put(GetVersionResultSerializer.class, new GetVersionResultSerializerImpl(getService(StringSerializer.class)));
+        put(PingServerResultClientSerializer.class, new PingServerResultClientSerializerImpl(getService(TimevalSerializer.class)));
+        put(SetActivityTimeoutResultSerializer.class, new SetActivityTimeoutResultSerializerImpl());
+        put(VersionErrorSerializer.class, new VersionErrorSerializerImpl());
+        put(ServerDeviceClientSerializer.class, new ServerDeviceClientSerializerImpl(
+                                                                                            getService(GetVersionResultSerializer.class),
+                                                                                            getService(PingServerResultClientSerializer.class),
+                                                                                            getService(SetActivityTimeoutResultSerializer.class),
+                                                                                            getService(VersionErrorSerializer.class)
+        ));
+
+        put(Serializer.class, new SerializerImpl(
+                                                        getService(ClientServerSerializer.class),
+                                                        getService(DeviceClientServerSerializer.class),
+                                                        getService(DeviceServerSerializer.class),
+                                                        getService(ServerClientSerializer.class),
+                                                        getService(ServerDeviceSerializer.class),
+                                                        getService(ServerDeviceClientSerializer.class),
+                                                        getService(DeviceChannelSerializer.class),
+                                                        getService(DeviceChannelBSerializer.class),
+                                                        getService(FirmwareUpdateUrlSerializer.class),
+                                                        getService(ChannelValueSerializer.class),
+                                                        getService(TimevalSerializer.class)
+        ));
+    }
+
+    @SuppressWarnings("unchecked")
     private void initParsers() {
         // parsers
         put(StringParser.class, StringParserImpl.INSTANCE);
