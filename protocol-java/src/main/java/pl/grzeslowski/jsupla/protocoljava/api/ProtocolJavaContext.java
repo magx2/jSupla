@@ -132,6 +132,7 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelBSeri
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelSerializerImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelValueSerializerImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.FirmwareUpdateParamsSerializerImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceBSerializerImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceCSerializerImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.RegisterDeviceSerializerImpl;
