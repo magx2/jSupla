@@ -1,0 +1,2369 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='equinox-sdk' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+	<properties size='2'>
+		<property name='p2.timestamp' value='1497283309458'/>
+		<property name='publishPackFilesAsSiblings' value='true'/>
+	</properties>
+	<mappings size='5'>
+		<rule filter='(&amp; (classifier=osgi.bundle) (format=packed))'
+			  output='${repoUrl}/plugins/${id}_${version}.jar.pack.gz'/>
+		<rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+		<rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+		<rule filter='(&amp; (classifier=org.eclipse.update.feature) (format=packed))'
+			  output='${repoUrl}/features/${id}_${version}.jar.pack.gz'/>
+		<rule filter='(&amp; (classifier=org.eclipse.update.feature))'
+			  output='${repoUrl}/features/${id}_${version}.jar'/>
+	</mappings>
+	<artifacts size='271'>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.compatibility.state' version='1.1.0.v20170516-1513'>
+			<properties size='5'>
+				<property name='artifact.size' value='244484'/>
+				<property name='download.size' value='244476'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.compatibility.state'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.concurrent.source' version='1.1.0.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='26411'/>
+				<property name='download.size' value='25357'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.concurrent'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.linux.x86_64.source'
+				  version='1.0.100.v20170504-1307'>
+			<properties size='6'>
+				<property name='artifact.size' value='14732'/>
+				<property name='download.size' value='14734'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.linux.x86_64'/>
+				<property name='maven-version' value='1.0.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.touchpoint.natives.source'
+				  version='1.2.200.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='60953'/>
+				<property name='download.size' value='60958'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.touchpoint.natives'/>
+				<property name='maven-version' value='1.2.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.ssl' version='1.2.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='14806'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.win32.win32.x86_64'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.win32.win32.x86_64'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='35213'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.macosx.source'
+				  version='1.100.200.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='29999'/>
+				<property name='download.size' value='28915'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.macosx'/>
+				<property name='maven-version' value='1.100.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.util.source' version='1.0.500.v20130404-1337'>
+			<properties size='6'>
+				<property name='artifact.size' value='77366'/>
+				<property name='download.size' value='75442'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.util'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.admin' version='1.0.300.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='103521'/>
+				<property name='download.size' value='103522'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.admin'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.simpleconfigurator.manipulator'
+				  version='2.0.300.v20170515-0721'>
+			<properties size='5'>
+				<property name='artifact.size' value='26563'/>
+				<property name='download.size' value='26560'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.simpleconfigurator.manipulator'/>
+				<property name='maven-version' value='2.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.compatibility.state.source'
+				  version='1.1.0.v20170516-1513'>
+			<properties size='6'>
+				<property name='artifact.size' value='144331'/>
+				<property name='download.size' value='144327'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.compatibility.state'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.cocoa.macosx.x86_64'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='34225'/>
+				<property name='download.size' value='34226'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.cocoa.macosx.x86_64'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.reconciler.dropins.source'
+				  version='1.1.400.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='35294'/>
+				<property name='download.size' value='35325'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.reconciler.dropins'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.touchpoint.eclipse.source'
+				  version='2.1.500.v20170516-0526'>
+			<properties size='6'>
+				<property name='artifact.size' value='97744'/>
+				<property name='download.size' value='97749'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.touchpoint.eclipse'/>
+				<property name='maven-version' value='2.1.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.sat4j.core' version='2.3.5.v201308161310'>
+			<properties size='1'>
+				<property name='download.size' value='362968'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.core.runtime' version='3.13.0.v20170207-1030'>
+			<properties size='5'>
+				<property name='artifact.size' value='75784'/>
+				<property name='download.size' value='75827'/>
+				<property name='maven-groupId' value='org.eclipse.core'/>
+				<property name='maven-artifactId' value='org.eclipse.core.runtime'/>
+				<property name='maven-version' value='3.13.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.identity' version='3.8.0.v20161203-2153'>
+			<properties size='1'>
+				<property name='download.size' value='63446'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.gtk.linux.x86_64'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='83429'/>
+				<property name='download.size' value='83430'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.gtk.linux.x86_64'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.simpleconfigurator' version='1.2.0.v20170110-1705'>
+			<properties size='5'>
+				<property name='artifact.size' value='46399'/>
+				<property name='download.size' value='46449'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.simpleconfigurator'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.tukaani.xz' version='1.5.0.v20170111-1717'>
+			<properties size='1'>
+				<property name='download.size' value='118332'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.util.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='325093'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.xslt.source'
+				  version='1.0.300.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='13708'/>
+				<property name='download.size' value='12942'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.transforms.xslt'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.discovery' version='1.0.400.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='37630'/>
+				<property name='download.size' value='37653'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.discovery'/>
+				<property name='maven-version' value='1.0.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.core.source' version='2.4.100.v20160419-0834'>
+			<properties size='6'>
+				<property name='artifact.size' value='61061'/>
+				<property name='download.size' value='61096'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.core'/>
+				<property name='maven-version' value='2.4.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.command.source' version='0.10.0.v201209301215'>
+			<properties size='1'>
+				<property name='download.size' value='34902'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.equinox.source'
+				  version='1.0.800.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='48339'/>
+				<property name='download.size' value='48330'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.frameworkadmin.equinox'/>
+				<property name='maven-version' value='1.0.800-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.servlet.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='72704'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.updatesite' version='1.0.600.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='96041'/>
+				<property name='download.size' value='96069'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.updatesite'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.core' version='2.4.100.v20160419-0834'>
+			<properties size='5'>
+				<property name='artifact.size' value='73296'/>
+				<property name='download.size' value='73322'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.core'/>
+				<property name='maven-version' value='2.4.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.core.feature'
+				  version='1.4.0.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='19164'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.app' version='1.3.400.v20150715-1528'>
+			<properties size='5'>
+				<property name='artifact.size' value='87734'/>
+				<property name='download.size' value='87568'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.app'/>
+				<property name='maven-version' value='1.3.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.device.source' version='1.0.400.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='29502'/>
+				<property name='download.size' value='28533'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.device'/>
+				<property name='maven-version' value='1.0.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.p2.core.feature'
+				  version='1.4.0.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='18773'/>
+				<property name='download.size' value='18787'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.core.feature'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.importexport' version='1.1.300.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='142678'/>
+				<property name='download.size' value='142678'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.importexport'/>
+				<property name='maven-version' value='1.1.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.servletbridge' version='1.3.200.v20160128-1435'>
+			<properties size='5'>
+				<property name='artifact.size' value='46715'/>
+				<property name='download.size' value='46742'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.servletbridge'/>
+				<property name='maven-version' value='1.3.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.runtime' version='0.10.0.v201209301036'>
+			<properties size='1'>
+				<property name='download.size' value='79641'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.ip' version='1.1.400.v20161007-1324'>
+			<properties size='5'>
+				<property name='artifact.size' value='57235'/>
+				<property name='download.size' value='57282'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.ip'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.httpcomponents.httpclient.source'
+				  version='4.5.2.v20170210-0925'>
+			<properties size='1'>
+				<property name='download.size' value='971887'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature'
+				  id='org.eclipse.ecf.filetransfer.httpclient4.ssl.feature.source' version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='19704'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf' version='3.8.0.v20170104-0657'>
+			<properties size='1'>
+				<property name='download.size' value='109312'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.extensionlocation.source'
+				  version='1.2.300.v20160419-0834'>
+			<properties size='6'>
+				<property name='artifact.size' value='27273'/>
+				<property name='download.size' value='27301'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.extensionlocation'/>
+				<property name='maven-version' value='1.2.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.core.ssl.feature.source'
+				  version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='19513'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.servlet.source' version='3.1.0.v201410161800'>
+			<properties size='1'>
+				<property name='download.size' value='233094'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.compendium.sdk'
+				  version='3.13.0.v20170518-1049'>
+			<properties size='6'>
+				<property name='artifact.size' value='18669'/>
+				<property name='download.size' value='18669'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.compendium.sdk'/>
+				<property name='maven-version' value='3.13.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.installer.source'
+				  version='1.0.500.v20160419-0100'>
+			<properties size='6'>
+				<property name='artifact.size' value='36974'/>
+				<property name='download.size' value='37003'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.installer'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.scr' version='2.0.10.v20170501-2007'>
+			<properties size='1'>
+				<property name='download.size' value='372298'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.source' version='1.1.300.v20170512-2111'>
+			<properties size='6'>
+				<property name='artifact.size' value='86211'/>
+				<property name='download.size' value='86220'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.console'/>
+				<property name='maven-version' value='1.1.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.common' version='3.9.0.v20170207-1454'>
+			<properties size='5'>
+				<property name='artifact.size' value='121466'/>
+				<property name='download.size' value='121509'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.common'/>
+				<property name='maven-version' value='3.9.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.servlet.jsp.source' version='2.2.0.v201112011158'>
+			<properties size='1'>
+				<property name='download.size' value='225504'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.equinox'
+				  version='1.0.800.v20170524-1345'>
+			<properties size='5'>
+				<property name='artifact.size' value='64647'/>
+				<property name='download.size' value='64644'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.frameworkadmin.equinox'/>
+				<property name='maven-version' value='1.0.800-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.ip.source' version='1.1.400.v20161007-1324'>
+			<properties size='6'>
+				<property name='artifact.size' value='46095'/>
+				<property name='download.size' value='46146'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.ip'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.registry' version='1.1.400.v20150715-1528'>
+			<properties size='5'>
+				<property name='artifact.size' value='46380'/>
+				<property name='download.size' value='46284'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.registry'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.artifact.repository.source'
+				  version='1.1.600.v20170511-1106'>
+			<properties size='6'>
+				<property name='artifact.size' value='99369'/>
+				<property name='download.size' value='99367'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.artifact.repository'/>
+				<property name='maven-version' value='1.1.600-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.discovery.compatibility.source'
+				  version='1.0.200.v20131211-1531'>
+			<properties size='6'>
+				<property name='artifact.size' value='39854'/>
+				<property name='download.size' value='38628'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.discovery.compatibility'/>
+				<property name='maven-version' value='1.0.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.updatesite.source'
+				  version='1.0.600.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='72514'/>
+				<property name='download.size' value='72543'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.updatesite'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.discovery' version='1.0.300.v20170418-0708'>
+			<properties size='5'>
+				<property name='artifact.size' value='178348'/>
+				<property name='download.size' value='178345'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.discovery'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.commons.codec' version='1.9.0.v20170208-1614'>
+			<properties size='1'>
+				<property name='download.size' value='291025'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.util' version='1.0.500.v20130404-1337'>
+			<properties size='5'>
+				<property name='artifact.size' value='79571'/>
+				<property name='download.size' value='77626'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.util'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.hook' version='1.2.0.v20170105-1446'>
+			<properties size='5'>
+				<property name='artifact.size' value='30202'/>
+				<property name='download.size' value='30253'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.transforms.hook'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.publisher' version='1.4.200.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='96445'/>
+				<property name='download.size' value='96448'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.publisher'/>
+				<property name='maven-version' value='1.4.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servlet.source' version='1.4.0.v20170524-1452'>
+			<properties size='6'>
+				<property name='artifact.size' value='117033'/>
+				<property name='download.size' value='117026'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.servlet'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.win32.x86_64'
+				  version='1.0.100.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='36030'/>
+				<property name='download.size' value='35190'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.win32.x86_64'/>
+				<property name='maven-version' value='1.0.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.shell.source' version='0.10.0.v201212101605'>
+			<properties size='1'>
+				<property name='download.size' value='37624'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.updatechecker' version='1.1.400.v20170106-2125'>
+			<properties size='5'>
+				<property name='artifact.size' value='18452'/>
+				<property name='download.size' value='18504'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.updatechecker'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.director' version='2.3.300.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='104552'/>
+				<property name='download.size' value='104577'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.director'/>
+				<property name='maven-version' value='2.3.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.continuation' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='23359'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.discovery.compatibility'
+				  version='1.0.200.v20131211-1531'>
+			<properties size='5'>
+				<property name='artifact.size' value='57822'/>
+				<property name='download.size' value='56373'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.discovery.compatibility'/>
+				<property name='maven-version' value='1.0.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.core.contenttype' version='3.6.0.v20170207-1037'>
+			<properties size='5'>
+				<property name='artifact.size' value='104248'/>
+				<property name='download.size' value='104299'/>
+				<property name='maven-groupId' value='org.eclipse.core'/>
+				<property name='maven-artifactId' value='org.eclipse.core.contenttype'/>
+				<property name='maven-version' value='3.6.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.httpclient4.ssl.feature'
+				  version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='27336'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.console.source' version='1.0.600.v20170511-1106'>
+			<properties size='6'>
+				<property name='artifact.size' value='20466'/>
+				<property name='download.size' value='20460'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.console'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.slf4j.api.source' version='1.7.2.v20121108-1250'>
+			<properties size='1'>
+				<property name='download.size' value='56854'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.util.source' version='3.4.0.v20170111-1608'>
+			<properties size='6'>
+				<property name='artifact.size' value='53736'/>
+				<property name='download.size' value='53778'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.util'/>
+				<property name='maven-version' value='3.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.server.core'
+				  version='1.5.0.v20170518-1049'>
+			<properties size='6'>
+				<property name='artifact.size' value='18310'/>
+				<property name='download.size' value='18308'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.server.core'/>
+				<property name='maven-version' value='1.5.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.filetransfer.source' version='5.0.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='78208'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin' version='2.0.300.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='37404'/>
+				<property name='download.size' value='37428'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.frameworkadmin'/>
+				<property name='maven-version' value='2.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.installer' version='1.0.500.v20160419-0100'>
+			<properties size='5'>
+				<property name='artifact.size' value='70047'/>
+				<property name='download.size' value='70076'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.installer'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.httpclient4.source'
+				  version='1.1.200.v20170314-0133'>
+			<properties size='1'>
+				<property name='download.size' value='55310'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.io.source' version='1.1.100.v20150430-1834'>
+			<properties size='6'>
+				<property name='artifact.size' value='41559'/>
+				<property name='download.size' value='40239'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.io'/>
+				<property name='maven-version' value='1.1.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper' version='1.0.500.v20150119-1358'>
+			<properties size='5'>
+				<property name='artifact.size' value='29018'/>
+				<property name='download.size' value='27958'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.jsp.jasper'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.ssl'
+				  version='1.0.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='9897'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.admin.rcp' version='1.0.300.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='24150'/>
+				<property name='download.size' value='24153'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.admin.rcp'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching' version='1.1.0.v20161007-1415'>
+			<properties size='5'>
+				<property name='artifact.size' value='24639'/>
+				<property name='download.size' value='24683'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.caching'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.common.source' version='3.9.0.v20170207-1454'>
+			<properties size='6'>
+				<property name='artifact.size' value='132585'/>
+				<property name='download.size' value='132635'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.common'/>
+				<property name='maven-version' value='3.9.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.core.variables' version='3.4.0.v20170113-2056'>
+			<properties size='5'>
+				<property name='artifact.size' value='35984'/>
+				<property name='download.size' value='36040'/>
+				<property name='maven-groupId' value='org.eclipse.core'/>
+				<property name='maven-artifactId' value='org.eclipse.core.variables'/>
+				<property name='maven-version' value='3.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.jetty.source' version='3.4.0.v20170503-2025'>
+			<properties size='6'>
+				<property name='artifact.size' value='22685'/>
+				<property name='download.size' value='22679'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.jetty'/>
+				<property name='maven-version' value='3.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.event.source' version='1.4.0.v20170105-1446'>
+			<properties size='6'>
+				<property name='artifact.size' value='28875'/>
+				<property name='download.size' value='28923'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.event'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.io' version='1.1.100.v20150430-1834'>
+			<properties size='5'>
+				<property name='artifact.size' value='44336'/>
+				<property name='download.size' value='43047'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.io'/>
+				<property name='maven-version' value='1.1.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.repository.tools'
+				  version='2.1.400.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='244610'/>
+				<property name='download.size' value='244617'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.repository.tools'/>
+				<property name='maven-version' value='2.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.httpclient4'
+				  version='1.1.200.v20170314-0133'>
+			<properties size='1'>
+				<property name='download.size' value='75498'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.garbagecollector'
+				  version='1.0.300.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='25962'/>
+				<property name='download.size' value='25987'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.garbagecollector'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.runtime.source' version='0.10.0.v201209301036'>
+			<properties size='1'>
+				<property name='download.size' value='59285'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.reconciler.dropins'
+				  version='1.1.400.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='49338'/>
+				<property name='download.size' value='49357'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.reconciler.dropins'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.security' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='101959'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.ssl.source' version='1.2.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='13321'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.p2.sdk'
+				  version='3.10.0.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='19517'/>
+				<property name='download.size' value='19516'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.sdk'/>
+				<property name='maven-version' value='3.10.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.mina.core.source' version='2.0.7.v201401071602'>
+			<properties size='1'>
+				<property name='download.size' value='599436'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.metadata.repository'
+				  version='1.2.400.v20170511-1106'>
+			<properties size='5'>
+				<property name='artifact.size' value='122412'/>
+				<property name='download.size' value='122423'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.metadata.repository'/>
+				<property name='maven-version' value='1.2.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.win32.x86' version='1.0.300.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='23745'/>
+				<property name='download.size' value='22912'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.win32.x86'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.ssl.feature'
+				  version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='23259'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.httpclient4.feature.source'
+				  version='3.13.7.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='19753'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.sdk.scheduler'
+				  version='1.3.100.v20170418-0708'>
+			<properties size='5'>
+				<property name='artifact.size' value='123660'/>
+				<property name='download.size' value='123651'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.sdk.scheduler'/>
+				<property name='maven-version' value='1.3.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.p2.extras.feature'
+				  version='1.3.0.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='18247'/>
+				<property name='download.size' value='18261'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.extras.feature'/>
+				<property name='maven-version' value='1.3.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.supplement' version='1.7.0.v20170329-1416'>
+			<properties size='5'>
+				<property name='artifact.size' value='109153'/>
+				<property name='download.size' value='109196'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.supplement'/>
+				<property name='maven-version' value='1.7.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.simpleconfigurator.manipulator.source'
+				  version='2.0.300.v20170515-0721'>
+			<properties size='6'>
+				<property name='artifact.size' value='19860'/>
+				<property name='download.size' value='19862'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.simpleconfigurator.manipulator'/>
+				<property name='maven-version' value='2.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.console' version='1.1.300.v20170512-2111'>
+			<properties size='5'>
+				<property name='artifact.size' value='120759'/>
+				<property name='download.size' value='120758'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.console'/>
+				<property name='maven-version' value='1.1.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.identity.source' version='3.8.0.v20161203-2153'>
+			<properties size='1'>
+				<property name='download.size' value='52469'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.artifact.repository'
+				  version='1.1.600.v20170511-1106'>
+			<properties size='5'>
+				<property name='artifact.size' value='141267'/>
+				<property name='download.size' value='141266'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.artifact.repository'/>
+				<property name='maven-version' value='1.1.600-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.garbagecollector.source'
+				  version='1.0.300.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='19624'/>
+				<property name='download.size' value='19657'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.garbagecollector'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.registry.source'
+				  version='1.0.300.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='12257'/>
+				<property name='download.size' value='11425'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.jsp.jasper.registry'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.registry' version='3.7.0.v20170222-1344'>
+			<properties size='5'>
+				<property name='artifact.size' value='187304'/>
+				<property name='download.size' value='187348'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.registry'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.metatype' version='1.4.300.v20170105-1446'>
+			<properties size='5'>
+				<property name='artifact.size' value='82410'/>
+				<property name='download.size' value='82454'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.metatype'/>
+				<property name='maven-version' value='1.4.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.publisher.eclipse.source'
+				  version='1.2.200.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='150857'/>
+				<property name='download.size' value='150856'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.publisher.eclipse'/>
+				<property name='maven-version' value='1.2.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.core.jobs' version='3.9.0.v20170322-0013'>
+			<properties size='5'>
+				<property name='artifact.size' value='107057'/>
+				<property name='download.size' value='107104'/>
+				<property name='maven-groupId' value='org.eclipse.core'/>
+				<property name='maven-artifactId' value='org.eclipse.core.jobs'/>
+				<property name='maven-version' value='3.9.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.bidi' version='1.1.0.v20160728-1031'>
+			<properties size='5'>
+				<property name='artifact.size' value='49727'/>
+				<property name='download.size' value='49765'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.bidi'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.feature'
+				  version='3.13.7.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='27439'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.gtk.linux.ppc64le'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='91404'/>
+				<property name='download.size' value='91404'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.gtk.linux.ppc64le'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.executable'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='artifact.size' value='243213'/>
+				<property name='download.size' value='243213'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.services' version='3.6.0.v20170228-1906'>
+			<properties size='5'>
+				<property name='artifact.size' value='121171'/>
+				<property name='download.size' value='121220'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.services'/>
+				<property name='maven-version' value='3.6.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.filetransfer' version='5.0.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='53203'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.util' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='479514'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.core.runtime.feature'
+				  version='1.2.0.v20170518-1049'>
+			<properties size='6'>
+				<property name='artifact.size' value='18212'/>
+				<property name='download.size' value='18211'/>
+				<property name='maven-groupId' value='org.eclipse.core.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.core.runtime.feature'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.jasper.glassfish' version='2.2.2.v201501141630'>
+			<properties size='1'>
+				<property name='download.size' value='2435771'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.gtk.linux.ppc64'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.gtk.linux.ppc64'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='38867'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.metadata' version='2.3.200.v20170511-1106'>
+			<properties size='5'>
+				<property name='artifact.size' value='343547'/>
+				<property name='download.size' value='343548'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.metadata'/>
+				<property name='maven-version' value='2.3.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.p2.discovery.feature'
+				  version='1.1.0.v20170418-0708'>
+			<properties size='6'>
+				<property name='artifact.size' value='18175'/>
+				<property name='download.size' value='18193'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.discovery.feature'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.transport.ecf' version='1.1.300.v20161004-0244'>
+			<properties size='5'>
+				<property name='artifact.size' value='43633'/>
+				<property name='download.size' value='43687'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.transport.ecf'/>
+				<property name='maven-version' value='1.1.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.linux.x86_64'
+				  version='1.0.100.v20170504-1307'>
+			<properties size='5'>
+				<property name='artifact.size' value='16603'/>
+				<property name='download.size' value='16593'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.linux.x86_64'/>
+				<property name='maven-version' value='1.0.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.commons.codec.source' version='1.9.0.v20170208-1614'>
+			<properties size='1'>
+				<property name='download.size' value='308389'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.sdk' version='1.0.500.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='54802'/>
+				<property name='download.size' value='54801'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.sdk'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.directorywatcher.source'
+				  version='1.1.100.v20150423-1455'>
+			<properties size='6'>
+				<property name='artifact.size' value='23515'/>
+				<property name='download.size' value='22293'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.directorywatcher'/>
+				<property name='maven-version' value='1.1.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.console' version='1.0.600.v20170511-1106'>
+			<properties size='5'>
+				<property name='artifact.size' value='28391'/>
+				<property name='download.size' value='28387'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.console'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.macosx' version='1.100.200.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='17513'/>
+				<property name='download.size' value='16683'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.macosx'/>
+				<property name='maven-version' value='1.100.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.operations' version='2.4.300.v20170511-1106'>
+			<properties size='5'>
+				<property name='artifact.size' value='77190'/>
+				<property name='download.size' value='77187'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.operations'/>
+				<property name='maven-version' value='2.4.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.ssh.source' version='1.0.200.v20170105-1446'>
+			<properties size='6'>
+				<property name='artifact.size' value='36064'/>
+				<property name='download.size' value='36118'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.console.ssh'/>
+				<property name='maven-version' value='1.0.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.xslt' version='1.0.300.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='18592'/>
+				<property name='download.size' value='17708'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.transforms.xslt'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.win32.win32.x86'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.win32.win32.x86'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='31737'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.jarprocessor.source'
+				  version='1.0.500.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='48351'/>
+				<property name='download.size' value='48379'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.jarprocessor'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.io' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='140159'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.engine.source' version='2.5.0.v20170319-2002'>
+			<properties size='6'>
+				<property name='artifact.size' value='141982'/>
+				<property name='download.size' value='142033'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.engine'/>
+				<property name='maven-version' value='2.5.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.wireadmin' version='1.0.600.v20150715-1528'>
+			<properties size='5'>
+				<property name='artifact.size' value='39145'/>
+				<property name='download.size' value='39067'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.wireadmin'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui' version='2.5.0.v20170505-1031'>
+			<properties size='5'>
+				<property name='artifact.size' value='699176'/>
+				<property name='download.size' value='699168'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui'/>
+				<property name='maven-version' value='2.5.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.core.sdk'
+				  version='3.13.0.v20170516-1513'>
+			<properties size='6'>
+				<property name='artifact.size' value='19352'/>
+				<property name='download.size' value='19350'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.core.sdk'/>
+				<property name='maven-version' value='3.13.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.operations.source'
+				  version='2.4.300.v20170511-1106'>
+			<properties size='6'>
+				<property name='artifact.size' value='66215'/>
+				<property name='download.size' value='66215'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.operations'/>
+				<property name='maven-version' value='2.4.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.admin.rcp.source'
+				  version='1.0.300.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='16417'/>
+				<property name='download.size' value='16422'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.admin.rcp'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.cm.source' version='1.2.0.v20170105-1446'>
+			<properties size='6'>
+				<property name='artifact.size' value='46457'/>
+				<property name='download.size' value='46509'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.cm'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.sdk' version='3.13.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='artifact.size' value='18230'/>
+				<property name='download.size' value='18229'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.sdk'/>
+				<property name='maven-version' value='3.13.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.publisher.source'
+				  version='1.4.200.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='75980'/>
+				<property name='download.size' value='75984'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.publisher'/>
+				<property name='maven-version' value='1.4.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.mina.core' version='2.0.7.v201401071602'>
+			<properties size='1'>
+				<property name='download.size' value='677528'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher' version='1.4.0.v20161219-1356'>
+			<properties size='5'>
+				<property name='artifact.size' value='54381'/>
+				<property name='download.size' value='54427'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.jasper.glassfish.source' version='2.2.2.v201501141630'>
+			<properties size='1'>
+				<property name='download.size' value='466765'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.j9.source'
+				  version='1.1.0.v20160929-1449'>
+			<properties size='6'>
+				<property name='artifact.size' value='13135'/>
+				<property name='download.size' value='13184'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.caching.j9'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.httpcomponents.httpcore.source'
+				  version='4.4.6.v20170210-0925'>
+			<properties size='1'>
+				<property name='download.size' value='438427'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.gtk.linux.x86_64'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.gtk.linux.x86_64'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='32732'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.sshd.core' version='0.7.0.v201303101611'>
+			<properties size='1'>
+				<property name='download.size' value='379641'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.registry'
+				  version='1.0.300.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='12800'/>
+				<property name='download.size' value='11992'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.jsp.jasper.registry'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.win32.x86.source'
+				  version='1.0.300.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='16834'/>
+				<property name='download.size' value='15927'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.win32.x86'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.useradmin.source' version='1.1.400.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='36364'/>
+				<property name='download.size' value='35315'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.useradmin'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.server.p2'
+				  version='1.3.0.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='19103'/>
+				<property name='download.size' value='19103'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.server.p2'/>
+				<property name='maven-version' value='1.3.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servletbridge.source'
+				  version='1.0.300.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='9308'/>
+				<property name='download.size' value='8585'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.servletbridge'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.servlet.jsp' version='2.2.0.v201112011158'>
+			<properties size='1'>
+				<property name='download.size' value='111144'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.httpclient4.feature'
+				  version='3.13.7.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='27440'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.source' version='3.12.0.v20170512-1932'>
+			<properties size='6'>
+				<property name='artifact.size' value='1106160'/>
+				<property name='download.size' value='1106163'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi'/>
+				<property name='maven-version' value='3.12.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.ui.source' version='1.1.400.v20170505-1235'>
+			<properties size='6'>
+				<property name='artifact.size' value='87388'/>
+				<property name='download.size' value='87387'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.ui'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.gtk.linux.ppc64le'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.gtk.linux.ppc64le'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='38343'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.core.feature'
+				  version='1.4.0.v20170518-1049'>
+			<properties size='6'>
+				<property name='artifact.size' value='18387'/>
+				<property name='download.size' value='18388'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.core.feature'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.discovery.source'
+				  version='1.0.400.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='33395'/>
+				<property name='download.size' value='33418'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.discovery'/>
+				<property name='maven-version' value='1.0.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.httpcomponents.httpcore' version='4.4.6.v20170210-0925'>
+			<properties size='1'>
+				<property name='download.size' value='354606'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.hook' version='1.2.0.v20160929-1449'>
+			<properties size='5'>
+				<property name='artifact.size' value='51658'/>
+				<property name='download.size' value='51710'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.hook'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.updatechecker.source'
+				  version='1.1.400.v20170106-2125'>
+			<properties size='6'>
+				<property name='artifact.size' value='15825'/>
+				<property name='download.size' value='15870'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.updatechecker'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.supplement.source' version='1.7.0.v20170329-1416'>
+			<properties size='6'>
+				<property name='artifact.size' value='113190'/>
+				<property name='download.size' value='113245'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.supplement'/>
+				<property name='maven-version' value='1.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.source'
+				  version='3.2.300.v20161203-1840'>
+			<properties size='1'>
+				<property name='download.size' value='88498'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.cm' version='1.2.0.v20170105-1446'>
+			<properties size='5'>
+				<property name='artifact.size' value='74301'/>
+				<property name='download.size' value='74345'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.cm'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.serverside.sdk'
+				  version='3.13.0.v20170524-1452'>
+			<properties size='6'>
+				<property name='artifact.size' value='18828'/>
+				<property name='download.size' value='18829'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.serverside.sdk'/>
+				<property name='maven-version' value='3.13.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.http' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='175060'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.metatype.source' version='1.4.300.v20170105-1446'>
+			<properties size='6'>
+				<property name='artifact.size' value='52365'/>
+				<property name='download.size' value='52414'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.metatype'/>
+				<property name='maven-version' value='1.4.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.el.source' version='2.2.0.v201303151357'>
+			<properties size='1'>
+				<property name='download.size' value='97804'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.region.source' version='1.4.0.v20170117-1425'>
+			<properties size='6'>
+				<property name='artifact.size' value='58873'/>
+				<property name='download.size' value='58920'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.region'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.event' version='1.4.0.v20170105-1446'>
+			<properties size='5'>
+				<property name='artifact.size' value='34678'/>
+				<property name='download.size' value='34721'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.event'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.slf4j.api' version='1.7.2.v20121108-1250'>
+			<properties size='1'>
+				<property name='download.size' value='34566'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.concurrent' version='1.1.0.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='26526'/>
+				<property name='download.size' value='25385'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.concurrent'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.j9' version='1.1.0.v20160929-1449'>
+			<properties size='5'>
+				<property name='artifact.size' value='14869'/>
+				<property name='download.size' value='14915'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.caching.j9'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.services.source' version='3.6.0.v20170228-1906'>
+			<properties size='6'>
+				<property name='artifact.size' value='236462'/>
+				<property name='download.size' value='236511'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.services'/>
+				<property name='maven-version' value='3.6.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.coordinator.source' version='1.3.300.v20170512-2111'>
+			<properties size='6'>
+				<property name='artifact.size' value='52599'/>
+				<property name='download.size' value='52601'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.coordinator'/>
+				<property name='maven-version' value='1.3.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.servlet' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='119775'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.scr.source' version='2.0.10.v20170501-2007'>
+			<properties size='1'>
+				<property name='download.size' value='244617'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.ds' version='1.5.0.v20170307-1429'>
+			<properties size='5'>
+				<property name='artifact.size' value='28748'/>
+				<property name='download.size' value='28783'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.ds'/>
+				<property name='maven-version' value='1.5.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.ssl.feature.source'
+				  version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='19554'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.director.app' version='1.0.500.v20160419-0834'>
+			<properties size='5'>
+				<property name='artifact.size' value='54737'/>
+				<property name='download.size' value='54805'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.director.app'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.sdk.source' version='1.0.500.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='30729'/>
+				<property name='download.size' value='30721'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.sdk'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.server.jetty'
+				  version='1.4.0.v20170524-1452'>
+			<properties size='6'>
+				<property name='artifact.size' value='18168'/>
+				<property name='download.size' value='18169'/>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.server.jetty'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.coordinator' version='1.3.300.v20170512-2111'>
+			<properties size='5'>
+				<property name='artifact.size' value='52490'/>
+				<property name='download.size' value='52491'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.coordinator'/>
+				<property name='maven-version' value='1.3.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.admin.source' version='1.0.300.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='57068'/>
+				<property name='download.size' value='57066'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.admin'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.sdk.scheduler.source'
+				  version='1.3.100.v20170418-0708'>
+			<properties size='6'>
+				<property name='artifact.size' value='59422'/>
+				<property name='download.size' value='59414'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.sdk.scheduler'/>
+				<property name='maven-version' value='1.3.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.gtk.linux.x86'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='79760'/>
+				<property name='download.size' value='79763'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.gtk.linux.x86'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.shell' version='0.10.0.v201212101605'>
+			<properties size='1'>
+				<property name='download.size' value='60225'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.filetransfer.feature.source'
+				  version='3.13.7.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='19560'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.director.source' version='2.3.300.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='67857'/>
+				<property name='download.size' value='67887'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.director'/>
+				<property name='maven-version' value='2.3.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.preferences' version='3.7.0.v20170126-2132'>
+			<properties size='5'>
+				<property name='artifact.size' value='133178'/>
+				<property name='download.size' value='133219'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.preferences'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer' version='3.2.300.v20161203-1840'>
+			<properties size='1'>
+				<property name='download.size' value='129370'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi' version='3.12.0.v20170512-1932'>
+			<properties size='5'>
+				<property name='artifact.size' value='1387169'/>
+				<property name='download.size' value='1387171'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi'/>
+				<property name='maven-version' value='3.12.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.source' version='1.2.300.v20170505-1235'>
+			<properties size='6'>
+				<property name='artifact.size' value='102617'/>
+				<property name='download.size' value='102610'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security'/>
+				<property name='maven-version' value='1.2.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.hook.source' version='1.2.0.v20160929-1449'>
+			<properties size='6'>
+				<property name='artifact.size' value='42491'/>
+				<property name='download.size' value='42540'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.hook'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.publisher.eclipse'
+				  version='1.2.200.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='233487'/>
+				<property name='download.size' value='233493'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.publisher.eclipse'/>
+				<property name='maven-version' value='1.2.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.servletbridge.source'
+				  version='1.3.200.v20160128-1435'>
+			<properties size='6'>
+				<property name='artifact.size' value='26769'/>
+				<property name='download.size' value='26803'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.servletbridge'/>
+				<property name='maven-version' value='1.3.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.simpleconfigurator.source'
+				  version='1.2.0.v20170110-1705'>
+			<properties size='6'>
+				<property name='artifact.size' value='37857'/>
+				<property name='download.size' value='37903'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.simpleconfigurator'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.sat4j.pb' version='2.3.5.v201404071733'>
+			<properties size='1'>
+				<property name='download.size' value='241956'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.httpclient4.ssl.source'
+				  version='1.1.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='18423'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.source' version='3.8.0.v20170104-0657'>
+			<properties size='1'>
+				<property name='download.size' value='95889'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.gtk.linux.x86'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.gtk.linux.x86'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='32060'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.core.expressions' version='3.6.0.v20170207-1037'>
+			<properties size='5'>
+				<property name='artifact.size' value='91678'/>
+				<property name='download.size' value='91726'/>
+				<property name='maven-groupId' value='org.eclipse.core'/>
+				<property name='maven-artifactId' value='org.eclipse.core.expressions'/>
+				<property name='maven-version' value='3.6.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.app.source' version='1.3.400.v20150715-1528'>
+			<properties size='6'>
+				<property name='artifact.size' value='78201'/>
+				<property name='download.size' value='77974'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.app'/>
+				<property name='maven-version' value='1.3.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.commons.logging' version='1.1.1.v201101211721'>
+			<properties size='1'>
+				<property name='download.size' value='73633'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servlet' version='1.4.0.v20170524-1452'>
+			<properties size='5'>
+				<property name='artifact.size' value='199902'/>
+				<property name='download.size' value='199903'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.servlet'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.discovery.source'
+				  version='1.0.300.v20170418-0708'>
+			<properties size='6'>
+				<property name='artifact.size' value='74953'/>
+				<property name='download.size' value='74951'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.discovery'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.felix.gogo.command' version='0.10.0.v201209301215'>
+			<properties size='1'>
+				<property name='download.size' value='57040'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.frameworkadmin.source'
+				  version='2.0.300.v20160504-1450'>
+			<properties size='6'>
+				<property name='artifact.size' value='36969'/>
+				<property name='download.size' value='36995'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.frameworkadmin'/>
+				<property name='maven-version' value='2.0.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.win32.win32.x86'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='28157'/>
+				<property name='download.size' value='28161'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.win32.win32.x86'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.el' version='2.2.0.v201303151357'>
+			<properties size='1'>
+				<property name='download.size' value='55399'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.io.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='75850'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.ssh' version='1.0.200.v20170105-1446'>
+			<properties size='5'>
+				<property name='artifact.size' value='54606'/>
+				<property name='download.size' value='54655'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.console.ssh'/>
+				<property name='maven-version' value='1.0.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.continuation.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='24471'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.httpclient4.ssl'
+				  version='1.1.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='14196'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.directorywatcher'
+				  version='1.1.100.v20150423-1455'>
+			<properties size='5'>
+				<property name='artifact.size' value='34045'/>
+				<property name='download.size' value='32863'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.directorywatcher'/>
+				<property name='maven-version' value='1.1.100-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='javax.servlet' version='3.1.0.v201410161800'>
+			<properties size='1'>
+				<property name='download.size' value='105237'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.source' version='1.4.0.v20161219-1356'>
+			<properties size='6'>
+				<property name='artifact.size' value='45760'/>
+				<property name='download.size' value='45809'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.source' version='2.5.0.v20170505-1031'>
+			<properties size='6'>
+				<property name='artifact.size' value='304637'/>
+				<property name='download.size' value='304633'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui'/>
+				<property name='maven-version' value='2.5.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.servletbridge' version='1.0.300.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='9849'/>
+				<property name='download.size' value='9117'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.servletbridge'/>
+				<property name='maven-version' value='1.0.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.console.jaas.fragment'
+				  version='1.0.0.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='7611'/>
+				<property name='download.size' value='7053'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.console.jaas.fragment'/>
+				<property name='maven-version' value='1.0.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.repository.tools.source'
+				  version='2.1.400.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='180316'/>
+				<property name='download.size' value='180317'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.repository.tools'/>
+				<property name='maven-version' value='2.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.registry.source'
+				  version='1.1.400.v20150715-1528'>
+			<properties size='6'>
+				<property name='artifact.size' value='33184'/>
+				<property name='download.size' value='33027'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.registry'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.server.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='370765'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.httpcomponents.httpclient' version='4.5.2.v20170210-0925'>
+			<properties size='1'>
+				<property name='download.size' value='1005955'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.win32.x86_64.source'
+				  version='1.0.100.v20130327-1442'>
+			<properties size='6'>
+				<property name='artifact.size' value='16891'/>
+				<property name='download.size' value='15993'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.win32.x86_64'/>
+				<property name='maven-version' value='1.0.100-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.weaving.caching.source'
+				  version='1.1.0.v20161007-1415'>
+			<properties size='6'>
+				<property name='artifact.size' value='20448'/>
+				<property name='download.size' value='20500'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.weaving.caching'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.http.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='107680'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.metadata.repository.source'
+				  version='1.2.400.v20170511-1106'>
+			<properties size='6'>
+				<property name='artifact.size' value='60274'/>
+				<property name='download.size' value='60277'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.metadata.repository'/>
+				<property name='maven-version' value='1.2.400-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.device' version='1.0.400.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='34297'/>
+				<property name='download.size' value='33222'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.device'/>
+				<property name='maven-version' value='1.0.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.preferences.source' version='3.7.0.v20170126-2132'>
+			<properties size='6'>
+				<property name='artifact.size' value='113891'/>
+				<property name='download.size' value='113935'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.preferences'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.http.jetty' version='3.4.0.v20170503-2025'>
+			<properties size='5'>
+				<property name='artifact.size' value='28039'/>
+				<property name='download.size' value='28028'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.http.jetty'/>
+				<property name='maven-version' value='3.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.sshd.core.source' version='0.7.0.v201303101611'>
+			<properties size='1'>
+				<property name='download.size' value='304423'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.useradmin' version='1.1.400.v20130327-1442'>
+			<properties size='5'>
+				<property name='artifact.size' value='50206'/>
+				<property name='download.size' value='48852'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.useradmin'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.metadata.source' version='2.3.200.v20170511-1106'>
+			<properties size='6'>
+				<property name='artifact.size' value='246204'/>
+				<property name='download.size' value='246209'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.metadata'/>
+				<property name='maven-version' value='2.3.200-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.repository' version='2.3.300.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='134159'/>
+				<property name='download.size' value='134161'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.repository'/>
+				<property name='maven-version' value='2.3.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.extensionlocation'
+				  version='1.2.300.v20160419-0834'>
+			<properties size='5'>
+				<property name='artifact.size' value='36194'/>
+				<property name='download.size' value='36213'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.extensionlocation'/>
+				<property name='maven-version' value='1.2.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.security.source' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='76862'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.apache.commons.logging.source' version='1.1.1.v201101211721'>
+			<properties size='1'>
+				<property name='download.size' value='86626'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security' version='1.2.300.v20170505-1235'>
+			<properties size='5'>
+				<property name='artifact.size' value='109815'/>
+				<property name='download.size' value='109819'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security'/>
+				<property name='maven-version' value='1.2.300-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.transforms.hook.source'
+				  version='1.2.0.v20170105-1446'>
+			<properties size='6'>
+				<property name='artifact.size' value='24569'/>
+				<property name='download.size' value='24614'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.transforms.hook'/>
+				<property name='maven-version' value='1.2.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.wireadmin.source' version='1.0.600.v20150715-1528'>
+			<properties size='6'>
+				<property name='artifact.size' value='29386'/>
+				<property name='download.size' value='29262'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.wireadmin'/>
+				<property name='maven-version' value='1.0.600-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.touchpoint.eclipse'
+				  version='2.1.500.v20170516-0526'>
+			<properties size='5'>
+				<property name='artifact.size' value='128893'/>
+				<property name='download.size' value='128891'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.touchpoint.eclipse'/>
+				<property name='maven-version' value='2.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.jsp.jasper.source' version='1.0.500.v20150119-1358'>
+			<properties size='6'>
+				<property name='artifact.size' value='19521'/>
+				<property name='download.size' value='18647'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.jsp.jasper'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.repository.source'
+				  version='2.3.300.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='121548'/>
+				<property name='download.size' value='121545'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.repository'/>
+				<property name='maven-version' value='2.3.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.jetty.server' version='9.4.5.v20170502'>
+			<properties size='1'>
+				<property name='download.size' value='603614'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.director.app.source'
+				  version='1.0.500.v20160419-0834'>
+			<properties size='6'>
+				<property name='artifact.size' value='34864'/>
+				<property name='download.size' value='34888'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.director.app'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.ecf.provider.filetransfer.ssl.source'
+				  version='1.0.0.v20160817-1024'>
+			<properties size='1'>
+				<property name='download.size' value='9725'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.win32.win32.x86_64'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='30370'/>
+				<property name='download.size' value='30370'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.win32.win32.x86_64'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.ui.importexport.source'
+				  version='1.1.300.v20170511-1216'>
+			<properties size='6'>
+				<property name='artifact.size' value='52099'/>
+				<property name='download.size' value='52099'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.ui.importexport'/>
+				<property name='maven-version' value='1.1.300-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.security.ui' version='1.1.400.v20170505-1235'>
+			<properties size='5'>
+				<property name='artifact.size' value='186138'/>
+				<property name='download.size' value='186136'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.security.ui'/>
+				<property name='maven-version' value='1.1.400-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.region' version='1.4.0.v20170117-1425'>
+			<properties size='5'>
+				<property name='artifact.size' value='77761'/>
+				<property name='download.size' value='77810'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.region'/>
+				<property name='maven-version' value='1.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.bidi.source' version='1.1.0.v20160728-1031'>
+			<properties size='6'>
+				<property name='artifact.size' value='64777'/>
+				<property name='download.size' value='64807'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.bidi'/>
+				<property name='maven-version' value='1.1.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='binary' id='org.eclipse.equinox.executable_root.cocoa.macosx.x86_64'
+				  version='3.7.0.v20170531-1133'>
+			<properties size='6'>
+				<property name='maven-groupId' value='org.eclipse.equinox.feature'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.executable'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='root.cocoa.macosx.x86_64'/>
+				<property name='maven-extension' value='zip'/>
+				<property name='download.size' value='11548'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.engine' version='2.5.0.v20170319-2002'>
+			<properties size='5'>
+				<property name='artifact.size' value='214809'/>
+				<property name='download.size' value='214862'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.engine'/>
+				<property name='maven-version' value='2.5.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.touchpoint.natives'
+				  version='1.2.200.v20170511-1216'>
+			<properties size='5'>
+				<property name='artifact.size' value='76833'/>
+				<property name='download.size' value='76838'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.touchpoint.natives'/>
+				<property name='maven-version' value='1.2.200-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.core.feature.source'
+				  version='1.4.0.v20170516-2248'>
+			<properties size='1'>
+				<property name='download.size' value='19464'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.osgi.util' version='3.4.0.v20170111-1608'>
+			<properties size='5'>
+				<property name='artifact.size' value='50207'/>
+				<property name='download.size' value='50252'/>
+				<property name='maven-groupId' value='org.eclipse.osgi'/>
+				<property name='maven-artifactId' value='org.eclipse.osgi.util'/>
+				<property name='maven-version' value='3.4.0-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.registry.source' version='3.7.0.v20170222-1344'>
+			<properties size='6'>
+				<property name='artifact.size' value='179000'/>
+				<property name='download.size' value='179049'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.registry'/>
+				<property name='maven-version' value='3.7.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.p2.jarprocessor' version='1.0.500.v20160504-1450'>
+			<properties size='5'>
+				<property name='artifact.size' value='72560'/>
+				<property name='download.size' value='72608'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.jarprocessor'/>
+				<property name='maven-version' value='1.0.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.ds.source' version='1.5.0.v20170307-1429'>
+			<properties size='6'>
+				<property name='artifact.size' value='24941'/>
+				<property name='download.size' value='24992'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.ds'/>
+				<property name='maven-version' value='1.5.0-SNAPSHOT'/>
+				<property name='maven-classifier' value='sources'/>
+			</properties>
+		</artifact>
+		<artifact classifier='osgi.bundle' id='org.eclipse.equinox.launcher.gtk.linux.ppc64'
+				  version='1.1.500.v20170531-1133'>
+			<properties size='5'>
+				<property name='artifact.size' value='93758'/>
+				<property name='download.size' value='93756'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.launcher.gtk.linux.ppc64'/>
+				<property name='maven-version' value='1.1.500-SNAPSHOT'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.equinox.p2.rcp.feature'
+				  version='1.3.0.v20170524-1345'>
+			<properties size='6'>
+				<property name='artifact.size' value='18163'/>
+				<property name='download.size' value='18180'/>
+				<property name='maven-groupId' value='org.eclipse.equinox'/>
+				<property name='maven-artifactId' value='org.eclipse.equinox.p2.rcp.feature'/>
+				<property name='maven-version' value='1.3.0-SNAPSHOT'/>
+				<property name='download.contentType' value='application/zip'/>
+			</properties>
+		</artifact>
+		<artifact classifier='org.eclipse.update.feature' id='org.eclipse.ecf.core.ssl.feature'
+				  version='1.1.0.v20170110-1317'>
+			<properties size='1'>
+				<property name='download.size' value='19129'/>
+			</properties>
+		</artifact>
+	</artifacts>
+</repository>
