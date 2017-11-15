@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+		id="org.eclipse.equinox.core.feature"
+		label="%featureName"
+		version="1.4.1.v20170928-1321"
+		provider-name="%providerName">
+
+	<copyright>
+		%copyright
+	</copyright>
+
+	<license url="%licenseURL">
+		%license
+	</license>
+
+	<plugin
+			id="org.eclipse.osgi"
+			download-size="1355"
+			install-size="2875"
+			version="3.12.50.v20170928-1321"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.osgi.services"
+			download-size="118"
+			install-size="184"
+			version="3.6.0.v20170228-1906"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.osgi.util"
+			download-size="49"
+			install-size="96"
+			version="3.4.0.v20170111-1608"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.common"
+			download-size="118"
+			install-size="223"
+			version="3.9.0.v20170207-1454"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.ds"
+			download-size="28"
+			install-size="56"
+			version="1.5.0.v20170307-1429"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.util"
+			download-size="75"
+			install-size="139"
+			version="1.0.500.v20130404-1337"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.registry"
+			download-size="182"
+			install-size="377"
+			version="3.7.0.v20170222-1344"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.simpleconfigurator"
+			download-size="45"
+			install-size="83"
+			version="1.2.0.v20170110-1705"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.app"
+			download-size="85"
+			install-size="171"
+			version="1.3.400.v20150715-1528"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.osgi.compatibility.state"
+			download-size="238"
+			install-size="581"
+			version="1.1.0.v20170516-1513"
+			fragment="true"
+			unpack="false"/>
+
+	<plugin
+			id="org.eclipse.equinox.console"
+			download-size="117"
+			install-size="239"
+			version="1.1.300.v20170512-2111"
+			unpack="false"/>
+
+	<plugin
+			id="org.apache.felix.gogo.command"
+			download-size="55"
+			install-size="111"
+			version="0.10.0.v201209301215"
+			unpack="false"/>
+
+	<plugin
+			id="org.apache.felix.gogo.runtime"
+			download-size="77"
+			install-size="153"
+			version="0.10.0.v201209301036"
+			unpack="false"/>
+
+	<plugin
+			id="org.apache.felix.gogo.shell"
+			download-size="58"
+			install-size="119"
+			version="0.10.0.v201212101605"
+			unpack="false"/>
+
+	<plugin
+			id="org.apache.felix.scr"
+			download-size="363"
+			install-size="841"
+			version="2.0.10.v20170501-2007"
+			unpack="false"/>
+</feature>
