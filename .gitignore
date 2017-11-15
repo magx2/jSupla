@@ -39,3 +39,5 @@ hs_err_pid*
 !gradle-wrapper.jar
 
 .idea
+
+!*org.eclipse.osgi*.jar
