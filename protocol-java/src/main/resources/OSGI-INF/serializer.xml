@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+			   name="pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer">
+	<implementation class="pl.grzeslowski.jsupla.protocoljava.impl.serializers.OsgiSerializerImpl"/>
+	<service>
+		<provide interface="pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer"/>
+	</service>
+</scr:component>

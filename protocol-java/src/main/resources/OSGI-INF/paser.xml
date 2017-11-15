@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+			   name="pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser">
+	<implementation class="pl.grzeslowski.jsupla.protocoljava.impl.parsers.OsgiParserImpl"/>
+	<service>
+		<provide interface="pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser"/>
+	</service>
+</scr:component>
+
