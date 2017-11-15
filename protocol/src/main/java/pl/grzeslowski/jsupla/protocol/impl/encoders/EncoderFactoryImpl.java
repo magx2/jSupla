@@ -16,6 +16,10 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 public class EncoderFactoryImpl implements EncoderFactory {
     private final PrimitiveEncoder primitiveEncoder = INSTANCE;
 
+    public EncoderFactoryImpl(final PrimitiveEncoder primitiveEncoder) {
+
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <T extends ProtoWithSize> Encoder<T> getEncoder(final T proto) {
