@@ -1,12 +1,25 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+//		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.0.0'
+		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.5.0'
+	}
+}
+
 plugins {
 	id "com.jfrog.bintray" version "1.7.3"
+//	id "biz.aQute.bnd" version "3.3.0"
 }
+
+apply plugin: 'biz.aQute.bnd.workspace'
+apply plugin: 'biz.aQute.bnd'
 
 ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.7.0'
 	reactorVersion = "3.1.1.RELEASE"
-	osgiConfig = ["All-Packages": "\${packages}"]
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
@@ -71,6 +84,9 @@ allprojects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
+		// osgi
+		compile group: 'org.osgi', name: 'org.osgi.annotation', version: '6.0.0'
+
 		testCompile 'junit:junit:4.12'
 		testCompile 'org.assertj:assertj-core:3.8.0'
 		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
@@ -96,30 +112,6 @@ releasableProjects { Project project ->
 		]
 	}
 	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
-}
-
-allprojects { project ->
-	apply plugin: 'osgi'
-
-	//noinspection GroovyAssignabilityCheck
-	jar {
-		manifest {
-			instruction 'Bundle-Vendor', 'BigBoy'
-			instruction 'Bundle-DocURL', 'https://github.com/magx2/jSupla'
-			instruction "Manifest-Version", "1.0"
-			instruction "Bundle-ManifestVersion", "2"
-//			instruction "Bundle-Version", project.version
-			instruction "Bundle-RequiredExecutionEnvironment", "JavaSE-1.8"
-			instruction "Bundle-ActivationPolicy", "lazy"
-
-			if (project.hasProperty("osgiConfig")) {
-				project.osgiConfig.forEach { k, v ->
-					instruction k, v
-					println "Adding $k: $v"
-				}
-			}
-		}
-	}
 }
 
 task wrapper(type: Wrapper) {
