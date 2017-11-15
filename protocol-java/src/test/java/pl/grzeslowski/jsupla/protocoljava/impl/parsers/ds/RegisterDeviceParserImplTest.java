@@ -38,6 +38,7 @@ public class RegisterDeviceParserImplTest extends AbstractParserTest<RegisterDev
         return supla;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     protected void then(final RegisterDevice entity, final SuplaRegisterDevice supla) {
         assertThat(entity.getLocationId()).isEqualTo(supla.locationId);
