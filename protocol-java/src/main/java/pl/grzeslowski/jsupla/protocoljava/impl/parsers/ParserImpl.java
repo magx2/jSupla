@@ -38,14 +38,14 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ParserImpl implements Parser<Entity, Proto> {
-    private final ClientServerParser<ClientServerEntity, ClientServer> clientServerParserFactory;
+    private final ClientServerParser<ClientServerEntity, ClientServer> clientServerParser;
     private final DeviceClientServerParser<DeviceClientServerEntity, DeviceClientServer>
-            deviceClientServerParserFactory;
-    private final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory;
-    private final ServerClientParser<ServerClientEntity, ServerClient> serverClientParserFactory;
-    private final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory;
+            deviceClientServerParser;
+    private final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParser;
+    private final ServerClientParser<ServerClientEntity, ServerClient> serverClientParser;
+    private final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParser;
     private final ServerDeviceClientParser<ServerDeviceClientEntity, ServerDeviceClient>
-            serverDeviceClientParserFactory;
+            serverDeviceClientParser;
 
     private final DeviceChannelParser deviceChannelParser;
     private final DeviceChannelBParser deviceChannelBParser;
@@ -53,25 +53,25 @@ public class ParserImpl implements Parser<Entity, Proto> {
     private final ChannelValueParser channelValueParser;
     private final TimevalParser timevalParser;
 
-    public ParserImpl(final ClientServerParser<ClientServerEntity, ClientServer> clientServerParserFactory,
+    public ParserImpl(final ClientServerParser<ClientServerEntity, ClientServer> clientServerParser,
                       final DeviceClientServerParser<DeviceClientServerEntity, DeviceClientServer>
-                              deviceClientServerParserFactory,
-                      final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParserFactory,
-                      final ServerClientParser<ServerClientEntity, ServerClient> serverClientParserFactory,
-                      final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParserFactory,
+                              deviceClientServerParser,
+                      final DeviceServerParser<DeviceServerEntity, DeviceServer> deviceServerParser,
+                      final ServerClientParser<ServerClientEntity, ServerClient> serverClientParser,
+                      final ServerDeviceParser<ServerDeviceEntity, ServerDevice> serverDeviceParser,
                       final ServerDeviceClientParser<ServerDeviceClientEntity, ServerDeviceClient>
-                              serverDeviceClientParserFactory,
+                              serverDeviceClientParser,
                       final DeviceChannelParser deviceChannelParser,
                       final DeviceChannelBParser deviceChannelBParser,
                       final FirmwareUpdateUrlParser firmwareUpdateUrlParser,
                       final ChannelValueParser channelValueParser,
                       final TimevalParser timevalParser) {
-        this.clientServerParserFactory = requireNonNull(clientServerParserFactory);
-        this.deviceClientServerParserFactory = requireNonNull(deviceClientServerParserFactory);
-        this.deviceServerParserFactory = requireNonNull(deviceServerParserFactory);
-        this.serverClientParserFactory = requireNonNull(serverClientParserFactory);
-        this.serverDeviceParserFactory = requireNonNull(serverDeviceParserFactory);
-        this.serverDeviceClientParserFactory = requireNonNull(serverDeviceClientParserFactory);
+        this.clientServerParser = requireNonNull(clientServerParser);
+        this.deviceClientServerParser = requireNonNull(deviceClientServerParser);
+        this.deviceServerParser = requireNonNull(deviceServerParser);
+        this.serverClientParser = requireNonNull(serverClientParser);
+        this.serverDeviceParser = requireNonNull(serverDeviceParser);
+        this.serverDeviceClientParser = requireNonNull(serverDeviceClientParser);
         this.deviceChannelParser = requireNonNull(deviceChannelParser);
         this.deviceChannelBParser = requireNonNull(deviceChannelBParser);
         this.firmwareUpdateUrlParser = requireNonNull(firmwareUpdateUrlParser);
@@ -83,17 +83,17 @@ public class ParserImpl implements Parser<Entity, Proto> {
     public Entity parse(@NotNull final Proto proto) {
         requireNonNull(proto);
         if (proto instanceof ClientServer) {
-            return clientServerParserFactory.parse((ClientServer) proto);
+            return clientServerParser.parse((ClientServer) proto);
         } else if (proto instanceof DeviceClientServer) {
-            return deviceClientServerParserFactory.parse((DeviceClientServer) proto);
+            return deviceClientServerParser.parse((DeviceClientServer) proto);
         } else if (proto instanceof DeviceServer) {
-            return deviceServerParserFactory.parse((DeviceServer) proto);
+            return deviceServerParser.parse((DeviceServer) proto);
         } else if (proto instanceof ServerClient) {
-            return serverClientParserFactory.parse((ServerClient) proto);
+            return serverClientParser.parse((ServerClient) proto);
         } else if (proto instanceof ServerDevice) {
-            return serverDeviceParserFactory.parse((ServerDevice) proto);
+            return serverDeviceParser.parse((ServerDevice) proto);
         } else if (proto instanceof ServerDeviceClient) {
-            return serverDeviceClientParserFactory.parse((ServerDeviceClient) proto);
+            return serverDeviceClientParser.parse((ServerDeviceClient) proto);
         } else {
             return commonProto(proto);
         }
