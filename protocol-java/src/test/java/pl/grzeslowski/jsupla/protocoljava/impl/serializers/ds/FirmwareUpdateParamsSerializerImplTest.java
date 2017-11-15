@@ -9,7 +9,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class FirmwareUpdateParamsSerializerImplTest extends SerializerTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
+public class FirmwareUpdateParamsSerializerImplTest
+        extends SerializerTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
     @InjectMocks FirmwareUpdateParamsSerializerImpl serializer;
 
     @Override

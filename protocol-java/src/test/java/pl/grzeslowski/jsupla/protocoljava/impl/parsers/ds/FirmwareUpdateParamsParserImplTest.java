@@ -9,7 +9,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class FirmwareUpdateParamsParserImplTest extends AbstractParserTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
+public class FirmwareUpdateParamsParserImplTest
+        extends AbstractParserTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
     @InjectMocks FirmwareUpdateParamsParserImpl parser;
 
     @Override
