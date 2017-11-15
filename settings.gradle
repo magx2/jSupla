@@ -3,17 +3,9 @@ include 'protocol-java'
 include 'server'
 include 'nettyServer'
 
-// osgi projects
-include 'protocol-java-osgi'
-include 'server-osgi'
-include 'netty-server-osgi'
-
 // test projects
 include 'nettyTest'
 
 // changing name to CaMeLcAsE
 project(":protocol-java").name = "protocolJava"
-project(":protocol-java-osgi").name = "protocolJavaOsgi"
-project(":server-osgi").name = "serverOsgi"
-project(":netty-server-osgi").name = "nettyServerOsgi"
 
