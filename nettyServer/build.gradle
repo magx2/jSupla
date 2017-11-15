@@ -3,6 +3,13 @@ repositories {
     mavenCentral()
 }
 
+//noinspection GroovyAssignabilityCheck
+jar {
+    manifest {
+        instruction "Export-Package", "pl.grzeslowski.jsupla.netty.api*"
+    }
+}
+
 dependencies {
     compile rootProject.project("server")
     compile group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'

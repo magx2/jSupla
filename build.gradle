@@ -6,13 +6,27 @@ ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.7.0'
 	reactorVersion = "3.1.1.RELEASE"
-	osgiConfig = ["All-Packages": "\${packages}"]
+}
+
+@SuppressWarnings("UnnecessaryQualifiedReference")
+def allProjects(Closure c) {
+	allprojects { p ->
+		if (!isRootProject(p)) { // only for non test projects
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
+private static boolean isRootProject(Project p) {
+	p == p.getRootProject()
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
 def prodProjects(Closure c) {
 	allprojects { p ->
-		if (!isTestProject(p)) { // only for non test projects
+		if (!isTestProject(p) && !isRootProject(p)) { // only for non test projects
 			c.delegate = p
 			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
 			c(p)
@@ -36,7 +50,7 @@ def releasableProjects(Closure c) {
 }
 
 private static boolean isReleasableProject(Project p) {
-	true
+	!isRootProject(p)
 }
 
 allprojects {
@@ -46,7 +60,7 @@ allprojects {
 	}
 }
 
-allprojects {
+allProjects {
 	apply plugin: 'java'
 	group = 'pl.grzeslowski.jSupla'
 	version = '0.1.0-SNAPSHOT'
@@ -67,9 +81,12 @@ prodProjects {
 	tasks["build"].dependsOn "jacocoTestReport"
 }
 
-allprojects {
+allProjects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+
+		// osgi
+		compile group: 'org.osgi', name: 'org.osgi.annotation', version: '6.0.0'
 
 		testCompile 'junit:junit:4.12'
 		testCompile 'org.assertj:assertj-core:3.8.0'
@@ -98,7 +115,7 @@ releasableProjects { Project project ->
 	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
 }
 
-allprojects { project ->
+allProjects { project ->
 	apply plugin: 'osgi'
 
 	//noinspection GroovyAssignabilityCheck
@@ -106,18 +123,20 @@ allprojects { project ->
 		manifest {
 			instruction 'Bundle-Vendor', 'BigBoy'
 			instruction 'Bundle-DocURL', 'https://github.com/magx2/jSupla'
-			instruction "Manifest-Version", "1.0"
-			instruction "Bundle-ManifestVersion", "2"
-//			instruction "Bundle-Version", project.version
 			instruction "Bundle-RequiredExecutionEnvironment", "JavaSE-1.8"
 			instruction "Bundle-ActivationPolicy", "lazy"
 
-			if (project.hasProperty("osgiConfig")) {
-				project.osgiConfig.forEach { k, v ->
-					instruction k, v
-					println "Adding $k: $v"
-				}
-			}
+//			if (project.hasProperty("osgiConfig")) {
+//				project.osgiConfig.forEach { k, v ->
+//					if(v instanceof Collection) {
+//						v = v.toArray(new String[0])
+//					}
+//					instruction k, v
+//					println "Adding $k: $v"
+//				}
+//			} else {
+//				println "Project \"${project.name}\" has no OSGI configuration"
+//			}
 		}
 	}
 }
