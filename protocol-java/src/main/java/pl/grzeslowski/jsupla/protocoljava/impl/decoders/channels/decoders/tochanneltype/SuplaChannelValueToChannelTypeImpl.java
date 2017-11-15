@@ -7,11 +7,11 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Su
 public class SuplaChannelValueToChannelTypeImpl implements SuplaChannelValueToChannelType {
     @Override
     public ChannelType toChannelType(final SuplaChannelValue suplaChannelValue) {
-        throw new UnsupportedOperationException("SuplaChannelValueToChannelTypeImpl.toChannelType(suplaChannelValue)"); // TODO
+        throw new UnsupportedOperationException(); // TODO
     }
 
     @Override
     public ChannelType toChannelTypeSubValue(final SuplaChannelValue suplaChannelValue) {
-        throw new UnsupportedOperationException("SuplaChannelValueToChannelTypeImpl.toChannelTypeSubValue(suplaChannelValue)"); // TODO
+        throw new UnsupportedOperationException(); // TODO
     }
 }

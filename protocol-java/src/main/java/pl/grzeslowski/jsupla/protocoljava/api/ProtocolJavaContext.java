@@ -222,76 +222,107 @@ public enum ProtocolJavaContext implements JSuplaContext {
         put(ChannelNewValueBSerializer.class, new ChannelNewValueBSerializerImpl(getService(ChannelTypeEncoder.class)));
         put(RegisterClientSerializer.class, new RegisterClientSerializerImpl(getService(StringSerializer.class)));
         put(RegisterClientBSerializer.class, new RegisterClientBSerializerImpl(getService(StringSerializer.class)));
-        put(ClientServerSerializer.class, new ClientServerSerializerImpl(
-                                                                                getService(ChannelNewValueSerializer.class),
-                                                                                getService(ChannelNewValueBSerializer.class),
-                                                                                getService(RegisterClientSerializer.class),
-                                                                                getService(RegisterClientBSerializer.class)
-        ));
+        put(ClientServerSerializer.class,
+                new ClientServerSerializerImpl(
+                                                      getService(ChannelNewValueSerializer.class),
+                                                      getService(ChannelNewValueBSerializer.class),
+                                                      getService(RegisterClientSerializer.class),
+                                                      getService(RegisterClientBSerializer.class)
+                ));
 
         // DeviceClientServerSerializer
         put(PingServerSerializer.class, new PingServerSerializerImpl(getService(TimevalSerializer.class)));
         put(SetActivityTimeoutSerializer.class, new SetActivityTimeoutSerializerImpl());
-        put(DeviceClientServerSerializer.class, new DeviceClientServerSerializerImpl(
-                                                                                            getService(PingServerSerializer.class),
-                                                                                            getService(SetActivityTimeoutSerializer.class)
-        ));
+        put(DeviceClientServerSerializer.class,
+                new DeviceClientServerSerializerImpl(
+                                                            getService(PingServerSerializer.class),
+                                                            getService(SetActivityTimeoutSerializer.class)
+                ));
 
         // DeviceServerSerializer
         put(ChannelNewValueResultSerializer.class, new ChannelNewValueResultSerializerImpl());
-        put(RegisterDeviceSerializer.class, new RegisterDeviceSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelSerializer.class)));
-        put(RegisterDeviceBSerializer.class, new RegisterDeviceBSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelBSerializer.class)));
-        put(RegisterDeviceCSerializer.class, new RegisterDeviceCSerializerImpl(getService(StringSerializer.class), getService(DeviceChannelBSerializer.class)));
-        put(DeviceChannelValueSerializer.class, new DeviceChannelValueSerializerImpl(getService(ChannelTypeEncoder.class)));
+        put(RegisterDeviceSerializer.class,
+                new RegisterDeviceSerializerImpl(
+                                                        getService(StringSerializer.class),
+                                                        getService(DeviceChannelSerializer.class)));
+        put(RegisterDeviceBSerializer.class,
+                new RegisterDeviceBSerializerImpl(
+                                                         getService(StringSerializer.class),
+                                                         getService(DeviceChannelBSerializer.class)));
+        put(RegisterDeviceCSerializer.class,
+                new RegisterDeviceCSerializerImpl(
+                                                         getService(StringSerializer.class),
+                                                         getService(DeviceChannelBSerializer.class)));
+        put(DeviceChannelValueSerializer.class,
+                new DeviceChannelValueSerializerImpl(
+                                                            getService(ChannelTypeEncoder.class)));
         put(FirmwareUpdateParamsSerializer.class, new FirmwareUpdateParamsSerializerImpl());
-        put(DeviceServerSerializer.class, new DeviceServerSerializerImpl(
-                                                                                getService(ChannelNewValueResultSerializer.class),
-                                                                                getService(RegisterDeviceSerializer.class),
-                                                                                getService(RegisterDeviceBSerializer.class),
-                                                                                getService(RegisterDeviceCSerializer.class),
-                                                                                getService(DeviceChannelValueSerializer.class),
-                                                                                getService(FirmwareUpdateParamsSerializer.class)
-        ));
+        put(DeviceServerSerializer.class,
+                new DeviceServerSerializerImpl(
+                                                      getService(ChannelNewValueResultSerializer.class),
+                                                      getService(RegisterDeviceSerializer.class),
+                                                      getService(RegisterDeviceBSerializer.class),
+                                                      getService(RegisterDeviceCSerializer.class),
+                                                      getService(DeviceChannelValueSerializer.class),
+                                                      getService(FirmwareUpdateParamsSerializer.class)
+                ));
 
         // ServerClientSerializer
-        put(ChannelSerializer.class, new ChannelSerializerImpl(getService(ChannelValueSerializer.class), getService(StringSerializer.class)));
+        put(ChannelSerializer.class, new ChannelSerializerImpl(
+                                                                      getService(ChannelValueSerializer.class),
+                                                                      getService(StringSerializer.class)));
         put(ChannelPackSerializer.class, new ChannelPackSerializerImpl(getService(ChannelSerializer.class)));
-        put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class, new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ChannelValueSerializerImpl(getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer.class)));
+        put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class,
+                new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc
+                            .ChannelValueSerializerImpl(
+                                                               getService(pl.grzeslowski.jsupla.protocoljava.api
+                                                                                  .serializers
+                                                                                  .ChannelValueSerializer.class)));
         put(EventSerializer.class, new EventSerializerImpl(getService(StringSerializer.class)));
         put(LocationSerializer.class, new LocationSerializerImpl(getService(StringSerializer.class)));
         put(LocationPackSerializer.class, new LocationPackSerializerImpl(getService(LocationSerializer.class)));
         put(RegisterClientResultSerializer.class, new RegisterClientResultSerializerImpl());
-        put(ServerClientSerializer.class, new ServerClientSerializerImpl(
-                                                                                getService(ChannelPackSerializer.class),
-                                                                                getService(ChannelSerializer.class),
-                                                                                getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class),
-                                                                                getService(EventSerializer.class),
-                                                                                getService(LocationPackSerializer.class),
-                                                                                getService(LocationSerializer.class),
-                                                                                getService(RegisterClientResultSerializer.class)
-        ));
+        put(ServerClientSerializer.class,
+                new ServerClientSerializerImpl(
+                                                      getService(ChannelPackSerializer.class),
+                                                      getService(ChannelSerializer.class),
+                                                      getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc
+                                                                         .ChannelValueSerializer.class),
+                                                      getService(EventSerializer.class),
+                                                      getService(LocationPackSerializer.class),
+                                                      getService(LocationSerializer.class),
+                                                      getService(RegisterClientResultSerializer.class)
+                ));
 
         // ServerDeviceSerializer
-        put(pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer.class, new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.ChannelNewValueSerializerImpl(getService(ChannelTypeEncoder.class)));
-        put(FirmwareUpdateUrlResultSerializer.class, new FirmwareUpdateUrlResultSerializerImpl(getService(FirmwareUpdateUrlSerializer.class)));
+        put(
+                pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer.class,
+                new pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.ChannelNewValueSerializerImpl(getService(
+                        ChannelTypeEncoder.class)));
+        put(FirmwareUpdateUrlResultSerializer.class,
+                new FirmwareUpdateUrlResultSerializerImpl(getService(FirmwareUpdateUrlSerializer.class)));
         put(RegisterDeviceResultSerializer.class, new RegisterDeviceResultSerializerImpl());
-        put(ServerDeviceSerializer.class, new ServerDeviceSerializerImpl(
-                                                                                getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSerializer.class),
-                                                                                getService(FirmwareUpdateUrlResultSerializer.class),
-                                                                                getService(RegisterDeviceResultSerializer.class)
-        ));
+        put(ServerDeviceSerializer.class,
+                new ServerDeviceSerializerImpl(
+                                                      getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sd
+                                                                         .ChannelNewValueSerializer.class),
+                                                      getService(FirmwareUpdateUrlResultSerializer.class),
+                                                      getService(RegisterDeviceResultSerializer.class)
+                ));
 
         // ServerDeviceClientSerializer
         put(GetVersionResultSerializer.class, new GetVersionResultSerializerImpl(getService(StringSerializer.class)));
-        put(PingServerResultClientSerializer.class, new PingServerResultClientSerializerImpl(getService(TimevalSerializer.class)));
+        put(PingServerResultClientSerializer.class,
+                new PingServerResultClientSerializerImpl(getService(TimevalSerializer.class)));
         put(SetActivityTimeoutResultSerializer.class, new SetActivityTimeoutResultSerializerImpl());
         put(VersionErrorSerializer.class, new VersionErrorSerializerImpl());
-        put(ServerDeviceClientSerializer.class, new ServerDeviceClientSerializerImpl(
-                                                                                            getService(GetVersionResultSerializer.class),
-                                                                                            getService(PingServerResultClientSerializer.class),
-                                                                                            getService(SetActivityTimeoutResultSerializer.class),
-                                                                                            getService(VersionErrorSerializer.class)
-        ));
+        put(ServerDeviceClientSerializer.class,
+                new ServerDeviceClientSerializerImpl(
+                                                            getService(GetVersionResultSerializer.class),
+                                                            getService(PingServerResultClientSerializer.class),
+                                                            getService(SetActivityTimeoutResultSerializer.class),
+                                                            getService(VersionErrorSerializer.class)
+                ));
 
         put(Serializer.class, new SerializerImpl(
                                                         getService(ClientServerSerializer.class),
@@ -329,15 +360,31 @@ public enum ProtocolJavaContext implements JSuplaContext {
         put(SuplaChannelNewValueToChannelType.class, new SuplaChannelNewValueToChannelTypeImpl());
         put(SuplaDeviceChannelValueToChannelType.class, new SuplaDeviceChannelValueToChannelTypeImpl());
         put(SdSuplaChannelNewValueToChannelType.class, new SdSuplaChannelNewValueToChannelTypeImpl());
-        put(DeviceChannelParser.class, new DeviceChannelParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelToChannelType.class)));
-        put(DeviceChannelBParser.class, new DeviceChannelBParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelBToChannelType.class)));
+        put(DeviceChannelParser.class,
+                new DeviceChannelParserImpl(
+                                                   getService(ChannelTypeDecoder.class),
+                                                   getService(SuplaDeviceChannelToChannelType.class)));
+        put(DeviceChannelBParser.class,
+                new DeviceChannelBParserImpl(
+                                                    getService(ChannelTypeDecoder.class),
+                                                    getService(SuplaDeviceChannelBToChannelType.class)));
         put(FirmwareUpdateUrlParser.class, new FirmwareUpdateUrlParserImpl(getService(StringParser.class)));
-        put(ChannelValueParser.class, new pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaChannelValueToChannelType.class)));
+        put(ChannelValueParser.class,
+                new pl.grzeslowski.jsupla.protocoljava.impl.parsers
+                            .ChannelValueParserImpl(getService(ChannelTypeDecoder.class),
+                                                           getService(SuplaChannelValueToChannelType.class)));
         put(TimevalParser.class, new TimevalParserImpl());
 
         // ClientServerParser
-        put(ChannelNewValueBParser.class, new ChannelNewValueBParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaChannelNewValueBToChannelType.class)));
-        put(ChannelNewValueParser.class, new pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ChannelNewValueParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaChannelNewValueToChannelType.class)));
+        put(ChannelNewValueBParser.class,
+                new ChannelNewValueBParserImpl(
+                                                      getService(ChannelTypeDecoder.class),
+                                                      getService(SuplaChannelNewValueBToChannelType.class)));
+        put(ChannelNewValueParser.class,
+                new pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs
+                            .ChannelNewValueParserImpl(
+                                                              getService(ChannelTypeDecoder.class),
+                                                              getService(SuplaChannelNewValueToChannelType.class)));
         put(RegisterClientBParser.class, new RegisterClientBParserImpl(getService(StringParser.class)));
         put(RegisterClientParser.class, new RegisterClientParserImpl(getService(StringParser.class)));
         put(ClientServerParser.class, new ClientServerParserImpl(
@@ -350,18 +397,28 @@ public enum ProtocolJavaContext implements JSuplaContext {
         // DeviceClientServerParser
         put(PingServerParser.class, new PingServerParserImpl(getService(TimevalParser.class)));
         put(SetActivityTimeoutParser.class, new SetActivityTimeoutParserImpl());
-        put(DeviceClientServerParser.class, new DeviceClientServerParserImpl(
-                                                                                    getService(PingServerParser.class),
-                                                                                    getService(SetActivityTimeoutParser.class)
-        ));
+        put(DeviceClientServerParser.class,
+                new DeviceClientServerParserImpl(
+                                                        getService(PingServerParser.class),
+                                                        getService(SetActivityTimeoutParser.class)
+                ));
 
         // DeviceServerParser
         put(ChannelNewValueResultParser.class, new ChannelNewValueResultParserImpl());
-        put(DeviceChannelValueParser.class, new DeviceChannelValueParserImpl(getService(ChannelTypeDecoder.class), getService(SuplaDeviceChannelValueToChannelType.class)));
-        put(RegisterDeviceParser.class, new RegisterDeviceParserImpl(getService(StringParser.class), getService(DeviceChannelParser.class)));
+        put(DeviceChannelValueParser.class,
+                new DeviceChannelValueParserImpl(
+                                                        getService(ChannelTypeDecoder.class),
+                                                        getService(SuplaDeviceChannelValueToChannelType.class)));
+        put(RegisterDeviceParser.class, new RegisterDeviceParserImpl(
+                                                                            getService(StringParser.class),
+                                                                            getService(DeviceChannelParser.class)));
         put(FirmwareUpdateParamsParser.class, new FirmwareUpdateParamsParserImpl());
-        put(RegisterDeviceBParser.class, new RegisterDeviceBParserImpl(getService(StringParser.class), getService(DeviceChannelBParser.class)));
-        put(RegisterDeviceCParser.class, new RegisterDeviceCParserImpl(getService(StringParser.class), getService(DeviceChannelBParser.class)));
+        put(RegisterDeviceBParser.class, new RegisterDeviceBParserImpl(
+                                                                              getService(StringParser.class),
+                                                                              getService(DeviceChannelBParser.class)));
+        put(RegisterDeviceCParser.class, new RegisterDeviceCParserImpl(
+                                                                              getService(StringParser.class),
+                                                                              getService(DeviceChannelBParser.class)));
         put(DeviceServerParser.class, new DeviceServerParserImpl(
                                                                         getService(ChannelNewValueResultParser.class),
                                                                         getService(DeviceChannelValueParser.class),
@@ -372,44 +429,56 @@ public enum ProtocolJavaContext implements JSuplaContext {
         ));
 
         // ServerClientParser
-        put(ChannelParser.class, new ChannelParserImpl(getService(ChannelValueParser.class), getService(StringParser.class)));
+        put(ChannelParser.class, new ChannelParserImpl(
+                                                              getService(ChannelValueParser.class),
+                                                              getService(StringParser.class)));
         put(LocationParser.class, new LocationParserImpl(getService(StringParser.class)));
         put(ChannelPackParser.class, new ChannelPackParserImpl(getService(ChannelParser.class)));
         put(EventParser.class, new EventParserImpl(getService(StringParser.class)));
-        put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser.class, new ChannelValueParserImpl(getService(ChannelValueParser.class)));
+        put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser.class,
+                new ChannelValueParserImpl(getService(ChannelValueParser.class)));
         put(LocationPackParser.class, new LocationPackParserImpl(getService(LocationParser.class)));
         put(RegisterClientResultParser.class, new RegisterClientResultParserImpl());
-        put(ServerClientParser.class, new ServerClientParserImpl(
-                                                                        getService(LocationParser.class),
-                                                                        getService(ChannelPackParser.class),
-                                                                        getService(EventParser.class),
-                                                                        getService(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser.class),
-                                                                        getService(ChannelParser.class),
-                                                                        getService(LocationPackParser.class),
-                                                                        getService(RegisterClientResultParser.class)
-        ));
+        put(ServerClientParser.class,
+                new ServerClientParserImpl(
+                                                  getService(LocationParser.class),
+                                                  getService(ChannelPackParser.class),
+                                                  getService(EventParser.class),
+                                                  getService(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc
+                                                                     .ChannelValueParser.class),
+                                                  getService(ChannelParser.class),
+                                                  getService(LocationPackParser.class),
+                                                  getService(RegisterClientResultParser.class)
+                ));
 
         // ServerDeviceParser
-        put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser.class, new ChannelNewValueParserImpl(getService(ChannelTypeDecoder.class), getService(SdSuplaChannelNewValueToChannelType.class)));
-        put(FirmwareUpdateUrlResultParser.class, new FirmwareUpdateUrlResultParserImpl(getService(FirmwareUpdateUrlParser.class)));
+        put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser.class,
+                new ChannelNewValueParserImpl(
+                                                     getService(ChannelTypeDecoder.class),
+                                                     getService(SdSuplaChannelNewValueToChannelType.class)));
+        put(FirmwareUpdateUrlResultParser.class,
+                new FirmwareUpdateUrlResultParserImpl(getService(FirmwareUpdateUrlParser.class)));
         put(RegisterDeviceResultParser.class, new RegisterDeviceResultParserImpl());
-        put(ServerDeviceParser.class, new ServerDeviceParserImpl(
-                                                                        getService(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser.class),
-                                                                        getService(FirmwareUpdateUrlResultParser.class),
-                                                                        getService(RegisterDeviceResultParser.class)
-        ));
+        put(ServerDeviceParser.class,
+                new ServerDeviceParserImpl(
+                                                  getService(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd
+                                                                     .ChannelNewValueParser.class),
+                                                  getService(FirmwareUpdateUrlResultParser.class),
+                                                  getService(RegisterDeviceResultParser.class)
+                ));
 
         // ServerDeviceClientParser
         put(VersionErrorParser.class, new VersionErrorParserImpl());
         put(GetVersionResultParser.class, new GetVersionResultParserImpl(getService(StringParser.class)));
         put(SetActivityTimeoutResultParser.class, new SetActivityTimeoutResultParserImpl());
         put(PingServerResultClientParser.class, new PingServerResultClientParserImpl(getService(TimevalParser.class)));
-        put(ServerDeviceClientParser.class, new ServerDeviceClientParserImpl(
-                                                                                    getService(VersionErrorParser.class),
-                                                                                    getService(GetVersionResultParser.class),
-                                                                                    getService(SetActivityTimeoutResultParser.class),
-                                                                                    getService(PingServerResultClientParser.class)
-        ));
+        put(ServerDeviceClientParser.class,
+                new ServerDeviceClientParserImpl(
+                                                        getService(VersionErrorParser.class),
+                                                        getService(GetVersionResultParser.class),
+                                                        getService(SetActivityTimeoutResultParser.class),
+                                                        getService(PingServerResultClientParser.class)
+                ));
 
         put(Parser.class, new ParserImpl(
                                                 getService(ClientServerParser.class),

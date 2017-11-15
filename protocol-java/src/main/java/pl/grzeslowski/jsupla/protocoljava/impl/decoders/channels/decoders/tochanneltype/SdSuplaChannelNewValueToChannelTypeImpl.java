@@ -7,6 +7,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Sd
 public class SdSuplaChannelNewValueToChannelTypeImpl implements SdSuplaChannelNewValueToChannelType {
     @Override
     public ChannelType toChannelType(final SuplaChannelNewValue suplaChannelNewValue) {
-        throw new UnsupportedOperationException("SdSuplaChannelNewValueToChannelTypeImpl.toChannelType(suplaChannelNewValue)");//TODO
+        throw new UnsupportedOperationException();//TODO
     }
 }
