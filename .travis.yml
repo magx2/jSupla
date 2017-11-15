@@ -15,6 +15,4 @@ env:
     - nettyTestPassphrase=nettyTestPassphrase
     - protocolPassphrase=protocolPassphrase
     - protocolJavaPassphrase=protocolJavaPassphrase
-    - protocolJavaOsgiPassphrase=protocolJavaOsgiPassphrase
-    - serverOsgiPassphrase=serverOsgiPassphrase
-    - nettyServerOsgiPassphrase=nettyServerOsgiPassphrase
+    - commonPassphrase=commonPassphrase
