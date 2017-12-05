@@ -1,5 +1,4 @@
 dependencies {
-    compile rootProject
     compile rootProject.project("protocol")
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
 
