@@ -2,6 +2,7 @@
 jar {
     manifest {
         instruction "Export-Package", "pl.grzeslowski.jsupla.protocoljava.api*"
+        instruction "Service-Component", "OSGI-INF/parser.xml,OSGI-INF/serializer.xml"
     }
 }
 
