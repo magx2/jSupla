@@ -9,9 +9,24 @@ ext {
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
+def allProjects(Closure c) {
+	allprojects { p ->
+		if (!isRootProject(p)) { // only for non test projects
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
+private static boolean isRootProject(Project p) {
+	p == p.getRootProject()
+}
+
+@SuppressWarnings("UnnecessaryQualifiedReference")
 def prodProjects(Closure c) {
 	allprojects { p ->
-		if (!isTestProject(p)) { // only for non test projects
+		if (!isTestProject(p) && !isRootProject(p)) { // only for non test projects
 			c.delegate = p
 			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
 			c(p)
@@ -35,7 +50,7 @@ def releasableProjects(Closure c) {
 }
 
 private static boolean isReleasableProject(Project p) {
-	true
+	!isRootProject(p)
 }
 
 allprojects {
@@ -45,7 +60,7 @@ allprojects {
 	}
 }
 
-allprojects {
+allProjects {
 	apply plugin: 'java'
 	group = 'pl.grzeslowski.jSupla'
 	version = '0.1.0-SNAPSHOT'
@@ -66,7 +81,7 @@ prodProjects {
 	tasks["build"].dependsOn "jacocoTestReport"
 }
 
-allprojects {
+allProjects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
