@@ -15,3 +15,4 @@ env:
     - nettyTestPassphrase=nettyTestPassphrase
     - protocolPassphrase=protocolPassphrase
     - protocolJavaPassphrase=protocolJavaPassphrase
+    - commonPassphrase=commonPassphrase
