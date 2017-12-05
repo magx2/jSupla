@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.parsers;
 
-import pl.grzeslowski.jsupla.protocol.api.ProtocolContext;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
@@ -13,21 +12,23 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.FirmwareUpdateUrlParser
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ServerDeviceParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
 
+import static pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext.PROTOCOL_JAVA_CONTEXT;
+
 final class OsgiParserImpl extends ParserImpl {
     @SuppressWarnings("unchecked")
     OsgiParserImpl() {
         super(
-                ProtocolContext.PROTOCOL_CONTEXT.getService(ClientServerParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(DeviceClientServerParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(DeviceServerParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(ServerClientParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(ServerDeviceParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(ServerDeviceClientParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(DeviceChannelParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(DeviceChannelBParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(FirmwareUpdateUrlParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(ChannelValueParser.class),
-                ProtocolContext.PROTOCOL_CONTEXT.getService(TimevalParser.class)
+                PROTOCOL_JAVA_CONTEXT.getService(ClientServerParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(DeviceClientServerParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(DeviceServerParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(ServerClientParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(ServerDeviceParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(ServerDeviceClientParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(DeviceChannelParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(DeviceChannelBParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(FirmwareUpdateUrlParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(ChannelValueParser.class),
+                PROTOCOL_JAVA_CONTEXT.getService(TimevalParser.class)
         );
     }
 }
