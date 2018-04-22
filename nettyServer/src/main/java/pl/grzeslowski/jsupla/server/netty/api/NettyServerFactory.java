@@ -17,6 +17,9 @@ import javax.validation.constraints.NotNull;
 import static java.util.Objects.requireNonNull;
 
 public final class NettyServerFactory implements ServerFactory {
+    public static final String PORT = "port";
+    public static final String SSL_CTX = "sslCtx";
+
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final Parser<Entity, Proto> parser;
@@ -36,8 +39,8 @@ public final class NettyServerFactory implements ServerFactory {
 
     private NettyConfig fromServerProperties(ServerProperties serverProperties) {
         return new NettyConfig(
-                                      serverProperties.getProperty("port", int.class),
-                                      serverProperties.getProperty("sslCtx", SslContext.class)
+                serverProperties.getProperty(PORT, Integer.class),
+                serverProperties.getProperty(SSL_CTX, SslContext.class)
         );
     }
 }
