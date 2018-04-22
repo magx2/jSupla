@@ -16,9 +16,6 @@ dependencies {
 
 // TODO remove, just for tests
 task fatJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'com.baeldung.fatjar.Application'
-    }
     baseName = "${project.name}-fat"
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
