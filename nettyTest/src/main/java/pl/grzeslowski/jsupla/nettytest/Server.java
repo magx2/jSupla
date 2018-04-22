@@ -66,7 +66,7 @@ public class Server {
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {
-        return new ServerProperties(Arrays.asList(PORT, 2016, SSL_CTX, buildSslContext()));
+        return ServerProperties.fromList(Arrays.asList(PORT, 2016, SSL_CTX, buildSslContext()));
     }
 
     private SslContext buildSslContext() throws CertificateException, SSLException {

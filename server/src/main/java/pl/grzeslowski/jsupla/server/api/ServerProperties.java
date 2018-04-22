@@ -13,15 +13,7 @@ import static java.util.Objects.requireNonNull;
 public final class ServerProperties {
     private final Map<String, ?> properties;
 
-    public ServerProperties(final Map<String, ?> properties) {
-        this.properties = requireNonNull(properties);
-    }
-
-    public ServerProperties(final List<Object> properties) {
-        this(parsePropertiesFromList(properties));
-    }
-
-    private static Map<String, Object> parsePropertiesFromList(final List<Object> properties) {
+    public static ServerProperties fromList(final List<Object> properties) {
         if (properties.size() % 2 != 0) {
             throw new IllegalArgumentException("Size should be even! Actual size is " + properties.size());
         }
@@ -37,7 +29,11 @@ public final class ServerProperties {
             }
             map.put((String) key, value);
         }
-        return map;
+        return new ServerProperties(map);
+    }
+
+    public ServerProperties(final Map<String, ?> properties) {
+        this.properties = requireNonNull(properties);
     }
 
     public Object getProperty(String name) {
