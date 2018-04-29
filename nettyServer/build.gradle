@@ -22,7 +22,7 @@ task fatJar(type: Jar) {
 }
 task openHab(type: Copy) {
     from fatJar.archivePath.absolutePath
-    into "" // TODO
+    into "D:\\Programowanie\\IDEs\\jSUpla-openhab2\\git\\openhab2-addons\\addons\\binding\\org.openhab.binding.jsupla\\libs"
 }
 openHab.dependsOn fatJar
 fatJar.dependsOn build
