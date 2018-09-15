@@ -42,7 +42,7 @@ public class RegisterDeviceBParserImplTest extends AbstractParserTest<RegisterDe
     protected void then(final RegisterDeviceB entity, final SuplaRegisterDeviceB supla) {
         assertThat(entity.getLocationId()).isEqualTo(supla.locationId);
         verify(stringParser).parsePassword(supla.locationPwd);
-        verify(stringParser).parse(supla.guid);
+        verify(stringParser).parseHexString(supla.guid);
         verify(stringParser).parse(supla.name);
         verify(stringParser).parse(supla.softVer);
         assertThat(entity.getChannelCount()).isEqualTo(supla.channelCount);

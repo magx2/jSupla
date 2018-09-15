@@ -30,11 +30,11 @@ public class RegisterDeviceParserImplTest extends AbstractParserTest<RegisterDev
     @Override
     protected SuplaRegisterDevice given() {
         final SuplaRegisterDevice supla = super.given();
-        BDDMockito.given(stringParser.parse(any())).willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
-        BDDMockito.given(stringParser.parsePassword(any()))
-                .willReturn(Arrays.copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
+
+        givenStringParser(stringParser);
         BDDMockito.given(deviceChannelParser.parse(any()))
                 .willAnswer(__ -> RANDOM_ENTITY.nextObject(DeviceChannel.class));
+
         return supla;
     }
 
@@ -43,7 +43,7 @@ public class RegisterDeviceParserImplTest extends AbstractParserTest<RegisterDev
     protected void then(final RegisterDevice entity, final SuplaRegisterDevice supla) {
         assertThat(entity.getLocationId()).isEqualTo(supla.locationId);
         verify(stringParser).parsePassword(supla.locationPwd);
-        verify(stringParser).parse(supla.guid);
+        verify(stringParser).parseHexString(supla.guid);
         verify(stringParser).parse(supla.name);
         verify(stringParser).parse(supla.softVer);
         assertThat(entity.getChannelCount()).isEqualTo(supla.channelCount);
