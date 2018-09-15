@@ -8,9 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -27,6 +30,8 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     // For NettyChannel
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
+    private final EncoderFactory encoderFactory;
+    private final Serializer<Entity, ProtoWithCallType> serializer;
     private final Parser<Entity, Proto> parser;
 
     private Flux<SuplaDataPacket> flux;
@@ -35,10 +40,14 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     SuplaHandler(final Collection<FluxSink<NettyChannel>> rootEmitters,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
-                 final Parser<Entity, Proto> parser) {
+                 final EncoderFactory encoderFactory,
+                 final Parser<Entity, Proto> parser,
+                 final Serializer<Entity, ProtoWithCallType> serializer) {
         this.rootEmitters = rootEmitters;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
+        this.encoderFactory = encoderFactory;
+        this.serializer = serializer;
         this.parser = parser;
         this.flux = Flux.create(emitter -> {
             SuplaHandler.this.emitters.add(emitter);
@@ -53,7 +62,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     }
 
     private NettyChannel newNettyChannel(final ChannelHandlerContext ctx, final Flux<SuplaDataPacket> flux) {
-        return new NettyChannel(ctx, flux, callTypeParser, decoderFactory, parser);
+        return new NettyChannel(ctx, flux, callTypeParser, decoderFactory, encoderFactory, parser, serializer);
     }
 
     @Override

@@ -41,6 +41,10 @@ public final class SuplaDataPacket implements ProtoWithSize {
         this.data = checkArrayLength(data, (int) dataSize);
     }
 
+    public SuplaDataPacket(final short version, final long rrId, final long callType, final byte[] data) {
+        this(version, rrId, callType, data.length, data);
+    }
+
     @Override
     public int size() {
         return MIN_SIZE + data.length;

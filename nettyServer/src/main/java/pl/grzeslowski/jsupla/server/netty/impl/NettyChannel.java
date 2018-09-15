@@ -6,10 +6,15 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.FromServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
@@ -20,21 +25,29 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
 
 public final class NettyChannel implements Channel {
     private final ChannelHandlerContext channelHandlerContext;
+    private final EncoderFactory encoderFactory;
+    private final Serializer<Entity, ProtoWithCallType> serializer;
     private final BufferParams bufferParams;
     private final Flux<ToServerEntity> messagePipe;
+    private final AtomicLong msgId = new AtomicLong(1);
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
                  final Flux<SuplaDataPacket> messagePipe,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
+                 final EncoderFactory encoderFactory,
                  final Parser<Entity, Proto> parser,
+                 final Serializer<Entity, ProtoWithCallType> serializer,
                  final BufferParams bufferParams) {
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
+        this.encoderFactory = requireNonNull(encoderFactory);
+        this.serializer = requireNonNull(serializer);
         this.bufferParams = requireNonNull(bufferParams);
         //noinspection ConstantConditions
         this.messagePipe = messagePipe
@@ -52,8 +65,17 @@ public final class NettyChannel implements Channel {
                  final Flux<SuplaDataPacket> messagePipe,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
-                 final Parser<Entity, Proto> parser) {
-        this(channelHandlerContext, messagePipe, callTypeParser, decoderFactory, parser, BufferParams.DEFAULT);
+                 final EncoderFactory encoderFactory,
+                 final Parser<Entity, Proto> parser,
+                 final Serializer<Entity, ProtoWithCallType> serializer) {
+        this(channelHandlerContext,
+                messagePipe,
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                parser,
+                serializer,
+                BufferParams.DEFAULT);
     }
 
     private static Pair<SuplaDataPacket, Optional<CallType>> callTypePair(final CallTypeParser callTypeParser,
@@ -75,12 +97,25 @@ public final class NettyChannel implements Channel {
     @Override
     public Flux<LocalDateTime> write(final Flux<FromServerEntity> fromServerEntityFlux) {
         return fromServerEntityFlux
+                       .map(serializer::serialize)
+                       .filter(proto -> proto instanceof ProtoToSend)
+                       .cast(ProtoToSend.class)
+                       .map(this::encodeProto)
                        .map(channelHandlerContext::write)
                        .bufferTimeout(bufferParams.bufferMaxSize, bufferParams.timespan)
                        .map(__ -> channelHandlerContext.flush())
                        .map(__ -> LocalDateTime.now());
     }
 
+    private SuplaDataPacket encodeProto(ProtoToSend proto) {
+        final Encoder<ProtoToSend> encoder = encoderFactory.getEncoder(proto);
+        return new SuplaDataPacket(
+                (short) 5,
+                msgId.getAndIncrement(),
+                proto.callType().getValue(),
+                encoder.encode(proto));
+    }
+    
     @Override
     public ChannelDescription getChannelDescription() {
         throw new UnsupportedOperationException("NettyChannel.getChannelDescription()");
