@@ -44,7 +44,7 @@ public class RegisterDevice implements DeviceServerEntity {
                           final @NotNull DeviceChannels channels) {
         this.locationId = locationId;
         this.locationPassword = Preconditions.size(locationPassword, 1, SUPLA_LOCATION_PWD_MAXSIZE);
-        this.guid = Preconditions.size(guid, 1, SUPLA_GUID_SIZE);
+        this.guid = Preconditions.size(guid, 1, SUPLA_GUID_SIZE * 2);
         this.name = Preconditions.size(name, 1, SUPLA_DEVICE_NAME_MAXSIZE);
         this.softVer = Preconditions.size(softVer, 1, SUPLA_SOFTVER_MAXSIZE);
         this.channelCount = Preconditions.unsignedByteSize(channelCount);

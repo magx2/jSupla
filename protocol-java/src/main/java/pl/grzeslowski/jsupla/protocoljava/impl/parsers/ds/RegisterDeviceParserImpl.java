@@ -33,7 +33,7 @@ public class RegisterDeviceParserImpl implements RegisterDeviceParser {
         return new RegisterDevice(
                                          proto.locationId,
                                          stringParser.parsePassword(proto.locationPwd),
-                                         stringParser.parse(proto.guid),
+                stringParser.parseHexString(proto.guid),
                                          stringParser.parse(proto.name),
                                          stringParser.parse(proto.softVer),
                                          proto.channelCount,
