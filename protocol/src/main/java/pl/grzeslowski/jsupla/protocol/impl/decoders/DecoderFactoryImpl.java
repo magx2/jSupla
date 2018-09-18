@@ -214,7 +214,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
         firmwareUpdateUrlResultDecoder = new FirmwareUpdateUrlResultDecoderImpl(primitiveDecoder,
-                                                                                       firmwareUpdateUrlDecoder);
+                firmwareUpdateUrlDecoder);
         suplaChannelNewValueDecoderSd =
                 new pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl(primitiveDecoder);
         suplaRegisterDeviceResultDecoder = new SuplaRegisterDeviceResultDecoderImpl(primitiveDecoder);
@@ -375,10 +375,10 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) firmwareUpdateParamsDecoder;
         }
         if (callType == SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED) {
-            return (Decoder<T>) suplaChannelNewValueResultDecoder;
+            return (Decoder<T>) suplaDeviceChannelValueDecoder;
         }
         if (callType == SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT) {
-            return (Decoder<T>) suplaDeviceChannelValueDecoder;
+            return (Decoder<T>) suplaChannelNewValueResultDecoder;
         }
         if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
             return (Decoder<T>) suplaRegisterDeviceBDecoder;

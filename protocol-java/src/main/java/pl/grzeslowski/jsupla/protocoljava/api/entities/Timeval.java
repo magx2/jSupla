@@ -10,24 +10,24 @@ import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 public class Timeval implements Entity {
     @PositiveOrZero
     @Min(0) // FIXME random beans
-    private final long seconds;
+    private final int seconds;
     @PositiveOrZero
     @Min(0) // FIXME random beans
-    private final long milliseconds;
+    private final int milliseconds;
 
-    public Timeval(final @PositiveOrZero long seconds,
-                   final @PositiveOrZero long milliseconds) {
+    public Timeval(final @PositiveOrZero int seconds,
+                   final @PositiveOrZero int milliseconds) {
         this.seconds = positiveOrZero(seconds);
         this.milliseconds = positiveOrZero(milliseconds);
     }
 
     @PositiveOrZero
-    public long getSeconds() {
+    public int getSeconds() {
         return seconds;
     }
 
     @PositiveOrZero
-    public long getMilliseconds() {
+    public int getMilliseconds() {
         return milliseconds;
     }
 
@@ -50,7 +50,7 @@ public class Timeval implements Entity {
 
     @Override
     public final int hashCode() {
-        return (int) (seconds ^ (seconds >>> 32));
+        return seconds;
     }
 
     @Override

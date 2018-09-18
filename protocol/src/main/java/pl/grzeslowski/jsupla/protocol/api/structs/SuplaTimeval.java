@@ -8,10 +8,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 public final class SuplaTimeval implements ProtoWithSize {
     public static final int SIZE = INT_SIZE * 2;
 
-    public final long seconds;
-    public final long milliseconds;
+    public final int seconds;
+    public final int milliseconds;
 
-    public SuplaTimeval(final long seconds, final long milliseconds) {
+    public SuplaTimeval(final int seconds, final int milliseconds) {
         this.seconds = positiveOrZero(seconds);
         this.milliseconds = positiveOrZero(milliseconds);
     }
@@ -40,8 +40,8 @@ public final class SuplaTimeval implements ProtoWithSize {
 
     @Override
     public int hashCode() {
-        int result = (int) (seconds ^ (seconds >>> 32));
-        result = 31 * result + (int) (milliseconds ^ (milliseconds >>> 32));
+        int result = seconds;
+        result = 31 * result + milliseconds;
         return result;
     }
 
