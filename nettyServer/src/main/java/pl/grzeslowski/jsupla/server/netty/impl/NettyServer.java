@@ -10,11 +10,6 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.protocol.api.types.Proto;
-import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
-import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.server.api.Server;
 import pl.grzeslowski.jsupla.server.api.exceptions.CloseServerException;
 import reactor.core.publisher.Flux;
@@ -34,17 +29,14 @@ public class NettyServer implements Server {
     public NettyServer(final NettyConfig nettyConfig,
                        final CallTypeParser callTypeParser,
                        final DecoderFactory decoderFactory,
-                       final EncoderFactory encoderFactory,
-                       final Parser<Entity, Proto> parser,
-                       final Serializer<Entity, ProtoWithCallType> serializer) {
+                       final EncoderFactory encoderFactory) {
         this.nettyConfig = requireNonNull(nettyConfig);
 
         bossGroup = newBossGroup();
         workerGroup = newWorkerGroup();
         final ServerBootstrap serverBootstrap = newServerBootstrap();
         final NettyServerInitializer nettyServerInitializer = newNettyServerInitializer(
-                callTypeParser, decoderFactory, encoderFactory, parser, serializer
-        );
+                callTypeParser, decoderFactory, encoderFactory);
 
         logger.trace("Configuring server bootstrap");
         configureServerBootstrap(serverBootstrap, nettyServerInitializer);
@@ -72,18 +64,15 @@ public class NettyServer implements Server {
         return new ServerBootstrap();
     }
 
-    protected NettyServerInitializer newNettyServerInitializer(final CallTypeParser callTypeParser,
-                                                               final DecoderFactory decoderFactory,
-                                                               final EncoderFactory encoderFactory,
-                                                               final Parser<Entity, Proto> parser,
-                                                               final Serializer<Entity, ProtoWithCallType> serializer) {
+    protected NettyServerInitializer newNettyServerInitializer(
+            final CallTypeParser callTypeParser,
+            final DecoderFactory decoderFactory,
+            final EncoderFactory encoderFactory) {
         return new NettyServerInitializer(
                 nettyConfig.getSslCtx(),
                 callTypeParser,
                 decoderFactory,
-                encoderFactory,
-                parser,
-                serializer);
+                encoderFactory);
     }
 
     protected void configureServerBootstrap(final ServerBootstrap serverBootstrap,

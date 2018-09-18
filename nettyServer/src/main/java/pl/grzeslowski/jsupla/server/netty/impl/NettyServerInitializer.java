@@ -13,11 +13,6 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.protocol.api.types.Proto;
-import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
-import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -42,21 +37,15 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
-    private final Parser<Entity, Proto> parser;
-    private final Serializer<Entity, ProtoWithCallType> serializer;
 
     NettyServerInitializer(SslContext sslCtx,
                            final CallTypeParser callTypeParser,
                            final DecoderFactory decoderFactory,
-                           final EncoderFactory encoderFactory,
-                           final Parser<Entity, Proto> parser,
-                           final Serializer<Entity, ProtoWithCallType> serializer) {
+                           final EncoderFactory encoderFactory) {
         this.sslCtx = sslCtx;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
-        this.parser = parser;
-        this.serializer = serializer;
         this.flux = Flux.create(emitter -> {
             NettyServerInitializer.this.emitters.add(emitter);
             emitter.onDispose(() -> NettyServerInitializer.this.emitters.remove(emitter));
@@ -119,9 +108,7 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
                         unmodifiableCollection(emitters),
                         callTypeParser,
                         decoderFactory,
-                        encoderFactory,
-                        parser,
-                        serializer));
+                        encoderFactory));
     }
 
     /**

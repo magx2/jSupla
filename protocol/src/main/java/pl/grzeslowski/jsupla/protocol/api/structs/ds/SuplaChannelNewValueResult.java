@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.CHAR_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -25,7 +25,7 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
 
     @Override
     public DeviceServerCallType callType() {
-        return SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
+        return SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
     }
 
     @Override

@@ -12,7 +12,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Su
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelBToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelType;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ColorTypeChannelEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.RelayTypeChannelEncoder;
@@ -101,7 +100,6 @@ import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochan
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelValueToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelTypeImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaDeviceChannelValueToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ChannelTypeEncoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ColorTypeChannelEncoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.RelayTypeChannelEncoderImpl;
@@ -186,13 +184,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("unchecked")
-public enum ProtocolJavaContext implements JSuplaContext {
-    PROTOCOL_JAVA_CONTEXT;
-
+public class ProtocolJavaContext implements JSuplaContext {
     private final Map<Class<?>, Object> contextMap = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unchecked")
-    ProtocolJavaContext() {
+    public ProtocolJavaContext(DeviceChannelValueParser.TypeMapper typeMapper) {
+        put(DeviceChannelValueParser.TypeMapper.class, typeMapper);
         initParsers();
         initSerializers();
     }
@@ -358,7 +355,7 @@ public enum ProtocolJavaContext implements JSuplaContext {
         put(SuplaChannelValueToChannelType.class, new SuplaChannelValueToChannelTypeImpl());
         put(SuplaChannelNewValueBToChannelType.class, new SuplaChannelNewValueBToChannelTypeImpl());
         put(SuplaChannelNewValueToChannelType.class, new SuplaChannelNewValueToChannelTypeImpl());
-        put(SuplaDeviceChannelValueToChannelType.class, new SuplaDeviceChannelValueToChannelTypeImpl());
+        //        put(SuplaDeviceChannelValueToChannelType.class, new SuplaDeviceChannelValueToChannelTypeImpl());
         put(SdSuplaChannelNewValueToChannelType.class, new SdSuplaChannelNewValueToChannelTypeImpl());
         put(DeviceChannelParser.class,
                 new DeviceChannelParserImpl(
@@ -408,7 +405,7 @@ public enum ProtocolJavaContext implements JSuplaContext {
         put(DeviceChannelValueParser.class,
                 new DeviceChannelValueParserImpl(
                                                         getService(ChannelTypeDecoder.class),
-                                                        getService(SuplaDeviceChannelValueToChannelType.class)));
+                        getService(DeviceChannelValueParser.TypeMapper.class)));
         put(RegisterDeviceParser.class, new RegisterDeviceParserImpl(
                                                                             getService(StringParser.class),
                                                                             getService(DeviceChannelParser.class)));

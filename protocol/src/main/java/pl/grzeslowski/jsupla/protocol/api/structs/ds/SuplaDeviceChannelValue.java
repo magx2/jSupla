@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
@@ -23,10 +23,9 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
     }
 
-
     @Override
     public DeviceServerCallType callType() {
-        return SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
+        return SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
     }
 
     @Override
@@ -61,8 +60,8 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaDeviceChannelValue{" +
-                "channelNumber=" + channelNumber +
-                ", value=" + Arrays.toString(value) +
-                '}';
+                       "channelNumber=" + channelNumber +
+                       ", value=" + Arrays.toString(value) +
+                       '}';
     }
 }

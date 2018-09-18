@@ -1,5 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.api.channels.decoders;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum ChannelType {
     SUPLA_CHANNELTYPE_SENSORNO(1000),
     /**
@@ -65,5 +68,11 @@ public enum ChannelType {
 
     public int getValue() {
         return value;
+    }
+
+    public static Optional<ChannelType> findByValue(int value) {
+        return Arrays.stream(ChannelType.values())
+                       .filter(type -> type.value == value)
+                       .findAny();
     }
 }

@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.channel.ChannelHandlerContext;
 import org.javatuples.Pair;
+import pl.grzeslowski.jsupla.JSuplaContext;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
@@ -13,6 +14,8 @@ import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
@@ -37,18 +40,20 @@ public final class NettyChannel implements Channel {
     private final Flux<ToServerEntity> messagePipe;
     private final AtomicLong msgId = new AtomicLong(1);
 
+    @SuppressWarnings("unchecked")
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
                  final Flux<SuplaDataPacket> messagePipe,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
                  final EncoderFactory encoderFactory,
-                 final Parser<Entity, Proto> parser,
-                 final Serializer<Entity, ProtoWithCallType> serializer,
                  final BufferParams bufferParams) {
+        final ChannelTypeMapper typeMapper = new ChannelTypeMapper();
+        final JSuplaContext context = new ProtocolJavaContext(typeMapper);
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
         this.encoderFactory = requireNonNull(encoderFactory);
-        this.serializer = requireNonNull(serializer);
+        this.serializer = context.getService(Serializer.class);
         this.bufferParams = requireNonNull(bufferParams);
+        final Parser<Entity, Proto> parser = context.getService(Parser.class);
         //noinspection ConstantConditions
         this.messagePipe = messagePipe
                                    .map(suplaDataPacket -> callTypePair(callTypeParser, suplaDataPacket))
@@ -59,22 +64,23 @@ public final class NettyChannel implements Channel {
                                    .map(parser::parse)
                                    .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
                                    .cast(ToServerEntity.class);
+
+        this.messagePipe
+                .filter(entity -> RegisterDevice.class.isAssignableFrom(entity.getClass()))
+                .cast(RegisterDevice.class)
+                .subscribe(typeMapper::registerDevice);
     }
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
                  final Flux<SuplaDataPacket> messagePipe,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory,
-                 final Parser<Entity, Proto> parser,
-                 final Serializer<Entity, ProtoWithCallType> serializer) {
+                 final EncoderFactory encoderFactory) {
         this(channelHandlerContext,
                 messagePipe,
                 callTypeParser,
                 decoderFactory,
                 encoderFactory,
-                parser,
-                serializer,
                 BufferParams.DEFAULT);
     }
 
@@ -115,7 +121,7 @@ public final class NettyChannel implements Channel {
                 proto.callType().getValue(),
                 encoder.encode(proto));
     }
-    
+
     @Override
     public ChannelDescription getChannelDescription() {
         throw new UnsupportedOperationException("NettyChannel.getChannelDescription()");

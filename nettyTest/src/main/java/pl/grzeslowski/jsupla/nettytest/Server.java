@@ -11,8 +11,6 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.RegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
@@ -25,7 +23,6 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
-import static pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext.PROTOCOL_JAVA_CONTEXT;
 import static pl.grzeslowski.jsupla.server.netty.api.NettyServerFactory.PORT;
 import static pl.grzeslowski.jsupla.server.netty.api.NettyServerFactory.SSL_CTX;
 import static reactor.core.publisher.Flux.just;
@@ -70,9 +67,7 @@ public class Server {
         return new NettyServerFactory(
                 new CallTypeParserImpl(),
                 new DecoderFactoryImpl(new PrimitiveDecoderImpl()),
-                new EncoderFactoryImpl(new PrimitiveEncoderImpl()),
-                PROTOCOL_JAVA_CONTEXT.getService(Parser.class),
-                PROTOCOL_JAVA_CONTEXT.getService(Serializer.class));
+                new EncoderFactoryImpl(new PrimitiveEncoderImpl()));
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {
