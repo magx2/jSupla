@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -46,10 +47,13 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
-        this.flux = Flux.create(emitter -> {
+        // @ 8.1 https://www.baeldung.com/reactor-core
+        final ConnectableFlux<NettyChannel> flux = Flux.<NettyChannel>create(emitter -> {
             NettyServerInitializer.this.emitters.add(emitter);
             emitter.onDispose(() -> NettyServerInitializer.this.emitters.remove(emitter));
-        });
+        }).publish();
+        flux.connect();
+        this.flux = flux;
     }
 
     @Override

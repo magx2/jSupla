@@ -10,6 +10,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
@@ -38,10 +39,19 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
-        this.flux = Flux.create(emitter -> {
+        createFlux();
+    }
+
+    /**
+     * @ 8.1 https://www.baeldung.com/reactor-core
+     */
+    private void createFlux() {
+        final ConnectableFlux<SuplaDataPacket> flux = Flux.<SuplaDataPacket>create(emitter -> {
             SuplaHandler.this.emitters.add(emitter);
             emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
-        });
+        }).publish();
+        flux.connect();
+        this.flux = flux;
     }
 
     @Override
@@ -60,8 +70,8 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     }
 
     @Override
-    public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
-        logger.debug("SuplaHandler.channelInactive(ctx)");
+    public void channelUnregistered(final ChannelHandlerContext ctx) throws Exception {
+        logger.debug("SuplaHandler.channelUnregistered(ctx), emitters.size={}", emitters.size());
         super.channelUnregistered(ctx);
         emitters.forEach(FluxSink::complete);
         dispose();
