@@ -11,8 +11,6 @@ public interface Channel extends AutoCloseable {
 
     Flux<LocalDateTime> write(Flux<FromServerEntity> fromServerEntityFlux);
 
-    ChannelDescription getChannelDescription();
-
     @Override
     void close();
 }
