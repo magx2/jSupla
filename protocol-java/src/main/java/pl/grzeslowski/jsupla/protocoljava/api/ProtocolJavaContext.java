@@ -6,9 +6,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecod
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ColorTypeChannelDecoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.RelayTypeChannelDecoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ThermometerTypeChannelDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SdSuplaChannelNewValueToChannelType;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelType;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelBToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelType;
@@ -95,9 +92,6 @@ import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.Channe
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ColorTypeChannelDecoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.RelayTypeChannelDecoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ThermometerTypeChannelDecoderImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SdSuplaChannelNewValueToChannelTypeImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelTypeImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelValueToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaDeviceChannelToChannelTypeImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.ChannelTypeEncoderImpl;
@@ -353,10 +347,6 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(SuplaDeviceChannelToChannelType.class, suplaDeviceChannelToChannelType);
         put(SuplaDeviceChannelBToChannelType.class, suplaDeviceChannelToChannelType);
         put(SuplaChannelValueToChannelType.class, new SuplaChannelValueToChannelTypeImpl());
-        put(SuplaChannelNewValueBToChannelType.class, new SuplaChannelNewValueBToChannelTypeImpl());
-        put(SuplaChannelNewValueToChannelType.class, new SuplaChannelNewValueToChannelTypeImpl());
-        //        put(SuplaDeviceChannelValueToChannelType.class, new SuplaDeviceChannelValueToChannelTypeImpl());
-        put(SdSuplaChannelNewValueToChannelType.class, new SdSuplaChannelNewValueToChannelTypeImpl());
         put(DeviceChannelParser.class,
                 new DeviceChannelParserImpl(
                                                    getService(ChannelTypeDecoder.class),
@@ -376,12 +366,12 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(ChannelNewValueBParser.class,
                 new ChannelNewValueBParserImpl(
                                                       getService(ChannelTypeDecoder.class),
-                                                      getService(SuplaChannelNewValueBToChannelType.class)));
+                        getService(DeviceChannelValueParser.TypeMapper.class)));
         put(ChannelNewValueParser.class,
                 new pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs
                             .ChannelNewValueParserImpl(
                                                               getService(ChannelTypeDecoder.class),
-                                                              getService(SuplaChannelNewValueToChannelType.class)));
+                        getService(DeviceChannelValueParser.TypeMapper.class)));
         put(RegisterClientBParser.class, new RegisterClientBParserImpl(getService(StringParser.class)));
         put(RegisterClientParser.class, new RegisterClientParserImpl(getService(StringParser.class)));
         put(ClientServerParser.class, new ClientServerParserImpl(
@@ -452,7 +442,7 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser.class,
                 new ChannelNewValueParserImpl(
                                                      getService(ChannelTypeDecoder.class),
-                                                     getService(SdSuplaChannelNewValueToChannelType.class)));
+                        getService(DeviceChannelValueParser.TypeMapper.class)));
         put(FirmwareUpdateUrlResultParser.class,
                 new FirmwareUpdateUrlResultParserImpl(getService(FirmwareUpdateUrlParser.class)));
         put(RegisterDeviceResultParser.class, new RegisterDeviceResultParserImpl());

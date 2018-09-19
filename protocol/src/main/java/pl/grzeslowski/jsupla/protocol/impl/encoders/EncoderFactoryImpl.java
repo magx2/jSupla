@@ -96,7 +96,8 @@ public class EncoderFactoryImpl implements EncoderFactory {
 
     // cs
     private final SuplaChannelNewValueBEncoder suplaChannelNewValueBEncoder;
-    private final pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaChannelNewValueEncoder suplaChannelNewValueEncoder;
+    private final pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaChannelNewValueEncoder
+            suplaChannelNewValueEncoder;
     private final SuplaRegisterClientBEncoder suplaRegisterClientBEncoder;
     private final SuplaRegisterClientEncoder suplaRegisterClientEncoder;
 

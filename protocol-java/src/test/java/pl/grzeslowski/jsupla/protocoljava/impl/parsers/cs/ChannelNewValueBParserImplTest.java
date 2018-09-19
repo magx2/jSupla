@@ -7,10 +7,10 @@ import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueBToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -20,7 +20,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 public class ChannelNewValueBParserImplTest extends AbstractParserTest<ChannelNewValueB, SuplaChannelNewValueB> {
     @InjectMocks ChannelNewValueBParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
-    @Mock SuplaChannelNewValueBToChannelType suplaChannelNewValueBToChannelType;
+    @Mock DeviceChannelValueParser.TypeMapper typeMapper;
 
     final ChannelValue channelValue = RANDOM_ENTITY.nextObject(ChannelValue.class);
     final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);
@@ -30,7 +30,7 @@ public class ChannelNewValueBParserImplTest extends AbstractParserTest<ChannelNe
         final SuplaChannelNewValueB supla = super.given();
 
         BDDMockito.given(channelTypeDecoder.decode(channelType, supla.value)).willReturn(channelValue);
-        BDDMockito.given(suplaChannelNewValueBToChannelType.toChannelType(supla)).willReturn(channelType);
+        BDDMockito.given(typeMapper.findChannelType(supla.channelId)).willReturn(channelType);
 
         return supla;
     }
@@ -53,7 +53,7 @@ public class ChannelNewValueBParserImplTest extends AbstractParserTest<ChannelNe
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionOnNullChannelTypeDecoder() {
-        new ChannelNewValueBParserImpl(null, suplaChannelNewValueBToChannelType);
+        new ChannelNewValueBParserImpl(null, typeMapper);
     }
 
     @Test(expected = NullPointerException.class)

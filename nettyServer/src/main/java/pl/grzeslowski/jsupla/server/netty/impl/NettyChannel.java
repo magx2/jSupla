@@ -23,7 +23,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.FromServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
 import pl.grzeslowski.jsupla.server.api.Channel;
-import pl.grzeslowski.jsupla.server.api.ChannelDescription;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -174,11 +173,6 @@ public final class NettyChannel implements Channel {
                 msgId.getAndIncrement(),
                 proto.callType().getValue(),
                 encoder.encode(proto));
-    }
-
-    @Override
-    public ChannelDescription getChannelDescription() {
-        throw new UnsupportedOperationException("NettyChannel.getChannelDescription()");
     }
 
     @Override

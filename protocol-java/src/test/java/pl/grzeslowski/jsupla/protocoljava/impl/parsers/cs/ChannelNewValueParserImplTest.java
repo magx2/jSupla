@@ -7,10 +7,10 @@ import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelNewValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -21,7 +21,7 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 public class ChannelNewValueParserImplTest extends AbstractParserTest<ChannelNewValue, SuplaChannelNewValue> {
     @InjectMocks ChannelNewValueParserImpl parser;
     @Mock ChannelTypeDecoder channelTypeDecoder;
-    @Mock SuplaChannelNewValueToChannelType suplaChannelNewValueToChannelType;
+    @Mock DeviceChannelValueParser.TypeMapper typeMapper;
 
     final ChannelValue channelValue = RANDOM_ENTITY.nextObject(ChannelValue.class);
     final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);
@@ -31,7 +31,7 @@ public class ChannelNewValueParserImplTest extends AbstractParserTest<ChannelNew
         final SuplaChannelNewValue supla = super.given();
 
         BDDMockito.given(channelTypeDecoder.decode(channelType, supla.value)).willReturn(channelValue);
-        BDDMockito.given(suplaChannelNewValueToChannelType.toChannelType(supla)).willReturn(channelType);
+        BDDMockito.given(typeMapper.findChannelType(supla.channelId)).willReturn(channelType);
 
         return supla;
     }
@@ -54,7 +54,7 @@ public class ChannelNewValueParserImplTest extends AbstractParserTest<ChannelNew
 
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenChannelTypeDecoderIsNull() {
-        new ChannelNewValueParserImpl(null, suplaChannelNewValueToChannelType);
+        new ChannelNewValueParserImpl(null, typeMapper);
     }
 
     @Test(expected = NullPointerException.class)
