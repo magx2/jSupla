@@ -17,6 +17,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.FromServerEntity;
@@ -46,15 +47,16 @@ public final class NettyChannel implements Channel {
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
                  final EncoderFactory encoderFactory,
-                 final BufferParams bufferParams) {
-        final ChannelTypeMapper typeMapper = new ChannelTypeMapper();
-        final JSuplaContext context = new ProtocolJavaContext(typeMapper);
+                 final ChannelTypeMapper typeMapper,
+                 final BufferParams bufferParams,
+                 final ContextGenerator contextGenerator) {
+        final JSuplaContext context = contextGenerator.newJSuplaContext(typeMapper);
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
         this.encoderFactory = requireNonNull(encoderFactory);
         this.serializer = context.getService(Serializer.class);
         this.bufferParams = requireNonNull(bufferParams);
         final Parser<Entity, Proto> parser = context.getService(Parser.class);
-        //noinspection ConstantConditions
+        //noinspection ConstantConditions,OptionalGetWithoutIsPresent
         this.messagePipe = messagePipe
                                    .map(suplaDataPacket -> callTypePair(callTypeParser, suplaDataPacket))
                                    .filter(pair -> pair.getValue1().isPresent())
@@ -65,6 +67,7 @@ public final class NettyChannel implements Channel {
                                    .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
                                    .cast(ToServerEntity.class);
 
+        //noinspection deprecation
         this.messagePipe
                 .filter(entity -> RegisterDevice.class.isAssignableFrom(entity.getClass()))
                 .cast(RegisterDevice.class)
@@ -81,9 +84,60 @@ public final class NettyChannel implements Channel {
                 callTypeParser,
                 decoderFactory,
                 encoderFactory,
-                BufferParams.DEFAULT);
+                new ChannelTypeMapper(),
+                BufferParams.DEFAULT,
+                ContextGeneratorImpl.INSTANCE);
     }
 
+    NettyChannel(final ChannelHandlerContext channelHandlerContext,
+                 final Flux<SuplaDataPacket> messagePipe,
+                 final CallTypeParser callTypeParser,
+                 final DecoderFactory decoderFactory,
+                 final EncoderFactory encoderFactory,
+                 final BufferParams bufferParams) {
+        this(channelHandlerContext,
+                messagePipe,
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                new ChannelTypeMapper(),
+                bufferParams,
+                ContextGeneratorImpl.INSTANCE);
+    }
+
+    NettyChannel(final ChannelHandlerContext channelHandlerContext,
+                 final Flux<SuplaDataPacket> messagePipe,
+                 final CallTypeParser callTypeParser,
+                 final DecoderFactory decoderFactory,
+                 final EncoderFactory encoderFactory,
+                 final ContextGenerator contextGenerator) {
+        this(channelHandlerContext,
+                messagePipe,
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                new ChannelTypeMapper(),
+                BufferParams.DEFAULT,
+                contextGenerator);
+    }
+
+    NettyChannel(final ChannelHandlerContext channelHandlerContext,
+                 final Flux<SuplaDataPacket> messagePipe,
+                 final CallTypeParser callTypeParser,
+                 final DecoderFactory decoderFactory,
+                 final EncoderFactory encoderFactory,
+                 final BufferParams bufferParams,
+                 final ContextGenerator contextGenerator) {
+        this(channelHandlerContext,
+                messagePipe,
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                new ChannelTypeMapper(),
+                bufferParams,
+                contextGenerator);
+    }
+    
     private static Pair<SuplaDataPacket, Optional<CallType>> callTypePair(final CallTypeParser callTypeParser,
                                                                           final SuplaDataPacket suplaDataPacket) {
         return Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType));
@@ -157,4 +211,18 @@ public final class NettyChannel implements Channel {
                            '}';
         }
     }
+
+    public interface ContextGenerator {
+        JSuplaContext newJSuplaContext(DeviceChannelValueParser.TypeMapper typeMapper);
+    }
+
+    private enum ContextGeneratorImpl implements ContextGenerator {
+        INSTANCE;
+
+        @Override
+        public JSuplaContext newJSuplaContext(final DeviceChannelValueParser.TypeMapper typeMapper) {
+            return new ProtocolJavaContext(typeMapper);
+        }
+    }
+    
 }
