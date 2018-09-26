@@ -13,22 +13,3 @@ dependencies {
     testCompile rootProject.project("protocol").sourceSets.test.output
     testCompile rootProject.project("protocolJava").sourceSets.test.output
 }
-
-// TODO remove, just for tests
-task fatJar(type: Jar) {
-    baseName = "${project.name}-fat"
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-task openHab(type: Copy) {
-    from fatJar.archivePath.absolutePath
-    into "D:\\Programowanie\\IDEs\\jSUpla-openhab2\\git\\openhab2-addons\\addons\\binding\\org.openhab.binding.jsupla\\libs"
-}
-openHab.dependsOn fatJar
-fatJar.dependsOn build
-configure(openHab) {
-    group = BasePlugin.BUILD_GROUP
-}
-configure(fatJar) {
-    group = BasePlugin.BUILD_GROUP
-}
