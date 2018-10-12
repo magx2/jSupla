@@ -1,0 +1,43 @@
+package pl.grzeslowski.jsupla.protocol.api;
+
+import com.google.common.reflect.ClassPath;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
+
+@RunWith(Parameterized.class)
+public class IntegrationTest {
+    Class<ProtoWithSize> structClass;
+
+    @Parameterized.Parameters(name = "class = {0}")
+    public static Object[][] data() throws Exception {
+        return ClassPath.from(Thread.currentThread().getContextClassLoader())
+                .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
+                .stream()
+                .map(ClassPath.ClassInfo::load)
+                .filter(clazz -> !clazz.isInterface())
+                .filter(ProtoWithSize.class::isAssignableFrom)
+                .map(clazz -> new Object[]{clazz})
+                .toArray(Object[][]::new);
+    }
+
+    public IntegrationTest(Class<ProtoWithSize> structClass) {
+        this.structClass = structClass;
+    }
+
+    @Test
+    public void shouldFindEncoderFor() {
+        new EncoderFactoryImpl(new PrimitiveEncoderImpl()).getEncoder(structClass);
+    }
+
+    @Test
+    public void shouldFindDecoderFor() {
+        new DecoderFactoryImpl(PrimitiveDecoderImpl.INSTANCE).getDecoder(structClass);
+    }
+}
