@@ -2,6 +2,8 @@ package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 
+import java.util.Arrays;
+
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.positive;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_D;
@@ -53,5 +55,39 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
                 + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE
                 + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE) +
                 BYTE_SIZE + channels.length * SuplaDeviceChannelB.SIZE;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SuplaRegisterDeviceD that = (SuplaRegisterDeviceD) o;
+        return channelCount == that.channelCount &&
+                Arrays.equals(email, that.email) &&
+                Arrays.equals(authKey, that.authKey) &&
+                Arrays.equals(guid, that.guid) &&
+                Arrays.equals(name, that.name) &&
+                Arrays.equals(softVer, that.softVer) &&
+                Arrays.equals(serverName, that.serverName) &&
+                Arrays.equals(channels, that.channels);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(guid);
+    }
+
+    @Override
+    public String toString() {
+        return "SuplaRegisterDeviceD{" +
+                "email=" + Arrays.toString(email) +
+                ", authKey=" + Arrays.toString(authKey) +
+                ", guid=" + Arrays.toString(guid) +
+                ", name=" + Arrays.toString(name) +
+                ", softVer=" + Arrays.toString(softVer) +
+                ", serverName=" + Arrays.toString(serverName) +
+                ", channelCount=" + channelCount +
+                ", channels=" + Arrays.toString(channels) +
+                '}';
     }
 }
