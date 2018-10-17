@@ -284,6 +284,10 @@ public final class Preconditions {
         return min(positive, 1);
     }
 
+    public static short positive(final short positive) {
+        return min(positive, (short) 1);
+    }
+
     public static int positiveOrZero(final int positive) {
         return min(positive, 0);
     }
