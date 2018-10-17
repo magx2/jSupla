@@ -27,6 +27,59 @@ public final class ProtoConsts {
     public static final int SUPLA_URL_PATH_MAXSIZE = 101;
     public static final int SUPLA_SERVER_NAME_MAXSIZE = 65;
 
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_EMAIL_MAXSIZE = 256;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_EMAILHEX_MAXSIZE = 513;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_AUTHKEY_SIZE = 16;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_AUTHKEY_HEXSIZE = 33;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_OAUTH_SERVER_MAXSIZE = 256;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_OAUTH_CLIENTID_MAXSIZE = 276;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_OAUTH_SECRET_MAXSIZE = 276;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_OAUTH_USERNAME_MAXSIZE = 65;// ver. >= 7
+    /**
+     * @since ver. 7
+     */
+    public static final int SUPLA_OAUTH_PASSWORD_MAXSIZE = 65;// ver. >= 7
+    /**
+     * @since ver. 9
+     */
+    public static final int SUPLA_CHANNELGROUP_PACK_MAXCOUNT = 20;// ver. >= 9
+    /**
+     * @since ver. 9
+     */
+    public static final int SUPLA_CHANNELGROUP_CAPTION_MAXSIZE = 401;// ver. >= 9
+    /**
+     * @since ver. 9
+     */
+    public static final int SUPLA_CHANNELVALUE_PACK_MAXCOUNT = 20;// ver. >= 9
+    /**
+     * @since ver. 9
+     */
+    public static final int SUPLA_CHANNELGROUP_RELATION_PACK_MAXCOUNT = 100;
+
     public static final int SUPLA_RESULT_DATA_TOO_LARGE = -4;
     public static final int SUPLA_RESULT_BUFFER_OVERFLOW = -3;
     public static final int SUPLA_RESULT_DATA_ERROR = -2;

@@ -11,7 +11,15 @@ public enum ClientServerCallType implements CallType {
     /**
      * @since ver. 3
      */
-    SUPLA_CS_CALL_CHANNEL_SET_VALUE_B(205);
+    SUPLA_CS_CALL_CHANNEL_SET_VALUE_B(205),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_CS_CALL_GET_OAUTH_PARAMETERS(340),
+    /**
+     * @since ver. 9
+     */
+    SUPLA_CS_CALL_SET_VALUE(410);
 
     private final int value;
 

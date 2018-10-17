@@ -7,7 +7,11 @@ public enum ServerDeviceClientCallType implements CallType {
     /**
      * @since ver. 2
      */
-    SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT(220);
+    SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT(220),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_SDC_CALL_GET_REGISTRATION_ENABLED_RESULT(330);
 
 
     private final int value;

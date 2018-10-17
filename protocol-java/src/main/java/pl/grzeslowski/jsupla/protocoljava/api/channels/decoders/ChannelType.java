@@ -54,6 +54,38 @@ public enum ChannelType {
      * @since ver. >= 4
      */
     SUPLA_CHANNELTYPE_DIMMERANDRGBLED(4020),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_THERMOMETER(3034),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_HUMIDITYSENSOR(3036),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_HUMIDITYANDTEMPSENSOR(3038),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_WINDSENSOR(3042),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_PRESSURESENSOR(3044),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_RAINSENSOR(3048),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_WEIGHTSENSOR(3050),
+    /**
+     * @since ver. 8
+     */
+    SUPLA_CHANNELTYPE_WEATHER_STATION(3100),
 
     /**
      * This is when you don't know ChannelType, i.e. when smth was added to cloud/device code without changing it here.

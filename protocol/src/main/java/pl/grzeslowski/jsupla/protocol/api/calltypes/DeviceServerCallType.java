@@ -10,6 +10,10 @@ public enum DeviceServerCallType implements CallType {
      * @since ver. 6
      */
     SUPLA_DS_CALL_REGISTER_DEVICE_C(67),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_DS_CALL_REGISTER_DEVICE_D(68),
     SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED(100),
     SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT(120),
     /**

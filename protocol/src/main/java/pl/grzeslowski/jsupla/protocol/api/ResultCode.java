@@ -23,7 +23,27 @@ public enum ResultCode {
     /**
      * @since ver. 5
      */
-    SUPLA_RESULTCODE_CANTCONNECTTOHOST(16);
+    SUPLA_RESULTCODE_CANTCONNECTTOHOST(16),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_RESULTCODE_REGISTRATION_DISABLED(17),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_RESULTCODE_ACCESSID_NOT_ASSIGNED(18),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_RESULTCODE_AUTHKEY_ERROR(19),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_RESULTCODE_NO_LOCATION_AVAILABLE(20),
+    /**
+     * @since ver. 7
+     */
+    SUPLA_RESULTCODE_USER_CONFLICT(21);
 
     private final int value;
 
