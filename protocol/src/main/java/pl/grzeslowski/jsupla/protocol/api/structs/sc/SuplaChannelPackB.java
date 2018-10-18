@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE_B;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 
@@ -28,7 +29,7 @@ public final class SuplaChannelPackB implements ServerClient {
 
     @Override
     public ServerClientCallType callType() {
-        return null;
+        return SUPLA_SC_CALL_CHANNEL_UPDATE_B;
     }
 
     @Override
