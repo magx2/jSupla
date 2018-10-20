@@ -2,21 +2,25 @@ package pl.grzeslowski.jsupla.protocol.api.structs.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
+import java.util.Objects;
+
 import static pl.grzeslowski.jsupla.Preconditions.id;
 import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
-public final class SuplaRegisterClientResult implements ServerClient {
-    public static final int SIZE = BYTE_SIZE * 3 + INT_SIZE * 4;
+/**
+ * @since ver. 9
+ */
+public final class SuplaRegisterClientResultB implements ServerClient {
+    public static final int SIZE = BYTE_SIZE * 3 + INT_SIZE * 5;
     public final int resultCode;
     public final int clientId;
     public final int locationCount;
     public final int channelCount;
+    public final int flags;
     /**
      * unsigned.
      */
@@ -30,17 +34,19 @@ public final class SuplaRegisterClientResult implements ServerClient {
      */
     public final short versionMin;
 
-    public SuplaRegisterClientResult(int resultCode,
-                                     int clientId,
-                                     int locationCount,
-                                     int channelCount,
-                                     short activityTimeout,
-                                     short version,
-                                     short versionMin) {
+    public SuplaRegisterClientResultB(final int resultCode,
+                                      final int clientId,
+                                      final int locationCount,
+                                      final int channelCount,
+                                      final int flags,
+                                      final short activityTimeout,
+                                      final short version,
+                                      final short versionMin) {
         this.resultCode = resultCode;
         this.clientId = id(clientId);
         this.locationCount = positiveOrZero(locationCount);
         this.channelCount = positiveOrZero(channelCount);
+        this.flags = flags;
         this.activityTimeout = positiveOrZero(activityTimeout);
         this.version = positiveOrZero(version);
         this.versionMin = positiveOrZero(versionMin);
@@ -49,7 +55,7 @@ public final class SuplaRegisterClientResult implements ServerClient {
 
     @Override
     public ServerClientCallType callType() {
-        return SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
+        return SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B;
     }
 
     @Override
@@ -59,55 +65,32 @@ public final class SuplaRegisterClientResult implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof SuplaRegisterClientResult)) {
-            return false;
-        }
-
-        final SuplaRegisterClientResult that = (SuplaRegisterClientResult) o;
-
-        if (resultCode != that.resultCode) {
-            return false;
-        }
-        if (clientId != that.clientId) {
-            return false;
-        }
-        if (locationCount != that.locationCount) {
-            return false;
-        }
-        if (channelCount != that.channelCount) {
-            return false;
-        }
-        if (activityTimeout != that.activityTimeout) {
-            return false;
-        }
-        if (version != that.version) {
-            return false;
-        }
-        return versionMin == that.versionMin;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final SuplaRegisterClientResultB that = (SuplaRegisterClientResultB) o;
+        return resultCode == that.resultCode &&
+                       clientId == that.clientId &&
+                       locationCount == that.locationCount &&
+                       channelCount == that.channelCount &&
+                       flags == that.flags &&
+                       activityTimeout == that.activityTimeout &&
+                       version == that.version &&
+                       versionMin == that.versionMin;
     }
 
     @Override
     public int hashCode() {
-        int result = resultCode;
-        result = 31 * result + clientId;
-        result = 31 * result + locationCount;
-        result = 31 * result + channelCount;
-        result = 31 * result + (int) activityTimeout;
-        result = 31 * result + (int) version;
-        result = 31 * result + (int) versionMin;
-        return result;
+        return Objects.hash(clientId);
     }
 
     @Override
     public String toString() {
-        return "SuplaRegisterClientResult{" +
+        return "SuplaRegisterClientResultB{" +
                        "resultCode=" + resultCode +
                        ", clientId=" + clientId +
                        ", locationCount=" + locationCount +
                        ", channelCount=" + channelCount +
+                       ", flags=" + flags +
                        ", activityTimeout=" + activityTimeout +
                        ", version=" + version +
                        ", versionMin=" + versionMin +
