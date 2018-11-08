@@ -96,6 +96,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     private final SuplaRegisterClientResultDecoder suplaRegisterClientResultDecoder;
     private final SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder;
     private final SuplaRegisterClientResultBDecoder suplaRegisterClientResultBDecoder;
+    private final SuplaChannelGroupRelationPackDecoder suplaChannelGroupRelationPackDecoder;
 
     // sd
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
@@ -155,6 +156,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         suplaRegisterClientResultDecoder = new SuplaRegisterClientResultDecoderImpl();
         suplaChannelGroupRelationDecoder = new SuplaChannelGroupRelationDecoderImpl();
         suplaRegisterClientResultBDecoder = new SuplaRegisterClientResultBDecoderImpl();
+        suplaChannelGroupRelationPackDecoder = new SuplaChannelGroupRelationPackDecoderImpl(suplaChannelGroupRelationDecoder);
 
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
@@ -250,6 +252,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (SuplaRegisterClientResultB.class.isAssignableFrom(proto)) {
             return (Decoder<T>) suplaRegisterClientResultBDecoder;
+        }
+        if (SuplaChannelGroupRelationPack.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) suplaChannelGroupRelationPackDecoder;
         }
 
         // sd
@@ -368,6 +373,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (callType == SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B) {
             return (Decoder<T>) suplaRegisterClientResultBDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE) {
+            return (Decoder<T>) suplaChannelGroupRelationPackDecoder;
         }
 
         // sd
