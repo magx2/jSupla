@@ -6,11 +6,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
+import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 
 public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     public static final PrimitiveDecoderImpl INSTANCE = new PrimitiveDecoderImpl();
@@ -65,6 +64,10 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     @Override
     public byte[] copyOfRange(final byte[] original, final int from, final int to) {
+        if (to > original.length) {
+            throw new IllegalArgumentException(
+                    format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+        }
         return Arrays.copyOfRange(original, from, to);
     }
 }
