@@ -16,6 +16,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATI
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
+@Deprecated
 public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDeviceCDecoder {
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaDeviceChannelBDecoder channelBDecoder;

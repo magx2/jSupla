@@ -155,6 +155,10 @@ public class RandomSupla extends EnhancedRandom {
         return (byte) nextInt(Byte.MAX_VALUE);
     }
 
+    public byte nextPositiveByte(byte bound) {
+        return (byte) (nextInt(bound) + 1);
+    }
+
     public short nextUnsignedByte() {
         return (short) nextInt(255);
     }
