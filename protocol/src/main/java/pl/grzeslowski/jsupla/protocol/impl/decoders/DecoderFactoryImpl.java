@@ -29,6 +29,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelGroupDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelGroupRelationDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelGroupRelationPackDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaEventDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationDecoder;
@@ -68,6 +69,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroup;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
@@ -104,6 +106,7 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelationDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelationPackDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationDecoderImpl;
@@ -138,6 +141,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE_B;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE_B;
@@ -193,7 +197,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     private final SuplaRegisterClientCDecoder suplaRegisterClientCDecoder;
     private final SuplaChannelBDecoder suplaChannelBDecoder;
     private final SuplaChannelGroupDecoder suplaChannelGroupDecoder;
-
+    private final SuplaChannelPackBDecoder suplaChannelPackBDecoder;
+    
     // sd
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
     private final FirmwareUpdateUrlResultDecoder firmwareUpdateUrlResultDecoder;
@@ -258,6 +263,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         suplaChannelGroupRelationPackDecoder = new SuplaChannelGroupRelationPackDecoderImpl(suplaChannelGroupRelationDecoder);
         suplaChannelBDecoder = new SuplaChannelBDecoderImpl(suplaChannelValueDecoder);
         suplaChannelGroupDecoder = new SuplaChannelGroupDecoderImpl();
+        suplaChannelPackBDecoder = new SuplaChannelPackBDecoderImpl(suplaChannelBDecoder);
         
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
@@ -371,6 +377,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (SuplaChannelGroup.class.isAssignableFrom(proto)) {
             return (Decoder<T>) suplaChannelGroupDecoder;
+        }
+        if (SuplaChannelPackB.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) suplaChannelPackBDecoder;
         }
 
         // sd
@@ -507,6 +516,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (callType == SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE) {
             return (Decoder<T>) suplaChannelGroupDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_CHANNELPACK_UPDATE_B) {
+            return (Decoder<T>) suplaChannelPackBDecoder;
         }
 
         // sd
