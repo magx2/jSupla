@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaChannelNewValueBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaNewValueEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientBEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientCEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaPingServerEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaSetActivityTimeoutEncoder;
@@ -40,6 +41,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
@@ -67,6 +69,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaChannelNewValueBEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaNewValueEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaRegisterClientBEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaRegisterClientCEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaRegisterClientEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.dcs.SuplaPingServerEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.dcs.SuplaSetActivityTimeoutEncoderImpl;
@@ -104,6 +107,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
     private final SuplaRegisterClientBEncoder suplaRegisterClientBEncoder;
     private final SuplaRegisterClientEncoder suplaRegisterClientEncoder;
     private final SuplaNewValueEncoder suplaNewValueEncoder;
+    private final SuplaRegisterClientCEncoder suplaRegisterClientCEncoder;
 
     // dcs
     private final SuplaPingServerEncoder suplaPingServerEncoder;
@@ -159,6 +163,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
         suplaRegisterClientBEncoder = new SuplaRegisterClientBEncoderImpl(primitiveEncoder);
         suplaRegisterClientEncoder = new SuplaRegisterClientEncoderImpl(primitiveEncoder);
         suplaNewValueEncoder = new SuplaNewValueEncoderImpl(primitiveEncoder);
+        suplaRegisterClientCEncoder = new SuplaRegisterClientCEncoderImpl(primitiveEncoder);
 
         // dcs
         suplaPingServerEncoder = new SuplaPingServerEncoderImpl(timevalEncoder);
@@ -220,6 +225,9 @@ public class EncoderFactoryImpl implements EncoderFactory {
         }
         if (SuplaNewValue.class.isAssignableFrom(proto)) {
             return (Encoder<T>) suplaNewValueEncoder;
+        }
+        if (SuplaRegisterClientC.class.isAssignableFrom(proto)) {
+            return (Encoder<T>) suplaRegisterClientCEncoder;
         }
 
         // dcs

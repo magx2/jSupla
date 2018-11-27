@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public final class SuplaRegisterClientBEncoderImpl implements SuplaRegisterClientBEncoder {
     private final PrimitiveEncoder primitiveEncoder;
 

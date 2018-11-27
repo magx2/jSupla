@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
@@ -38,6 +39,7 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.TimevalRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaChannelNewValueBRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaChannelNewValueRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientBRandomizer;
+import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientCRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaPingServerRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaSetActivityTimeoutRandomizer;
@@ -80,6 +82,7 @@ public class RandomSupla extends EnhancedRandom {
                          .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueRandomizer(this))
                          .randomize(SuplaRegisterClientB.class, new SuplaRegisterClientBRandomizer(this))
                          .randomize(SuplaRegisterClient.class, new SuplaRegisterClientRandomizer(this))
+                         .randomize(SuplaRegisterClientC.class, new SuplaRegisterClientCRandomizer(this))
                          // dcs
                          .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
                          .randomize(SuplaSetActivityTimeout.class, new SuplaSetActivityTimeoutRandomizer(this))
