@@ -180,7 +180,7 @@ public class RandomSupla extends EnhancedRandom {
     }
 
     public int nextPositiveInt(int bound) {
-        return Math.abs(nextInt(bound));
+        return Math.abs(nextInt(bound - 1)) + 1;
     }
 
     public String nextString(final int maxLength) {

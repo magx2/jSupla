@@ -5,7 +5,10 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.*;
+import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.Preconditions.max;
+import static pl.grzeslowski.jsupla.Preconditions.positive;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_PACK_MAXCOUNT;
@@ -19,9 +22,9 @@ public final class SuplaChannelValuePack implements ServerClient {
     public final SuplaChannelValue[] items;
 
     public SuplaChannelValuePack(int count, int totalLeft, SuplaChannelValue[] items) {
-        this.count = positive(count);
+        this.count = max(positive(count), SUPLA_CHANNELVALUE_PACK_MAXCOUNT);
         this.totalLeft = positiveOrZero(totalLeft);
-        this.items = checkArrayLength(items, SUPLA_CHANNELVALUE_PACK_MAXCOUNT);
+        this.items = checkArrayLength(items, count);
     }
 
     @Override
@@ -31,7 +34,7 @@ public final class SuplaChannelValuePack implements ServerClient {
 
     @Override
     public int size() {
-        return INT_SIZE * 2 + SUPLA_CHANNELVALUE_PACK_MAXCOUNT * SuplaChannelValue.SIZE;
+        return INT_SIZE * 2 + items.length * SuplaChannelValue.SIZE;
     }
 
     @Override

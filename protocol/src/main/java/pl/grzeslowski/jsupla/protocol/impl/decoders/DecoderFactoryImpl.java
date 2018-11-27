@@ -31,6 +31,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelGroupRelationD
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelGroupRelationPackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelValuePackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaEventDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationPackDecoder;
@@ -70,6 +71,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValuePack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
@@ -108,6 +110,7 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelation
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelationPackDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackBDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValuePackDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationPackDecoderImpl;
@@ -198,6 +201,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     private final SuplaChannelBDecoder suplaChannelBDecoder;
     private final SuplaChannelGroupDecoder suplaChannelGroupDecoder;
     private final SuplaChannelPackBDecoder suplaChannelPackBDecoder;
+    private final SuplaChannelValuePackDecoder suplaChannelValuePackDecoder;
     
     // sd
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
@@ -264,6 +268,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         suplaChannelBDecoder = new SuplaChannelBDecoderImpl(suplaChannelValueDecoder);
         suplaChannelGroupDecoder = new SuplaChannelGroupDecoderImpl();
         suplaChannelPackBDecoder = new SuplaChannelPackBDecoderImpl(suplaChannelBDecoder);
+        suplaChannelValuePackDecoder = new SuplaChannelValuePackDecoderImpl(suplaChannelValueDecoderSc);
         
         // sd
         firmwareUpdateUrlDecoder = new FirmwareUpdateUrlDecoderImpl(primitiveDecoder);
@@ -380,6 +385,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (SuplaChannelPackB.class.isAssignableFrom(proto)) {
             return (Decoder<T>) suplaChannelPackBDecoder;
+        }
+        if (SuplaChannelValuePack.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) suplaChannelValuePackDecoder;
         }
 
         // sd
@@ -502,13 +510,14 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (callType == SUPLA_SC_CALL_REGISTER_CLIENT_RESULT) {
             return (Decoder<T>) suplaRegisterClientResultDecoder;
         }
-        if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
-            return (Decoder<T>) suplaChannelGroupRelationDecoder;
-        }
+        // TODO I think that SuplaChannelGroupRelation might be only send with SuplaChannelGroupRelationPack 
+//        if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
+//            return (Decoder<T>) suplaChannelGroupRelationDecoder;
+//        }
         if (callType == SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B) {
             return (Decoder<T>) suplaRegisterClientResultBDecoder;
         }
-        if (callType == SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE) {
+        if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
             return (Decoder<T>) suplaChannelGroupRelationPackDecoder;
         }
         if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE_B) {
@@ -519,6 +528,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (callType == SUPLA_SC_CALL_CHANNELPACK_UPDATE_B) {
             return (Decoder<T>) suplaChannelPackBDecoder;
+        }
+        if (callType == SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE) {
+            return (Decoder<T>) suplaChannelValuePackDecoder;
         }
 
         // sd
