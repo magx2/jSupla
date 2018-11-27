@@ -65,11 +65,7 @@ public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     @Override
     public int writeBytes(byte[] from, byte[] to, int toOffset) {
         for (int i = 0; i < from.length; i++) {
-            try {
-                to[toOffset + i] = from[i];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
+            to[toOffset + i] = from[i];
         }
         return from.length;
     }
