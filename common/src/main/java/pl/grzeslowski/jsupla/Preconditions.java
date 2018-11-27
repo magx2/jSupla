@@ -269,7 +269,14 @@ public final class Preconditions {
         return size(value, 0, 4294967295L);
     }
 
-    public static int equlsTo(int value, int equalTo) {
+    public static int equalsTo(int value, int equalTo) {
+        if (value != equalTo) {
+            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+        }
+        return value;
+    }
+
+    public static long equalsTo(long value, long equalTo) {
         if (value != equalTo) {
             throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
         }

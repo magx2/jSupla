@@ -5,6 +5,8 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 import java.util.Arrays;
 import java.util.Objects;
 
+import static pl.grzeslowski.jsupla.Preconditions.equalsTo;
+import static pl.grzeslowski.jsupla.Preconditions.id;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -13,7 +15,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
  * @since ver. 9
  */
 public final class SuplaChannelGroup implements ServerClient {
-    public static final int SIZE = BYTE_SIZE + INT_SIZE * 6;
+    public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 6;
 
     public final byte eol;
     public final int id;
@@ -41,13 +43,14 @@ public final class SuplaChannelGroup implements ServerClient {
                              final long captionSize,
                              final byte[] caption) {
         this.eol = eol;
-        this.id = id;
-        this.locationId = locationId;
+        this.id = id(id);
+        this.locationId = id(locationId);
         this.func = func;
         this.altIcon = altIcon;
         this.flags = flags;
         this.captionSize = captionSize;
         this.caption = caption;
+        equalsTo(captionSize, caption.length);
     }
 
     @Override
@@ -57,7 +60,7 @@ public final class SuplaChannelGroup implements ServerClient {
 
     @Override
     public int size() {
-        return SIZE;
+        return MIN_SIZE + caption.length * BYTE_SIZE;
     }
     
     @Override
