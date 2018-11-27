@@ -6,6 +6,7 @@ public enum ClientServerCallType implements CallType {
      * @since ver. 6
      */
     SUPLA_CS_CALL_REGISTER_CLIENT_B(85),
+    SUPLA_CS_CALL_REGISTER_CLIENT_C(86),
     SUPLA_CS_CALL_GET_NEXT(180),
     SUPLA_CS_CALL_CHANNEL_SET_VALUE(200),
     /**

@@ -11,6 +11,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaChannelNewValueBDecod
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaChannelNewValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaNewValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaRegisterClientBDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaRegisterClientCDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaRegisterClientDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.dcs.SuplaPingServerDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.dcs.SuplaSetActivityTimeoutDecoder;
@@ -47,6 +48,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
@@ -80,6 +82,7 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDeco
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaNewValueDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientBDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientCDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaPingServerDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
@@ -115,6 +118,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_CHANNEL_SET_VALUE_B;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_B;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_C;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_SET_VALUE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
@@ -178,6 +182,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
     private final SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder;
     private final SuplaRegisterClientResultBDecoder suplaRegisterClientResultBDecoder;
     private final SuplaChannelGroupRelationPackDecoder suplaChannelGroupRelationPackDecoder;
+    private final SuplaRegisterClientCDecoder suplaRegisterClientCDecoder;
 
     // sd
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
@@ -210,6 +215,7 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         suplaRegisterClientBDecoder = new SuplaRegisterClientBDecoderImpl(primitiveDecoder);
         suplaRegisterClientDecoder = new SuplaRegisterClientDecoderImpl(primitiveDecoder);
         suplaNewValueDecoder = new SuplaNewValueDecoderImpl();
+        suplaRegisterClientCDecoder = new SuplaRegisterClientCDecoderImpl();
 
         // dcs
         suplaPingServerDecoder = new SuplaPingServerDecoderImpl(timevalDecoder);
@@ -275,6 +281,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (SuplaNewValue.class.isAssignableFrom(proto)) {
             return (Decoder<T>) suplaNewValueDecoder;
+        }
+        if (SuplaRegisterClientC.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) suplaRegisterClientCDecoder;
         }
 
         // dcs
@@ -408,6 +417,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
         if (callType == SUPLA_CS_CALL_SET_VALUE) {
             return (Decoder<T>) suplaNewValueDecoder;
+        }
+        if (callType == SUPLA_CS_CALL_REGISTER_CLIENT_C) {
+            return (Decoder<T>) suplaRegisterClientCDecoder;
         }
 
         // dcs
