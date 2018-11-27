@@ -1,14 +1,30 @@
 package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
-import pl.grzeslowski.jsupla.protocol.api.encoders.*;
+import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaDataPacketEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaChannelNewValueBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaPingServerEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaSetActivityTimeoutEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.*;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.*;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.FirmwareUpdateParamsEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaChannelNewValueResultEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelBEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelValueEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceBEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceCEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaEventEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaRegisterDeviceResultEncoder;
@@ -24,8 +40,20 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
@@ -39,8 +67,20 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaRegisterClientBEncod
 import pl.grzeslowski.jsupla.protocol.impl.encoders.cs.SuplaRegisterClientEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.dcs.SuplaPingServerEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.dcs.SuplaSetActivityTimeoutEncoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.*;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.*;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.FirmwareUpdateParamsEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaChannelNewValueResultEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaDeviceChannelBEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaDeviceChannelEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaDeviceChannelValueEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaRegisterDeviceBEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaRegisterDeviceCEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.ds.SuplaRegisterDeviceEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelPackEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaEventEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationPackEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaRegisterClientResultEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.FirmwareUpdateUrlEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.FirmwareUpdateUrlResultEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaChannelNewValueEncoderImpl;
@@ -270,6 +310,6 @@ public class EncoderFactoryImpl implements EncoderFactory {
             return (Encoder<T>) timevalEncoder;
         }
 
-        throw new IllegalArgumentException(format("do not know %s", proto.getSimpleName()));
+        throw new IllegalArgumentException(format("Can't find encoder for class %s", proto));
     }
 }
