@@ -8,6 +8,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public final class SuplaChannelPackEncoderImpl implements SuplaChannelPackEncoder {
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelEncoder channelEncoder;
