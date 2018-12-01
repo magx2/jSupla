@@ -29,6 +29,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationE
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationPackEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelValuePackEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaEventEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
@@ -66,6 +67,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValuePack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
@@ -101,6 +103,7 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelGroupRelation
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelGroupRelationPackEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelPackBEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelPackEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelValuePackEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaEventEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationPackEncoderImpl;
@@ -155,6 +158,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
     private final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
     private final SuplaChannelGroupRelationPackEncoder suplaChannelGroupRelationPackEncoder;
     private final SuplaChannelPackBEncoder suplaChannelPackBEncoder;
+    private final SuplaChannelValuePackEncoder suplaChannelValuePackEncoder;
 
     // sd
     private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
@@ -221,6 +225,8 @@ public class EncoderFactoryImpl implements EncoderFactory {
         suplaChannelGroupRelationPackEncoder = new SuplaChannelGroupRelationPackEncoderImpl(primitiveEncoder,
                 suplaChannelGroupRelationEncoder);
         suplaChannelPackBEncoder = new SuplaChannelPackBEncoderImpl(primitiveEncoder, suplaChannelBEncoder);
+        suplaChannelValuePackEncoder = new SuplaChannelValuePackEncoderImpl(primitiveEncoder,
+                suplaChannelValueEncoderSc);
 
         // sd
         firmwareUpdateUrlEncoder = new FirmwareUpdateUrlEncoderImpl(primitiveEncoder);
@@ -334,6 +340,9 @@ public class EncoderFactoryImpl implements EncoderFactory {
         }
         if (SuplaChannelPackB.class.isAssignableFrom(proto)) {
             return (Encoder<T>) suplaChannelPackBEncoder;
+        }
+        if (SuplaChannelValuePack.class.isAssignableFrom(proto)) {
+            return (Encoder<T>) suplaChannelValuePackEncoder;
         }
 
         // sd
