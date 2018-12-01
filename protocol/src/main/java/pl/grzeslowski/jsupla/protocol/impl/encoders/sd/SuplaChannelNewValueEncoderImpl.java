@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaChannelNewValueEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelNewValueEncoderImpl implements SuplaChannelNewValueEncoder {
+    public static final SuplaChannelNewValueEncoderImpl INSTANCE =
+            new SuplaChannelNewValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaChannelNewValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaChannelNewValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

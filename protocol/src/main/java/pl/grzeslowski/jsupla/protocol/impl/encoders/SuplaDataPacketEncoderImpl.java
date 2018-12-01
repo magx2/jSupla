@@ -7,9 +7,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaDataPacketEncoderImpl implements SuplaDataPacketEncoder {
+    public static final SuplaDataPacketEncoderImpl INSTANCE =
+            new SuplaDataPacketEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaDataPacketEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaDataPacketEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

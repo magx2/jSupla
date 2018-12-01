@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.ds;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.ds.FirmwareUpdateParamsEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class FirmwareUpdateParamsEncoderImpl implements FirmwareUpdateParamsEncoder {
+    public static final FirmwareUpdateParamsEncoderImpl INSTANCE =
+            new FirmwareUpdateParamsEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public FirmwareUpdateParamsEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    FirmwareUpdateParamsEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

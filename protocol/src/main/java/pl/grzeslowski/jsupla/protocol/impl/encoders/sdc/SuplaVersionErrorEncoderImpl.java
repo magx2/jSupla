@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sdc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaVersionErrorEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaVersionErrorEncoderImpl implements SuplaVersionErrorEncoder {
+    public static final SuplaVersionErrorEncoderImpl INSTANCE =
+            new SuplaVersionErrorEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaVersionErrorEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaVersionErrorEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

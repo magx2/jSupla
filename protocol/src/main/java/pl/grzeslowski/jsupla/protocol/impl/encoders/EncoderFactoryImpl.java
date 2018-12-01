@@ -2,46 +2,6 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaDataPacketEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaChannelNewValueBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaNewValueEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientCEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.cs.SuplaRegisterClientEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaPingServerEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.dcs.SuplaSetActivityTimeoutEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.FirmwareUpdateParamsEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaChannelNewValueResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelValueEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceCEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceDEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationPackEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelValuePackEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaEventEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultBEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaRegisterDeviceResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaGetVersionResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaPingServerResultClientEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaSetActivityTimeoutResultEncoder;
-import pl.grzeslowski.jsupla.protocol.api.encoders.sdc.SuplaVersionErrorEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
@@ -123,129 +83,9 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.sdc.SuplaVersionErrorEncoder
 import static java.lang.String.format;
 
 public class EncoderFactoryImpl implements EncoderFactory {
+    public static final EncoderFactoryImpl INSTANCE = new EncoderFactoryImpl();
 
-    // cs
-    private final SuplaChannelNewValueBEncoder suplaChannelNewValueBEncoder;
-    private final pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaChannelNewValueEncoder
-            suplaChannelNewValueEncoder;
-    private final SuplaRegisterClientBEncoder suplaRegisterClientBEncoder;
-    private final SuplaRegisterClientEncoder suplaRegisterClientEncoder;
-    private final SuplaNewValueEncoder suplaNewValueEncoder;
-    private final SuplaRegisterClientCEncoder suplaRegisterClientCEncoder;
-
-    // dcs
-    private final SuplaPingServerEncoder suplaPingServerEncoder;
-    private final SuplaSetActivityTimeoutEncoder suplaSetActivityTimeoutEncoder;
-
-    // ds
-    private final FirmwareUpdateParamsEncoder firmwareUpdateParamsEncoder;
-    private final SuplaChannelNewValueResultEncoder suplaChannelNewValueResultEncoder;
-    private final SuplaDeviceChannelBEncoder suplaDeviceChannelBEncoder;
-    private final SuplaDeviceChannelEncoder suplaDeviceChannelEncoder;
-    private final SuplaDeviceChannelValueEncoder suplaDeviceChannelValueEncoder;
-    private final SuplaRegisterDeviceBEncoder suplaRegisterDeviceBEncoder;
-    private final SuplaRegisterDeviceCEncoder suplaRegisterDeviceCEncoder;
-    private final SuplaRegisterDeviceEncoder suplaRegisterDeviceEncoder;
-    private final SuplaRegisterDeviceDEncoder suplaRegisterDeviceDEncoder;
-
-    // sc
-    private final SuplaChannelEncoder suplaChannelEncoder;
-    private final SuplaChannelPackEncoder suplaChannelPackEncoder;
-    private final pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelValueEncoder suplaChannelValueEncoderSc;
-    private final SuplaEventEncoder suplaEventEncoder;
-    private final SuplaLocationEncoder suplaLocationEncoder;
-    private final SuplaLocationPackEncoder suplaLocationPackEncoder;
-    private final SuplaRegisterClientResultEncoder suplaRegisterClientResultEncoder;
-    private final SuplaChannelBEncoder suplaChannelBEncoder;
-    private final SuplaChannelGroupEncoder suplaChannelGroupEncoder;
-    private final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
-    private final SuplaChannelGroupRelationPackEncoder suplaChannelGroupRelationPackEncoder;
-    private final SuplaChannelPackBEncoder suplaChannelPackBEncoder;
-    private final SuplaChannelValuePackEncoder suplaChannelValuePackEncoder;
-    private final SuplaRegisterClientResultBEncoder suplaRegisterClientResultBEncoder;
-
-    // sd
-    private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
-    private final FirmwareUpdateUrlResultEncoder firmwareUpdateUrlResultEncoder;
-    private final pl.grzeslowski.jsupla.protocol.api.encoders.sd.SuplaChannelNewValueEncoder
-            suplaChannelNewValueEncoderSd;
-    private final SuplaRegisterDeviceResultEncoder suplaRegisterDeviceResultEncoder;
-
-    // sdc
-    private final SuplaGetVersionResultEncoder suplaGetVersionResultEncoder;
-    private final SuplaPingServerResultClientEncoder suplaPingServerResultClientEncoder;
-    private final SuplaSetActivityTimeoutResultEncoder suplaSetActivityTimeoutResultEncoder;
-    private final SuplaVersionErrorEncoder suplaVersionErrorEncoder;
-
-    // common
-    private final SuplaChannelValueEncoder suplaChannelValueEncoder;
-    private final SuplaDataPacketEncoder suplaDataPacketEncoder;
-    private final TimevalEncoder timevalEncoder;
-
-    public EncoderFactoryImpl(final PrimitiveEncoder primitiveEncoder) {
-
-        // common
-        suplaChannelValueEncoder = new SuplaChannelValueEncoderImpl(primitiveEncoder);
-        suplaDataPacketEncoder = new SuplaDataPacketEncoderImpl(primitiveEncoder);
-        timevalEncoder = new TimevalEncoderImpl(primitiveEncoder);
-
-        // cs
-        suplaChannelNewValueBEncoder = new SuplaChannelNewValueBEncoderImpl(primitiveEncoder);
-        suplaChannelNewValueEncoder = new SuplaChannelNewValueEncoderImpl(primitiveEncoder);
-        suplaRegisterClientBEncoder = new SuplaRegisterClientBEncoderImpl(primitiveEncoder);
-        suplaRegisterClientEncoder = new SuplaRegisterClientEncoderImpl(primitiveEncoder);
-        suplaNewValueEncoder = new SuplaNewValueEncoderImpl(primitiveEncoder);
-        suplaRegisterClientCEncoder = new SuplaRegisterClientCEncoderImpl(primitiveEncoder);
-
-        // dcs
-        suplaPingServerEncoder = new SuplaPingServerEncoderImpl(timevalEncoder);
-        suplaSetActivityTimeoutEncoder = new SuplaSetActivityTimeoutEncoderImpl(primitiveEncoder);
-
-        // ds
-        firmwareUpdateParamsEncoder = new FirmwareUpdateParamsEncoderImpl(primitiveEncoder);
-        suplaChannelNewValueResultEncoder = new SuplaChannelNewValueResultEncoderImpl(primitiveEncoder);
-        suplaDeviceChannelBEncoder = new SuplaDeviceChannelBEncoderImpl(primitiveEncoder);
-        suplaDeviceChannelEncoder = new SuplaDeviceChannelEncoderImpl(primitiveEncoder);
-        suplaDeviceChannelValueEncoder = new SuplaDeviceChannelValueEncoderImpl(primitiveEncoder);
-        suplaRegisterDeviceBEncoder = new SuplaRegisterDeviceBEncoderImpl(primitiveEncoder, suplaDeviceChannelBEncoder);
-        suplaRegisterDeviceCEncoder = new SuplaRegisterDeviceCEncoderImpl(primitiveEncoder, suplaDeviceChannelBEncoder);
-        suplaRegisterDeviceEncoder = new SuplaRegisterDeviceEncoderImpl(primitiveEncoder, suplaDeviceChannelEncoder);
-        suplaRegisterDeviceDEncoder = new SuplaRegisterDeviceDEncoderImpl(primitiveEncoder, suplaDeviceChannelBEncoder);
-
-        // sc
-        suplaChannelEncoder = new SuplaChannelEncoderImpl(primitiveEncoder, suplaChannelValueEncoder);
-        suplaChannelPackEncoder = new SuplaChannelPackEncoderImpl(primitiveEncoder, suplaChannelEncoder);
-        // @formatter:off
-        suplaChannelValueEncoderSc = new pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelValueEncoderImpl(
-                primitiveEncoder, suplaChannelValueEncoder);
-        // @formatter:on
-        suplaEventEncoder = new SuplaEventEncoderImpl(primitiveEncoder);
-        suplaLocationEncoder = new SuplaLocationEncoderImpl(primitiveEncoder);
-        suplaLocationPackEncoder = new SuplaLocationPackEncoderImpl(primitiveEncoder, suplaLocationEncoder);
-        suplaRegisterClientResultEncoder = new SuplaRegisterClientResultEncoderImpl(primitiveEncoder);
-        suplaChannelBEncoder = new SuplaChannelBEncoderImpl(primitiveEncoder, suplaChannelValueEncoder);
-        suplaChannelGroupEncoder = new SuplaChannelGroupEncoderImpl(primitiveEncoder);
-        suplaChannelGroupRelationEncoder = new SuplaChannelGroupRelationEncoderImpl(primitiveEncoder);
-        suplaChannelGroupRelationPackEncoder = new SuplaChannelGroupRelationPackEncoderImpl(primitiveEncoder,
-                suplaChannelGroupRelationEncoder);
-        suplaChannelPackBEncoder = new SuplaChannelPackBEncoderImpl(primitiveEncoder, suplaChannelBEncoder);
-        suplaChannelValuePackEncoder = new SuplaChannelValuePackEncoderImpl(primitiveEncoder,
-                suplaChannelValueEncoderSc);
-        suplaRegisterClientResultBEncoder = new SuplaRegisterClientResultBEncoderImpl(primitiveEncoder);
-
-        // sd
-        firmwareUpdateUrlEncoder = new FirmwareUpdateUrlEncoderImpl(primitiveEncoder);
-        firmwareUpdateUrlResultEncoder = new FirmwareUpdateUrlResultEncoderImpl(primitiveEncoder,
-                firmwareUpdateUrlEncoder);
-        suplaChannelNewValueEncoderSd =
-                new pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaChannelNewValueEncoderImpl(primitiveEncoder);
-        suplaRegisterDeviceResultEncoder = new SuplaRegisterDeviceResultEncoderImpl(primitiveEncoder);
-
-        // sdc
-        suplaGetVersionResultEncoder = new SuplaGetVersionResultEncoderImpl(primitiveEncoder);
-        suplaPingServerResultClientEncoder = new SuplaPingServerResultClientEncoderImpl(timevalEncoder);
-        suplaSetActivityTimeoutResultEncoder = new SuplaSetActivityTimeoutResultEncoderImpl(primitiveEncoder);
-        suplaVersionErrorEncoder = new SuplaVersionErrorEncoderImpl(primitiveEncoder);
+    EncoderFactoryImpl() {
     }
 
     @SuppressWarnings("unchecked")
@@ -254,142 +94,142 @@ public class EncoderFactoryImpl implements EncoderFactory {
 
         // cs
         if (SuplaChannelNewValueB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelNewValueBEncoder;
+            return (Encoder<T>) SuplaChannelNewValueBEncoderImpl.INSTANCE;
         }
         if (pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelNewValueEncoder;
+            return (Encoder<T>) SuplaChannelNewValueEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterClientB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterClientBEncoder;
+            return (Encoder<T>) SuplaRegisterClientBEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterClient.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterClientEncoder;
+            return (Encoder<T>) SuplaRegisterClientEncoderImpl.INSTANCE;
         }
         if (SuplaNewValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaNewValueEncoder;
+            return (Encoder<T>) SuplaNewValueEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterClientC.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterClientCEncoder;
+            return (Encoder<T>) SuplaRegisterClientCEncoderImpl.INSTANCE;
         }
 
         // dcs
         if (SuplaPingServer.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaPingServerEncoder;
+            return (Encoder<T>) SuplaPingServerEncoderImpl.INSTANCE;
         }
         if (SuplaSetActivityTimeout.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaSetActivityTimeoutEncoder;
+            return (Encoder<T>) SuplaSetActivityTimeoutEncoderImpl.INSTANCE;
         }
 
         // ds
         if (SuplaFirmwareUpdateParams.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) firmwareUpdateParamsEncoder;
+            return (Encoder<T>) FirmwareUpdateParamsEncoderImpl.INSTANCE;
         }
         if (SuplaChannelNewValueResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelNewValueResultEncoder;
+            return (Encoder<T>) SuplaChannelNewValueResultEncoderImpl.INSTANCE;
         }
         if (SuplaDeviceChannelB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaDeviceChannelBEncoder;
+            return (Encoder<T>) SuplaDeviceChannelBEncoderImpl.INSTANCE;
         }
         if (SuplaDeviceChannel.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaDeviceChannelEncoder;
+            return (Encoder<T>) SuplaDeviceChannelEncoderImpl.INSTANCE;
         }
         if (SuplaDeviceChannelValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaDeviceChannelValueEncoder;
+            return (Encoder<T>) SuplaDeviceChannelValueEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterDeviceBEncoder;
+            return (Encoder<T>) SuplaRegisterDeviceBEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceC.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterDeviceCEncoder;
+            return (Encoder<T>) SuplaRegisterDeviceCEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterDevice.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterDeviceEncoder;
+            return (Encoder<T>) SuplaRegisterDeviceEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceD.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterDeviceDEncoder;
+            return (Encoder<T>) SuplaRegisterDeviceDEncoderImpl.INSTANCE;
         }
 
         // sc
         if (SuplaChannel.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelEncoder;
+            return (Encoder<T>) SuplaChannelEncoderImpl.INSTANCE;
         }
         if (SuplaChannelPack.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelPackEncoder;
+            return (Encoder<T>) SuplaChannelPackEncoderImpl.INSTANCE;
         }
         if (pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelValueEncoderSc;
+            return (Encoder<T>) SuplaChannelBEncoderImpl.INSTANCE;
         }
         if (SuplaEvent.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaEventEncoder;
+            return (Encoder<T>) SuplaEventEncoderImpl.INSTANCE;
         }
         if (SuplaLocation.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaLocationEncoder;
+            return (Encoder<T>) SuplaLocationEncoderImpl.INSTANCE;
         }
         if (SuplaLocationPack.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaLocationPackEncoder;
+            return (Encoder<T>) SuplaLocationPackEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterClientResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterClientResultEncoder;
+            return (Encoder<T>) SuplaRegisterClientResultEncoderImpl.INSTANCE;
         }
         if (SuplaChannelB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelBEncoder;
+            return (Encoder<T>) SuplaChannelBEncoderImpl.INSTANCE;
         }
         if (SuplaChannelGroup.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelGroupEncoder;
+            return (Encoder<T>) SuplaChannelGroupEncoderImpl.INSTANCE;
         }
         if (SuplaChannelGroupRelation.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelGroupRelationEncoder;
+            return (Encoder<T>) SuplaChannelGroupRelationEncoderImpl.INSTANCE;
         }
         if (SuplaChannelGroupRelationPack.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelGroupRelationPackEncoder;
+            return (Encoder<T>) SuplaChannelGroupRelationPackEncoderImpl.INSTANCE;
         }
         if (SuplaChannelPackB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelPackBEncoder;
+            return (Encoder<T>) SuplaChannelPackBEncoderImpl.INSTANCE;
         }
         if (SuplaChannelValuePack.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelValuePackEncoder;
+            return (Encoder<T>) SuplaChannelValuePackEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterClientResultB.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterClientResultBEncoder;
+            return (Encoder<T>) SuplaRegisterClientResultBEncoderImpl.INSTANCE;
         }
 
         // sd
         if (SuplaFirmwareUpdateUrl.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) firmwareUpdateUrlEncoder;
+            return (Encoder<T>) FirmwareUpdateUrlEncoderImpl.INSTANCE;
         }
         if (SuplaFirmwareUpdateUrlResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) firmwareUpdateUrlResultEncoder;
+            return (Encoder<T>) FirmwareUpdateUrlResultEncoderImpl.INSTANCE;
         }
         if (pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelNewValueEncoderSd;
+            return (Encoder<T>) SuplaChannelNewValueEncoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaRegisterDeviceResultEncoder;
+            return (Encoder<T>) SuplaRegisterDeviceResultEncoderImpl.INSTANCE;
         }
 
         // sdc
         if (SuplaGetVersionResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaGetVersionResultEncoder;
+            return (Encoder<T>) SuplaGetVersionResultEncoderImpl.INSTANCE;
         }
         if (SuplaPingServerResultClient.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaPingServerResultClientEncoder;
+            return (Encoder<T>) SuplaPingServerResultClientEncoderImpl.INSTANCE;
         }
         if (SuplaSetActivityTimeoutResult.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaSetActivityTimeoutResultEncoder;
+            return (Encoder<T>) SuplaSetActivityTimeoutResultEncoderImpl.INSTANCE;
         }
         if (SuplaVersionError.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaVersionErrorEncoder;
+            return (Encoder<T>) SuplaVersionErrorEncoderImpl.INSTANCE;
         }
 
         // common
         if (SuplaChannelValue.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaChannelValueEncoder;
+            return (Encoder<T>) SuplaChannelValueEncoderImpl.INSTANCE;
         }
         if (SuplaDataPacket.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) suplaDataPacketEncoder;
+            return (Encoder<T>) SuplaDataPacketEncoderImpl.INSTANCE;
         }
         if (SuplaTimeval.class.isAssignableFrom(proto)) {
-            return (Encoder<T>) timevalEncoder;
+            return (Encoder<T>) TimevalEncoderImpl.INSTANCE;
         }
 
         throw new IllegalArgumentException(format("Can't find encoder for class %s", proto));

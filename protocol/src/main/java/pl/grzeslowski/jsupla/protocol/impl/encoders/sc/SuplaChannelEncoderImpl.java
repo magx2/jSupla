@@ -4,17 +4,21 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public final class SuplaChannelEncoderImpl implements SuplaChannelEncoder {
+    public static final SuplaChannelEncoderImpl INSTANCE =
+            new SuplaChannelEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelValueEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelValueEncoder channelValueEncoder;
 
-    public SuplaChannelEncoderImpl(PrimitiveEncoder primitiveEncoder,
-                                   SuplaChannelValueEncoder channelValueEncoder) {
+    SuplaChannelEncoderImpl(PrimitiveEncoder primitiveEncoder,
+                            SuplaChannelValueEncoder channelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelValueEncoder = requireNonNull(channelValueEncoder);
     }

@@ -5,14 +5,18 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationE
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationPackEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelationPack;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelGroupRelationPackEncoderImpl implements SuplaChannelGroupRelationPackEncoder {
+    public static final SuplaChannelGroupRelationPackEncoderImpl INSTANCE =
+            new SuplaChannelGroupRelationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE,
+                    SuplaChannelGroupRelationEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
 
-    public SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder) {
+    SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelGroupRelationEncoder = requireNonNull(suplaChannelGroupRelationEncoder);
     }

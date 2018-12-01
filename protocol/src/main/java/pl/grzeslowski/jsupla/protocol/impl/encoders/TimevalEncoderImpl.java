@@ -7,9 +7,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import static java.util.Objects.requireNonNull;
 
 public class TimevalEncoderImpl implements TimevalEncoder {
+    public static final TimevalEncoderImpl INSTANCE =
+            new TimevalEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public TimevalEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
+    TimevalEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

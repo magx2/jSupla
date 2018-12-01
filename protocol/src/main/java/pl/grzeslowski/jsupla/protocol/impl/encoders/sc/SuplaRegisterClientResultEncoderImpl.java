@@ -3,15 +3,18 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public final class SuplaRegisterClientResultEncoderImpl implements SuplaRegisterClientResultEncoder {
+    public static final SuplaRegisterClientResultEncoderImpl INSTANCE =
+            new SuplaRegisterClientResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaRegisterClientResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaRegisterClientResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

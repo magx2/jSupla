@@ -5,15 +5,18 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelPackBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelPackBEncoderImpl implements SuplaChannelPackBEncoder {
+    public static final SuplaChannelPackBEncoderImpl INSTANCE =
+            new SuplaChannelPackBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelBEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelBEncoder suplaChannelBEncoder;
 
-    public SuplaChannelPackBEncoderImpl(final PrimitiveEncoder primitiveEncoder,
-                                        final SuplaChannelBEncoder suplaChannelBEncoder) {
+    SuplaChannelPackBEncoderImpl(final PrimitiveEncoder primitiveEncoder,
+                                 final SuplaChannelBEncoder suplaChannelBEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelBEncoder = requireNonNull(suplaChannelBEncoder);
     }

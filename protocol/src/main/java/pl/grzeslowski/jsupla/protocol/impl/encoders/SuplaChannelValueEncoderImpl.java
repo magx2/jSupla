@@ -7,9 +7,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelValueEncoderImpl implements SuplaChannelValueEncoder {
+    public static final SuplaChannelValueEncoderImpl INSTANCE =
+            new SuplaChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

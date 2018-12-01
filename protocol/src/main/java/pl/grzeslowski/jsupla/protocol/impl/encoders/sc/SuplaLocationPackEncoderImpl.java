@@ -5,14 +5,17 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaLocationPackEncoderImpl implements SuplaLocationPackEncoder {
+    public static final SuplaLocationPackEncoderImpl INSTANCE =
+            new SuplaLocationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaLocationEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaLocationEncoder locationEncoder;
 
-    public SuplaLocationPackEncoderImpl(PrimitiveEncoder primitiveEncoder, SuplaLocationEncoder locationEncoder) {
+    SuplaLocationPackEncoderImpl(PrimitiveEncoder primitiveEncoder, SuplaLocationEncoder locationEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.locationEncoder = requireNonNull(locationEncoder);
     }

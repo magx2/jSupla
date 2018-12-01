@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaEventEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaEventEncoderImpl implements SuplaEventEncoder {
+    public static final SuplaEventEncoderImpl INSTANCE =
+            new SuplaEventEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaEventEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaEventEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

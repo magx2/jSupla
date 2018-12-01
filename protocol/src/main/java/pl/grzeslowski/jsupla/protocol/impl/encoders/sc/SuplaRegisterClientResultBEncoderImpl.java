@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResultB;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaRegisterClientResultBEncoderImpl implements SuplaRegisterClientResultBEncoder {
+    public static final SuplaRegisterClientResultBEncoderImpl INSTANCE =
+            new SuplaRegisterClientResultBEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaRegisterClientResultBEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
+    SuplaRegisterClientResultBEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

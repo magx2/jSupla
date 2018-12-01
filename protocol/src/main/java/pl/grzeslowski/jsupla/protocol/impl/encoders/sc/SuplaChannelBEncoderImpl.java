@@ -4,14 +4,18 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelBEncoderImpl implements SuplaChannelBEncoder {
+    public static final SuplaChannelBEncoderImpl INSTANCE =
+            new SuplaChannelBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelValueEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelValueEncoder suplaChannelValueEncoder;
 
-    public SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelValueEncoder suplaChannelValueEncoder) {
+    SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelValueEncoder suplaChannelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelValueEncoder = requireNonNull(suplaChannelValueEncoder);
     }

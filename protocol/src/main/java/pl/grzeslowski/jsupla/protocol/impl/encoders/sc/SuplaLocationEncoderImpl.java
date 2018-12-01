@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaLocationEncoderImpl implements SuplaLocationEncoder {
+    public static final SuplaLocationEncoderImpl INSTANCE =
+            new SuplaLocationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaLocationEncoderImpl(PrimitiveEncoder primitiveEncoder) {
+    SuplaLocationEncoderImpl(PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

@@ -3,13 +3,16 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders.sc;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelGroupRelationEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelGroupRelationEncoderImpl implements SuplaChannelGroupRelationEncoder {
+    public static final SuplaChannelGroupRelationEncoderImpl INSTANCE =
+            new SuplaChannelGroupRelationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
-    public SuplaChannelGroupRelationEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
+    SuplaChannelGroupRelationEncoderImpl(final PrimitiveEncoder primitiveEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
     }
 

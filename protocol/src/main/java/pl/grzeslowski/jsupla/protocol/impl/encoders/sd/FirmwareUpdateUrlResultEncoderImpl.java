@@ -4,15 +4,18 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class FirmwareUpdateUrlResultEncoderImpl implements FirmwareUpdateUrlResultEncoder {
+    public static final FirmwareUpdateUrlResultEncoderImpl INSTANCE =
+            new FirmwareUpdateUrlResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE, FirmwareUpdateUrlEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
-    public FirmwareUpdateUrlResultEncoderImpl(PrimitiveEncoder primitiveEncoder,
-                                              FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {
+    FirmwareUpdateUrlResultEncoderImpl(PrimitiveEncoder primitiveEncoder,
+                                       FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.firmwareUpdateUrlEncoder = requireNonNull(firmwareUpdateUrlEncoder);
     }

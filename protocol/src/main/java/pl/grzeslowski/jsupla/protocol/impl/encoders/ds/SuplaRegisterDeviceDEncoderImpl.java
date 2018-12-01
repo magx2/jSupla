@@ -5,15 +5,18 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaDeviceChannelBEncoder
 import pl.grzeslowski.jsupla.protocol.api.encoders.ds.SuplaRegisterDeviceDEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaRegisterDeviceDEncoderImpl implements SuplaRegisterDeviceDEncoder {
+    public static final SuplaRegisterDeviceDEncoderImpl INSTANCE =
+            new SuplaRegisterDeviceDEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaDeviceChannelBEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaDeviceChannelBEncoder suplaDeviceChannelBEncoder;
 
-    public SuplaRegisterDeviceDEncoderImpl(final PrimitiveEncoder primitiveEncoder,
-                                           final SuplaDeviceChannelBEncoder suplaDeviceChannelBEncoder) {
+    SuplaRegisterDeviceDEncoderImpl(final PrimitiveEncoder primitiveEncoder,
+                                    final SuplaDeviceChannelBEncoder suplaDeviceChannelBEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaDeviceChannelBEncoder = requireNonNull(suplaDeviceChannelBEncoder);
     }
