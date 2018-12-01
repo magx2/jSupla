@@ -33,6 +33,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaChannelValuePackEncod
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaEventEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaLocationPackEncoder;
+import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultBEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sc.SuplaRegisterClientResultEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlEncoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.sd.FirmwareUpdateUrlResultEncoder;
@@ -72,6 +73,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResultB;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
@@ -107,6 +109,7 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaChannelValuePackEnco
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaEventEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaLocationPackEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaRegisterClientResultBEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sc.SuplaRegisterClientResultEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.FirmwareUpdateUrlEncoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.FirmwareUpdateUrlResultEncoderImpl;
@@ -159,6 +162,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
     private final SuplaChannelGroupRelationPackEncoder suplaChannelGroupRelationPackEncoder;
     private final SuplaChannelPackBEncoder suplaChannelPackBEncoder;
     private final SuplaChannelValuePackEncoder suplaChannelValuePackEncoder;
+    private final SuplaRegisterClientResultBEncoder suplaRegisterClientResultBEncoder;
 
     // sd
     private final FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
@@ -227,6 +231,7 @@ public class EncoderFactoryImpl implements EncoderFactory {
         suplaChannelPackBEncoder = new SuplaChannelPackBEncoderImpl(primitiveEncoder, suplaChannelBEncoder);
         suplaChannelValuePackEncoder = new SuplaChannelValuePackEncoderImpl(primitiveEncoder,
                 suplaChannelValueEncoderSc);
+        suplaRegisterClientResultBEncoder = new SuplaRegisterClientResultBEncoderImpl(primitiveEncoder);
 
         // sd
         firmwareUpdateUrlEncoder = new FirmwareUpdateUrlEncoderImpl(primitiveEncoder);
@@ -343,6 +348,9 @@ public class EncoderFactoryImpl implements EncoderFactory {
         }
         if (SuplaChannelValuePack.class.isAssignableFrom(proto)) {
             return (Encoder<T>) suplaChannelValuePackEncoder;
+        }
+        if (SuplaRegisterClientResultB.class.isAssignableFrom(proto)) {
+            return (Encoder<T>) suplaRegisterClientResultBEncoder;
         }
 
         // sd
