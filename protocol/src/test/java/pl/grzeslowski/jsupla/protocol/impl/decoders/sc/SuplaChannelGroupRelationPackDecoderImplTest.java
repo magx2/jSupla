@@ -16,6 +16,8 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 import static java.util.Arrays.stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
@@ -51,6 +53,8 @@ public class SuplaChannelGroupRelationPackDecoderImplTest extends ProperDecoderT
     @Override
     protected byte[] givenParseEntity(int offset) {
         final byte[] bytes = new byte[entitySize() + offset];
+        given(suplaChannelGroupRelationDecoder.decode(any(), anyInt()))
+                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class));
 
         offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(count, bytes, offset);
         offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(totalLeft, bytes, offset);
