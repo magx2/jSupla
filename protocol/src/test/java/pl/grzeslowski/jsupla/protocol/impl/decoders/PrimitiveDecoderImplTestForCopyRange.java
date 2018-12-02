@@ -37,7 +37,7 @@ public class PrimitiveDecoderImplTestForCopyRange {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowArrayIndexOutOfBoundsExceptionWhenToIsbiggerThanArray() throws Exception {
+    public void shouldThrowArrayIndexOutOfBoundsExceptionWhenToIsBiggerThanArray() throws Exception {
         INSTANCE.copyOfRange(new byte[5], 0, 7);
     }
 
