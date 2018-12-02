@@ -16,7 +16,8 @@ public final class SuplaChannelGroupRelationPackEncoderImpl implements SuplaChan
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
 
-    SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder) {
+    SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder, 
+                                             final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelGroupRelationEncoder = requireNonNull(suplaChannelGroupRelationEncoder);
     }

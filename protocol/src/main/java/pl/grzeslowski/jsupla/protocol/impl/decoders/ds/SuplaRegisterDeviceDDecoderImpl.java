@@ -31,19 +31,23 @@ public final class SuplaRegisterDeviceDDecoderImpl implements SuplaRegisterDevic
         final byte[] email = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_EMAIL_MAXSIZE);
         offset += SUPLA_EMAIL_MAXSIZE;
 
-        final byte[] authKey = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_AUTHKEY_SIZE);
+        final byte[] authKey = PrimitiveDecoderImpl.INSTANCE
+                                       .copyOfRange(bytes, offset, offset + SUPLA_AUTHKEY_SIZE);
         offset += SUPLA_AUTHKEY_SIZE;
 
         final byte[] guid = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
-        final byte[] name = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
+        final byte[] name = PrimitiveDecoderImpl.INSTANCE
+                                    .copyOfRange(bytes, offset, offset + SUPLA_DEVICE_NAME_MAXSIZE);
         offset += SUPLA_DEVICE_NAME_MAXSIZE;
 
-        final byte[] softVer = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
+        final byte[] softVer = PrimitiveDecoderImpl.INSTANCE
+                                       .copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
         offset += SUPLA_SOFTVER_MAXSIZE;
 
-        final byte[] serverName = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_SERVER_NAME_MAXSIZE);
+        final byte[] serverName = PrimitiveDecoderImpl.INSTANCE
+                                          .copyOfRange(bytes, offset, offset + SUPLA_SERVER_NAME_MAXSIZE);
         offset += SUPLA_SERVER_NAME_MAXSIZE;
 
         final short channelCount = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);

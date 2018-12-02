@@ -38,8 +38,8 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     public final short channelCount;
     public final SuplaDeviceChannelB[] channels;
 
-    public SuplaRegisterDeviceD(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer, byte[] serverName,
-                                short channelCount, SuplaDeviceChannelB[] channels) {
+    public SuplaRegisterDeviceD(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer,
+                                byte[] serverName, short channelCount, SuplaDeviceChannelB[] channels) {
         this.email = checkArrayLength(email, SUPLA_EMAIL_MAXSIZE);
         this.authKey = checkArrayLength(authKey, SUPLA_AUTHKEY_SIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
@@ -58,15 +58,19 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     @Override
     public int size() {
         return BYTE_SIZE * (SUPLA_EMAIL_MAXSIZE + SUPLA_AUTHKEY_SIZE
-                + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE
-                + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE) +
-                BYTE_SIZE + channels.length * SuplaDeviceChannelB.SIZE;
+                                    + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE
+                                    + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE) +
+                       BYTE_SIZE + channels.length * SuplaDeviceChannelB.SIZE;
     }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaRegisterDeviceD that = (SuplaRegisterDeviceD) o;
         return channelCount == that.channelCount &&
                        Arrays.equals(email, that.email) &&
@@ -94,14 +98,14 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaRegisterDeviceD{" +
-                "email=" + Arrays.toString(email) +
-                ", authKey=" + Arrays.toString(authKey) +
-                ", guid=" + Arrays.toString(guid) +
-                ", name=" + Arrays.toString(name) +
-                ", softVer=" + Arrays.toString(softVer) +
-                ", serverName=" + Arrays.toString(serverName) +
-                ", channelCount=" + channelCount +
-                ", channels=" + Arrays.toString(channels) +
-                '}';
+                       "email=" + Arrays.toString(email) +
+                       ", authKey=" + Arrays.toString(authKey) +
+                       ", guid=" + Arrays.toString(guid) +
+                       ", name=" + Arrays.toString(name) +
+                       ", softVer=" + Arrays.toString(softVer) +
+                       ", serverName=" + Arrays.toString(serverName) +
+                       ", channelCount=" + channelCount +
+                       ", channels=" + Arrays.toString(channels) +
+                       '}';
     }
 }

@@ -37,7 +37,8 @@ public final class SuplaRegisterClientC implements ClientServer {
     public final byte[] softVer;
     public final byte[] serverName;
 
-    public SuplaRegisterClientC(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer, byte[] serverName) {
+    public SuplaRegisterClientC(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer,
+                                byte[] serverName) {
         this.email = checkArrayLength(email, SUPLA_EMAIL_MAXSIZE);
         this.authKey = checkArrayLength(authKey, SUPLA_AUTHKEY_SIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
@@ -58,8 +59,12 @@ public final class SuplaRegisterClientC implements ClientServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaRegisterClientC that = (SuplaRegisterClientC) o;
         return Arrays.equals(email, that.email) &&
                        Arrays.equals(authKey, that.authKey) &&

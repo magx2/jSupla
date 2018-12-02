@@ -39,12 +39,16 @@ public final class SuplaChannelValuePack implements ServerClient {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SuplaChannelValuePack that = (SuplaChannelValuePack) o;
         return count == that.count &&
-                totalLeft == that.totalLeft &&
-                Arrays.equals(items, that.items);
+                       totalLeft == that.totalLeft &&
+                       Arrays.equals(items, that.items);
     }
 
     @Override
@@ -57,9 +61,9 @@ public final class SuplaChannelValuePack implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelValuePack{" +
-                "count=" + count +
-                ", totalLeft=" + totalLeft +
-                ", items=" + Arrays.toString(items) +
-                '}';
+                       "count=" + count +
+                       ", totalLeft=" + totalLeft +
+                       ", items=" + Arrays.toString(items) +
+                       '}';
     }
 }

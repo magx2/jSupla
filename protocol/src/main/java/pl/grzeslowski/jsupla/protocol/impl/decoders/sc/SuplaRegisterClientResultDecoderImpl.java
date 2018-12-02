@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.
 
 public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegisterClientResultDecoder {
     public static final SuplaRegisterClientResultDecoderImpl INSTANCE = new SuplaRegisterClientResultDecoderImpl();
+    
     @Override
     public SuplaRegisterClientResult decode(byte[] bytes, int offset) {
         Preconditions.sizeMin(bytes, offset + SuplaRegisterClientResult.SIZE);

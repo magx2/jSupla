@@ -65,8 +65,12 @@ public final class SuplaRegisterClientResultB implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        } 
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        } 
         final SuplaRegisterClientResultB that = (SuplaRegisterClientResultB) o;
         return resultCode == that.resultCode &&
                        clientId == that.clientId &&
@@ -80,7 +84,8 @@ public final class SuplaRegisterClientResultB implements ServerClient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(resultCode, clientId, locationCount, channelCount, flags, activityTimeout, version, versionMin);
+        return Objects.hash(resultCode, clientId, locationCount, channelCount, flags, activityTimeout, version,
+                versionMin);
     }
 
     @Override

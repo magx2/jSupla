@@ -11,31 +11,31 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 public final class SuplaChannelPackBDecoderImpl implements SuplaChannelPackBDecoder {
-	public static final SuplaChannelPackBDecoderImpl INSTANCE = new SuplaChannelPackBDecoderImpl(
-			SuplaChannelBDecoderImpl.INSTANCE);
-	private final SuplaChannelBDecoder suplaChannelBDecoder;
+    public static final SuplaChannelPackBDecoderImpl INSTANCE = new SuplaChannelPackBDecoderImpl(
+            SuplaChannelBDecoderImpl.INSTANCE);
+    private final SuplaChannelBDecoder suplaChannelBDecoder;
 
-	public SuplaChannelPackBDecoderImpl(SuplaChannelBDecoder suplaChannelBDecoder) {
-		this.suplaChannelBDecoder = requireNonNull(suplaChannelBDecoder);
-	}
+    public SuplaChannelPackBDecoderImpl(SuplaChannelBDecoder suplaChannelBDecoder) {
+        this.suplaChannelBDecoder = requireNonNull(suplaChannelBDecoder);
+    }
 
-	@Override
-	public SuplaChannelPackB decode(byte[] bytes, int offset) {
-		final int count = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
-		offset += INT_SIZE;
-		final int totalLeft = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
-		offset += INT_SIZE;
-		final SuplaChannelB[] channels = new SuplaChannelB[count];
-		for (int i = 0; i < count; i++) {
-			if (bytes.length - offset < SuplaChannelB.MIN_SIZE) {
-				throw new IllegalArgumentException(format(
-						"Can't parse SuplaChannelB from byte array of length %s with offset %s, " +
-								"because min length is %s!", bytes.length, offset, SuplaChannelB.MIN_SIZE));
-			}
-			final SuplaChannelB channel = suplaChannelBDecoder.decode(bytes, offset);
-			offset += channel.size();
-			channels[i] = channel;
-		}
-		return new SuplaChannelPackB(count, totalLeft, channels);
-	}
+    @Override
+    public SuplaChannelPackB decode(byte[] bytes, int offset) {
+        final int count = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
+        offset += INT_SIZE;
+        final int totalLeft = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
+        offset += INT_SIZE;
+        final SuplaChannelB[] channels = new SuplaChannelB[count];
+        for (int i = 0; i < count; i++) {
+            if (bytes.length - offset < SuplaChannelB.MIN_SIZE) {
+                throw new IllegalArgumentException(format(
+                        "Can't parse SuplaChannelB from byte array of length %s with offset %s, " +
+                                "because min length is %s!", bytes.length, offset, SuplaChannelB.MIN_SIZE));
+            }
+            final SuplaChannelB channel = suplaChannelBDecoder.decode(bytes, offset);
+            offset += channel.size();
+            channels[i] = channel;
+        }
+        return new SuplaChannelPackB(count, totalLeft, channels);
+    }
 }

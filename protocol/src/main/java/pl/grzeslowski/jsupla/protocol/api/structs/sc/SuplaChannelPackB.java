@@ -45,8 +45,12 @@ public final class SuplaChannelPackB implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaChannelPackB that = (SuplaChannelPackB) o;
         return count == that.count &&
                        totalLeft == that.totalLeft &&

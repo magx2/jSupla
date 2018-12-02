@@ -35,8 +35,12 @@ public final class SuplaChannelGroupRelation implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaChannelGroupRelation that = (SuplaChannelGroupRelation) o;
         return eol == that.eol &&
                        channelGroupId == that.channelGroupId &&

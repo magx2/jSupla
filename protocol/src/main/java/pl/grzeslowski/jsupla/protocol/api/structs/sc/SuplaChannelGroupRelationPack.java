@@ -40,8 +40,12 @@ public final class SuplaChannelGroupRelationPack implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaChannelGroupRelationPack that = (SuplaChannelGroupRelationPack) o;
         return count == that.count &&
                        totalLeft == that.totalLeft &&

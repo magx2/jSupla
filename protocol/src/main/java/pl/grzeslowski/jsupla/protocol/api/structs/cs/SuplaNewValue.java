@@ -38,8 +38,12 @@ public final class SuplaNewValue implements ClientServer {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaNewValue that = (SuplaNewValue) o;
         return id == that.id &&
                        target == that.target &&

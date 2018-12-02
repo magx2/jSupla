@@ -10,8 +10,8 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaSetActivityTimeoutResultDecoderImpl implements SuplaSetActivityTimeoutResultDecoder {
-    public static final SuplaSetActivityTimeoutResultDecoderImpl INSTANCE = new SuplaSetActivityTimeoutResultDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+    public static final SuplaSetActivityTimeoutResultDecoderImpl INSTANCE = 
+            new SuplaSetActivityTimeoutResultDecoderImpl(PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaSetActivityTimeoutResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {

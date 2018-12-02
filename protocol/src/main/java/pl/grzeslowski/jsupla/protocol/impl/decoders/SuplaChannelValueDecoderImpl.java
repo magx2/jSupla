@@ -18,7 +18,8 @@ public final class SuplaChannelValueDecoderImpl implements SuplaChannelValueDeco
         final byte[] value = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
         offset += SUPLA_CHANNELVALUE_SIZE;
 
-        final byte[] subValue = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        final byte[] subValue = PrimitiveDecoderImpl.INSTANCE
+                                        .copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
 
         return new SuplaChannelValue(value, subValue);
     }

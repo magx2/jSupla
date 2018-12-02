@@ -11,8 +11,8 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelGroupRelationPackDecoderImpl implements SuplaChannelGroupRelationPackDecoder {
-    public static final SuplaChannelGroupRelationPackDecoderImpl INSTANCE = new SuplaChannelGroupRelationPackDecoderImpl(
-            SuplaChannelGroupRelationDecoderImpl.INSTANCE);
+    public static final SuplaChannelGroupRelationPackDecoderImpl INSTANCE = 
+            new SuplaChannelGroupRelationPackDecoderImpl(SuplaChannelGroupRelationDecoderImpl.INSTANCE);
     private final SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder;
 
     public SuplaChannelGroupRelationPackDecoderImpl(SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder) {

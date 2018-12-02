@@ -16,7 +16,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
  * @since ver. 8
  */
 public final class SuplaChannelB implements ServerClient {
-    public static final int MIN_SIZE = BYTE_SIZE * 3 + INT_SIZE * 6 + pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.SIZE;
+    public static final int MIN_SIZE = BYTE_SIZE * 3 + INT_SIZE * 6
+                                               + pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.SIZE;
 
     public final byte eol;
     public final int id;
@@ -24,11 +25,11 @@ public final class SuplaChannelB implements ServerClient {
     public final int func;
     public final int altIcon;
     /**
-     * unsigned int
+     * unsigned int.
      */
     public final long flags;
     /**
-     * unsigned byte
+     * unsigned byte.
      */
     public final short protocolVersion;
     public final byte online;
@@ -77,8 +78,12 @@ public final class SuplaChannelB implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaChannelB that = (SuplaChannelB) o;
         return eol == that.eol &&
                        id == that.id &&

@@ -15,7 +15,8 @@ public final class SuplaChannelBEncoderImpl implements SuplaChannelBEncoder {
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelValueEncoder suplaChannelValueEncoder;
 
-    SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder, final SuplaChannelValueEncoder suplaChannelValueEncoder) {
+    SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder, 
+                             final SuplaChannelValueEncoder suplaChannelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelValueEncoder = requireNonNull(suplaChannelValueEncoder);
     }

@@ -23,7 +23,7 @@ public final class SuplaChannelGroup implements ServerClient {
     public final int func;
     public final int altIcon;
     /**
-     * unsigned int
+     * unsigned int.
      */
     public final long flags;
     /**
@@ -65,8 +65,12 @@ public final class SuplaChannelGroup implements ServerClient {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final SuplaChannelGroup that = (SuplaChannelGroup) o;
         return eol == that.eol &&
                        id == that.id &&

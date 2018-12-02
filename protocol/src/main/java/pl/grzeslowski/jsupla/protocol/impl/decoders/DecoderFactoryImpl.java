@@ -240,7 +240,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) FirmwareUpdateUrlResultDecoderImpl.INSTANCE;
         }
         if (pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class.isAssignableFrom(proto)) {
-            return (Decoder<T>) pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
+            return (Decoder<T>) 
+                           pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceResult.class.isAssignableFrom(proto)) {
             return (Decoder<T>) SuplaRegisterDeviceResultDecoderImpl.INSTANCE;
@@ -353,9 +354,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) SuplaRegisterClientResultDecoderImpl.INSTANCE;
         }
         // TODO I think that SuplaChannelGroupRelation might be only send with SuplaChannelGroupRelationPack 
-//        if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
-//            return (Decoder<T>) SuplaChannelGroupRelationDecoderImpl.INSTANCE;
-//        }
+        //        if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
+        //            return (Decoder<T>) SuplaChannelGroupRelationDecoderImpl.INSTANCE;
+        //        }
         if (callType == SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B) {
             return (Decoder<T>) SuplaRegisterClientResultBDecoderImpl.INSTANCE;
         }
@@ -380,7 +381,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) FirmwareUpdateUrlResultDecoderImpl.INSTANCE;
         }
         if (callType == SUPLA_SD_CALL_CHANNEL_SET_VALUE) {
-            return (Decoder<T>) pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
+            return (Decoder<T>) 
+                           pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
         }
         if (callType == SUPLA_SD_CALL_REGISTER_DEVICE_RESULT) {
             return (Decoder<T>) SuplaRegisterDeviceResultDecoderImpl.INSTANCE;
