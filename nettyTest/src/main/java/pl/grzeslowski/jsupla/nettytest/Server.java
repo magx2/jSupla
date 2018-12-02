@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.RegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
 import pl.grzeslowski.jsupla.server.api.Channel;
@@ -66,8 +64,8 @@ public class Server {
     private ServerFactory buildServerFactory() {
         return new NettyServerFactory(
                 new CallTypeParserImpl(),
-                new DecoderFactoryImpl(new PrimitiveDecoderImpl()),
-                new EncoderFactoryImpl(new PrimitiveEncoderImpl()));
+                DecoderFactoryImpl.INSTANCE,
+                EncoderFactoryImpl.INSTANCE);
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {

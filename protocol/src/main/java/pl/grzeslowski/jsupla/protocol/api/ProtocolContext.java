@@ -25,8 +25,8 @@ public enum ProtocolContext implements JSuplaContext {
         contextMap.put(PrimitiveEncoder.class, PrimitiveEncoderImpl.INSTANCE);
 
         // decoders
-        contextMap.put(DecoderFactory.class, new DecoderFactoryImpl(this.getService(PrimitiveDecoder.class)));
-        contextMap.put(EncoderFactory.class, new EncoderFactoryImpl(this.getService(PrimitiveEncoder.class)));
+        contextMap.put(DecoderFactory.class, DecoderFactoryImpl.INSTANCE);
+        contextMap.put(EncoderFactory.class, EncoderFactoryImpl.INSTANCE);
     }
 
     @SuppressWarnings("unchecked")

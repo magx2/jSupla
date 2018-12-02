@@ -7,9 +7,7 @@ import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 @RunWith(Parameterized.class)
 public class IntegrationTest {
@@ -33,11 +31,11 @@ public class IntegrationTest {
 
     @Test
     public void shouldFindEncoderFor() {
-        new EncoderFactoryImpl(new PrimitiveEncoderImpl()).getEncoder(structClass);
+        EncoderFactoryImpl.INSTANCE.getEncoder(structClass);
     }
 
     @Test
     public void shouldFindDecoderFor() {
-        new DecoderFactoryImpl(PrimitiveDecoderImpl.INSTANCE).getDecoder(structClass);
+        DecoderFactoryImpl.INSTANCE.getDecoder(structClass);
     }
 }

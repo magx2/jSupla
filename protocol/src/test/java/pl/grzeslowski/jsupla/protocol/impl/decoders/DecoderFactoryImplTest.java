@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
-import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
@@ -69,13 +68,12 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
 public class DecoderFactoryImplTest {
-    private final DecoderFactoryImpl decoderFactory = new DecoderFactoryImpl(mock(PrimitiveDecoder.class));
+    private final DecoderFactoryImpl decoderFactory = DecoderFactoryImpl.INSTANCE;
 
     private final ProtoWithSize proto;
     private final Class<Decoder<?>> decoderClass;

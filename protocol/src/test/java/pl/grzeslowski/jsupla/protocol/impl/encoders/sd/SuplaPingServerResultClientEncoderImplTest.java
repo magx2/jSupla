@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.impl.encoders.sdc;
+package pl.grzeslowski.jsupla.protocol.impl.encoders.sd;
 
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -9,7 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.TimevalEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.sd.SuplaRegisterDeviceResultEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.encoders.sdc.SuplaPingServerResultClientEncoderImpl;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
