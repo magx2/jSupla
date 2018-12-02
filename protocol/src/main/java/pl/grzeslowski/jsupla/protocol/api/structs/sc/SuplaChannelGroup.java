@@ -62,7 +62,7 @@ public final class SuplaChannelGroup implements ServerClient {
     public int size() {
         return MIN_SIZE + caption.length * BYTE_SIZE;
     }
-    
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -80,7 +80,9 @@ public final class SuplaChannelGroup implements ServerClient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        int result = Objects.hash(eol, id, locationId, func, altIcon, flags, captionSize);
+        result = 31 * result + Arrays.hashCode(caption);
+        return result;
     }
 
     @Override

@@ -71,7 +71,13 @@ public final class SuplaRegisterClientC implements ClientServer {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(email);
+        int result = Arrays.hashCode(email);
+        result = 31 * result + Arrays.hashCode(authKey);
+        result = 31 * result + Arrays.hashCode(guid);
+        result = 31 * result + Arrays.hashCode(name);
+        result = 31 * result + Arrays.hashCode(softVer);
+        result = 31 * result + Arrays.hashCode(serverName);
+        return result;
     }
 
     @Override

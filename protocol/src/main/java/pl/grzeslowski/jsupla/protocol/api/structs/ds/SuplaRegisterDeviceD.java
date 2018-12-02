@@ -3,12 +3,18 @@ package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.positive;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_D;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 /**
  * @since ver. 7
@@ -58,23 +64,31 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SuplaRegisterDeviceD that = (SuplaRegisterDeviceD) o;
+        final SuplaRegisterDeviceD that = (SuplaRegisterDeviceD) o;
         return channelCount == that.channelCount &&
-                Arrays.equals(email, that.email) &&
-                Arrays.equals(authKey, that.authKey) &&
-                Arrays.equals(guid, that.guid) &&
-                Arrays.equals(name, that.name) &&
-                Arrays.equals(softVer, that.softVer) &&
-                Arrays.equals(serverName, that.serverName) &&
-                Arrays.equals(channels, that.channels);
+                       Arrays.equals(email, that.email) &&
+                       Arrays.equals(authKey, that.authKey) &&
+                       Arrays.equals(guid, that.guid) &&
+                       Arrays.equals(name, that.name) &&
+                       Arrays.equals(softVer, that.softVer) &&
+                       Arrays.equals(serverName, that.serverName) &&
+                       Arrays.equals(channels, that.channels);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(guid);
+        int result = Objects.hash(channelCount);
+        result = 31 * result + Arrays.hashCode(email);
+        result = 31 * result + Arrays.hashCode(authKey);
+        result = 31 * result + Arrays.hashCode(guid);
+        result = 31 * result + Arrays.hashCode(name);
+        result = 31 * result + Arrays.hashCode(softVer);
+        result = 31 * result + Arrays.hashCode(serverName);
+        result = 31 * result + Arrays.hashCode(channels);
+        return result;
     }
 
     @Override

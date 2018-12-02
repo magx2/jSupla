@@ -48,7 +48,9 @@ public final class SuplaNewValue implements ClientServer {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        int result = Objects.hash(id, target);
+        result = 31 * result + Arrays.hashCode(value);
+        return result;
     }
 
     @Override

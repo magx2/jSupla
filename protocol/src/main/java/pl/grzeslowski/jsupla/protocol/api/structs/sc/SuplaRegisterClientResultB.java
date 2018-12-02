@@ -80,7 +80,7 @@ public final class SuplaRegisterClientResultB implements ServerClient {
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientId);
+        return Objects.hash(resultCode, clientId, locationCount, channelCount, flags, activityTimeout, version, versionMin);
     }
 
     @Override
