@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceDDecode
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
@@ -17,6 +18,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public final class SuplaRegisterDeviceDDecoderImpl implements SuplaRegisterDeviceDDecoder {
+    public static final SuplaRegisterDeviceDDecoderImpl INSTANCE = new SuplaRegisterDeviceDDecoderImpl(
+            SuplaDeviceChannelBDecoderImpl.INSTANCE);
     private final SuplaDeviceChannelBDecoder suplaDeviceChannelBDecoder;
 
     public SuplaRegisterDeviceDDecoderImpl(final SuplaDeviceChannelBDecoder suplaDeviceChannelBDecoder) {

@@ -4,10 +4,14 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.dcs.SuplaSetActivityTimeoutDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public final class SuplaSetActivityTimeoutDecoderImpl implements SuplaSetActivityTimeoutDecoder {
+    public static final SuplaSetActivityTimeoutDecoderImpl INSTANCE = new SuplaSetActivityTimeoutDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaSetActivityTimeoutDecoderImpl(PrimitiveDecoder primitiveDecoder) {

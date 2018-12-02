@@ -11,6 +11,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelBDecoderImpl implements SuplaChannelBDecoder {
+    public static final SuplaChannelBDecoderImpl INSTANCE = new SuplaChannelBDecoderImpl(
+            pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaChannelValueDecoderImpl.INSTANCE);
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelBDecoderImpl(SuplaChannelValueDecoder suplaChannelValueDecoder) {

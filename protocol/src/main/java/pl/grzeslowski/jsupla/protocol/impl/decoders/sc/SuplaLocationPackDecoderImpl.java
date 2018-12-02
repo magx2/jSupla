@@ -6,11 +6,14 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaLocationPackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaLocationPackDecoderImpl implements SuplaLocationPackDecoder {
+    public static final SuplaLocationPackDecoderImpl INSTANCE = new SuplaLocationPackDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE, SuplaLocationDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaLocationDecoder locationDecoder;
 

@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelValuePackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValuePack;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
@@ -11,6 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaChannelValuePackDecoderImpl implements SuplaChannelValuePackDecoder {
+    public static final SuplaChannelValuePackDecoderImpl INSTANCE = new SuplaChannelValuePackDecoderImpl(
+            SuplaChannelValueDecoderImpl.INSTANCE);
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelValuePackDecoderImpl(final SuplaChannelValueDecoder suplaChannelValueDecoder) {
@@ -19,10 +22,10 @@ public final class SuplaChannelValuePackDecoderImpl implements SuplaChannelValue
 
     @Override
     public SuplaChannelValuePack decode(final byte[] bytes, int offset) {
-        final int count = INSTANCE.parseInt(bytes, offset);
+        final int count = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        final int totalLeft = INSTANCE.parseInt(bytes, offset);
+        final int totalLeft = PrimitiveDecoderImpl.INSTANCE.parseInt(bytes, offset);
         offset += INT_SIZE;
 
         final SuplaChannelValue[] items = new SuplaChannelValue[count];

@@ -5,12 +5,15 @@ import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaDataPacketDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaDataPacketDecoderImpl implements SuplaDataPacketDecoder {
+    public static final SuplaDataPacketDecoderImpl INSTANCE = new SuplaDataPacketDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaDataPacketDecoderImpl(PrimitiveDecoder primitiveDecoder) {

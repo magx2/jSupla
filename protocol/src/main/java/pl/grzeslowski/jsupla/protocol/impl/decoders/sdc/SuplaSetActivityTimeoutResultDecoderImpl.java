@@ -3,11 +3,15 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders.sdc;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaSetActivityTimeoutResultDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class SuplaSetActivityTimeoutResultDecoderImpl implements SuplaSetActivityTimeoutResultDecoder {
+    public static final SuplaSetActivityTimeoutResultDecoderImpl INSTANCE = new SuplaSetActivityTimeoutResultDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaSetActivityTimeoutResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {

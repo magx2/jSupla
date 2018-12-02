@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaRegisterClientBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -15,6 +16,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB.SIZE;
 
 public final class SuplaRegisterClientBDecoderImpl implements SuplaRegisterClientBDecoder {
+    public static final SuplaRegisterClientBDecoderImpl INSTANCE = new SuplaRegisterClientBDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaRegisterClientBDecoderImpl(PrimitiveDecoder primitiveDecoder) {

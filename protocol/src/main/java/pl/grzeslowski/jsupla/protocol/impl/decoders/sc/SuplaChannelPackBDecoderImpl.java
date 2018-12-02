@@ -11,6 +11,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 public final class SuplaChannelPackBDecoderImpl implements SuplaChannelPackBDecoder {
+	public static final SuplaChannelPackBDecoderImpl INSTANCE = new SuplaChannelPackBDecoderImpl(
+			SuplaChannelBDecoderImpl.INSTANCE);
 	private final SuplaChannelBDecoder suplaChannelBDecoder;
 
 	public SuplaChannelPackBDecoderImpl(SuplaChannelBDecoder suplaChannelBDecoder) {

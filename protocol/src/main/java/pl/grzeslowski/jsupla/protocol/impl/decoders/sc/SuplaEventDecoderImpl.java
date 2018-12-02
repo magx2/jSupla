@@ -4,11 +4,14 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaEventDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaEventDecoderImpl implements SuplaEventDecoder {
+    public static final SuplaEventDecoderImpl INSTANCE = new SuplaEventDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaEventDecoderImpl(PrimitiveDecoder primitiveDecoder) {

@@ -8,6 +8,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public class SuplaRegisterClientResultBDecoderImpl implements SuplaRegisterClientResultBDecoder {
+    public static final SuplaRegisterClientResultBDecoderImpl INSTANCE = new SuplaRegisterClientResultBDecoderImpl();
+    
     @Override
     public SuplaRegisterClientResultB decode(byte[] bytes, int offset) {
 

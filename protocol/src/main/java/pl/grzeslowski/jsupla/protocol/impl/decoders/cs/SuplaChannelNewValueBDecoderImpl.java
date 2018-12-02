@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.cs.SuplaChannelNewValueBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -11,6 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB.SIZE;
 
 public final class SuplaChannelNewValueBDecoderImpl implements SuplaChannelNewValueBDecoder {
+    public static final SuplaChannelNewValueBDecoderImpl INSTANCE = new SuplaChannelNewValueBDecoderImpl(
+            PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaChannelNewValueBDecoderImpl(PrimitiveDecoder primitiveDecoder) {
