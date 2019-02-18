@@ -20,7 +20,7 @@ allprojects {
                 userOrg = "big-boy"
                 name = 'maven'
                 licenses = ['MIT']
-                labels = ['Supla', "ioT"]
+                labels = ['Supla', "IoT"]
             }
         }
     }
