@@ -4,6 +4,10 @@ shipkit {
     gitHub.writeAuthToken = System.getenv("GH_WRITE_TOKEN")
     git.user = "Alfred Pennyworth"
     git.email = "alfred.pennyworth@bat.cave.gotham"
+    releaseNotes.labelMapping = [
+            'enhancement': 'Enhancement',
+            'bug': "Bug"
+    ]
 }
 
 allprojects {
