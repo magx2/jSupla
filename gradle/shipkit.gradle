@@ -15,8 +15,9 @@ allprojects {
         bintray {
             key = System.getenv("BINTRAY_API_KEY")
             pkg {
-                repo: "bigboy"
-                userOrg: "big-boy"
+                repo = "bigboy"
+                user = "big-boy"
+                userOrg = "big-boy"
                 name = 'maven'
                 licenses = ['MIT']
                 labels = ['Supla', "ioT"]
