@@ -1,5 +1,4 @@
 plugins {
-	id "com.jfrog.bintray" version "1.7.3"
 }
 
 ext {
@@ -94,22 +93,6 @@ allProjects {
 		testCompile group: 'com.google.guava', name: 'guava', version: '23.3-jre'
 		testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.3'
 	}
-}
-
-releasableProjects { Project project ->
-	ext {
-		bintrayConfig = [
-				repo           : "bigboy",
-				userOrg        : "big-boy",
-				websiteUrl     : "https://github.com/magx2/jSupla",
-				issueTrackerUrl: "https://github.com/magx2/jSupla/issues",
-				vcsUrl         : "https://github.com/magx2/jSupla.git",
-				licenses       : ['MIT'],
-				labels         : ['Supla', "ioT"],
-				githubRepo     : "magx2/jSupla",
-		]
-	}
-	apply from: "https://raw.githubusercontent.com/magx2/magx2.github.io/bintray.gradle-1.1.0/commons/gradle/bintray.gradle"
 }
 
 task wrapper(type: Wrapper) {
