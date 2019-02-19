@@ -63,7 +63,6 @@ allprojects {
 allProjects {
 	apply plugin: 'java'
 	group = 'pl.grzeslowski.jSupla'
-	version = '1.0.0-SNAPSHOT'
 	sourceCompatibility = 1.8
 }
 
