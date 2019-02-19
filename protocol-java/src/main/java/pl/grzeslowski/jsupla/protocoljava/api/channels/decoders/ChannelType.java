@@ -6,15 +6,15 @@ import java.util.Optional;
 public enum ChannelType {
     SUPLA_CHANNELTYPE_SENSORNO(1000),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_SENSORNC(1010),
     /**
-     * @since ver. >= 5
+     * @since ver. &gt;= 5
      */
     SUPLA_CHANNELTYPE_DISTANCESENSOR(1020),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_CALLBUTTON(1500),
     SUPLA_CHANNELTYPE_RELAYHFD4(2000),
@@ -23,35 +23,35 @@ public enum ChannelType {
     SUPLA_CHANNELTYPE_RELAY(2900),
     SUPLA_CHANNELTYPE_THERMOMETERDS18B20(3000),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_DHT11(3010),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_DHT22(3020),
     /**
-     * @since ver. >= 5
+     * @since ver. &gt;= 5
      */
     SUPLA_CHANNELTYPE_DHT21(3022),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_AM2302(3030),
     /**
-     * @since ver. >= 5
+     * @since ver. &gt;= 5
      */
     SUPLA_CHANNELTYPE_AM2301(3032),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_DIMMER(4000),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_RGBLEDCONTROLLER(4010),
     /**
-     * @since ver. >= 4
+     * @since ver. &gt;= 4
      */
     SUPLA_CHANNELTYPE_DIMMERANDRGBLED(4020),
     /**
