@@ -1,9 +1,11 @@
 language: java
 sudo: false
 script: ./gradlew clean build -s && ./gradlew ciPerformRelease
-jdk:
-  - oraclejdk8
-  - oraclejdk9
+matrix:
+  include:
+  - jdk: oraclejdk8
+  - jdk: oraclejdk9
+    env: SKIP_RELEASE=true
 #don't build tags
 branches:
   except:
