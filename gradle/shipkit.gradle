@@ -17,7 +17,6 @@ allprojects {
             pkg {
                 repo = "bigboy"
                 user = "big-boy"
-                userOrg = "big-boy"
                 name = 'maven'
                 licenses = ['MIT']
                 labels = ['Supla', "IoT"]
