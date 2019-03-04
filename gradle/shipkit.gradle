@@ -16,7 +16,7 @@ allprojects {
             key = System.getenv("BINTRAY_API_KEY")
             pkg {
                 repo = "bigboy"
-                user = "big-boy"
+                user = "magx2"
                 userOrg = "big-boy"
                 name = 'maven'
                 licenses = ['MIT']
