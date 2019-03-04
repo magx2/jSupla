@@ -18,7 +18,7 @@ allprojects {
                 repo = "bigboy"
                 user = "magx2"
                 userOrg = "big-boy"
-                name = 'maven'
+                name = 'jSupla'
                 licenses = ['MIT']
                 labels = ['Supla', "IoT"]
             }
