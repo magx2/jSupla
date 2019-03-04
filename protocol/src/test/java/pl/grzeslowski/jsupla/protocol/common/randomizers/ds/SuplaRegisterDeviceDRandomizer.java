@@ -14,26 +14,26 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaRegisterDeviceDRandomizer implements Randomizer<SuplaRegisterDeviceD> {
-	private final RandomSupla randomSupla;
+    private final RandomSupla randomSupla;
 
-	public SuplaRegisterDeviceDRandomizer(final RandomSupla randomSupla) {
-		this.randomSupla = randomSupla;
-	}
+    public SuplaRegisterDeviceDRandomizer(final RandomSupla randomSupla) {
+        this.randomSupla = randomSupla;
+    }
 
-	@Override
-	public SuplaRegisterDeviceD getRandomValue() {
-		final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
-		final SuplaDeviceChannelB[] channels = randomSupla.objects(SuplaDeviceChannelB.class, channelCount)
-				.toArray(SuplaDeviceChannelB[]::new);
-		return new SuplaRegisterDeviceD(
-				randomSupla.nextByteArray(SUPLA_EMAIL_MAXSIZE),
-				randomSupla.nextByteArray(SUPLA_AUTHKEY_SIZE),
-				randomSupla.nextByteArray(SUPLA_GUID_SIZE),
-				randomSupla.nextByteArray(SUPLA_DEVICE_NAME_MAXSIZE),
-				randomSupla.nextByteArray(SUPLA_SOFTVER_MAXSIZE),
-				randomSupla.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE),
-				channelCount,
-				channels
-		);
-	}
+    @Override
+    public SuplaRegisterDeviceD getRandomValue() {
+        final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
+        final SuplaDeviceChannelB[] channels = randomSupla.objects(SuplaDeviceChannelB.class, channelCount)
+                                               .toArray(SuplaDeviceChannelB[]::new);
+        return new SuplaRegisterDeviceD(
+                                               randomSupla.nextByteArray(SUPLA_EMAIL_MAXSIZE),
+                                               randomSupla.nextByteArray(SUPLA_AUTHKEY_SIZE),
+                                               randomSupla.nextByteArray(SUPLA_GUID_SIZE),
+                                               randomSupla.nextByteArray(SUPLA_DEVICE_NAME_MAXSIZE),
+                                               randomSupla.nextByteArray(SUPLA_SOFTVER_MAXSIZE),
+                                               randomSupla.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE),
+                                               channelCount,
+                                               channels
+        );
+    }
 }
