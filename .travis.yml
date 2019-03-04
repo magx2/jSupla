@@ -1,6 +1,6 @@
 language: java
 sudo: false
-script: ./gradlew clean build -s && ./gradlew ciPerformRelease --debug
+script: ./gradlew clean build -s && ./gradlew ciPerformRelease
 matrix:
   include:
   - jdk: oraclejdk8
