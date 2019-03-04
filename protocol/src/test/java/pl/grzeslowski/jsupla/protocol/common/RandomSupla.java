@@ -171,12 +171,12 @@ public class RandomSupla extends EnhancedRandom {
         return (short) nextInt(255);
     }
 
-    public short nextPositiveUnsignedByte() {
-        return (short) (nextInt(254) + 1);
-    }
-
     public short nextUnsignedByte(final short bound) {
         return (short) nextInt(bound);
+    }
+
+    public short nextPositiveUnsignedByte() {
+        return (short) (nextInt(254) + 1);
     }
 
     public long nextUnsignedInt() {
