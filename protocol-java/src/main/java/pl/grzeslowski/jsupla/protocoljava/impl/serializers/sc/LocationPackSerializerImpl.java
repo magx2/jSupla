@@ -5,15 +5,18 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
 public class LocationPackSerializerImpl implements LocationPackSerializer {
+    public static final LocationPackSerializerImpl INSTANCE = new LocationPackSerializerImpl(
+            LocationSerializerImpl.INSTANCE);
     private final LocationSerializer locationSerializer;
 
-    public LocationPackSerializerImpl(final LocationSerializer locationSerializer) {
+    LocationPackSerializerImpl(final LocationSerializer locationSerializer) {
         this.locationSerializer = requireNonNull(locationSerializer);
     }
 

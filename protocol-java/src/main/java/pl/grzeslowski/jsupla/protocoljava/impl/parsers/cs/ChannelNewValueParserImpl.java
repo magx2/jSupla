@@ -6,6 +6,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecod
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ import static java.util.Objects.requireNonNull;
 
 @Deprecated
 public class ChannelNewValueParserImpl implements ChannelNewValueParser {
+    public static final ChannelNewValueParserImpl INSTANCE = new ChannelNewValueParserImpl();
     private final ChannelTypeDecoder channelTypeDecoder;
     private final DeviceChannelValueParser.TypeMapper typeMapper;
 

@@ -4,15 +4,18 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Event;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.EventSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
 public class EventSerializerImpl implements EventSerializer {
+    public static final EventSerializerImpl INSTANCE = new EventSerializerImpl(StringSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
 
-    public EventSerializerImpl(final StringSerializer stringSerializer) {
+    EventSerializerImpl(final StringSerializer stringSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
     }
 

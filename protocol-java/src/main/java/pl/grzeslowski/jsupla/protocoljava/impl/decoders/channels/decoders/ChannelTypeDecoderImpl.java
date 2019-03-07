@@ -7,18 +7,24 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.RelayTypeChannel
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ThermometerTypeChannelDecoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.UnknownValue;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public final class ChannelTypeDecoderImpl implements ChannelTypeDecoder {
+    public static final ChannelTypeDecoderImpl INSTANCE = new ChannelTypeDecoderImpl(
+            ColorTypeChannelDecoderImpl.INSTANCE,
+            RelayTypeChannelDecoderImpl.INSTANCE,
+            ThermometerTypeChannelDecoderImpl.INSTANCE);
     private final ColorTypeChannelDecoder colorTypeChannelDecoder;
     private final RelayTypeChannelDecoder relayTypeChannelDecoder;
     private final ThermometerTypeChannelDecoder thermometerTypeChannelDecoder;
 
-    public ChannelTypeDecoderImpl(final ColorTypeChannelDecoder colorTypeChannelDecoder,
-                                  final RelayTypeChannelDecoder relayTypeChannelDecoder,
-                                  final ThermometerTypeChannelDecoder thermometerTypeChannelDecoder) {
+    @SuppressWarnings("WeakerAccess")
+    ChannelTypeDecoderImpl(final ColorTypeChannelDecoder colorTypeChannelDecoder,
+                           final RelayTypeChannelDecoder relayTypeChannelDecoder,
+                           final ThermometerTypeChannelDecoder thermometerTypeChannelDecoder) {
         this.colorTypeChannelDecoder = requireNonNull(colorTypeChannelDecoder);
         this.relayTypeChannelDecoder = requireNonNull(relayTypeChannelDecoder);
         this.thermometerTypeChannelDecoder = requireNonNull(thermometerTypeChannelDecoder);

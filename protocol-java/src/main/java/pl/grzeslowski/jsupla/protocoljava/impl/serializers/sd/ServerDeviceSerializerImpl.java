@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ChannelNewValueSeri
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.RegisterDeviceResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,13 +18,19 @@ import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceSerializerImpl
         implements ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> {
+    public static final ServerDeviceSerializerImpl INSTANCE = new ServerDeviceSerializerImpl(
+            ChannelNewValueSerializerImpl.INSTANCE,
+            FirmwareUpdateUrlResultSerializerImpl.INSTANCE,
+            RegisterDeviceResultSerializerImpl.INSTANCE
+    );
     private final ChannelNewValueSerializer channelNewValueSerializer;
     private final FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer;
     private final RegisterDeviceResultSerializer registerDeviceResultSerializer;
 
-    public ServerDeviceSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
-                                      final FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer,
-                                      final RegisterDeviceResultSerializer registerDeviceResultSerializer) {
+    @SuppressWarnings("WeakerAccess")
+    ServerDeviceSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
+                               final FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer,
+                               final RegisterDeviceResultSerializer registerDeviceResultSerializer) {
         this.channelNewValueSerializer = requireNonNull(channelNewValueSerializer);
         this.firmwareUpdateUrlResultSerializer = requireNonNull(firmwareUpdateUrlResultSerializer);
         this.registerDeviceResultSerializer = requireNonNull(registerDeviceResultSerializer);

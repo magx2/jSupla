@@ -7,6 +7,12 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
 import javax.validation.constraints.NotNull;
 
 public class TimevalParserImpl implements TimevalParser {
+    public static final TimevalParserImpl INSTANCE = new TimevalParserImpl();
+
+    @SuppressWarnings("WeakerAccess")
+    TimevalParserImpl() {
+    }
+
     @Override
     public Timeval parse(@NotNull final SuplaTimeval proto) {
         return new Timeval(proto.seconds, proto.milliseconds);

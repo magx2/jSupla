@@ -13,6 +13,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class StringSerializerImpl implements StringSerializer {
     public static final StringSerializerImpl INSTANCE = new StringSerializerImpl();
 
+    @SuppressWarnings("WeakerAccess")
+    StringSerializerImpl() {
+    }
+
     @Override
     public byte[] serialize(final String string, final int length) {
         final byte[] bytes = new byte[length];

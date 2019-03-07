@@ -2,10 +2,12 @@ package pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders;
 
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.StoppableOpenCloseEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.StoppableOpenClose;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ChannelNewValueBSerializerImpl;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class StoppableOpenCloseEncoderImpl implements StoppableOpenCloseEncoder {
+    public static final StoppableOpenCloseEncoderImpl INSTANCE = new StoppableOpenCloseEncoderImpl();
     @Override
     public byte[] encode(final StoppableOpenClose stoppableOpenClose) {
         final byte[] bytes = new byte[SUPLA_CHANNELVALUE_SIZE];

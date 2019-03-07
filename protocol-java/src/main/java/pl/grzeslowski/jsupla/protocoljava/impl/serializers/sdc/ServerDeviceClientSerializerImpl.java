@@ -11,6 +11,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultCl
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.SetActivityTimeoutResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.VersionErrorSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -19,15 +20,21 @@ import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceClientSerializerImpl
         implements ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient> {
+    public static final ServerDeviceClientSerializerImpl INSTANCE = new ServerDeviceClientSerializerImpl(
+            GetVersionResultSerializerImpl.INSTANCE,
+            PingServerResultClientSerializerImpl.INSTANCE,
+            SetActivityTimeoutResultSerializerImpl.INSTANCE,
+            VersionErrorSerializerImpl.INSTANCE);
     private final GetVersionResultSerializer getVersionResultSerializer;
     private final PingServerResultClientSerializer pingServerResultClientSerializer;
     private final SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer;
     private final VersionErrorSerializer versionErrorSerializer;
 
-    public ServerDeviceClientSerializerImpl(final GetVersionResultSerializer getVersionResultSerializer,
-                                            final PingServerResultClientSerializer pingServerResultClientSerializer,
-                                            final SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer,
-                                            final VersionErrorSerializer versionErrorSerializer) {
+    @SuppressWarnings("WeakerAccess")
+    ServerDeviceClientSerializerImpl(final GetVersionResultSerializer getVersionResultSerializer,
+                                     final PingServerResultClientSerializer pingServerResultClientSerializer,
+                                     final SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer,
+                                     final VersionErrorSerializer versionErrorSerializer) {
         this.getVersionResultSerializer = requireNonNull(getVersionResultSerializer);
         this.pingServerResultClientSerializer = requireNonNull(pingServerResultClientSerializer);
         this.setActivityTimeoutResultSerializer = requireNonNull(setActivityTimeoutResultSerializer);

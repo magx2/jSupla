@@ -15,10 +15,13 @@ import static java.util.Objects.requireNonNull;
 
 public class DeviceClientServerSerializerImpl
         implements DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer> {
+    public static final DeviceClientServerSerializerImpl INSTANCE = new DeviceClientServerSerializerImpl(
+            PingServerSerializerImpl.INSTANCE,
+            SetActivityTimeoutSerializerImpl.INSTANCE);
     private final PingServerSerializer pingServerSerializer;
     private final SetActivityTimeoutSerializer setActivityTimeoutSerializer;
 
-    public DeviceClientServerSerializerImpl(final PingServerSerializer pingServerSerializer,
+    DeviceClientServerSerializerImpl(final PingServerSerializer pingServerSerializer,
                                             final SetActivityTimeoutSerializer setActivityTimeoutSerializer) {
         this.pingServerSerializer = requireNonNull(pingServerSerializer);
         this.setActivityTimeoutSerializer = requireNonNull(setActivityTimeoutSerializer);

@@ -4,6 +4,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.FirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,9 +14,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_HO
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 public class FirmwareUpdateUrlSerializerImpl implements FirmwareUpdateUrlSerializer {
+    public static final FirmwareUpdateUrlSerializerImpl INSTANCE = new FirmwareUpdateUrlSerializerImpl(
+            StringSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
 
-    public FirmwareUpdateUrlSerializerImpl(final StringSerializer stringSerializer) {
+    FirmwareUpdateUrlSerializerImpl(final StringSerializer stringSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
     }
 

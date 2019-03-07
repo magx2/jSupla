@@ -4,15 +4,18 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.StringParserImpl;
 
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
 public class RegisterClientBParserImpl implements RegisterClientBParser {
+    public static final RegisterClientBParserImpl INSTANCE = new RegisterClientBParserImpl(StringParserImpl.INSTANCE);
     private final StringParser stringParser;
 
-    public RegisterClientBParserImpl(final StringParser stringParser) {
+    RegisterClientBParserImpl(final StringParser stringParser) {
         this.stringParser = requireNonNull(stringParser);
     }
 

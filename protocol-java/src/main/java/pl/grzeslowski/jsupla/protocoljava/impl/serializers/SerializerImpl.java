@@ -31,6 +31,16 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.FirmwareUpdateUrlSe
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sd.ServerDeviceSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ClientServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.DeviceClientServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelBSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceChannelSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds.DeviceServerSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc.ServerClientSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.FirmwareUpdateUrlSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sd.ServerDeviceSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc.ServerDeviceClientSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -38,6 +48,19 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class SerializerImpl implements Serializer<Entity, Proto> {
+    public static final SerializerImpl INSTANCE = new SerializerImpl(
+            ClientServerSerializerImpl.INSTANCE,
+            DeviceClientServerSerializerImpl.INSTANCE,
+            DeviceServerSerializerImpl.INSTANCE,
+            ServerClientSerializerImpl.INSTANCE,
+            ServerDeviceSerializerImpl.INSTANCE,
+            ServerDeviceClientSerializerImpl.INSTANCE,
+            DeviceChannelSerializerImpl.INSTANCE,
+            DeviceChannelBSerializerImpl.INSTANCE,
+            FirmwareUpdateUrlSerializerImpl.INSTANCE,
+            ChannelValueSerializerImpl.INSTANCE,
+            TimevalSerializerImpl.INSTANCE
+    );
     private final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer;
     private final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
             deviceClientServerSerializer;
@@ -53,19 +76,20 @@ public class SerializerImpl implements Serializer<Entity, Proto> {
     private final ChannelValueSerializer channelValueSerializer;
     private final TimevalSerializer timevalSerializer;
 
-    public SerializerImpl(final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer,
-                          final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
+    @SuppressWarnings("WeakerAccess")
+    SerializerImpl(final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer,
+                   final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
                                   deviceClientServerSerializer,
-                          final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer,
-                          final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer,
-                          final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer,
-                          final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
+                   final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer,
+                   final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer,
+                   final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer,
+                   final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
                                   serverDeviceClientSerializer,
-                          final DeviceChannelSerializer deviceChannelSerializer,
-                          final DeviceChannelBSerializer deviceChannelBSerializer,
-                          final FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer,
-                          final ChannelValueSerializer channelValueSerializer,
-                          final TimevalSerializer timevalSerializer) {
+                   final DeviceChannelSerializer deviceChannelSerializer,
+                   final DeviceChannelBSerializer deviceChannelBSerializer,
+                   final FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer,
+                   final ChannelValueSerializer channelValueSerializer,
+                   final TimevalSerializer timevalSerializer) {
         this.clientServerSerializer = requireNonNull(clientServerSerializer);
         this.deviceClientServerSerializer = requireNonNull(deviceClientServerSerializer);
         this.deviceServerSerializer = requireNonNull(deviceServerSerializer);

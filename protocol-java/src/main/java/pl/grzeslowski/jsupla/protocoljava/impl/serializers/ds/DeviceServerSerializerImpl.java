@@ -15,6 +15,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.FirmwareUpdateParam
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,14 @@ import static java.util.Objects.requireNonNull;
 
 public class DeviceServerSerializerImpl
         implements DeviceServerSerializer<DeviceServerEntity, DeviceServer> {
+    public static final DeviceServerSerializerImpl INSTANCE = new DeviceServerSerializerImpl(
+            ChannelNewValueResultSerializerImpl.INSTANCE,
+            RegisterDeviceSerializerImpl.INSTANCE,
+            RegisterDeviceBSerializerImpl.INSTANCE,
+            RegisterDeviceCSerializerImpl.INSTANCE,
+            DeviceChannelValueSerializerImpl.INSTANCE,
+            FirmwareUpdateParamsSerializerImpl.INSTANCE
+    );
     private final ChannelNewValueResultSerializer channelNewValueResultSerializer;
     private final RegisterDeviceSerializer registerDeviceSerializer;
     private final RegisterDeviceBSerializer registerDeviceBSerializer;
@@ -30,12 +39,13 @@ public class DeviceServerSerializerImpl
     private final DeviceChannelValueSerializer deviceChannelValueSerializer;
     private final FirmwareUpdateParamsSerializer firmwareUpdateParamsSerializer;
 
-    public DeviceServerSerializerImpl(final ChannelNewValueResultSerializer channelNewValueResultSerializer,
-                                      final RegisterDeviceSerializer registerDeviceSerializer,
-                                      final RegisterDeviceBSerializer registerDeviceBSerializer,
-                                      final RegisterDeviceCSerializer registerDeviceCSerializer,
-                                      final DeviceChannelValueSerializer deviceChannelValueSerializer,
-                                      final FirmwareUpdateParamsSerializer firmwareUpdateParamsSerializer) {
+    @SuppressWarnings("WeakerAccess")
+    DeviceServerSerializerImpl(final ChannelNewValueResultSerializer channelNewValueResultSerializer,
+                               final RegisterDeviceSerializer registerDeviceSerializer,
+                               final RegisterDeviceBSerializer registerDeviceBSerializer,
+                               final RegisterDeviceCSerializer registerDeviceCSerializer,
+                               final DeviceChannelValueSerializer deviceChannelValueSerializer,
+                               final FirmwareUpdateParamsSerializer firmwareUpdateParamsSerializer) {
         this.channelNewValueResultSerializer = requireNonNull(channelNewValueResultSerializer);
         this.registerDeviceSerializer = requireNonNull(registerDeviceSerializer);
         this.registerDeviceBSerializer = requireNonNull(registerDeviceBSerializer);

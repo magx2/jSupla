@@ -16,10 +16,17 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.values.StoppableOpenClose
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureAndHumidityValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.UnknownValue;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.cs.ChannelNewValueBSerializerImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public class ChannelTypeEncoderImpl implements ChannelTypeEncoder {
+    public static final ChannelTypeEncoderImpl INSTANCE = new ChannelTypeEncoderImpl(
+            ColorTypeChannelEncoderImpl.INSTANCE,
+            RelayTypeChannelEncoderImpl.INSTANCE,
+            ThermometerTypeChannelEncoderImpl.INSTANCE,
+            StoppableOpenCloseEncoderImpl.INSTANCE
+    );
     private final ColorTypeChannelEncoder colorTypeChannelEncoder;
     private final RelayTypeChannelEncoder relayTypeChannelEncoder;
     private final ThermometerTypeChannelEncoder thermometerTypeChannelEncoder;

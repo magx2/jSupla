@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,10 +19,13 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public class RegisterDeviceCSerializerImpl implements RegisterDeviceCSerializer {
+    public static final RegisterDeviceCSerializerImpl INSTANCE = new RegisterDeviceCSerializerImpl(
+            StringSerializerImpl.INSTANCE,
+            DeviceChannelBSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
     private final DeviceChannelBSerializer deviceChannelBSerializer;
 
-    public RegisterDeviceCSerializerImpl(final StringSerializer stringSerializer,
+    RegisterDeviceCSerializerImpl(final StringSerializer stringSerializer,
                                          final DeviceChannelBSerializer deviceChannelBSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
         this.deviceChannelBSerializer = requireNonNull(deviceChannelBSerializer);

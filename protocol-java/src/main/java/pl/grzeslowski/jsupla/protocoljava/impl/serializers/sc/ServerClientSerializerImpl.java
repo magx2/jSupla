@@ -17,6 +17,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSeriali
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.RegisterClientResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,14 @@ import static java.util.Objects.requireNonNull;
 
 public class ServerClientSerializerImpl
         implements ServerClientSerializer<ServerClientEntity, ServerClient> {
+    public static final ServerClientSerializerImpl INSTANCE = new ServerClientSerializerImpl(
+            ChannelPackSerializerImpl.INSTANCE,
+            ChannelSerializerImpl.INSTANCE,
+            ChannelValueSerializerImpl.INSTANCE,
+            EventSerializerImpl.INSTANCE,
+            LocationPackSerializerImpl.INSTANCE,
+            LocationSerializerImpl.INSTANCE,
+            RegisterClientResultSerializerImpl.INSTANCE);
     private final ChannelPackSerializer channelPackSerializer;
     private final ChannelSerializer channelSerializer;
     private final ChannelValueSerializer channelValueSerializer;
@@ -33,13 +42,14 @@ public class ServerClientSerializerImpl
     private final LocationSerializer locationSerializer;
     private final RegisterClientResultSerializer registerClientResultSerializer;
 
-    public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
-                                      final ChannelSerializer channelSerializer,
-                                      final ChannelValueSerializer channelValueSerializer,
-                                      final EventSerializer eventSerializer,
-                                      final LocationPackSerializer locationPackSerializer,
-                                      final LocationSerializer locationSerializer,
-                                      final RegisterClientResultSerializer registerClientResultSerializer) {
+    @SuppressWarnings("WeakerAccess")
+    ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
+                               final ChannelSerializer channelSerializer,
+                               final ChannelValueSerializer channelValueSerializer,
+                               final EventSerializer eventSerializer,
+                               final LocationPackSerializer locationPackSerializer,
+                               final LocationSerializer locationSerializer,
+                               final RegisterClientResultSerializer registerClientResultSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);

@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,10 +19,13 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @Deprecated
 public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
+    public static final RegisterDeviceSerializerImpl INSTANCE = new RegisterDeviceSerializerImpl(
+            StringSerializerImpl.INSTANCE,
+            DeviceChannelSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
     private final DeviceChannelSerializer deviceChannelSerializer;
 
-    public RegisterDeviceSerializerImpl(final StringSerializer stringSerializer,
+    RegisterDeviceSerializerImpl(final StringSerializer stringSerializer,
                                         final DeviceChannelSerializer deviceChannelSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
         this.deviceChannelSerializer = requireNonNull(deviceChannelSerializer);

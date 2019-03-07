@@ -6,6 +6,8 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecod
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.SuplaChannelValueToChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ChannelTypeDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.tochanneltype.SuplaChannelValueToChannelTypeImpl;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import static java.util.Objects.requireNonNull;
 
 public class ChannelValueParserImpl implements ChannelValueParser {
+    public static final ChannelValueParserImpl INSTANCE = new ChannelValueParserImpl(
+            ChannelTypeDecoderImpl.INSTANCE,
+            SuplaChannelValueToChannelTypeImpl.INSTANCE);
     private final ChannelTypeDecoder channelTypeDecoder;
     private final SuplaChannelValueToChannelType suplaChannelValueToChannelType;
 

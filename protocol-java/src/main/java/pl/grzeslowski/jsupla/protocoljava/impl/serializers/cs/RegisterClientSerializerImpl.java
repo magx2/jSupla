@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,9 +16,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @Deprecated
 public class RegisterClientSerializerImpl implements RegisterClientSerializer {
+    public static final RegisterClientSerializerImpl INSTANCE = new RegisterClientSerializerImpl(
+            StringSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
 
-    public RegisterClientSerializerImpl(final StringSerializer stringSerializer) {
+    RegisterClientSerializerImpl(final StringSerializer stringSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
     }
 

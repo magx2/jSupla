@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannel;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +15,14 @@ import static java.lang.String.format;
 import static java.util.Comparator.comparingInt;
 
 public final class ChannelTypeMapper implements DeviceChannelValueParser.TypeMapper {
+    public static final ChannelTypeMapper INSTANCE = new ChannelTypeMapper();
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private List<DeviceChannel> deviceChannels;
 
+    ChannelTypeMapper() {
+    }
+
+    @SuppressWarnings("WeakerAccess")
     public void registerDevice(RegisterDevice registerDevice) {
         lock.writeLock().lock();
         try {

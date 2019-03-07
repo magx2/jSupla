@@ -11,6 +11,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,15 +19,22 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ClientServerParserImpl implements ClientServerParser<ClientServerEntity, ClientServer> {
+    public static final ClientServerParserImpl INSTANCE = new ClientServerParserImpl(
+            ChannelNewValueBParserImpl.INSTANCE,
+            ChannelNewValueParserImpl.INSTANCE,
+            RegisterClientBParserImpl.INSTANCE,
+            RegisterClientParserImpl.INSTANCE
+    );
     private final ChannelNewValueBParser channelNewValueBParser;
     private final ChannelNewValueParser channelNewValueParser;
     private final RegisterClientBParser registerClientBParser;
     private final RegisterClientParser registerClientParser;
 
-    public ClientServerParserImpl(final ChannelNewValueBParser channelNewValueBParser,
-                                  final ChannelNewValueParser channelNewValueParser,
-                                  final RegisterClientBParser registerClientBParser,
-                                  final RegisterClientParser registerClientParser) {
+    @SuppressWarnings("WeakerAccess")
+    ClientServerParserImpl(final ChannelNewValueBParser channelNewValueBParser,
+                           final ChannelNewValueParser channelNewValueParser,
+                           final RegisterClientBParser registerClientBParser,
+                           final RegisterClientParser registerClientParser) {
         this.channelNewValueBParser = requireNonNull(channelNewValueBParser);
         this.channelNewValueParser = requireNonNull(channelNewValueParser);
         this.registerClientBParser = requireNonNull(registerClientBParser);

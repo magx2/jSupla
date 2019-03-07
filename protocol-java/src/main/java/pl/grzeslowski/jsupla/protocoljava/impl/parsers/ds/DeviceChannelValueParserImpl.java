@@ -5,12 +5,18 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders.ChannelTypeDecoderImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ChannelValueParserImpl;
 
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
 public class DeviceChannelValueParserImpl implements DeviceChannelValueParser {
+    public static final DeviceChannelValueParserImpl INSTANCE = new DeviceChannelValueParserImpl(
+            ChannelTypeDecoderImpl.INSTANCE,
+            TypeMapperImpl.INSTANCE
+    );
     private final ChannelTypeDecoder channelTypeDecoder;
     private final TypeMapper typeMapper;
 

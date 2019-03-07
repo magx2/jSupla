@@ -4,6 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientBSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,9 +16,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public class RegisterClientBSerializerImpl implements RegisterClientBSerializer {
+    public static final RegisterClientBSerializerImpl INSTANCE = new RegisterClientBSerializerImpl(
+            StringSerializerImpl.INSTANCE);
     private final StringSerializer stringSerializer;
 
-    public RegisterClientBSerializerImpl(final StringSerializer stringSerializer) {
+    RegisterClientBSerializerImpl(final StringSerializer stringSerializer) {
         this.stringSerializer = requireNonNull(stringSerializer);
     }
 

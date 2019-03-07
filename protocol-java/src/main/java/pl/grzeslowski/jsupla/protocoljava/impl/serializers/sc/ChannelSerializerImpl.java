@@ -5,16 +5,24 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.StringSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelSerializer;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializerImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.dcs.SetActivityTimeoutSerializerImpl;
 
 import javax.validation.constraints.NotNull;
+
+import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ChannelValueSerializerImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public class ChannelSerializerImpl implements ChannelSerializer {
+    public static final ChannelSerializerImpl INSTANCE = new ChannelSerializerImpl(
+            ChannelValueSerializerImpl.INSTANCE,
+            StringSerializerImpl.INSTANCE
+    );
     private final ChannelValueSerializer channelValueSerializer;
     private final StringSerializer stringSerializer;
 
-    public ChannelSerializerImpl(final ChannelValueSerializer channelValueSerializer,
+    ChannelSerializerImpl(final ChannelValueSerializer channelValueSerializer,
                                  final StringSerializer stringSerializer) {
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
         this.stringSerializer = requireNonNull(stringSerializer);

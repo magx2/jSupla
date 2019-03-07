@@ -19,15 +19,21 @@ import static java.util.Objects.requireNonNull;
 
 public class ClientServerSerializerImpl
         implements ClientServerSerializer<ClientServerEntity, ClientServer> {
+    public static final ClientServerSerializerImpl INSTANCE = new ClientServerSerializerImpl(
+            ChannelNewValueSerializerImpl.INSTANCE,
+            ChannelNewValueBSerializerImpl.INSTANCE,
+            RegisterClientSerializerImpl.INSTANCE,
+            RegisterClientBSerializerImpl.INSTANCE);
     private final ChannelNewValueSerializer channelNewValueSerializer;
     private final ChannelNewValueBSerializer channelNewValueBSerializer;
     private final RegisterClientSerializer registerClientSerializer;
     private final RegisterClientBSerializer registerClientBSerializer;
 
-    public ClientServerSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
-                                      final ChannelNewValueBSerializer channelNewValueBSerializer,
-                                      final RegisterClientSerializer registerClientSerializer,
-                                      final RegisterClientBSerializer registerClientBSerializer) {
+    @SuppressWarnings("WeakerAccess")
+    ClientServerSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
+                               final ChannelNewValueBSerializer channelNewValueBSerializer,
+                               final RegisterClientSerializer registerClientSerializer,
+                               final RegisterClientBSerializer registerClientBSerializer) {
         this.channelNewValueSerializer = requireNonNull(channelNewValueSerializer);
         this.channelNewValueBSerializer = requireNonNull(channelNewValueBSerializer);
         this.registerClientSerializer = requireNonNull(registerClientSerializer);
