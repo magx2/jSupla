@@ -1,18 +1,12 @@
 language: java
 sudo: false
-script: ./gradlew clean test build
-jdk:
-  - oraclejdk8
-  - oraclejdk9
-env:
-  global:
-    - BINTRAY_USER=BINTRAY_USER
-    - BINTRAY_KEY=BINTRAY_KEY
-    - scrapperPassphrase=scrapperPassphrase
-    - jSuplaPassphrase=jSuplaPassphrase
-    - serverPassphrase=serverPassphrase
-    - nettyServerPassphrase=nettyServerPassphrase
-    - nettyTestPassphrase=nettyTestPassphrase
-    - protocolPassphrase=protocolPassphrase
-    - protocolJavaPassphrase=protocolJavaPassphrase
-    - commonPassphrase=commonPassphrase
+script: ./gradlew clean build -s && ./gradlew ciPerformRelease
+matrix:
+  include:
+  - jdk: oraclejdk8
+  - jdk: oraclejdk9
+    env: SKIP_RELEASE=true
+#don't build tags
+branches:
+  except:
+  - /^v\d/
