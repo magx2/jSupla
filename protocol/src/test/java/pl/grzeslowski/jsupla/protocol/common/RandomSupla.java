@@ -1,13 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.common;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
@@ -16,22 +12,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
@@ -41,29 +23,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutRes
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaDataPacketRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.TimevalRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaChannelNewValueBRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaChannelNewValueRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientBRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientCRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.SuplaRegisterClientRandomizer;
+import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.*;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaPingServerRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaSetActivityTimeoutRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.FirmwareUpdateParamsRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaChannelNewValueResultRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaDeviceChannelBRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaDeviceChannelRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaDeviceChannelValueRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceBRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceCRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceDRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.SuplaRegisterDeviceRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelPackRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaChannelValueRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaEventRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaLocationPackRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaLocationRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.SuplaRegisterClientResultRandomizer;
+import pl.grzeslowski.jsupla.protocol.common.randomizers.ds.*;
+import pl.grzeslowski.jsupla.protocol.common.randomizers.sc.*;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.FirmwareUpdateUrlRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.FirmwareUpdateUrlResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.SuplaRegisterDeviceResultRandomizer;
@@ -71,6 +35,9 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaGetVersionResu
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaPingServerResultClientRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaSetActivityTimeoutResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRandomizer;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
@@ -108,6 +75,7 @@ public class RandomSupla extends EnhancedRandom {
                          .randomize(SuplaLocationPack.class, new SuplaLocationPackRandomizer(this))
                          .randomize(SuplaLocation.class, new SuplaLocationRandomizer(this))
                          .randomize(SuplaRegisterClientResult.class, new SuplaRegisterClientResultRandomizer(this))
+                .randomize(SuplaChannelGroupRelation.class, new SuplaChannelGroupRelationRandomizer(this))
                          // sd
                          .randomize(SuplaFirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
                          .randomize(SuplaFirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))

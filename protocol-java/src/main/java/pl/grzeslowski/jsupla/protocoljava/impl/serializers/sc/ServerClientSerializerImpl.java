@@ -1,22 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Event;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Location;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelPackSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.EventSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.RegisterClientResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.*;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +18,7 @@ public class ServerClientSerializerImpl
     private final LocationPackSerializer locationPackSerializer;
     private final LocationSerializer locationSerializer;
     private final RegisterClientResultSerializer registerClientResultSerializer;
+    private final ChannelGroupRelationSerializer channelGroupRelationSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -39,7 +26,7 @@ public class ServerClientSerializerImpl
                                       final EventSerializer eventSerializer,
                                       final LocationPackSerializer locationPackSerializer,
                                       final LocationSerializer locationSerializer,
-                                      final RegisterClientResultSerializer registerClientResultSerializer) {
+                                      final RegisterClientResultSerializer registerClientResultSerializer, ChannelGroupRelationSerializer channelGroupRelationSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -47,6 +34,7 @@ public class ServerClientSerializerImpl
         this.locationPackSerializer = requireNonNull(locationPackSerializer);
         this.locationSerializer = requireNonNull(locationSerializer);
         this.registerClientResultSerializer = requireNonNull(registerClientResultSerializer);
+        this.channelGroupRelationSerializer = channelGroupRelationSerializer;
     }
 
     @Override
@@ -65,6 +53,8 @@ public class ServerClientSerializerImpl
             return locationPackSerializer.serialize((LocationPack) entity);
         } else if (entity instanceof RegisterClientResult) {
             return registerClientResultSerializer.serialize((RegisterClientResult) entity);
+        } else if (entity instanceof ChannelGroupRelation) {
+            return channelGroupRelationSerializer.serialize((ChannelGroupRelation) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
                 entity.getClass(), entity));
