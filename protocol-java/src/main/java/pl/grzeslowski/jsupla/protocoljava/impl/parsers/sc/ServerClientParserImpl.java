@@ -18,6 +18,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     private final LocationPackParser locationPackParser;
     private final RegisterClientResultParser registerClientResultParser;
     private final ChannelGroupRelationParser channelGroupRelationParser;
+    private final RegisterClientResultBParser registerClientResultBParser;
 
     public ServerClientParserImpl(final LocationParser locationParser,
                                   final ChannelPackParser channelPackParser,
@@ -26,7 +27,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
                                   final ChannelParser channelParser,
                                   final LocationPackParser locationPackParser,
                                   final RegisterClientResultParser registerClientResultParser,
-                                  final ChannelGroupRelationParser channelGroupRelationParser) {
+                                  final ChannelGroupRelationParser channelGroupRelationParser, RegisterClientResultBParser registerClientResultBParser) {
         this.locationParser = requireNonNull(locationParser);
         this.channelPackParser = requireNonNull(channelPackParser);
         this.eventParser = requireNonNull(eventParser);
@@ -35,6 +36,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         this.locationPackParser = requireNonNull(locationPackParser);
         this.registerClientResultParser = requireNonNull(registerClientResultParser);
         this.channelGroupRelationParser = channelGroupRelationParser;
+        this.registerClientResultBParser = registerClientResultBParser;
     }
 
     @Override
@@ -56,6 +58,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return registerClientResultParser.parse((SuplaRegisterClientResult) proto);
         } else if (proto instanceof SuplaChannelGroupRelation) {
             return channelGroupRelationParser.parse((SuplaChannelGroupRelation) proto);
+        } else if (proto instanceof SuplaRegisterClientResultB) {
+            return registerClientResultBParser.parse((SuplaRegisterClientResultB) proto);
         }
         throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
                 proto.getClass().getSimpleName()));

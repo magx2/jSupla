@@ -19,6 +19,7 @@ public class ServerClientSerializerImpl
     private final LocationSerializer locationSerializer;
     private final RegisterClientResultSerializer registerClientResultSerializer;
     private final ChannelGroupRelationSerializer channelGroupRelationSerializer;
+    private final RegisterClientResultBSerializer registerClientResultBSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -26,7 +27,7 @@ public class ServerClientSerializerImpl
                                       final EventSerializer eventSerializer,
                                       final LocationPackSerializer locationPackSerializer,
                                       final LocationSerializer locationSerializer,
-                                      final RegisterClientResultSerializer registerClientResultSerializer, ChannelGroupRelationSerializer channelGroupRelationSerializer) {
+                                      final RegisterClientResultSerializer registerClientResultSerializer, ChannelGroupRelationSerializer channelGroupRelationSerializer, RegisterClientResultBSerializer registerClientResultBSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -35,6 +36,7 @@ public class ServerClientSerializerImpl
         this.locationSerializer = requireNonNull(locationSerializer);
         this.registerClientResultSerializer = requireNonNull(registerClientResultSerializer);
         this.channelGroupRelationSerializer = channelGroupRelationSerializer;
+        this.registerClientResultBSerializer = registerClientResultBSerializer;
     }
 
     @Override
@@ -51,6 +53,8 @@ public class ServerClientSerializerImpl
             return locationSerializer.serialize((Location) entity);
         } else if (entity instanceof LocationPack) {
             return locationPackSerializer.serialize((LocationPack) entity);
+        } else if (entity instanceof RegisterClientResultB) {
+            return registerClientResultBSerializer.serialize((RegisterClientResultB) entity);
         } else if (entity instanceof RegisterClientResult) {
             return registerClientResultSerializer.serialize((RegisterClientResult) entity);
         } else if (entity instanceof ChannelGroupRelation) {

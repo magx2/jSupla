@@ -3,13 +3,13 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.id;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class RegisterClientResult implements ServerClientEntity {
     private final int resultCode;
     @Positive
@@ -74,54 +74,34 @@ public class RegisterClientResult implements ServerClientEntity {
     }
 
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof RegisterClientResult)) {
-            return false;
-        }
-
-        final RegisterClientResult that = (RegisterClientResult) o;
-
-        if (resultCode != that.resultCode) {
-            return false;
-        }
-        if (clientId != that.clientId) {
-            return false;
-        }
-        if (locationCount != that.locationCount) {
-            return false;
-        }
-        if (channelCount != that.channelCount) {
-            return false;
-        }
-        if (activityTimeout != that.activityTimeout) {
-            return false;
-        }
-        if (version != that.version) {
-            return false;
-        }
-        return versionMin == that.versionMin;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RegisterClientResult)) return false;
+        RegisterClientResult that = (RegisterClientResult) o;
+        return resultCode == that.resultCode &&
+                clientId == that.clientId &&
+                locationCount == that.locationCount &&
+                channelCount == that.channelCount &&
+                activityTimeout == that.activityTimeout &&
+                version == that.version &&
+                versionMin == that.versionMin;
     }
 
     @Override
-    public final int hashCode() {
-        int result = resultCode;
-        result = 31 * result + clientId;
-        return result;
+    public int hashCode() {
+        return Objects.hash(resultCode, clientId, locationCount, channelCount, activityTimeout, version, versionMin);
     }
 
     @Override
     public String toString() {
         return "RegisterClientResult{" +
-                       "resultCode=" + resultCode +
-                       ", clientId=" + clientId +
-                       ", locationCount=" + locationCount +
-                       ", channelCount=" + channelCount +
-                       ", activityTimeout=" + activityTimeout +
-                       ", version=" + version +
-                       ", versionMin=" + versionMin +
-                       '}';
+                "resultCode=" + resultCode +
+                ", clientId=" + clientId +
+                ", locationCount=" + locationCount +
+                ", channelCount=" + channelCount +
+                ", activityTimeout=" + activityTimeout +
+                ", version=" + version +
+                ", versionMin=" + versionMin +
+                '}';
     }
 }
