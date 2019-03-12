@@ -20,6 +20,7 @@ public class ServerClientSerializerImpl
     private final RegisterClientResultSerializer registerClientResultSerializer;
     private final ChannelGroupRelationSerializer channelGroupRelationSerializer;
     private final RegisterClientResultBSerializer registerClientResultBSerializer;
+    private final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -27,7 +28,10 @@ public class ServerClientSerializerImpl
                                       final EventSerializer eventSerializer,
                                       final LocationPackSerializer locationPackSerializer,
                                       final LocationSerializer locationSerializer,
-                                      final RegisterClientResultSerializer registerClientResultSerializer, ChannelGroupRelationSerializer channelGroupRelationSerializer, RegisterClientResultBSerializer registerClientResultBSerializer) {
+                                      final RegisterClientResultSerializer registerClientResultSerializer,
+                                      final ChannelGroupRelationSerializer channelGroupRelationSerializer,
+                                      final RegisterClientResultBSerializer registerClientResultBSerializer,
+                                      final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -35,8 +39,9 @@ public class ServerClientSerializerImpl
         this.locationPackSerializer = requireNonNull(locationPackSerializer);
         this.locationSerializer = requireNonNull(locationSerializer);
         this.registerClientResultSerializer = requireNonNull(registerClientResultSerializer);
-        this.channelGroupRelationSerializer = channelGroupRelationSerializer;
-        this.registerClientResultBSerializer = registerClientResultBSerializer;
+        this.channelGroupRelationSerializer = requireNonNull(channelGroupRelationSerializer);
+        this.registerClientResultBSerializer = requireNonNull(registerClientResultBSerializer);
+        this.channelGroupRelationPackSerializer = requireNonNull(channelGroupRelationPackSerializer);
     }
 
     @Override
@@ -59,6 +64,8 @@ public class ServerClientSerializerImpl
             return registerClientResultSerializer.serialize((RegisterClientResult) entity);
         } else if (entity instanceof ChannelGroupRelation) {
             return channelGroupRelationSerializer.serialize((ChannelGroupRelation) entity);
+        } else if (entity instanceof ChannelGroupRelationPack) {
+            return channelGroupRelationPackSerializer.serialize((ChannelGroupRelationPack) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
                 entity.getClass(), entity));

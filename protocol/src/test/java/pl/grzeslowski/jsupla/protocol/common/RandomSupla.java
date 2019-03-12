@@ -47,6 +47,7 @@ public class RandomSupla extends EnhancedRandom {
     private RandomSupla(final long seed) {
         logger.info("Starting RandomSupla with seed {}.", seed);
         random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+                .objectPoolSize(1_000)
                          .seed(123L)
                          // cs
                          .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueBRandomizer(this))
@@ -77,6 +78,7 @@ public class RandomSupla extends EnhancedRandom {
                          .randomize(SuplaRegisterClientResult.class, new SuplaRegisterClientResultRandomizer(this))
                 .randomize(SuplaChannelGroupRelation.class, new SuplaChannelGroupRelationRandomizer(this))
                 .randomize(SuplaRegisterClientResultB.class, new SuplaRegisterClientResultBRandomizer(this))
+                .randomize(SuplaChannelGroupRelationPack.class, new SuplaChannelGroupRelationPackRandomizer(this))
                          // sd
                          .randomize(SuplaFirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
                          .randomize(SuplaFirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))

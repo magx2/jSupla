@@ -29,6 +29,7 @@ public class RandomEntity extends EnhancedRandom {
     public RandomEntity(final int seed) {
         logger.info("Starting RandomEntity with seed {}.", seed);
         random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+                .objectPoolSize(1_000)
                          .stringLengthRange(5, 255)
                          .seed(seed)
                          .randomize(ChannelValue.class, new ChannelValueRandomizer(this))

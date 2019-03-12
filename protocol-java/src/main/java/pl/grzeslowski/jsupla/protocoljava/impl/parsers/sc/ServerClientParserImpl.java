@@ -19,6 +19,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     private final RegisterClientResultParser registerClientResultParser;
     private final ChannelGroupRelationParser channelGroupRelationParser;
     private final RegisterClientResultBParser registerClientResultBParser;
+    private final ChannelGroupRelationPackParser channelGroupRelationPackParser;
 
     public ServerClientParserImpl(final LocationParser locationParser,
                                   final ChannelPackParser channelPackParser,
@@ -27,7 +28,9 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
                                   final ChannelParser channelParser,
                                   final LocationPackParser locationPackParser,
                                   final RegisterClientResultParser registerClientResultParser,
-                                  final ChannelGroupRelationParser channelGroupRelationParser, RegisterClientResultBParser registerClientResultBParser) {
+                                  final ChannelGroupRelationParser channelGroupRelationParser,
+                                  final RegisterClientResultBParser registerClientResultBParser,
+                                  final ChannelGroupRelationPackParser channelGroupRelationPackParser) {
         this.locationParser = requireNonNull(locationParser);
         this.channelPackParser = requireNonNull(channelPackParser);
         this.eventParser = requireNonNull(eventParser);
@@ -35,8 +38,9 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         this.channelParser = requireNonNull(channelParser);
         this.locationPackParser = requireNonNull(locationPackParser);
         this.registerClientResultParser = requireNonNull(registerClientResultParser);
-        this.channelGroupRelationParser = channelGroupRelationParser;
-        this.registerClientResultBParser = registerClientResultBParser;
+        this.channelGroupRelationParser = requireNonNull(channelGroupRelationParser);
+        this.registerClientResultBParser = requireNonNull(registerClientResultBParser);
+        this.channelGroupRelationPackParser = requireNonNull(channelGroupRelationPackParser);
     }
 
     @Override
@@ -60,6 +64,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return channelGroupRelationParser.parse((SuplaChannelGroupRelation) proto);
         } else if (proto instanceof SuplaRegisterClientResultB) {
             return registerClientResultBParser.parse((SuplaRegisterClientResultB) proto);
+        } else if (proto instanceof SuplaChannelGroupRelationPack) {
+            return channelGroupRelationPackParser.parse((SuplaChannelGroupRelationPack) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
                 proto.getClass(), proto));
