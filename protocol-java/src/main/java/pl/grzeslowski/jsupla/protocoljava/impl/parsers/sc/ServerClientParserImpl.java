@@ -61,7 +61,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         } else if (proto instanceof SuplaRegisterClientResultB) {
             return registerClientResultBParser.parse((SuplaRegisterClientResultB) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }

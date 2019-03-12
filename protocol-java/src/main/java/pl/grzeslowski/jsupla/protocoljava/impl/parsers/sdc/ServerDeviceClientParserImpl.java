@@ -1,16 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc;
 
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.GetVersionResultParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.PingServerResultClientParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.ServerDeviceClientParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.SetActivityTimeoutResultParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.VersionErrorParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -46,7 +38,7 @@ public class ServerDeviceClientParserImpl implements ServerDeviceClientParser<Se
         } else if (proto instanceof SuplaVersionError) {
             return versionErrorParser.parse((SuplaVersionError) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }

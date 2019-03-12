@@ -39,7 +39,7 @@ public class ServerDeviceParserImpl implements ServerDeviceParser<ServerDeviceEn
         } else if (proto instanceof SuplaRegisterDeviceResult) {
             return registerDeviceResultParser.parse((SuplaRegisterDeviceResult) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }
