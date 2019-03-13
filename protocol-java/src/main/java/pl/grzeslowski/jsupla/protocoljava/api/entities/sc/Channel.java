@@ -1,18 +1,14 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.Preconditions.byteSize;
-import static pl.grzeslowski.jsupla.Preconditions.min;
-import static pl.grzeslowski.jsupla.Preconditions.size;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class Channel implements ServerClientEntity {
     @Min(Byte.MIN_VALUE)
     @Max(Byte.MAX_VALUE)
@@ -75,7 +71,7 @@ public class Channel implements ServerClientEntity {
     }
 
     @Override
-    public final boolean equals(final Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -107,19 +103,19 @@ public class Channel implements ServerClientEntity {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return id;
     }
 
     @Override
     public String toString() {
         return "Channel{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", locationId=" + locationId +
-                       ", function=" + function +
-                       ", online=" + online +
-                       ", channelValue=" + channelValue +
-                       '}';
+                "eol=" + eol +
+                ", id=" + id +
+                ", locationId=" + locationId +
+                ", function=" + function +
+                ", online=" + online +
+                ", channelValue=" + channelValue +
+                '}';
     }
 }

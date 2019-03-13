@@ -71,6 +71,7 @@ public class RandomSupla extends EnhancedRandom {
                          // sc
                          .randomize(SuplaChannelPack.class, new SuplaChannelPackRandomizer(this))
                          .randomize(SuplaChannel.class, new SuplaChannelRandomizer(this))
+                .randomize(SuplaChannelB.class, new SuplaChannelBRandomizer(this))
                          .randomize(SuplaChannelValue.class, new SuplaChannelValueRandomizer(this))
                          .randomize(SuplaEvent.class, new SuplaEventRandomizer(this))
                          .randomize(SuplaLocationPack.class, new SuplaLocationPackRandomizer(this))
