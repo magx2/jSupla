@@ -22,6 +22,7 @@ public class ServerClientSerializerImpl
     private final RegisterClientResultBSerializer registerClientResultBSerializer;
     private final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer;
     private final ChannelBSerializer channelBSerializer;
+    private final ChannelValuePackSerializer channelValuePackSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -33,7 +34,8 @@ public class ServerClientSerializerImpl
                                       final ChannelGroupRelationSerializer channelGroupRelationSerializer,
                                       final RegisterClientResultBSerializer registerClientResultBSerializer,
                                       final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer,
-                                      final ChannelBSerializer channelBSerializer) {
+                                      final ChannelBSerializer channelBSerializer,
+                                      final ChannelValuePackSerializer channelValuePackSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -45,6 +47,7 @@ public class ServerClientSerializerImpl
         this.registerClientResultBSerializer = requireNonNull(registerClientResultBSerializer);
         this.channelGroupRelationPackSerializer = requireNonNull(channelGroupRelationPackSerializer);
         this.channelBSerializer = requireNonNull(channelBSerializer);
+        this.channelValuePackSerializer = requireNonNull(channelValuePackSerializer);
     }
 
     @Override
@@ -71,6 +74,8 @@ public class ServerClientSerializerImpl
             return channelGroupRelationSerializer.serialize((ChannelGroupRelation) entity);
         } else if (entity instanceof ChannelGroupRelationPack) {
             return channelGroupRelationPackSerializer.serialize((ChannelGroupRelationPack) entity);
+        } else if (entity instanceof ChannelValuePack) {
+            return channelValuePackSerializer.serialize((ChannelValuePack) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
                 entity.getClass(), entity));

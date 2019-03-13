@@ -9,10 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResultB;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.RegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.GetVersionResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutResult;
@@ -44,6 +41,7 @@ public class RandomEntity extends EnhancedRandom {
                          .randomize(GetVersionResult.class, new GetVersionResultRandomizer(this))
                          .randomize(SetActivityTimeoutResult.class, new SetActivityTimeoutResultRandomizer(this))
                          .randomize(VersionError.class, new VersionErrorRandomizer(this))
+                .randomize(ChannelValuePack.class, new ChannelValuePackRandomizer(this))
                          .build();
     }
 
