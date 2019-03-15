@@ -147,6 +147,10 @@ public class ProtocolJavaContext implements JSuplaContext {
                 new RegisterDeviceCSerializerImpl(
                                                          getService(StringSerializer.class),
                                                          getService(DeviceChannelBSerializer.class)));
+        put(RegisterDeviceDSerializer.class,
+                new RegisterDeviceDSerializerImpl(
+                        getService(StringSerializer.class),
+                        getService(DeviceChannelBSerializer.class)));
         put(DeviceChannelValueSerializer.class,
                 new DeviceChannelValueSerializerImpl(
                                                             getService(ChannelTypeEncoder.class)));
@@ -158,8 +162,8 @@ public class ProtocolJavaContext implements JSuplaContext {
                                                       getService(RegisterDeviceBSerializer.class),
                                                       getService(RegisterDeviceCSerializer.class),
                                                       getService(DeviceChannelValueSerializer.class),
-                                                      getService(FirmwareUpdateParamsSerializer.class)
-                ));
+                        getService(FirmwareUpdateParamsSerializer.class),
+                        getService(RegisterDeviceDSerializer.class)));
 
         // ServerClientSerializer
         put(ChannelSerializer.class, new ChannelSerializerImpl(
@@ -324,14 +328,17 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(RegisterDeviceCParser.class, new RegisterDeviceCParserImpl(
                                                                               getService(StringParser.class),
                                                                               getService(DeviceChannelBParser.class)));
+        put(RegisterDeviceDParser.class, new RegisterDeviceDParserImpl(
+                getService(StringParser.class),
+                getService(DeviceChannelBParser.class)));
         put(DeviceServerParser.class, new DeviceServerParserImpl(
                                                                         getService(ChannelNewValueResultParser.class),
                                                                         getService(DeviceChannelValueParser.class),
                                                                         getService(RegisterDeviceParser.class),
                                                                         getService(FirmwareUpdateParamsParser.class),
                                                                         getService(RegisterDeviceBParser.class),
-                                                                        getService(RegisterDeviceCParser.class)
-        ));
+                getService(RegisterDeviceCParser.class),
+                getService(RegisterDeviceDParser.class)));
 
         // ServerClientParser
         put(ChannelParser.class, new ChannelParserImpl(

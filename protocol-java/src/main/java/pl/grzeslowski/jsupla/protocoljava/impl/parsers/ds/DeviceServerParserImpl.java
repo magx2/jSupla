@@ -16,19 +16,22 @@ public class DeviceServerParserImpl implements DeviceServerParser<DeviceServerEn
     private final FirmwareUpdateParamsParser firmwareUpdateParamsParser;
     private final RegisterDeviceBParser registerDeviceBParser;
     private final RegisterDeviceCParser registerDeviceCParser;
+    private final RegisterDeviceDParser registerDeviceDParser;
 
     public DeviceServerParserImpl(final ChannelNewValueResultParser channelNewValueResultParser,
                                   final DeviceChannelValueParser deviceChannelValueParser,
                                   final RegisterDeviceParser registerDeviceParser,
                                   final FirmwareUpdateParamsParser firmwareUpdateParamsParser,
                                   final RegisterDeviceBParser registerDeviceBParser,
-                                  final RegisterDeviceCParser registerDeviceCParser) {
+                                  final RegisterDeviceCParser registerDeviceCParser,
+                                  final RegisterDeviceDParser registerDeviceDParser) {
         this.channelNewValueResultParser = requireNonNull(channelNewValueResultParser);
         this.deviceChannelValueParser = requireNonNull(deviceChannelValueParser);
         this.registerDeviceParser = requireNonNull(registerDeviceParser);
         this.firmwareUpdateParamsParser = requireNonNull(firmwareUpdateParamsParser);
         this.registerDeviceBParser = requireNonNull(registerDeviceBParser);
         this.registerDeviceCParser = requireNonNull(registerDeviceCParser);
+        this.registerDeviceDParser = registerDeviceDParser;
     }
 
     @Override
@@ -46,6 +49,8 @@ public class DeviceServerParserImpl implements DeviceServerParser<DeviceServerEn
             return registerDeviceBParser.parse((SuplaRegisterDeviceB) proto);
         } else if (proto instanceof SuplaRegisterDeviceC) {
             return registerDeviceCParser.parse((SuplaRegisterDeviceC) proto);
+        } else if (proto instanceof SuplaRegisterDeviceD) {
+            return registerDeviceDParser.parse((SuplaRegisterDeviceD) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
                 proto.getClass(), proto));

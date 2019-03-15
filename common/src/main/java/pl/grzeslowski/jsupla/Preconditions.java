@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla;
 
 import java.util.Collection;
+import java.util.List;
 
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 
 public final class Preconditions {
     public static int min(int value, int min) {
@@ -174,6 +176,14 @@ public final class Preconditions {
         return collection;
     }
 
+    public static <T> List<T> sizeMin(List<T> collection, int min) {
+        final int size = collection.size();
+        if (size < min) {
+            throw new IllegalArgumentException(format("List size %s is too small, min %s!", size, min));
+        }
+        return collection;
+    }
+
     public static <T extends CharSequence> T sizeMin(T collection, int min) {
         final int size = collection.length();
         if (size < min) {
@@ -311,6 +321,13 @@ public final class Preconditions {
         return min(positive, (byte) 0);
     }
 
+    public static String notEmpty(String string) {
+        requireNonNull(string, "Given parameter was null!");
+        if (string.isEmpty()) {
+            throw new IllegalArgumentException("Given parameter was empty!");
+        }
+        return string;
+    }
     private Preconditions() {
 
     }
