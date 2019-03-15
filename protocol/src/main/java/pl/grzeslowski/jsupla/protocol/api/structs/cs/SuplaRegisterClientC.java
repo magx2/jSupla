@@ -6,12 +6,7 @@ import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_C;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 /**
  * @since ver. 7
@@ -89,7 +84,7 @@ public final class SuplaRegisterClientC implements ClientServer {
     public String toString() {
         return "SuplaRegisterClientC{" +
                        "email=" + Arrays.toString(email) +
-                       ", authKey=" + Arrays.toString(authKey) +
+                ", authKey=[PROTECTED]" +
                        ", guid=" + Arrays.toString(guid) +
                        ", name=" + Arrays.toString(name) +
                        ", softVer=" + Arrays.toString(softVer) +

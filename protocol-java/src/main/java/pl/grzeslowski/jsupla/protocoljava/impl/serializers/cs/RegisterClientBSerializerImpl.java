@@ -8,12 +8,10 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientBSeri
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class RegisterClientBSerializerImpl implements RegisterClientBSerializer {
     private final StringSerializer stringSerializer;
 
@@ -24,13 +22,13 @@ public class RegisterClientBSerializerImpl implements RegisterClientBSerializer 
     @Override
     public SuplaRegisterClientB serialize(@NotNull final RegisterClientB entity) {
         return new SuplaRegisterClientB(
-                                               entity.getAccessId(),
-                                               serializePassword(entity.getAccessIdPassword(),
-                                                       SUPLA_ACCESSID_PWD_MAXSIZE),
-                                               serializeString(entity.getGuid(), SUPLA_GUID_SIZE),
-                                               serializeString(entity.getName(), SUPLA_CLIENT_NAME_MAXSIZE),
-                                               serializeString(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
-                                               serializeString(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE)
+                entity.getAccessId(),
+                serializePassword(entity.getAccessIdPassword(),
+                        SUPLA_ACCESSID_PWD_MAXSIZE),
+                serializeString(entity.getGuid(), SUPLA_GUID_SIZE),
+                serializeString(entity.getName(), SUPLA_CLIENT_NAME_MAXSIZE),
+                serializeString(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
+                serializeString(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE)
         );
     }
 

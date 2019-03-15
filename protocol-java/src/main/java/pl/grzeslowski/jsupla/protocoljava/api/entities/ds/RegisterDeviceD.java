@@ -101,7 +101,7 @@ public class RegisterDeviceD implements DeviceServerEntity {
     public String toString() {
         return "RegisterDeviceD{" +
                 "email='" + email + '\'' +
-                ", authKey='" + authKey + '\'' +
+                ", authKey=[PROTECTED]" +
                 ", guid='" + guid + '\'' +
                 ", name='" + name + '\'' +
                 ", softVer='" + softVer + '\'' +

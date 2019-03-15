@@ -50,15 +50,13 @@ import pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.StringParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.TimevalParserImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ChannelNewValueBParserImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.ClientServerParserImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.RegisterClientBParserImpl;
-import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.RegisterClientParserImpl;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.DeviceClientServerParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.PingServerParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.dcs.SetActivityTimeoutParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc.*;
+import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.ChannelNewValueParserImpl;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sd.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.ChannelValueSerializerImpl;
@@ -116,13 +114,14 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(ChannelNewValueBSerializer.class, new ChannelNewValueBSerializerImpl(getService(ChannelTypeEncoder.class)));
         put(RegisterClientSerializer.class, new RegisterClientSerializerImpl(getService(StringSerializer.class)));
         put(RegisterClientBSerializer.class, new RegisterClientBSerializerImpl(getService(StringSerializer.class)));
+        put(RegisterClientCSerializer.class, new RegisterClientCSerializerImpl(getService(StringSerializer.class)));
         put(ClientServerSerializer.class,
                 new ClientServerSerializerImpl(
                                                       getService(ChannelNewValueSerializer.class),
                                                       getService(ChannelNewValueBSerializer.class),
                                                       getService(RegisterClientSerializer.class),
-                                                      getService(RegisterClientBSerializer.class)
-                ));
+                        getService(RegisterClientBSerializer.class),
+                        getService(RegisterClientCSerializer.class)));
 
         // DeviceClientServerSerializer
         put(PingServerSerializer.class, new PingServerSerializerImpl(getService(TimevalSerializer.class)));
@@ -298,12 +297,13 @@ public class ProtocolJavaContext implements JSuplaContext {
                         getService(DeviceChannelValueParser.TypeMapper.class)));
         put(RegisterClientBParser.class, new RegisterClientBParserImpl(getService(StringParser.class)));
         put(RegisterClientParser.class, new RegisterClientParserImpl(getService(StringParser.class)));
+        put(RegisterClientCParser.class, new RegisterClientCParserImpl(getService(StringParser.class)));
         put(ClientServerParser.class, new ClientServerParserImpl(
                                                                         getService(ChannelNewValueBParser.class),
                                                                         getService(ChannelNewValueParser.class),
                                                                         getService(RegisterClientBParser.class),
-                                                                        getService(RegisterClientParser.class)
-        ));
+                getService(RegisterClientParser.class),
+                getService(RegisterClientCParser.class)));
 
         // DeviceClientServerParser
         put(PingServerParser.class, new PingServerParserImpl(getService(TimevalParser.class)));

@@ -14,15 +14,18 @@ public class ClientServerParserImpl implements ClientServerParser<ClientServerEn
     private final ChannelNewValueParser channelNewValueParser;
     private final RegisterClientBParser registerClientBParser;
     private final RegisterClientParser registerClientParser;
+    private final RegisterClientCParser registerClientCParser;
 
     public ClientServerParserImpl(final ChannelNewValueBParser channelNewValueBParser,
                                   final ChannelNewValueParser channelNewValueParser,
                                   final RegisterClientBParser registerClientBParser,
-                                  final RegisterClientParser registerClientParser) {
+                                  final RegisterClientParser registerClientParser,
+                                  final RegisterClientCParser registerClientCParser) {
         this.channelNewValueBParser = requireNonNull(channelNewValueBParser);
         this.channelNewValueParser = requireNonNull(channelNewValueParser);
         this.registerClientBParser = requireNonNull(registerClientBParser);
         this.registerClientParser = requireNonNull(registerClientParser);
+        this.registerClientCParser = requireNonNull(registerClientCParser);
     }
 
     @Override
@@ -36,6 +39,8 @@ public class ClientServerParserImpl implements ClientServerParser<ClientServerEn
             return registerClientParser.parse((SuplaRegisterClient) proto);
         } else if (proto instanceof SuplaRegisterClientB) {
             return registerClientBParser.parse((SuplaRegisterClientB) proto);
+        } else if (proto instanceof SuplaRegisterClientC) {
+            return registerClientCParser.parse((SuplaRegisterClientC) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
                 proto.getClass(), proto));
