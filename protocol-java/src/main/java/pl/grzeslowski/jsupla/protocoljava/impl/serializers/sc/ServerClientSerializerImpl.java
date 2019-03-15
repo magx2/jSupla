@@ -24,6 +24,7 @@ public class ServerClientSerializerImpl
     private final ChannelBSerializer channelBSerializer;
     private final ChannelValuePackSerializer channelValuePackSerializer;
     private final ChannelGroupSerializer channelGroupSerializer;
+    private final ChannelPackBSerializer channelPackBSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -37,7 +38,8 @@ public class ServerClientSerializerImpl
                                       final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer,
                                       final ChannelBSerializer channelBSerializer,
                                       final ChannelValuePackSerializer channelValuePackSerializer,
-                                      final ChannelGroupSerializer channelGroupSerializer) {
+                                      final ChannelGroupSerializer channelGroupSerializer,
+                                      final ChannelPackBSerializer channelPackBSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -50,13 +52,16 @@ public class ServerClientSerializerImpl
         this.channelGroupRelationPackSerializer = requireNonNull(channelGroupRelationPackSerializer);
         this.channelBSerializer = requireNonNull(channelBSerializer);
         this.channelValuePackSerializer = requireNonNull(channelValuePackSerializer);
-        this.channelGroupSerializer = channelGroupSerializer;
+        this.channelGroupSerializer = requireNonNull(channelGroupSerializer);
+        this.channelPackBSerializer = requireNonNull(channelPackBSerializer);
     }
 
     @Override
     public ServerClient serialize(@NotNull final ServerClientEntity entity) {
         if (entity instanceof ChannelB) {
             return channelBSerializer.serialize((ChannelB) entity);
+        } else if (entity instanceof ChannelPackB) {
+            return channelPackBSerializer.serialize((ChannelPackB) entity);
         } else if (entity instanceof Channel) {
             return channelSerializer.serialize((Channel) entity);
         } else if (entity instanceof ChannelPack) {

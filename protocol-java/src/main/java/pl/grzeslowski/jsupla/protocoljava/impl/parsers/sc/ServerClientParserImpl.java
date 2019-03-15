@@ -23,6 +23,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     private final ChannelBParser channelBParser;
     private final ChannelValuePackParser channelValuePackParser;
     private final ChannelGroupParser channelGroupParser;
+    private final ChannelPackBParser channelPackBParser;
 
     public ServerClientParserImpl(final LocationParser locationParser,
                                   final ChannelPackParser channelPackParser,
@@ -36,7 +37,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
                                   final ChannelGroupRelationPackParser channelGroupRelationPackParser,
                                   final ChannelBParser channelBParser,
                                   final ChannelValuePackParser channelValuePackParser,
-                                  final ChannelGroupParser channelGroupParser) {
+                                  final ChannelGroupParser channelGroupParser,
+                                  final ChannelPackBParser channelPackBParser) {
         this.locationParser = requireNonNull(locationParser);
         this.channelPackParser = requireNonNull(channelPackParser);
         this.eventParser = requireNonNull(eventParser);
@@ -49,7 +51,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         this.channelGroupRelationPackParser = requireNonNull(channelGroupRelationPackParser);
         this.channelBParser = requireNonNull(channelBParser);
         this.channelValuePackParser = requireNonNull(channelValuePackParser);
-        this.channelGroupParser = channelGroupParser;
+        this.channelGroupParser = requireNonNull(channelGroupParser);
+        this.channelPackBParser = requireNonNull(channelPackBParser);
     }
 
     @Override
@@ -57,6 +60,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         requireNonNull(proto);
         if (proto instanceof SuplaChannel) {
             return channelParser.parse((SuplaChannel) proto);
+        } else if (proto instanceof SuplaChannelPackB) {
+            return channelPackBParser.parse((SuplaChannelPackB) proto);
         } else if (proto instanceof SuplaChannelPack) {
             return channelPackParser.parse((SuplaChannelPack) proto);
         } else if (proto instanceof SuplaChannelValue) {
