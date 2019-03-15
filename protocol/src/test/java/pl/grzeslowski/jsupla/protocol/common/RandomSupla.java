@@ -81,6 +81,7 @@ public class RandomSupla extends EnhancedRandom {
                 .randomize(SuplaRegisterClientResultB.class, new SuplaRegisterClientResultBRandomizer(this))
                 .randomize(SuplaChannelGroupRelationPack.class, new SuplaChannelGroupRelationPackRandomizer(this))
                 .randomize(SuplaChannelValuePack.class, new SuplaChannelValuePackRandomizer(this))
+                .randomize(SuplaChannelGroup.class, new SuplaChannelGroupRandomizer(this))
                          // sd
                          .randomize(SuplaFirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
                          .randomize(SuplaFirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))

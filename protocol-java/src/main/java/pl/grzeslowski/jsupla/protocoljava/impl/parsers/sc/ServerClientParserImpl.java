@@ -22,6 +22,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     private final ChannelGroupRelationPackParser channelGroupRelationPackParser;
     private final ChannelBParser channelBParser;
     private final ChannelValuePackParser channelValuePackParser;
+    private final ChannelGroupParser channelGroupParser;
 
     public ServerClientParserImpl(final LocationParser locationParser,
                                   final ChannelPackParser channelPackParser,
@@ -34,7 +35,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
                                   final RegisterClientResultBParser registerClientResultBParser,
                                   final ChannelGroupRelationPackParser channelGroupRelationPackParser,
                                   final ChannelBParser channelBParser,
-                                  final ChannelValuePackParser channelValuePackParser) {
+                                  final ChannelValuePackParser channelValuePackParser,
+                                  final ChannelGroupParser channelGroupParser) {
         this.locationParser = requireNonNull(locationParser);
         this.channelPackParser = requireNonNull(channelPackParser);
         this.eventParser = requireNonNull(eventParser);
@@ -47,6 +49,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         this.channelGroupRelationPackParser = requireNonNull(channelGroupRelationPackParser);
         this.channelBParser = requireNonNull(channelBParser);
         this.channelValuePackParser = requireNonNull(channelValuePackParser);
+        this.channelGroupParser = channelGroupParser;
     }
 
     @Override
@@ -76,6 +79,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return channelBParser.parse((SuplaChannelB) proto);
         } else if (proto instanceof SuplaChannelValuePack) {
             return channelValuePackParser.parse((SuplaChannelValuePack) proto);
+        } else if (proto instanceof SuplaChannelGroup) {
+            return channelGroupParser.parse((SuplaChannelGroup) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
                 proto.getClass(), proto));

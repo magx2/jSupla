@@ -181,6 +181,7 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(RegisterClientResultSerializer.class, new RegisterClientResultSerializerImpl());
         put(ChannelGroupRelationSerializer.class, new ChannelGroupRelationSerializerImpl());
         put(RegisterClientResultBSerializer.class, new RegisterClientResultBSerializerImpl());
+        put(ChannelGroupSerializer.class, new ChannelGroupSerializerImpl(getService(StringSerializer.class)));
         put(ChannelValuePackSerializer.class, new ChannelValuePackSerializerImpl(
                 getService(pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer.class)));
         put(ChannelGroupRelationPackSerializer.class,
@@ -199,7 +200,8 @@ public class ProtocolJavaContext implements JSuplaContext {
                         getService(RegisterClientResultBSerializer.class),
                         getService(ChannelGroupRelationPackSerializer.class),
                         getService(ChannelBSerializer.class),
-                        getService(ChannelValuePackSerializer.class)));
+                        getService(ChannelValuePackSerializer.class),
+                        getService(ChannelGroupSerializer.class)));
 
         // ServerDeviceSerializer
         put(
@@ -347,6 +349,7 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(RegisterClientResultParser.class, new RegisterClientResultParserImpl());
         put(ChannelGroupRelationParser.class, new ChannelGroupRelationParserImpl());
         put(RegisterClientResultBParser.class, new RegisterClientResultBParserImpl());
+        put(ChannelGroupParser.class, new ChannelGroupParserImpl(getService(StringParser.class)));
         put(ChannelValuePackParser.class, new ChannelValuePackParserImpl(
                 getService(pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser.class)));
         put(ChannelGroupRelationPackParser.class,
@@ -365,7 +368,8 @@ public class ProtocolJavaContext implements JSuplaContext {
                         getService(RegisterClientResultBParser.class),
                         getService(ChannelGroupRelationPackParser.class),
                         getService(ChannelBParser.class),
-                        getService(ChannelValuePackParser.class)));
+                        getService(ChannelValuePackParser.class),
+                        getService(ChannelGroupParser.class)));
 
         // ServerDeviceParser
         put(pl.grzeslowski.jsupla.protocoljava.api.parsers.sd.ChannelNewValueParser.class,
