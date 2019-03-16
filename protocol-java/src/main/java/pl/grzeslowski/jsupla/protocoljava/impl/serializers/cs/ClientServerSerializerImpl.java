@@ -16,17 +16,20 @@ public class ClientServerSerializerImpl
     private final RegisterClientSerializer registerClientSerializer;
     private final RegisterClientBSerializer registerClientBSerializer;
     private final RegisterClientCSerializer registerClientCSerializer;
+    private final NewValueSerializer newValueSerializer;
 
     public ClientServerSerializerImpl(final ChannelNewValueSerializer channelNewValueSerializer,
                                       final ChannelNewValueBSerializer channelNewValueBSerializer,
                                       final RegisterClientSerializer registerClientSerializer,
                                       final RegisterClientBSerializer registerClientBSerializer,
-                                      final RegisterClientCSerializer registerClientCSerializer) {
+                                      final RegisterClientCSerializer registerClientCSerializer,
+                                      final NewValueSerializer newValueSerializer) {
         this.channelNewValueSerializer = requireNonNull(channelNewValueSerializer);
         this.channelNewValueBSerializer = requireNonNull(channelNewValueBSerializer);
         this.registerClientSerializer = requireNonNull(registerClientSerializer);
         this.registerClientBSerializer = requireNonNull(registerClientBSerializer);
         this.registerClientCSerializer = requireNonNull(registerClientCSerializer);
+        this.newValueSerializer = requireNonNull(newValueSerializer);
     }
 
     @Override
@@ -41,6 +44,8 @@ public class ClientServerSerializerImpl
             return channelNewValueSerializer.serialize((ChannelNewValue) entity);
         } else if (entity instanceof RegisterClientC) {
             return registerClientCSerializer.serialize((RegisterClientC) entity);
+        } else if (entity instanceof NewValue) {
+            return newValueSerializer.serialize((NewValue) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
                 entity.getClass(), entity));

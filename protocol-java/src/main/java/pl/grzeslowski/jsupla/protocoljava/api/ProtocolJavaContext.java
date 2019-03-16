@@ -115,13 +115,15 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(RegisterClientSerializer.class, new RegisterClientSerializerImpl(getService(StringSerializer.class)));
         put(RegisterClientBSerializer.class, new RegisterClientBSerializerImpl(getService(StringSerializer.class)));
         put(RegisterClientCSerializer.class, new RegisterClientCSerializerImpl(getService(StringSerializer.class)));
+        put(NewValueSerializer.class, new NewValueSerializerImpl(getService(ChannelTypeEncoder.class)));
         put(ClientServerSerializer.class,
                 new ClientServerSerializerImpl(
                                                       getService(ChannelNewValueSerializer.class),
                                                       getService(ChannelNewValueBSerializer.class),
                                                       getService(RegisterClientSerializer.class),
                         getService(RegisterClientBSerializer.class),
-                        getService(RegisterClientCSerializer.class)));
+                        getService(RegisterClientCSerializer.class),
+                        getService(NewValueSerializer.class)));
 
         // DeviceClientServerSerializer
         put(PingServerSerializer.class, new PingServerSerializerImpl(getService(TimevalSerializer.class)));
@@ -298,12 +300,15 @@ public class ProtocolJavaContext implements JSuplaContext {
         put(RegisterClientBParser.class, new RegisterClientBParserImpl(getService(StringParser.class)));
         put(RegisterClientParser.class, new RegisterClientParserImpl(getService(StringParser.class)));
         put(RegisterClientCParser.class, new RegisterClientCParserImpl(getService(StringParser.class)));
+        put(NewValueParser.class, new NewValueParserImpl(
+                getService(ChannelTypeDecoder.class), getService(DeviceChannelValueParser.TypeMapper.class)));
         put(ClientServerParser.class, new ClientServerParserImpl(
                                                                         getService(ChannelNewValueBParser.class),
                                                                         getService(ChannelNewValueParser.class),
                                                                         getService(RegisterClientBParser.class),
                 getService(RegisterClientParser.class),
-                getService(RegisterClientCParser.class)));
+                getService(RegisterClientCParser.class),
+                getService(NewValueParser.class)));
 
         // DeviceClientServerParser
         put(PingServerParser.class, new PingServerParserImpl(getService(TimevalParser.class)));
