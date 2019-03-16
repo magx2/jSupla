@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 
 public class StringParserImpl implements StringParser {
     public static final StringParserImpl INSTANCE = new StringParserImpl();
-    public static final int HEX_LENGTH = 16;
+    private static final int HEX_LENGTH = 16;
 
     @Override
     public String parse(byte[] bytes) {
