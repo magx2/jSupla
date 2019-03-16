@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.JSuplaContext;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
@@ -31,6 +32,7 @@ public class IntegrationTest {
                 .map(ClassPath.ClassInfo::load)
                 .filter(clazz -> !clazz.isInterface())
                 .filter(Proto.class::isAssignableFrom)
+                .filter(clazz -> !SuplaDataPacket.class.isAssignableFrom(clazz))
                 .map(clazz -> RandomSupla.RANDOM_SUPLA.nextObject(clazz))
                 .map(obj -> new Object[]{obj})
                 .toArray(Object[][]::new);
