@@ -34,7 +34,6 @@ public class StringParserImpl implements StringParser {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**
