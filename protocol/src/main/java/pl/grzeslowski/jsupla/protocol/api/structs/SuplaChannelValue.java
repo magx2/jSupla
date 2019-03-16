@@ -22,7 +22,11 @@ public final class SuplaChannelValue implements ProtoWithSize {
 
     public SuplaChannelValue(byte[] value, byte[] subValue) {
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
-        this.subValue = checkArrayLength(subValue, SUPLA_CHANNELVALUE_SIZE);
+        if (subValue != null) {
+            this.subValue = checkArrayLength(subValue, SUPLA_CHANNELVALUE_SIZE);
+        } else {
+            this.subValue = null;
+        }
     }
 
     @Override
