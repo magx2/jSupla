@@ -32,7 +32,7 @@ public class RegisterDeviceDSerializerImplTest extends SerializerTest<RegisterDe
     protected void then(RegisterDeviceD entity, SuplaRegisterDeviceD proto) {
         verify(stringSerializer).serialize(entity.getEmail(), SUPLA_EMAIL_MAXSIZE);
         verify(stringSerializer).serialize(entity.getAuthKey(), SUPLA_AUTHKEY_SIZE);
-        verify(stringSerializer).serialize(entity.getGuid(), SUPLA_GUID_SIZE);
+        verify(stringSerializer).serializeHexString(entity.getGuid());
         verify(stringSerializer).serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE);
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
         verify(stringSerializer).serialize(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE);

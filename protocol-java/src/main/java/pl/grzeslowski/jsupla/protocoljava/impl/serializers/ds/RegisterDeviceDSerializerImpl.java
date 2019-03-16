@@ -32,7 +32,7 @@ public class RegisterDeviceDSerializerImpl implements RegisterDeviceDSerializer 
         return new SuplaRegisterDeviceD(
                 stringSerializer.serialize(entity.getEmail(), SUPLA_EMAIL_MAXSIZE),
                 stringSerializer.serialize(entity.getAuthKey(), SUPLA_AUTHKEY_SIZE),
-                stringSerializer.serialize(entity.getGuid(), SUPLA_GUID_SIZE),
+                stringSerializer.serializeHexString(entity.getGuid()),
                 stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
                 stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
                 stringSerializer.serialize(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE),

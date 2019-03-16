@@ -13,11 +13,7 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterDeviceCSerializerImplTest extends SerializerTest<RegisterDeviceC, SuplaRegisterDeviceC> {
@@ -35,7 +31,7 @@ public class RegisterDeviceCSerializerImplTest extends SerializerTest<RegisterDe
     protected void then(final RegisterDeviceC entity, final SuplaRegisterDeviceC proto) {
         assertThat(proto.locationId).isEqualTo(entity.getLocationId());
         verify(stringSerializer).serializePassword(entity.getLocationPassword(), SUPLA_LOCATION_PWD_MAXSIZE);
-        verify(stringSerializer).serialize(entity.getGuid(), SUPLA_GUID_SIZE);
+        verify(stringSerializer).serializeHexString(entity.getGuid());
         verify(stringSerializer).serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE);
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
         assertThat((int) proto.channelCount).isEqualTo(entity.getChannelCount());

@@ -36,6 +36,9 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRa
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.lang.System.arraycopy;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
     @SuppressWarnings("FieldCanBeLocal") private final Logger logger = LoggerFactory.getLogger(RandomSupla.class);
@@ -118,10 +121,16 @@ public class RandomSupla extends EnhancedRandom {
         return random.objects(type, amount, excludedFields);
     }
 
-    public byte[] nextByteArray(int size) {
-        byte[] bytes = new byte[size];
-        this.nextBytes(bytes);
-        return bytes;
+    public byte[] nextByteArray(int byteSize) {
+        final byte[] bytes = new byte[byteSize];
+        while (true) {
+            String nextString = this.nextString(byteSize);
+            byte[] stringBytes = nextString.getBytes(UTF_8);
+            if (stringBytes.length < byteSize) {
+                arraycopy(stringBytes, 0, bytes, 0, stringBytes.length);
+                return bytes;
+            }
+        }
     }
 
     public byte nextByte() {
