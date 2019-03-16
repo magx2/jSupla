@@ -16,10 +16,10 @@ public class FirmwareUpdateParamsSerializerImplTest
     @Override
     protected void then(final FirmwareUpdateParams entity, final SuplaFirmwareUpdateParams proto) {
         assertThat(proto.platform).isEqualTo((byte) entity.getPlatform());
-        assertThat(proto.param1).isEqualTo((short) entity.getParam1());
-        assertThat(proto.param2).isEqualTo((short) entity.getParam2());
-        assertThat(proto.param3).isEqualTo((short) entity.getParam3());
-        assertThat(proto.param4).isEqualTo((short) entity.getParam4());
+        assertThat(proto.param1).isEqualTo(entity.getParam1());
+        assertThat(proto.param2).isEqualTo(entity.getParam2());
+        assertThat(proto.param3).isEqualTo(entity.getParam3());
+        assertThat(proto.param4).isEqualTo(entity.getParam4());
     }
 
     @Override

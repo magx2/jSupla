@@ -16,6 +16,6 @@ public class SuplaChannelNewValueResultRandomizer implements Randomizer<SuplaCha
         return new SuplaChannelNewValueResult(
                                                      randomSupla.nextUnsignedByte(),
                                                      randomSupla.nextPositiveInt(),
-                                                     randomSupla.nextByte());
+                randomSupla.nextByte((byte) 1));
     }
 }

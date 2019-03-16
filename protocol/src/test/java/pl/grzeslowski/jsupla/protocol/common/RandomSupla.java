@@ -33,6 +33,7 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaPingServerResu
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaSetActivityTimeoutResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRandomizer;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -131,6 +132,18 @@ public class RandomSupla extends EnhancedRandom {
                 return bytes;
             }
         }
+    }
+
+    public byte[] nextByteArrayWithoutZerosOnEnd(int maxByteSize) {
+        byte[] bytes = nextByteArray(maxByteSize);
+        int end = bytes.length;
+        for (int i = 0; i < bytes.length; i++) {
+            if (bytes[i] == (byte) 0) {
+                end = i;
+                break;
+            }
+        }
+        return Arrays.copyOf(bytes, end);
     }
 
     public byte nextByte() {

@@ -15,14 +15,14 @@ public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
 
     @Override
     public SuplaEvent getRandomValue() {
-        final int senderNameSize = randomSupla.nextPositiveInt(SUPLA_SENDER_NAME_MAXSIZE);
+        byte[] senderName = randomSupla.nextByteArrayWithoutZerosOnEnd(SUPLA_SENDER_NAME_MAXSIZE);
         return new SuplaEvent(
                                      randomSupla.nextPositiveInt(),
                                      randomSupla.nextPositiveInt(),
                                      randomSupla.nextUnsignedInt(),
                                      randomSupla.nextPositiveInt(),
-                                     senderNameSize,
-                                     randomSupla.nextByteArray(senderNameSize)
+                senderName.length,
+                senderName
         );
     }
 }
