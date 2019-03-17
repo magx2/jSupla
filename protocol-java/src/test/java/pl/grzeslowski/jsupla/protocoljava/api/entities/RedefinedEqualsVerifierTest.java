@@ -43,7 +43,10 @@ public class RedefinedEqualsVerifierTest<T> {
         REDEFINED_TYPES.add(new Hierarchy(RegisterDevice.class, RegisterDeviceB.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDeviceB.class, RegisterDeviceC.class, RegisterDevice.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDeviceC.class, RegisterDeviceD.class, RegisterDeviceB.class));
-        REDEFINED_TYPES.add(new Hierarchy(RegisterClientResult.class, RegisterClientResultB.class, RegisterDevice.class));
+        REDEFINED_TYPES.add(new Hierarchy(
+            RegisterClientResult.class,
+            RegisterClientResultB.class,
+            RegisterDevice.class));
         REDEFINED_TYPES.add(new Hierarchy(Channel.class, ChannelB.class));
 
         // there is some shitty error with javac
