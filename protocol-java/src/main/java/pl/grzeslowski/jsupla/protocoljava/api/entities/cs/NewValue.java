@@ -24,9 +24,9 @@ public class NewValue implements ClientServerEntity {
     private final ChannelValue value;
 
     public NewValue(
-            @Positive int id,
-            @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int target,
-            @NotNull @Valid ChannelValue value) {
+        @Positive int id,
+        @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int target,
+        @NotNull @Valid ChannelValue value) {
         this.id = id(id);
         this.target = byteSize(target);
         this.value = requireNonNull(value);
@@ -46,12 +46,16 @@ public class NewValue implements ClientServerEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof NewValue)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof NewValue)) {
+            return false;
+        }
         NewValue newValue = (NewValue) o;
         return id == newValue.id &&
-                target == newValue.target &&
-                Objects.equals(value, newValue.value);
+                   target == newValue.target &&
+                   Objects.equals(value, newValue.value);
     }
 
     @Override
@@ -62,9 +66,9 @@ public class NewValue implements ClientServerEntity {
     @Override
     public String toString() {
         return "NewValue{" +
-                "id=" + id +
-                ", target=" + target +
-                ", value=" + value +
-                '}';
+                   "id=" + id +
+                   ", target=" + target +
+                   ", value=" + value +
+                   '}';
     }
 }

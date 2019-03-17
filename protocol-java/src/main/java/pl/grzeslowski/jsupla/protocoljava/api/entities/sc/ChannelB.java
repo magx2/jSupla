@@ -3,7 +3,12 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
@@ -51,9 +56,15 @@ public class ChannelB extends Channel {
 
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelB)) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelB)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ChannelB channelB = (ChannelB) o;
         return altIcon == channelB.altIcon &&
                 flags == channelB.flags &&

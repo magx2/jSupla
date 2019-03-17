@@ -17,7 +17,9 @@ public class ChannelGroupRelation implements ServerClientEntity {
     @Positive
     private final int channelId;
 
-    public ChannelGroupRelation(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int eol, @Positive int channelGroupId, @Positive int channelId) {
+    public ChannelGroupRelation(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int eol,
+                                @Positive int channelGroupId,
+                                @Positive int channelId) {
         this.eol = size(eol, Byte.MIN_VALUE, Byte.MAX_VALUE);
         this.channelGroupId = positive(channelGroupId);
         this.channelId = positive(channelId);
@@ -37,8 +39,12 @@ public class ChannelGroupRelation implements ServerClientEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ChannelGroupRelation that = (ChannelGroupRelation) o;
         return eol == that.eol &&
                 channelGroupId == that.channelGroupId &&

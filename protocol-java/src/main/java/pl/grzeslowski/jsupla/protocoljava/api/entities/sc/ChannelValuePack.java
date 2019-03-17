@@ -29,8 +29,12 @@ public class ChannelValuePack implements ServerClientEntity {
 
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelValuePack)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelValuePack)) {
+            return false;
+        }
         ChannelValuePack that = (ChannelValuePack) o;
         return totalLeft == that.totalLeft &&
                 Objects.equals(items, that.items);

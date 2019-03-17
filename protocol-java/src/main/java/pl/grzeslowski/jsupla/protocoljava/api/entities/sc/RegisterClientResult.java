@@ -5,7 +5,10 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.*;
+import static pl.grzeslowski.jsupla.Preconditions.id;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
+import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
+import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
@@ -75,8 +78,12 @@ public class RegisterClientResult implements ServerClientEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RegisterClientResult)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof RegisterClientResult)) {
+            return false;
+        }
         RegisterClientResult that = (RegisterClientResult) o;
         return resultCode == that.resultCode &&
                 clientId == that.clientId &&

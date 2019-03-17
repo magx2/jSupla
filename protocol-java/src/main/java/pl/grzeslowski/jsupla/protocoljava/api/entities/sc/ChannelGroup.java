@@ -6,7 +6,9 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.*;
+import static pl.grzeslowski.jsupla.Preconditions.byteSize;
+import static pl.grzeslowski.jsupla.Preconditions.positive;
+import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 
 public class ChannelGroup implements ServerClientEntity {
     @Max(Byte.MAX_VALUE)
@@ -67,8 +69,12 @@ public class ChannelGroup implements ServerClientEntity {
 
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelGroup)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelGroup)) {
+            return false;
+        }
         ChannelGroup that = (ChannelGroup) o;
         return eol == that.eol &&
                 id == that.id &&

@@ -28,9 +28,15 @@ public class RegisterClientResultB extends RegisterClientResult {
 
     @Override
     public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         RegisterClientResultB that = (RegisterClientResultB) o;
         return flags == that.flags;
     }

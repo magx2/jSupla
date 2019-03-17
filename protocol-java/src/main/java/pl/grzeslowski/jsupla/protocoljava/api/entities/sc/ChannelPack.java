@@ -20,7 +20,7 @@ public class ChannelPack implements ServerClientEntity {
     private final List<? extends Channel> channels;
 
     public ChannelPack(@PositiveOrZero final int totalLeft,
-                       final @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<? extends Channel> channels) {
+                       @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<? extends Channel> channels) {
         this.totalLeft = min(totalLeft, 0);
         this.channels = unmodifiableList(new ArrayList<>(requireNonNull(channels)));
     }

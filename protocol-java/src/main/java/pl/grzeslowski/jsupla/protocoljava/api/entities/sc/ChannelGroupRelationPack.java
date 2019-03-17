@@ -26,8 +26,12 @@ public class ChannelGroupRelationPack implements ServerClientEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ChannelGroupRelationPack)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ChannelGroupRelationPack)) {
+            return false;
+        }
         ChannelGroupRelationPack that = (ChannelGroupRelationPack) o;
         return totalLeft == that.totalLeft &&
                 Objects.equals(items, that.items);
