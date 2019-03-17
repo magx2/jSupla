@@ -106,7 +106,7 @@ public class RegisterDevice implements DeviceServerEntity {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return locationId;
     }
 

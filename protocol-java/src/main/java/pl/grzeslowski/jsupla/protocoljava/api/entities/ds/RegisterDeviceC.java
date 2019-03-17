@@ -4,8 +4,13 @@ import pl.grzeslowski.jsupla.Preconditions;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.C;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
@@ -36,7 +41,7 @@ public class RegisterDeviceC extends RegisterDeviceB {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -60,9 +65,14 @@ public class RegisterDeviceC extends RegisterDeviceB {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), serverName);
+    }
+
+    @Override
     public String toString() {
         return "RegisterDeviceC{" +
-                "serverName='" + serverName + '\'' +
-                "} " + super.toString();
+                   "serverName='" + serverName + '\'' +
+                   "} " + super.toString();
     }
 }

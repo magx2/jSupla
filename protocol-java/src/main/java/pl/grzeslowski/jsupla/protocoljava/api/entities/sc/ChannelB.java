@@ -66,11 +66,18 @@ public class ChannelB extends Channel {
             return false;
         }
         final ChannelB channelB = (ChannelB) o;
+        if (!channelB.canEqual(this)) {
+            return false;
+        }
         return altIcon == channelB.altIcon &&
                    flags == channelB.flags &&
                    protocolVersion == channelB.protocolVersion;
     }
 
+    protected boolean canEqual(final Object other) {
+        return other instanceof ChannelB;
+    }
+    
     @Override
     public final int hashCode() {
         return Objects.hash(super.hashCode(), altIcon, flags, protocolVersion);

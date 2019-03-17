@@ -85,6 +85,9 @@ public class RegisterClientResult implements ServerClientEntity {
             return false;
         }
         RegisterClientResult that = (RegisterClientResult) o;
+        if (!that.canEqual(this)) {
+            return false;
+        }
         return resultCode == that.resultCode &&
                 clientId == that.clientId &&
                 locationCount == that.locationCount &&
@@ -94,6 +97,10 @@ public class RegisterClientResult implements ServerClientEntity {
                 versionMin == that.versionMin;
     }
 
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterClientResult;
+    }
+    
     @Override
     public int hashCode() {
         return Objects.hash(resultCode, clientId, locationCount, channelCount, activityTimeout, version, versionMin);

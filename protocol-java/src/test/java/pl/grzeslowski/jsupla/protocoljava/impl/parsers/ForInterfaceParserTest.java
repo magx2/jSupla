@@ -59,7 +59,7 @@ public abstract class ForInterfaceParserTest<EntityT extends Entity, SuplaProtoT
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenProtoTypeIsUnknown() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionWhenProtoTypeIsUnknown() {
         getParser().parse(mock(suplaClass()));
     }
 

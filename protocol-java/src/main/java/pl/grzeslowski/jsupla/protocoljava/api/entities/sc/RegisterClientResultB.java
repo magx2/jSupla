@@ -38,11 +38,25 @@ public class RegisterClientResultB extends RegisterClientResult {
             return false;
         }
         RegisterClientResultB that = (RegisterClientResultB) o;
+        if (!that.canEqual(this)) {
+            return false;
+        }
         return flags == that.flags;
     }
 
     @Override
     public final int hashCode() {
         return Objects.hash(super.hashCode(), flags);
+    }
+
+    protected boolean canEqual(final Object other) {
+        return other instanceof RegisterClientResultB;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterClientResultB{" +
+                   "flags=" + flags +
+                   "} " + super.toString();
     }
 }
