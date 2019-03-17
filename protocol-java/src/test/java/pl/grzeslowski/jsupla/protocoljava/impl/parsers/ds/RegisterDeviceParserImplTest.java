@@ -46,7 +46,7 @@ public class RegisterDeviceParserImplTest extends AbstractParserTest<RegisterDev
         verify(stringParser).parseHexString(supla.guid);
         verify(stringParser).parse(supla.name);
         verify(stringParser).parse(supla.softVer);
-        assertThat(entity.getChannelCount()).isEqualTo(supla.channelCount);
+        assertThat(entity.getChannels().size()).isEqualTo(supla.channelCount);
         Arrays.stream(supla.channels)
                 .forEach(channel -> verify(deviceChannelParser).parse(channel));
         verifyNoMoreInteractions(deviceChannelParser);

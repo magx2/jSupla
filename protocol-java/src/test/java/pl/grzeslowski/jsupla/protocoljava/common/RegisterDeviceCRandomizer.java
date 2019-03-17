@@ -24,7 +24,6 @@ class RegisterDeviceCRandomizer implements Randomizer<RegisterDeviceC> {
                                           registerDevice.getGuid(),
                                           registerDevice.getName(),
                                           registerDevice.getSoftVer(),
-                                          registerDevice.getChannelCount(),
                                           registerDevice.getChannels(),
                                           generateServerName()
 

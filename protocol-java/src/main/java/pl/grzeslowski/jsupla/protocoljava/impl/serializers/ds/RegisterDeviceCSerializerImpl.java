@@ -35,7 +35,7 @@ public class RegisterDeviceCSerializerImpl implements RegisterDeviceCSerializer 
                 stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
                 stringSerializer.serialize(entity.getServerName(),
                         SUPLA_SERVER_NAME_MAXSIZE),
-                (short) entity.getChannelCount(),
+                (short) entity.getChannels().size(),
                 entity.getChannels()
                         .getChannels()
                         .stream()

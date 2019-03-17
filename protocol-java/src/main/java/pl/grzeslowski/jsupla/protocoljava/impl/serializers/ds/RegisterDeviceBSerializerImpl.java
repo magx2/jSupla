@@ -33,7 +33,7 @@ public class RegisterDeviceBSerializerImpl implements RegisterDeviceBSerializer 
                 stringSerializer.serializeHexString(entity.getGuid()),
                 stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
                 stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
-                (short) entity.getChannelCount(),
+                (short) entity.getChannels().size(),
                 entity.getChannels()
                         .getChannels()
                         .stream()

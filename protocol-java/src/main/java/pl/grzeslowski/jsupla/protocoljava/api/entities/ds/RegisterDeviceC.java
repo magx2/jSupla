@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.Preconditions;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.C;
 
@@ -21,10 +20,9 @@ public class RegisterDeviceC extends RegisterDeviceB {
                            final @NotNull @Size(min = 1, max = SUPLA_GUID_SIZE) String guid,
                            final @NotNull @Size(min = 1, max = SUPLA_DEVICE_NAME_MAXSIZE) String name,
                            final @NotNull @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE) String softVer,
-                           final @NotNull @Size(max = UNSIGNED_BYTE_MAX) int channelCount,
                            final @NotNull DeviceChannelsB channels,
                            final @NotNull @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE) String serverName) {
-        super(locationId, locationPassword, guid, name, softVer, channelCount, channels);
+        super(locationId, locationPassword, guid, name, softVer, channels);
         this.serverName = Preconditions.size(serverName, 1, SUPLA_SERVER_NAME_MAXSIZE);
     }
 

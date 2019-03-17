@@ -6,10 +6,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannels;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 class RegisterDeviceRandomizer implements Randomizer<RegisterDevice> {
     private final EnhancedRandom random;
@@ -27,7 +24,6 @@ class RegisterDeviceRandomizer implements Randomizer<RegisterDevice> {
                                          generateString(SUPLA_GUID_SIZE),
                                          generateString(SUPLA_DEVICE_NAME_MAXSIZE),
                                          generateString(SUPLA_SOFTVER_MAXSIZE),
-                                         channels.size(),
                                          channels
         );
     }

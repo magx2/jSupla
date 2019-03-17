@@ -51,7 +51,7 @@ public class RandomSupla extends EnhancedRandom {
                 .objectPoolSize(1_000)
                          .seed(123L)
                          // cs
-                         .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueBRandomizer(this))
+                .randomize(SuplaChannelNewValueB.class, new SuplaChannelNewValueBRandomizer(this))
                          .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueRandomizer(this))
                          .randomize(SuplaRegisterClientB.class, new SuplaRegisterClientBRandomizer(this))
                          .randomize(SuplaRegisterClient.class, new SuplaRegisterClientRandomizer(this))

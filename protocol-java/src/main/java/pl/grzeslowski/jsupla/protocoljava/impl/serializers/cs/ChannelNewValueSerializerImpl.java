@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class ChannelNewValueSerializerImpl implements ChannelNewValueSerializer {
     private final ChannelTypeEncoder channelTypeEncoder;
@@ -20,8 +21,8 @@ public class ChannelNewValueSerializerImpl implements ChannelNewValueSerializer 
     @Override
     public SuplaChannelNewValue serialize(@NotNull final ChannelNewValue entity) {
         return new SuplaChannelNewValue(
-                                               (byte) entity.getChannelId(),
-                                               channelTypeEncoder.encode(entity.getValue())
+                (byte) entity.getChannelId(),
+                channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

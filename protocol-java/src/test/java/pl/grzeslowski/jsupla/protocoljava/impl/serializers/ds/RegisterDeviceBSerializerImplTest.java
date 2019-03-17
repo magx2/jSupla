@@ -35,7 +35,7 @@ public class RegisterDeviceBSerializerImplTest extends SerializerTest<RegisterDe
         verify(stringSerializer).serializeHexString(entity.getGuid());
         verify(stringSerializer).serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE);
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
-        assertThat((int) proto.channelCount).isEqualTo(entity.getChannelCount());
+        assertThat((int) proto.channelCount).isEqualTo(entity.getChannels().size());
         entity.getChannels().getChannels().forEach(channel ->
                                                            verify(deviceChannelBSerializer).serialize(channel));
 

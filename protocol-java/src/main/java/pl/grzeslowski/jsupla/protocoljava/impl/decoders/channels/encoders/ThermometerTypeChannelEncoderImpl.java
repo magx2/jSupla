@@ -4,14 +4,16 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ThermometerTypeC
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureAndHumidityValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureValue;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+
 public class ThermometerTypeChannelEncoderImpl implements ThermometerTypeChannelEncoder {
     @Override
     public byte[] encode(final TemperatureValue temperatureValue) {
-        return new byte[0];
+        return new byte[SUPLA_CHANNELVALUE_SIZE]; // TODO
     }
 
     @Override
     public byte[] encode(final TemperatureAndHumidityValue temperatureAndHumidityValue) {
-        return new byte[0];
+        return new byte[SUPLA_CHANNELVALUE_SIZE];// TODO
     }
 }

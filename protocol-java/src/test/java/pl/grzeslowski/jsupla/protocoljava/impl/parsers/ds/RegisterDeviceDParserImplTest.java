@@ -31,7 +31,7 @@ public class RegisterDeviceDParserImplTest extends AbstractParserTest<RegisterDe
     protected void then(RegisterDeviceD entity, SuplaRegisterDeviceD supla) {
         verify(stringParser).parse(supla.email);
         verify(stringParser).parse(supla.authKey);
-        verify(stringParser).parse(supla.guid);
+        verify(stringParser).parseHexString(supla.guid);
         verify(stringParser).parse(supla.name);
         verify(stringParser).parse(supla.softVer);
         verify(stringParser).parse(supla.serverName);

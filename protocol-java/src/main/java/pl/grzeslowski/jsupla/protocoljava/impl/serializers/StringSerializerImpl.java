@@ -13,7 +13,7 @@ import static pl.grzeslowski.jsupla.Preconditions.max;
 
 public class StringSerializerImpl implements StringSerializer {
     public static final StringSerializerImpl INSTANCE = new StringSerializerImpl();
-    public static final int HEX_STRING_SUPPORTED_LENGTH = 32;
+    private static final int HEX_STRING_SUPPORTED_LENGTH = 32;
 
     @Override
     public byte[] serialize(final String string, final int length) {
