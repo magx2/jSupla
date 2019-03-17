@@ -45,7 +45,7 @@ public class NewValue implements ClientServerEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -59,7 +59,7 @@ public class NewValue implements ClientServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(id, target, value);
     }
 

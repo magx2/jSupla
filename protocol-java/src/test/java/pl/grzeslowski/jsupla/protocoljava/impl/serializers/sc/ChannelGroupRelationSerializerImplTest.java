@@ -10,7 +10,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("WeakerAccess")
-public class ChannelGroupRelationSerializerImplTest extends SerializerTest<ChannelGroupRelation, SuplaChannelGroupRelation> {
+public class ChannelGroupRelationSerializerImplTest
+    extends SerializerTest<ChannelGroupRelation, SuplaChannelGroupRelation> {
     @InjectMocks
     ChannelGroupRelationSerializerImpl serializer;
 

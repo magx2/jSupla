@@ -68,7 +68,7 @@ public final class RgbValue implements ChannelValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = brightness;
         result = 31 * result + colorBrightness;
         result = 31 * result + red;

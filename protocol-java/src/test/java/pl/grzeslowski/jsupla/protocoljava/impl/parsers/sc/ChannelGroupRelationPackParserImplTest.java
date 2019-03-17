@@ -17,7 +17,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
-public class ChannelGroupRelationPackParserImplTest extends AbstractParserTest<ChannelGroupRelationPack, SuplaChannelGroupRelationPack> {
+public class ChannelGroupRelationPackParserImplTest
+    extends AbstractParserTest<ChannelGroupRelationPack, SuplaChannelGroupRelationPack> {
     @InjectMocks
     ChannelGroupRelationPackParserImpl parser;
     @Mock

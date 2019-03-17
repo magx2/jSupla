@@ -9,7 +9,12 @@ import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_C;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 /**
  * @since ver 6.
@@ -104,7 +109,7 @@ public final class SuplaRegisterDeviceC implements DeviceServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = locationId;
         result = 31 * result + Arrays.hashCode(locationPwd);
         result = 31 * result + Arrays.hashCode(guid);

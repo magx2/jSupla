@@ -52,7 +52,7 @@ public final class SuplaChannelValue implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Arrays.hashCode(value);
         result = 31 * result + Arrays.hashCode(subValue);
         return result;

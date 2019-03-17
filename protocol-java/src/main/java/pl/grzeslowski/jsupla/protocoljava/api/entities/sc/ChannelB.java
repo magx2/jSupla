@@ -55,7 +55,7 @@ public class ChannelB extends Channel {
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -65,10 +65,10 @@ public class ChannelB extends Channel {
         if (!super.equals(o)) {
             return false;
         }
-        ChannelB channelB = (ChannelB) o;
+        final ChannelB channelB = (ChannelB) o;
         return altIcon == channelB.altIcon &&
-                flags == channelB.flags &&
-                protocolVersion == channelB.protocolVersion;
+                   flags == channelB.flags &&
+                   protocolVersion == channelB.protocolVersion;
     }
 
     @Override

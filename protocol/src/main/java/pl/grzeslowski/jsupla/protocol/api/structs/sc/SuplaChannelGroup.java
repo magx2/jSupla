@@ -83,7 +83,7 @@ public final class SuplaChannelGroup implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Objects.hash(eol, id, locationId, func, altIcon, flags, captionSize);
         result = 31 * result + Arrays.hashCode(caption);
         return result;

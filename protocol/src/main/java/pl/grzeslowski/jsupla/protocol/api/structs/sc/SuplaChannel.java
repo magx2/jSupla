@@ -95,7 +95,7 @@ public final class SuplaChannel implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) eol;
         result = 31 * result + id;
         result = 31 * result + locationId;

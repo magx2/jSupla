@@ -77,7 +77,7 @@ public final class SuplaEvent implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = event;
         result = 31 * result + channelId;
         result = 31 * result + (int) (durationMs ^ (durationMs >>> 32));

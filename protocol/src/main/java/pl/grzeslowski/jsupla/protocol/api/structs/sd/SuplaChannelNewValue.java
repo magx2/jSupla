@@ -66,7 +66,7 @@ public final class SuplaChannelNewValue implements ServerDevice {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = senderId;
         result = 31 * result + (int) channelNumber;
         result = 31 * result + (int) (durationMs ^ (durationMs >>> 32));

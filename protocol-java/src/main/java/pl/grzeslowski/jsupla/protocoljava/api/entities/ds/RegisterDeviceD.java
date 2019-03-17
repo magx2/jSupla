@@ -84,7 +84,7 @@ public class RegisterDeviceD implements DeviceServerEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -102,7 +102,7 @@ public class RegisterDeviceD implements DeviceServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(email, authKey, guid, name, softVer, serverName, channels);
     }
 

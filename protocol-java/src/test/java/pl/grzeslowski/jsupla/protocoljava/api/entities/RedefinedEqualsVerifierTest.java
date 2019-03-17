@@ -15,6 +15,11 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelsB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceD;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelB;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResultB;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +42,9 @@ public class RedefinedEqualsVerifierTest<T> {
         REDEFINED_TYPES.add(new Hierarchy(DeviceChannels.class, DeviceChannelsB.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDevice.class, RegisterDeviceB.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDeviceB.class, RegisterDeviceC.class, RegisterDevice.class));
+        REDEFINED_TYPES.add(new Hierarchy(RegisterDeviceC.class, RegisterDeviceD.class, RegisterDeviceB.class));
+        REDEFINED_TYPES.add(new Hierarchy(RegisterClientResult.class, RegisterClientResultB.class, RegisterDevice.class));
+        REDEFINED_TYPES.add(new Hierarchy(Channel.class, ChannelB.class));
 
         // there is some shitty error with javac
         final Stream<Class<?>> classStream = REDEFINED_TYPES.stream().flatMap(Hierarchy::toStream);

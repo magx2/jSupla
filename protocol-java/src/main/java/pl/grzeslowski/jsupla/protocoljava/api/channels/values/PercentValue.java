@@ -8,6 +8,7 @@ public final class PercentValue implements ChannelValue {
 
     private final int value;
 
+    @SuppressWarnings("WeakerAccess")
     public PercentValue(final int value) {
         this.value = size(value, 0, 100);
     }
@@ -31,7 +32,7 @@ public final class PercentValue implements ChannelValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return value;
     }
 

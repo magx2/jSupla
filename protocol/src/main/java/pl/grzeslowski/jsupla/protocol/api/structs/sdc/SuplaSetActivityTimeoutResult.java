@@ -59,7 +59,7 @@ public final class SuplaSetActivityTimeoutResult implements ServerDeviceClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) activityTimeout;
         result = 31 * result + (int) min;
         result = 31 * result + (int) max;

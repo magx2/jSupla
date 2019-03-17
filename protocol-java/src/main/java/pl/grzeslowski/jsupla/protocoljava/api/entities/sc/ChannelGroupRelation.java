@@ -38,11 +38,11 @@ public class ChannelGroupRelation implements ServerClientEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ChannelGroupRelation)) {
             return false;
         }
         ChannelGroupRelation that = (ChannelGroupRelation) o;
@@ -52,7 +52,7 @@ public class ChannelGroupRelation implements ServerClientEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(eol, channelGroupId, channelId);
     }
 

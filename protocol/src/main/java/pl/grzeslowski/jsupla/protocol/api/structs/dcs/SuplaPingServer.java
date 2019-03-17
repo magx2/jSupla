@@ -39,7 +39,7 @@ public final class SuplaPingServer implements DeviceClientServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return timeval.hashCode();
     }
 

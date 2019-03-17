@@ -60,7 +60,7 @@ public final class TemperatureAndHumidityValue implements ChannelValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = temperature.hashCode();
         result = 31 * result + humidity.hashCode();
         return result;

@@ -78,7 +78,7 @@ public class RegisterClientC implements ClientServerEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -95,7 +95,7 @@ public class RegisterClientC implements ClientServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(email, authKey, guid, name, softVer, serverName);
     }
 

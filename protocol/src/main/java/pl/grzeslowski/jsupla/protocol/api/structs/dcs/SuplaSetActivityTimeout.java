@@ -42,7 +42,7 @@ public final class SuplaSetActivityTimeout implements DeviceClientServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return (int) activityTimeout;
     }
 

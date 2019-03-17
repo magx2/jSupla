@@ -38,7 +38,7 @@ public final class SuplaChannelValuePack implements ServerClient {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -52,7 +52,7 @@ public final class SuplaChannelValuePack implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Objects.hash(count, totalLeft);
         result = 31 * result + Arrays.hashCode(items);
         return result;

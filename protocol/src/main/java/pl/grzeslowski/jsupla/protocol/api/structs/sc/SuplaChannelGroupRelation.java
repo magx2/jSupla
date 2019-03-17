@@ -48,7 +48,7 @@ public final class SuplaChannelGroupRelation implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(eol, channelGroupId, channelId);
     }
 

@@ -39,7 +39,7 @@ public final class SuplaTimeval implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = seconds;
         result = 31 * result + milliseconds;
         return result;

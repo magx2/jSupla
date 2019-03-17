@@ -53,7 +53,7 @@ public final class DecimalValue implements ChannelValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return value.hashCode();
     }
 

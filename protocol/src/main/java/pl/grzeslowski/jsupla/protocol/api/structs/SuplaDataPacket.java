@@ -77,7 +77,7 @@ public final class SuplaDataPacket implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) version;
         result = 31 * result + (int) (rrId ^ (rrId >>> 32));
         result = 31 * result + (int) (callType ^ (callType >>> 32));

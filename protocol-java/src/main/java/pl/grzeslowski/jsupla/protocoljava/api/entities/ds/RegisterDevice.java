@@ -7,7 +7,10 @@ import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
@@ -103,7 +106,7 @@ public class RegisterDevice implements DeviceServerEntity {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return locationId;
     }
 

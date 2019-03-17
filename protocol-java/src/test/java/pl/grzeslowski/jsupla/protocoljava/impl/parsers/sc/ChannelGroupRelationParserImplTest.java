@@ -8,8 +8,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.parsers.AbstractParserTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
-public class ChannelGroupRelationParserImplTest extends AbstractParserTest<ChannelGroupRelation, SuplaChannelGroupRelation> {
+public class ChannelGroupRelationParserImplTest
+    extends AbstractParserTest<ChannelGroupRelation, SuplaChannelGroupRelation> {
     @InjectMocks
     ChannelGroupRelationParserImpl parser;
 

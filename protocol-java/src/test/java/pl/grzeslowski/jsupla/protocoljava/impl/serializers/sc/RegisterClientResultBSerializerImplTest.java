@@ -8,7 +8,8 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class RegisterClientResultBSerializerImplTest extends SerializerTest<RegisterClientResultB, SuplaRegisterClientResultB> {
+public class RegisterClientResultBSerializerImplTest
+    extends SerializerTest<RegisterClientResultB, SuplaRegisterClientResultB> {
     @InjectMocks
     RegisterClientResultBSerializerImpl serializer;
 

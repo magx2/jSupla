@@ -16,7 +16,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
-public class ChannelGroupRelationPackSerializerImplTest extends SerializerTest<ChannelGroupRelationPack, SuplaChannelGroupRelationPack> {
+public class ChannelGroupRelationPackSerializerImplTest
+    extends SerializerTest<ChannelGroupRelationPack, SuplaChannelGroupRelationPack> {
     @InjectMocks
     ChannelGroupRelationPackSerializerImpl serializer;
     @Mock

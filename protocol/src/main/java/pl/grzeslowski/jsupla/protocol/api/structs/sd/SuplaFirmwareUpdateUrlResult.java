@@ -44,7 +44,7 @@ public final class SuplaFirmwareUpdateUrlResult implements ServerDevice {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) exists;
         result = 31 * result + url.hashCode();
         return result;
