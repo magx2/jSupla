@@ -5,6 +5,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
@@ -64,10 +65,15 @@ public class DeviceChannelB extends DeviceChannel {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), function, defaultValue);
+    }
+
+    @Override
     public String toString() {
         return "DeviceChannelB{" +
-                       "function=" + function +
-                       ", defaultValue=" + defaultValue +
-                       "} " + super.toString();
+                   "function=" + function +
+                   ", defaultValue=" + defaultValue +
+                   "} " + super.toString();
     }
 }
