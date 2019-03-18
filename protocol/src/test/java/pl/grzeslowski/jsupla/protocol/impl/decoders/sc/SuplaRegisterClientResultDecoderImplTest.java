@@ -14,13 +14,7 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientResultDecoderImplTest extends ProperDecoderTest<SuplaRegisterClientResult> {
     @InjectMocks SuplaRegisterClientResultDecoderImpl decoder;
-    private int resultCode;
-    private int clientId;
-    private int locationCount;
-    private int chanelCount;
-    private short activityTimeout;
-    private short version;
-    private short versionMin;
+    final SuplaRegisterClientResult proto = RANDOM_SUPLA.nextObject(SuplaRegisterClientResult.class);
 
     @Override
     public SuplaRegisterClientResultDecoderImpl getDecoder() {
@@ -37,38 +31,25 @@ public class SuplaRegisterClientResultDecoderImplTest extends ProperDecoderTest<
     protected byte[] givenParseEntity(int offset) {
         final byte[] bytes = new byte[SuplaRegisterClientResult.SIZE + offset];
 
-        resultCode = RANDOM_SUPLA.nextInt();
-        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(resultCode, bytes, offset);
-
-        clientId = RANDOM_SUPLA.nextPositiveInt();
-        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(clientId, bytes, offset);
-
-        locationCount = RANDOM_SUPLA.nextPositiveInt();
-        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(locationCount, bytes, offset);
-
-        chanelCount = RANDOM_SUPLA.nextPositiveInt();
-        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(chanelCount, bytes, offset);
-
-        activityTimeout = RANDOM_SUPLA.nextUnsignedByte();
-        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(activityTimeout, bytes, offset);
-
-        version = (short) (RANDOM_SUPLA.nextUnsignedByte() + 2);
-        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(version, bytes, offset);
-
-        versionMin = RANDOM_SUPLA.nextUnsignedByte(version);
-        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(versionMin, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(proto.resultCode, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(proto.clientId, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(proto.locationCount, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(proto.channelCount, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(proto.activityTimeout, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(proto.version, bytes, offset);
+        offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(proto.versionMin, bytes, offset);
 
         return bytes;
     }
 
     @Override
     protected void verifyParseEntity(final SuplaRegisterClientResult entity) {
-        assertThat(entity.resultCode).isEqualTo(resultCode);
-        assertThat(entity.clientId).isEqualTo(clientId);
-        assertThat(entity.locationCount).isEqualTo(locationCount);
-        assertThat(entity.channelCount).isEqualTo(chanelCount);
-        assertThat(entity.activityTimeout).isEqualTo(activityTimeout);
-        assertThat(entity.version).isEqualTo(version);
-        assertThat(entity.versionMin).isEqualTo(versionMin);
+        assertThat(entity.resultCode).isEqualTo(proto.resultCode);
+        assertThat(entity.clientId).isEqualTo(proto.clientId);
+        assertThat(entity.locationCount).isEqualTo(proto.locationCount);
+        assertThat(entity.channelCount).isEqualTo(proto.channelCount);
+        assertThat(entity.activityTimeout).isEqualTo(proto.activityTimeout);
+        assertThat(entity.version).isEqualTo(proto.version);
+        assertThat(entity.versionMin).isEqualTo(proto.versionMin);
     }
 }
