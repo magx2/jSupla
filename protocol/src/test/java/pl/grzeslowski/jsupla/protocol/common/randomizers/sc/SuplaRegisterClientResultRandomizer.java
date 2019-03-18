@@ -13,15 +13,15 @@ public class SuplaRegisterClientResultRandomizer implements Randomizer<SuplaRegi
 
     @Override
     public SuplaRegisterClientResult getRandomValue() {
-        final short version = (short) (randomSupla.nextUnsignedByte((short) 250) + 2);
+        final short version = (short) (randomSupla.nextUnsignedByte((short) (250 - 3)) + 2);
         return new SuplaRegisterClientResult(
-                                                    randomSupla.nextPositiveInt(),
-                                                    randomSupla.nextPositiveInt(),
-                                                    randomSupla.nextPositiveInt(),
-                                                    randomSupla.nextPositiveInt(),
-                                                    randomSupla.nextUnsignedByte(),
-                                                    version,
-                                                    randomSupla.nextUnsignedByte(version)
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextUnsignedByte(),
+            version,
+            randomSupla.nextUnsignedByte(version)
         );
     }
 }
