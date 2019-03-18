@@ -7,7 +7,11 @@ import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.JSuplaContext;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValuePack;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 import pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext;
@@ -25,13 +29,13 @@ import static pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTy
 @RunWith(Parameterized.class)
 public class IntegrationTest {
     private static final Collection<Class<? extends Proto>> TEMPORARY_UNSUPORTED_PROTOS = Arrays.asList(
-            pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
-            pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
-            SuplaChannelB.class,
-            SuplaChannelValuePack.class,
-            SuplaChannelPackB.class,
-            SuplaChannelPack.class,
-            SuplaChannel.class
+        pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
+        pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
+        SuplaChannelB.class,
+        SuplaChannelValuePack.class,
+        SuplaChannelPackB.class,
+        SuplaChannelPack.class,
+        SuplaChannel.class
     );
 
     Proto proto;
@@ -41,17 +45,17 @@ public class IntegrationTest {
     @Parameterized.Parameters(name = "class = {0}")
     public static Object[][] data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
-                .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
-                .stream()
-                .map(ClassPath.ClassInfo::load)
-                .filter(clazz -> !clazz.isInterface())
-                .filter(Proto.class::isAssignableFrom)
-                .filter(clazz -> !SuplaDataPacket.class.isAssignableFrom(clazz))
-                // FIXME fix problem with SuplaChannelValueToChannelTypeImpl
-                .filter(clazz -> !TEMPORARY_UNSUPORTED_PROTOS.contains(clazz))
-                .map(clazz -> RandomSupla.RANDOM_SUPLA.nextObject(clazz))
-                .map(obj -> new Object[]{obj})
-                .toArray(Object[][]::new);
+                   .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
+                   .stream()
+                   .map(ClassPath.ClassInfo::load)
+                   .filter(clazz -> !clazz.isInterface())
+                   .filter(Proto.class::isAssignableFrom)
+                   .filter(clazz -> !SuplaDataPacket.class.isAssignableFrom(clazz))
+                   // FIXME fix problem with SuplaChannelValueToChannelTypeImpl
+                   .filter(clazz -> !TEMPORARY_UNSUPORTED_PROTOS.contains(clazz))
+                   .map(clazz -> RandomSupla.RANDOM_SUPLA.nextObject(clazz))
+                   .map(obj -> new Object[]{obj})
+                   .toArray(Object[][]::new);
     }
 
     public IntegrationTest(Proto proto) {
@@ -61,10 +65,14 @@ public class IntegrationTest {
     @SuppressWarnings("unchecked")
     @Test
     public void shouldFindSerializerAndParserFor() {
-        Entity entity = context.getService(Parser.class).parse(proto);
-        assertThat(entity).isNotNull();
-        Proto serialize = context.getService(Serializer.class).serialize(entity);
+        Entity entity1 = context.getService(Parser.class).parse(proto);
+        assertThat(entity1).isNotNull();
+        Proto serialize = context.getService(Serializer.class).serialize(entity1);
         assertThat(serialize).isNotNull();
         assertThat(serialize).isEqualTo(proto);
+        //        assertThat(proto).isEqualTo(serialize);
+        //        Entity entity2 = context.getService(Parser.class).parse(serialize);
+        //        assertThat(entity2).isEqualTo(entity1);
+        //        assertThat(entity1).isEqualTo(entity2);
     }
 }

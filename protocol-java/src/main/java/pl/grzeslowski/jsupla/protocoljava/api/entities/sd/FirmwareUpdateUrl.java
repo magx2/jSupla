@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
@@ -21,7 +20,6 @@ public class FirmwareUpdateUrl implements Entity {
     @Size(min = 1, max = SUPLA_URL_HOST_MAXSIZE)
     private final String host;
     @Min(0) // FIXME random beans
-    @PositiveOrZero
     @Max(65_535)
     private final int port;
     @NotNull
@@ -30,7 +28,7 @@ public class FirmwareUpdateUrl implements Entity {
 
     public FirmwareUpdateUrl(@Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) final int availableProtocols,
                              final @NotNull @Size(min = 1, max = SUPLA_URL_HOST_MAXSIZE) String host,
-                             @PositiveOrZero @Max(65_535) final int port,
+                             @Min(0) @Max(65_535) final int port,
                              final @NotNull @Size(min = 1, max = SUPLA_URL_PATH_MAXSIZE) String path) {
         this.availableProtocols = byteSize(availableProtocols);
         this.host = size(host, 1, SUPLA_URL_HOST_MAXSIZE);

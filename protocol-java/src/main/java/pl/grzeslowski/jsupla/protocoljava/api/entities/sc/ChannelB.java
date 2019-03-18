@@ -20,22 +20,21 @@ public class ChannelB extends Channel {
     private final int altIcon;
     @PositiveOrZero
     private final long flags;
-    @PositiveOrZero
     @Max(UNSIGNED_BYTE_MAX)
     @Min(0)
     private final int protocolVersion;
 
     public ChannelB(
-            @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int eol,
-            @Positive @Min(0) int id,
-            int locationId,
-            int function,
-            boolean online,
-            @NotNull @Valid ChannelValue channelValue,
-            @NotNull @Size(min = 1, max = SUPLA_CHANNEL_CAPTION_MAXSIZE) String caption,
-            int altIcon,
-            @PositiveOrZero long flags,
-            @Min(0) @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) int protocolVersion) {
+        @Min(Byte.MIN_VALUE) @Max(Byte.MAX_VALUE) int eol,
+        @Positive @Min(0) int id,
+        int locationId,
+        int function,
+        boolean online,
+        @NotNull @Valid ChannelValue channelValue,
+        @NotNull @Size(min = 1, max = SUPLA_CHANNEL_CAPTION_MAXSIZE) String caption,
+        int altIcon,
+        @PositiveOrZero long flags,
+        @Min(0) @Max(UNSIGNED_BYTE_MAX) int protocolVersion) {
         super(eol, id, locationId, function, online, channelValue, caption);
         this.altIcon = altIcon;
         this.flags = positiveOrZero(flags);

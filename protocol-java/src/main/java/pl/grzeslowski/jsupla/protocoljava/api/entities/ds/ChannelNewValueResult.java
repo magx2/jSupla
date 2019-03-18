@@ -2,20 +2,18 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.PositiveOrZero;
 
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class ChannelNewValueResult implements DeviceServerEntity {
     @Min(0) // FIXME @random-bean problem
-    @PositiveOrZero
     @Max(UNSIGNED_BYTE_MAX)
     private final int channelNumber;
     private final int senderId;
     private final boolean success;
 
-    public ChannelNewValueResult(@PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int channelNumber,
+    public ChannelNewValueResult(@Min(0) @Max(UNSIGNED_BYTE_MAX) final int channelNumber,
                                  final int senderId,
                                  final boolean success) {
         this.channelNumber = unsignedByteSize(channelNumber);

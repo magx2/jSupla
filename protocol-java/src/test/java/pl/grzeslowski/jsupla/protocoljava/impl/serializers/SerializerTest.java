@@ -16,6 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
@@ -47,6 +48,7 @@ public abstract class SerializerTest<EntityT extends Entity, SuplaProtoT extends
                 .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(0, String.class).length()]);
         BDDMockito.given(stringSerializer.serializePassword(any(), anyInt()))
                 .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(1, Integer.class)]);
+        BDDMockito.given(stringSerializer.serializeHexString(any())).willReturn(new byte[SUPLA_GUID_SIZE]);
     }
 
     protected void givenChannelTypeDecoder(ChannelTypeEncoder channelTypeEncoder) {

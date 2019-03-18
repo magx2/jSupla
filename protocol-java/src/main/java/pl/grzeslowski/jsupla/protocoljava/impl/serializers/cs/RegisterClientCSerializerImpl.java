@@ -7,13 +7,19 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientCSeri
 
 import javax.validation.constraints.NotNull;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
 public class RegisterClientCSerializerImpl implements RegisterClientCSerializer {
     private final StringSerializer stringSerializer;
 
     public RegisterClientCSerializerImpl(StringSerializer stringSerializer) {
-        this.stringSerializer = stringSerializer;
+        this.stringSerializer = requireNonNull(stringSerializer);
     }
 
     @Override

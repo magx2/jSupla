@@ -15,7 +15,7 @@ public class NewValueRandomizer implements Randomizer<NewValue> {
     @Override
     public NewValue getRandomValue() {
         return new NewValue(
-            random.nextInt(100),
+            random.nextInt(100) + 1,
             random.nextInt(100),
             random.nextBoolean() ? OnOff.ON : OnOff.OFF
         );

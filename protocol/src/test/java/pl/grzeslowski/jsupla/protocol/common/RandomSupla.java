@@ -90,6 +90,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.arraycopy;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static pl.grzeslowski.jsupla.Preconditions.min;
 
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
@@ -100,7 +101,7 @@ public class RandomSupla extends EnhancedRandom {
         logger.info("Starting RandomSupla with seed {}.", seed);
         random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
                      .objectPoolSize(1_000)
-                     .seed(123L)
+                     .seed(seed)
                      // cs
                      .randomize(SuplaChannelNewValueB.class, new SuplaChannelNewValueBRandomizer(this))
                      .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueRandomizer(this))
@@ -174,8 +175,15 @@ public class RandomSupla extends EnhancedRandom {
     }
 
     public byte[] nextByteArray(int byteSize) {
+        byte[] bytes = new byte[byteSize];
+        this.nextBytes(bytes);
+        return bytes;
+    }
+
+    public byte[] nextByteArrayFromString(int byteSize) {
+        min(byteSize, 2);
         final byte[] bytes = new byte[byteSize];
-        while (true) {
+        for (int i = 0; i < 100; i++) {
             String nextString = this.nextString(byteSize);
             byte[] stringBytes = nextString.getBytes(UTF_8);
             if (stringBytes.length < byteSize) {
@@ -183,6 +191,7 @@ public class RandomSupla extends EnhancedRandom {
                 return bytes;
             }
         }
+        throw new IllegalStateException("Cann not generate nextByteArrayFromString(" + byteSize + ")");
     }
 
     public byte[] nextByteArrayWithoutZerosOnEnd(int maxByteSize) {
@@ -242,10 +251,13 @@ public class RandomSupla extends EnhancedRandom {
     }
 
     public String nextString(final int maxLength) {
+        min(maxLength, 1);
         while (true) {
             final String string = random.nextObject(String.class);
             if (string.length() >= 1 && string.length() <= maxLength) {
                 return string;
+            } else if (string.length() > maxLength) {
+                return string.substring(0, maxLength);
             }
         }
     }
