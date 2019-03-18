@@ -25,7 +25,7 @@ public final class SuplaChannel implements ServerClient {
     public final SuplaChannelValue value;
     /**
      * Including the terminating null byte ('\0').
-     * <p>
+     *
      * <p>unsigned
      */
     public final long captionSize;
@@ -110,14 +110,14 @@ public final class SuplaChannel implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannel{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", locationId=" + locationId +
-                       ", func=" + func +
-                       ", online=" + online +
-                       ", value=" + value +
-                       ", captionSize=" + captionSize +
-                       ", caption=" + Arrays.toString(caption) +
-                       '}';
+                   "eol=" + eol +
+                   ", id=" + id +
+                   ", locationId=" + locationId +
+                   ", func=" + func +
+                   ", online=" + online +
+                   ", value=" + value +
+                   ", captionSize=" + captionSize +
+                   ", caption=" + Arrays.toString(caption) +
+                   '}';
     }
 }

@@ -66,6 +66,43 @@ allProjects {
 	sourceCompatibility = 1.8
 }
 
+// Integration tests
+allProjects {
+	apply plugin: 'idea'
+	sourceSets {
+		integrationTest {
+			java {
+				compileClasspath += main.output + test.output
+				runtimeClasspath += main.output + test.output
+				srcDir file('src/integrationTest/java')
+			}
+			resources.srcDir file('src/integrationTest/resources')
+		}
+	}
+	configurations {
+		integrationTestCompile.extendsFrom testCompile
+		integrationTestImplementation.extendsFrom testImplementation
+		integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+	}
+	task integrationTest(type: Test) {
+		description = 'Runs integration tests.'
+		group = 'verification'
+
+		testClassesDirs = sourceSets.integrationTest.output.classesDirs
+		classpath = sourceSets.integrationTest.runtimeClasspath
+		shouldRunAfter test
+		outputs.upToDateWhen { false }
+	}
+	check.dependsOn integrationTest
+
+	// Allow running integration tests in IntelliJ
+	idea {
+		module {
+			sourceSets.integrationTest.allSource.srcDirs.each { srcDir -> module.testSourceDirs += srcDir }
+		}
+	}
+}
+
 // Add check style to all projects
 prodProjects {
 	apply plugin: 'checkstyle'

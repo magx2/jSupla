@@ -15,7 +15,7 @@ class SetActivityTimeoutResultRandomizer implements Randomizer<SetActivityTimeou
 
     @Override
     public SetActivityTimeoutResult getRandomValue() {
-        final int max = random.nextInt(UNSIGNED_BYTE_MAX);
+        final int max = random.nextInt(UNSIGNED_BYTE_MAX - 2) + 1;
         final int min = random.nextInt(max);
         return new SetActivityTimeoutResult(random.nextInt(UNSIGNED_BYTE_MAX), min, max);
     }

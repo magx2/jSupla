@@ -43,6 +43,10 @@ public final class ServerProperties {
     /**
      * Finds property in map with given type.
      *
+     * @param name property name
+     * @param clazz property class
+     * @param <T> type of property
+     * @return Property of given name with given class
      * @throws PropertyCastException      when cannot cast property to given class
      * @throws PropertyNotExistsException when there is no property with given name
      */
