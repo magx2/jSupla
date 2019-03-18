@@ -37,22 +37,22 @@ public class SuplaRegisterDeviceDEncoderImplTest extends EncoderTest<SuplaRegist
     @Before
     public void setUp() {
         given(suplaDeviceChannelBEncoder.encode(any()))
-                .willAnswer(invocationOnMock -> {
-                    final SuplaDeviceChannelB channel = invocationOnMock.getArgumentAt(0, SuplaDeviceChannelB.class);
-                    return new byte[channel.size()];
-                });
-        final short channelCount = RANDOM_SUPLA.nextUnsignedByte((short) 100);
+            .willAnswer(invocationOnMock -> {
+                final SuplaDeviceChannelB channel = invocationOnMock.getArgumentAt(0, SuplaDeviceChannelB.class);
+                return new byte[channel.size()];
+            });
+        final short channelCount = (short) (RANDOM_SUPLA.nextUnsignedByte((short) 100) + 1);
         proto = new SuplaRegisterDeviceD(
-                RANDOM_SUPLA.nextByteArray(SUPLA_EMAIL_MAXSIZE),
-                RANDOM_SUPLA.nextByteArray(SUPLA_AUTHKEY_SIZE),
-                RANDOM_SUPLA.nextByteArray(SUPLA_GUID_SIZE),
-                RANDOM_SUPLA.nextByteArray(SUPLA_DEVICE_NAME_MAXSIZE),
-                RANDOM_SUPLA.nextByteArray(SUPLA_SOFTVER_MAXSIZE),
-                RANDOM_SUPLA.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE),
-                channelCount,
-                Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class))
-                        .limit(channelCount)
-                        .toArray(SuplaDeviceChannelB[]::new)
+            RANDOM_SUPLA.nextByteArray(SUPLA_EMAIL_MAXSIZE),
+            RANDOM_SUPLA.nextByteArray(SUPLA_AUTHKEY_SIZE),
+            RANDOM_SUPLA.nextByteArray(SUPLA_GUID_SIZE),
+            RANDOM_SUPLA.nextByteArray(SUPLA_DEVICE_NAME_MAXSIZE),
+            RANDOM_SUPLA.nextByteArray(SUPLA_SOFTVER_MAXSIZE),
+            RANDOM_SUPLA.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE),
+            channelCount,
+            Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class))
+                .limit(channelCount)
+                .toArray(SuplaDeviceChannelB[]::new)
         );
     }
 
