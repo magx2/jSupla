@@ -74,12 +74,6 @@ prodProjects {
 	}
 }
 
-// Add JaCoCO to all projects
-prodProjects {
-	apply plugin: "jacoco"
-	tasks["build"].dependsOn "jacocoTestReport"
-}
-
 allProjects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
