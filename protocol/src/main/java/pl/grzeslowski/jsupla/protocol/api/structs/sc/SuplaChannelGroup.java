@@ -28,7 +28,7 @@ public final class SuplaChannelGroup implements ServerClient {
     public final long flags;
     /**
      * Including the terminating null byte ('\0').
-     * <p>
+     * 
      * <p>unsigned
      */
     public final long captionSize;
