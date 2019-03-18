@@ -52,7 +52,7 @@ public class SuplaRegisterClientResultDecoderImplTest extends ProperDecoderTest<
         activityTimeout = RANDOM_SUPLA.nextUnsignedByte();
         offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(activityTimeout, bytes, offset);
 
-        version = RANDOM_SUPLA.nextUnsignedByte();
+        version = (short) (RANDOM_SUPLA.nextUnsignedByte() + 2);
         offset += PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte(version, bytes, offset);
 
         versionMin = RANDOM_SUPLA.nextUnsignedByte(version);
