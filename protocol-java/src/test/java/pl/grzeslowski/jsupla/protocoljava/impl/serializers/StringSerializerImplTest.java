@@ -8,7 +8,7 @@ import static pl.grzeslowski.jsupla.protocoljava.impl.serializers.StringSerializ
 
 public class StringSerializerImplTest {
     @Test
-    public void shouldSerializeString() throws Exception {
+    public void shouldSerializeString() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -22,7 +22,7 @@ public class StringSerializerImplTest {
     }
 
     @Test
-    public void shouldSerializeStringWithGivenLength() throws Exception {
+    public void shouldSerializeStringWithGivenLength() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -36,7 +36,7 @@ public class StringSerializerImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldShouldThrowIllegalArgumentExceptionIfLengthIsSmallerThatStringSize() throws Exception {
+    public void shouldShouldThrowIllegalArgumentExceptionIfLengthIsSmallerThatStringSize() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -47,7 +47,7 @@ public class StringSerializerImplTest {
     }
 
     @Test
-    public void shouldPutZerosIfLengthIsBiggerThanBytesLength() throws Exception {
+    public void shouldPutZerosIfLengthIsBiggerThanBytesLength() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -64,7 +64,7 @@ public class StringSerializerImplTest {
     }
 
     @Test
-    public void shouldSerializePassword() throws Exception {
+    public void shouldSerializePassword() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -79,7 +79,22 @@ public class StringSerializerImplTest {
     }
 
     @Test
-    public void shouldPutZerosInPasswordIfLengthIsBiggerThanBytesLength() throws Exception {
+    public void shouldNotClearInputArray() {
+
+        // given
+        final String string = "a b c # € Œ ϻ ¥";
+        final char[] password = string.toCharArray();
+        final byte[] expectedBytes = string.getBytes(UTF_8);
+
+        // when
+        INSTANCE.serializePassword(password, expectedBytes.length);
+
+        // then
+        assertThat(password).isEqualTo(string.toCharArray());
+    }
+
+    @Test
+    public void shouldPutZerosInPasswordIfLengthIsBiggerThanBytesLength() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";
@@ -97,7 +112,7 @@ public class StringSerializerImplTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldShouldThrowIllegalArgumentExceptionIfPasswordLengthIsSmallerThatStringSize() throws Exception {
+    public void shouldShouldThrowIllegalArgumentExceptionIfPasswordLengthIsSmallerThatStringSize() {
 
         // given
         final String string = "a b c # € Œ ϻ ¥";

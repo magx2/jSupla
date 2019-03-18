@@ -70,9 +70,9 @@ public class IntegrationTest {
         Proto serialize = context.getService(Serializer.class).serialize(entity1);
         assertThat(serialize).isNotNull();
         assertThat(serialize).isEqualTo(proto);
-        //        assertThat(proto).isEqualTo(serialize);
-        //        Entity entity2 = context.getService(Parser.class).parse(serialize);
-        //        assertThat(entity2).isEqualTo(entity1);
-        //        assertThat(entity1).isEqualTo(entity2);
+        assertThat(proto).isEqualTo(serialize);
+        Entity entity2 = context.getService(Parser.class).parse(serialize);
+        assertThat(entity2).isEqualTo(entity1);
+        assertThat(entity1).isEqualTo(entity2);
     }
 }

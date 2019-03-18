@@ -46,7 +46,6 @@ public class StringSerializerImpl implements StringSerializer {
         CharBuffer charBuffer = CharBuffer.wrap(password);
         ByteBuffer byteBuffer = UTF_8.encode(charBuffer);
         byte[] bytes = Arrays.copyOfRange(byteBuffer.array(), byteBuffer.position(), byteBuffer.limit());
-        Arrays.fill(charBuffer.array(), '\u0000'); // clear sensitive data
         Arrays.fill(byteBuffer.array(), (byte) 0); // clear sensitive data
 
         // code to make byte array as big as length
