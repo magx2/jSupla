@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
-@SuppressWarnings({"WeakerAccess", "unchecked", "unused"})
+@SuppressWarnings({"WeakerAccess", "unchecked", "unused", "UnstableApiUsage"})
 @RunWith(Parameterized.class)
 public class ParserFactoryImplForAllProtoTest {
     @Parameterized.Parameters(name = "{0}")

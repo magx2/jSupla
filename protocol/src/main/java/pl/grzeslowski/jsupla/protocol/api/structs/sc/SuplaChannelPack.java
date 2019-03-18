@@ -63,7 +63,7 @@ public final class SuplaChannelPack implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = count;
         result = 31 * result + totalLeft;
         result = 31 * result + Arrays.hashCode(channels);

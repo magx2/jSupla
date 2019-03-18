@@ -33,7 +33,7 @@ public class DeviceClientServerParserImpl implements DeviceClientServerParser<De
         } else if (proto instanceof SuplaSetActivityTimeout) {
             return setActivityTimeoutParser.parse((SuplaSetActivityTimeout) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }

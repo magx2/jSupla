@@ -11,12 +11,14 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.FirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceD;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.ChannelNewValueResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelValueSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.FirmwareUpdateParamsSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceBSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceDSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSerializer;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.AbstractSerializerFactoryTest;
 
@@ -30,12 +32,13 @@ public class DeviceServerSerializerImplTest extends AbstractSerializerFactoryTes
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {ChannelNewValueResult.class},
-                {RegisterDevice.class},
-                {RegisterDeviceB.class},
-                {RegisterDeviceC.class},
-                {FirmwareUpdateParams.class},
-                {DeviceChannelValue.class},
+            {ChannelNewValueResult.class},
+            {RegisterDevice.class},
+            {RegisterDeviceB.class},
+            {RegisterDeviceC.class},
+            {FirmwareUpdateParams.class},
+            {DeviceChannelValue.class},
+            {RegisterDeviceD.class}
         });
     }
 
@@ -47,6 +50,7 @@ public class DeviceServerSerializerImplTest extends AbstractSerializerFactoryTes
     @Mock RegisterDeviceCSerializer registerDeviceCSerializer;
     @Mock DeviceChannelValueSerializer deviceChannelValueSerializer;
     @Mock FirmwareUpdateParamsSerializer firmwareUpdateParamsSerializer;
+    @Mock RegisterDeviceDSerializer registerDeviceDSerializer;
 
     public DeviceServerSerializerImplTest(final Class<DeviceServerEntity> entityClass) {
         super(entityClass);

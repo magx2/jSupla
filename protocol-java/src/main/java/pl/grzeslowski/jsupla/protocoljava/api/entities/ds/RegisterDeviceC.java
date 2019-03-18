@@ -4,8 +4,8 @@ import pl.grzeslowski.jsupla.Preconditions;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
@@ -13,6 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.C;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class RegisterDeviceC extends RegisterDeviceB {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
@@ -23,10 +25,9 @@ public class RegisterDeviceC extends RegisterDeviceB {
                            final @NotNull @Size(min = 1, max = SUPLA_GUID_SIZE) String guid,
                            final @NotNull @Size(min = 1, max = SUPLA_DEVICE_NAME_MAXSIZE) String name,
                            final @NotNull @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE) String softVer,
-                           final @NotNull @Size(max = UNSIGNED_BYTE_MAX) int channelCount,
                            final @NotNull DeviceChannelsB channels,
                            final @NotNull @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE) String serverName) {
-        super(locationId, locationPassword, guid, name, softVer, channelCount, channels);
+        super(locationId, locationPassword, guid, name, softVer, channels);
         this.serverName = Preconditions.size(serverName, 1, SUPLA_SERVER_NAME_MAXSIZE);
     }
 
@@ -40,7 +41,7 @@ public class RegisterDeviceC extends RegisterDeviceB {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -64,9 +65,14 @@ public class RegisterDeviceC extends RegisterDeviceB {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), serverName);
+    }
+
+    @Override
     public String toString() {
         return "RegisterDeviceC{" +
-                       "serverName='" + serverName + '\'' +
-                       "} " + super.toString();
+                   "serverName='" + serverName + '\'' +
+                   "} " + super.toString();
     }
 }

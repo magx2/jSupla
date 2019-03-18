@@ -12,6 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class RegisterClientB extends RegisterClient {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
@@ -63,7 +65,7 @@ public class RegisterClientB extends RegisterClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = super.hashCode();
         result = 31 * result + serverName.hashCode();
         return result;
@@ -72,7 +74,7 @@ public class RegisterClientB extends RegisterClient {
     @Override
     public String toString() {
         return "RegisterClientB{" +
-                       "serverName='" + serverName + '\'' +
-                       "} " + super.toString();
+                "serverName='" + serverName + '\'' +
+                "} " + super.toString();
     }
 }

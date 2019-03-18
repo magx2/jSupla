@@ -18,9 +18,9 @@ public class FirmwareUpdateUrlRandomizer implements Randomizer<SuplaFirmwareUpda
     public SuplaFirmwareUpdateUrl getRandomValue() {
         return new SuplaFirmwareUpdateUrl(
                                                  randomSupla.nextByte(),
-                                                 randomSupla.nextByteArray(SUPLA_URL_HOST_MAXSIZE),
+            randomSupla.nextByteArrayFromString(SUPLA_URL_HOST_MAXSIZE),
                                                  randomSupla.nextInt(65_535),
-                                                 randomSupla.nextByteArray(SUPLA_URL_PATH_MAXSIZE)
+            randomSupla.nextByteArrayFromString(SUPLA_URL_PATH_MAXSIZE)
         );
     }
 }

@@ -15,9 +15,11 @@ public class SuplaDeviceChannelValueRandomizer implements Randomizer<SuplaDevice
 
     @Override
     public SuplaDeviceChannelValue getRandomValue() {
+        byte[] value = new byte[SUPLA_CHANNELVALUE_SIZE];
+        value[0] = randomSupla.nextBoolByte();
         return new SuplaDeviceChannelValue(
                                                   randomSupla.nextUnsignedByte(),
-                                                  randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE)
+                value
         );
     }
 }

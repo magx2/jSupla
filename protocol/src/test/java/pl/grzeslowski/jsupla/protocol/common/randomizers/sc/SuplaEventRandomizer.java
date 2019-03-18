@@ -4,7 +4,9 @@ import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SENDER_NAME_MAXSIZE;
+import java.util.Arrays;
+
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
 
 public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
     private final RandomSupla randomSupla;
@@ -15,14 +17,26 @@ public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
 
     @Override
     public SuplaEvent getRandomValue() {
-        final int senderNameSize = randomSupla.nextPositiveInt(SUPLA_SENDER_NAME_MAXSIZE);
+        byte[] senderName = findSenderNameWithProperSize();
         return new SuplaEvent(
                                      randomSupla.nextPositiveInt(),
                                      randomSupla.nextPositiveInt(),
                                      randomSupla.nextUnsignedInt(),
                                      randomSupla.nextPositiveInt(),
-                                     senderNameSize,
-                                     randomSupla.nextByteArray(senderNameSize)
+                senderName.length,
+                senderName
         );
+    }
+
+    private byte[] findSenderNameWithProperSize() {
+        byte[] caption = randomSupla.nextByteArrayFromString(SUPLA_LOCATION_CAPTION_MAXSIZE);
+        int end = caption.length;
+        for (int i = 0; i < caption.length; i++) {
+            if (caption[i] == (byte) 0) {
+                end = i;
+                break;
+            }
+        }
+        return Arrays.copyOf(caption, end);
     }
 }

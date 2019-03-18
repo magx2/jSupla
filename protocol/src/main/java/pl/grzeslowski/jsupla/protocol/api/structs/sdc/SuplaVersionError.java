@@ -51,7 +51,7 @@ public final class SuplaVersionError implements ServerDeviceClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) serverVersionMin;
         result = 31 * result + (int) serverVersion;
         return result;

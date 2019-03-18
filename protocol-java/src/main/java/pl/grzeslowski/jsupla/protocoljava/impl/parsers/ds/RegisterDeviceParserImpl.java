@@ -10,11 +10,12 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.RegisterDeviceParser;
 
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class RegisterDeviceParserImpl implements RegisterDeviceParser {
     private final StringParser stringParser;
@@ -27,17 +28,16 @@ public class RegisterDeviceParserImpl implements RegisterDeviceParser {
 
     @Override
     public RegisterDevice parse(@NotNull final SuplaRegisterDevice proto) {
-        final Set<DeviceChannel> channels = Arrays.stream(proto.channels)
-                                                    .map(deviceChannelParser::parse)
-                                                    .collect(Collectors.toSet());
+        final List<DeviceChannel> channels = Arrays.stream(proto.channels)
+                .map(deviceChannelParser::parse)
+                .collect(Collectors.toList());
         return new RegisterDevice(
-                                         proto.locationId,
-                                         stringParser.parsePassword(proto.locationPwd),
+                proto.locationId,
+                stringParser.parsePassword(proto.locationPwd),
                 stringParser.parseHexString(proto.guid),
-                                         stringParser.parse(proto.name),
-                                         stringParser.parse(proto.softVer),
-                                         proto.channelCount,
-                                         new DeviceChannels(channels)
+                stringParser.parse(proto.name),
+                stringParser.parse(proto.softVer),
+                new DeviceChannels(channels)
         );
     }
 }

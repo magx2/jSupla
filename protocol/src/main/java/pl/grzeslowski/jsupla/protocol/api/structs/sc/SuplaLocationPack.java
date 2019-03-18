@@ -60,7 +60,7 @@ public final class SuplaLocationPack implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = count;
         result = 31 * result + totalLeft;
         result = 31 * result + Arrays.hashCode(locations);

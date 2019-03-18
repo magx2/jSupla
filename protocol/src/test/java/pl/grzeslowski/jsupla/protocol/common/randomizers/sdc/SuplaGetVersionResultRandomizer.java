@@ -20,7 +20,7 @@ public class SuplaGetVersionResultRandomizer implements Randomizer<SuplaGetVersi
         return new SuplaGetVersionResult(
                                                 protoVersionMin,
                                                 protoVersion,
-                                                randomSupla.nextByteArray(SUPLA_SOFTVER_MAXSIZE)
+            randomSupla.nextByteArrayFromString(SUPLA_SOFTVER_MAXSIZE)
         );
     }
 }

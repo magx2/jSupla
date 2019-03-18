@@ -6,9 +6,13 @@ import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.NewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientC;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.NewValueSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.cs.RegisterClientCSerializer;
 import pl.grzeslowski.jsupla.protocoljava.impl.serializers.AbstractSerializerFactoryTest;
 
 import java.util.Arrays;
@@ -24,6 +28,8 @@ public class ClientServerSerializerImplTest extends AbstractSerializerFactoryTes
                 {RegisterClientB.class},
                 {RegisterClient.class},
                 {ChannelNewValueB.class},
+            {RegisterClientC.class},
+            {NewValue.class},
         });
     }
 
@@ -33,6 +39,8 @@ public class ClientServerSerializerImplTest extends AbstractSerializerFactoryTes
     @Mock ChannelNewValueBSerializerImpl channelNewValueBSerializer;
     @Mock RegisterClientSerializerImpl registerClientSerializer;
     @Mock RegisterClientBSerializerImpl registerClientBSerializer;
+    @Mock RegisterClientCSerializer registerClientCSerializer;
+    @Mock NewValueSerializer newValueSerializer;
 
     public ClientServerSerializerImplTest(final Class<ClientServerEntity> entityClass) {
         super(entityClass);

@@ -19,11 +19,11 @@ public class SuplaRegisterClientRandomizer implements Randomizer<SuplaRegisterCl
     @Override
     public SuplaRegisterClient getRandomValue() {
         return new SuplaRegisterClient(
-                                              randomSupla.nextPositiveInt(),
-                                              randomSupla.nextByteArray(SUPLA_ACCESSID_PWD_MAXSIZE),
-                                              randomSupla.nextByteArray(SUPLA_GUID_SIZE),
-                                              randomSupla.nextByteArray(SUPLA_CLIENT_NAME_MAXSIZE),
-                                              randomSupla.nextByteArray(SUPLA_SOFTVER_MAXSIZE)
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextByteArrayFromString(SUPLA_ACCESSID_PWD_MAXSIZE),
+            randomSupla.nextByteArrayFromString(SUPLA_GUID_SIZE),
+            randomSupla.nextByteArrayFromString(SUPLA_CLIENT_NAME_MAXSIZE),
+            randomSupla.nextByteArrayFromString(SUPLA_SOFTVER_MAXSIZE)
         );
     }
 }

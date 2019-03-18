@@ -97,7 +97,7 @@ public final class SuplaRegisterDevice implements DeviceServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = locationId;
         result = 31 * result + Arrays.hashCode(locationPwd);
         result = 31 * result + Arrays.hashCode(guid);

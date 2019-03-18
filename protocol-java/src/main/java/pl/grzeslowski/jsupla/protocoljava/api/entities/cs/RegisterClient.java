@@ -13,6 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class RegisterClient implements ClientServerEntity {
     @Positive private final int accessId;
@@ -91,6 +92,7 @@ public class RegisterClient implements ClientServerEntity {
         return softVer.equals(that.softVer);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     protected boolean canEqual(final Object other) {
         return other instanceof RegisterClient;
     }
@@ -105,11 +107,11 @@ public class RegisterClient implements ClientServerEntity {
     @Override
     public String toString() {
         return "RegisterClient{" +
-                       "accessId=" + accessId +
-                       ", accessIdPassword=[PROTECTED]" +
-                       ", guid='" + guid + '\'' +
-                       ", name='" + name + '\'' +
-                       ", softVer='" + softVer + '\'' +
-                       '}';
+                   "accessId=" + accessId +
+                   ", accessIdPassword=[PROTECTED]" +
+                   ", guid='" + guid + '\'' +
+                   ", name='" + name + '\'' +
+                   ", softVer='" + softVer + '\'' +
+                   '}';
     }
 }

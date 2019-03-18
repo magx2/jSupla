@@ -90,7 +90,7 @@ public final class SuplaRegisterClientResult implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = resultCode;
         result = 31 * result + clientId;
         result = 31 * result + locationCount;

@@ -1,21 +1,23 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import static java.util.Collections.unmodifiableSet;
+import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class DeviceChannels {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
-    private final Set<DeviceChannel> channels;
+    private final List<DeviceChannel> channels;
 
-    public DeviceChannels(final @Size(max = SUPLA_CHANNELMAXCOUNT) Set<? extends DeviceChannel> channels) {
-        this.channels = unmodifiableSet(new HashSet<>(sizeMax(channels, SUPLA_CHANNELMAXCOUNT)));
+    public DeviceChannels(final @Size(max = SUPLA_CHANNELMAXCOUNT) List<? extends DeviceChannel> channels) {
+        sizeMax(channels, SUPLA_CHANNELMAXCOUNT);
+        this.channels = unmodifiableList(new ArrayList<>(channels));
     }
 
     public Collection<? extends DeviceChannel> getChannels() {
@@ -56,7 +58,7 @@ public class DeviceChannels {
     @Override
     public String toString() {
         return "DeviceChannels{" +
-                       "channels=" + channels +
-                       '}';
+                "channels=" + channels +
+                '}';
     }
 }

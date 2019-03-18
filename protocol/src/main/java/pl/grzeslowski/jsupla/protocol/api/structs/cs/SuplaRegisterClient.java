@@ -74,7 +74,7 @@ public final class SuplaRegisterClient implements ClientServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = accessId;
         result = 31 * result + Arrays.hashCode(accessIdPwd);
         result = 31 * result + Arrays.hashCode(guid);

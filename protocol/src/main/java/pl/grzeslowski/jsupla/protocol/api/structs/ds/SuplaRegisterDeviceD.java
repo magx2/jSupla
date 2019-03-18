@@ -83,7 +83,7 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Objects.hash(channelCount);
         result = 31 * result + Arrays.hashCode(email);
         result = 31 * result + Arrays.hashCode(authKey);
@@ -99,7 +99,7 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     public String toString() {
         return "SuplaRegisterDeviceD{" +
                        "email=" + Arrays.toString(email) +
-                       ", authKey=" + Arrays.toString(authKey) +
+                ", authKey=[PROTECTED]" +
                        ", guid=" + Arrays.toString(guid) +
                        ", name=" + Arrays.toString(name) +
                        ", softVer=" + Arrays.toString(softVer) +

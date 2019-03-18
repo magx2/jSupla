@@ -7,4 +7,5 @@ public interface StringSerializer {
 
     byte[] serializePassword(char[] password, int length);
 
+    byte[] serializeHexString(String hex);
 }

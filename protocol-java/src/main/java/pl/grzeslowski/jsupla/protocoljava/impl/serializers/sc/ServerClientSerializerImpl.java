@@ -1,22 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Event;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Location;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelPackSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ChannelValueSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.EventSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationPackSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.LocationSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.RegisterClientResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.ServerClientSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.*;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sc.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +18,13 @@ public class ServerClientSerializerImpl
     private final LocationPackSerializer locationPackSerializer;
     private final LocationSerializer locationSerializer;
     private final RegisterClientResultSerializer registerClientResultSerializer;
+    private final ChannelGroupRelationSerializer channelGroupRelationSerializer;
+    private final RegisterClientResultBSerializer registerClientResultBSerializer;
+    private final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer;
+    private final ChannelBSerializer channelBSerializer;
+    private final ChannelValuePackSerializer channelValuePackSerializer;
+    private final ChannelGroupSerializer channelGroupSerializer;
+    private final ChannelPackBSerializer channelPackBSerializer;
 
     public ServerClientSerializerImpl(final ChannelPackSerializer channelPackSerializer,
                                       final ChannelSerializer channelSerializer,
@@ -39,7 +32,14 @@ public class ServerClientSerializerImpl
                                       final EventSerializer eventSerializer,
                                       final LocationPackSerializer locationPackSerializer,
                                       final LocationSerializer locationSerializer,
-                                      final RegisterClientResultSerializer registerClientResultSerializer) {
+                                      final RegisterClientResultSerializer registerClientResultSerializer,
+                                      final ChannelGroupRelationSerializer channelGroupRelationSerializer,
+                                      final RegisterClientResultBSerializer registerClientResultBSerializer,
+                                      final ChannelGroupRelationPackSerializer channelGroupRelationPackSerializer,
+                                      final ChannelBSerializer channelBSerializer,
+                                      final ChannelValuePackSerializer channelValuePackSerializer,
+                                      final ChannelGroupSerializer channelGroupSerializer,
+                                      final ChannelPackBSerializer channelPackBSerializer) {
         this.channelPackSerializer = requireNonNull(channelPackSerializer);
         this.channelSerializer = requireNonNull(channelSerializer);
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
@@ -47,11 +47,22 @@ public class ServerClientSerializerImpl
         this.locationPackSerializer = requireNonNull(locationPackSerializer);
         this.locationSerializer = requireNonNull(locationSerializer);
         this.registerClientResultSerializer = requireNonNull(registerClientResultSerializer);
+        this.channelGroupRelationSerializer = requireNonNull(channelGroupRelationSerializer);
+        this.registerClientResultBSerializer = requireNonNull(registerClientResultBSerializer);
+        this.channelGroupRelationPackSerializer = requireNonNull(channelGroupRelationPackSerializer);
+        this.channelBSerializer = requireNonNull(channelBSerializer);
+        this.channelValuePackSerializer = requireNonNull(channelValuePackSerializer);
+        this.channelGroupSerializer = requireNonNull(channelGroupSerializer);
+        this.channelPackBSerializer = requireNonNull(channelPackBSerializer);
     }
 
     @Override
     public ServerClient serialize(@NotNull final ServerClientEntity entity) {
-        if (entity instanceof Channel) {
+        if (entity instanceof ChannelB) {
+            return channelBSerializer.serialize((ChannelB) entity);
+        } else if (entity instanceof ChannelPackB) {
+            return channelPackBSerializer.serialize((ChannelPackB) entity);
+        } else if (entity instanceof Channel) {
             return channelSerializer.serialize((Channel) entity);
         } else if (entity instanceof ChannelPack) {
             return channelPackSerializer.serialize((ChannelPack) entity);
@@ -63,8 +74,18 @@ public class ServerClientSerializerImpl
             return locationSerializer.serialize((Location) entity);
         } else if (entity instanceof LocationPack) {
             return locationPackSerializer.serialize((LocationPack) entity);
+        } else if (entity instanceof RegisterClientResultB) {
+            return registerClientResultBSerializer.serialize((RegisterClientResultB) entity);
         } else if (entity instanceof RegisterClientResult) {
             return registerClientResultSerializer.serialize((RegisterClientResult) entity);
+        } else if (entity instanceof ChannelGroupRelation) {
+            return channelGroupRelationSerializer.serialize((ChannelGroupRelation) entity);
+        } else if (entity instanceof ChannelGroupRelationPack) {
+            return channelGroupRelationPackSerializer.serialize((ChannelGroupRelationPack) entity);
+        } else if (entity instanceof ChannelValuePack) {
+            return channelValuePackSerializer.serialize((ChannelValuePack) entity);
+        } else if (entity instanceof ChannelGroup) {
+            return channelGroupSerializer.serialize((ChannelGroup) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
                 entity.getClass(), entity));

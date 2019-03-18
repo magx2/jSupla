@@ -15,12 +15,14 @@ public class SuplaDeviceChannelBRandomizer implements Randomizer<SuplaDeviceChan
 
     @Override
     public SuplaDeviceChannelB getRandomValue() {
+        byte[] value = new byte[SUPLA_CHANNELVALUE_SIZE];
+        value[0] = randomSupla.nextBoolByte();
         return new SuplaDeviceChannelB(
                                               randomSupla.nextUnsignedByte(),
+                2900, // ChannelType.SUPLA_CHANNELTYPE_RELAY(2900)
                                               randomSupla.nextPositiveInt(),
                                               randomSupla.nextPositiveInt(),
-                                              randomSupla.nextPositiveInt(),
-                                              randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE)
+                value
         );
     }
 }

@@ -1,22 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.parsers.sc;
 
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelPackParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ChannelValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.EventParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationPackParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.LocationParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.RegisterClientResultParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.ServerClientParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.sc.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -31,6 +17,13 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     private final ChannelParser channelParser;
     private final LocationPackParser locationPackParser;
     private final RegisterClientResultParser registerClientResultParser;
+    private final ChannelGroupRelationParser channelGroupRelationParser;
+    private final RegisterClientResultBParser registerClientResultBParser;
+    private final ChannelGroupRelationPackParser channelGroupRelationPackParser;
+    private final ChannelBParser channelBParser;
+    private final ChannelValuePackParser channelValuePackParser;
+    private final ChannelGroupParser channelGroupParser;
+    private final ChannelPackBParser channelPackBParser;
 
     public ServerClientParserImpl(final LocationParser locationParser,
                                   final ChannelPackParser channelPackParser,
@@ -38,7 +31,14 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
                                   final ChannelValueParser channelValueParser,
                                   final ChannelParser channelParser,
                                   final LocationPackParser locationPackParser,
-                                  final RegisterClientResultParser registerClientResultParser) {
+                                  final RegisterClientResultParser registerClientResultParser,
+                                  final ChannelGroupRelationParser channelGroupRelationParser,
+                                  final RegisterClientResultBParser registerClientResultBParser,
+                                  final ChannelGroupRelationPackParser channelGroupRelationPackParser,
+                                  final ChannelBParser channelBParser,
+                                  final ChannelValuePackParser channelValuePackParser,
+                                  final ChannelGroupParser channelGroupParser,
+                                  final ChannelPackBParser channelPackBParser) {
         this.locationParser = requireNonNull(locationParser);
         this.channelPackParser = requireNonNull(channelPackParser);
         this.eventParser = requireNonNull(eventParser);
@@ -46,6 +46,13 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         this.channelParser = requireNonNull(channelParser);
         this.locationPackParser = requireNonNull(locationPackParser);
         this.registerClientResultParser = requireNonNull(registerClientResultParser);
+        this.channelGroupRelationParser = requireNonNull(channelGroupRelationParser);
+        this.registerClientResultBParser = requireNonNull(registerClientResultBParser);
+        this.channelGroupRelationPackParser = requireNonNull(channelGroupRelationPackParser);
+        this.channelBParser = requireNonNull(channelBParser);
+        this.channelValuePackParser = requireNonNull(channelValuePackParser);
+        this.channelGroupParser = requireNonNull(channelGroupParser);
+        this.channelPackBParser = requireNonNull(channelPackBParser);
     }
 
     @Override
@@ -53,6 +60,8 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
         requireNonNull(proto);
         if (proto instanceof SuplaChannel) {
             return channelParser.parse((SuplaChannel) proto);
+        } else if (proto instanceof SuplaChannelPackB) {
+            return channelPackBParser.parse((SuplaChannelPackB) proto);
         } else if (proto instanceof SuplaChannelPack) {
             return channelPackParser.parse((SuplaChannelPack) proto);
         } else if (proto instanceof SuplaChannelValue) {
@@ -65,8 +74,20 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return locationPackParser.parse((SuplaLocationPack) proto);
         } else if (proto instanceof SuplaRegisterClientResult) {
             return registerClientResultParser.parse((SuplaRegisterClientResult) proto);
+        } else if (proto instanceof SuplaChannelGroupRelation) {
+            return channelGroupRelationParser.parse((SuplaChannelGroupRelation) proto);
+        } else if (proto instanceof SuplaRegisterClientResultB) {
+            return registerClientResultBParser.parse((SuplaRegisterClientResultB) proto);
+        } else if (proto instanceof SuplaChannelGroupRelationPack) {
+            return channelGroupRelationPackParser.parse((SuplaChannelGroupRelationPack) proto);
+        } else if (proto instanceof SuplaChannelB) {
+            return channelBParser.parse((SuplaChannelB) proto);
+        } else if (proto instanceof SuplaChannelValuePack) {
+            return channelValuePackParser.parse((SuplaChannelValuePack) proto);
+        } else if (proto instanceof SuplaChannelGroup) {
+            return channelGroupParser.parse((SuplaChannelGroup) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }

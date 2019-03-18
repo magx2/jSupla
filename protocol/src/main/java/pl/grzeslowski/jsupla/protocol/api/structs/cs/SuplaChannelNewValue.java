@@ -48,7 +48,7 @@ public final class SuplaChannelNewValue implements ClientServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) channelId;
         result = 31 * result + Arrays.hashCode(value);
         return result;

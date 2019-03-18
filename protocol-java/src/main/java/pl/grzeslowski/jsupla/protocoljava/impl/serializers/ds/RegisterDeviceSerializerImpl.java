@@ -10,11 +10,9 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSeria
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
     private final StringSerializer stringSerializer;
@@ -29,18 +27,18 @@ public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
     @Override
     public SuplaRegisterDevice serialize(@NotNull final RegisterDevice entity) {
         return new SuplaRegisterDevice(
-                                              entity.getLocationId(),
-                                              stringSerializer.serializePassword(entity.getLocationPassword(),
-                                                      SUPLA_LOCATION_PWD_MAXSIZE),
-                                              stringSerializer.serialize(entity.getGuid(), SUPLA_GUID_SIZE),
-                                              stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
-                                              stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
-                                              (short) entity.getChannelCount(),
-                                              entity.getChannels()
-                                                      .getChannels()
-                                                      .stream()
-                                                      .map(deviceChannelSerializer::serialize)
-                                                      .toArray(SuplaDeviceChannel[]::new)
+                entity.getLocationId(),
+                stringSerializer.serializePassword(entity.getLocationPassword(),
+                        SUPLA_LOCATION_PWD_MAXSIZE),
+                stringSerializer.serializeHexString(entity.getGuid()),
+                stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
+                stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
+                (short) entity.getChannels().size(),
+                entity.getChannels()
+                        .getChannels()
+                        .stream()
+                        .map(deviceChannelSerializer::serialize)
+                        .toArray(SuplaDeviceChannel[]::new)
         );
     }
 }

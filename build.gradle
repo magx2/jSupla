@@ -4,7 +4,7 @@ plugins {
 
 ext {
 	slf4j_version = '1.7.25'
-	random_beans_version = '3.7.0'
+	random_beans_version = '3.8.0'
 	reactorVersion = "3.1.1.RELEASE"
 }
 
@@ -72,12 +72,6 @@ prodProjects {
 	tasks.withType(Checkstyle) {
 		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
 	}
-}
-
-// Add JaCoCO to all projects
-prodProjects {
-	apply plugin: "jacoco"
-	tasks["build"].dependsOn "jacocoTestReport"
 }
 
 allProjects {

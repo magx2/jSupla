@@ -59,7 +59,7 @@ public final class SuplaFirmwareUpdateParams implements DeviceServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) platform;
         result = 31 * result + param1;
         result = 31 * result + param2;

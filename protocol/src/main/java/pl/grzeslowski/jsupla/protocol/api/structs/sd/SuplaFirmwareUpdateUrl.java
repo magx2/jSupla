@@ -54,7 +54,7 @@ public final class SuplaFirmwareUpdateUrl implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) availableProtocols;
         result = 31 * result + Arrays.hashCode(host);
         result = 31 * result + port;

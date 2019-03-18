@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
@@ -30,18 +29,7 @@ public class SuplaChannelBEncoderImplTest extends EncoderTest<SuplaChannelB> {
     @Before
     public void setUp() {
         final long captionSize = RANDOM_SUPLA.nextUnsignedInt(100);
-        proto = new SuplaChannelB(
-                RANDOM_SUPLA.nextByte(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextUnsignedInt(),
-                RANDOM_SUPLA.nextUnsignedByte(),
-                RANDOM_SUPLA.nextBoolByte(),
-                RANDOM_SUPLA.nextObject(SuplaChannelValue.class),
-                captionSize,
-                RANDOM_SUPLA.nextByteArray((int) captionSize));
+        proto = RANDOM_SUPLA.nextObject(SuplaChannelB.class);
         valueBytes = RANDOM_SUPLA.nextByteArray(proto.value.size());
         given(suplaChannelValueEncoder.encode(proto.value)).willReturn(valueBytes);
     }

@@ -58,7 +58,7 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = resultCode;
         result = 31 * result + (int) activityTimeout;
         result = 31 * result + (int) version;

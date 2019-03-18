@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public class ChannelParserImpl implements ChannelParser {
     private final ChannelValueParser channelValueParser;
     private final StringParser stringParser;
@@ -22,13 +24,13 @@ public class ChannelParserImpl implements ChannelParser {
     @Override
     public Channel parse(@NotNull final SuplaChannel proto) {
         return new Channel(
-                                  proto.eol,
-                                  proto.id,
-                                  proto.locationId,
-                                  proto.func,
-                                  proto.online != 0,
-                                  channelValueParser.parse(proto.value),
-                                  stringParser.parse(proto.caption)
+                proto.eol,
+                proto.id,
+                proto.locationId,
+                proto.func,
+                proto.online != 0,
+                channelValueParser.parse(proto.value),
+                stringParser.parse(proto.caption)
         );
     }
 }

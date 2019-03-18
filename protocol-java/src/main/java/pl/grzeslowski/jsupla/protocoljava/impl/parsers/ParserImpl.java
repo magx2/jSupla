@@ -111,8 +111,8 @@ public class ParserImpl implements Parser<Entity, Proto> {
         } else if (proto instanceof SuplaTimeval) {
             return timevalParser.parse((SuplaTimeval) proto);
         } else {
-            throw new IllegalArgumentException(format("Don't know this proto type %s!",
-                    proto.getClass().getSimpleName()));
+            throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                    proto.getClass(), proto));
         }
     }
 

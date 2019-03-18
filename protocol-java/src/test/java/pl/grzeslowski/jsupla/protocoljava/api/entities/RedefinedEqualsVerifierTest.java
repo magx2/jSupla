@@ -15,6 +15,10 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelsB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelB;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResultB;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +41,8 @@ public class RedefinedEqualsVerifierTest<T> {
         REDEFINED_TYPES.add(new Hierarchy(DeviceChannels.class, DeviceChannelsB.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDevice.class, RegisterDeviceB.class));
         REDEFINED_TYPES.add(new Hierarchy(RegisterDeviceB.class, RegisterDeviceC.class, RegisterDevice.class));
+        REDEFINED_TYPES.add(new Hierarchy(RegisterClientResult.class, RegisterClientResultB.class));
+        REDEFINED_TYPES.add(new Hierarchy(Channel.class, ChannelB.class));
 
         // there is some shitty error with javac
         final Stream<Class<?>> classStream = REDEFINED_TYPES.stream().flatMap(Hierarchy::toStream);
@@ -44,11 +50,11 @@ public class RedefinedEqualsVerifierTest<T> {
     }
 
     @Parameterized.Parameters(name = "{0}")
-    public static Object[][] params() throws Exception {
+    public static Object[][] params() {
         return REDEFINED_TYPES
-                       .stream()
-                       .map(hierarchy -> new Object[]{hierarchy})
-                       .toArray(Object[][]::new);
+                   .stream()
+                   .map(hierarchy -> new Object[]{hierarchy})
+                   .toArray(Object[][]::new);
 
     }
 
@@ -59,18 +65,18 @@ public class RedefinedEqualsVerifierTest<T> {
     }
 
     @Test
-    public void shouldVerifyEqualsAndHashCode() throws Exception {
+    public void shouldVerifyEqualsAndHashCode() {
         if (hierarchy.superClass != null) {
             EqualsVerifier.forClass(hierarchy.clazz)
-                    .withRedefinedSubclass(hierarchy.subClass)
-                    .withRedefinedSuperclass()
-                    .suppress(NULL_FIELDS, STRICT_HASHCODE)
-                    .verify();
+                .withRedefinedSubclass(hierarchy.subClass)
+                .withRedefinedSuperclass()
+                .suppress(NULL_FIELDS, STRICT_HASHCODE)
+                .verify();
         } else {
             EqualsVerifier.forClass(hierarchy.clazz)
-                    .withRedefinedSubclass(hierarchy.subClass)
-                    .suppress(NULL_FIELDS, STRICT_HASHCODE)
-                    .verify();
+                .withRedefinedSubclass(hierarchy.subClass)
+                .suppress(NULL_FIELDS, STRICT_HASHCODE)
+                .verify();
         }
     }
 
@@ -96,10 +102,10 @@ public class RedefinedEqualsVerifierTest<T> {
         @Override
         public String toString() {
             return "Hierarchy{" +
-                           "clazz=" + clazz +
-                           ", subClass=" + subClass +
-                           ", superClass=" + superClass +
-                           '}';
+                       "clazz=" + clazz +
+                       ", subClass=" + subClass +
+                       ", superClass=" + superClass +
+                       '}';
         }
     }
 }

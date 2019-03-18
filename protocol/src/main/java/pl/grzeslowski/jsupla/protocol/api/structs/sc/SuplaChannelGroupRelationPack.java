@@ -53,7 +53,7 @@ public final class SuplaChannelGroupRelationPack implements ServerClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Objects.hash(count, totalLeft);
         result = 31 * result + Arrays.hashCode(items);
         return result;

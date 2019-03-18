@@ -6,8 +6,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.id;
@@ -17,14 +15,11 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_INT_MAX;
 
 public class ChannelNewValue implements ServerDeviceEntity {
-    @Positive
     @Min(1) // FIXME random beans
     private final int senderId;
-    @PositiveOrZero
     @Min(0) // FIXME random beans
     @Max(UNSIGNED_BYTE_MAX)
     private final int channelNumber;
-    @PositiveOrZero
     @Min(0) // FIXME random beans
     @Max(UNSIGNED_INT_MAX)
     private final long durationMs;
@@ -32,9 +27,9 @@ public class ChannelNewValue implements ServerDeviceEntity {
     @Valid
     private final ChannelValue value;
 
-    public ChannelNewValue(@Positive final int senderId,
-                           @PositiveOrZero @Max(UNSIGNED_BYTE_MAX) final int channelNumber,
-                           @PositiveOrZero @Max(UNSIGNED_INT_MAX) final long durationMs,
+    public ChannelNewValue(@Min(1) final int senderId,
+                           @Min(0) @Max(UNSIGNED_BYTE_MAX) final int channelNumber,
+                           @Min(0) @Max(UNSIGNED_INT_MAX) final long durationMs,
                            final @NotNull @Valid ChannelValue value) {
         this.senderId = id(senderId);
         this.channelNumber = unsignedByteSize(channelNumber);

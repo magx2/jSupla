@@ -16,12 +16,12 @@ class GetVersionResultRandomizer implements Randomizer<GetVersionResult> {
 
     @Override
     public GetVersionResult getRandomValue() {
-        final int protoVersion = random.nextInt(UNSIGNED_BYTE_MAX);
+        final int protoVersion = random.nextInt(UNSIGNED_BYTE_MAX - 2) + 1;
         final int protoVersionMin = random.nextInt(protoVersion);
         return new GetVersionResult(
-                                           protoVersionMin,
-                                           protoVersion,
-                                           generateSoftVer()
+            protoVersionMin,
+            protoVersion,
+            generateSoftVer()
         );
     }
 

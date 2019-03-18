@@ -54,7 +54,7 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) channelNumber;
         result = 31 * result + senderId;
         result = 31 * result + (int) success;

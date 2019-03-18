@@ -15,7 +15,7 @@ public class VersionErrorRandomizer implements Randomizer<VersionError> {
 
     @Override
     public VersionError getRandomValue() {
-        final int serverVersion = random.nextInt(UNSIGNED_BYTE_MAX);
+        final int serverVersion = random.nextInt(UNSIGNED_BYTE_MAX - 2) + 1;
         final int serverVersionMin = random.nextInt(serverVersion);
         return new VersionError(serverVersionMin, serverVersion);
     }

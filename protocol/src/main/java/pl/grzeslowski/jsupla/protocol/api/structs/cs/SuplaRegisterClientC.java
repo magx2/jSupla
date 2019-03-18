@@ -75,7 +75,7 @@ public final class SuplaRegisterClientC implements ClientServer {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Arrays.hashCode(email);
         result = 31 * result + Arrays.hashCode(authKey);
         result = 31 * result + Arrays.hashCode(guid);
@@ -89,7 +89,7 @@ public final class SuplaRegisterClientC implements ClientServer {
     public String toString() {
         return "SuplaRegisterClientC{" +
                        "email=" + Arrays.toString(email) +
-                       ", authKey=" + Arrays.toString(authKey) +
+                ", authKey=[PROTECTED]" +
                        ", guid=" + Arrays.toString(guid) +
                        ", name=" + Arrays.toString(name) +
                        ", softVer=" + Arrays.toString(softVer) +

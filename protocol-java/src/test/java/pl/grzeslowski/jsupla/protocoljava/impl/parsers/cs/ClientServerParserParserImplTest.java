@@ -6,13 +6,17 @@ import org.mockito.Mock;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaNewValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueBParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.NewValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientCParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ForInterfaceParserTest;
 
@@ -28,6 +32,8 @@ public class ClientServerParserParserImplTest extends ForInterfaceParserTest<Cli
     @Mock ChannelNewValueParser channelNewValueParser;
     @Mock RegisterClientBParser registerClientBParser;
     @Mock RegisterClientParser registerClientParser;
+    @Mock RegisterClientCParser registerClientCParser;
+    @Mock NewValueParser newValueParser;
 
     public ClientServerParserParserImplTest(final Class<ClientServer> protoToTestClass,
                                             final Field resultField) {
@@ -37,14 +43,18 @@ public class ClientServerParserParserImplTest extends ForInterfaceParserTest<Cli
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaChannelNewValue.class, getDeclaredField(ClientServerParserParserImplTest.class,
-                        "channelNewValueParser")},
-                {SuplaChannelNewValueB.class, getDeclaredField(ClientServerParserParserImplTest.class,
-                        "channelNewValueBParser")},
-                {SuplaRegisterClient.class, getDeclaredField(ClientServerParserParserImplTest.class,
-                        "registerClientParser")},
-                {SuplaRegisterClientB.class, getDeclaredField(ClientServerParserParserImplTest.class,
-                        "registerClientBParser")}
+            {SuplaChannelNewValue.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "channelNewValueParser")},
+            {SuplaChannelNewValueB.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "channelNewValueBParser")},
+            {SuplaRegisterClient.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "registerClientParser")},
+            {SuplaRegisterClientB.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "registerClientBParser")},
+            {SuplaRegisterClientC.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "registerClientCParser")},
+            {SuplaNewValue.class, getDeclaredField(ClientServerParserParserImplTest.class,
+                "newValueParser")}
         });
     }
 

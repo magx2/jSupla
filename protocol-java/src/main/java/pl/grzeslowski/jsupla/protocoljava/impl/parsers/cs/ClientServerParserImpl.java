@@ -1,16 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs;
 
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueBParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ClientServerParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -22,15 +14,21 @@ public class ClientServerParserImpl implements ClientServerParser<ClientServerEn
     private final ChannelNewValueParser channelNewValueParser;
     private final RegisterClientBParser registerClientBParser;
     private final RegisterClientParser registerClientParser;
+    private final RegisterClientCParser registerClientCParser;
+    private final NewValueParser newValueParser;
 
     public ClientServerParserImpl(final ChannelNewValueBParser channelNewValueBParser,
                                   final ChannelNewValueParser channelNewValueParser,
                                   final RegisterClientBParser registerClientBParser,
-                                  final RegisterClientParser registerClientParser) {
+                                  final RegisterClientParser registerClientParser,
+                                  final RegisterClientCParser registerClientCParser,
+                                  final NewValueParser newValueParser) {
         this.channelNewValueBParser = requireNonNull(channelNewValueBParser);
         this.channelNewValueParser = requireNonNull(channelNewValueParser);
         this.registerClientBParser = requireNonNull(registerClientBParser);
         this.registerClientParser = requireNonNull(registerClientParser);
+        this.registerClientCParser = requireNonNull(registerClientCParser);
+        this.newValueParser = requireNonNull(newValueParser);
     }
 
     @Override
@@ -44,8 +42,12 @@ public class ClientServerParserImpl implements ClientServerParser<ClientServerEn
             return registerClientParser.parse((SuplaRegisterClient) proto);
         } else if (proto instanceof SuplaRegisterClientB) {
             return registerClientBParser.parse((SuplaRegisterClientB) proto);
+        } else if (proto instanceof SuplaRegisterClientC) {
+            return registerClientCParser.parse((SuplaRegisterClientC) proto);
+        } else if (proto instanceof SuplaNewValue) {
+            return newValueParser.parse((SuplaNewValue) proto);
         }
-        throw new IllegalArgumentException(format("Don't know this type of proto. Class name: %s.",
-                proto.getClass().getSimpleName()));
+        throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
+                proto.getClass(), proto));
     }
 }

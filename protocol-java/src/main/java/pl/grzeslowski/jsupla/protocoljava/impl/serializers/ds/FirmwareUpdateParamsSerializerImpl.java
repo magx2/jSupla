@@ -11,10 +11,10 @@ public class FirmwareUpdateParamsSerializerImpl implements FirmwareUpdateParamsS
     public SuplaFirmwareUpdateParams serialize(@NotNull final FirmwareUpdateParams entity) {
         return new SuplaFirmwareUpdateParams(
                                                     (byte) entity.getPlatform(),
-                                                    (short) entity.getParam1(),
-                                                    (short) entity.getParam2(),
-                                                    (short) entity.getParam3(),
-                                                    (short) entity.getParam4()
+                entity.getParam1(),
+                entity.getParam2(),
+                entity.getParam3(),
+                entity.getParam4()
         );
     }
 }

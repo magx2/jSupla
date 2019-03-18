@@ -10,7 +10,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.RegisterDeviceBParser;
 
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
@@ -27,16 +27,15 @@ public class RegisterDeviceBParserImpl implements RegisterDeviceBParser {
 
     @Override
     public RegisterDeviceB parse(@NotNull final SuplaRegisterDeviceB proto) {
-        final Set<DeviceChannelB> channels = Arrays.stream(proto.channels)
+        final List<DeviceChannelB> channels = Arrays.stream(proto.channels)
                                                      .map(deviceChannelBParser::parse)
-                                                     .collect(Collectors.toSet());
+                .collect(Collectors.toList());
         return new RegisterDeviceB(
                                           proto.locationId,
                                           stringParser.parsePassword(proto.locationPwd),
                 stringParser.parseHexString(proto.guid),
                                           stringParser.parse(proto.name),
                                           stringParser.parse(proto.softVer),
-                                          proto.channelCount,
                                           new DeviceChannelsB(channels));
     }
 }

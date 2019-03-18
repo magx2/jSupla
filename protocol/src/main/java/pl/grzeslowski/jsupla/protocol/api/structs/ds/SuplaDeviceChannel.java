@@ -53,7 +53,7 @@ public final class SuplaDeviceChannel implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) number;
         result = 31 * result + type;
         result = 31 * result + Arrays.hashCode(value);

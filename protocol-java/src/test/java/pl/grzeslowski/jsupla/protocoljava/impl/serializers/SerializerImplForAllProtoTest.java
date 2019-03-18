@@ -33,19 +33,20 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 @RunWith(Parameterized.class)
 public class SerializerImplForAllProtoTest {
 
+    @SuppressWarnings("UnstableApiUsage")
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() throws IOException {
         return ClassPath.from(Proto.class.getClassLoader())
-                       .getTopLevelClassesRecursive(Timeval.class.getPackage().getName())
-                       .asList()
-                       .stream()
-                       .map(ClassPath.ClassInfo::load)
-                       .filter(clazz -> !clazz.isInterface())
-                       .filter(Entity.class::isAssignableFrom)
-                       .map(clazz -> (Class<Entity>) clazz)
-                       .map(clazz -> RANDOM_ENTITY.nextObject(clazz))
-                       .map(entity -> new Object[]{entity})
-                       .collect(Collectors.toList());
+                   .getTopLevelClassesRecursive(Timeval.class.getPackage().getName())
+                   .asList()
+                   .stream()
+                   .map(ClassPath.ClassInfo::load)
+                   .filter(clazz -> !clazz.isInterface())
+                   .filter(Entity.class::isAssignableFrom)
+                   .map(clazz -> (Class<Entity>) clazz)
+                   .map(clazz -> RANDOM_ENTITY.nextObject(clazz))
+                   .map(entity -> new Object[]{entity})
+                   .collect(Collectors.toList());
     }
 
     final Entity entity;

@@ -59,7 +59,7 @@ public final class SuplaGetVersionResult implements ServerDeviceClient {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = (int) protoVersionMin;
         result = 31 * result + (int) protoVersion;
         result = 31 * result + Arrays.hashCode(softVer);

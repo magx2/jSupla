@@ -22,7 +22,11 @@ public final class SuplaChannelValue implements ProtoWithSize {
 
     public SuplaChannelValue(byte[] value, byte[] subValue) {
         this.value = checkArrayLength(value, SUPLA_CHANNELVALUE_SIZE);
-        this.subValue = checkArrayLength(subValue, SUPLA_CHANNELVALUE_SIZE);
+        if (subValue != null) {
+            this.subValue = checkArrayLength(subValue, SUPLA_CHANNELVALUE_SIZE);
+        } else {
+            this.subValue = new byte[SUPLA_CHANNELVALUE_SIZE];
+        }
     }
 
     @Override
@@ -48,7 +52,7 @@ public final class SuplaChannelValue implements ProtoWithSize {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = Arrays.hashCode(value);
         result = 31 * result + Arrays.hashCode(subValue);
         return result;

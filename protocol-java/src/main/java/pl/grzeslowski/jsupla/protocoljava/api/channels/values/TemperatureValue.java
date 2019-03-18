@@ -54,7 +54,7 @@ public final class TemperatureValue implements ChannelValue {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return temperature.hashCode();
     }
 
