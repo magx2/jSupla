@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.dcs.SuplaSetActivityTimeoutDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,6 +13,7 @@ public final class SuplaSetActivityTimeoutDecoderImpl implements SuplaSetActivit
             PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
+    @SuppressWarnings("WeakerAccess")
     public SuplaSetActivityTimeoutDecoderImpl(PrimitiveDecoder primitiveDecoder) {
         this.primitiveDecoder = requireNonNull(primitiveDecoder);
     }

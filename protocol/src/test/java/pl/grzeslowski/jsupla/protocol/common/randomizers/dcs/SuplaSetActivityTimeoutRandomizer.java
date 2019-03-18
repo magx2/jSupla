@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.dcs;
 
 import io.github.benas.randombeans.api.Randomizer;
+import pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
@@ -13,6 +14,6 @@ public class SuplaSetActivityTimeoutRandomizer implements Randomizer<SuplaSetAct
 
     @Override
     public SuplaSetActivityTimeout getRandomValue() {
-        return new SuplaSetActivityTimeout(randomSupla.nextUnsignedByte());
+        return new SuplaSetActivityTimeout((short) (randomSupla.nextInt(JavaConsts.UNSIGNED_BYTE_MAX - 1) + 1));
     }
 }

@@ -14,6 +14,13 @@ public final class Preconditions {
         return value;
     }
 
+    public static short min(short value, int min) {
+        if (value < min) {
+            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+        }
+        return value;
+    }
+
     public static long min(long value, long min) {
         if (value < min) {
             throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
