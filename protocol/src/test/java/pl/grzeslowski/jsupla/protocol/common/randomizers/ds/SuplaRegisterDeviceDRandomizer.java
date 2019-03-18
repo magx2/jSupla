@@ -22,7 +22,7 @@ public class SuplaRegisterDeviceDRandomizer implements Randomizer<SuplaRegisterD
 
     @Override
     public SuplaRegisterDeviceD getRandomValue() {
-        final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
+        final short channelCount = (short) (randomSupla.nextUnsignedByte((short) (SUPLA_CHANNELMAXCOUNT - 1)) + 1);
         final SuplaDeviceChannelB[] channels = randomSupla.objects(SuplaDeviceChannelB.class, channelCount)
                                                    .toArray(SuplaDeviceChannelB[]::new);
         return new SuplaRegisterDeviceD(
