@@ -27,7 +27,7 @@ import static pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTy
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
-public class IntegrationTest {
+public class SerializeAndParseIntegrationTest {
     private static final Collection<Class<? extends Proto>> TEMPORARY_UNSUPORTED_PROTOS = Arrays.asList(
         pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
         pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
@@ -58,7 +58,7 @@ public class IntegrationTest {
                    .toArray(Object[][]::new);
     }
 
-    public IntegrationTest(Proto proto) {
+    public SerializeAndParseIntegrationTest(Proto proto) {
         this.proto = proto;
     }
 
