@@ -14,8 +14,8 @@ dependencies {
     testCompile rootProject.project("protocolJava").sourceSets.test.output
 }
 
-if(OPEN_HAB_HOME) {
-	println "Enabling building fat jar for OpenHAb ($OPEN_HAB_HOME)"
+if(ext.OPEN_HAB_HOME) {
+	println "Enabling building fat jar for OpenHAb ($ext.OPEN_HAB_HOME)"
 	task fatJar(type: Jar) {
 		baseName = "${project.name}-fat"
 		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -23,7 +23,7 @@ if(OPEN_HAB_HOME) {
 	}
 	task openHab(type: Copy) {
 		from fatJar.archivePath.absolutePath
-		into "$OPEN_HAB_HOME\\addons\\binding\\org.openhab.binding.jsupla\\lib"
+		into "$ext.OPEN_HAB_HOME\\addons\\binding\\org.openhab.binding.jsupla\\lib"
 	}
 	openHab.dependsOn fatJar
 	fatJar.dependsOn build
