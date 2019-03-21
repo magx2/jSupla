@@ -15,7 +15,7 @@ dependencies {
 }
 
 if(ext.OPEN_HAB_HOME) {
-	println "Enabling building fat jar for OpenHAb ($ext.OPEN_HAB_HOME)"
+	println "  Enabling building fat jar for OpenHAb ($ext.OPEN_HAB_HOME)"
 	task fatJar(type: Jar) {
 		baseName = "${project.name}-fat"
 		from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
