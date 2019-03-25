@@ -10,6 +10,7 @@
 [![Build Status](https://travis-ci.org/magx2/jSupla.svg?branch=master)](https://travis-ci.org/magx2/jSupla)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/magx2/jSupla.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/magx2/jSupla/alerts/)
+[![Download](https://api.bintray.com/packages/big-boy/bigboy/jSupla/images/download.svg) ](https://bintray.com/big-boy/bigboy/jSupla/_latestVersion)
 
 </div>
 
