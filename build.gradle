@@ -125,7 +125,3 @@ allProjects {
 		testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.3'
 	}
 }
-
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.2.1'
-}
