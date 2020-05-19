@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
     }
 }
 
@@ -15,7 +15,9 @@ repositories {
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
+shadowJar {
+	mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
+}
 
 dependencies {
     compile rootProject.project("nettyServer")
