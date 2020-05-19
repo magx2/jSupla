@@ -1,0 +1,11 @@
+plugins {
+	id 'java'
+}
+
+dependencies {
+	compile rootProject.project("nettyServer")
+}
+
+jar {
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}

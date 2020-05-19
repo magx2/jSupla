@@ -3,9 +3,9 @@ include 'protocol'
 include 'protocol-java'
 include 'server'
 include 'nettyServer'
+include 'nettyServerFat'
 
 // test projects
 include 'nettyTest'
 
 project(":protocol-java").name = "protocolJava"
-
