@@ -1,7 +1,3 @@
-plugins {
-	id "org.shipkit.java" version "2.0.31"
-}
-
 ext {
 	slf4j_version = '1.7.25'
 	random_beans_version = '3.8.0'
