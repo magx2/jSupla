@@ -1,15 +1,15 @@
 repositories {
-    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/milestone' }
     mavenCentral()
 }
 
 dependencies {
-    compile rootProject.project("server")
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'
-    compile group: 'io.projectreactor.ipc', name: 'reactor-netty', version: '0.7.0.RELEASE'
-    compile 'org.javatuples:javatuples:1.2'
+	implementation rootProject.project("server")
+	implementation group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'
+	implementation group: 'io.projectreactor.ipc', name: 'reactor-netty', version: '0.7.0.RELEASE'
+	implementation 'org.javatuples:javatuples:1.2'
 
-    testCompile("io.projectreactor:reactor-test:$reactorVersion")
-    testCompile rootProject.project("protocol").sourceSets.test.output
-    testCompile rootProject.project("protocolJava").sourceSets.test.output
+    testImplementation("io.projectreactor:reactor-test:$reactorVersion")
+    testImplementation rootProject.project("protocol").sourceSets.test.output
+    testImplementation rootProject.project("protocolJava").sourceSets.test.output
 }

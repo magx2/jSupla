@@ -1,6 +1,6 @@
 dependencies {
-    compile rootProject.project("protocol")
-    compile group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
+	implementation rootProject.project("protocol")
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
 
-    testCompile rootProject.project("protocol").sourceSets.test.output
+    testImplementation rootProject.project("protocol").sourceSets.test.output
 }

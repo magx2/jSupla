@@ -113,15 +113,15 @@ prodProjects {
 
 allProjects {
 	dependencies {
-		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+		implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
-		testCompile 'junit:junit:4.12'
-		testCompile 'org.assertj:assertj-core:3.8.0'
-		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-		testCompile group: 'io.github.benas', name: 'random-beans', version: random_beans_version
-		testCompile group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
-		testCompile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
-		testCompile group: 'com.google.guava', name: 'guava', version: '23.3-jre'
-		testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.3'
+		testImplementation 'junit:junit:4.12'
+		testImplementation 'org.assertj:assertj-core:3.8.0'
+		testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+		testImplementation group: 'io.github.benas', name: 'random-beans', version: random_beans_version
+		testImplementation group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
+		testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+		testImplementation group: 'com.google.guava', name: 'guava', version: '23.3-jre'
+		testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.3'
 	}
 }

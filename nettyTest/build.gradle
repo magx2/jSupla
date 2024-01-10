@@ -1,27 +1,11 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
-    }
-}
-
 repositories {
-    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/milestone' }
     mavenCentral()
 }
 
 apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-shadowJar {
-	mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
-}
 
 dependencies {
-    compile rootProject.project("nettyServer")
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+	implementation rootProject.project("nettyServer")
+	implementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
 }
-
-bintrayUpload.enabled = false
