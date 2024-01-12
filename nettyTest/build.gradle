@@ -2,9 +2,6 @@ buildscript {
     repositories {
 		mavenCentral()
     }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
-    }
 }
 
 repositories {
@@ -13,11 +10,6 @@ repositories {
 }
 
 apply plugin: 'application'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-shadowJar {
-	mainClassName = 'pl.grzeslowski.jsupla.nettytest.Server'
-}
 
 dependencies {
     compile rootProject.project("nettyServer")
