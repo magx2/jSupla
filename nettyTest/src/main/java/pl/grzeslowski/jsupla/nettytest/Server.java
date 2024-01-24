@@ -29,7 +29,6 @@ public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
 
     public static void main(String[] args) throws Exception {
-        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
         new Server().run();
     }
 

@@ -5,8 +5,8 @@ repositories {
 
 dependencies {
     compile rootProject.project("server")
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'
-    compile group: 'io.projectreactor.ipc', name: 'reactor-netty', version: '0.7.0.RELEASE'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.106.Final'
+	compile group: 'io.projectreactor.netty', name: 'reactor-netty', version: '1.1.15'
     compile 'org.javatuples:javatuples:1.2'
 
     testCompile("io.projectreactor:reactor-test:$reactorVersion")

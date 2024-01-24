@@ -1,7 +1,7 @@
 ext {
-	slf4j_version = '1.7.25'
-	random_beans_version = '3.8.0'
-	reactorVersion = "3.1.1.RELEASE"
+	slf4j_version = '2.0.11'
+	random_beans_version = '3.9.0'
+	reactorVersion = "3.6.2"
 }
 
 @SuppressWarnings("UnnecessaryQualifiedReference")
@@ -58,8 +58,20 @@ allprojects {
 
 allProjects {
 	apply plugin: 'java'
+	apply plugin: 'maven-publish'
 	group = 'pl.grzeslowski.jSupla'
 	sourceCompatibility = 1.8
+}
+
+allProjects {
+	version '0.10.0'
+	publishing {
+		publications {
+			maven(MavenPublication) {
+				from components.java
+			}
+		}
+	}
 }
 
 // Integration tests
