@@ -119,6 +119,82 @@ prodProjects {
 	}
 }
 
+// Maven Central release
+prodProjects {
+	apply plugin: 'maven'
+	apply plugin: 'signing'
+
+	task javadocJar(type: Jar) {
+		archiveClassifier = 'javadoc'
+		from javadoc
+	}
+
+	task sourcesJar(type: Jar) {
+		archiveClassifier = 'sources'
+		from sourceSets.main.allSource
+	}
+
+	artifacts {
+		archives javadocJar, sourcesJar
+	}
+	
+	signing {
+		sign configurations.archives
+	}
+
+	group = project.group
+	archivesBaseName = project.name
+	version = project.version
+
+	def final githubRepo = "magx2/jSupla"
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+				repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+				}
+
+				snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+					authentication(userName: ossrhUsername, password: ossrhPassword)
+				}
+
+				pom.project {
+					//noinspection GroovyAssignabilityCheck
+					name project.name
+					description description
+					packaging 'jar'
+					url = "https://github.com/${githubRepo}"
+
+					scm {
+						connection "scm:git:git://github.com/${githubRepo}.git"
+						developerConnection "scm:git:git://github.com/${githubRepo}.git"
+						url "https://github.com/${githubRepo}.git"
+					}
+
+					licenses {
+						license {
+							//noinspection GroovyAssignabilityCheck
+							name "MIT"
+							url "https://opensource.org/licenses/MIT"
+						}
+					}
+
+					developers {
+						developer {
+							id 'magx2'
+							//noinspection GroovyAssignabilityCheck
+							name 'Martin Grzeslowski'
+							email 'hello@grzeslowski.pl'
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 allProjects {
 	dependencies {
 		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
