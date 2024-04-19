@@ -21,4 +21,12 @@ public class NettyConfig {
     public SslContext getSslCtx() {
         return sslCtx;
     }
+
+    @Override
+    public String toString() {
+        return "NettyConfig{" +
+            "port=" + port +
+            ", sslCtx=" + sslCtx +
+            '}';
+    }
 }

@@ -10,6 +10,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import reactor.core.Disposable;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -19,7 +20,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
-        implements Publisher<SuplaDataPacket> {
+    implements Publisher<SuplaDataPacket>, AutoCloseable {
     private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
     private final Collection<FluxSink<NettyChannel>> rootEmitters;
 
@@ -28,31 +29,30 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
 
-    private Flux<SuplaDataPacket> flux;
-    private Collection<FluxSink<SuplaDataPacket>> emitters = Collections.synchronizedList(new LinkedList<>());
+    private final Flux<SuplaDataPacket> flux;
+    private final Collection<FluxSink<SuplaDataPacket>> emitters = Collections.synchronizedList(new LinkedList<>());
+    private final Disposable disposable;
 
     SuplaHandler(final Collection<FluxSink<NettyChannel>> rootEmitters,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
                  final EncoderFactory encoderFactory) {
+        logger.debug("New instance #{}", hashCode());
         this.rootEmitters = rootEmitters;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
-        createFlux();
+        {
+            //@ 8.1 https://www.baeldung.com/reactor-core
+            final ConnectableFlux<SuplaDataPacket> flux = Flux.<SuplaDataPacket>create(emitter -> {
+                this.emitters.add(emitter);
+                emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
+            }).publish();
+            this.disposable = flux.connect();
+            this.flux = flux;
+        }
     }
 
-    /**
-     * @ 8.1 https://www.baeldung.com/reactor-core
-     */
-    private void createFlux() {
-        final ConnectableFlux<SuplaDataPacket> flux = Flux.<SuplaDataPacket>create(emitter -> {
-            SuplaHandler.this.emitters.add(emitter);
-            emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
-        }).publish();
-        flux.connect();
-        this.flux = flux;
-    }
 
     @Override
     public void channelRegistered(final ChannelHandlerContext ctx) throws Exception {
@@ -74,19 +74,13 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
         logger.debug("SuplaHandler.channelUnregistered(ctx), emitters.size={}", emitters.size());
         super.channelUnregistered(ctx);
         emitters.forEach(FluxSink::complete);
-        dispose();
     }
 
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
+        logger.debug("SuplaHandler.exceptionCaught(ctx, {})", cause);
         super.exceptionCaught(ctx, cause);
         emitters.forEach(e -> e.error(cause));
-        dispose();
-    }
-
-    private void dispose() {
-        emitters.clear();
-        flux = null;
     }
 
     @Override
@@ -94,5 +88,12 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
         logger.trace("SuplaHandler.channelRead0(ctx, {})", msg);
         emitters.forEach(emitter -> emitter.next(msg));
         ctx.flush();
+    }
+
+    @Override
+    public void close() {
+        logger.debug("Closing SuplaHandler #{}", hashCode());
+        emitters.clear();
+        //        disposable.dispose();
     }
 }

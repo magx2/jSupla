@@ -25,17 +25,19 @@ public class NettyServer implements Server {
     private final NioEventLoopGroup bossGroup;
     private final NioEventLoopGroup workerGroup;
     private final ChannelFuture channelFuture;
+    private final NettyServerInitializer nettyServerInitializer;
 
     public NettyServer(final NettyConfig nettyConfig,
                        final CallTypeParser callTypeParser,
                        final DecoderFactory decoderFactory,
                        final EncoderFactory encoderFactory) {
+        logger.debug("New instance #{}", hashCode());
         this.nettyConfig = requireNonNull(nettyConfig);
 
         bossGroup = newBossGroup();
         workerGroup = newWorkerGroup();
         final ServerBootstrap serverBootstrap = newServerBootstrap();
-        final NettyServerInitializer nettyServerInitializer = newNettyServerInitializer(
+        nettyServerInitializer = newNettyServerInitializer(
                 callTypeParser, decoderFactory, encoderFactory);
 
         logger.trace("Configuring server bootstrap");
@@ -93,15 +95,23 @@ public class NettyServer implements Server {
 
     @Override
     public void close() {
+        logger.debug("Closing NettyServer #{}", hashCode());
         try {
-            logger.debug("Closing channels");
+            nettyServerInitializer.close();
+            {
+                logger.debug("Closing workerGroup");
+                workerGroup.shutdownGracefully().get();
+                logger.debug("Closed workerGroup");
+            }
+            {
+                logger.debug("Closing bossGroup");
+                bossGroup.shutdownGracefully().get();
+                logger.debug("Closed bossGroup");
+            }
             channelFuture.channel().closeFuture().sync();
+            channelFuture.channel().parent().closeFuture().sync();
         } catch (Exception e) {
             throw new CloseServerException(this, e);
-        } finally {
-            logger.debug("Closing workerGroup and bossGroup");
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
         }
     }
 }

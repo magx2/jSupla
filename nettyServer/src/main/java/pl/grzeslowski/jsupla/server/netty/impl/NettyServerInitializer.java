@@ -13,12 +13,15 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import reactor.core.Disposable;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import static java.util.Collections.synchronizedList;
 import static java.util.Collections.unmodifiableCollection;
@@ -27,7 +30,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @SuppressWarnings("WeakerAccess")
 class NettyServerInitializer extends ChannelInitializer<SocketChannel>
-        implements Publisher<NettyChannel> {
+    implements Publisher<NettyChannel>, AutoCloseable {
     private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
 
     private final SslContext sslCtx;
@@ -38,21 +41,24 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
+    private final Disposable disposable;
+    private final Collection<SuplaHandler> suplaHandlers = synchronizedList(new LinkedList<>());
 
     NettyServerInitializer(SslContext sslCtx,
                            final CallTypeParser callTypeParser,
                            final DecoderFactory decoderFactory,
                            final EncoderFactory encoderFactory) {
+        logger.debug("New instance #{}", hashCode());
         this.sslCtx = sslCtx;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
         // @ 8.1 https://www.baeldung.com/reactor-core
         final ConnectableFlux<NettyChannel> flux = Flux.<NettyChannel>create(emitter -> {
-            NettyServerInitializer.this.emitters.add(emitter);
-            emitter.onDispose(() -> NettyServerInitializer.this.emitters.remove(emitter));
+            this.emitters.add(emitter);
+            emitter.onDispose(() -> this.emitters.remove(emitter));
         }).publish();
-        flux.connect();
+        disposable = flux.connect();
         this.flux = flux;
     }
 
@@ -63,7 +69,7 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
 
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
-        logger.debug("Initializing new channel");
+        logger.debug("Initializing new channel #{}", hashCode());
         ChannelPipeline pipeline = ch.pipeline();
 
         initPipeline(pipeline);
@@ -91,10 +97,10 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
 
     protected void addDelimiterBasedFrameDecoder(final ChannelPipeline pipeline) {
         pipeline.addLast(new DelimiterBasedFrameDecoder(
-                SUPLA_MAX_DATA_SIZE,
-                false,
-                true,
-                Unpooled.copiedBuffer(SUPLA_TAG)
+            SUPLA_MAX_DATA_SIZE,
+            false,
+            true,
+            Unpooled.copiedBuffer(SUPLA_TAG)
         ));
     }
 
@@ -107,12 +113,13 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     }
 
     protected void addHandler(final ChannelPipeline pipeline) {
-        pipeline.addLast(
-                new SuplaHandler(
-                        unmodifiableCollection(emitters),
-                        callTypeParser,
-                        decoderFactory,
-                        encoderFactory));
+        SuplaHandler suplaHandler = new SuplaHandler(
+            unmodifiableCollection(emitters),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory);
+        pipeline.addLast(suplaHandler);
+        suplaHandlers.add(suplaHandler);
     }
 
     /**
@@ -121,5 +128,20 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     @SuppressWarnings("unused")
     protected void initLastPipeline(final ChannelPipeline pipeline) {
 
+    }
+
+    @Override
+    public void close() {
+        logger.debug("Closing NettyServerInitializer #{}", hashCode());
+        disposable.dispose();
+        List<SuplaHandler> local = new ArrayList<>(suplaHandlers);
+        suplaHandlers.clear();
+        for (SuplaHandler suplaHandler : local) {
+            try {
+                suplaHandler.close();
+            } catch (Exception e) {
+                logger.warn("Error closing SuplaHandler #{}",suplaHandler.hashCode(), e);
+            }
+        }
     }
 }
