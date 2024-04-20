@@ -87,8 +87,9 @@ or jSupla binding in OpenHAB.
 # Deploying to Maven Central
 
 1. Run `gradle uploadArchives`
+2. Login here: https://account.oss.sonatype.org/realms/central-ossrh/account/#/
 2. Go to [sonatype](https://s01.oss.sonatype.org/#stagingRepositories) and select `Staging Repositories`
-3. Select `plgrzeslowski-100X` and click `close`
+3. Select `plgrzeslowski-100X` and click `close` and after `release`
 4. Artifact should be visible after some time
 
 ## Prerequisites
