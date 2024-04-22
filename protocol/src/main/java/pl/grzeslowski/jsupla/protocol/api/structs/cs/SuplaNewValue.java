@@ -46,8 +46,8 @@ public final class SuplaNewValue implements ClientServer {
         }
         final SuplaNewValue that = (SuplaNewValue) o;
         return id == that.id &&
-                       target == that.target &&
-                       Arrays.equals(value, that.value);
+            target == that.target &&
+            Arrays.equals(value, that.value);
     }
 
     @Override
@@ -60,9 +60,9 @@ public final class SuplaNewValue implements ClientServer {
     @Override
     public String toString() {
         return "SuplaNewValue{" +
-                       "id=" + id +
-                       ", target=" + target +
-                       ", value=" + Arrays.toString(value) +
-                       '}';
+            "id=" + id +
+            ", target=" + target +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

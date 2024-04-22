@@ -16,7 +16,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelGroupEncoderImplTest extends EncoderTest<SuplaChannelGroup> {
-    @InjectMocks SuplaChannelGroupEncoderImpl encoder;
+    @InjectMocks
+    SuplaChannelGroupEncoderImpl encoder;
 
     SuplaChannelGroup proto;
 
@@ -24,14 +25,14 @@ public class SuplaChannelGroupEncoderImplTest extends EncoderTest<SuplaChannelGr
     public void setUp() {
         final long captionSize = RANDOM_SUPLA.nextUnsignedInt(100);
         proto = new SuplaChannelGroup(
-                RANDOM_SUPLA.nextByte(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextUnsignedInt(),
-                captionSize,
-                new byte[(int) captionSize]
+            RANDOM_SUPLA.nextByte(),
+            RANDOM_SUPLA.nextPositiveInt(),
+            RANDOM_SUPLA.nextPositiveInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextUnsignedInt(),
+            captionSize,
+            new byte[(int) captionSize]
         );
     }
 

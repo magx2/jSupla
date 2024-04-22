@@ -89,11 +89,11 @@ public final class SuplaDataPacket implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaDataPacket{" +
-                "version=" + version +
-                ", rrId=" + rrId +
-                ", callType=" + callType +
-                ", dataSize=" + dataSize +
-                ", data=" + Arrays.toString(data) +
-                '}';
+            "version=" + version +
+            ", rrId=" + rrId +
+            ", callType=" + callType +
+            ", dataSize=" + dataSize +
+            ", data=" + Arrays.toString(data) +
+            '}';
     }
 }

@@ -17,9 +17,12 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterDeviceCSerializerImplTest extends SerializerTest<RegisterDeviceC, SuplaRegisterDeviceC> {
-    @InjectMocks RegisterDeviceCSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
-    @Mock DeviceChannelBSerializer deviceChannelBSerializer;
+    @InjectMocks
+    RegisterDeviceCSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
+    @Mock
+    DeviceChannelBSerializer deviceChannelBSerializer;
 
     @Override
     protected RegisterDeviceC given() {
@@ -36,7 +39,7 @@ public class RegisterDeviceCSerializerImplTest extends SerializerTest<RegisterDe
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
         assertThat((int) proto.channelCount).isEqualTo(entity.getChannels().size());
         entity.getChannels().getChannels().forEach(channel ->
-                                                           verify(deviceChannelBSerializer).serialize(channel));
+            verify(deviceChannelBSerializer).serialize(channel));
         verify(stringSerializer).serialize(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE);
 
         verifyNoMoreInteractions(stringSerializer);

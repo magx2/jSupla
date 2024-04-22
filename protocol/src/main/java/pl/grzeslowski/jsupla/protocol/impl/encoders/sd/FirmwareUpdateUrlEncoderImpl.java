@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class FirmwareUpdateUrlEncoderImpl implements FirmwareUpdateUrlEncoder {
     public static final FirmwareUpdateUrlEncoderImpl INSTANCE =
-            new FirmwareUpdateUrlEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new FirmwareUpdateUrlEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     FirmwareUpdateUrlEncoderImpl(PrimitiveEncoder primitiveEncoder) {

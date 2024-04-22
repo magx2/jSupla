@@ -10,7 +10,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceClientParserImpl implements ServerDeviceClientParser<ServerDeviceClientEntity,
-                                                                                           ServerDeviceClient> {
+    ServerDeviceClient> {
     private final VersionErrorParser versionErrorParser;
     private final GetVersionResultParser getVersionResultParser;
     private final SetActivityTimeoutResultParser setActivityTimeoutResultParser;
@@ -39,6 +39,6 @@ public class ServerDeviceClientParserImpl implements ServerDeviceClientParser<Se
             return versionErrorParser.parse((SuplaVersionError) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
-                proto.getClass(), proto));
+            proto.getClass(), proto));
     }
 }

@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class GetVersionResultParserImplTest extends AbstractParserTest<GetVersionResult, SuplaGetVersionResult> {
-    @InjectMocks GetVersionResultParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    GetVersionResultParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaGetVersionResult given() {

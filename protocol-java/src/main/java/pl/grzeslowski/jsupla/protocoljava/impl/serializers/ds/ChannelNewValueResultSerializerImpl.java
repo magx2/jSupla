@@ -10,9 +10,9 @@ public class ChannelNewValueResultSerializerImpl implements ChannelNewValueResul
     @Override
     public SuplaChannelNewValueResult serialize(@NotNull final ChannelNewValueResult entity) {
         return new SuplaChannelNewValueResult(
-                                                     (short) entity.getChannelNumber(),
-                                                     entity.getSenderId(),
-                                                     (byte) (entity.isSuccess() ? 1 : 0)
+            (short) entity.getChannelNumber(),
+            entity.getSenderId(),
+            (byte) (entity.isSuccess() ? 1 : 0)
         );
     }
 }

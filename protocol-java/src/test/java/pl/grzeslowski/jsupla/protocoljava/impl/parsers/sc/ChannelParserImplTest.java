@@ -18,17 +18,20 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelParserImplTest extends AbstractParserTest<Channel, SuplaChannel> {
-    @InjectMocks ChannelParserImpl parser;
-    @Mock ChannelValueParser channelValueParser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    ChannelParserImpl parser;
+    @Mock
+    ChannelValueParser channelValueParser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaChannel given() {
         final SuplaChannel supla = super.given();
         BDDMockito.given(channelValueParser.parse(supla.value))
-                .willReturn(RANDOM_ENTITY.nextObject(ChannelValue.class));
+            .willReturn(RANDOM_ENTITY.nextObject(ChannelValue.class));
         BDDMockito.given(stringParser.parse(supla.caption))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class));
         return supla;
     }
 

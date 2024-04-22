@@ -8,15 +8,11 @@ import java.util.Arrays;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.id;
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterClient implements ClientServerEntity {
-    @Positive private final int accessId;
+    @Positive
+    private final int accessId;
     @NotNull
     @Size(min = 1, max = SUPLA_ACCESSID_PWD_MAXSIZE)
     private final char[] accessIdPassword;
@@ -107,11 +103,11 @@ public class RegisterClient implements ClientServerEntity {
     @Override
     public String toString() {
         return "RegisterClient{" +
-                   "accessId=" + accessId +
-                   ", accessIdPassword=[PROTECTED]" +
-                   ", guid='" + guid + '\'' +
-                   ", name='" + name + '\'' +
-                   ", softVer='" + softVer + '\'' +
-                   '}';
+            "accessId=" + accessId +
+            ", accessIdPassword=[PROTECTED]" +
+            ", guid='" + guid + '\'' +
+            ", name='" + name + '\'' +
+            ", softVer='" + softVer + '\'' +
+            '}';
     }
 }

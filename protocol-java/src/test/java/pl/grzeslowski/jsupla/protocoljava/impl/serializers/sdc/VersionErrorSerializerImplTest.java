@@ -10,7 +10,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class VersionErrorSerializerImplTest extends SerializerTest<VersionError, SuplaVersionError> {
-    @InjectMocks VersionErrorSerializerImpl serializer;
+    @InjectMocks
+    VersionErrorSerializerImpl serializer;
 
     @Override
     protected void then(final VersionError entity, final SuplaVersionError proto) {

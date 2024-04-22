@@ -10,10 +10,10 @@ public class RegisterDeviceResultParserImpl implements RegisterDeviceResultParse
     @Override
     public RegisterDeviceResult parse(@NotNull final SuplaRegisterDeviceResult proto) {
         return new RegisterDeviceResult(
-                                               proto.resultCode,
-                                               proto.activityTimeout,
-                                               proto.version,
-                                               proto.versionMin
+            proto.resultCode,
+            proto.activityTimeout,
+            proto.version,
+            proto.versionMin
         );
     }
 }

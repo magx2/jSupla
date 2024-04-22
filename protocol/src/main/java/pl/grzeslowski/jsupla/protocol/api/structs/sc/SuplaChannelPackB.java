@@ -39,8 +39,8 @@ public final class SuplaChannelPackB implements ServerClient {
 
     private int channelsSize() {
         return Arrays.stream(channels)
-                       .mapToInt(SuplaChannelB::size)
-                       .sum();
+            .mapToInt(SuplaChannelB::size)
+            .sum();
     }
 
     @Override
@@ -53,8 +53,8 @@ public final class SuplaChannelPackB implements ServerClient {
         }
         final SuplaChannelPackB that = (SuplaChannelPackB) o;
         return count == that.count &&
-                       totalLeft == that.totalLeft &&
-                       Arrays.equals(channels, that.channels);
+            totalLeft == that.totalLeft &&
+            Arrays.equals(channels, that.channels);
     }
 
     @Override
@@ -67,9 +67,9 @@ public final class SuplaChannelPackB implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelPackB{" +
-                       "count=" + count +
-                       ", totalLeft=" + totalLeft +
-                       ", channels=" + Arrays.toString(channels) +
-                       '}';
+            "count=" + count +
+            ", totalLeft=" + totalLeft +
+            ", channels=" + Arrays.toString(channels) +
+            '}';
     }
 }

@@ -80,11 +80,11 @@ public final class RgbValue implements ChannelValue {
     @Override
     public String toString() {
         return "RgbValue{" +
-                       "brightness=" + brightness +
-                       ", colorBrightness=" + colorBrightness +
-                       ", R=" + red +
-                       ", G=" + green +
-                       ", B=" + blue +
-                       '}';
+            "brightness=" + brightness +
+            ", colorBrightness=" + colorBrightness +
+            ", R=" + red +
+            ", G=" + green +
+            ", B=" + blue +
+            '}';
     }
 }

@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.FirmwareUpdateParamsDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -13,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class FirmwareUpdateParamsDecoderImpl implements FirmwareUpdateParamsDecoder {
     public static final FirmwareUpdateParamsDecoderImpl INSTANCE = new FirmwareUpdateParamsDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public FirmwareUpdateParamsDecoderImpl(PrimitiveDecoder primitiveDecoder) {

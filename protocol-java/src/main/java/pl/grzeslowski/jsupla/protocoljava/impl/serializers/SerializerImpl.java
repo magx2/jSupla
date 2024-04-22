@@ -40,12 +40,12 @@ import static java.util.Objects.requireNonNull;
 public class SerializerImpl implements Serializer<Entity, Proto> {
     private final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer;
     private final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
-            deviceClientServerSerializer;
+        deviceClientServerSerializer;
     private final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer;
     private final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer;
     private final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer;
     private final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
-            serverDeviceClientSerializer;
+        serverDeviceClientSerializer;
 
     private final DeviceChannelSerializer deviceChannelSerializer;
     private final DeviceChannelBSerializer deviceChannelBSerializer;
@@ -55,12 +55,12 @@ public class SerializerImpl implements Serializer<Entity, Proto> {
 
     public SerializerImpl(final ClientServerSerializer<ClientServerEntity, ClientServer> clientServerSerializer,
                           final DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer>
-                                  deviceClientServerSerializer,
+                              deviceClientServerSerializer,
                           final DeviceServerSerializer<DeviceServerEntity, DeviceServer> deviceServerSerializer,
                           final ServerClientSerializer<ServerClientEntity, ServerClient> serverClientSerializer,
                           final ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> serverDeviceSerializer,
                           final ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient>
-                                  serverDeviceClientSerializer,
+                              serverDeviceClientSerializer,
                           final DeviceChannelSerializer deviceChannelSerializer,
                           final DeviceChannelBSerializer deviceChannelBSerializer,
                           final FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer,
@@ -111,6 +111,6 @@ public class SerializerImpl implements Serializer<Entity, Proto> {
             return timevalSerializer.serialize((Timeval) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

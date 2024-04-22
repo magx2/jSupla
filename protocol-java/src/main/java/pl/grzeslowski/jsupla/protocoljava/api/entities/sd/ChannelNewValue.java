@@ -8,9 +8,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.Preconditions.id;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedIntSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_INT_MAX;
 
@@ -84,10 +82,10 @@ public class ChannelNewValue implements ServerDeviceEntity {
     @Override
     public String toString() {
         return "ChannelNewValue{" +
-                       "senderId=" + senderId +
-                       ", channelNumber=" + channelNumber +
-                       ", durationMs=" + durationMs +
-                       ", value=" + value +
-                       '}';
+            "senderId=" + senderId +
+            ", channelNumber=" + channelNumber +
+            ", durationMs=" + durationMs +
+            ", value=" + value +
+            '}';
     }
 }

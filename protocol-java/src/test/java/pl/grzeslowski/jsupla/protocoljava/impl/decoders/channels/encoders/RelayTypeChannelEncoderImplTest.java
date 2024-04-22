@@ -7,7 +7,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class RelayTypeChannelEncoderImplTest extends ChannelTypeEncoderTest<OnOff> {
-    @InjectMocks RelayTypeChannelEncoderImpl encoder;
+    @InjectMocks
+    RelayTypeChannelEncoderImpl encoder;
 
     @Override
     protected Class<OnOff> getChannelValueClass() {

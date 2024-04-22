@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelValueDecoderImplTest extends ProperDecoderTest<SuplaChannelValue> {
-    @InjectMocks SuplaChannelValueDecoderImpl decoder;
+    @InjectMocks
+    SuplaChannelValueDecoderImpl decoder;
     private byte[] value;
     private byte[] subValue;
 

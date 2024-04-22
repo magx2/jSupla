@@ -20,13 +20,13 @@ public class ChannelGroupRelationPackSerializerImpl implements ChannelGroupRelat
     @Override
     public SuplaChannelGroupRelationPack serialize(@NotNull ChannelGroupRelationPack entity) {
         SuplaChannelGroupRelation[] items = entity.getItems()
-                .stream()
-                .map(channelGroupRelationSerializer::serialize)
-                .toArray(SuplaChannelGroupRelation[]::new);
+            .stream()
+            .map(channelGroupRelationSerializer::serialize)
+            .toArray(SuplaChannelGroupRelation[]::new);
         return new SuplaChannelGroupRelationPack(
-                entity.getItems().size(),
-                entity.getTotalLeft(),
-                items
+            entity.getItems().size(),
+            entity.getTotalLeft(),
+            items
         );
     }
 }

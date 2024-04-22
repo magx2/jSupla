@@ -1,21 +1,7 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.encoders;
 
-import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ChannelTypeEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ColorTypeChannelEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.RelayTypeChannelEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.StoppableOpenCloseEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ThermometerTypeChannelEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValueSwitch;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.DecimalValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.OpenClose;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.PercentValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.RgbValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.StoppableOpenClose;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureAndHumidityValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.UnknownValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.*;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.*;
 
 import static java.util.Objects.requireNonNull;
 

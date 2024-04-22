@@ -19,9 +19,9 @@ public class NewValueSerializerImpl implements NewValueSerializer {
     @Override
     public SuplaNewValue serialize(@NotNull NewValue entity) {
         return new SuplaNewValue(
-                entity.getId(),
-                (byte) entity.getTarget(),
-                channelTypeEncoder.encode(entity.getValue())
+            entity.getId(),
+            (byte) entity.getTarget(),
+            channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

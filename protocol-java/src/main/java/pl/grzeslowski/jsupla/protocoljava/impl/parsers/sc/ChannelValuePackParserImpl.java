@@ -29,8 +29,8 @@ public class ChannelValuePackParserImpl implements ChannelValuePackParser {
             items.add(value);
         }
         return new ChannelValuePack(
-                proto.totalLeft,
-                unmodifiableList(items)
+            proto.totalLeft,
+            unmodifiableList(items)
         );
     }
 }

@@ -15,12 +15,12 @@ public class SuplaChannelGroupRelationPackRandomizer implements Randomizer<Supla
     @Override
     public SuplaChannelGroupRelationPack getRandomValue() {
         SuplaChannelGroupRelation[] items = randomSupla
-                .objects(SuplaChannelGroupRelation.class, randomSupla.nextPositiveInt(5))
-                .toArray(SuplaChannelGroupRelation[]::new);
+            .objects(SuplaChannelGroupRelation.class, randomSupla.nextPositiveInt(5))
+            .toArray(SuplaChannelGroupRelation[]::new);
         return new SuplaChannelGroupRelationPack(
-                items.length,
-                randomSupla.nextPositiveInt(),
-                items
+            items.length,
+            randomSupla.nextPositiveInt(),
+            items
         );
     }
 }

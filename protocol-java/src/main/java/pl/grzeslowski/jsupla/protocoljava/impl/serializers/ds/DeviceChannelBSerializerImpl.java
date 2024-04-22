@@ -19,11 +19,11 @@ public class DeviceChannelBSerializerImpl implements DeviceChannelBSerializer {
     @Override
     public SuplaDeviceChannelB serialize(@NotNull final DeviceChannelB entity) {
         return new SuplaDeviceChannelB(
-                                              (short) entity.getNumber(),
-                                              entity.getType(),
-                                              entity.getFunction(),
-                                              entity.getDefaultValue(),
-                                              channelTypeEncoder.encode(entity.getValue())
+            (short) entity.getNumber(),
+            entity.getType(),
+            entity.getFunction(),
+            entity.getDefaultValue(),
+            channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

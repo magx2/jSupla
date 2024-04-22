@@ -20,14 +20,14 @@ public class ChannelGroupSerializerImpl implements ChannelGroupSerializer {
     public SuplaChannelGroup serialize(@NotNull ChannelGroup entity) {
         byte[] caption = stringSerializer.serialize(entity.getCaption());
         return new SuplaChannelGroup(
-                (byte) entity.getEol(),
-                entity.getId(),
-                entity.getLocationId(),
-                entity.getFunction(),
-                entity.getAltIcon(),
-                entity.getFlags(),
-                caption.length,
-                caption
+            (byte) entity.getEol(),
+            entity.getId(),
+            entity.getLocationId(),
+            entity.getFunction(),
+            entity.getAltIcon(),
+            entity.getFlags(),
+            caption.length,
+            caption
         );
     }
 }

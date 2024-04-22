@@ -53,8 +53,8 @@ public final class SuplaFirmwareUpdateUrlResult implements ServerDevice {
     @Override
     public String toString() {
         return "SuplaFirmwareUpdateUrlResult{" +
-                "exists=" + exists +
-                ", url=" + url +
-                '}';
+            "exists=" + exists +
+            ", url=" + url +
+            '}';
     }
 }

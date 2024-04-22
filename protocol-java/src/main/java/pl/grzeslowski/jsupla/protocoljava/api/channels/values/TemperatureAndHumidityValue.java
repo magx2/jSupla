@@ -69,8 +69,8 @@ public final class TemperatureAndHumidityValue implements ChannelValue {
     @Override
     public String toString() {
         return "TemperatureAndHumidityValue{" +
-                       "temperature=" + temperature +
-                       ", humidity=" + humidity +
-                       '}';
+            "temperature=" + temperature +
+            ", humidity=" + humidity +
+            '}';
     }
 }

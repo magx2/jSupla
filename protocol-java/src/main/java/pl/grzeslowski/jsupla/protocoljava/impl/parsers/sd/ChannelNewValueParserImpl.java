@@ -25,10 +25,10 @@ public class ChannelNewValueParserImpl implements ChannelNewValueParser {
     public ChannelNewValue parse(@NotNull final SuplaChannelNewValue proto) {
         final ChannelType channelType = typeMapper.findChannelType(proto.channelNumber);
         return new ChannelNewValue(
-                                          proto.senderId,
-                                          proto.channelNumber,
-                                          proto.durationMs,
-                                          channelTypeDecoder.decode(channelType, proto.value)
+            proto.senderId,
+            proto.channelNumber,
+            proto.durationMs,
+            channelTypeDecoder.decode(channelType, proto.value)
         );
     }
 }

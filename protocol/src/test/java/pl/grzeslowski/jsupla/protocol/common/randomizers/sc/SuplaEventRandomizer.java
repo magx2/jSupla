@@ -19,12 +19,12 @@ public class SuplaEventRandomizer implements Randomizer<SuplaEvent> {
     public SuplaEvent getRandomValue() {
         byte[] senderName = findSenderNameWithProperSize();
         return new SuplaEvent(
-                                     randomSupla.nextPositiveInt(),
-                                     randomSupla.nextPositiveInt(),
-                                     randomSupla.nextUnsignedInt(),
-                                     randomSupla.nextPositiveInt(),
-                senderName.length,
-                senderName
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextUnsignedInt(),
+            randomSupla.nextPositiveInt(),
+            senderName.length,
+            senderName
         );
     }
 

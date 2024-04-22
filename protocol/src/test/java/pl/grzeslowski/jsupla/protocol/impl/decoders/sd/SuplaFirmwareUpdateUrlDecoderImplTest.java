@@ -15,7 +15,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaFirmwareUpdateUrlDecoderImplTest extends DecoderTest<FirmwareUpdateUrlDecoderImpl> {
-    @InjectMocks FirmwareUpdateUrlDecoderImpl decoder;
+    @InjectMocks
+    FirmwareUpdateUrlDecoderImpl decoder;
 
     @Override
     public FirmwareUpdateUrlDecoderImpl getDecoder() {

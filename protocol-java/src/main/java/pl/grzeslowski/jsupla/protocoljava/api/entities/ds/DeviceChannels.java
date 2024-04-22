@@ -9,8 +9,6 @@ import static java.util.Collections.unmodifiableList;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class DeviceChannels {
     @Size(max = SUPLA_CHANNELMAXCOUNT)
     private final List<DeviceChannel> channels;
@@ -58,7 +56,7 @@ public class DeviceChannels {
     @Override
     public String toString() {
         return "DeviceChannels{" +
-                "channels=" + channels +
-                '}';
+            "channels=" + channels +
+            '}';
     }
 }

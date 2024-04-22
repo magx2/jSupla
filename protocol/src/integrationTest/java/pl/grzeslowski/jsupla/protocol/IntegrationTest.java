@@ -18,13 +18,13 @@ public class IntegrationTest {
     @Parameterized.Parameters(name = "class = {0}")
     public static Object[][] data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
-                   .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
-                   .stream()
-                   .map(ClassPath.ClassInfo::load)
-                   .filter(clazz -> !clazz.isInterface())
-                   .filter(ProtoWithSize.class::isAssignableFrom)
-                   .map(clazz -> new Object[]{clazz})
-                   .toArray(Object[][]::new);
+            .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(ProtoWithSize.class::isAssignableFrom)
+            .map(clazz -> new Object[]{clazz})
+            .toArray(Object[][]::new);
     }
 
     public IntegrationTest(Class<ProtoWithSize> structClass) {

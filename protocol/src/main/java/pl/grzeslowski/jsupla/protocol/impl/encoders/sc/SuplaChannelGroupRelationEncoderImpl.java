@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelGroupRelationEncoderImpl implements SuplaChannelGroupRelationEncoder {
     public static final SuplaChannelGroupRelationEncoderImpl INSTANCE =
-            new SuplaChannelGroupRelationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaChannelGroupRelationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaChannelGroupRelationEncoderImpl(final PrimitiveEncoder primitiveEncoder) {

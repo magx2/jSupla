@@ -85,10 +85,10 @@ public class FirmwareUpdateUrl implements Entity {
     @Override
     public String toString() {
         return "FirmwareUpdateUrl{" +
-                       "availableProtocols=" + availableProtocols +
-                       ", host='" + host + '\'' +
-                       ", port=" + port +
-                       ", path='" + path + '\'' +
-                       '}';
+            "availableProtocols=" + availableProtocols +
+            ", host='" + host + '\'' +
+            ", port=" + port +
+            ", path='" + path + '\'' +
+            '}';
     }
 }

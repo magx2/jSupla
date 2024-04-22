@@ -42,7 +42,7 @@ public class PingServerResultClient implements ServerDeviceClientEntity {
     @Override
     public String toString() {
         return "PingServerResultClient{" +
-                       "timeval=" + timeval +
-                       '}';
+            "timeval=" + timeval +
+            '}';
     }
 }

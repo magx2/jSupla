@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaSuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTest<SuplaFirmwareUpdateUrlResult> {
-    @InjectMocks FirmwareUpdateUrlResultEncoderImpl encoder;
-    @Mock FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
+    @InjectMocks
+    FirmwareUpdateUrlResultEncoderImpl encoder;
+    @Mock
+    FirmwareUpdateUrlEncoder firmwareUpdateUrlEncoder;
 
     @Override
     protected void givenEncodeEntity() {
@@ -62,13 +64,13 @@ public class SuplaSuplaFirmwareUpdateUrlResultEncoderImplTest extends EncoderTes
     @Override
     public SuplaFirmwareUpdateUrlResult getProto() {
         return new SuplaFirmwareUpdateUrlResult(
-                                                  (byte) 1,
-                                                  new SuplaFirmwareUpdateUrl(
-                                                                               (byte) 1,
-                                                                               new byte[SUPLA_URL_HOST_MAXSIZE],
-                                                                               9090,
-                                                                               new byte[SUPLA_URL_PATH_MAXSIZE]
-                                                  )
+            (byte) 1,
+            new SuplaFirmwareUpdateUrl(
+                (byte) 1,
+                new byte[SUPLA_URL_HOST_MAXSIZE],
+                9090,
+                new byte[SUPLA_URL_PATH_MAXSIZE]
+            )
         );
     }
 }

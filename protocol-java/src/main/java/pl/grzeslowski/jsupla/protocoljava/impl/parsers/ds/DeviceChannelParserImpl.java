@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-@Deprecated
 public class DeviceChannelParserImpl implements DeviceChannelParser {
     private final ChannelTypeDecoder channelTypeDecoder;
     private final SuplaDeviceChannelToChannelType suplaDeviceChannelToChannelType;

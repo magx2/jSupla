@@ -19,7 +19,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG_SI
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaDataPacketDecoderImplTest extends DecoderTest<SuplaDataPacketDecoderImpl> {
     private static final long DATA_SIZE = 5L;
-    @InjectMocks SuplaDataPacketDecoderImpl decoder;
+    @InjectMocks
+    SuplaDataPacketDecoderImpl decoder;
 
     @Override
     public SuplaDataPacketDecoderImpl getDecoder() {

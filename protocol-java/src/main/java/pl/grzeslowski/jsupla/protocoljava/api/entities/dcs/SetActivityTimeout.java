@@ -8,7 +8,7 @@ import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class SetActivityTimeout implements DeviceClientServerEntity {
-    @Min(1) 
+    @Min(1)
     @Max(UNSIGNED_BYTE_MAX)
     private final int activityTimeout;
 
@@ -42,7 +42,7 @@ public class SetActivityTimeout implements DeviceClientServerEntity {
     @Override
     public String toString() {
         return "SetActivityTimeout{" +
-                   "activityTimeout=" + activityTimeout +
-                   '}';
+            "activityTimeout=" + activityTimeout +
+            '}';
     }
 }

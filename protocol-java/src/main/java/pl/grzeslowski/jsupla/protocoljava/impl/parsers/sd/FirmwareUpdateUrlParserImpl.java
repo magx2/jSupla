@@ -19,10 +19,10 @@ public class FirmwareUpdateUrlParserImpl implements FirmwareUpdateUrlParser {
     @Override
     public FirmwareUpdateUrl parse(@NotNull final SuplaFirmwareUpdateUrl proto) {
         return new FirmwareUpdateUrl(
-                                            proto.availableProtocols,
-                                            stringParser.parse(proto.host),
-                                            proto.port,
-                                            stringParser.parse(proto.path)
+            proto.availableProtocols,
+            stringParser.parse(proto.host),
+            proto.port,
+            stringParser.parse(proto.path)
         );
     }
 }

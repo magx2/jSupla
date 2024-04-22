@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaSetActivityTimeoutResultEncoderImplTest extends EncoderTest<SuplaSetActivityTimeoutResult> {
-    @InjectMocks SuplaSetActivityTimeoutResultEncoderImpl encoder;
+    @InjectMocks
+    SuplaSetActivityTimeoutResultEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaSetActivityTimeoutResult proto) {

@@ -11,8 +11,8 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelGroupRelationPackDecoderImpl implements SuplaChannelGroupRelationPackDecoder {
-    public static final SuplaChannelGroupRelationPackDecoderImpl INSTANCE = 
-            new SuplaChannelGroupRelationPackDecoderImpl(SuplaChannelGroupRelationDecoderImpl.INSTANCE);
+    public static final SuplaChannelGroupRelationPackDecoderImpl INSTANCE =
+        new SuplaChannelGroupRelationPackDecoderImpl(SuplaChannelGroupRelationDecoderImpl.INSTANCE);
     private final SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder;
 
     public SuplaChannelGroupRelationPackDecoderImpl(SuplaChannelGroupRelationDecoder suplaChannelGroupRelationDecoder) {
@@ -31,8 +31,8 @@ public final class SuplaChannelGroupRelationPackDecoderImpl implements SuplaChan
         for (int i = 0; i < count; i++) {
             if (bytes.length - offset < SuplaChannelGroupRelation.SIZE) {
                 throw new IllegalArgumentException(format(
-                        "Can't parse SuplaChannelGroupRelation from byte array of length %s with offset %s, " +
-                                "because length is %s!", bytes.length, offset, SuplaChannelGroupRelation.SIZE));
+                    "Can't parse SuplaChannelGroupRelation from byte array of length %s with offset %s, " +
+                        "because length is %s!", bytes.length, offset, SuplaChannelGroupRelation.SIZE));
             }
             SuplaChannelGroupRelation item = suplaChannelGroupRelationDecoder.decode(bytes, offset);
             items[i] = item;
@@ -40,9 +40,9 @@ public final class SuplaChannelGroupRelationPackDecoderImpl implements SuplaChan
         }
 
         return new SuplaChannelGroupRelationPack(
-                count,
-                totalLeft,
-                items
+            count,
+            totalLeft,
+            items
         );
     }
 }

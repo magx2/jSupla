@@ -54,8 +54,8 @@ public class NewValue implements ClientServerEntity {
         }
         NewValue newValue = (NewValue) o;
         return id == newValue.id &&
-                   target == newValue.target &&
-                   Objects.equals(value, newValue.value);
+            target == newValue.target &&
+            Objects.equals(value, newValue.value);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class NewValue implements ClientServerEntity {
     @Override
     public String toString() {
         return "NewValue{" +
-                   "id=" + id +
-                   ", target=" + target +
-                   ", value=" + value +
-                   '}';
+            "id=" + id +
+            ", target=" + target +
+            ", value=" + value +
+            '}';
     }
 }

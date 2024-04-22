@@ -27,7 +27,7 @@ public class ChannelGroupRelationPackSerializerImplTest
     protected ChannelGroupRelationPack given() {
         ChannelGroupRelationPack given = super.given();
         BDDMockito.given(channelGroupRelationSerializer.serialize(any()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class));
         return given;
     }
 

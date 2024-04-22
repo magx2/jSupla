@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelEncoderImplTest extends EncoderTest<SuplaChannel> {
-    @InjectMocks SuplaChannelEncoderImpl encoder;
-    @Mock SuplaChannelValueEncoder channelValueEncoder;
+    @InjectMocks
+    SuplaChannelEncoderImpl encoder;
+    @Mock
+    SuplaChannelValueEncoder channelValueEncoder;
 
     @Override
     protected void givenEncodeEntity() {
@@ -72,16 +74,16 @@ public class SuplaChannelEncoderImplTest extends EncoderTest<SuplaChannel> {
     @Override
     public SuplaChannel getProto() {
         final SuplaChannelValue value = new SuplaChannelValue(
-                                                                     new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                     new byte[SUPLA_CHANNELVALUE_SIZE]);
+            new byte[SUPLA_CHANNELVALUE_SIZE],
+            new byte[SUPLA_CHANNELVALUE_SIZE]);
         final int captionSize = 9;
         return new SuplaChannel((byte) 1,
-                                       3,
-                                       4,
-                                       3,
-                                       (byte) 1,
-                                       value,
-                                       captionSize,
-                                       new byte[captionSize]);
+            3,
+            4,
+            3,
+            (byte) 1,
+            value,
+            captionSize,
+            new byte[captionSize]);
     }
 }

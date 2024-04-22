@@ -64,7 +64,7 @@ allProjects {
 }
 
 allProjects {
-	version '0.14.0-SNAPSHOTS'
+	version '0.14.0'
 	publishing {
 		publications {
 			maven(MavenPublication) {
@@ -112,12 +112,12 @@ allProjects {
 }
 
 // Add check style to all projects
-prodProjects {
-	apply plugin: 'checkstyle'
-	tasks.withType(Checkstyle) {
-		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
-	}
-}
+//prodProjects {
+//	apply plugin: 'checkstyle'
+//	tasks.withType(Checkstyle) {
+//		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
+//	}
+//}
 
 // Maven Central release
 prodProjects {
@@ -137,7 +137,7 @@ prodProjects {
 	artifacts {
 		archives javadocJar, sourcesJar
 	}
-	
+
 	signing {
 		sign configurations.archives
 	}

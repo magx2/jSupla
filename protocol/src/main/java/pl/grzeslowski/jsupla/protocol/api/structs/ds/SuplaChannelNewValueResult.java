@@ -4,9 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.CHAR_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 
 public final class SuplaChannelNewValueResult implements DeviceServer {
     public static final int SIZE = BYTE_SIZE + INT_SIZE + CHAR_SIZE;
@@ -64,9 +62,9 @@ public final class SuplaChannelNewValueResult implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaChannelNewValueResult{" +
-                "channelNumber=" + channelNumber +
-                ", senderId=" + senderId +
-                ", success=" + success +
-                '}';
+            "channelNumber=" + channelNumber +
+            ", senderId=" + senderId +
+            ", success=" + success +
+            '}';
     }
 }

@@ -29,7 +29,7 @@ public class ChannelBSerializerImplTest extends SerializerTest<ChannelB, SuplaCh
     protected ChannelB given() {
         final ChannelB entity = super.given();
         BDDMockito.given(channelValueSerializer.serialize(entity.getChannelValue()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
         givenStringSerializer(stringSerializer);
         return entity;
     }

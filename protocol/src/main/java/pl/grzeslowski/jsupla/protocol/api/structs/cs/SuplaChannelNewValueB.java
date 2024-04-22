@@ -58,8 +58,8 @@ public final class SuplaChannelNewValueB implements ClientServer {
     @Override
     public String toString() {
         return "SuplaChannelNewValueB{" +
-                "channelId=" + channelId +
-                ", value=" + Arrays.toString(value) +
-                '}';
+            "channelId=" + channelId +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

@@ -4,9 +4,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.PositiveOrZero;
 
-import static pl.grzeslowski.jsupla.Preconditions.byteSize;
-import static pl.grzeslowski.jsupla.Preconditions.min;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 
 public class RegisterDeviceResult implements ServerDeviceEntity {
     private final int resultCode;
@@ -82,10 +80,10 @@ public class RegisterDeviceResult implements ServerDeviceEntity {
     @Override
     public String toString() {
         return "RegisterDeviceResult{" +
-                       "resultCode=" + resultCode +
-                       ", activityTimeout=" + activityTimeout +
-                       ", version=" + version +
-                       ", versionMin=" + versionMin +
-                       '}';
+            "resultCode=" + resultCode +
+            ", activityTimeout=" + activityTimeout +
+            ", version=" + version +
+            ", versionMin=" + versionMin +
+            '}';
     }
 }

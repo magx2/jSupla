@@ -19,8 +19,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 public class LocationPackSerializerImplTest extends SerializerTest<LocationPack, SuplaLocationPack> {
-    @InjectMocks LocationPackSerializerImpl serializer;
-    @Mock LocationSerializer locationSerializer;
+    @InjectMocks
+    LocationPackSerializerImpl serializer;
+    @Mock
+    LocationSerializer locationSerializer;
 
     @Override
     protected LocationPack given() {

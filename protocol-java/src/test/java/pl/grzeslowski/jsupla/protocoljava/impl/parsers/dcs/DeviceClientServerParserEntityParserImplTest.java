@@ -18,11 +18,14 @@ import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DeviceClientServerParserEntityParserImplTest
-        extends ForInterfaceParserTest<DeviceClientServerEntity, DeviceClientServer> {
-    @InjectMocks DeviceClientServerParserImpl parser;
+    extends ForInterfaceParserTest<DeviceClientServerEntity, DeviceClientServer> {
+    @InjectMocks
+    DeviceClientServerParserImpl parser;
 
-    @Mock PingServerParser pingServerParser;
-    @Mock SetActivityTimeoutParser setActivityTimeoutParser;
+    @Mock
+    PingServerParser pingServerParser;
+    @Mock
+    SetActivityTimeoutParser setActivityTimeoutParser;
 
     public DeviceClientServerParserEntityParserImplTest(final Class<DeviceClientServer> protoToTestClass,
                                                         final Field resultField) {
@@ -32,11 +35,11 @@ public class DeviceClientServerParserEntityParserImplTest
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaPingServer.class,
-                        getDeclaredField(DeviceClientServerParserEntityParserImplTest.class, "pingServerParser")},
-                {SuplaSetActivityTimeout.class,
-                        getDeclaredField(DeviceClientServerParserEntityParserImplTest.class,
-                                "setActivityTimeoutParser")}
+            {SuplaPingServer.class,
+                getDeclaredField(DeviceClientServerParserEntityParserImplTest.class, "pingServerParser")},
+            {SuplaSetActivityTimeout.class,
+                getDeclaredField(DeviceClientServerParserEntityParserImplTest.class,
+                    "setActivityTimeoutParser")}
         });
     }
 

@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaDeviceChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -14,7 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 public final class SuplaDeviceChannelBDecoderImpl implements SuplaDeviceChannelBDecoder {
     public static final SuplaDeviceChannelBDecoderImpl INSTANCE = new SuplaDeviceChannelBDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaDeviceChannelBDecoderImpl(PrimitiveDecoder primitiveDecoder) {

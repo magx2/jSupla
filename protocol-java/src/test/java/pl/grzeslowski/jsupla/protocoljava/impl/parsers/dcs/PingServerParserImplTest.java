@@ -16,8 +16,10 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class PingServerParserImplTest extends AbstractParserTest<PingServer, SuplaPingServer> {
-    @InjectMocks PingServerParserImpl parser;
-    @Mock TimevalParser timevalParser;
+    @InjectMocks
+    PingServerParserImpl parser;
+    @Mock
+    TimevalParser timevalParser;
 
     @Override
     protected SuplaPingServer given() {

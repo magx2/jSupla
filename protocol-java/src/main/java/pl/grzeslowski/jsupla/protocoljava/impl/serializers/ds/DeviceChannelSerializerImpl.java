@@ -9,8 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class DeviceChannelSerializerImpl implements DeviceChannelSerializer {
     private final ChannelTypeEncoder channelTypeEncoder;
 
@@ -21,9 +19,9 @@ public class DeviceChannelSerializerImpl implements DeviceChannelSerializer {
     @Override
     public SuplaDeviceChannel serialize(@NotNull final DeviceChannel entity) {
         return new SuplaDeviceChannel(
-                (short) entity.getNumber(),
-                entity.getType(),
-                channelTypeEncoder.encode(entity.getValue())
+            (short) entity.getNumber(),
+            entity.getType(),
+            channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

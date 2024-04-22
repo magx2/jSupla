@@ -10,9 +10,9 @@ public class SetActivityTimeoutResultParserImpl implements SetActivityTimeoutRes
     @Override
     public SetActivityTimeoutResult parse(@NotNull final SuplaSetActivityTimeoutResult proto) {
         return new SetActivityTimeoutResult(
-                                                   proto.activityTimeout,
-                                                   proto.min,
-                                                   proto.max
+            proto.activityTimeout,
+            proto.min,
+            proto.max
         );
     }
 }

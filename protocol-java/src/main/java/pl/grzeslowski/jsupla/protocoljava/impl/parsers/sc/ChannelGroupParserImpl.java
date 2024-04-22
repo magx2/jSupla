@@ -19,13 +19,13 @@ public class ChannelGroupParserImpl implements ChannelGroupParser {
     @Override
     public ChannelGroup parse(@NotNull SuplaChannelGroup proto) {
         return new ChannelGroup(
-                proto.eol,
-                proto.id,
-                proto.locationId,
-                proto.func,
-                proto.altIcon,
-                proto.flags,
-                stringParser.parse(proto.caption)
+            proto.eol,
+            proto.id,
+            proto.locationId,
+            proto.func,
+            proto.altIcon,
+            proto.flags,
+            stringParser.parse(proto.caption)
         );
     }
 }

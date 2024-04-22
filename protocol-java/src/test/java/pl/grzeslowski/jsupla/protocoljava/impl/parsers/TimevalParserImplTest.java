@@ -9,7 +9,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class TimevalParserImplTest extends AbstractParserTest<Timeval, SuplaTimeval> {
-    @InjectMocks TimevalParserImpl parser;
+    @InjectMocks
+    TimevalParserImpl parser;
 
     @Override
     protected void then(final Timeval entity, final SuplaTimeval supla) {

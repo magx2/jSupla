@@ -15,7 +15,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaNewValueEncoderImplTest extends EncoderTest<SuplaNewValue> {
-    @InjectMocks SuplaNewValueEncoderImpl encoder;
+    @InjectMocks
+    SuplaNewValueEncoderImpl encoder;
     final SuplaNewValue proto = RANDOM_SUPLA.nextObject(SuplaNewValue.class);
 
     @Override

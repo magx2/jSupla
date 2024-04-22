@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateUrlParserImplTest extends AbstractParserTest<FirmwareUpdateUrl, SuplaFirmwareUpdateUrl> {
-    @InjectMocks FirmwareUpdateUrlParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    FirmwareUpdateUrlParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaFirmwareUpdateUrl given() {

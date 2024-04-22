@@ -1,17 +1,17 @@
 buildscript {
-    repositories {
+	repositories {
 		mavenCentral()
-    }
+	}
 }
 
 repositories {
-    maven { url 'https://repo.spring.io/milestone' }
-    mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	mavenCentral()
 }
 
 apply plugin: 'application'
 
 dependencies {
-    compile rootProject.project("nettyServer")
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+	compile rootProject.project("nettyServer")
+	compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
 }

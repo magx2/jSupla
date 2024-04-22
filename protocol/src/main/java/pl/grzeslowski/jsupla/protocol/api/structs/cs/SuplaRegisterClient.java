@@ -7,15 +7,11 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@Deprecated
 public final class SuplaRegisterClient implements ClientServer {
     public static final int SIZE = INT_SIZE + SUPLA_ACCESSID_PWD_MAXSIZE + SUPLA_GUID_SIZE + SUPLA_CLIENT_NAME_MAXSIZE
-                                           + SUPLA_SOFTVER_MAXSIZE;
+        + SUPLA_SOFTVER_MAXSIZE;
     public final int accessId;
     /**
      * UTF-8.
@@ -86,11 +82,11 @@ public final class SuplaRegisterClient implements ClientServer {
     @Override
     public String toString() {
         return "SuplaRegisterClient{" +
-                       "accessId=" + accessId +
-                       ", accessIdPwd=" + Arrays.toString(accessIdPwd) +
-                       ", guid=" + Arrays.toString(guid) +
-                       ", name=" + Arrays.toString(name) +
-                       ", softVer=" + Arrays.toString(softVer) +
-                       '}';
+            "accessId=" + accessId +
+            ", accessIdPwd=" + Arrays.toString(accessIdPwd) +
+            ", guid=" + Arrays.toString(guid) +
+            ", name=" + Arrays.toString(name) +
+            ", softVer=" + Arrays.toString(softVer) +
+            '}';
     }
 }

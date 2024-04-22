@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaVersionErrorEncoderImplTest extends EncoderTest<SuplaVersionError> {
-    @InjectMocks SuplaVersionErrorEncoderImpl encoder;
+    @InjectMocks
+    SuplaVersionErrorEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaVersionError proto) {

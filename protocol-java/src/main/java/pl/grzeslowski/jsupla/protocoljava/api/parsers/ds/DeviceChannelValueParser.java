@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelValue;
 
 public interface DeviceChannelValueParser
-        extends DeviceServerParser<DeviceChannelValue, SuplaDeviceChannelValue> {
+    extends DeviceServerParser<DeviceChannelValue, SuplaDeviceChannelValue> {
     interface TypeMapper {
         ChannelType findChannelType(int channelNumber);
     }

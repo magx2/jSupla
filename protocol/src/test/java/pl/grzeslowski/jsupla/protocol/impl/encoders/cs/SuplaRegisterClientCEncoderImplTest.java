@@ -8,18 +8,14 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientCEncoderImplTest extends EncoderTest<SuplaRegisterClientC> {
-    @InjectMocks SuplaRegisterClientCEncoderImpl encoder;
+    @InjectMocks
+    SuplaRegisterClientCEncoderImpl encoder;
     final SuplaRegisterClientC proto = RANDOM_SUPLA.nextObject(SuplaRegisterClientC.class);
 
     @SuppressWarnings("UnusedAssignment")

@@ -24,10 +24,10 @@ public final class ChannelTypeMapper implements DeviceChannelValueParser.TypeMap
                 throw new IllegalStateException("Cannot set device channels twice!");
             }
             deviceChannels = registerDevice.getChannels()
-                                     .getChannels()
-                                     .stream()
-                                     .sorted(comparingInt(DeviceChannel::getNumber))
-                                     .collect(Collectors.toList());
+                .getChannels()
+                .stream()
+                .sorted(comparingInt(DeviceChannel::getNumber))
+                .collect(Collectors.toList());
 
         } finally {
             lock.writeLock().unlock();
@@ -41,7 +41,7 @@ public final class ChannelTypeMapper implements DeviceChannelValueParser.TypeMap
         try {
             if (channelNumber > deviceChannels.size()) {
                 throw new IllegalStateException(format("There is only %s elements in deviceChannels, required %s",
-                        deviceChannels.size(), channelNumber));
+                    deviceChannels.size(), channelNumber));
             }
             final DeviceChannel deviceChannel = deviceChannels.get(channelNumber);
             if (deviceChannel == null) {
@@ -52,7 +52,7 @@ public final class ChannelTypeMapper implements DeviceChannelValueParser.TypeMap
                 return channelType.get();
             } else {
                 throw new IllegalArgumentException(
-                        format("There is no channel type with ID=%s", deviceChannel.getType()));
+                    format("There is no channel type with ID=%s", deviceChannel.getType()));
             }
         } finally {
             readLock.unlock();

@@ -1,20 +1,16 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.ds;
 
 import pl.grzeslowski.jsupla.Preconditions;
+import pl.grzeslowski.jsupla.protocoljava.api.types.traits.RegisterDeviceTrait;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Arrays;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
-public class RegisterDevice implements DeviceServerEntity {
+public class RegisterDevice implements DeviceServerEntity, RegisterDeviceTrait {
     private final int locationId;
     @NotNull
     @Size(min = 1, max = SUPLA_LOCATION_PWD_MAXSIZE)
@@ -28,7 +24,8 @@ public class RegisterDevice implements DeviceServerEntity {
     @NotNull
     @Size(min = 1, max = SUPLA_SOFTVER_MAXSIZE)
     private final String softVer;
-    @NotNull private final DeviceChannels channels;
+    @NotNull
+    private final DeviceChannels channels;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public RegisterDevice(final int locationId,
@@ -53,10 +50,12 @@ public class RegisterDevice implements DeviceServerEntity {
         return locationPassword;
     }
 
+    @Override
     public String getGuid() {
         return guid;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -65,6 +64,7 @@ public class RegisterDevice implements DeviceServerEntity {
         return softVer;
     }
 
+    @Override
     public DeviceChannels getChannels() {
         return channels;
     }
@@ -113,12 +113,12 @@ public class RegisterDevice implements DeviceServerEntity {
     @Override
     public String toString() {
         return "RegisterDevice{" +
-                "locationId=" + locationId +
-                ", locationPassword=[PROTECTED]" +
-                ", guid='" + guid + '\'' +
-                ", name='" + name + '\'' +
-                ", softVer='" + softVer + '\'' +
-                ", channels=" + channels +
-                '}';
+            "locationId=" + locationId +
+            ", locationPassword=[PROTECTED]" +
+            ", guid='" + guid + '\'' +
+            ", name='" + name + '\'' +
+            ", softVer='" + softVer + '\'' +
+            ", channels=" + channels +
+            '}';
     }
 }

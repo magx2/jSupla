@@ -19,8 +19,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelValueDecoderImplTest extends ProperDecoderTest<SuplaChannelValue> {
-    @InjectMocks SuplaChannelValueDecoderImpl decoder;
-    @Mock SuplaChannelValueDecoder channelValueDecoder;
+    @InjectMocks
+    SuplaChannelValueDecoderImpl decoder;
+    @Mock
+    SuplaChannelValueDecoder channelValueDecoder;
     private pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue value;
     private byte eol;
     private int id;
@@ -52,7 +54,7 @@ public class SuplaChannelValueDecoderImplTest extends ProperDecoderTest<SuplaCha
 
         value = RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class);
         given(channelValueDecoder.decode(any(), eq(offset)))
-                .willReturn(value);
+            .willReturn(value);
 
         return bytes;
     }

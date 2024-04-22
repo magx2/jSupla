@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
 
 public interface RegisterClientResultParser
-        extends ServerClientParser<RegisterClientResult, SuplaRegisterClientResult> {
+    extends ServerClientParser<RegisterClientResult, SuplaRegisterClientResult> {
 }

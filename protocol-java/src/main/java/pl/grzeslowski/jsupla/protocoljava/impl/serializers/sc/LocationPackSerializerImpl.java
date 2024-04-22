@@ -20,12 +20,12 @@ public class LocationPackSerializerImpl implements LocationPackSerializer {
     @Override
     public SuplaLocationPack serialize(@NotNull final LocationPack entity) {
         return new SuplaLocationPack(
-                                            entity.getLocations().size(),
-                                            entity.getTotalLeft(),
-                                            entity.getLocations()
-                                                    .stream()
-                                                    .map(locationSerializer::serialize)
-                                                    .toArray(SuplaLocation[]::new)
+            entity.getLocations().size(),
+            entity.getTotalLeft(),
+            entity.getLocations()
+                .stream()
+                .map(locationSerializer::serialize)
+                .toArray(SuplaLocation[]::new)
         );
     }
 }

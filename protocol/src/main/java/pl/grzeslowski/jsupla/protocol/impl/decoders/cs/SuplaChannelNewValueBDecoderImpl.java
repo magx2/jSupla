@@ -13,7 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue
 
 public final class SuplaChannelNewValueBDecoderImpl implements SuplaChannelNewValueBDecoder {
     public static final SuplaChannelNewValueBDecoderImpl INSTANCE = new SuplaChannelNewValueBDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaChannelNewValueBDecoderImpl(PrimitiveDecoder primitiveDecoder) {

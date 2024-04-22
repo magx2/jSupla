@@ -9,15 +9,13 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderTest;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientEncoderImplTest extends EncoderTest<SuplaRegisterClient> {
-    @InjectMocks SuplaRegisterClientEncoderImpl encoder;
+    @InjectMocks
+    SuplaRegisterClientEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaRegisterClient proto) {
@@ -47,10 +45,10 @@ public class SuplaRegisterClientEncoderImplTest extends EncoderTest<SuplaRegiste
     @Override
     public SuplaRegisterClient getProto() {
         return new SuplaRegisterClient(
-                                              1,
-                                              new byte[SUPLA_ACCESSID_PWD_MAXSIZE],
-                                              new byte[SUPLA_GUID_SIZE],
-                                              new byte[SUPLA_CLIENT_NAME_MAXSIZE],
-                                              new byte[SUPLA_SOFTVER_MAXSIZE]);
+            1,
+            new byte[SUPLA_ACCESSID_PWD_MAXSIZE],
+            new byte[SUPLA_GUID_SIZE],
+            new byte[SUPLA_CLIENT_NAME_MAXSIZE],
+            new byte[SUPLA_SOFTVER_MAXSIZE]);
     }
 }

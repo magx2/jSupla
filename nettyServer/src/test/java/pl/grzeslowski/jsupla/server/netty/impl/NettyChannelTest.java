@@ -39,23 +39,29 @@ import java.util.stream.Stream;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings({"WeakerAccess", "unchecked"})
 @RunWith(MockitoJUnitRunner.class)
 public class NettyChannelTest {
-    @Mock ChannelHandlerContext channelHandlerContext;
-    @Mock CallTypeParser callTypeParser;
-    @Mock DecoderFactory decoderFactory;
-    @Mock EncoderFactory encoderFactory;
+    @Mock
+    ChannelHandlerContext channelHandlerContext;
+    @Mock
+    CallTypeParser callTypeParser;
+    @Mock
+    DecoderFactory decoderFactory;
+    @Mock
+    EncoderFactory encoderFactory;
 
-    @Mock Decoder<ServerClient> decoder;
-    @Mock JSuplaContext context;
-    @Mock Parser parser;
-    @Mock Serializer serializer;
+    @Mock
+    Decoder<ServerClient> decoder;
+    @Mock
+    JSuplaContext context;
+    @Mock
+    Parser parser;
+    @Mock
+    Serializer serializer;
     NettyChannel.ContextGenerator contextGenerator = new NettyChannel.ContextGenerator() {
         @Override
         public JSuplaContext newJSuplaContext(final DeviceChannelValueParser.TypeMapper typeMapper) {
@@ -92,17 +98,17 @@ public class NettyChannelTest {
 
         // when
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                contextGenerator);
+            channelHandlerContext,
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            contextGenerator);
 
         // then
         StepVerifier.create(channel.getMessagePipe())
-                .expectNext(entity)
-                .verifyComplete();
+            .expectNext(entity)
+            .verifyComplete();
     }
 
     @Test
@@ -127,17 +133,17 @@ public class NettyChannelTest {
 
         // when
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                contextGenerator);
+            channelHandlerContext,
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            contextGenerator);
 
         // then
         StepVerifier.create(channel.getMessagePipe())
-                .expectNext(entity)
-                .verifyComplete();
+            .expectNext(entity)
+            .verifyComplete();
     }
 
     @Test
@@ -156,17 +162,17 @@ public class NettyChannelTest {
 
         // when
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                contextGenerator);
+            channelHandlerContext,
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            contextGenerator);
 
         // then
         StepVerifier.create(channel.getMessagePipe())
-                .expectNext(entity)
-                .verifyComplete();
+            .expectNext(entity)
+            .verifyComplete();
     }
 
     private void mockForSuplaDataPacket(final SuplaDataPacket suplaDataPacket, final Entity entity) {
@@ -183,11 +189,11 @@ public class NettyChannelTest {
     @Test(expected = NullPointerException.class)
     public void shouldThrowNullPointerExceptionWhenChannelHandlerContextIsNull() {
         new NettyChannel(null,
-                Flux.empty(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                contextGenerator);
+            Flux.empty(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            contextGenerator);
     }
 
     @Test
@@ -195,12 +201,12 @@ public class NettyChannelTest {
 
         // given
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                Flux.empty(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                contextGenerator);
+            channelHandlerContext,
+            Flux.empty(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            contextGenerator);
 
         // when
         channel.close();
@@ -218,13 +224,13 @@ public class NettyChannelTest {
         final int batchesToRequest = 2;
         NettyChannel.BufferParams bufferParams = new NettyChannel.BufferParams(timespan, bufferMaxSize);
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                Flux.empty(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                bufferParams,
-                contextGenerator);
+            channelHandlerContext,
+            Flux.empty(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            bufferParams,
+            contextGenerator);
 
         final Stream<FromServerEntity> entities = Stream.generate(() -> mock(FromServerEntity.class));
         Supplier<Publisher<? extends LocalDateTime>> publisherSupplier = () -> {
@@ -236,11 +242,11 @@ public class NettyChannelTest {
 
         // then
         StepVerifier.withVirtualTime(publisherSupplier)
-                .expectSubscription()
-                .thenRequest(batchesToRequest)
-                .expectNextCount(batchesToRequest)
-                .thenCancel()
-                .verify();
+            .expectSubscription()
+            .thenRequest(batchesToRequest)
+            .expectNextCount(batchesToRequest)
+            .thenCancel()
+            .verify();
         verify(channelHandlerContext, times(batchesToRequest * bufferMaxSize)).write(any(FromServerEntity.class));
         verify(channelHandlerContext, times(batchesToRequest)).flush();
     }
@@ -254,13 +260,13 @@ public class NettyChannelTest {
         final int elements = bufferMaxSize / 2;
         NettyChannel.BufferParams bufferParams = new NettyChannel.BufferParams(timespan, bufferMaxSize);
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                Flux.empty(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                bufferParams,
-                contextGenerator);
+            channelHandlerContext,
+            Flux.empty(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            bufferParams,
+            contextGenerator);
 
         final Stream<FromServerEntity> entities = Stream.generate(() -> mock(FromServerEntity.class)).limit(elements);
 
@@ -274,12 +280,12 @@ public class NettyChannelTest {
 
         // then
         StepVerifier.withVirtualTime(publisherSupplier)
-                .expectSubscription()
-                .thenRequest(1)
-                .thenAwait(timespan)
-                .expectNextCount(1)
-                .thenCancel()
-                .verify();
+            .expectSubscription()
+            .thenRequest(1)
+            .thenAwait(timespan)
+            .expectNextCount(1)
+            .thenCancel()
+            .verify();
         verify(channelHandlerContext, times(elements)).write(any(FromServerEntity.class));
         verify(channelHandlerContext).flush();
     }
@@ -294,13 +300,13 @@ public class NettyChannelTest {
         final int batchesToRequest = 3;
         NettyChannel.BufferParams bufferParams = new NettyChannel.BufferParams(timespan, bufferMaxSize);
         final NettyChannel channel = new NettyChannel(
-                channelHandlerContext,
-                Flux.empty(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                bufferParams,
-                contextGenerator);
+            channelHandlerContext,
+            Flux.empty(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            bufferParams,
+            contextGenerator);
 
         final Stream<FromServerEntity> entities = Stream.generate(() -> mock(FromServerEntity.class)).limit(elements);
 
@@ -313,10 +319,10 @@ public class NettyChannelTest {
 
         // then
         StepVerifier.withVirtualTime(publisherSupplier)
-                .expectSubscription()
-                .expectNextCount(batchesToRequest)
-                .expectComplete()
-                .verify();
+            .expectSubscription()
+            .expectNextCount(batchesToRequest)
+            .expectComplete()
+            .verify();
         verify(channelHandlerContext, times(elements)).write(any(FromServerEntity.class));
         verify(channelHandlerContext, times(batchesToRequest)).flush();
     }

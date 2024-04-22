@@ -29,9 +29,9 @@ public class ChannelBParserImplTest extends AbstractParserTest<ChannelB, SuplaCh
     protected SuplaChannelB given() {
         final SuplaChannelB supla = super.given();
         BDDMockito.given(channelValueParser.parse(supla.value))
-                .willReturn(RANDOM_ENTITY.nextObject(ChannelValue.class));
+            .willReturn(RANDOM_ENTITY.nextObject(ChannelValue.class));
         BDDMockito.given(stringParser.parse(supla.caption))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class));
         return supla;
     }
 

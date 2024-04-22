@@ -18,9 +18,9 @@ public class SuplaNewValueRandomizer implements Randomizer<SuplaNewValue> {
         byte[] value = new byte[SUPLA_CHANNELVALUE_SIZE];
         value[0] = randomSupla.nextBoolByte();
         return new SuplaNewValue(
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextByte(),
-                value
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextByte(),
+            value
         );
     }
 }

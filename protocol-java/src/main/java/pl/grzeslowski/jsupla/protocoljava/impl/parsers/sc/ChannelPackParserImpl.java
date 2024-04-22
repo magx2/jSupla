@@ -21,10 +21,10 @@ public class ChannelPackParserImpl implements ChannelPackParser {
     @Override
     public ChannelPack parse(@NotNull final SuplaChannelPack proto) {
         return new ChannelPack(
-                                      proto.totalLeft,
-                                      Arrays.stream(proto.channels)
-                                              .map(channelParser::parse)
-                                              .collect(Collectors.toList())
+            proto.totalLeft,
+            Arrays.stream(proto.channels)
+                .map(channelParser::parse)
+                .collect(Collectors.toList())
         );
     }
 }

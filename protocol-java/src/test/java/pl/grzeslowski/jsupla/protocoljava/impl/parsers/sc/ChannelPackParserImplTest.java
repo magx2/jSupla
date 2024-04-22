@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelPackParserImplTest extends AbstractParserTest<ChannelPack, SuplaChannelPack> {
-    @InjectMocks ChannelPackParserImpl parser;
-    @Mock ChannelParser channelParser;
+    @InjectMocks
+    ChannelPackParserImpl parser;
+    @Mock
+    ChannelParser channelParser;
 
     @Override
     protected SuplaChannelPack given() {
@@ -35,7 +37,7 @@ public class ChannelPackParserImplTest extends AbstractParserTest<ChannelPack, S
     protected void then(final ChannelPack entity, final SuplaChannelPack supla) {
         assertThat(entity.getTotalLeft()).isEqualTo(supla.totalLeft);
         Arrays.stream(supla.channels)
-                .forEach(channel -> verify(channelParser).parse(channel));
+            .forEach(channel -> verify(channelParser).parse(channel));
         verifyNoMoreInteractions(channelParser);
     }
 

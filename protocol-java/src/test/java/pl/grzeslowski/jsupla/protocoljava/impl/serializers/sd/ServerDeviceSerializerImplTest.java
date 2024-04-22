@@ -30,11 +30,15 @@ public class ServerDeviceSerializerImplTest extends AbstractSerializerFactoryTes
         });
     }
 
-    @InjectMocks ServerDeviceSerializerImpl serializer;
+    @InjectMocks
+    ServerDeviceSerializerImpl serializer;
 
-    @Mock ChannelNewValueSerializer channelNewValueSerializer;
-    @Mock FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer;
-    @Mock RegisterDeviceResultSerializer registerDeviceResultSerializer;
+    @Mock
+    ChannelNewValueSerializer channelNewValueSerializer;
+    @Mock
+    FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer;
+    @Mock
+    RegisterDeviceResultSerializer registerDeviceResultSerializer;
 
     public ServerDeviceSerializerImplTest(final Class<ServerDeviceEntity> entityClass) {
         super(entityClass);

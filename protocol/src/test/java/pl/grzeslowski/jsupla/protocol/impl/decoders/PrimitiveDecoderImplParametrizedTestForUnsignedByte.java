@@ -19,12 +19,12 @@ public class PrimitiveDecoderImplParametrizedTestForUnsignedByte {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {new byte[]{0}, 0, (short) 0}, // 00000000
-                {new byte[]{-1}, 0, (short) 255}, // 11111111
-                {new byte[]{-86}, 0, (short) 170}, // 10101010
-                {new byte[]{-16}, 0, (short) 240}, // 11110000
-                {new byte[]{85}, 0, (short) 85}, // 01010101
-                {new byte[]{15}, 0, (short) 15} // 00001111
+            {new byte[]{0}, 0, (short) 0}, // 00000000
+            {new byte[]{-1}, 0, (short) 255}, // 11111111
+            {new byte[]{-86}, 0, (short) 170}, // 10101010
+            {new byte[]{-16}, 0, (short) 240}, // 11110000
+            {new byte[]{85}, 0, (short) 85}, // 01010101
+            {new byte[]{15}, 0, (short) 15} // 00001111
         });
     }
 

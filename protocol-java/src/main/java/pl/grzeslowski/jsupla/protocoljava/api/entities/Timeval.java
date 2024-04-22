@@ -56,8 +56,8 @@ public class Timeval implements Entity {
     @Override
     public String toString() {
         return "Timeval{" +
-                       "seconds=" + seconds +
-                       ", milliseconds=" + milliseconds +
-                       '}';
+            "seconds=" + seconds +
+            ", milliseconds=" + milliseconds +
+            '}';
     }
 }

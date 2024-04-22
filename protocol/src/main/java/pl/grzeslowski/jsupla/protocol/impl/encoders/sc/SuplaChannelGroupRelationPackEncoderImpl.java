@@ -11,12 +11,12 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelGroupRelationPackEncoderImpl implements SuplaChannelGroupRelationPackEncoder {
     public static final SuplaChannelGroupRelationPackEncoderImpl INSTANCE =
-            new SuplaChannelGroupRelationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE,
-                    SuplaChannelGroupRelationEncoderImpl.INSTANCE);
+        new SuplaChannelGroupRelationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE,
+            SuplaChannelGroupRelationEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
 
-    SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder, 
+    SuplaChannelGroupRelationPackEncoderImpl(final PrimitiveEncoder primitiveEncoder,
                                              final SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelGroupRelationEncoder = requireNonNull(suplaChannelGroupRelationEncoder);

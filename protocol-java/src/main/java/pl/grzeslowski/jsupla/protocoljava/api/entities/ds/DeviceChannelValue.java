@@ -58,8 +58,8 @@ public class DeviceChannelValue implements DeviceServerEntity {
     @Override
     public String toString() {
         return "DeviceChannelValue{" +
-                       "channelNumber=" + channelNumber +
-                       ", value=" + value +
-                       '}';
+            "channelNumber=" + channelNumber +
+            ", value=" + value +
+            '}';
     }
 }

@@ -27,8 +27,8 @@ public class ChannelValueParserImpl implements ChannelValueParser {
         final ChannelType channelType = suplaChannelValueToChannelType.toChannelType(proto);
         final ChannelType channelTypeSubValue = suplaChannelValueToChannelType.toChannelTypeSubValue(proto);
         return new ChannelValue(
-                                       channelTypeDecoder.decode(channelType, proto.value),
-                                       decodeSubValue(proto, channelTypeSubValue)
+            channelTypeDecoder.decode(channelType, proto.value),
+            decodeSubValue(proto, channelTypeSubValue)
         );
     }
 

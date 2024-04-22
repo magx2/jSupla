@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaRegisterDeviceResultEncoderImpl implements SuplaRegisterDeviceResultEncoder {
     public static final SuplaRegisterDeviceResultEncoderImpl INSTANCE =
-            new SuplaRegisterDeviceResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaRegisterDeviceResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaRegisterDeviceResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

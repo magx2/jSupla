@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterClientResultParserImplTest
-        extends AbstractParserTest<RegisterClientResult, SuplaRegisterClientResult> {
-    @InjectMocks RegisterClientResultParserImpl parser;
+    extends AbstractParserTest<RegisterClientResult, SuplaRegisterClientResult> {
+    @InjectMocks
+    RegisterClientResultParserImpl parser;
 
     @Override
     protected void then(final RegisterClientResult entity, final SuplaRegisterClientResult supla) {

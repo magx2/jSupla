@@ -9,11 +9,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ColorTypeChannel
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.RelayTypeChannelEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.StoppableOpenCloseEncoder;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.encoders.ThermometerTypeChannelEncoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.RgbValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.StoppableOpenClose;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureAndHumidityValue;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.values.TemperatureValue;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.values.*;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
@@ -21,12 +17,17 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class ChannelTypeEncoderImplTest {
-    @InjectMocks ChannelTypeEncoderImpl encoder;
+    @InjectMocks
+    ChannelTypeEncoderImpl encoder;
 
-    @Mock ColorTypeChannelEncoder colorTypeChannelEncoder;
-    @Mock RelayTypeChannelEncoder relayTypeChannelEncoder;
-    @Mock ThermometerTypeChannelEncoder thermometerTypeChannelEncoder;
-    @Mock StoppableOpenCloseEncoder stoppableOpenCloseEncoder;
+    @Mock
+    ColorTypeChannelEncoder colorTypeChannelEncoder;
+    @Mock
+    RelayTypeChannelEncoder relayTypeChannelEncoder;
+    @Mock
+    ThermometerTypeChannelEncoder thermometerTypeChannelEncoder;
+    @Mock
+    StoppableOpenCloseEncoder stoppableOpenCloseEncoder;
 
     @Test
     public void shouldInvokeColorTypeChannelEncoder() throws Exception {

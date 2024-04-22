@@ -10,11 +10,11 @@ public class FirmwareUpdateParamsParserImpl implements FirmwareUpdateParamsParse
     @Override
     public FirmwareUpdateParams parse(@NotNull final SuplaFirmwareUpdateParams proto) {
         return new FirmwareUpdateParams(
-                                               proto.platform,
-                                               proto.param1,
-                                               proto.param2,
-                                               proto.param3,
-                                               proto.param4
+            proto.platform,
+            proto.param1,
+            proto.param2,
+            proto.param3,
+            proto.param4
         );
     }
 }

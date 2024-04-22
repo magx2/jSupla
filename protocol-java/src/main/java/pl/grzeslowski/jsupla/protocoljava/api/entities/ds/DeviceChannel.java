@@ -11,14 +11,13 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class DeviceChannel implements Entity {
     @Min(0)  // FIXME @random-bean problem
     @Max(UNSIGNED_BYTE_MAX)
     private final int number;
     private final int type;
-    @NotNull private final ChannelValue value;
+    @NotNull
+    private final ChannelValue value;
 
     public DeviceChannel(@Min(0) @Max(UNSIGNED_BYTE_MAX) final int number,
                          final int type,
@@ -75,9 +74,9 @@ public class DeviceChannel implements Entity {
     @Override
     public String toString() {
         return "DeviceChannel{" +
-                   "number=" + number +
-                   ", type=" + type +
-                   ", value=" + value +
-                   '}';
+            "number=" + number +
+            ", type=" + type +
+            ", value=" + value +
+            '}';
     }
 }

@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
     private final StringSerializer stringSerializer;
     private final DeviceChannelSerializer deviceChannelSerializer;
@@ -27,18 +25,18 @@ public class RegisterDeviceSerializerImpl implements RegisterDeviceSerializer {
     @Override
     public SuplaRegisterDevice serialize(@NotNull final RegisterDevice entity) {
         return new SuplaRegisterDevice(
-                entity.getLocationId(),
-                stringSerializer.serializePassword(entity.getLocationPassword(),
-                        SUPLA_LOCATION_PWD_MAXSIZE),
-                stringSerializer.serializeHexString(entity.getGuid()),
-                stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
-                stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
-                (short) entity.getChannels().size(),
-                entity.getChannels()
-                        .getChannels()
-                        .stream()
-                        .map(deviceChannelSerializer::serialize)
-                        .toArray(SuplaDeviceChannel[]::new)
+            entity.getLocationId(),
+            stringSerializer.serializePassword(entity.getLocationPassword(),
+                SUPLA_LOCATION_PWD_MAXSIZE),
+            stringSerializer.serializeHexString(entity.getGuid()),
+            stringSerializer.serialize(entity.getName(), SUPLA_DEVICE_NAME_MAXSIZE),
+            stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE),
+            (short) entity.getChannels().size(),
+            entity.getChannels()
+                .getChannels()
+                .stream()
+                .map(deviceChannelSerializer::serialize)
+                .toArray(SuplaDeviceChannel[]::new)
         );
     }
 }

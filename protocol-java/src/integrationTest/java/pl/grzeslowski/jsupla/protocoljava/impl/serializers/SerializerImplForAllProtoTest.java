@@ -37,34 +37,46 @@ public class SerializerImplForAllProtoTest {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() throws IOException {
         return ClassPath.from(Proto.class.getClassLoader())
-                   .getTopLevelClassesRecursive(Timeval.class.getPackage().getName())
-                   .asList()
-                   .stream()
-                   .map(ClassPath.ClassInfo::load)
-                   .filter(clazz -> !clazz.isInterface())
-                   .filter(Entity.class::isAssignableFrom)
-                   .map(clazz -> (Class<Entity>) clazz)
-                   .map(clazz -> RANDOM_ENTITY.nextObject(clazz))
-                   .map(entity -> new Object[]{entity})
-                   .collect(Collectors.toList());
+            .getTopLevelClassesRecursive(Timeval.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Entity.class::isAssignableFrom)
+            .map(clazz -> (Class<Entity>) clazz)
+            .map(clazz -> RANDOM_ENTITY.nextObject(clazz))
+            .map(entity -> new Object[]{entity})
+            .collect(Collectors.toList());
     }
 
     final Entity entity;
 
-    @InjectMocks SerializerImpl factory;
+    @InjectMocks
+    SerializerImpl factory;
 
-    @Mock ClientServerSerializer clientServerSerializer;
-    @Mock DeviceClientServerSerializer deviceClientServerSerializer;
-    @Mock DeviceServerSerializer deviceServerSerializer;
-    @Mock ServerClientSerializer serverClientSerializer;
-    @Mock ServerDeviceSerializer serverDeviceSerializer;
-    @Mock ServerDeviceClientSerializer serverDeviceClientSerializer;
+    @Mock
+    ClientServerSerializer clientServerSerializer;
+    @Mock
+    DeviceClientServerSerializer deviceClientServerSerializer;
+    @Mock
+    DeviceServerSerializer deviceServerSerializer;
+    @Mock
+    ServerClientSerializer serverClientSerializer;
+    @Mock
+    ServerDeviceSerializer serverDeviceSerializer;
+    @Mock
+    ServerDeviceClientSerializer serverDeviceClientSerializer;
 
-    @Mock DeviceChannelSerializer deviceChannelSerializer;
-    @Mock DeviceChannelBSerializer deviceChannelBSerializer;
-    @Mock FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
-    @Mock ChannelValueSerializer channelValueSerializer;
-    @Mock TimevalSerializer timevalSerializer;
+    @Mock
+    DeviceChannelSerializer deviceChannelSerializer;
+    @Mock
+    DeviceChannelBSerializer deviceChannelBSerializer;
+    @Mock
+    FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
+    @Mock
+    ChannelValueSerializer channelValueSerializer;
+    @Mock
+    TimevalSerializer timevalSerializer;
 
     public SerializerImplForAllProtoTest(final Entity entity) {
         this.entity = entity;

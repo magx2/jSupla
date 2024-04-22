@@ -26,15 +26,15 @@ public class SerializerFactoryNpeTest {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() throws IOException {
         return ClassPath.from(SerializerImpl.class.getClassLoader())
-                       .getTopLevelClassesRecursive(SerializerImpl.class.getPackage().getName())
-                       .asList()
-                       .stream()
-                       .map(ClassPath.ClassInfo::load)
-                       .filter(clazz -> !clazz.isInterface())
-                       .filter(Serializer.class::isAssignableFrom)
-                       .map(clazz -> (Class<Serializer>) clazz)
-                       .map(clazz -> new Object[]{clazz})
-                       .collect(Collectors.toList());
+            .getTopLevelClassesRecursive(SerializerImpl.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Serializer.class::isAssignableFrom)
+            .map(clazz -> (Class<Serializer>) clazz)
+            .map(clazz -> new Object[]{clazz})
+            .collect(Collectors.toList());
     }
 
     final Class<? extends Serializer<?, ?>> serializerFactoryClass;
@@ -50,8 +50,8 @@ public class SerializerFactoryNpeTest {
         final Constructor<?> constructor = constructors[0];
 
         final List<?> parameters = Arrays.stream(constructor.getParameterTypes())
-                                           .map(Mockito::mock)
-                                           .collect(Collectors.toList());
+            .map(Mockito::mock)
+            .collect(Collectors.toList());
 
         for (int i = 0; i < parameters.size(); i++) {
             try {

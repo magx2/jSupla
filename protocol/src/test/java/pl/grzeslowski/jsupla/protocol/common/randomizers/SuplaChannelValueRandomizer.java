@@ -16,8 +16,8 @@ public class SuplaChannelValueRandomizer implements Randomizer<SuplaChannelValue
     @Override
     public SuplaChannelValue getRandomValue() {
         return new SuplaChannelValue(
-                                            randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE),
-                                            randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE)
+            randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE),
+            randomSupla.nextByteArray(SUPLA_CHANNELVALUE_SIZE)
         );
     }
 }

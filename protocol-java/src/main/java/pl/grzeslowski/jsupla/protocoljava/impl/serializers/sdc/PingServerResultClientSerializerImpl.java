@@ -19,7 +19,7 @@ public class PingServerResultClientSerializerImpl implements PingServerResultCli
     @Override
     public SuplaPingServerResultClient serialize(@NotNull final PingServerResultClient entity) {
         return new SuplaPingServerResultClient(
-                                                      timevalSerializer.serialize(entity.getTimeval())
+            timevalSerializer.serialize(entity.getTimeval())
         );
     }
 }

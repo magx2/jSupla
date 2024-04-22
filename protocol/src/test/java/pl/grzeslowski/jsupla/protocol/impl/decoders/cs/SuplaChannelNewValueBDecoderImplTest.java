@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue
 @SuppressWarnings({"WeakerAccess", "ResultOfMethodCallIgnored"})
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelNewValueBDecoderImplTest extends DecoderTest<SuplaChannelNewValueBDecoderImpl> {
-    @InjectMocks SuplaChannelNewValueBDecoderImpl decoder;
+    @InjectMocks
+    SuplaChannelNewValueBDecoderImpl decoder;
 
     @Override
     public SuplaChannelNewValueBDecoderImpl getDecoder() {

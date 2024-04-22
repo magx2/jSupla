@@ -18,9 +18,9 @@ public class SuplaChannelPackBRandomizer implements Randomizer<SuplaChannelPackB
     public SuplaChannelPackB getRandomValue() {
         int count = randomSupla.nextPositiveInt(SUPLA_CHANNELPACK_MAXSIZE);
         return new SuplaChannelPackB(
-                count,
-                randomSupla.nextPositiveInt(),
-                randomSupla.objects(SuplaChannelB.class, count).toArray(SuplaChannelB[]::new)
+            count,
+            randomSupla.nextPositiveInt(),
+            randomSupla.objects(SuplaChannelB.class, count).toArray(SuplaChannelB[]::new)
         );
     }
 }

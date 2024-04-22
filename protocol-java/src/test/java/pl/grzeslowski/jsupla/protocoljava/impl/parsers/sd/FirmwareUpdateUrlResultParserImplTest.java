@@ -17,15 +17,17 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateUrlResultParserImplTest
-        extends AbstractParserTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
-    @InjectMocks FirmwareUpdateUrlResultParserImpl parser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    extends AbstractParserTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
+    @InjectMocks
+    FirmwareUpdateUrlResultParserImpl parser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
 
     @Override
     protected SuplaFirmwareUpdateUrlResult given() {
         final SuplaFirmwareUpdateUrlResult supla = super.given();
         BDDMockito.given(firmwareUpdateUrlParser.parse(supla.url))
-                .willReturn(RANDOM_ENTITY.nextObject(FirmwareUpdateUrl.class));
+            .willReturn(RANDOM_ENTITY.nextObject(FirmwareUpdateUrl.class));
         return supla;
     }
 

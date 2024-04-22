@@ -43,8 +43,8 @@ public final class SuplaChannelGroupRelation implements ServerClient {
         }
         final SuplaChannelGroupRelation that = (SuplaChannelGroupRelation) o;
         return eol == that.eol &&
-                       channelGroupId == that.channelGroupId &&
-                       channelId == that.channelId;
+            channelGroupId == that.channelGroupId &&
+            channelId == that.channelId;
     }
 
     @Override
@@ -55,9 +55,9 @@ public final class SuplaChannelGroupRelation implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelGroupRelation{" +
-                       "eol=" + eol +
-                       ", channelGroupId=" + channelGroupId +
-                       ", channelId=" + channelId +
-                       '}';
+            "eol=" + eol +
+            ", channelGroupId=" + channelGroupId +
+            ", channelId=" + channelId +
+            '}';
     }
 }

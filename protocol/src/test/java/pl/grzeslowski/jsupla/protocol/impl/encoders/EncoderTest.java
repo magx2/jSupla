@@ -9,18 +9,14 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class EncoderTest<ProtoT extends ProtoWithSize> {
-    @Mock protected PrimitiveEncoder primitiveEncoder;
+    @Mock
+    protected PrimitiveEncoder primitiveEncoder;
 
     protected void givenEncodeEntity() {
         given(primitiveEncoder.writeByte(anyByte(), any(), anyInt())).willReturn(BYTE_SIZE);

@@ -10,8 +10,8 @@ import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
 public class ChannelPackB extends ChannelPack {
     public ChannelPackB(
-            @PositiveOrZero int totalLeft,
-            @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<? extends ChannelB> channels) {
+        @PositiveOrZero int totalLeft,
+        @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<? extends ChannelB> channels) {
         super(totalLeft, channels);
     }
 

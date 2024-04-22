@@ -61,8 +61,8 @@ public final class SuplaChannelValue implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaChannelValue{" +
-                "value=" + Arrays.toString(value) +
-                ", subValue=" + Arrays.toString(subValue) +
-                '}';
+            "value=" + Arrays.toString(value) +
+            ", subValue=" + Arrays.toString(subValue) +
+            '}';
     }
 }

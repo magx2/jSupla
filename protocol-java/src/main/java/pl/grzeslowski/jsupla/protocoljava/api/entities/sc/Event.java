@@ -16,7 +16,8 @@ public class Event implements ServerClientEntity {
     @Max(UNSIGNED_INT_MAX)
     private final long durationMs;
     private final int senderId;
-    @Size(min = 1, max = SUPLA_SENDER_NAME_MAXSIZE) private final String senderName;
+    @Size(min = 1, max = SUPLA_SENDER_NAME_MAXSIZE)
+    private final String senderName;
 
     public Event(final int event,
                  final int channelId,
@@ -86,11 +87,11 @@ public class Event implements ServerClientEntity {
     @Override
     public String toString() {
         return "Event{" +
-                       "event=" + event +
-                       ", channelId=" + channelId +
-                       ", durationMs=" + durationMs +
-                       ", senderId=" + senderId +
-                       ", senderName='" + senderName + '\'' +
-                       '}';
+            "event=" + event +
+            ", channelId=" + channelId +
+            ", durationMs=" + durationMs +
+            ", senderId=" + senderId +
+            ", senderName='" + senderName + '\'' +
+            '}';
     }
 }

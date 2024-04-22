@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterClientResultSerializerImplTest
-        extends SerializerTest<RegisterClientResult, SuplaRegisterClientResult> {
-    @InjectMocks RegisterClientResultSerializerImpl serializer;
+    extends SerializerTest<RegisterClientResult, SuplaRegisterClientResult> {
+    @InjectMocks
+    RegisterClientResultSerializerImpl serializer;
 
     @Override
     protected void then(final RegisterClientResult entity, final SuplaRegisterClientResult proto) {

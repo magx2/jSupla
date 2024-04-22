@@ -19,8 +19,8 @@ public class ChannelNewValueBSerializerImpl implements ChannelNewValueBSerialize
     @Override
     public SuplaChannelNewValueB serialize(@NotNull final ChannelNewValueB entity) {
         return new SuplaChannelNewValueB(
-                                                entity.getChannelId(),
-                                                channelTypeEncoder.encode(entity.getValue())
+            entity.getChannelId(),
+            channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

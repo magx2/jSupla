@@ -38,8 +38,8 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
             if (tagChar != SUPLA_TAG[charPosition]) {
                 in.resetReaderIndex();
                 throw new CorruptedFrameException(
-                        format("Read char at position %s wsa '%s' but should be '%s'!",
-                                charPosition, tagChar, SUPLA_TAG[charPosition]));
+                    format("Read char at position %s wsa '%s' but should be '%s'!",
+                        charPosition, tagChar, SUPLA_TAG[charPosition]));
             }
         }
     }

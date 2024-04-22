@@ -14,8 +14,10 @@ import static org.junit.Assert.fail;
 @SuppressWarnings({"WeakerAccess", "unused"})
 @RunWith(MockitoJUnitRunner.class)
 public class DecoderFactoryImplExceptionTest {
-    @InjectMocks DecoderFactoryImpl decoderFactory;
-    @Mock PrimitiveDecoder primitiveDecoder;
+    @InjectMocks
+    DecoderFactoryImpl decoderFactory;
+    @Mock
+    PrimitiveDecoder primitiveDecoder;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionIfDoNotKnowType() throws Exception {

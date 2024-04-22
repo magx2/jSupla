@@ -47,8 +47,8 @@ public class ChannelGroupRelation implements ServerClientEntity {
         }
         ChannelGroupRelation that = (ChannelGroupRelation) o;
         return eol == that.eol &&
-                channelGroupId == that.channelGroupId &&
-                channelId == that.channelId;
+            channelGroupId == that.channelGroupId &&
+            channelId == that.channelId;
     }
 
     @Override
@@ -59,9 +59,9 @@ public class ChannelGroupRelation implements ServerClientEntity {
     @Override
     public String toString() {
         return "ChannelGroupRelation{" +
-                "eol=" + eol +
-                ", channelGroupId=" + channelGroupId +
-                ", channelId=" + channelId +
-                '}';
+            "eol=" + eol +
+            ", channelGroupId=" + channelGroupId +
+            ", channelId=" + channelId +
+            '}';
     }
 }

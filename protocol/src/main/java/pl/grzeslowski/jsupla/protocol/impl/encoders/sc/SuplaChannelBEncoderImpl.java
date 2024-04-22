@@ -11,11 +11,11 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelBEncoderImpl implements SuplaChannelBEncoder {
     public static final SuplaChannelBEncoderImpl INSTANCE =
-            new SuplaChannelBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelValueEncoderImpl.INSTANCE);
+        new SuplaChannelBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelValueEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelValueEncoder suplaChannelValueEncoder;
 
-    SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder, 
+    SuplaChannelBEncoderImpl(final PrimitiveEncoder primitiveEncoder,
                              final SuplaChannelValueEncoder suplaChannelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.suplaChannelValueEncoder = requireNonNull(suplaChannelValueEncoder);

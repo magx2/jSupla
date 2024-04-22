@@ -19,7 +19,8 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 @SuppressWarnings("WeakerAccess")
 public class ThermometerTypeChannelDecoderImplTest {
     static final int MINIMAL_SIZE = 4;
-    @InjectMocks ThermometerTypeChannelDecoderImpl decoder;
+    @InjectMocks
+    ThermometerTypeChannelDecoderImpl decoder;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionIfSizeIsTooSmall() throws Exception {

@@ -16,11 +16,11 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
     protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) throws Exception {
         logger.trace("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
         out.writeBytes(SUPLA_TAG)
-                .writeByte((byte) msg.version)
-                .writeIntLE((int) msg.rrId)
-                .writeIntLE((int) msg.callType)
-                .writeIntLE((int) msg.dataSize)
-                .writeBytes(msg.data)
-                .writeBytes(SUPLA_TAG);
+            .writeByte((byte) msg.version)
+            .writeIntLE((int) msg.rrId)
+            .writeIntLE((int) msg.callType)
+            .writeIntLE((int) msg.dataSize)
+            .writeBytes(msg.data)
+            .writeBytes(SUPLA_TAG);
     }
 }

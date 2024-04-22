@@ -11,10 +11,9 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue.SIZE;
 
-@Deprecated
 public final class SuplaChannelNewValueDecoderImpl implements SuplaChannelNewValueDecoder {
     public static final SuplaChannelNewValueDecoderImpl INSTANCE = new SuplaChannelNewValueDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaChannelNewValueDecoderImpl(PrimitiveDecoder primitiveDecoder) {

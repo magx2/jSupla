@@ -9,22 +9,21 @@ import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.tochanneltype.Su
 import java.util.Arrays;
 
 public class SuplaDeviceChannelToChannelTypeImpl implements SuplaDeviceChannelToChannelType,
-                                                                    SuplaDeviceChannelBToChannelType {
+    SuplaDeviceChannelBToChannelType {
     @Override
     public ChannelType toChannelType(final SuplaDeviceChannelB suplaDeviceChannelB) {
         return findChannelType(suplaDeviceChannelB.type);
     }
 
     @Override
-    @Deprecated
     public ChannelType toChannelType(final SuplaDeviceChannel suplaDeviceChannel) {
         return findChannelType(suplaDeviceChannel.type);
     }
 
     private ChannelType findChannelType(final int type) {
         return Arrays.stream(ChannelType.values())
-                       .filter(x -> x.getValue() == type)
-                       .findAny()
-                       .orElse(ChannelType.UNKNOWN);
+            .filter(x -> x.getValue() == type)
+            .findAny()
+            .orElse(ChannelType.UNKNOWN);
     }
 }

@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateParamsSerializerImplTest
-        extends SerializerTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
-    @InjectMocks FirmwareUpdateParamsSerializerImpl serializer;
+    extends SerializerTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
+    @InjectMocks
+    FirmwareUpdateParamsSerializerImpl serializer;
 
     @Override
     protected void then(final FirmwareUpdateParams entity, final SuplaFirmwareUpdateParams proto) {

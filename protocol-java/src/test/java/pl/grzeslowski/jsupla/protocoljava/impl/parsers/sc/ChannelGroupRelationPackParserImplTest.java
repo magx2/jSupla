@@ -27,7 +27,7 @@ public class ChannelGroupRelationPackParserImplTest
     @Override
     protected SuplaChannelGroupRelationPack given() {
         BDDMockito.given(channelGroupRelationParser.parse(any()))
-                .willReturn(RANDOM_SUPLA.nextObject(ChannelGroupRelation.class));
+            .willReturn(RANDOM_SUPLA.nextObject(ChannelGroupRelation.class));
         return super.given();
     }
 

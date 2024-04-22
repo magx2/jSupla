@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 public class SuplaLocationPackDecoderImplTest extends DecoderTest<SuplaLocationPackDecoderImpl> {
     private static final int LOCATIONS_COUNT = 5;
 
-    @InjectMocks SuplaLocationPackDecoderImpl decoder;
-    @Mock SuplaLocationDecoder locationDecoder;
+    @InjectMocks
+    SuplaLocationPackDecoderImpl decoder;
+    @Mock
+    SuplaLocationDecoder locationDecoder;
 
     @Override
     public SuplaLocationPackDecoderImpl getDecoder() {
@@ -33,7 +35,7 @@ public class SuplaLocationPackDecoderImplTest extends DecoderTest<SuplaLocationP
     public void givenParseEntity(final byte[] bytes, final int offset) {
         given(primitiveDecoder.parseInt(eq(bytes), anyInt())).willReturn(LOCATIONS_COUNT);
         given(locationDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaLocation((byte) 1, 2, 3, new byte[3]));
+            new SuplaLocation((byte) 1, 2, 3, new byte[3]));
     }
 
     @Override
@@ -76,7 +78,7 @@ public class SuplaLocationPackDecoderImplTest extends DecoderTest<SuplaLocationP
         given(primitiveDecoder.parseInt(eq(bytes), anyInt())).willReturn(locationsCount);
 
         given(locationDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaLocation((byte) 1, 2, 3, new byte[3]));
+            new SuplaLocation((byte) 1, 2, 3, new byte[3]));
 
         // when
         decoder.decode(bytes, offset);

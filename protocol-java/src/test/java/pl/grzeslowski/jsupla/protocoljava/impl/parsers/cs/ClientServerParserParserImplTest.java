@@ -3,21 +3,10 @@ package pl.grzeslowski.jsupla.protocoljava.impl.parsers.cs;
 import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ClientServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueBParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.ChannelNewValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.NewValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientBParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientCParser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.RegisterClientParser;
+import pl.grzeslowski.jsupla.protocoljava.api.parsers.cs.*;
 import pl.grzeslowski.jsupla.protocoljava.impl.parsers.ForInterfaceParserTest;
 
 import java.lang.reflect.Field;
@@ -26,14 +15,21 @@ import java.util.Collection;
 
 @SuppressWarnings("WeakerAccess")
 public class ClientServerParserParserImplTest extends ForInterfaceParserTest<ClientServerEntity, ClientServer> {
-    @InjectMocks ClientServerParserImpl parser;
+    @InjectMocks
+    ClientServerParserImpl parser;
 
-    @Mock ChannelNewValueBParser channelNewValueBParser;
-    @Mock ChannelNewValueParser channelNewValueParser;
-    @Mock RegisterClientBParser registerClientBParser;
-    @Mock RegisterClientParser registerClientParser;
-    @Mock RegisterClientCParser registerClientCParser;
-    @Mock NewValueParser newValueParser;
+    @Mock
+    ChannelNewValueBParser channelNewValueBParser;
+    @Mock
+    ChannelNewValueParser channelNewValueParser;
+    @Mock
+    RegisterClientBParser registerClientBParser;
+    @Mock
+    RegisterClientParser registerClientParser;
+    @Mock
+    RegisterClientCParser registerClientCParser;
+    @Mock
+    NewValueParser newValueParser;
 
     public ClientServerParserParserImplTest(final Class<ClientServer> protoToTestClass,
                                             final Field resultField) {

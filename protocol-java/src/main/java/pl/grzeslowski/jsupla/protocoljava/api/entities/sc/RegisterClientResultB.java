@@ -56,7 +56,7 @@ public class RegisterClientResultB extends RegisterClientResult {
     @Override
     public String toString() {
         return "RegisterClientResultB{" +
-                   "flags=" + flags +
-                   "} " + super.toString();
+            "flags=" + flags +
+            "} " + super.toString();
     }
 }

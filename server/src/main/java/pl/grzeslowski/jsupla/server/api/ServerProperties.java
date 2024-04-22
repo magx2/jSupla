@@ -23,8 +23,8 @@ public final class ServerProperties {
             final Object value = properties.get(i + 1);
             if (!(key instanceof String)) {
                 throw new IllegalArgumentException(
-                        format("All keys must be Strings! Key at index %s was not String! key = %s, class = %s",
-                                i, key, key.getClass().getSimpleName())
+                    format("All keys must be Strings! Key at index %s was not String! key = %s, class = %s",
+                        i, key, key.getClass().getSimpleName())
                 );
             }
             map.put((String) key, value);
@@ -43,9 +43,9 @@ public final class ServerProperties {
     /**
      * Finds property in map with given type.
      *
-     * @param name property name
+     * @param name  property name
      * @param clazz property class
-     * @param <T> type of property
+     * @param <T>   type of property
      * @return Property of given name with given class
      * @throws PropertyCastException      when cannot cast property to given class
      * @throws PropertyNotExistsException when there is no property with given name
@@ -65,7 +65,7 @@ public final class ServerProperties {
     @Override
     public String toString() {
         return "ServerProperties{" +
-                       "properties=" + properties +
-                       '}';
+            "properties=" + properties +
+            '}';
     }
 }

@@ -15,14 +15,14 @@ public class SuplaRegisterClientResultBRandomizer implements Randomizer<SuplaReg
     public SuplaRegisterClientResultB getRandomValue() {
         final short version = (short) (randomSupla.nextUnsignedByte() + 2);
         return new SuplaRegisterClientResultB(
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextInt(),
-                randomSupla.nextUnsignedByte(),
-                version,
-                randomSupla.nextUnsignedByte(version)
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextInt(),
+            randomSupla.nextUnsignedByte(),
+            version,
+            randomSupla.nextUnsignedByte(version)
         );
     }
 

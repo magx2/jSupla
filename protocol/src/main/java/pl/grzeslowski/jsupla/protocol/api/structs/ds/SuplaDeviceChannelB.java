@@ -79,11 +79,11 @@ public final class SuplaDeviceChannelB implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaDeviceChannelB{" +
-                "number=" + number +
-                ", type=" + type +
-                ", funcList=" + funcList +
-                ", defaultValue=" + defaultValue +
-                ", value=" + Arrays.toString(value) +
-                '}';
+            "number=" + number +
+            ", type=" + type +
+            ", funcList=" + funcList +
+            ", defaultValue=" + defaultValue +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

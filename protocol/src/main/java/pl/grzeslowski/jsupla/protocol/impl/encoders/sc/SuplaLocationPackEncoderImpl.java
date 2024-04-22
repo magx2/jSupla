@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaLocationPackEncoderImpl implements SuplaLocationPackEncoder {
     public static final SuplaLocationPackEncoderImpl INSTANCE =
-            new SuplaLocationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaLocationEncoderImpl.INSTANCE);
+        new SuplaLocationPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaLocationEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaLocationEncoder locationEncoder;
 

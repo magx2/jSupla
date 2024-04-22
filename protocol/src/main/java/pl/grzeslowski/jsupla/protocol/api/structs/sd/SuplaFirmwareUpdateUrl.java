@@ -65,10 +65,10 @@ public final class SuplaFirmwareUpdateUrl implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaFirmwareUpdateUrl{" +
-                "availableProtocols=" + availableProtocols +
-                ", host=" + Arrays.toString(host) +
-                ", port=" + port +
-                ", path=" + Arrays.toString(path) +
-                '}';
+            "availableProtocols=" + availableProtocols +
+            ", host=" + Arrays.toString(host) +
+            ", port=" + port +
+            ", path=" + Arrays.toString(path) +
+            '}';
     }
 }

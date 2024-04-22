@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaSetActivityTimeoutDecoderImpl implements SuplaSetActivityTimeoutDecoder {
     public static final SuplaSetActivityTimeoutDecoderImpl INSTANCE = new SuplaSetActivityTimeoutDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     @SuppressWarnings("WeakerAccess")

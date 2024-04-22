@@ -22,16 +22,16 @@ public class ChannelBParserImpl implements ChannelBParser {
     @Override
     public ChannelB parse(@NotNull SuplaChannelB proto) {
         return new ChannelB(
-                proto.eol,
-                proto.id,
-                proto.locationId,
-                proto.func,
-                proto.online != 0,
-                channelValueParser.parse(proto.value),
-                stringParser.parse(proto.caption),
-                proto.altIcon,
-                proto.flags,
-                proto.protocolVersion
+            proto.eol,
+            proto.id,
+            proto.locationId,
+            proto.func,
+            proto.online != 0,
+            channelValueParser.parse(proto.value),
+            stringParser.parse(proto.caption),
+            proto.altIcon,
+            proto.flags,
+            proto.protocolVersion
         );
     }
 }

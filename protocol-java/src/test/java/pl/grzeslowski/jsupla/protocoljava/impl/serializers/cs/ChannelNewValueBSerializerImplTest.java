@@ -16,8 +16,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueBSerializerImplTest extends SerializerTest<ChannelNewValueB, SuplaChannelNewValueB> {
-    @InjectMocks ChannelNewValueBSerializerImpl serializer;
-    @Mock ChannelTypeEncoder channelTypeEncoder;
+    @InjectMocks
+    ChannelNewValueBSerializerImpl serializer;
+    @Mock
+    ChannelTypeEncoder channelTypeEncoder;
 
     @Override
     protected ChannelNewValueB given() {

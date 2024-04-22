@@ -104,7 +104,7 @@ public enum ChannelType {
 
     public static Optional<ChannelType> findByValue(int value) {
         return Arrays.stream(ChannelType.values())
-                       .filter(type -> type.value == value)
-                       .findAny();
+            .filter(type -> type.value == value)
+            .findAny();
     }
 }

@@ -42,7 +42,7 @@ public class PingServer implements DeviceClientServerEntity {
     @Override
     public String toString() {
         return "PingServer{" +
-                       "timeval=" + timeval +
-                       '}';
+            "timeval=" + timeval +
+            '}';
     }
 }

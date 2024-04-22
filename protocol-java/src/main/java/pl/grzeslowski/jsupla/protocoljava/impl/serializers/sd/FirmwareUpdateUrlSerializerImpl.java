@@ -21,10 +21,10 @@ public class FirmwareUpdateUrlSerializerImpl implements FirmwareUpdateUrlSeriali
     @Override
     public SuplaFirmwareUpdateUrl serialize(@NotNull final FirmwareUpdateUrl entity) {
         return new SuplaFirmwareUpdateUrl(
-                                                 (byte) entity.getAvailableProtocols(),
-                                                 stringSerializer.serialize(entity.getHost(), SUPLA_URL_HOST_MAXSIZE),
-                                                 entity.getPort(),
-                                                 stringSerializer.serialize(entity.getPath(), SUPLA_URL_PATH_MAXSIZE)
+            (byte) entity.getAvailableProtocols(),
+            stringSerializer.serialize(entity.getHost(), SUPLA_URL_HOST_MAXSIZE),
+            entity.getPort(),
+            stringSerializer.serialize(entity.getPath(), SUPLA_URL_PATH_MAXSIZE)
 
         );
     }

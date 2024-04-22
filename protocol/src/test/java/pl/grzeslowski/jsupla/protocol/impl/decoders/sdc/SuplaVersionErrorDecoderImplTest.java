@@ -12,7 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaVersionErrorDecoderImplTest extends DecoderTest<SuplaVersionErrorDecoderImpl> {
-    @InjectMocks SuplaVersionErrorDecoderImpl decoder;
+    @InjectMocks
+    SuplaVersionErrorDecoderImpl decoder;
 
     @Override
     public SuplaVersionErrorDecoderImpl getDecoder() {

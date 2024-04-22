@@ -14,7 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 @RunWith(MockitoJUnitRunner.class)
 public class ColorTypeChannelDecoderImplTest {
     static final int BYTES_SIZE = 5;
-    @InjectMocks ColorTypeChannelDecoderImpl decoder;
+    @InjectMocks
+    ColorTypeChannelDecoderImpl decoder;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenArrayIsTooSmall() throws Exception {

@@ -54,7 +54,7 @@ public class SuplaChannelGroupRelationPackDecoderImplTest extends ProperDecoderT
     protected byte[] givenParseEntity(int offset) {
         final byte[] bytes = new byte[entitySize() + offset];
         given(suplaChannelGroupRelationDecoder.decode(any(), anyInt()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class));
 
         offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(count, bytes, offset);
         offset += PrimitiveEncoderImpl.INSTANCE.writeInteger(totalLeft, bytes, offset);

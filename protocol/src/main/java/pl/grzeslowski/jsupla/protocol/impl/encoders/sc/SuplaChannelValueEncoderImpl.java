@@ -9,14 +9,14 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelValueEncoderImpl implements SuplaChannelValueEncoder {
     public static final SuplaChannelValueEncoderImpl INSTANCE =
-            new SuplaChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE,
-                    pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl.INSTANCE);
+        new SuplaChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE,
+            pl.grzeslowski.jsupla.protocol.impl.encoders.SuplaChannelValueEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder channelValueEncoder;
 
     SuplaChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder,
                                  pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder
-                                                channelValueEncoder) {
+                                     channelValueEncoder) {
         this.primitiveEncoder = requireNonNull(primitiveEncoder);
         this.channelValueEncoder = requireNonNull(channelValueEncoder);
     }

@@ -3,9 +3,7 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sdc;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.PositiveOrZero;
 
-import static pl.grzeslowski.jsupla.Preconditions.max;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
 public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
@@ -71,9 +69,9 @@ public class SetActivityTimeoutResult implements ServerDeviceClientEntity {
     @Override
     public String toString() {
         return "SetActivityTimeoutResult{" +
-                       "activityTimeout=" + activityTimeout +
-                       ", min=" + min +
-                       ", max=" + max +
-                       '}';
+            "activityTimeout=" + activityTimeout +
+            ", min=" + min +
+            ", max=" + max +
+            '}';
     }
 }

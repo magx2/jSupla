@@ -20,9 +20,12 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterDeviceCParserImplTest extends AbstractParserTest<RegisterDeviceC, SuplaRegisterDeviceC> {
-    @InjectMocks RegisterDeviceCParserImpl parser;
-    @Mock StringParser stringParser;
-    @Mock DeviceChannelBParser deviceChannelBParser;
+    @InjectMocks
+    RegisterDeviceCParserImpl parser;
+    @Mock
+    StringParser stringParser;
+    @Mock
+    DeviceChannelBParser deviceChannelBParser;
 
     @Override
     protected SuplaRegisterDeviceC given() {
@@ -30,7 +33,7 @@ public class RegisterDeviceCParserImplTest extends AbstractParserTest<RegisterDe
 
         givenStringParser(stringParser);
         BDDMockito.given(deviceChannelBParser.parse(any()))
-                .willAnswer(__ -> RANDOM_ENTITY.nextObject(RegisterDeviceC.class));
+            .willAnswer(__ -> RANDOM_ENTITY.nextObject(RegisterDeviceC.class));
 
         return given;
     }
@@ -46,7 +49,7 @@ public class RegisterDeviceCParserImplTest extends AbstractParserTest<RegisterDe
         verify(stringParser).parse(supla.serverName);
         assertThat(entity.getChannels().size()).isEqualTo(supla.channelCount);
         Arrays.stream(supla.channels)
-                .forEach(channel -> verify(deviceChannelBParser).parse(channel));
+            .forEach(channel -> verify(deviceChannelBParser).parse(channel));
         verifyNoMoreInteractions(deviceChannelBParser);
     }
 

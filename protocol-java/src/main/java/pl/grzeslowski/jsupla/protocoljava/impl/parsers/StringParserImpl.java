@@ -5,8 +5,8 @@ import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 
@@ -43,8 +43,7 @@ public class StringParserImpl implements StringParser {
      */
     @Override
     public char[] parsePassword(final byte[] utfBytes) {
-        Charset charset = Charset.forName("UTF-8");
-        final CharBuffer charBuffer = charset.decode(ByteBuffer.wrap(utfBytes)); // also decode to String
+        final CharBuffer charBuffer = UTF_8.decode(ByteBuffer.wrap(utfBytes)); // also decode to String
         return charBuffer.array();
     }
 
@@ -52,22 +51,22 @@ public class StringParserImpl implements StringParser {
     public String parseHexString(byte[] bytes) {
         checkArrayLength(bytes, HEX_LENGTH);
         return String.format("%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-                bytes[0],
-                bytes[1],
-                bytes[2],
-                bytes[3],
-                bytes[4],
-                bytes[5],
-                bytes[6],
-                bytes[7],
-                bytes[8],
-                bytes[9],
-                bytes[10],
-                bytes[11],
-                bytes[12],
-                bytes[13],
-                bytes[14],
-                bytes[15]
+            bytes[0],
+            bytes[1],
+            bytes[2],
+            bytes[3],
+            bytes[4],
+            bytes[5],
+            bytes[6],
+            bytes[7],
+            bytes[8],
+            bytes[9],
+            bytes[10],
+            bytes[11],
+            bytes[12],
+            bytes[13],
+            bytes[14],
+            bytes[15]
         );
     }
 }

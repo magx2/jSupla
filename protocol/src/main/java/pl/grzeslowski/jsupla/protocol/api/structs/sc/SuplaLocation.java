@@ -4,9 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
 import java.util.Arrays;
 
-import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
-import static pl.grzeslowski.jsupla.Preconditions.max;
-import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATION_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -18,7 +16,7 @@ public final class SuplaLocation implements ServerClient {
     public final int id;
     /**
      * Including the terminating null byte ('\0').
-     * 
+     *
      * <p>unsigned
      */
     public final long captionSize;
@@ -79,10 +77,10 @@ public final class SuplaLocation implements ServerClient {
     @Override
     public String toString() {
         return "SuplaLocation{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", captionSize=" + captionSize +
-                       ", caption=" + Arrays.toString(caption) +
-                       '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", captionSize=" + captionSize +
+            ", caption=" + Arrays.toString(caption) +
+            '}';
     }
 }

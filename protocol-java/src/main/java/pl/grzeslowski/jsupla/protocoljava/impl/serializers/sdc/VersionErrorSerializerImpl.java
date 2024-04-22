@@ -10,8 +10,8 @@ public class VersionErrorSerializerImpl implements VersionErrorSerializer {
     @Override
     public SuplaVersionError serialize(@NotNull final VersionError entity) {
         return new SuplaVersionError(
-                                            (short) entity.getServerVersionMin(),
-                                            (short) entity.getServerVersion()
+            (short) entity.getServerVersionMin(),
+            (short) entity.getServerVersion()
         );
     }
 }

@@ -3,8 +3,10 @@ package pl.grzeslowski.jsupla.protocoljava.api.channels.values;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 
 public final class PercentValue implements ChannelValue {
-    @SuppressWarnings("unused") public static final PercentValue ZERO = new PercentValue(0);
-    @SuppressWarnings("unused") public static final PercentValue HUNDRED = new PercentValue(100);
+    @SuppressWarnings("unused")
+    public static final PercentValue ZERO = new PercentValue(0);
+    @SuppressWarnings("unused")
+    public static final PercentValue HUNDRED = new PercentValue(100);
 
     private final int value;
 
@@ -39,7 +41,7 @@ public final class PercentValue implements ChannelValue {
     @Override
     public String toString() {
         return "PercentValue{" +
-                       "value=" + value + "%" +
-                       '}';
+                "value=" + value + "%" +
+                '}';
     }
 }

@@ -16,18 +16,15 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterDeviceCDecoderImplTest extends DecoderTest<SuplaRegisterDeviceCDecoderImpl> {
     private static final short CHANNELS_COUNT = 5;
-    @InjectMocks SuplaRegisterDeviceCDecoderImpl decoder;
-    @Mock SuplaDeviceChannelBDecoder channelBDecoder;
+    @InjectMocks
+    SuplaRegisterDeviceCDecoderImpl decoder;
+    @Mock
+    SuplaDeviceChannelBDecoder channelBDecoder;
 
     @Override
     public SuplaRegisterDeviceCDecoderImpl getDecoder() {
@@ -38,7 +35,7 @@ public class SuplaRegisterDeviceCDecoderImplTest extends DecoderTest<SuplaRegist
     public void givenParseEntity(final byte[] bytes, final int offset) {
         given(primitiveDecoder.parseUnsignedByte(eq(bytes), anyInt())).willReturn(CHANNELS_COUNT);
         given(channelBDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaDeviceChannelB((short) 1, 2, 3, 4, new byte[SUPLA_CHANNELVALUE_SIZE]));
+            new SuplaDeviceChannelB((short) 1, 2, 3, 4, new byte[SUPLA_CHANNELVALUE_SIZE]));
     }
 
     @Override

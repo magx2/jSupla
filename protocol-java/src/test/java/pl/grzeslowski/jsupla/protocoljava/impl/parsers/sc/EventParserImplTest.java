@@ -16,14 +16,16 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class EventParserImplTest extends AbstractParserTest<Event, SuplaEvent> {
-    @InjectMocks EventParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    EventParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaEvent given() {
         final SuplaEvent supla = super.given();
         BDDMockito.given(stringParser.parse(supla.senderName))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         return supla;
     }
 

@@ -23,11 +23,11 @@ public class ChannelValuePackRandomizer implements Randomizer<ChannelValuePack> 
     public ChannelValuePack getRandomValue() {
         @Size(max = SUPLA_CHANNELVALUE_PACK_MAXCOUNT)
         List<ChannelValue> items = Stream.generate(() -> random.nextObject(ChannelValue.class))
-                .limit(random.nextInt(SUPLA_CHANNELVALUE_PACK_MAXCOUNT))
-                .collect(Collectors.toList());
+            .limit(random.nextInt(SUPLA_CHANNELVALUE_PACK_MAXCOUNT))
+            .collect(Collectors.toList());
         return new ChannelValuePack(
-                random.nextInt(100),
-                items
+            random.nextInt(100),
+            items
         );
     }
 }

@@ -21,20 +21,32 @@ import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 @SuppressWarnings({"WeakerAccess", "unused"})
 @RunWith(MockitoJUnitRunner.class)
 public class SerializerImplEdgeCasesTest {
-    @InjectMocks SerializerImpl factory;
+    @InjectMocks
+    SerializerImpl factory;
 
-    @Mock ClientServerSerializer clientServerSerializer;
-    @Mock DeviceClientServerSerializer deviceClientServerSerializer;
-    @Mock DeviceServerSerializer deviceServerSerializer;
-    @Mock ServerClientSerializer serverClientSerializer;
-    @Mock ServerDeviceSerializer serverDeviceSerializer;
-    @Mock ServerDeviceClientSerializer serverDeviceClientSerializer;
+    @Mock
+    ClientServerSerializer clientServerSerializer;
+    @Mock
+    DeviceClientServerSerializer deviceClientServerSerializer;
+    @Mock
+    DeviceServerSerializer deviceServerSerializer;
+    @Mock
+    ServerClientSerializer serverClientSerializer;
+    @Mock
+    ServerDeviceSerializer serverDeviceSerializer;
+    @Mock
+    ServerDeviceClientSerializer serverDeviceClientSerializer;
 
-    @Mock DeviceChannelSerializer deviceChannelSerializer;
-    @Mock DeviceChannelBSerializer deviceChannelBSerializer;
-    @Mock FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
-    @Mock ChannelValueSerializer channelValueSerializer;
-    @Mock TimevalSerializer timevalSerializer;
+    @Mock
+    DeviceChannelSerializer deviceChannelSerializer;
+    @Mock
+    DeviceChannelBSerializer deviceChannelBSerializer;
+    @Mock
+    FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
+    @Mock
+    ChannelValueSerializer channelValueSerializer;
+    @Mock
+    TimevalSerializer timevalSerializer;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenEntityIsUnknownIsNull() {

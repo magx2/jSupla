@@ -19,13 +19,13 @@ class RegisterDeviceCRandomizer implements Randomizer<RegisterDeviceC> {
     public RegisterDeviceC getRandomValue() {
         final RegisterDeviceB registerDevice = random.nextObject(RegisterDeviceB.class);
         return new RegisterDeviceC(
-                                          registerDevice.getLocationId(),
-                                          registerDevice.getLocationPassword(),
-                                          registerDevice.getGuid(),
-                                          registerDevice.getName(),
-                                          registerDevice.getSoftVer(),
-                                          registerDevice.getChannels(),
-                                          generateServerName()
+            registerDevice.getLocationId(),
+            registerDevice.getLocationPassword(),
+            registerDevice.getGuid(),
+            registerDevice.getName(),
+            registerDevice.getSoftVer(),
+            registerDevice.getChannels(),
+            generateServerName()
 
         );
     }

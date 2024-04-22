@@ -24,7 +24,7 @@ public class ChannelPackBSerializerImplTest extends SerializerTest<ChannelPackB,
         assertThat(proto.count).isEqualTo(entity.getChannels().size());
         assertThat(proto.totalLeft).isEqualTo(entity.getTotalLeft());
         entity.getChannels()
-                .forEach(channel -> verify(channelBSerializer).serialize(channel));
+            .forEach(channel -> verify(channelBSerializer).serialize(channel));
     }
 
     @Override

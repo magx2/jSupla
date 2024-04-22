@@ -17,18 +17,18 @@ public class SuplaChannelBRandomizer implements Randomizer<SuplaChannelB> {
     public SuplaChannelB getRandomValue() {
         final long captionSize = randomSupla.nextUnsignedInt(SUPLA_CHANNEL_CAPTION_MAXSIZE);
         return new SuplaChannelB(
-                randomSupla.nextByte(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextInt(),
-                randomSupla.nextUnsignedInt(),
-                randomSupla.nextUnsignedByte(),
-                randomSupla.nextByte(),
-                randomSupla.nextObject(
-                        pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
-                captionSize,
-                randomSupla.nextByteArray((int) captionSize)
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextInt(),
+            randomSupla.nextUnsignedInt(),
+            randomSupla.nextUnsignedByte(),
+            randomSupla.nextByte(),
+            randomSupla.nextObject(
+                pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
+            captionSize,
+            randomSupla.nextByteArray((int) captionSize)
         );
     }
 }

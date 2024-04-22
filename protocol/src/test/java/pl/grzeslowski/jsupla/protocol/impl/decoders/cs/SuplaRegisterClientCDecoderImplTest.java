@@ -9,19 +9,15 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.ProperDecoderTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 @RunWith(MockitoJUnitRunner.class)
 @SuppressWarnings("WeakerAccess")
 public class SuplaRegisterClientCDecoderImplTest extends ProperDecoderTest<SuplaRegisterClientC> {
-    @InjectMocks SuplaRegisterClientCDecoderImpl decoder;
+    @InjectMocks
+    SuplaRegisterClientCDecoderImpl decoder;
 
     byte[] email;
     byte[] authKey;
@@ -42,12 +38,12 @@ public class SuplaRegisterClientCDecoderImplTest extends ProperDecoderTest<Supla
         serverName = RANDOM_SUPLA.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE);
 
         entity = new SuplaRegisterClientC(
-                email,
-                authKey,
-                guid,
-                name,
-                softVer,
-                serverName
+            email,
+            authKey,
+            guid,
+            name,
+            softVer,
+            serverName
         );
     }
 

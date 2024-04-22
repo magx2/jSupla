@@ -15,12 +15,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@Deprecated
 @SuppressWarnings("WeakerAccess")
 public class RegisterDeviceSerializerImplTest extends SerializerTest<RegisterDevice, SuplaRegisterDevice> {
-    @InjectMocks RegisterDeviceSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
-    @Mock DeviceChannelSerializer deviceChannelSerializer;
+    @InjectMocks
+    RegisterDeviceSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
+    @Mock
+    DeviceChannelSerializer deviceChannelSerializer;
 
     @Override
     protected RegisterDevice given() {

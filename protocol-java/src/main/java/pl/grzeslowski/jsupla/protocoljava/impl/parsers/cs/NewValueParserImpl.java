@@ -23,9 +23,9 @@ public class NewValueParserImpl implements NewValueParser {
     @Override
     public NewValue parse(@NotNull SuplaNewValue proto) {
         return new NewValue(
-                proto.id,
-                proto.target,
-                channelTypeDecoder.decode(typeMapper.findChannelType(proto.id), proto.value)
+            proto.id,
+            proto.target,
+            channelTypeDecoder.decode(typeMapper.findChannelType(proto.id), proto.value)
         );
     }
 }

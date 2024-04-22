@@ -5,5 +5,5 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 
 public interface ServerClientParser<EntityT extends ServerClientEntity, SuplaProtoT extends ServerClient>
-        extends Parser<EntityT, SuplaProtoT> {
+    extends Parser<EntityT, SuplaProtoT> {
 }

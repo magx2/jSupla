@@ -19,8 +19,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelPackSerializerImplTest extends SerializerTest<ChannelPack, SuplaChannelPack> {
-    @InjectMocks ChannelPackSerializerImpl serializer;
-    @Mock ChannelSerializer channelSerializer;
+    @InjectMocks
+    ChannelPackSerializerImpl serializer;
+    @Mock
+    ChannelSerializer channelSerializer;
 
     @Override
     protected ChannelPack given() {

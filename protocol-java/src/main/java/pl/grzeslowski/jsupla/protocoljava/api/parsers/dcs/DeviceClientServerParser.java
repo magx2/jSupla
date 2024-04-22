@@ -5,6 +5,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.dcs.DeviceClientServerEnt
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 
 public interface DeviceClientServerParser<EntityT extends DeviceClientServerEntity,
-                                                 SuplaProtoT extends DeviceClientServer>
-        extends Parser<EntityT, SuplaProtoT> {
+    SuplaProtoT extends DeviceClientServer>
+    extends Parser<EntityT, SuplaProtoT> {
 }

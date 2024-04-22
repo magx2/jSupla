@@ -43,11 +43,11 @@ public abstract class SerializerTest<EntityT extends Entity, SuplaProtoT extends
 
     protected void givenStringSerializer(StringSerializer stringSerializer) {
         BDDMockito.given(stringSerializer.serialize(any(), anyInt()))
-                .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(1, Integer.class)]);
+            .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(1, Integer.class)]);
         BDDMockito.given(stringSerializer.serialize(any()))
-                .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(0, String.class).length()]);
+            .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(0, String.class).length()]);
         BDDMockito.given(stringSerializer.serializePassword(any(), anyInt()))
-                .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(1, Integer.class)]);
+            .will(invocationOnMock -> new byte[invocationOnMock.getArgumentAt(1, Integer.class)]);
         BDDMockito.given(stringSerializer.serializeHexString(any())).willReturn(new byte[SUPLA_GUID_SIZE]);
     }
 

@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelPackEncoderImplTest extends EncoderTest<SuplaChannelPack> {
-    @InjectMocks SuplaChannelPackEncoderImpl encoder;
-    @Mock SuplaChannelEncoder channelEncoder;
+    @InjectMocks
+    SuplaChannelPackEncoderImpl encoder;
+    @Mock
+    SuplaChannelEncoder channelEncoder;
 
     @Override
     protected void givenEncodeEntity() {
@@ -70,19 +72,19 @@ public class SuplaChannelPackEncoderImplTest extends EncoderTest<SuplaChannelPac
         final SuplaChannel[] channels = new SuplaChannel[count];
         for (int i = 0; i < count; i++) {
             final SuplaChannelValue value = new SuplaChannelValue(
-                                                                         new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                         new byte[SUPLA_CHANNELVALUE_SIZE]);
+                new byte[SUPLA_CHANNELVALUE_SIZE],
+                new byte[SUPLA_CHANNELVALUE_SIZE]);
             final int captionSize = i * 10;
             final byte[] caption = new byte[captionSize];
             channels[i] = new SuplaChannel(
-                                                  (byte) 1,
-                                                  i * 2 + 1,
-                                                  i * 3,
-                                                  i * 4,
-                                                  (byte) 2,
-                                                  value,
-                                                  captionSize,
-                                                  caption);
+                (byte) 1,
+                i * 2 + 1,
+                i * 3,
+                i * 4,
+                (byte) 2,
+                value,
+                captionSize,
+                caption);
         }
         return new SuplaChannelPack(count, 2, channels);
     }

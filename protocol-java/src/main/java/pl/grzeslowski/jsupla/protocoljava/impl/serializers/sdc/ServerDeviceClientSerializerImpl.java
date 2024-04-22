@@ -1,16 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers.sdc;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.GetVersionResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.PingServerResultClient;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.VersionError;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.GetVersionResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultClientSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.ServerDeviceClientSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.SetActivityTimeoutResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.VersionErrorSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.*;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +10,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceClientSerializerImpl
-        implements ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient> {
+    implements ServerDeviceClientSerializer<ServerDeviceClientEntity, ServerDeviceClient> {
     private final GetVersionResultSerializer getVersionResultSerializer;
     private final PingServerResultClientSerializer pingServerResultClientSerializer;
     private final SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer;
@@ -46,6 +38,6 @@ public class ServerDeviceClientSerializerImpl
             return pingServerResultClientSerializer.serialize((PingServerResultClient) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

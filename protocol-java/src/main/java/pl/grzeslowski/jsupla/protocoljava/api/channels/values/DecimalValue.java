@@ -60,7 +60,7 @@ public final class DecimalValue implements ChannelValue {
     @Override
     public String toString() {
         return "DecimalValue{" +
-                       "value=" + value +
-                       '}';
+            "value=" + value +
+            '}';
     }
 }

@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaVersionErrorEncoderImpl implements SuplaVersionErrorEncoder {
     public static final SuplaVersionErrorEncoderImpl INSTANCE =
-            new SuplaVersionErrorEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaVersionErrorEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaVersionErrorEncoderImpl(PrimitiveEncoder primitiveEncoder) {

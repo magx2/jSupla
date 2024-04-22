@@ -15,8 +15,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 @SuppressWarnings("WeakerAccess")
 public class GetVersionResultSerializerImplTest extends SerializerTest<GetVersionResult, SuplaGetVersionResult> {
-    @InjectMocks GetVersionResultSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    GetVersionResultSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected GetVersionResult given() {

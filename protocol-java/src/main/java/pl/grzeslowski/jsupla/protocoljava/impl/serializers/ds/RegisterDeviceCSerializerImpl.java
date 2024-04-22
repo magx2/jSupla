@@ -10,13 +10,8 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSeri
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterDeviceCSerializerImpl implements RegisterDeviceCSerializer {
     private final StringSerializer stringSerializer;
     private final DeviceChannelBSerializer deviceChannelBSerializer;

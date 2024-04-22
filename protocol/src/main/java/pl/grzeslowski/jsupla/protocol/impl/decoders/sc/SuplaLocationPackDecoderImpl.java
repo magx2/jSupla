@@ -13,7 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaLocationPackDecoderImpl implements SuplaLocationPackDecoder {
     public static final SuplaLocationPackDecoderImpl INSTANCE = new SuplaLocationPackDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE, SuplaLocationDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE, SuplaLocationDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaLocationDecoder locationDecoder;
 
@@ -33,7 +33,7 @@ public final class SuplaLocationPackDecoderImpl implements SuplaLocationPackDeco
         offset += INT_SIZE;
 
         Preconditions.sizeMin(bytes,
-                offset + SuplaLocationPack.MIN_SIZE + SuplaLocation.MIN_SIZE * count);
+            offset + SuplaLocationPack.MIN_SIZE + SuplaLocation.MIN_SIZE * count);
         final SuplaLocation[] locations = new SuplaLocation[count];
         for (int i = 0; i < count; i++) {
             locations[i] = locationDecoder.decode(bytes, offset);

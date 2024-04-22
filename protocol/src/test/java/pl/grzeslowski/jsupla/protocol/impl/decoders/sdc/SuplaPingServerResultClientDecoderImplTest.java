@@ -19,8 +19,10 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaPingServerResultClientDecoderImplTest extends DecoderTest<SuplaPingServerResultClientDecoderImpl> {
-    @InjectMocks SuplaPingServerResultClientDecoderImpl decoder;
-    @Mock TimevalDecoder timevalDecoder;
+    @InjectMocks
+    SuplaPingServerResultClientDecoderImpl decoder;
+    @Mock
+    TimevalDecoder timevalDecoder;
 
     @Override
     public SuplaPingServerResultClientDecoderImpl getDecoder() {

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.byteSize;
 
-@Deprecated
 public class ChannelNewValue implements ClientServerEntity {
     @Min(Byte.MIN_VALUE)
     @Max(Byte.MAX_VALUE)
@@ -57,8 +56,8 @@ public class ChannelNewValue implements ClientServerEntity {
     @Override
     public String toString() {
         return "ChannelNewValue{" +
-                       "channelId=" + channelId +
-                       ", value=" + value +
-                       '}';
+            "channelId=" + channelId +
+            ", value=" + value +
+            '}';
     }
 }

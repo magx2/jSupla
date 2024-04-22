@@ -16,17 +16,16 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterDeviceBEncoderImplTest extends EncoderTest<SuplaRegisterDeviceB> {
-    @InjectMocks SuplaRegisterDeviceBEncoderImpl encoder;
-    @Mock SuplaDeviceChannelBEncoder deviceChannelBEncoder;
+    @InjectMocks
+    SuplaRegisterDeviceBEncoderImpl encoder;
+    @Mock
+    SuplaDeviceChannelBEncoder deviceChannelBEncoder;
 
     @Override
     protected void givenEncodeEntity() {
@@ -84,11 +83,11 @@ public class SuplaRegisterDeviceBEncoderImplTest extends EncoderTest<SuplaRegist
             channels[i] = RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class);
         }
         return new SuplaRegisterDeviceB(2,
-                                               new byte[SUPLA_LOCATION_PWD_MAXSIZE],
-                                               new byte[SUPLA_GUID_SIZE],
-                                               new byte[SUPLA_DEVICE_NAME_MAXSIZE],
-                                               new byte[SUPLA_SOFTVER_MAXSIZE],
-                                               channelCount,
-                                               channels);
+            new byte[SUPLA_LOCATION_PWD_MAXSIZE],
+            new byte[SUPLA_GUID_SIZE],
+            new byte[SUPLA_DEVICE_NAME_MAXSIZE],
+            new byte[SUPLA_SOFTVER_MAXSIZE],
+            channelCount,
+            channels);
     }
 }

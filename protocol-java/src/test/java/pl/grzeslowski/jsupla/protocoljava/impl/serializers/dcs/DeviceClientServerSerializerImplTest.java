@@ -16,20 +16,23 @@ import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DeviceClientServerSerializerImplTest
-        extends AbstractSerializerFactoryTest<DeviceClientServerEntity> {
+    extends AbstractSerializerFactoryTest<DeviceClientServerEntity> {
 
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {PingServer.class},
-                {SetActivityTimeout.class}
+            {PingServer.class},
+            {SetActivityTimeout.class}
         });
     }
 
-    @InjectMocks DeviceClientServerSerializerImpl serializer;
+    @InjectMocks
+    DeviceClientServerSerializerImpl serializer;
 
-    @Mock PingServerSerializer pingServerSerializer;
-    @Mock SetActivityTimeoutSerializer setActivityTimeoutSerializer;
+    @Mock
+    PingServerSerializer pingServerSerializer;
+    @Mock
+    SetActivityTimeoutSerializer setActivityTimeoutSerializer;
 
     public DeviceClientServerSerializerImplTest(final Class<DeviceClientServerEntity> entityClass) {
         super(entityClass);

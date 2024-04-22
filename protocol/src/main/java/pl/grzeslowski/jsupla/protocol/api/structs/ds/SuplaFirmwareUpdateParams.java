@@ -71,11 +71,11 @@ public final class SuplaFirmwareUpdateParams implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaFirmwareUpdateParams{" +
-                "platform=" + platform +
-                ", param1=" + param1 +
-                ", param2=" + param2 +
-                ", param3=" + param3 +
-                ", param4=" + param4 +
-                '}';
+            "platform=" + platform +
+            ", param1=" + param1 +
+            ", param2=" + param2 +
+            ", param3=" + param3 +
+            ", param4=" + param4 +
+            '}';
     }
 }

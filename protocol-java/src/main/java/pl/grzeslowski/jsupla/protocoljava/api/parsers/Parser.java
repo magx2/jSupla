@@ -6,5 +6,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import javax.validation.constraints.NotNull;
 
 public interface Parser<EntityT extends Entity, SuplaProtoT extends Proto> {
-    @NotNull EntityT parse(@NotNull SuplaProtoT proto);
+    @NotNull
+    EntityT parse(@NotNull SuplaProtoT proto);
 }

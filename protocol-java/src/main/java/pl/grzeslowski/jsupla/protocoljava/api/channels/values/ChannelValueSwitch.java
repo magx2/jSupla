@@ -31,8 +31,8 @@ public final class ChannelValueSwitch<T> {
             return callback.onUnknownValue((UnknownValue) channelValue);
         } else {
             throw new IllegalArgumentException(format("Don't know where to dispatch channels value with class %s! " +
-                                                              "This should NEVER occur on production!",
-                    channelValue.getClass().getSimpleName()));
+                    "This should NEVER occur on production!",
+                channelValue.getClass().getSimpleName()));
         }
     }
 

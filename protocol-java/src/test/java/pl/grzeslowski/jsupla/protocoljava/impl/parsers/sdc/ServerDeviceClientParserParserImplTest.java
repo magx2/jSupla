@@ -3,11 +3,7 @@ package pl.grzeslowski.jsupla.protocoljava.impl.parsers.sdc;
 import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.sdc.GetVersionResultParser;
@@ -22,13 +18,18 @@ import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ServerDeviceClientParserParserImplTest
-        extends ForInterfaceParserTest<ServerDeviceClientEntity, ServerDeviceClient> {
-    @InjectMocks ServerDeviceClientParserImpl parser;
+    extends ForInterfaceParserTest<ServerDeviceClientEntity, ServerDeviceClient> {
+    @InjectMocks
+    ServerDeviceClientParserImpl parser;
 
-    @Mock VersionErrorParser versionErrorParser;
-    @Mock GetVersionResultParser getVersionResultParser;
-    @Mock SetActivityTimeoutResultParser setActivityTimeoutResultParser;
-    @Mock PingServerResultClientParser pingServerResultClientParser;
+    @Mock
+    VersionErrorParser versionErrorParser;
+    @Mock
+    GetVersionResultParser getVersionResultParser;
+    @Mock
+    SetActivityTimeoutResultParser setActivityTimeoutResultParser;
+    @Mock
+    PingServerResultClientParser pingServerResultClientParser;
 
     public ServerDeviceClientParserParserImplTest(final Class<ServerDeviceClient> protoToTestClass,
                                                   final Field resultField) {
@@ -38,16 +39,16 @@ public class ServerDeviceClientParserParserImplTest
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaGetVersionResult.class, getDeclaredField(ServerDeviceClientParserParserImplTest.class,
-                        "getVersionResultParser")},
-                {SuplaPingServerResultClient.class,
-                        getDeclaredField(ServerDeviceClientParserParserImplTest.class,
-                                "pingServerResultClientParser")},
-                {SuplaSetActivityTimeoutResult.class,
-                        getDeclaredField(ServerDeviceClientParserParserImplTest.class,
-                                "setActivityTimeoutResultParser")},
-                {SuplaVersionError.class, getDeclaredField(ServerDeviceClientParserParserImplTest.class,
-                        "versionErrorParser")},
+            {SuplaGetVersionResult.class, getDeclaredField(ServerDeviceClientParserParserImplTest.class,
+                "getVersionResultParser")},
+            {SuplaPingServerResultClient.class,
+                getDeclaredField(ServerDeviceClientParserParserImplTest.class,
+                    "pingServerResultClientParser")},
+            {SuplaSetActivityTimeoutResult.class,
+                getDeclaredField(ServerDeviceClientParserParserImplTest.class,
+                    "setActivityTimeoutResultParser")},
+            {SuplaVersionError.class, getDeclaredField(ServerDeviceClientParserParserImplTest.class,
+                "versionErrorParser")},
 
         });
     }

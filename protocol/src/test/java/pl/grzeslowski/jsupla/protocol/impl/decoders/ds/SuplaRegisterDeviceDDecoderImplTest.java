@@ -18,20 +18,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterDeviceDDecoderImplTest extends ProperDecoderTest<SuplaRegisterDeviceD> {
-    @InjectMocks SuplaRegisterDeviceDDecoderImpl decoder;
-    @Mock SuplaDeviceChannelBDecoder suplaDeviceChannelBDecoder;
+    @InjectMocks
+    SuplaRegisterDeviceDDecoderImpl decoder;
+    @Mock
+    SuplaDeviceChannelBDecoder suplaDeviceChannelBDecoder;
 
     byte[] email;
     byte[] authKey;
@@ -54,17 +51,17 @@ public class SuplaRegisterDeviceDDecoderImplTest extends ProperDecoderTest<Supla
         serverName = RANDOM_SUPLA.nextByteArray(SUPLA_SERVER_NAME_MAXSIZE);
         channelCount = RANDOM_SUPLA.nextPositiveByte((byte) 100);
         channels = Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class))
-                           .limit(channelCount)
-                           .toArray(SuplaDeviceChannelB[]::new);
+            .limit(channelCount)
+            .toArray(SuplaDeviceChannelB[]::new);
         entity = new SuplaRegisterDeviceD(
-                email,
-                authKey,
-                guid,
-                name,
-                softVer,
-                serverName,
-                channelCount,
-                channels
+            email,
+            authKey,
+            guid,
+            name,
+            softVer,
+            serverName,
+            channelCount,
+            channels
         );
     }
 
@@ -81,7 +78,7 @@ public class SuplaRegisterDeviceDDecoderImplTest extends ProperDecoderTest<Supla
     @Override
     protected byte[] givenParseEntity(int offset) {
         given(suplaDeviceChannelBDecoder.decode(any(), anyInt()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class));
         final byte[] bytes = new byte[entitySize() + offset];
 
         offset += INSTANCE.writeBytes(email, bytes, offset);

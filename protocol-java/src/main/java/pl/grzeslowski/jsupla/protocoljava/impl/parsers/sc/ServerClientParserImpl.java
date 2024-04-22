@@ -88,6 +88,6 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return channelGroupParser.parse((SuplaChannelGroup) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
-                proto.getClass(), proto));
+            proto.getClass(), proto));
     }
 }

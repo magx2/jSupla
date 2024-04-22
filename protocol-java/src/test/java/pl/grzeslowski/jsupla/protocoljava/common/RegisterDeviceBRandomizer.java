@@ -24,14 +24,14 @@ class RegisterDeviceBRandomizer implements Randomizer<RegisterDeviceB> {
     public RegisterDeviceB getRandomValue() {
         final RegisterDevice registerDevice = random.nextObject(RegisterDevice.class);
         final List<DeviceChannelB> devices = random.objects(DeviceChannelB.class, random.nextInt(SUPLA_CHANNELMAXCOUNT))
-                .collect(toList());
+            .collect(toList());
         return new RegisterDeviceB(
-                                          registerDevice.getLocationId(),
-                                          registerDevice.getLocationPassword(),
-                                          registerDevice.getGuid(),
-                                          registerDevice.getName(),
-                                          registerDevice.getSoftVer(),
-                                          new DeviceChannelsB(devices)
+            registerDevice.getLocationId(),
+            registerDevice.getLocationPassword(),
+            registerDevice.getGuid(),
+            registerDevice.getName(),
+            registerDevice.getSoftVer(),
+            new DeviceChannelsB(devices)
         );
     }
 }

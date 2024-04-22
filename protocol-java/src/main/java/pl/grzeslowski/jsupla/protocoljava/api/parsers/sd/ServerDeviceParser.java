@@ -5,5 +5,5 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.ServerDeviceEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 
 public interface ServerDeviceParser<EntityT extends ServerDeviceEntity, SuplaProtoT extends ServerDevice>
-        extends Parser<EntityT, SuplaProtoT> {
+    extends Parser<EntityT, SuplaProtoT> {
 }

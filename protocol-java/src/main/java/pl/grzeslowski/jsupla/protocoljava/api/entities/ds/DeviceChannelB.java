@@ -72,8 +72,8 @@ public class DeviceChannelB extends DeviceChannel {
     @Override
     public String toString() {
         return "DeviceChannelB{" +
-                   "function=" + function +
-                   ", defaultValue=" + defaultValue +
-                   "} " + super.toString();
+            "function=" + function +
+            ", defaultValue=" + defaultValue +
+            "} " + super.toString();
     }
 }

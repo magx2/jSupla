@@ -18,7 +18,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaLocationDecoderImplTest extends ProperDecoderTest<SuplaLocation> {
-    @InjectMocks SuplaLocationDecoderImpl decoder;
+    @InjectMocks
+    SuplaLocationDecoderImpl decoder;
     private byte eol;
     private int id;
     private byte[] caption;

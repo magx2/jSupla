@@ -21,8 +21,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaSetActivityTimeoutDecoderImplTest extends ProperDecoderTest<SuplaSetActivityTimeout> {
-    @InjectMocks SuplaSetActivityTimeoutDecoderImpl decoder;
-    @Mock PrimitiveDecoder primitiveDecoder;
+    @InjectMocks
+    SuplaSetActivityTimeoutDecoderImpl decoder;
+    @Mock
+    PrimitiveDecoder primitiveDecoder;
 
     final SuplaSetActivityTimeout proto = RANDOM_SUPLA.nextObject(SuplaSetActivityTimeout.class);
 

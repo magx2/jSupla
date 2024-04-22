@@ -43,14 +43,14 @@ public class StringParserImplTest {
 
         // given
         final byte[] bytes = (
-                                     "a" +
-                                             "b" +
-                                             "c" +
-                                             "#" +
-                                             "\u20AC" + // €
-                                             "\u0152" + // Œ
-                                             "\u03FB" + // ϻ
-                                             "\u00A5" // ¥
+            "a" +
+                "b" +
+                "c" +
+                "#" +
+                "\u20AC" + // €
+                "\u0152" + // Œ
+                "\u03FB" + // ϻ
+                "\u00A5" // ¥
         ).getBytes("UTF-8");
 
         // when
@@ -90,22 +90,22 @@ public class StringParserImplTest {
 
         // given
         final byte[] bytes = new byte[]{
-                -62, // C2
-                25, // 19
-                127, // 7F
-                -1, //FF
-                -128, // 80
-                -35, // DD
-                -5, // FB
-                5, // 05
-                -62, // C2
-                25, // 19
-                127, // 7F
-                -1, // FF
-                -128, // 80
-                -35, // DD
-                -5, // FB
-                5 // 05
+            -62, // C2
+            25, // 19
+            127, // 7F
+            -1, //FF
+            -128, // 80
+            -35, // DD
+            -5, // FB
+            5, // 05
+            -62, // C2
+            25, // 19
+            127, // 7F
+            -1, // FF
+            -128, // 80
+            -35, // DD
+            -5, // FB
+            5 // 05
         };
 
         // when

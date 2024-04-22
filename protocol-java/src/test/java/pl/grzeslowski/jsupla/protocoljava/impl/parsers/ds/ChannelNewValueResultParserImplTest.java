@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueResultParserImplTest
-        extends AbstractParserTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
-    @InjectMocks ChannelNewValueResultParserImpl parser;
+    extends AbstractParserTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
+    @InjectMocks
+    ChannelNewValueResultParserImpl parser;
 
     @Override
     protected void then(final ChannelNewValueResult entity, final SuplaChannelNewValueResult supla) {

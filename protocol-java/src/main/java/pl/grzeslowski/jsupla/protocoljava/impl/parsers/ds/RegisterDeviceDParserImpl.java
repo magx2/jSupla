@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.protocoljava.impl.parsers.ds;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelB;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelsB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceD;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.StringParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelBParser;
@@ -31,13 +32,13 @@ public class RegisterDeviceDParserImpl implements RegisterDeviceDParser {
             channels.add(parse);
         }
         return new RegisterDeviceD(
-                stringParser.parse(proto.email),
-                stringParser.parse(proto.authKey),
-                stringParser.parseHexString(proto.guid),
-                stringParser.parse(proto.name),
-                stringParser.parse(proto.softVer),
-                stringParser.parse(proto.serverName),
-                channels
+            stringParser.parse(proto.email),
+            stringParser.parse(proto.authKey),
+            stringParser.parseHexString(proto.guid),
+            stringParser.parse(proto.name),
+            stringParser.parse(proto.softVer),
+            stringParser.parse(proto.serverName),
+            new DeviceChannelsB(channels)
         );
     }
 }

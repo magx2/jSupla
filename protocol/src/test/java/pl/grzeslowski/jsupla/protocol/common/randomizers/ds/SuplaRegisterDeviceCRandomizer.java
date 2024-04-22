@@ -5,12 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELMAXCOUNT;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 public class SuplaRegisterDeviceCRandomizer implements Randomizer<SuplaRegisterDeviceC> {
     private final RandomSupla randomSupla;
@@ -23,7 +18,7 @@ public class SuplaRegisterDeviceCRandomizer implements Randomizer<SuplaRegisterD
     public SuplaRegisterDeviceC getRandomValue() {
         final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
         final SuplaDeviceChannelB[] channels = randomSupla.objects(SuplaDeviceChannelB.class, channelCount)
-                                                   .toArray(SuplaDeviceChannelB[]::new);
+            .toArray(SuplaDeviceChannelB[]::new);
         return new SuplaRegisterDeviceC(
             randomSupla.nextPositiveInt(),
             randomSupla.nextByteArrayFromString(SUPLA_LOCATION_PWD_MAXSIZE),

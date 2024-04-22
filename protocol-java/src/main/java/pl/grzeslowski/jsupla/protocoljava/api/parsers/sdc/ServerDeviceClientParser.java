@@ -5,6 +5,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEnt
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 
 public interface ServerDeviceClientParser<EntityT extends ServerDeviceClientEntity,
-                                                       SuplaProtoT extends ServerDeviceClient>
-        extends Parser<EntityT, SuplaProtoT> {
+    SuplaProtoT extends ServerDeviceClient>
+    extends Parser<EntityT, SuplaProtoT> {
 }

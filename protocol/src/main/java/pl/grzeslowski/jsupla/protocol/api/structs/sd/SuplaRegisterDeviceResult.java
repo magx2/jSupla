@@ -69,10 +69,10 @@ public final class SuplaRegisterDeviceResult implements ServerDevice {
     @Override
     public String toString() {
         return "SuplaRegisterDeviceResult{" +
-                "resultCode=" + resultCode +
-                ", activityTimeout=" + activityTimeout +
-                ", version=" + version +
-                ", versionMin=" + versionMin +
-                '}';
+            "resultCode=" + resultCode +
+            ", activityTimeout=" + activityTimeout +
+            ", version=" + version +
+            ", versionMin=" + versionMin +
+            '}';
     }
 }

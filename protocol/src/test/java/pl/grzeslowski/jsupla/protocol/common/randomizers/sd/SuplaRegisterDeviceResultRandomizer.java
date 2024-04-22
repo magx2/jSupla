@@ -15,10 +15,10 @@ public class SuplaRegisterDeviceResultRandomizer implements Randomizer<SuplaRegi
     public SuplaRegisterDeviceResult getRandomValue() {
         final byte version = (byte) (randomSupla.nextPositiveByte() + 1);
         return new SuplaRegisterDeviceResult(
-                                                    randomSupla.nextPositiveInt(),
-                                                    randomSupla.nextPositiveByte(),
-                                                    version,
-                                                    randomSupla.nextByte(version)
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveByte(),
+            version,
+            randomSupla.nextByte(version)
         );
     }
 }

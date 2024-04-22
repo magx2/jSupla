@@ -34,35 +34,47 @@ public class ParserFactoryImplForAllProtoTest {
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() throws IOException {
         return ClassPath.from(Proto.class.getClassLoader())
-                       .getTopLevelClassesRecursive(SuplaDataPacket.class.getPackage().getName())
-                       .asList()
-                       .stream()
-                       .map(ClassPath.ClassInfo::load)
-                       .filter(clazz -> !clazz.isInterface())
-                       .filter(Proto.class::isAssignableFrom)
-                       .filter(clazz -> !SuplaDataPacket.class.equals(clazz))
-                       .map(clazz -> (Class<Proto>) clazz)
-                       .map(clazz -> RANDOM_SUPLA.nextObject(clazz))
-                       .map(proto -> new Object[]{proto})
-                       .collect(Collectors.toList());
+            .getTopLevelClassesRecursive(SuplaDataPacket.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Proto.class::isAssignableFrom)
+            .filter(clazz -> !SuplaDataPacket.class.equals(clazz))
+            .map(clazz -> (Class<Proto>) clazz)
+            .map(clazz -> RANDOM_SUPLA.nextObject(clazz))
+            .map(proto -> new Object[]{proto})
+            .collect(Collectors.toList());
     }
 
     final Proto proto;
 
-    @InjectMocks ParserImpl factory;
+    @InjectMocks
+    ParserImpl factory;
 
-    @Mock ClientServerParser clientServerParserFactory;
-    @Mock DeviceClientServerParser deviceClientServerParserFactory;
-    @Mock DeviceServerParser deviceServerParserFactory;
-    @Mock ServerClientParser serverClientParserFactory;
-    @Mock ServerDeviceParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
+    @Mock
+    ClientServerParser clientServerParserFactory;
+    @Mock
+    DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock
+    DeviceServerParser deviceServerParserFactory;
+    @Mock
+    ServerClientParser serverClientParserFactory;
+    @Mock
+    ServerDeviceParser serverDeviceParserFactory;
+    @Mock
+    ServerDeviceClientParser serverDeviceClientParserFactory;
 
-    @Mock DeviceChannelParser deviceChannelParser;
-    @Mock DeviceChannelBParser deviceChannelBParser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
-    @Mock ChannelValueParser channelValueParser;
-    @Mock TimevalParser timevalParser;
+    @Mock
+    DeviceChannelParser deviceChannelParser;
+    @Mock
+    DeviceChannelBParser deviceChannelBParser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    @Mock
+    ChannelValueParser channelValueParser;
+    @Mock
+    TimevalParser timevalParser;
 
     public ParserFactoryImplForAllProtoTest(final Proto proto) {
         this.proto = proto;

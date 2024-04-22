@@ -14,7 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaFirmwareUpdateParamsEncoderImplTest extends EncoderTest<SuplaFirmwareUpdateParams> {
-    @InjectMocks FirmwareUpdateParamsEncoderImpl encoder;
+    @InjectMocks
+    FirmwareUpdateParamsEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaFirmwareUpdateParams proto) {

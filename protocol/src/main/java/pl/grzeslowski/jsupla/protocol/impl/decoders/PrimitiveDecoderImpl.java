@@ -66,7 +66,7 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
     public byte[] copyOfRange(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                    format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
         return Arrays.copyOfRange(original, from, to);
     }

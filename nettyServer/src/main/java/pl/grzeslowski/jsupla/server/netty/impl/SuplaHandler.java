@@ -10,7 +10,6 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import reactor.core.Disposable;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -19,9 +18,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
+final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     implements Publisher<SuplaDataPacket>, AutoCloseable {
-    private final Logger logger = LoggerFactory.getLogger(SuplaHandler.class);
+    private final Logger logger;
     private final Collection<FluxSink<NettyChannel>> rootEmitters;
 
     // For NettyChannel
@@ -31,13 +30,14 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
 
     private final Flux<SuplaDataPacket> flux;
     private final Collection<FluxSink<SuplaDataPacket>> emitters = Collections.synchronizedList(new LinkedList<>());
-    private final Disposable disposable;
+    //    private final Disposable disposable;
 
     SuplaHandler(final Collection<FluxSink<NettyChannel>> rootEmitters,
                  final CallTypeParser callTypeParser,
                  final DecoderFactory decoderFactory,
                  final EncoderFactory encoderFactory) {
-        logger.debug("New instance #{}", hashCode());
+        logger = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + hashCode());
+        logger.debug("New instance");
         this.rootEmitters = rootEmitters;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
@@ -46,13 +46,19 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
             //@ 8.1 https://www.baeldung.com/reactor-core
             final ConnectableFlux<SuplaDataPacket> flux = Flux.<SuplaDataPacket>create(emitter -> {
                 this.emitters.add(emitter);
-                emitter.onDispose(() -> SuplaHandler.this.emitters.remove(emitter));
+                emitter.onDispose(() -> this.emitters.remove(emitter));
             }).publish();
-            this.disposable = flux.connect();
+            /*this.disposable =*/
+            flux.connect();
             this.flux = flux;
         }
     }
 
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        logger.debug("SuplaHandler.handlerRemoved(ctx)");
+        super.handlerRemoved(ctx);
+    }
 
     @Override
     public void channelRegistered(final ChannelHandlerContext ctx) throws Exception {
@@ -73,6 +79,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void channelUnregistered(final ChannelHandlerContext ctx) throws Exception {
         logger.debug("SuplaHandler.channelUnregistered(ctx), emitters.size={}", emitters.size());
         super.channelUnregistered(ctx);
+        rootEmitters.forEach(FluxSink::complete);
         emitters.forEach(FluxSink::complete);
     }
 
@@ -80,7 +87,16 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
         logger.debug("SuplaHandler.exceptionCaught(ctx, {})", cause);
         super.exceptionCaught(ctx, cause);
+        rootEmitters.forEach(e -> e.error(cause));
         emitters.forEach(e -> e.error(cause));
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        logger.debug("SuplaHandler.channelInactive(ctx), emitters.size={}", emitters.size());
+        super.channelInactive(ctx);
+        rootEmitters.forEach(FluxSink::complete);
+        emitters.forEach(FluxSink::complete);
     }
 
     @Override
@@ -92,7 +108,7 @@ class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
 
     @Override
     public void close() {
-        logger.debug("Closing SuplaHandler #{}", hashCode());
+        logger.debug("Closing SuplaHandler");
         emitters.clear();
         //        disposable.dispose();
     }

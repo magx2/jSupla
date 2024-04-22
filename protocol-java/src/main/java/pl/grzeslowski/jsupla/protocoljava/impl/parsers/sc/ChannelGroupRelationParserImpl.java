@@ -10,9 +10,9 @@ public class ChannelGroupRelationParserImpl implements ChannelGroupRelationParse
     @Override
     public ChannelGroupRelation parse(@NotNull SuplaChannelGroupRelation proto) {
         return new ChannelGroupRelation(
-                (int) proto.eol,
-                proto.channelGroupId,
-                proto.channelId
+            (int) proto.eol,
+            proto.channelGroupId,
+            proto.channelId
         );
     }
 }

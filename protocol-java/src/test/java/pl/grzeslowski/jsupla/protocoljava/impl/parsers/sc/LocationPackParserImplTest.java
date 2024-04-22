@@ -21,13 +21,15 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class LocationPackParserImplTest extends AbstractParserTest<LocationPack, SuplaLocationPack> {
-    @InjectMocks LocationPackParserImpl parser;
-    @Mock LocationParser locationParser;
+    @InjectMocks
+    LocationPackParserImpl parser;
+    @Mock
+    LocationParser locationParser;
 
     @Override
     protected SuplaLocationPack given() {
         BDDMockito.given(locationParser.parse(any()))
-                .willReturn(RANDOM_ENTITY.nextObject(Location.class));
+            .willReturn(RANDOM_ENTITY.nextObject(Location.class));
         return super.given();
     }
 
@@ -35,7 +37,7 @@ public class LocationPackParserImplTest extends AbstractParserTest<LocationPack,
     protected void then(final LocationPack entity, final SuplaLocationPack supla) {
         assertThat(entity.getTotalLeft()).isEqualTo(supla.totalLeft);
         Arrays.stream(supla.locations)
-                .forEach(location -> verify(locationParser).parse(location));
+            .forEach(location -> verify(locationParser).parse(location));
         verifyNoMoreInteractions(locationParser);
     }
 

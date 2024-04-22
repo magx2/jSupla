@@ -1,10 +1,6 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.decoders.channels.decoders;
 
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelTypeDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ColorTypeChannelDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.RelayTypeChannelDecoder;
-import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ThermometerTypeChannelDecoder;
+import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.*;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue;
 import pl.grzeslowski.jsupla.protocoljava.api.channels.values.UnknownValue;
 
@@ -51,7 +47,7 @@ public final class ChannelTypeDecoderImpl implements ChannelTypeDecoder {
                 return UnknownValue.UNKNOWN_VALUE;
             default:
                 return new UnknownValue(value, format("Don't know how to map channel type %s to channel value!",
-                        channelType));
+                    channelType));
         }
     }
 }

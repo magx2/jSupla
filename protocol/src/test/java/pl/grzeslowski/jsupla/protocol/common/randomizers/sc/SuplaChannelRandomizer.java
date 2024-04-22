@@ -17,15 +17,15 @@ public class SuplaChannelRandomizer implements Randomizer<SuplaChannel> {
     public SuplaChannel getRandomValue() {
         final long captionSize = randomSupla.nextUnsignedInt(SUPLA_CHANNEL_CAPTION_MAXSIZE);
         return new SuplaChannel(
-                                       randomSupla.nextByte(),
-                                       randomSupla.nextPositiveInt(),
-                                       randomSupla.nextPositiveInt(),
-                                       randomSupla.nextPositiveInt(),
-                                       randomSupla.nextByte(),
-                                       randomSupla.nextObject(
-                                               pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
-                                       captionSize,
-                                       randomSupla.nextByteArray((int) captionSize)
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextByte(),
+            randomSupla.nextObject(
+                pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
+            captionSize,
+            randomSupla.nextByteArray((int) captionSize)
         );
     }
 }

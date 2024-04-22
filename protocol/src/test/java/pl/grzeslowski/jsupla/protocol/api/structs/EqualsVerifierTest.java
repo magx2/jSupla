@@ -21,20 +21,20 @@ public final class EqualsVerifierTest {
     @Parameterized.Parameters(name = "{0}")
     public static Object[][] params() throws Exception {
         return ClassPath.from(EqualsVerifierTest.class.getClassLoader())
-                       .getTopLevelClassesRecursive(SuplaDataPacket.class.getPackage().getName())
-                       .asList()
-                       .stream()
-                       .map(ClassPath.ClassInfo::load)
-                       .filter(clazz -> !clazz.isInterface())
-                       .filter(Proto.class::isAssignableFrom)
-                       .map(clazz -> new Object[]{clazz})
-                       .toArray(Object[][]::new);
+            .getTopLevelClassesRecursive(SuplaDataPacket.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Proto.class::isAssignableFrom)
+            .map(clazz -> new Object[]{clazz})
+            .toArray(Object[][]::new);
     }
 
     @Test
     public void shouldVerifyEqualsAndHashCode() throws Exception {
         EqualsVerifier.forClass(clazz)
-                .suppress(NULL_FIELDS)
-                .verify();
+            .suppress(NULL_FIELDS)
+            .verify();
     }
 }

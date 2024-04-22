@@ -79,10 +79,10 @@ public class ChannelValue implements ServerClientEntity {
     @Override
     public String toString() {
         return "ChannelValue{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", online=" + online +
-                       ", value=" + value +
-                       '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", online=" + online +
+            ", value=" + value +
+            '}';
     }
 }

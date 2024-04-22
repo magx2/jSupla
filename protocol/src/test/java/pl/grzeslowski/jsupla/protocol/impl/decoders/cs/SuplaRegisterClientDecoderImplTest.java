@@ -8,15 +8,13 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientDecoderImplTest extends DecoderTest<SuplaRegisterClientDecoderImpl> {
-    @InjectMocks SuplaRegisterClientDecoderImpl decoder;
+    @InjectMocks
+    SuplaRegisterClientDecoderImpl decoder;
 
     @Override
     public SuplaRegisterClientDecoderImpl getDecoder() {

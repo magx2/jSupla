@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueSerializerImplTest extends SerializerTest<ChannelNewValue, SuplaChannelNewValue> {
-    @InjectMocks ChannelNewValueSerializerImpl serializer;
-    @Mock ChannelTypeEncoder channelTypeEncoder;
+    @InjectMocks
+    ChannelNewValueSerializerImpl serializer;
+    @Mock
+    ChannelTypeEncoder channelTypeEncoder;
 
     @Override
     protected ChannelNewValue given() {

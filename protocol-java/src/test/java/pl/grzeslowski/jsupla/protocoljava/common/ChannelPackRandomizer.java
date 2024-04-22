@@ -19,8 +19,8 @@ class ChannelPackRandomizer implements Randomizer<ChannelPack> {
     public ChannelPack getRandomValue() {
         final List<Channel> channels = random.objects(Channel.class, 15).collect(Collectors.toList());
         return new ChannelPack(
-                                      random.nextInt(100),
-                                      channels
+            random.nextInt(100),
+            channels
         );
     }
 }

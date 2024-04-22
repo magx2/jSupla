@@ -18,14 +18,14 @@ class RegisterClientResultBRandomizer implements Randomizer<RegisterClientResult
         final short version = (short) (random.nextInt(UNSIGNED_BYTE_MAX) + 1);
         final short versionMin = (short) random.nextInt(version);
         return new RegisterClientResultB(
-                random.nextInt(1000),
-                random.nextInt(1000),
-                random.nextInt(1000),
-                random.nextInt(1000),
-                (short) random.nextInt(UNSIGNED_BYTE_MAX),
-                version,
-                versionMin,
-                random.nextInt()
+            random.nextInt(1000),
+            random.nextInt(1000),
+            random.nextInt(1000),
+            random.nextInt(1000),
+            (short) random.nextInt(UNSIGNED_BYTE_MAX),
+            version,
+            versionMin,
+            random.nextInt()
         );
     }
 }

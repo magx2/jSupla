@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sd.SuplaRegisterDeviceResultDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -13,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaRegisterDeviceResultDecoderImpl implements SuplaRegisterDeviceResultDecoder {
     public static final SuplaRegisterDeviceResultDecoderImpl INSTANCE = new SuplaRegisterDeviceResultDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaRegisterDeviceResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {

@@ -16,7 +16,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaEventDecoderImplTest extends DecoderTest<SuplaEventDecoderImpl> {
     private static final int SENDER_NAME_SIZE = 10;
-    @InjectMocks SuplaEventDecoderImpl decoder;
+    @InjectMocks
+    SuplaEventDecoderImpl decoder;
 
     @Override
     public SuplaEventDecoderImpl getDecoder() {

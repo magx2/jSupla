@@ -18,10 +18,10 @@ public class ProtocolContextTest {
     @Parameterized.Parameters(name = "{0}")
     public static Object[][] params() throws Exception {
         return new Object[][]{
-                {PrimitiveDecoder.class},
-                {PrimitiveEncoder.class},
-                {DecoderFactory.class},
-                {EncoderFactory.class}
+            {PrimitiveDecoder.class},
+            {PrimitiveEncoder.class},
+            {DecoderFactory.class},
+            {EncoderFactory.class}
         };
     }
 

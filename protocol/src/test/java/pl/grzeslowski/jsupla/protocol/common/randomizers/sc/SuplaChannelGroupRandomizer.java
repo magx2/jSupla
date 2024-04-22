@@ -17,14 +17,14 @@ public class SuplaChannelGroupRandomizer implements Randomizer<SuplaChannelGroup
     public SuplaChannelGroup getRandomValue() {
         byte[] caption = randomSupla.nextString(5).getBytes(UTF_8);
         return new SuplaChannelGroup(
-                randomSupla.nextByte(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextInt(),
-                randomSupla.nextInt(),
-                randomSupla.nextUnsignedInt(),
-                caption.length,
-                caption
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextInt(),
+            randomSupla.nextInt(),
+            randomSupla.nextUnsignedInt(),
+            caption.length,
+            caption
         );
     }
 }

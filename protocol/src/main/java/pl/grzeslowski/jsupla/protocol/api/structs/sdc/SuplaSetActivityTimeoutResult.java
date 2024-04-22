@@ -69,9 +69,9 @@ public final class SuplaSetActivityTimeoutResult implements ServerDeviceClient {
     @Override
     public String toString() {
         return "SuplaSetActivityTimeoutResult{" +
-                "activityTimeout=" + activityTimeout +
-                ", min=" + min +
-                ", max=" + max +
-                '}';
+            "activityTimeout=" + activityTimeout +
+            ", min=" + min +
+            ", max=" + max +
+            '}';
     }
 }

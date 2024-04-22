@@ -16,6 +16,7 @@ public class DeviceChannelsB extends DeviceChannels {
         return super.equals(o) && canEqual(o);
     }
 
+    @Override
     protected boolean canEqual(final Object other) {
         return other instanceof DeviceChannelsB;
     }

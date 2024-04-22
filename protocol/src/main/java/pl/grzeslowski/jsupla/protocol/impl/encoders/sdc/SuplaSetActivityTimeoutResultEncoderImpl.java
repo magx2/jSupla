@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaSetActivityTimeoutResultEncoderImpl implements SuplaSetActivityTimeoutResultEncoder {
     public static final SuplaSetActivityTimeoutResultEncoderImpl INSTANCE =
-            new SuplaSetActivityTimeoutResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaSetActivityTimeoutResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaSetActivityTimeoutResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-@Deprecated
 public class RegisterClientParserImpl implements RegisterClientParser {
     private final StringParser stringParser;
 
@@ -20,11 +19,11 @@ public class RegisterClientParserImpl implements RegisterClientParser {
     @Override
     public RegisterClient parse(@NotNull final SuplaRegisterClient proto) {
         return new RegisterClient(
-                                         proto.accessId,
-                                         stringParser.parsePassword(proto.accessIdPwd),
-                                         stringParser.parse(proto.guid),
-                                         stringParser.parse(proto.name),
-                                         stringParser.parse(proto.softVer)
+            proto.accessId,
+            stringParser.parsePassword(proto.accessIdPwd),
+            stringParser.parse(proto.guid),
+            stringParser.parse(proto.name),
+            stringParser.parse(proto.softVer)
         );
     }
 }

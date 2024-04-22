@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaRegisterDeviceDEncoderImpl implements SuplaRegisterDeviceDEncoder {
     public static final SuplaRegisterDeviceDEncoderImpl INSTANCE =
-            new SuplaRegisterDeviceDEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaDeviceChannelBEncoderImpl.INSTANCE);
+        new SuplaRegisterDeviceDEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaDeviceChannelBEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaDeviceChannelBEncoder suplaDeviceChannelBEncoder;
 

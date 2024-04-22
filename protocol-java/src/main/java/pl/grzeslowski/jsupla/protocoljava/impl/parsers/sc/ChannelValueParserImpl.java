@@ -12,17 +12,17 @@ public class ChannelValueParserImpl implements ChannelValueParser {
     private final pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser channelValueParser;
 
     public ChannelValueParserImpl(final pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser
-                                          channelValueParser) {
+                                      channelValueParser) {
         this.channelValueParser = requireNonNull(channelValueParser);
     }
 
     @Override
     public ChannelValue parse(@NotNull final SuplaChannelValue proto) {
         return new ChannelValue(
-                                       proto.eol,
-                                       proto.id,
-                                       proto.online != 0,
-                                       channelValueParser.parse(proto.value)
+            proto.eol,
+            proto.id,
+            proto.online != 0,
+            channelValueParser.parse(proto.value)
         );
     }
 }

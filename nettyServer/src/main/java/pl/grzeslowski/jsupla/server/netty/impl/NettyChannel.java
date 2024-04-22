@@ -57,20 +57,19 @@ public final class NettyChannel implements Channel {
         final Parser<Entity, Proto> parser = context.getService(Parser.class);
         //noinspection ConstantConditions,OptionalGetWithoutIsPresent
         this.messagePipe = messagePipe
-                                   .map(suplaDataPacket -> callTypePair(callTypeParser, suplaDataPacket))
-                                   .filter(pair -> pair.getValue1().isPresent())
-                                   .map(pair -> Pair.with(pair.getValue0(), pair.getValue1().get()))
-                                   .map(pair -> decoderPair(decoderFactory, pair))
-                                   .map(pair -> pair.getValue1().decode(pair.getValue0().data))
-                                   .map(parser::parse)
-                                   .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
-                                   .cast(ToServerEntity.class);
+            .map(suplaDataPacket -> callTypePair(callTypeParser, suplaDataPacket))
+            .filter(pair -> pair.getValue1().isPresent())
+            .map(pair -> Pair.with(pair.getValue0(), pair.getValue1().get()))
+            .map(pair -> decoderPair(decoderFactory, pair))
+            .map(pair -> pair.getValue1().decode(pair.getValue0().data))
+            .map(parser::parse)
+            .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
+            .cast(ToServerEntity.class);
 
-        //noinspection deprecation
         this.messagePipe
-                .filter(entity -> RegisterDevice.class.isAssignableFrom(entity.getClass()))
-                .cast(RegisterDevice.class)
-                .subscribe(typeMapper::registerDevice);
+            .filter(entity -> RegisterDevice.class.isAssignableFrom(entity.getClass()))
+            .cast(RegisterDevice.class)
+            .subscribe(typeMapper::registerDevice);
     }
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
@@ -79,13 +78,13 @@ public final class NettyChannel implements Channel {
                  final DecoderFactory decoderFactory,
                  final EncoderFactory encoderFactory) {
         this(channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                new ChannelTypeMapper(),
-                BufferParams.DEFAULT,
-                ContextGeneratorImpl.INSTANCE);
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            new ChannelTypeMapper(),
+            BufferParams.DEFAULT,
+            ContextGeneratorImpl.INSTANCE);
     }
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
@@ -95,13 +94,13 @@ public final class NettyChannel implements Channel {
                  final EncoderFactory encoderFactory,
                  final BufferParams bufferParams) {
         this(channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                new ChannelTypeMapper(),
-                bufferParams,
-                ContextGeneratorImpl.INSTANCE);
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            new ChannelTypeMapper(),
+            bufferParams,
+            ContextGeneratorImpl.INSTANCE);
     }
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
@@ -111,13 +110,13 @@ public final class NettyChannel implements Channel {
                  final EncoderFactory encoderFactory,
                  final ContextGenerator contextGenerator) {
         this(channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                new ChannelTypeMapper(),
-                BufferParams.DEFAULT,
-                contextGenerator);
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            new ChannelTypeMapper(),
+            BufferParams.DEFAULT,
+            contextGenerator);
     }
 
     NettyChannel(final ChannelHandlerContext channelHandlerContext,
@@ -128,23 +127,23 @@ public final class NettyChannel implements Channel {
                  final BufferParams bufferParams,
                  final ContextGenerator contextGenerator) {
         this(channelHandlerContext,
-                messagePipe,
-                callTypeParser,
-                decoderFactory,
-                encoderFactory,
-                new ChannelTypeMapper(),
-                bufferParams,
-                contextGenerator);
+            messagePipe,
+            callTypeParser,
+            decoderFactory,
+            encoderFactory,
+            new ChannelTypeMapper(),
+            bufferParams,
+            contextGenerator);
     }
-    
+
     private static Pair<SuplaDataPacket, Optional<CallType>> callTypePair(final CallTypeParser callTypeParser,
                                                                           final SuplaDataPacket suplaDataPacket) {
         return Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType));
     }
 
     private static Pair<SuplaDataPacket,
-                               Decoder<? extends ProtoWithSize>> decoderPair(DecoderFactory decoderFactory,
-                                                                             Pair<SuplaDataPacket, CallType> pair) {
+        Decoder<? extends ProtoWithSize>> decoderPair(DecoderFactory decoderFactory,
+                                                      Pair<SuplaDataPacket, CallType> pair) {
         return Pair.with(pair.getValue0(), decoderFactory.getDecoder(pair.getValue1()));
     }
 
@@ -156,23 +155,23 @@ public final class NettyChannel implements Channel {
     @Override
     public Flux<LocalDateTime> write(final Flux<FromServerEntity> fromServerEntityFlux) {
         return fromServerEntityFlux
-                       .map(serializer::serialize)
-                       .filter(proto -> proto instanceof ProtoToSend)
-                       .cast(ProtoToSend.class)
-                       .map(this::encodeProto)
-                       .map(channelHandlerContext::write)
-                       .bufferTimeout(bufferParams.bufferMaxSize, bufferParams.timespan)
-                       .map(__ -> channelHandlerContext.flush())
-                       .map(__ -> LocalDateTime.now());
+            .map(serializer::serialize)
+            .filter(proto -> proto instanceof ProtoToSend)
+            .cast(ProtoToSend.class)
+            .map(this::encodeProto)
+            .map(channelHandlerContext::write)
+            .bufferTimeout(bufferParams.bufferMaxSize, bufferParams.timespan)
+            .map(__ -> channelHandlerContext.flush())
+            .map(__ -> LocalDateTime.now());
     }
 
     private SuplaDataPacket encodeProto(ProtoToSend proto) {
         final Encoder<ProtoToSend> encoder = encoderFactory.getEncoder(proto);
         return new SuplaDataPacket(
-                (short) 5,
-                msgId.getAndIncrement(),
-                proto.callType().getValue(),
-                encoder.encode(proto));
+            (short) 5,
+            msgId.getAndIncrement(),
+            proto.callType().getValue(),
+            encoder.encode(proto));
     }
 
     @Override
@@ -200,9 +199,9 @@ public final class NettyChannel implements Channel {
         @Override
         public String toString() {
             return "BufferParams{" +
-                           "timespan=" + timespan +
-                           ", bufferMaxSize=" + bufferMaxSize +
-                           '}';
+                "timespan=" + timespan +
+                ", bufferMaxSize=" + bufferMaxSize +
+                '}';
         }
     }
 
@@ -218,5 +217,5 @@ public final class NettyChannel implements Channel {
             return new ProtocolJavaContext(typeMapper);
         }
     }
-    
+
 }

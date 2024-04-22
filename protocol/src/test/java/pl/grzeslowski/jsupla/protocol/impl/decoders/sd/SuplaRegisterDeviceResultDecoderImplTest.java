@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterDeviceResultDecoderImplTest extends DecoderTest<SuplaRegisterDeviceResultDecoderImpl> {
-    @InjectMocks SuplaRegisterDeviceResultDecoderImpl decoder;
+    @InjectMocks
+    SuplaRegisterDeviceResultDecoderImpl decoder;
 
     @Override
     public SuplaRegisterDeviceResultDecoderImpl getDecoder() {

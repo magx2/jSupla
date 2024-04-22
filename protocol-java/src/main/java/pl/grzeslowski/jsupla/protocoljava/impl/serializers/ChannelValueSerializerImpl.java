@@ -20,8 +20,8 @@ public class ChannelValueSerializerImpl implements ChannelValueSerializer {
     public SuplaChannelValue serialize(@NotNull final ChannelValue entity) {
         final byte[] value = channelTypeEncoder.encode(entity.getValue());
         return entity.getSubValue()
-                       .map(subValue -> new SuplaChannelValue(value, channelTypeEncoder.encode(subValue)))
-                       .orElseGet(() -> new SuplaChannelValue(value, null));
+            .map(subValue -> new SuplaChannelValue(value, channelTypeEncoder.encode(subValue)))
+            .orElseGet(() -> new SuplaChannelValue(value, null));
 
     }
 }

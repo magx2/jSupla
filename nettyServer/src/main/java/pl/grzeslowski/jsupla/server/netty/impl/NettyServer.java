@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -17,8 +18,8 @@ import reactor.core.publisher.Flux;
 import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("WeakerAccess")
-public class NettyServer implements Server {
-    private final Logger logger = LoggerFactory.getLogger(NettyServer.class);
+public final class NettyServer implements Server {
+    private final Logger logger;
 
     private final NettyConfig nettyConfig;
     private final Flux<? extends NettyChannel> newChannelsPipe;
@@ -31,20 +32,24 @@ public class NettyServer implements Server {
                        final CallTypeParser callTypeParser,
                        final DecoderFactory decoderFactory,
                        final EncoderFactory encoderFactory) {
-        logger.debug("New instance #{}", hashCode());
+        logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + hashCode());
+        logger.debug("New instance");
         this.nettyConfig = requireNonNull(nettyConfig);
 
         bossGroup = newBossGroup();
         workerGroup = newWorkerGroup();
         final ServerBootstrap serverBootstrap = newServerBootstrap();
-        nettyServerInitializer = newNettyServerInitializer(
-                callTypeParser, decoderFactory, encoderFactory);
+        nettyServerInitializer = new NettyServerInitializer(
+            nettyConfig.getSslCtx(),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory);
 
         logger.trace("Configuring server bootstrap");
         configureServerBootstrap(serverBootstrap, nettyServerInitializer);
 
         // Bind and start to accept incoming connections.
-        logger.trace("Binding to port {}", nettyConfig.getPort());
+        logger.debug("Binding to port {}", nettyConfig.getPort());
         channelFuture = serverBootstrap.bind(nettyConfig.getPort());
         newChannelsPipe = Flux.from(nettyServerInitializer);
     }
@@ -66,31 +71,20 @@ public class NettyServer implements Server {
         return new ServerBootstrap();
     }
 
-    protected NettyServerInitializer newNettyServerInitializer(
-            final CallTypeParser callTypeParser,
-            final DecoderFactory decoderFactory,
-            final EncoderFactory encoderFactory) {
-        return new NettyServerInitializer(
-                nettyConfig.getSslCtx(),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory);
-    }
-
     protected void configureServerBootstrap(final ServerBootstrap serverBootstrap,
                                             final NettyServerInitializer nettyServerInitializer) {
         serverBootstrap.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(nettyServerInitializer)
-                .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-                .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+            .channel(NioServerSocketChannel.class) // (3)
+            .childHandler(nettyServerInitializer)
+            .option(ChannelOption.SO_BACKLOG, 128)          // (5)
+            .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
     }
 
     @Override
     public String toString() {
         return "NettyServer{" +
-                       "nettyConfig=" + nettyConfig +
-                       '}';
+            "nettyConfig=" + nettyConfig +
+            '}';
     }
 
     @Override
@@ -108,8 +102,12 @@ public class NettyServer implements Server {
                 bossGroup.shutdownGracefully().get();
                 logger.debug("Closed bossGroup");
             }
-            channelFuture.channel().closeFuture().sync();
-            channelFuture.channel().parent().closeFuture().sync();
+            Channel channel = channelFuture.channel();
+            channel.closeFuture().sync();
+            Channel parent = channel.parent();
+            if (parent != null) {
+                parent.closeFuture().sync();
+            }
         } catch (Exception e) {
             throw new CloseServerException(this, e);
         }

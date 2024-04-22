@@ -21,10 +21,10 @@ public class LocationPackParserImpl implements LocationPackParser {
     @Override
     public LocationPack parse(@NotNull final SuplaLocationPack proto) {
         return new LocationPack(
-                                       proto.totalLeft,
-                                       Arrays.stream(proto.locations)
-                                               .map(locationParser::parse)
-                                               .collect(toList())
+            proto.totalLeft,
+            Arrays.stream(proto.locations)
+                .map(locationParser::parse)
+                .collect(toList())
         );
     }
 }

@@ -9,14 +9,14 @@ public class ColorTypeChannelEncoderImpl implements ColorTypeChannelEncoder {
     @Override
     public byte[] encode(final RgbValue rgbValue) {
         return new byte[]{
-                toByte(rgbValue.brightness),
-                toByte(rgbValue.colorBrightness),
-                toByte(rgbValue.red),
-                toByte(rgbValue.green),
-                toByte(rgbValue.blue),
-                0,
-                0,
-                0
+            toByte(rgbValue.brightness),
+            toByte(rgbValue.colorBrightness),
+            toByte(rgbValue.red),
+            toByte(rgbValue.green),
+            toByte(rgbValue.blue),
+            0,
+            0,
+            0
         };
     }
 

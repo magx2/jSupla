@@ -60,8 +60,8 @@ public final class SuplaDeviceChannelValue implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaDeviceChannelValue{" +
-                       "channelNumber=" + channelNumber +
-                       ", value=" + Arrays.toString(value) +
-                       '}';
+            "channelNumber=" + channelNumber +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

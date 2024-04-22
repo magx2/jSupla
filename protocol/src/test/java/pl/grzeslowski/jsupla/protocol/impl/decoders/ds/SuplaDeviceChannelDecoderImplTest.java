@@ -14,7 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaDeviceChannelDecoderImplTest extends DecoderTest<SuplaDeviceChannelDecoderImpl> {
-    @InjectMocks SuplaDeviceChannelDecoderImpl decoder;
+    @InjectMocks
+    SuplaDeviceChannelDecoderImpl decoder;
 
     @Override
     public SuplaDeviceChannelDecoderImpl getDecoder() {

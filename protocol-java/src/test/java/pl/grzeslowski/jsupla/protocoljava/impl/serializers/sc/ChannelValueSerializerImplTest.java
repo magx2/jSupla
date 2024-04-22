@@ -16,15 +16,17 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelValueSerializerImplTest extends SerializerTest<ChannelValue, SuplaChannelValue> {
-    @InjectMocks ChannelValueSerializerImpl serializer;
-    @Mock ChannelValueSerializer channelValueSerializer;
+    @InjectMocks
+    ChannelValueSerializerImpl serializer;
+    @Mock
+    ChannelValueSerializer channelValueSerializer;
 
     @Override
     protected ChannelValue given() {
         final ChannelValue entity = super.given();
         BDDMockito.given(channelValueSerializer.serialize(entity.getValue()))
-                .willReturn(
-                        RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class));
+            .willReturn(
+                RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class));
         return entity;
     }
 

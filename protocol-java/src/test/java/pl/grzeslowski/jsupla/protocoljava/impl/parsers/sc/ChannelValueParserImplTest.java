@@ -16,14 +16,16 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelValueParserImplTest extends AbstractParserTest<ChannelValue, SuplaChannelValue> {
-    @InjectMocks ChannelValueParserImpl parser;
-    @Mock ChannelValueParser channelValueParser;
+    @InjectMocks
+    ChannelValueParserImpl parser;
+    @Mock
+    ChannelValueParser channelValueParser;
 
     @Override
     protected SuplaChannelValue given() {
         final SuplaChannelValue supla = super.given();
         BDDMockito.given(channelValueParser.parse(supla.value)).willReturn(
-                RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue.class)
+            RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue.class)
         );
         return supla;
     }

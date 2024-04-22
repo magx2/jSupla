@@ -14,9 +14,11 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateUrlResultSerializerImplTest
-        extends SerializerTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
-    @InjectMocks FirmwareUpdateUrlResultSerializerImpl serializer;
-    @Mock FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
+    extends SerializerTest<FirmwareUpdateUrlResult, SuplaFirmwareUpdateUrlResult> {
+    @InjectMocks
+    FirmwareUpdateUrlResultSerializerImpl serializer;
+    @Mock
+    FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
 
     @Override
     protected void then(final FirmwareUpdateUrlResult entity, final SuplaFirmwareUpdateUrlResult proto) {

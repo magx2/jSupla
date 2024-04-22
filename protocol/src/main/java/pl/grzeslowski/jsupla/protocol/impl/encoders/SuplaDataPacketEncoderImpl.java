@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaDataPacketEncoderImpl implements SuplaDataPacketEncoder {
     public static final SuplaDataPacketEncoderImpl INSTANCE =
-            new SuplaDataPacketEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaDataPacketEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaDataPacketEncoderImpl(PrimitiveEncoder primitiveEncoder) {

@@ -6,8 +6,6 @@ import javax.validation.constraints.Size;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterDeviceB extends RegisterDevice {
     public RegisterDeviceB(final int locationId,
                            final @NotNull @Size(min = 1, max = SUPLA_LOCATION_PWD_MAXSIZE) char[] locationPassword,

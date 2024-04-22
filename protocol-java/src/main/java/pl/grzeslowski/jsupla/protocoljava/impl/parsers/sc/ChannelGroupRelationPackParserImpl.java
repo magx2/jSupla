@@ -29,8 +29,8 @@ public class ChannelGroupRelationPackParserImpl implements ChannelGroupRelationP
             items.add(channelGroupRelation);
         }
         return new ChannelGroupRelationPack(
-                proto.totalLeft,
-                unmodifiableList(items)
+            proto.totalLeft,
+            unmodifiableList(items)
         );
     }
 }

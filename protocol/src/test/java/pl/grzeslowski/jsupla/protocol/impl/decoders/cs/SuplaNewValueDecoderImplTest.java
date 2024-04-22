@@ -16,7 +16,8 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaNewValueDecoderImplTest extends ProperDecoderTest<SuplaNewValue> {
-    @InjectMocks SuplaNewValueDecoderImpl decoder;
+    @InjectMocks
+    SuplaNewValueDecoderImpl decoder;
 
     int id;
     byte target;

@@ -21,12 +21,17 @@ import java.util.Collection;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ServerDeviceParserParserImplTest extends ForInterfaceParserTest<ServerDeviceEntity, ServerDevice> {
-    @InjectMocks ServerDeviceParserImpl parser;
+    @InjectMocks
+    ServerDeviceParserImpl parser;
 
-    @Mock ChannelNewValueParser channelNewValueParser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
-    @Mock FirmwareUpdateUrlResultParser firmwareUpdateUrlResultParser;
-    @Mock RegisterDeviceResultParser registerDeviceResultParser;
+    @Mock
+    ChannelNewValueParser channelNewValueParser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    @Mock
+    FirmwareUpdateUrlResultParser firmwareUpdateUrlResultParser;
+    @Mock
+    RegisterDeviceResultParser registerDeviceResultParser;
 
     public ServerDeviceParserParserImplTest(final Class<ServerDevice> protoToTestClass,
                                             final Field resultField) {
@@ -36,15 +41,15 @@ public class ServerDeviceParserParserImplTest extends ForInterfaceParserTest<Ser
     @Parameterized.Parameters
     public static Collection<Object[]> data() throws NoSuchFieldException {
         return Arrays.asList(new Object[][]{
-                {SuplaChannelNewValue.class,
-                        getDeclaredField(ServerDeviceParserParserImplTest.class,
-                                "channelNewValueParser")},
-                {SuplaFirmwareUpdateUrlResult.class,
-                        getDeclaredField(ServerDeviceParserParserImplTest.class,
-                                "firmwareUpdateUrlResultParser")},
-                {SuplaRegisterDeviceResult.class,
-                        getDeclaredField(ServerDeviceParserParserImplTest.class,
-                                "registerDeviceResultParser")}
+            {SuplaChannelNewValue.class,
+                getDeclaredField(ServerDeviceParserParserImplTest.class,
+                    "channelNewValueParser")},
+            {SuplaFirmwareUpdateUrlResult.class,
+                getDeclaredField(ServerDeviceParserParserImplTest.class,
+                    "firmwareUpdateUrlResultParser")},
+            {SuplaRegisterDeviceResult.class,
+                getDeclaredField(ServerDeviceParserParserImplTest.class,
+                    "registerDeviceResultParser")}
         });
     }
 

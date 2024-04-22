@@ -15,7 +15,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaDeviceChannelEncoderImplTest extends EncoderTest<SuplaDeviceChannel> {
-    @InjectMocks SuplaDeviceChannelEncoderImpl encoder;
+    @InjectMocks
+    SuplaDeviceChannelEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaDeviceChannel proto) {

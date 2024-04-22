@@ -9,11 +9,9 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public final class SuplaChannelPackEncoderImpl implements SuplaChannelPackEncoder {
     public static final SuplaChannelPackEncoderImpl INSTANCE =
-            new SuplaChannelPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelEncoderImpl.INSTANCE);
+        new SuplaChannelPackEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelEncoder channelEncoder;
 

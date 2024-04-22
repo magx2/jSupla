@@ -50,7 +50,7 @@ public class ChannelNewValueB extends ChannelNewValue {
     @Override
     public String toString() {
         return "ChannelNewValueB{" +
-                       "channelId=" + channelId +
-                       "} " + super.toString();
+            "channelId=" + channelId +
+            "} " + super.toString();
     }
 }

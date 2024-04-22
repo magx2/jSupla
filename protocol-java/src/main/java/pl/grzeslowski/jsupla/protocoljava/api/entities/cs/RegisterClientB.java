@@ -5,15 +5,9 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterClientB extends RegisterClient {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
@@ -74,7 +68,7 @@ public class RegisterClientB extends RegisterClient {
     @Override
     public String toString() {
         return "RegisterClientB{" +
-                "serverName='" + serverName + '\'' +
-                "} " + super.toString();
+            "serverName='" + serverName + '\'' +
+            "} " + super.toString();
     }
 }

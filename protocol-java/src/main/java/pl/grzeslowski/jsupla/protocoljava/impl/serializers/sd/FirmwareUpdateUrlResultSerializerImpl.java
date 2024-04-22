@@ -19,9 +19,9 @@ public class FirmwareUpdateUrlResultSerializerImpl implements FirmwareUpdateUrlR
     @Override
     public SuplaFirmwareUpdateUrlResult serialize(@NotNull final FirmwareUpdateUrlResult entity) {
         return new SuplaFirmwareUpdateUrlResult(
-                                                       (byte) (entity.isExists() ? 1 : 0),
-                                                       firmwareUpdateUrlSerializer.serialize(
-                                                               entity.getFirmwareUpdateUrl())
+            (byte) (entity.isExists() ? 1 : 0),
+            firmwareUpdateUrlSerializer.serialize(
+                entity.getFirmwareUpdateUrl())
         );
     }
 }

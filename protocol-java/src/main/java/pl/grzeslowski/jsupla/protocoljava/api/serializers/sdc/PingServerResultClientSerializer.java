@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClien
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.PingServerResultClient;
 
 public interface PingServerResultClientSerializer
-        extends ServerDeviceClientSerializer<PingServerResultClient, SuplaPingServerResultClient> {
+    extends ServerDeviceClientSerializer<PingServerResultClient, SuplaPingServerResultClient> {
 }

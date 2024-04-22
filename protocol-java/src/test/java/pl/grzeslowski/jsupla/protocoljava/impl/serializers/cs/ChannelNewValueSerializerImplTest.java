@@ -14,11 +14,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-@Deprecated
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueSerializerImplTest extends SerializerTest<ChannelNewValue, SuplaChannelNewValue> {
-    @InjectMocks ChannelNewValueSerializerImpl serializer;
-    @Mock ChannelTypeEncoder channelTypeEncoder;
+    @InjectMocks
+    ChannelNewValueSerializerImpl serializer;
+    @Mock
+    ChannelTypeEncoder channelTypeEncoder;
 
     @Override
     protected ChannelNewValue given() {

@@ -7,11 +7,10 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaNewValueDecoderImpl implements SuplaNewValueDecoder {
     public static final SuplaNewValueDecoderImpl INSTANCE = new SuplaNewValueDecoderImpl();
-    
+
     @Override
     public SuplaNewValue decode(final byte[] bytes, int offset) {
 
@@ -22,7 +21,7 @@ public final class SuplaNewValueDecoderImpl implements SuplaNewValueDecoder {
         offset += BYTE_SIZE;
 
         final byte[] value = PrimitiveDecoderImpl.INSTANCE.copyOfRange(
-                bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+            bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
 
         return new SuplaNewValue(id, target, value);
     }

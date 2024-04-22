@@ -7,19 +7,14 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceDecoder
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@Deprecated
 public final class SuplaRegisterDeviceDecoderImpl implements SuplaRegisterDeviceDecoder {
     public static final SuplaRegisterDeviceDecoderImpl INSTANCE = new SuplaRegisterDeviceDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE, SuplaDeviceChannelDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE, SuplaDeviceChannelDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaDeviceChannelDecoder channelDecoder;
 

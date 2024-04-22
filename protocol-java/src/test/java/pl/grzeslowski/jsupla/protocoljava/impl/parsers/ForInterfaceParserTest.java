@@ -53,7 +53,6 @@ public abstract class ForInterfaceParserTest<EntityT extends Entity, SuplaProtoT
     /**
      * @deprecated use TestUtil.
      */
-    @Deprecated
     protected static Field getDeclaredField(Class<?> clazz, String field) throws NoSuchFieldException {
         return TestUtil.getDeclaredField(clazz, field);
     }

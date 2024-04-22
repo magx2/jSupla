@@ -10,11 +10,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceDSeri
 import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 public class RegisterDeviceDSerializerImpl implements RegisterDeviceDSerializer {
     private final StringSerializer stringSerializer;
@@ -29,9 +25,10 @@ public class RegisterDeviceDSerializerImpl implements RegisterDeviceDSerializer 
     @Override
     public SuplaRegisterDeviceD serialize(@NotNull RegisterDeviceD entity) {
         SuplaDeviceChannelB[] channels = entity.getChannels()
-                                             .stream()
-                                             .map(deviceChannelBSerializer::serialize)
-                                             .toArray(SuplaDeviceChannelB[]::new);
+            .getChannels()
+            .stream()
+            .map(deviceChannelBSerializer::serialize)
+            .toArray(SuplaDeviceChannelB[]::new);
         return new SuplaRegisterDeviceD(
             stringSerializer.serialize(entity.getEmail(), SUPLA_EMAIL_MAXSIZE),
             stringSerializer.serialize(entity.getAuthKey(), SUPLA_AUTHKEY_SIZE),

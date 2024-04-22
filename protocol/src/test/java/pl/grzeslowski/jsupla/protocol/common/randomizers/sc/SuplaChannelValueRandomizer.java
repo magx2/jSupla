@@ -14,11 +14,11 @@ public class SuplaChannelValueRandomizer implements Randomizer<SuplaChannelValue
     @Override
     public SuplaChannelValue getRandomValue() {
         return new SuplaChannelValue(
-                                            randomSupla.nextByte(),
-                                            randomSupla.nextPositiveInt(),
-                                            randomSupla.nextByte(),
-                                            randomSupla.nextObject(
-                                                    pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class)
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextByte(),
+            randomSupla.nextObject(
+                pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class)
         );
     }
 }

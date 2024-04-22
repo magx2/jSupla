@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public class SuplaPingServerEncoderImpl implements SuplaPingServerEncoder {
     public static final SuplaPingServerEncoderImpl INSTANCE =
-            new SuplaPingServerEncoderImpl(TimevalEncoderImpl.INSTANCE);
+        new SuplaPingServerEncoderImpl(TimevalEncoderImpl.INSTANCE);
     private final TimevalEncoder timevalEncoder;
 
     SuplaPingServerEncoderImpl(final TimevalEncoder timevalEncoder) {

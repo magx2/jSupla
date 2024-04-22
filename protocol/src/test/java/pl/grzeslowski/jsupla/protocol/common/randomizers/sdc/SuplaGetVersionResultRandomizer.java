@@ -18,8 +18,8 @@ public class SuplaGetVersionResultRandomizer implements Randomizer<SuplaGetVersi
         final short protoVersion = (short) (randomSupla.nextUnsignedByte() + 1);
         final short protoVersionMin = randomSupla.nextUnsignedByte(protoVersion);
         return new SuplaGetVersionResult(
-                                                protoVersionMin,
-                                                protoVersion,
+            protoVersionMin,
+            protoVersion,
             randomSupla.nextByteArrayFromString(SUPLA_SOFTVER_MAXSIZE)
         );
     }

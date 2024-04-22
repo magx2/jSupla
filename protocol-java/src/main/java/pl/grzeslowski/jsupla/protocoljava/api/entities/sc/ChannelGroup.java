@@ -6,9 +6,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.byteSize;
-import static pl.grzeslowski.jsupla.Preconditions.positive;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 
 public class ChannelGroup implements ServerClientEntity {
     @Max(Byte.MAX_VALUE)
@@ -77,12 +75,12 @@ public class ChannelGroup implements ServerClientEntity {
         }
         ChannelGroup that = (ChannelGroup) o;
         return eol == that.eol &&
-                id == that.id &&
-                locationId == that.locationId &&
-                function == that.function &&
-                altIcon == that.altIcon &&
-                flags == that.flags &&
-                Objects.equals(caption, that.caption);
+            id == that.id &&
+            locationId == that.locationId &&
+            function == that.function &&
+            altIcon == that.altIcon &&
+            flags == that.flags &&
+            Objects.equals(caption, that.caption);
     }
 
     @Override
@@ -93,13 +91,13 @@ public class ChannelGroup implements ServerClientEntity {
     @Override
     public String toString() {
         return "ChannelGroup{" +
-                "eol=" + eol +
-                ", id=" + id +
-                ", locationId=" + locationId +
-                ", function=" + function +
-                ", altIcon=" + altIcon +
-                ", flags=" + flags +
-                ", caption='" + caption + '\'' +
-                '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", locationId=" + locationId +
+            ", function=" + function +
+            ", altIcon=" + altIcon +
+            ", flags=" + flags +
+            ", caption='" + caption + '\'' +
+            '}';
     }
 }

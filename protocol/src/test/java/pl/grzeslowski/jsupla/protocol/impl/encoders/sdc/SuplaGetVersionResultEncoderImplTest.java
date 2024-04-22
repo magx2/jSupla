@@ -14,7 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaGetVersionResultEncoderImplTest extends EncoderTest<SuplaGetVersionResult> {
-    @InjectMocks SuplaGetVersionResultEncoderImpl encoder;
+    @InjectMocks
+    SuplaGetVersionResultEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaGetVersionResult proto) {
@@ -40,9 +41,9 @@ public class SuplaGetVersionResultEncoderImplTest extends EncoderTest<SuplaGetVe
     @Override
     public SuplaGetVersionResult getProto() {
         return new SuplaGetVersionResult(
-                                                (short) 1,
-                                                (short) 2,
-                                                new byte[SUPLA_SOFTVER_MAXSIZE]
+            (short) 1,
+            (short) 2,
+            new byte[SUPLA_SOFTVER_MAXSIZE]
         );
     }
 }

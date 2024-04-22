@@ -16,16 +16,17 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelGroupRelationEncoderImplTest extends EncoderTest<SuplaChannelGroupRelation> {
-    @InjectMocks SuplaChannelGroupRelationEncoderImpl encoder;
+    @InjectMocks
+    SuplaChannelGroupRelationEncoderImpl encoder;
 
     SuplaChannelGroupRelation proto;
 
     @Before
     public void setUp() {
         proto = new SuplaChannelGroupRelation(
-                RANDOM_SUPLA.nextByte(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt()
+            RANDOM_SUPLA.nextByte(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextInt()
         );
     }
 

@@ -48,6 +48,6 @@ public class ClientServerParserImpl implements ClientServerParser<ClientServerEn
             return newValueParser.parse((SuplaNewValue) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
-                proto.getClass(), proto));
+            proto.getClass(), proto));
     }
 }

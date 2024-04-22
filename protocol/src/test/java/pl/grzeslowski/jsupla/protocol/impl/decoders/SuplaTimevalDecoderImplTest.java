@@ -11,7 +11,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaTimevalDecoderImplTest extends DecoderTest<TimevalDecoderImpl> {
-    @InjectMocks TimevalDecoderImpl decoder;
+    @InjectMocks
+    TimevalDecoderImpl decoder;
 
     @Override
     public TimevalDecoderImpl getDecoder() {

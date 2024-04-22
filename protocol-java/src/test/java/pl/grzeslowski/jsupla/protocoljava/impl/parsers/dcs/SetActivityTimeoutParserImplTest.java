@@ -10,7 +10,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class SetActivityTimeoutParserImplTest extends AbstractParserTest<SetActivityTimeout, SuplaSetActivityTimeout> {
-    @InjectMocks SetActivityTimeoutParserImpl parser;
+    @InjectMocks
+    SetActivityTimeoutParserImpl parser;
 
     @Override
     protected void then(final SetActivityTimeout entity, final SuplaSetActivityTimeout supla) {

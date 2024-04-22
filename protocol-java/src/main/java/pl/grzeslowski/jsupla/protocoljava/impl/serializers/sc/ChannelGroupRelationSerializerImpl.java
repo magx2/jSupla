@@ -10,9 +10,9 @@ public class ChannelGroupRelationSerializerImpl implements ChannelGroupRelationS
     @Override
     public SuplaChannelGroupRelation serialize(@NotNull ChannelGroupRelation entity) {
         return new SuplaChannelGroupRelation(
-                (byte) entity.getEol(),
-                entity.getChannelGroupId(),
-                entity.getChannelId()
+            (byte) entity.getEol(),
+            entity.getChannelGroupId(),
+            entity.getChannelId()
         );
     }
 }

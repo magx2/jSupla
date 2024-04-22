@@ -4,15 +4,13 @@ import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaRegisterClientResultDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegisterClientResultDecoder {
     public static final SuplaRegisterClientResultDecoderImpl INSTANCE = new SuplaRegisterClientResultDecoderImpl();
-    
+
     @Override
     public SuplaRegisterClientResult decode(byte[] bytes, int offset) {
         Preconditions.sizeMin(bytes, offset + SuplaRegisterClientResult.SIZE);
@@ -38,12 +36,12 @@ public final class SuplaRegisterClientResultDecoderImpl implements SuplaRegister
         final short versionMin = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);
 
         return new SuplaRegisterClientResult(
-                resultCode,
-                clientId,
-                locationCount,
-                channelCount,
-                activityTimeout,
-                version,
-                versionMin);
+            resultCode,
+            clientId,
+            locationCount,
+            channelCount,
+            activityTimeout,
+            version,
+            versionMin);
     }
 }

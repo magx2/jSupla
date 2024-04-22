@@ -5,6 +5,6 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEnt
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 
 public interface ServerDeviceClientSerializer<EntityT extends ServerDeviceClientEntity,
-                                                           SuplaProtoT extends ServerDeviceClient>
-        extends Serializer<EntityT, SuplaProtoT> {
+    SuplaProtoT extends ServerDeviceClient>
+    extends Serializer<EntityT, SuplaProtoT> {
 }

@@ -17,11 +17,11 @@ public class SuplaDataPacketRandomizer implements Randomizer<SuplaDataPacket> {
     public SuplaDataPacket getRandomValue() {
         final int dataSize = randomSupla.nextPositiveInt(SUPLA_MAX_DATA_SIZE);
         return new SuplaDataPacket(
-                                          randomSupla.nextUnsignedByte(),
-                                          randomSupla.nextUnsignedInt(),
-                                          randomSupla.nextLong(100),
-                                          dataSize,
-                                          randomSupla.nextByteArray(dataSize)
+            randomSupla.nextUnsignedByte(),
+            randomSupla.nextUnsignedInt(),
+            randomSupla.nextLong(100),
+            dataSize,
+            randomSupla.nextByteArray(dataSize)
         );
     }
 }

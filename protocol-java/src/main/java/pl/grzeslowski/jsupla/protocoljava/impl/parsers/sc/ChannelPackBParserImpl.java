@@ -28,8 +28,8 @@ public class ChannelPackBParserImpl implements ChannelPackBParser {
             channels.add(parse);
         }
         return new ChannelPackB(
-                proto.totalLeft,
-                channels
+            proto.totalLeft,
+            channels
         );
     }
 }

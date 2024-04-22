@@ -19,12 +19,12 @@ class RegisterDeviceRandomizer implements Randomizer<RegisterDevice> {
     public RegisterDevice getRandomValue() {
         final DeviceChannels channels = random.nextObject(DeviceChannels.class);
         return new RegisterDevice(
-                                         random.nextInt(),
-                                         generateLocationPassword(),
-                                         generateString(SUPLA_GUID_SIZE),
-                                         generateString(SUPLA_DEVICE_NAME_MAXSIZE),
-                                         generateString(SUPLA_SOFTVER_MAXSIZE),
-                                         channels
+            random.nextInt(),
+            generateLocationPassword(),
+            generateString(SUPLA_GUID_SIZE),
+            generateString(SUPLA_DEVICE_NAME_MAXSIZE),
+            generateString(SUPLA_SOFTVER_MAXSIZE),
+            channels
         );
     }
 

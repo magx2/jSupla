@@ -19,12 +19,12 @@ public class EventSerializerImpl implements EventSerializer {
     @Override
     public SuplaEvent serialize(@NotNull final Event entity) {
         return new SuplaEvent(
-                                     entity.getEvent(),
-                                     entity.getChannelId(),
-                                     entity.getDurationMs(),
-                                     entity.getSenderId(),
-                                     entity.getSenderName().length(),
-                                     stringSerializer.serialize(entity.getSenderName())
+            entity.getEvent(),
+            entity.getChannelId(),
+            entity.getDurationMs(),
+            entity.getSenderId(),
+            entity.getSenderName().length(),
+            stringSerializer.serialize(entity.getSenderName())
         );
     }
 }

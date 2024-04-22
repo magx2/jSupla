@@ -19,14 +19,16 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelValueEncoderImplTest extends EncoderTest<SuplaChannelValue> {
-    @InjectMocks SuplaChannelValueEncoderImpl encoder;
-    @Mock pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder channelValueEncoder;
+    @InjectMocks
+    SuplaChannelValueEncoderImpl encoder;
+    @Mock
+    pl.grzeslowski.jsupla.protocol.api.encoders.SuplaChannelValueEncoder channelValueEncoder;
 
     @Override
     protected void givenEncodeEntity() {
         super.givenEncodeEntity();
         given(channelValueEncoder.encode(any(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class)))
-                .willAnswer(__ -> new byte[pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.SIZE]);
+            .willAnswer(__ -> new byte[pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.SIZE]);
     }
 
     @Override

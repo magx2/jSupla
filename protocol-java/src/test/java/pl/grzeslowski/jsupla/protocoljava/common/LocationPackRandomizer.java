@@ -21,7 +21,7 @@ class LocationPackRandomizer implements Randomizer<LocationPack> {
     public LocationPack getRandomValue() {
         final List<Location> locations = random.objects(Location.class,
                 random.nextInt(SUPLA_LOCATIONPACK_MAXSIZE - 1) + 1)
-                                                 .collect(Collectors.toList());
+            .collect(Collectors.toList());
         return new LocationPack(random.nextInt(100), locations);
     }
 }

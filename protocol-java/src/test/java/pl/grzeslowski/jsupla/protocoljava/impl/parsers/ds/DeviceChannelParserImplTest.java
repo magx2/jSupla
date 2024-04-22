@@ -17,11 +17,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
 @SuppressWarnings("WeakerAccess")
-@Deprecated
 public class DeviceChannelParserImplTest extends AbstractParserTest<DeviceChannel, SuplaDeviceChannel> {
-    @InjectMocks DeviceChannelParserImpl parser;
-    @Mock ChannelTypeDecoder channelTypeDecoder;
-    @Mock SuplaDeviceChannelToChannelType suplaDeviceChannelToChannelType;
+    @InjectMocks
+    DeviceChannelParserImpl parser;
+    @Mock
+    ChannelTypeDecoder channelTypeDecoder;
+    @Mock
+    SuplaDeviceChannelToChannelType suplaDeviceChannelToChannelType;
 
     final ChannelValue value = RANDOM_ENTITY.nextObject(ChannelValue.class);
     final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);

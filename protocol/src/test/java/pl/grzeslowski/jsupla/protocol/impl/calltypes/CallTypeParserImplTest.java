@@ -3,13 +3,7 @@ package pl.grzeslowski.jsupla.protocol.impl.calltypes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType;
-import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.*;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -36,10 +30,10 @@ public class CallTypeParserImplTest {
                 DeviceServerCallType.values(),
                 DeviceClientServerCallType.values(),
                 ClientServerCallType.values())
-                       .flatMap(Stream::of)
-                       .map(v -> (CallType) v)
-                       .map(callType -> new Object[]{callType})
-                       .collect(Collectors.toList());
+            .flatMap(Stream::of)
+            .map(v -> (CallType) v)
+            .map(callType -> new Object[]{callType})
+            .collect(Collectors.toList());
     }
 
     @Test

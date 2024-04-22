@@ -10,14 +10,14 @@ public class RegisterClientResultBParserImpl implements RegisterClientResultBPar
     @Override
     public RegisterClientResultB parse(@NotNull SuplaRegisterClientResultB proto) {
         return new RegisterClientResultB(
-                proto.resultCode,
-                proto.clientId,
-                proto.locationCount,
-                proto.channelCount,
-                proto.activityTimeout,
-                proto.version,
-                proto.versionMin,
-                proto.flags
+            proto.resultCode,
+            proto.clientId,
+            proto.locationCount,
+            proto.channelCount,
+            proto.activityTimeout,
+            proto.version,
+            proto.versionMin,
+            proto.flags
         );
     }
 }

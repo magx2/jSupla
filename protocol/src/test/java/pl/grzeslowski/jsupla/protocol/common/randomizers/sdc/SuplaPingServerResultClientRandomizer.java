@@ -15,7 +15,7 @@ public class SuplaPingServerResultClientRandomizer implements Randomizer<SuplaPi
     @Override
     public SuplaPingServerResultClient getRandomValue() {
         return new SuplaPingServerResultClient(
-                                                      randomSupla.nextObject(SuplaTimeval.class)
+            randomSupla.nextObject(SuplaTimeval.class)
         );
     }
 }

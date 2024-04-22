@@ -9,11 +9,10 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaChannelValuePackDecoderImpl implements SuplaChannelValuePackDecoder {
     public static final SuplaChannelValuePackDecoderImpl INSTANCE = new SuplaChannelValuePackDecoderImpl(
-            SuplaChannelValueDecoderImpl.INSTANCE);
+        SuplaChannelValueDecoderImpl.INSTANCE);
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelValuePackDecoderImpl(final SuplaChannelValueDecoder suplaChannelValueDecoder) {
@@ -32,17 +31,17 @@ public final class SuplaChannelValuePackDecoderImpl implements SuplaChannelValue
         for (int i = 0; i < count; i++) {
             if (bytes.length - offset < SuplaChannelValue.SIZE) {
                 throw new IllegalArgumentException(format(
-                        "Can't parse SuplaChannelValue from byte array of length %s with offset %s, " +
-                                "because length is %s!", bytes.length, offset, SuplaChannelValue.SIZE));
+                    "Can't parse SuplaChannelValue from byte array of length %s with offset %s, " +
+                        "because length is %s!", bytes.length, offset, SuplaChannelValue.SIZE));
             }
             items[i] = suplaChannelValueDecoder.decode(bytes, offset);
             offset += SuplaChannelValue.SIZE;
         }
 
         return new SuplaChannelValuePack(
-                count,
-                totalLeft,
-                items
+            count,
+            totalLeft,
+            items
         );
     }
 }

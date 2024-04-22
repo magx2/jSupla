@@ -37,7 +37,7 @@ public class ChannelValuePack implements ServerClientEntity {
         }
         ChannelValuePack that = (ChannelValuePack) o;
         return totalLeft == that.totalLeft &&
-                Objects.equals(items, that.items);
+            Objects.equals(items, that.items);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ChannelValuePack implements ServerClientEntity {
     @Override
     public String toString() {
         return "ChannelValuePack{" +
-                "totalLeft=" + totalLeft +
-                ", items=" + items +
-                '}';
+            "totalLeft=" + totalLeft +
+            ", items=" + items +
+            '}';
     }
 }

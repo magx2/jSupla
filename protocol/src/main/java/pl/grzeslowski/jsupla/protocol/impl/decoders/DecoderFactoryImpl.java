@@ -6,36 +6,11 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientC;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceD;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroup;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupRelationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValuePack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResultB;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
@@ -45,36 +20,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutRes
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaNewValueDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientCDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.*;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaPingServerDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.FirmwareUpdateParamsDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaChannelNewValueResultDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelValueDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceCDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceDDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelationDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelGroupRelationPackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValuePackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationPackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaRegisterClientResultBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaRegisterClientResultDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.*;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.*;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlResultDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaRegisterDeviceResultDecoderImpl;
@@ -85,41 +35,13 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.sdc.SuplaVersionErrorDecoder
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_CHANNEL_SET_VALUE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_CHANNEL_SET_VALUE_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_C;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_SET_VALUE;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.*;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_C;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_D;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_EVENT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATION_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_CHANNEL_SET_VALUE;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.SUPLA_SD_CALL_REGISTER_DEVICE_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_GETVERSION_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_VERSIONERROR;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.*;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.*;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.*;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.*;
 
 public final class DecoderFactoryImpl implements DecoderFactory {
     public static final DecoderFactoryImpl INSTANCE = new DecoderFactoryImpl();
@@ -240,8 +162,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) FirmwareUpdateUrlResultDecoderImpl.INSTANCE;
         }
         if (pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class.isAssignableFrom(proto)) {
-            return (Decoder<T>) 
-                           pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
+            return (Decoder<T>)
+                pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
         }
         if (SuplaRegisterDeviceResult.class.isAssignableFrom(proto)) {
             return (Decoder<T>) SuplaRegisterDeviceResultDecoderImpl.INSTANCE;
@@ -381,8 +303,8 @@ public final class DecoderFactoryImpl implements DecoderFactory {
             return (Decoder<T>) FirmwareUpdateUrlResultDecoderImpl.INSTANCE;
         }
         if (callType == SUPLA_SD_CALL_CHANNEL_SET_VALUE) {
-            return (Decoder<T>) 
-                           pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
+            return (Decoder<T>)
+                pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.INSTANCE;
         }
         if (callType == SUPLA_SD_CALL_REGISTER_DEVICE_RESULT) {
             return (Decoder<T>) SuplaRegisterDeviceResultDecoderImpl.INSTANCE;

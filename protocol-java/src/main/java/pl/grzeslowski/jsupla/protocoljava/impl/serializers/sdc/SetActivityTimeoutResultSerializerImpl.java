@@ -10,9 +10,9 @@ public class SetActivityTimeoutResultSerializerImpl implements SetActivityTimeou
     @Override
     public SuplaSetActivityTimeoutResult serialize(@NotNull final SetActivityTimeoutResult entity) {
         return new SuplaSetActivityTimeoutResult(
-                                                        (short) entity.getActivityTimeout(),
-                                                        (short) entity.getMin(),
-                                                        (short) entity.getMax()
+            (short) entity.getActivityTimeout(),
+            (short) entity.getMin(),
+            (short) entity.getMax()
         );
     }
 }

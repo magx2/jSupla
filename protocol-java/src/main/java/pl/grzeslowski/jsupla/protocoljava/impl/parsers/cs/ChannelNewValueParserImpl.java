@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-@Deprecated
 public class ChannelNewValueParserImpl implements ChannelNewValueParser {
     private final ChannelTypeDecoder channelTypeDecoder;
     private final DeviceChannelValueParser.TypeMapper typeMapper;
@@ -26,7 +25,7 @@ public class ChannelNewValueParserImpl implements ChannelNewValueParser {
     public ChannelNewValue parse(@NotNull final SuplaChannelNewValue proto) {
         final ChannelType channelType = typeMapper.findChannelType(proto.channelId);
         return new ChannelNewValue(
-                                          proto.channelId,
-                                          channelTypeDecoder.decode(channelType, proto.value));
+            proto.channelId,
+            channelTypeDecoder.decode(channelType, proto.value));
     }
 }

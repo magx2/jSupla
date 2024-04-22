@@ -5,15 +5,13 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.TimevalDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.dcs.SuplaPingServerDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.TimevalDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
 public class SuplaPingServerDecoderImpl implements SuplaPingServerDecoder {
     public static final SuplaPingServerDecoderImpl INSTANCE = new SuplaPingServerDecoderImpl(
-            TimevalDecoderImpl.INSTANCE);
+        TimevalDecoderImpl.INSTANCE);
     private final TimevalDecoder timevalDecoder;
 
     public SuplaPingServerDecoderImpl(final TimevalDecoder timevalDecoder) {

@@ -19,12 +19,12 @@ public class RegisterClientCParserImpl implements RegisterClientCParser {
     @Override
     public RegisterClientC parse(@NotNull SuplaRegisterClientC proto) {
         return new RegisterClientC(
-                stringParser.parse(proto.email),
-                stringParser.parse(proto.authKey),
-                stringParser.parse(proto.guid),
-                stringParser.parse(proto.name),
-                stringParser.parse(proto.softVer),
-                stringParser.parse(proto.serverName)
+            stringParser.parse(proto.email),
+            stringParser.parse(proto.authKey),
+            stringParser.parse(proto.guid),
+            stringParser.parse(proto.name),
+            stringParser.parse(proto.softVer),
+            stringParser.parse(proto.serverName)
         );
     }
 }

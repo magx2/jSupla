@@ -22,8 +22,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelPackBEncoderImplTest extends EncoderTest<SuplaChannelPackB> {
-    @InjectMocks SuplaChannelPackBEncoderImpl encoder;
-    @Mock SuplaChannelBEncoder suplaChannelBEncoder;
+    @InjectMocks
+    SuplaChannelPackBEncoderImpl encoder;
+    @Mock
+    SuplaChannelBEncoder suplaChannelBEncoder;
 
     SuplaChannelPackB proto;
 
@@ -31,11 +33,11 @@ public class SuplaChannelPackBEncoderImplTest extends EncoderTest<SuplaChannelPa
     public void setUp() {
         final int count = RANDOM_SUPLA.nextPositiveInt(SUPLA_CHANNELPACK_MAXSIZE);
         proto = new SuplaChannelPackB(
-                count,
-                RANDOM_SUPLA.nextPositiveInt(),
-                Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaChannelB.class))
-                        .limit(count)
-                        .toArray(SuplaChannelB[]::new));
+            count,
+            RANDOM_SUPLA.nextPositiveInt(),
+            Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaChannelB.class))
+                .limit(count)
+                .toArray(SuplaChannelB[]::new));
         for (SuplaChannelB channel : proto.channels) {
             given(suplaChannelBEncoder.encode(channel)).willReturn(new byte[channel.size()]);
         }

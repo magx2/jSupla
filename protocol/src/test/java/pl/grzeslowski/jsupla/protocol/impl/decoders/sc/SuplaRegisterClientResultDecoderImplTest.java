@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientResultDecoderImplTest extends ProperDecoderTest<SuplaRegisterClientResult> {
-    @InjectMocks SuplaRegisterClientResultDecoderImpl decoder;
+    @InjectMocks
+    SuplaRegisterClientResultDecoderImpl decoder;
     final SuplaRegisterClientResult proto = RANDOM_SUPLA.nextObject(SuplaRegisterClientResult.class);
 
     @Override

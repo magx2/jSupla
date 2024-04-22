@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterDeviceParserImpl implements RegisterDeviceParser {
     private final StringParser stringParser;
     private final DeviceChannelParser deviceChannelParser;
@@ -29,15 +27,15 @@ public class RegisterDeviceParserImpl implements RegisterDeviceParser {
     @Override
     public RegisterDevice parse(@NotNull final SuplaRegisterDevice proto) {
         final List<DeviceChannel> channels = Arrays.stream(proto.channels)
-                .map(deviceChannelParser::parse)
-                .collect(Collectors.toList());
+            .map(deviceChannelParser::parse)
+            .collect(Collectors.toList());
         return new RegisterDevice(
-                proto.locationId,
-                stringParser.parsePassword(proto.locationPwd),
-                stringParser.parseHexString(proto.guid),
-                stringParser.parse(proto.name),
-                stringParser.parse(proto.softVer),
-                new DeviceChannels(channels)
+            proto.locationId,
+            stringParser.parsePassword(proto.locationPwd),
+            stringParser.parseHexString(proto.guid),
+            stringParser.parse(proto.name),
+            stringParser.parse(proto.softVer),
+            new DeviceChannels(channels)
         );
     }
 }

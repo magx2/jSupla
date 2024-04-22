@@ -9,10 +9,9 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
-@Deprecated
 public final class SuplaRegisterDeviceEncoderImpl implements SuplaRegisterDeviceEncoder {
     public static final SuplaRegisterDeviceEncoderImpl INSTANCE =
-            new SuplaRegisterDeviceEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaDeviceChannelEncoderImpl.INSTANCE);
+        new SuplaRegisterDeviceEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaDeviceChannelEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaDeviceChannelEncoder deviceChannelEncoder;
 

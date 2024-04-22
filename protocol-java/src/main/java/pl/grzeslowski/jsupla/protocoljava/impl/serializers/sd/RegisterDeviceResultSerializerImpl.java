@@ -10,10 +10,10 @@ public class RegisterDeviceResultSerializerImpl implements RegisterDeviceResultS
     @Override
     public SuplaRegisterDeviceResult serialize(@NotNull final RegisterDeviceResult entity) {
         return new SuplaRegisterDeviceResult(
-                                                    entity.getResultCode(),
-                                                    (byte) entity.getActivityTimeout(),
-                                                    (byte) entity.getVersion(),
-                                                    (byte) entity.getVersionMin()
+            entity.getResultCode(),
+            (byte) entity.getActivityTimeout(),
+            (byte) entity.getVersion(),
+            (byte) entity.getVersionMin()
         );
     }
 }

@@ -33,16 +33,16 @@ public final class NettyServerFactory implements ServerFactory {
     @Override
     public Server createNewServer(@NotNull final ServerProperties serverProperties) {
         return new NettyServer(
-                fromServerProperties(serverProperties),
-                callTypeParser,
-                decoderFactory,
-                encoderFactory);
+            fromServerProperties(serverProperties),
+            callTypeParser,
+            decoderFactory,
+            encoderFactory);
     }
 
     private NettyConfig fromServerProperties(ServerProperties serverProperties) {
         return new NettyConfig(
-                serverProperties.getProperty(PORT, Integer.class),
-                serverProperties.getProperty(SSL_CTX, SslContext.class)
+            serverProperties.getProperty(PORT, Integer.class),
+            serverProperties.getProperty(SSL_CTX, SslContext.class)
         );
     }
 }

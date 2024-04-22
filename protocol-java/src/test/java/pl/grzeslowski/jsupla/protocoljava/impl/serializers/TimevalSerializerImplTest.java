@@ -9,7 +9,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class TimevalSerializerImplTest extends SerializerTest<Timeval, SuplaTimeval> {
-    @InjectMocks TimevalSerializerImpl serializer;
+    @InjectMocks
+    TimevalSerializerImpl serializer;
 
     @Override
     protected void then(final Timeval entity, final SuplaTimeval proto) {

@@ -90,12 +90,12 @@ public final class SuplaEvent implements ServerClient {
     @Override
     public String toString() {
         return "SuplaEvent{" +
-                "event=" + event +
-                ", channelId=" + channelId +
-                ", durationMs=" + durationMs +
-                ", senderId=" + senderId +
-                ", senderNameSize=" + senderNameSize +
-                ", senderName=" + Arrays.toString(senderName) +
-                '}';
+            "event=" + event +
+            ", channelId=" + channelId +
+            ", durationMs=" + durationMs +
+            ", senderId=" + senderId +
+            ", senderNameSize=" + senderNameSize +
+            ", senderName=" + Arrays.toString(senderName) +
+            '}';
     }
 }

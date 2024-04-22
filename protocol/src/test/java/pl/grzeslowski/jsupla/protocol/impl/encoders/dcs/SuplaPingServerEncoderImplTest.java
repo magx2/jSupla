@@ -16,8 +16,10 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaPingServerEncoderImplTest extends EncoderTest<SuplaPingServer> {
-    @InjectMocks SuplaPingServerEncoderImpl encoder;
-    @Mock TimevalEncoder timevalEncoder;
+    @InjectMocks
+    SuplaPingServerEncoderImpl encoder;
+    @Mock
+    TimevalEncoder timevalEncoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaPingServer proto) {

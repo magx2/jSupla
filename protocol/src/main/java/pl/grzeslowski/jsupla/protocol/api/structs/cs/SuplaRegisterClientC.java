@@ -6,23 +6,18 @@ import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.SUPLA_CS_CALL_REGISTER_CLIENT_C;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 /**
  * @since ver. 7
  */
 public final class SuplaRegisterClientC implements ClientServer {
     public static final int SIZE = SUPLA_EMAIL_MAXSIZE
-                                           + SUPLA_AUTHKEY_SIZE
-                                           + SUPLA_GUID_SIZE
-                                           + SUPLA_CLIENT_NAME_MAXSIZE
-                                           + SUPLA_SOFTVER_MAXSIZE
-                                           + SUPLA_SERVER_NAME_MAXSIZE;
+        + SUPLA_AUTHKEY_SIZE
+        + SUPLA_GUID_SIZE
+        + SUPLA_CLIENT_NAME_MAXSIZE
+        + SUPLA_SOFTVER_MAXSIZE
+        + SUPLA_SERVER_NAME_MAXSIZE;
 
     /**
      * UTF-8.
@@ -67,11 +62,11 @@ public final class SuplaRegisterClientC implements ClientServer {
         }
         final SuplaRegisterClientC that = (SuplaRegisterClientC) o;
         return Arrays.equals(email, that.email) &&
-                       Arrays.equals(authKey, that.authKey) &&
-                       Arrays.equals(guid, that.guid) &&
-                       Arrays.equals(name, that.name) &&
-                       Arrays.equals(softVer, that.softVer) &&
-                       Arrays.equals(serverName, that.serverName);
+            Arrays.equals(authKey, that.authKey) &&
+            Arrays.equals(guid, that.guid) &&
+            Arrays.equals(name, that.name) &&
+            Arrays.equals(softVer, that.softVer) &&
+            Arrays.equals(serverName, that.serverName);
     }
 
     @Override
@@ -88,12 +83,12 @@ public final class SuplaRegisterClientC implements ClientServer {
     @Override
     public String toString() {
         return "SuplaRegisterClientC{" +
-                       "email=" + Arrays.toString(email) +
-                ", authKey=[PROTECTED]" +
-                       ", guid=" + Arrays.toString(guid) +
-                       ", name=" + Arrays.toString(name) +
-                       ", softVer=" + Arrays.toString(softVer) +
-                       ", serverName=" + Arrays.toString(serverName) +
-                       '}';
+            "email=" + Arrays.toString(email) +
+            ", authKey=[PROTECTED]" +
+            ", guid=" + Arrays.toString(guid) +
+            ", name=" + Arrays.toString(name) +
+            ", softVer=" + Arrays.toString(softVer) +
+            ", serverName=" + Arrays.toString(serverName) +
+            '}';
     }
 }

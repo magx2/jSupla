@@ -21,22 +21,22 @@ import static org.mockito.Mockito.mock;
 @RunWith(Parameterized.class)
 public class ProtocolJavaContextTest {
     DeviceChannelValueParser.TypeMapper typeMapper = mock(DeviceChannelValueParser.TypeMapper.class);
-    
+
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() throws IOException {
         return Stream.concat(createStream(Parser.class), createStream(Serializer.class))
-                       .map(entity -> new Object[]{entity})
-                       .collect(Collectors.toList());
+            .map(entity -> new Object[]{entity})
+            .collect(Collectors.toList());
     }
 
     private static Stream<? extends Class<?>> createStream(Class<?> mainClass) throws IOException {
         return ClassPath.from(mainClass.getClassLoader())
-                       .getTopLevelClassesRecursive(mainClass.getPackage().getName())
-                       .asList()
-                       .stream()
-                       .map(ClassPath.ClassInfo::load)
-                       .filter(Class::isInterface)
-                       .filter(mainClass::isAssignableFrom);
+            .getTopLevelClassesRecursive(mainClass.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(Class::isInterface)
+            .filter(mainClass::isAssignableFrom);
     }
 
     final Class<?> serviceClass;
@@ -50,7 +50,7 @@ public class ProtocolJavaContextTest {
 
         // given
         final JSuplaContext context = new ProtocolJavaContext(typeMapper);
-        
+
         // when
         Object service = context.getService(serviceClass);
 

@@ -24,8 +24,10 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelValuePackDecoderImplTest extends ProperDecoderTest<SuplaChannelValuePack> {
-    @InjectMocks SuplaChannelValuePackDecoderImpl decoder;
-    @Mock SuplaChannelValueDecoder suplaChannelValueDecoder;
+    @InjectMocks
+    SuplaChannelValuePackDecoderImpl decoder;
+    @Mock
+    SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     int count;
     int totalLeft;
@@ -38,13 +40,13 @@ public class SuplaChannelValuePackDecoderImplTest extends ProperDecoderTest<Supl
         count = RANDOM_SUPLA.nextPositiveInt(SUPLA_CHANNELVALUE_PACK_MAXCOUNT);
         totalLeft = RANDOM_SUPLA.nextPositiveInt();
         items = Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaChannelValue.class))
-                        .limit(count)
-                        .toArray(SuplaChannelValue[]::new);
+            .limit(count)
+            .toArray(SuplaChannelValue[]::new);
 
         entity = new SuplaChannelValuePack(
-                count,
-                totalLeft,
-                items
+            count,
+            totalLeft,
+            items
         );
     }
 
@@ -61,7 +63,7 @@ public class SuplaChannelValuePackDecoderImplTest extends ProperDecoderTest<Supl
     @Override
     protected byte[] givenParseEntity(int offset) {
         given(suplaChannelValueDecoder.decode(any(), anyInt()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
         final byte[] bytes = new byte[entitySize() + offset];
 
         offset += INSTANCE.writeInteger(count, bytes, offset);

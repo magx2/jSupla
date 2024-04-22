@@ -13,20 +13,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
@@ -42,20 +30,8 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientBDecod
 import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaRegisterClientDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaPingServerDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.dcs.SuplaSetActivityTimeoutDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.FirmwareUpdateParamsDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaChannelNewValueResultDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaDeviceChannelValueDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceBDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceCDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.SuplaRegisterDeviceDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelPackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaLocationPackDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaRegisterClientResultDecoderImpl;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.ds.*;
+import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.*;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.FirmwareUpdateUrlResultDecoderImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaRegisterDeviceResultDecoderImpl;
@@ -92,56 +68,56 @@ public class DecoderFactoryImplTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                // cs
-                {RANDOM_SUPLA.nextObject(SuplaChannelNewValueB.class), SuplaChannelNewValueBDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaChannelNewValue.class), SuplaChannelNewValueDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterClientB.class), SuplaRegisterClientBDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterClient.class), SuplaRegisterClientDecoderImpl.class},
+            // cs
+            {RANDOM_SUPLA.nextObject(SuplaChannelNewValueB.class), SuplaChannelNewValueBDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaChannelNewValue.class), SuplaChannelNewValueDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterClientB.class), SuplaRegisterClientBDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterClient.class), SuplaRegisterClientDecoderImpl.class},
 
-                // dcs
-                {RANDOM_SUPLA.nextObject(SuplaPingServer.class), SuplaPingServerDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaSetActivityTimeout.class), SuplaSetActivityTimeoutDecoderImpl.class},
+            // dcs
+            {RANDOM_SUPLA.nextObject(SuplaPingServer.class), SuplaPingServerDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaSetActivityTimeout.class), SuplaSetActivityTimeoutDecoderImpl.class},
 
-                // ds                                   
-                {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateParams.class), FirmwareUpdateParamsDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaChannelNewValueResult.class),
-                        SuplaChannelNewValueResultDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class), SuplaDeviceChannelBDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaDeviceChannel.class), SuplaDeviceChannelDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaDeviceChannelValue.class), SuplaDeviceChannelValueDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceB.class), SuplaRegisterDeviceBDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceC.class), SuplaRegisterDeviceCDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterDevice.class), SuplaRegisterDeviceDecoderImpl.class},
+            // ds                                   
+            {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateParams.class), FirmwareUpdateParamsDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaChannelNewValueResult.class),
+                SuplaChannelNewValueResultDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaDeviceChannelB.class), SuplaDeviceChannelBDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaDeviceChannel.class), SuplaDeviceChannelDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaDeviceChannelValue.class), SuplaDeviceChannelValueDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceB.class), SuplaRegisterDeviceBDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceC.class), SuplaRegisterDeviceCDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterDevice.class), SuplaRegisterDeviceDecoderImpl.class},
 
-                // sc 
-                {RANDOM_SUPLA.nextObject(SuplaChannel.class), SuplaChannelDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaChannelPack.class), SuplaChannelPackDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class),
-                        pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaEvent.class), SuplaEventDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaLocation.class), SuplaLocationDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaLocationPack.class), SuplaLocationPackDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterClientResult.class), SuplaRegisterClientResultDecoderImpl.class},
+            // sc 
+            {RANDOM_SUPLA.nextObject(SuplaChannel.class), SuplaChannelDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaChannelPack.class), SuplaChannelPackDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class),
+                pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaChannelValueDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaEvent.class), SuplaEventDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaLocation.class), SuplaLocationDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaLocationPack.class), SuplaLocationPackDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterClientResult.class), SuplaRegisterClientResultDecoderImpl.class},
 
-                // sd
-                {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateUrl.class), FirmwareUpdateUrlDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateUrlResult.class), FirmwareUpdateUrlResultDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class),
-                        pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceResult.class), SuplaRegisterDeviceResultDecoderImpl.class},
+            // sd
+            {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateUrl.class), FirmwareUpdateUrlDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaFirmwareUpdateUrlResult.class), FirmwareUpdateUrlResultDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class),
+                pl.grzeslowski.jsupla.protocol.impl.decoders.sd.SuplaChannelNewValueDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaRegisterDeviceResult.class), SuplaRegisterDeviceResultDecoderImpl.class},
 
-                // sdc 
-                {RANDOM_SUPLA.nextObject(SuplaGetVersionResult.class), SuplaGetVersionResultDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaPingServerResultClient.class),
-                        SuplaPingServerResultClientDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaSetActivityTimeoutResult.class),
-                        SuplaSetActivityTimeoutResultDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaVersionError.class), SuplaVersionErrorDecoderImpl.class},
+            // sdc 
+            {RANDOM_SUPLA.nextObject(SuplaGetVersionResult.class), SuplaGetVersionResultDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaPingServerResultClient.class),
+                SuplaPingServerResultClientDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaSetActivityTimeoutResult.class),
+                SuplaSetActivityTimeoutResultDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaVersionError.class), SuplaVersionErrorDecoderImpl.class},
 
-                // common 
-                {RANDOM_SUPLA.nextObject(SuplaChannelValue.class), SuplaChannelValueDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaDataPacket.class), SuplaDataPacketDecoderImpl.class},
-                {RANDOM_SUPLA.nextObject(SuplaTimeval.class), TimevalDecoderImpl.class}
+            // common 
+            {RANDOM_SUPLA.nextObject(SuplaChannelValue.class), SuplaChannelValueDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaDataPacket.class), SuplaDataPacketDecoderImpl.class},
+            {RANDOM_SUPLA.nextObject(SuplaTimeval.class), TimevalDecoderImpl.class}
         });
     }
 

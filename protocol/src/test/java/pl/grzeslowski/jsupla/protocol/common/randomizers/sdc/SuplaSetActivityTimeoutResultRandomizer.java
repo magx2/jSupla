@@ -16,9 +16,9 @@ public class SuplaSetActivityTimeoutResultRandomizer implements Randomizer<Supla
         final short max = (short) (randomSupla.nextUnsignedByte() + 1);
         final short min = randomSupla.nextUnsignedByte(max);
         return new SuplaSetActivityTimeoutResult(
-                                                        randomSupla.nextUnsignedByte(),
-                                                        min,
-                                                        max
+            randomSupla.nextUnsignedByte(),
+            min,
+            max
         );
     }
 }

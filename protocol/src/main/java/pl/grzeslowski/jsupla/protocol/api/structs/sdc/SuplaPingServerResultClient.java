@@ -46,7 +46,7 @@ public final class SuplaPingServerResultClient implements ServerDeviceClient {
     @Override
     public String toString() {
         return "SuplaPingServerResultClient{" +
-                       "timeval=" + timeval +
-                       '}';
+            "timeval=" + timeval +
+            '}';
     }
 }

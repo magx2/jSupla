@@ -4,5 +4,5 @@ import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 
 public interface ChannelNewValueBSerializer
-        extends ClientServerSerializer<ChannelNewValueB, SuplaChannelNewValueB> {
+    extends ClientServerSerializer<ChannelNewValueB, SuplaChannelNewValueB> {
 }

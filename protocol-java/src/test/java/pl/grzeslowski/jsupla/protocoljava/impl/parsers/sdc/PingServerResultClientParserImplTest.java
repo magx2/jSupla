@@ -16,15 +16,17 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class PingServerResultClientParserImplTest
-        extends AbstractParserTest<PingServerResultClient, SuplaPingServerResultClient> {
-    @InjectMocks PingServerResultClientParserImpl parser;
-    @Mock TimevalParser timevalParser;
+    extends AbstractParserTest<PingServerResultClient, SuplaPingServerResultClient> {
+    @InjectMocks
+    PingServerResultClientParserImpl parser;
+    @Mock
+    TimevalParser timevalParser;
 
     @Override
     protected SuplaPingServerResultClient given() {
         final SuplaPingServerResultClient supla = super.given();
         BDDMockito.given(timevalParser.parse(supla.timeval))
-                .willReturn(RANDOM_ENTITY.nextObject(Timeval.class));
+            .willReturn(RANDOM_ENTITY.nextObject(Timeval.class));
         return supla;
     }
 

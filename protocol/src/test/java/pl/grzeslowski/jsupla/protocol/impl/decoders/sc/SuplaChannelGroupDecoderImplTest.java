@@ -15,7 +15,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelGroupDecoderImplTest extends ProperDecoderTest<SuplaChannelGroup> {
-    @InjectMocks SuplaChannelGroupDecoderImpl decoder;
+    @InjectMocks
+    SuplaChannelGroupDecoderImpl decoder;
 
     byte eol;
     int id;
@@ -40,14 +41,14 @@ public class SuplaChannelGroupDecoderImplTest extends ProperDecoderTest<SuplaCha
         caption = RANDOM_SUPLA.nextByteArray((int) captionSize);
 
         entity = new SuplaChannelGroup(
-                eol,
-                id,
-                locationId,
-                func,
-                altIcon,
-                flags,
-                captionSize,
-                caption
+            eol,
+            id,
+            locationId,
+            func,
+            altIcon,
+            flags,
+            captionSize,
+            caption
         );
     }
 

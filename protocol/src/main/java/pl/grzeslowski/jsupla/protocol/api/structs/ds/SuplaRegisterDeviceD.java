@@ -9,12 +9,7 @@ import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.positive;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_REGISTER_DEVICE_D;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 /**
  * @since ver. 7
@@ -58,9 +53,9 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     @Override
     public int size() {
         return BYTE_SIZE * (SUPLA_EMAIL_MAXSIZE + SUPLA_AUTHKEY_SIZE
-                                    + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE
-                                    + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE) +
-                       BYTE_SIZE + channels.length * SuplaDeviceChannelB.SIZE;
+            + SUPLA_GUID_SIZE + SUPLA_DEVICE_NAME_MAXSIZE
+            + SUPLA_SOFTVER_MAXSIZE + SUPLA_SERVER_NAME_MAXSIZE) +
+            BYTE_SIZE + channels.length * SuplaDeviceChannelB.SIZE;
     }
 
     @Override
@@ -73,13 +68,13 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
         }
         final SuplaRegisterDeviceD that = (SuplaRegisterDeviceD) o;
         return channelCount == that.channelCount &&
-                       Arrays.equals(email, that.email) &&
-                       Arrays.equals(authKey, that.authKey) &&
-                       Arrays.equals(guid, that.guid) &&
-                       Arrays.equals(name, that.name) &&
-                       Arrays.equals(softVer, that.softVer) &&
-                       Arrays.equals(serverName, that.serverName) &&
-                       Arrays.equals(channels, that.channels);
+            Arrays.equals(email, that.email) &&
+            Arrays.equals(authKey, that.authKey) &&
+            Arrays.equals(guid, that.guid) &&
+            Arrays.equals(name, that.name) &&
+            Arrays.equals(softVer, that.softVer) &&
+            Arrays.equals(serverName, that.serverName) &&
+            Arrays.equals(channels, that.channels);
     }
 
     @Override
@@ -98,14 +93,14 @@ public final class SuplaRegisterDeviceD implements DeviceServer {
     @Override
     public String toString() {
         return "SuplaRegisterDeviceD{" +
-                       "email=" + Arrays.toString(email) +
-                ", authKey=[PROTECTED]" +
-                       ", guid=" + Arrays.toString(guid) +
-                       ", name=" + Arrays.toString(name) +
-                       ", softVer=" + Arrays.toString(softVer) +
-                       ", serverName=" + Arrays.toString(serverName) +
-                       ", channelCount=" + channelCount +
-                       ", channels=" + Arrays.toString(channels) +
-                       '}';
+            "email=" + Arrays.toString(email) +
+            ", authKey=[PROTECTED]" +
+            ", guid=" + Arrays.toString(guid) +
+            ", name=" + Arrays.toString(name) +
+            ", softVer=" + Arrays.toString(softVer) +
+            ", serverName=" + Arrays.toString(serverName) +
+            ", channelCount=" + channelCount +
+            ", channels=" + Arrays.toString(channels) +
+            '}';
     }
 }

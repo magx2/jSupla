@@ -14,8 +14,8 @@ public class TimevalRandomizer implements Randomizer<SuplaTimeval> {
     @Override
     public SuplaTimeval getRandomValue() {
         return new SuplaTimeval(
-                                       randomSupla.nextPositiveInt(),
-                                       randomSupla.nextPositiveInt()
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt()
         );
     }
 }

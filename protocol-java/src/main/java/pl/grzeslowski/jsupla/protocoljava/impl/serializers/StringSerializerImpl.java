@@ -21,8 +21,8 @@ public class StringSerializerImpl implements StringSerializer {
         final byte[] stringBytes = getBytesFromString(string);
         if (stringBytes.length > length) {
             throw new IllegalArgumentException(format(
-                    "String [%s] has too many bytes [%s] to fit in byte array of size [%s]",
-                    string, stringBytes.length, length
+                "String [%s] has too many bytes [%s] to fit in byte array of size [%s]",
+                string, stringBytes.length, length
             ));
         }
         arraycopy(stringBytes, 0, bytes, 0, stringBytes.length);
@@ -60,8 +60,8 @@ public class StringSerializerImpl implements StringSerializer {
     public byte[] serializeHexString(String hex) {
         if (hex.length() != HEX_STRING_SUPPORTED_LENGTH) {
             throw new IllegalArgumentException(format(
-                    "This length of string %s (%s) is not supported. Only length that is supported is %s",
-                    hex, hex.length(), HEX_STRING_SUPPORTED_LENGTH));
+                "This length of string %s (%s) is not supported. Only length that is supported is %s",
+                hex, hex.length(), HEX_STRING_SUPPORTED_LENGTH));
         }
         byte[] bytes = new byte[16];
         for (int i = 0; i < hex.length() - 1; i = i + 2) {

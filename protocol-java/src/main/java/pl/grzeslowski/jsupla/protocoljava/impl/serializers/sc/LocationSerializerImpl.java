@@ -19,10 +19,10 @@ public class LocationSerializerImpl implements LocationSerializer {
     @Override
     public SuplaLocation serialize(@NotNull final Location entity) {
         return new SuplaLocation(
-                                        (byte) entity.getEol(),
-                                        entity.getId(),
-                                        entity.getCaption().length(),
-                                        stringSerializer.serialize(entity.getCaption())
+            (byte) entity.getEol(),
+            entity.getId(),
+            entity.getCaption().length(),
+            stringSerializer.serialize(entity.getCaption())
         );
     }
 }

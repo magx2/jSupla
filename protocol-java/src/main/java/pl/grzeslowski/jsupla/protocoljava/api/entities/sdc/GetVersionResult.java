@@ -5,10 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
-import static pl.grzeslowski.jsupla.Preconditions.max;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
@@ -75,9 +72,9 @@ public class GetVersionResult implements ServerDeviceClientEntity {
     @Override
     public String toString() {
         return "GetVersionResult{" +
-                       "protoVersionMin=" + protoVersionMin +
-                       ", protoVersion=" + protoVersion +
-                       ", softVer='" + softVer + '\'' +
-                       '}';
+            "protoVersionMin=" + protoVersionMin +
+            ", protoVersion=" + protoVersion +
+            ", softVer='" + softVer + '\'' +
+            '}';
     }
 }

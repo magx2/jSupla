@@ -57,8 +57,8 @@ public class VersionError implements ServerDeviceClientEntity {
     @Override
     public String toString() {
         return "VersionError{" +
-                       "serverVersionMin=" + serverVersionMin +
-                       ", serverVersion=" + serverVersion +
-                       '}';
+            "serverVersionMin=" + serverVersionMin +
+            ", serverVersion=" + serverVersion +
+            '}';
     }
 }

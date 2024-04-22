@@ -5,14 +5,9 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.id;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.UNSIGNED_BYTE_MAX;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterClientResult implements ServerClientEntity {
     private final int resultCode;
     @Positive
@@ -89,18 +84,18 @@ public class RegisterClientResult implements ServerClientEntity {
             return false;
         }
         return resultCode == that.resultCode &&
-                clientId == that.clientId &&
-                locationCount == that.locationCount &&
-                channelCount == that.channelCount &&
-                activityTimeout == that.activityTimeout &&
-                version == that.version &&
-                versionMin == that.versionMin;
+            clientId == that.clientId &&
+            locationCount == that.locationCount &&
+            channelCount == that.channelCount &&
+            activityTimeout == that.activityTimeout &&
+            version == that.version &&
+            versionMin == that.versionMin;
     }
 
     protected boolean canEqual(final Object other) {
         return other instanceof RegisterClientResult;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(resultCode, clientId, locationCount, channelCount, activityTimeout, version, versionMin);
@@ -109,13 +104,13 @@ public class RegisterClientResult implements ServerClientEntity {
     @Override
     public String toString() {
         return "RegisterClientResult{" +
-                "resultCode=" + resultCode +
-                ", clientId=" + clientId +
-                ", locationCount=" + locationCount +
-                ", channelCount=" + channelCount +
-                ", activityTimeout=" + activityTimeout +
-                ", version=" + version +
-                ", versionMin=" + versionMin +
-                '}';
+            "resultCode=" + resultCode +
+            ", clientId=" + clientId +
+            ", locationCount=" + locationCount +
+            ", channelCount=" + channelCount +
+            ", activityTimeout=" + activityTimeout +
+            ", version=" + version +
+            ", versionMin=" + versionMin +
+            '}';
     }
 }

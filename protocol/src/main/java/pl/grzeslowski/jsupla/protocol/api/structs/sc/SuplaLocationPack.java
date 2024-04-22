@@ -34,8 +34,8 @@ public final class SuplaLocationPack implements ServerClient {
 
     private int locationsSize() {
         return Arrays.stream(locations)
-                       .mapToInt(SuplaLocation::size)
-                       .sum();
+            .mapToInt(SuplaLocation::size)
+            .sum();
     }
 
     @Override
@@ -70,9 +70,9 @@ public final class SuplaLocationPack implements ServerClient {
     @Override
     public String toString() {
         return "SuplaLocationPack{" +
-                       "count=" + count +
-                       ", totalLeft=" + totalLeft +
-                       ", locations=" + Arrays.toString(locations) +
-                       '}';
+            "count=" + count +
+            ", totalLeft=" + totalLeft +
+            ", locations=" + Arrays.toString(locations) +
+            '}';
     }
 }

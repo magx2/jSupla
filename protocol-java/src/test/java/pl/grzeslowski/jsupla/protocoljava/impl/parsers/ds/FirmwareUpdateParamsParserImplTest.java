@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateParamsParserImplTest
-        extends AbstractParserTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
-    @InjectMocks FirmwareUpdateParamsParserImpl parser;
+    extends AbstractParserTest<FirmwareUpdateParams, SuplaFirmwareUpdateParams> {
+    @InjectMocks
+    FirmwareUpdateParamsParserImpl parser;
 
     @Override
     protected void then(final FirmwareUpdateParams entity, final SuplaFirmwareUpdateParams supla) {

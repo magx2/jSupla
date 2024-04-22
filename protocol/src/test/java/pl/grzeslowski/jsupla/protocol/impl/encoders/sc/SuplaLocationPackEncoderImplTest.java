@@ -20,8 +20,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaLocationPackEncoderImplTest extends EncoderTest<SuplaLocationPack> {
-    @InjectMocks SuplaLocationPackEncoderImpl encoder;
-    @Mock SuplaLocationEncoder locationEncoder;
+    @InjectMocks
+    SuplaLocationPackEncoderImpl encoder;
+    @Mock
+    SuplaLocationEncoder locationEncoder;
 
     @Override
     protected void givenEncodeEntity() {

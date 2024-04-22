@@ -36,20 +36,32 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings({"WeakerAccess", "unused"})
 @RunWith(Parameterized.class)
 public class ParserFactoryImplTestForCommonClasses {
-    @InjectMocks ParserImpl parser;
+    @InjectMocks
+    ParserImpl parser;
 
-    @Mock ClientServerParser clientServerParserFactory;
-    @Mock DeviceClientServerParser deviceClientServerParserFactory;
-    @Mock DeviceServerParser deviceServerParserFactory;
-    @Mock ServerClientParser serverClientParserFactory;
-    @Mock ServerDeviceParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
+    @Mock
+    ClientServerParser clientServerParserFactory;
+    @Mock
+    DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock
+    DeviceServerParser deviceServerParserFactory;
+    @Mock
+    ServerClientParser serverClientParserFactory;
+    @Mock
+    ServerDeviceParser serverDeviceParserFactory;
+    @Mock
+    ServerDeviceClientParser serverDeviceClientParserFactory;
 
-    @Mock DeviceChannelParser deviceChannelParser;
-    @Mock DeviceChannelBParser deviceChannelBParser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
-    @Mock ChannelValueParser channelValueParser;
-    @Mock TimevalParser timevalParser;
+    @Mock
+    DeviceChannelParser deviceChannelParser;
+    @Mock
+    DeviceChannelBParser deviceChannelBParser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    @Mock
+    ChannelValueParser channelValueParser;
+    @Mock
+    TimevalParser timevalParser;
 
     final Class<? extends Proto> clazzToTest;
     final String parserName;
@@ -63,11 +75,11 @@ public class ParserFactoryImplTestForCommonClasses {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {SuplaDeviceChannel.class, "deviceChannelParser"},
-                {SuplaDeviceChannelB.class, "deviceChannelBParser"},
-                {SuplaFirmwareUpdateUrl.class, "firmwareUpdateUrlParser"},
-                {SuplaChannelValue.class, "channelValueParser"},
-                {SuplaTimeval.class, "timevalParser"}
+            {SuplaDeviceChannel.class, "deviceChannelParser"},
+            {SuplaDeviceChannelB.class, "deviceChannelBParser"},
+            {SuplaFirmwareUpdateUrl.class, "firmwareUpdateUrlParser"},
+            {SuplaChannelValue.class, "channelValueParser"},
+            {SuplaTimeval.class, "timevalParser"}
         });
     }
 

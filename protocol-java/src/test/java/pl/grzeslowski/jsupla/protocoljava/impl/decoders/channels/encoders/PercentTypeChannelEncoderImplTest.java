@@ -7,7 +7,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class PercentTypeChannelEncoderImplTest extends ChannelTypeEncoderTest<PercentValue> {
-    @InjectMocks PercentTypeChannelEncoderImpl encoder;
+    @InjectMocks
+    PercentTypeChannelEncoderImpl encoder;
 
     @Override
     protected Class<PercentValue> getChannelValueClass() {

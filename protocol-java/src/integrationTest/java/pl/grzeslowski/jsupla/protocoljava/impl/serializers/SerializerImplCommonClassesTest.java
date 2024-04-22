@@ -40,28 +40,40 @@ public class SerializerImplCommonClassesTest {
     @Parameterized.Parameters(name = "{1}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {DeviceChannel.class, "deviceChannelSerializer"},
-                {DeviceChannelB.class, "deviceChannelBSerializer"},
-                {FirmwareUpdateUrl.class, "firmwareUpdateUrlSerializer"},
-                {ChannelValue.class, "channelValueSerializer"},
-                {Timeval.class, "timevalSerializer"}
+            {DeviceChannel.class, "deviceChannelSerializer"},
+            {DeviceChannelB.class, "deviceChannelBSerializer"},
+            {FirmwareUpdateUrl.class, "firmwareUpdateUrlSerializer"},
+            {ChannelValue.class, "channelValueSerializer"},
+            {Timeval.class, "timevalSerializer"}
         });
     }
 
-    @InjectMocks SerializerImpl factory;
+    @InjectMocks
+    SerializerImpl factory;
 
-    @Mock ClientServerSerializer clientServerSerializer;
-    @Mock DeviceClientServerSerializer deviceClientServerSerializer;
-    @Mock DeviceServerSerializer deviceServerSerializer;
-    @Mock ServerClientSerializer serverClientSerializer;
-    @Mock ServerDeviceSerializer serverDeviceSerializer;
-    @Mock ServerDeviceClientSerializer serverDeviceClientSerializer;
+    @Mock
+    ClientServerSerializer clientServerSerializer;
+    @Mock
+    DeviceClientServerSerializer deviceClientServerSerializer;
+    @Mock
+    DeviceServerSerializer deviceServerSerializer;
+    @Mock
+    ServerClientSerializer serverClientSerializer;
+    @Mock
+    ServerDeviceSerializer serverDeviceSerializer;
+    @Mock
+    ServerDeviceClientSerializer serverDeviceClientSerializer;
 
-    @Mock DeviceChannelSerializer deviceChannelSerializer;
-    @Mock DeviceChannelBSerializer deviceChannelBSerializer;
-    @Mock FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
-    @Mock ChannelValueSerializer channelValueSerializer;
-    @Mock TimevalSerializer timevalSerializer;
+    @Mock
+    DeviceChannelSerializer deviceChannelSerializer;
+    @Mock
+    DeviceChannelBSerializer deviceChannelBSerializer;
+    @Mock
+    FirmwareUpdateUrlSerializer firmwareUpdateUrlSerializer;
+    @Mock
+    ChannelValueSerializer channelValueSerializer;
+    @Mock
+    TimevalSerializer timevalSerializer;
 
     final Class<? extends Entity> clazzToTest;
     final String fieldName;
@@ -83,7 +95,7 @@ public class SerializerImplCommonClassesTest {
         // given
         final Entity entity = RANDOM_ENTITY.nextObject(clazzToTest);
         final Serializer<? super Entity, ?> expectedSerializer = (Serializer<? super Entity, ?>) getDeclaredField(
-                this.getClass(), fieldName).get(this);
+            this.getClass(), fieldName).get(this);
 
         // when
         factory.serialize(entity);

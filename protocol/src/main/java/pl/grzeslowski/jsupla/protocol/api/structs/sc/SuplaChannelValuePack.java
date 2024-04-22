@@ -5,10 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
-import static pl.grzeslowski.jsupla.Preconditions.max;
-import static pl.grzeslowski.jsupla.Preconditions.positive;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_PACK_MAXCOUNT;
@@ -47,8 +44,8 @@ public final class SuplaChannelValuePack implements ServerClient {
         }
         SuplaChannelValuePack that = (SuplaChannelValuePack) o;
         return count == that.count &&
-                       totalLeft == that.totalLeft &&
-                       Arrays.equals(items, that.items);
+            totalLeft == that.totalLeft &&
+            Arrays.equals(items, that.items);
     }
 
     @Override
@@ -61,9 +58,9 @@ public final class SuplaChannelValuePack implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelValuePack{" +
-                       "count=" + count +
-                       ", totalLeft=" + totalLeft +
-                       ", items=" + Arrays.toString(items) +
-                       '}';
+            "count=" + count +
+            ", totalLeft=" + totalLeft +
+            ", items=" + Arrays.toString(items) +
+            '}';
     }
 }

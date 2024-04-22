@@ -18,9 +18,12 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class DeviceChannelBParserImplTest extends AbstractParserTest<DeviceChannelB, SuplaDeviceChannelB> {
-    @InjectMocks DeviceChannelBParserImpl parser;
-    @Mock ChannelTypeDecoder channelTypeDecoder;
-    @Mock SuplaDeviceChannelBToChannelType suplaDeviceChannelBToChannelType;
+    @InjectMocks
+    DeviceChannelBParserImpl parser;
+    @Mock
+    ChannelTypeDecoder channelTypeDecoder;
+    @Mock
+    SuplaDeviceChannelBToChannelType suplaDeviceChannelBToChannelType;
 
     final ChannelValue channelValue = RANDOM_ENTITY.nextObject(ChannelValue.class);
     final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);

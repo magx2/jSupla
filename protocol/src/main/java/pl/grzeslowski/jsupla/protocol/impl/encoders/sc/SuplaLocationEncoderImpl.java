@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaLocationEncoderImpl implements SuplaLocationEncoder {
     public static final SuplaLocationEncoderImpl INSTANCE =
-            new SuplaLocationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaLocationEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaLocationEncoderImpl(PrimitiveEncoder primitiveEncoder) {

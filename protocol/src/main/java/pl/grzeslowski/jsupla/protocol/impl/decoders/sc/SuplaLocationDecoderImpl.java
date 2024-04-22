@@ -7,11 +7,10 @@ import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 public final class SuplaLocationDecoderImpl implements SuplaLocationDecoder {
     public static final SuplaLocationDecoderImpl INSTANCE = new SuplaLocationDecoderImpl();
-    
+
     @Override
     public SuplaLocation decode(byte[] bytes, int offset) {
         Preconditions.sizeMin(bytes, offset + SuplaLocation.MIN_SIZE);

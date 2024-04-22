@@ -52,8 +52,8 @@ public class FirmwareUpdateUrlResult implements ServerDeviceEntity {
     @Override
     public String toString() {
         return "FirmwareUpdateUrlResult{" +
-                       "exists=" + exists +
-                       ", firmwareUpdateUrl=" + firmwareUpdateUrl +
-                       '}';
+            "exists=" + exists +
+            ", firmwareUpdateUrl=" + firmwareUpdateUrl +
+            '}';
     }
 }

@@ -53,6 +53,6 @@ public class DeviceServerParserImpl implements DeviceServerParser<DeviceServerEn
             return registerDeviceDParser.parse((SuplaRegisterDeviceD) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
-                proto.getClass(), proto));
+            proto.getClass(), proto));
     }
 }

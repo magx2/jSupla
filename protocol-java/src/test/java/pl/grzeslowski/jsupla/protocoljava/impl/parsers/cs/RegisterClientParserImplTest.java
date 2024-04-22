@@ -16,19 +16,20 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTITY;
 
-@Deprecated
 @SuppressWarnings("WeakerAccess")
 public class RegisterClientParserImplTest extends AbstractParserTest<RegisterClient, SuplaRegisterClient> {
-    @InjectMocks RegisterClientParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    RegisterClientParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaRegisterClient given() {
         final SuplaRegisterClient supla = super.given();
         BDDMockito.given(stringParser.parsePassword(supla.accessIdPwd))
-                .willReturn(copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
+            .willReturn(copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
         BDDMockito.given(stringParser.parse(any()))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         return supla;
     }
 

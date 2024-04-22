@@ -11,16 +11,14 @@ import pl.grzeslowski.jsupla.protocoljava.impl.serializers.SerializerTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_ACCESSID_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@Deprecated
 @SuppressWarnings("WeakerAccess")
 public class RegisterClientSerializerImplTest extends SerializerTest<RegisterClient, SuplaRegisterClient> {
-    @InjectMocks RegisterClientSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    RegisterClientSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected RegisterClient given() {

@@ -16,7 +16,8 @@ import static pl.grzeslowski.jsupla.protocoljava.api.channels.values.OnOff.ON;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class RelayTypeChannelDecoderImplTest {
-    @InjectMocks RelayTypeChannelDecoderImpl decoder;
+    @InjectMocks
+    RelayTypeChannelDecoderImpl decoder;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowIllegalArgumentExceptionWhenSizeIsTooSmall() throws Exception {

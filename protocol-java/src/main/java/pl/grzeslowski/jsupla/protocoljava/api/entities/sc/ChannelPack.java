@@ -11,10 +11,9 @@ import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.min;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class ChannelPack implements ServerClientEntity {
-    @PositiveOrZero private final int totalLeft;
+    @PositiveOrZero
+    private final int totalLeft;
     @NotNull
     @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE)
     private final List<? extends Channel> channels;
@@ -60,8 +59,8 @@ public class ChannelPack implements ServerClientEntity {
     @Override
     public String toString() {
         return "ChannelPack{" +
-                "totalLeft=" + totalLeft +
-                ", channels=" + channels +
-                '}';
+            "totalLeft=" + totalLeft +
+            ", channels=" + channels +
+            '}';
     }
 }

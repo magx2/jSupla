@@ -16,7 +16,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerDeviceSerializerImpl
-        implements ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> {
+    implements ServerDeviceSerializer<ServerDeviceEntity, ServerDevice> {
     private final ChannelNewValueSerializer channelNewValueSerializer;
     private final FirmwareUpdateUrlResultSerializer firmwareUpdateUrlResultSerializer;
     private final RegisterDeviceResultSerializer registerDeviceResultSerializer;
@@ -39,6 +39,6 @@ public class ServerDeviceSerializerImpl
             return registerDeviceResultSerializer.serialize((RegisterDeviceResult) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

@@ -20,8 +20,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelBEncoderImplTest extends EncoderTest<SuplaChannelB> {
-    @InjectMocks SuplaChannelBEncoderImpl encoder;
-    @Mock SuplaChannelValueEncoder suplaChannelValueEncoder;
+    @InjectMocks
+    SuplaChannelBEncoderImpl encoder;
+    @Mock
+    SuplaChannelValueEncoder suplaChannelValueEncoder;
 
     SuplaChannelB proto;
     byte[] valueBytes;

@@ -20,13 +20,13 @@ public class ChannelPackBSerializerImpl implements ChannelPackBSerializer {
     @Override
     public SuplaChannelPackB serialize(@NotNull ChannelPackB entity) {
         SuplaChannelB[] channels = entity.getChannels()
-                .stream()
-                .map(channelBSerializer::serialize)
-                .toArray(SuplaChannelB[]::new);
+            .stream()
+            .map(channelBSerializer::serialize)
+            .toArray(SuplaChannelB[]::new);
         return new SuplaChannelPackB(
-                entity.getChannels().size(),
-                entity.getTotalLeft(),
-                channels
+            entity.getChannels().size(),
+            entity.getTotalLeft(),
+            channels
         );
     }
 }

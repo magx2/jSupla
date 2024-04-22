@@ -8,7 +8,8 @@ import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.
 
 @SuppressWarnings("WeakerAccess")
 public class ColorTypeChannelEncoderImplTest extends ChannelTypeEncoderTest<RgbValue> {
-    @InjectMocks ColorTypeChannelEncoderImpl encoder;
+    @InjectMocks
+    ColorTypeChannelEncoderImpl encoder;
 
     @Override
     protected Class<RgbValue> getChannelValueClass() {

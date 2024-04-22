@@ -4,7 +4,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sdc.SuplaGetVersionResultDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
@@ -12,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 
 public final class SuplaGetVersionResultDecoderImpl implements SuplaGetVersionResultDecoder {
     public static final SuplaGetVersionResultDecoderImpl INSTANCE = new SuplaGetVersionResultDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaGetVersionResultDecoderImpl(PrimitiveDecoder primitiveDecoder) {

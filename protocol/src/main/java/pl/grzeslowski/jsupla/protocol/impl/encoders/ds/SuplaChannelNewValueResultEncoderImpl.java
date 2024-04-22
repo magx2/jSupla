@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelNewValueResultEncoderImpl implements SuplaChannelNewValueResultEncoder {
     public static final SuplaChannelNewValueResultEncoderImpl INSTANCE =
-            new SuplaChannelNewValueResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaChannelNewValueResultEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaChannelNewValueResultEncoderImpl(PrimitiveEncoder primitiveEncoder) {

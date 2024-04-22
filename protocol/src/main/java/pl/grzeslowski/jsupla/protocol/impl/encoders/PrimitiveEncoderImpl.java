@@ -5,9 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import java.nio.ByteBuffer;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.LONG_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 
 public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public static final PrimitiveEncoderImpl INSTANCE = new PrimitiveEncoderImpl();
@@ -16,7 +14,7 @@ public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public int writeInteger(int value, byte[] bytes, int offset) {
         if (bytes.length < INT_SIZE + offset) {
             throw new IllegalArgumentException(
-                    format("bytes length %s is too small to have int with offset %s", bytes.length, offset));
+                format("bytes length %s is too small to have int with offset %s", bytes.length, offset));
         }
         // TODO ca be done faster...
         byte[] integer = ByteBuffer.allocate(INT_SIZE).putInt(value).array();
@@ -36,7 +34,7 @@ public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public int writeLong(long value, byte[] bytes, int offset) {
         if (bytes.length < LONG_SIZE + offset) {
             throw new IllegalArgumentException(format(
-                    "bytes length %s is too small to have int with offset %s", bytes.length, offset));
+                "bytes length %s is too small to have int with offset %s", bytes.length, offset));
         }
         // TODO ca be done faster...
         byte[] integer = ByteBuffer.allocate(LONG_SIZE).putLong(value).array();
@@ -51,7 +49,7 @@ public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public int writeByte(byte value, byte[] bytes, int offset) {
         if (bytes.length < BYTE_SIZE + offset) {
             throw new IllegalArgumentException(
-                    format("bytes length %s is too small to have byte with offset %s", bytes.length, offset));
+                format("bytes length %s is too small to have byte with offset %s", bytes.length, offset));
         }
         bytes[offset] = value;
         return BYTE_SIZE;

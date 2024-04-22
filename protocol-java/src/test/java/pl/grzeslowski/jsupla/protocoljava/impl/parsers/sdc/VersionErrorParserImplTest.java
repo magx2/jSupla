@@ -10,7 +10,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class VersionErrorParserImplTest extends AbstractParserTest<VersionError, SuplaVersionError> {
-    @InjectMocks VersionErrorParserImpl parser;
+    @InjectMocks
+    VersionErrorParserImpl parser;
 
     @Override
     protected void then(final VersionError entity, final SuplaVersionError supla) {

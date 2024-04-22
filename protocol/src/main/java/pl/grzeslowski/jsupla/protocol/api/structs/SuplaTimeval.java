@@ -48,8 +48,8 @@ public final class SuplaTimeval implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaTimeval{" +
-                       "seconds=" + seconds +
-                       ", milliseconds=" + milliseconds +
-                       '}';
+            "seconds=" + seconds +
+            ", milliseconds=" + milliseconds +
+            '}';
     }
 }

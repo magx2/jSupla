@@ -9,7 +9,6 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-@Deprecated
 public final class SuplaChannelNewValue implements ClientServer {
     public static final int SIZE = BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE;
     public final byte channelId;
@@ -57,8 +56,8 @@ public final class SuplaChannelNewValue implements ClientServer {
     @Override
     public String toString() {
         return "SuplaChannelNewValue{" +
-                       "channelId=" + channelId +
-                       ", value=" + Arrays.toString(value) +
-                       '}';
+            "channelId=" + channelId +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

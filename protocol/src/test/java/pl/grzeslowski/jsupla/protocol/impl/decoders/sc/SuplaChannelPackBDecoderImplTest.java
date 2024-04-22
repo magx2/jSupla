@@ -40,8 +40,8 @@ public class SuplaChannelPackBDecoderImplTest extends ProperDecoderTest<SuplaCha
         count = RANDOM_SUPLA.nextPositiveInt(SUPLA_CHANNELPACK_MAXSIZE);
         totalLeft = RANDOM_SUPLA.nextPositiveInt();
         channels = Stream.generate(this::minSuplaChannelB)
-                           .limit(count)
-                           .toArray(SuplaChannelB[]::new);
+            .limit(count)
+            .toArray(SuplaChannelB[]::new);
         entity = new SuplaChannelPackB(count, totalLeft, channels);
     }
 
@@ -81,17 +81,17 @@ public class SuplaChannelPackBDecoderImplTest extends ProperDecoderTest<SuplaCha
 
     private SuplaChannelB minSuplaChannelB() {
         return new SuplaChannelB(
-                RANDOM_SUPLA.nextByte(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextUnsignedInt(),
-                RANDOM_SUPLA.nextUnsignedByte(),
-                RANDOM_SUPLA.nextByte(),
-                RANDOM_SUPLA.nextObject(SuplaChannelValue.class),
-                0,
-                new byte[0]
+            RANDOM_SUPLA.nextByte(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextUnsignedInt(),
+            RANDOM_SUPLA.nextUnsignedByte(),
+            RANDOM_SUPLA.nextByte(),
+            RANDOM_SUPLA.nextObject(SuplaChannelValue.class),
+            0,
+            new byte[0]
         );
     }
 }

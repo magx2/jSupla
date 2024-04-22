@@ -13,7 +13,6 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
 
-@Deprecated
 public final class SuplaChannel implements ServerClient {
     public static final int MIN_SIZE = BYTE_SIZE * 2 + INT_SIZE * 4 + SuplaChannelValue.SIZE;
 
@@ -110,14 +109,14 @@ public final class SuplaChannel implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannel{" +
-                   "eol=" + eol +
-                   ", id=" + id +
-                   ", locationId=" + locationId +
-                   ", func=" + func +
-                   ", online=" + online +
-                   ", value=" + value +
-                   ", captionSize=" + captionSize +
-                   ", caption=" + Arrays.toString(caption) +
-                   '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", locationId=" + locationId +
+            ", func=" + func +
+            ", online=" + online +
+            ", value=" + value +
+            ", captionSize=" + captionSize +
+            ", caption=" + Arrays.toString(caption) +
+            '}';
     }
 }

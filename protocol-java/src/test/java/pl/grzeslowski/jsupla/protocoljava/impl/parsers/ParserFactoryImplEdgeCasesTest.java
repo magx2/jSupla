@@ -31,20 +31,32 @@ import static org.assertj.core.api.Java6Assertions.fail;
 @SuppressWarnings({"unused", "WeakerAccess"})
 @RunWith(MockitoJUnitRunner.class)
 public class ParserFactoryImplEdgeCasesTest {
-    @InjectMocks ParserImpl factory;
+    @InjectMocks
+    ParserImpl factory;
 
-    @Mock ClientServerParser clientServerParserFactory;
-    @Mock DeviceClientServerParser deviceClientServerParserFactory;
-    @Mock DeviceServerParser deviceServerParserFactory;
-    @Mock ServerClientParser serverClientParserFactory;
-    @Mock ServerDeviceParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
+    @Mock
+    ClientServerParser clientServerParserFactory;
+    @Mock
+    DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock
+    DeviceServerParser deviceServerParserFactory;
+    @Mock
+    ServerClientParser serverClientParserFactory;
+    @Mock
+    ServerDeviceParser serverDeviceParserFactory;
+    @Mock
+    ServerDeviceClientParser serverDeviceClientParserFactory;
 
-    @Mock DeviceChannelParser deviceChannelParser;
-    @Mock DeviceChannelBParser deviceChannelBParser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
-    @Mock ChannelValueParser channelValueParser;
-    @Mock TimevalParser timevalParser;
+    @Mock
+    DeviceChannelParser deviceChannelParser;
+    @Mock
+    DeviceChannelBParser deviceChannelBParser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    @Mock
+    ChannelValueParser channelValueParser;
+    @Mock
+    TimevalParser timevalParser;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenCannotFindProtoToParser() throws Exception {
@@ -66,14 +78,14 @@ public class ParserFactoryImplEdgeCasesTest {
     @Test
     public void shouldThrowNullPointerExceptionIfOneOfArgsIsNull() throws Exception {
         ClassPath.from(ParserImpl.class.getClassLoader())
-                .getTopLevelClassesRecursive(ParserImpl.class.getPackage().getName())
-                .asList()
-                .stream()
-                .map(ClassPath.ClassInfo::load)
-                .filter(clazz -> !clazz.isInterface())
-                .filter(Parser.class::isAssignableFrom)
-                .map(clazz -> (Class<Parser>) clazz)
-                .forEach(this::passNullForEachClass);
+            .getTopLevelClassesRecursive(ParserImpl.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Parser.class::isAssignableFrom)
+            .map(clazz -> (Class<Parser>) clazz)
+            .forEach(this::passNullForEachClass);
     }
 
     private void passNullForEachClass(final Class<Parser> parserClass) {
@@ -103,7 +115,7 @@ public class ParserFactoryImplEdgeCasesTest {
 
     private Object[] mockParameterTypes(final Class<?>[] parameterTypes) {
         return Arrays.stream(parameterTypes)
-                       .map(Mockito::mock)
-                       .toArray(Object[]::new);
+            .map(Mockito::mock)
+            .toArray(Object[]::new);
     }
 }

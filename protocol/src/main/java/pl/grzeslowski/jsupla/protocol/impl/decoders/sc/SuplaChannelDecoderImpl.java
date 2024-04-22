@@ -13,7 +13,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelDecoderImpl implements SuplaChannelDecoder {
     public static final SuplaChannelDecoderImpl INSTANCE = new SuplaChannelDecoderImpl(
-            pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaChannelValueDecoderImpl.INSTANCE);
+        pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaChannelValueDecoderImpl.INSTANCE);
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelDecoderImpl(SuplaChannelValueDecoder suplaChannelValueDecoder) {

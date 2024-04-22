@@ -22,17 +22,17 @@ public class ChannelBSerializerImpl implements ChannelBSerializer {
     @Override
     public SuplaChannelB serialize(@NotNull ChannelB entity) {
         return new SuplaChannelB(
-                (byte) entity.getEol(),
-                entity.getId(),
-                entity.getLocationId(),
-                entity.getFunction(),
-                entity.getAltIcon(),
-                entity.getFlags(),
-                (short) entity.getProtocolVersion(),
-                (byte) (entity.isOnline() ? 1 : 0),
-                channelValueSerializer.serialize(entity.getChannelValue()),
-                entity.getCaption().length(),
-                stringSerializer.serialize(entity.getCaption())
+            (byte) entity.getEol(),
+            entity.getId(),
+            entity.getLocationId(),
+            entity.getFunction(),
+            entity.getAltIcon(),
+            entity.getFlags(),
+            (short) entity.getProtocolVersion(),
+            (byte) (entity.isOnline() ? 1 : 0),
+            channelValueSerializer.serialize(entity.getChannelValue()),
+            entity.getCaption().length(),
+            stringSerializer.serialize(entity.getCaption())
         );
     }
 }

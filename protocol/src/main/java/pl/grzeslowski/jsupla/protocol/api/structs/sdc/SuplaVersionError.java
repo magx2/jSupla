@@ -60,8 +60,8 @@ public final class SuplaVersionError implements ServerDeviceClient {
     @Override
     public String toString() {
         return "SuplaVersionError{" +
-                       "serverVersionMin=" + serverVersionMin +
-                       ", serverVersion=" + serverVersion +
-                       '}';
+            "serverVersionMin=" + serverVersionMin +
+            ", serverVersion=" + serverVersion +
+            '}';
     }
 }

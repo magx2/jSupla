@@ -10,7 +10,6 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-@Deprecated
 public final class SuplaDeviceChannel implements ProtoWithSize {
     public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_CHANNELVALUE_SIZE;
 
@@ -63,9 +62,9 @@ public final class SuplaDeviceChannel implements ProtoWithSize {
     @Override
     public String toString() {
         return "SuplaDeviceChannel{" +
-                "number=" + number +
-                ", type=" + type +
-                ", value=" + Arrays.toString(value) +
-                '}';
+            "number=" + number +
+            ", type=" + type +
+            ", value=" + Arrays.toString(value) +
+            '}';
     }
 }

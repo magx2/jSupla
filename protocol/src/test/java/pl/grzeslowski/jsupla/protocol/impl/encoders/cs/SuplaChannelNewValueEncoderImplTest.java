@@ -13,7 +13,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelNewValueEncoderImplTest extends EncoderTest<SuplaChannelNewValue> {
-    @InjectMocks private SuplaChannelNewValueEncoderImpl encoder;
+    @InjectMocks
+    private SuplaChannelNewValueEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaChannelNewValue proto) {

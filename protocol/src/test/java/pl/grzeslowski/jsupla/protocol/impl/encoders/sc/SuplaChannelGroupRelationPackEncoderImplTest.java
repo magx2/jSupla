@@ -22,8 +22,10 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaChannelGroupRelationPackEncoderImplTest extends EncoderTest<SuplaChannelGroupRelationPack> {
-    @InjectMocks SuplaChannelGroupRelationPackEncoderImpl encoder;
-    @Mock SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
+    @InjectMocks
+    SuplaChannelGroupRelationPackEncoderImpl encoder;
+    @Mock
+    SuplaChannelGroupRelationEncoder suplaChannelGroupRelationEncoder;
 
     SuplaChannelGroupRelationPack proto;
 
@@ -31,14 +33,14 @@ public class SuplaChannelGroupRelationPackEncoderImplTest extends EncoderTest<Su
     public void setUp() {
         final int count = RANDOM_SUPLA.nextPositiveInt(100);
         proto = new SuplaChannelGroupRelationPack(
-                count,
-                RANDOM_SUPLA.nextPositiveInt(),
-                Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class))
-                        .limit(count)
-                        .toArray(SuplaChannelGroupRelation[]::new));
+            count,
+            RANDOM_SUPLA.nextPositiveInt(),
+            Stream.generate(() -> RANDOM_SUPLA.nextObject(SuplaChannelGroupRelation.class))
+                .limit(count)
+                .toArray(SuplaChannelGroupRelation[]::new));
         stream(proto.items).forEach(item ->
-                                            given(suplaChannelGroupRelationEncoder.encode(item))
-                                                    .willReturn(new byte[item.size()]));
+            given(suplaChannelGroupRelationEncoder.encode(item))
+                .willReturn(new byte[item.size()]));
     }
 
     @Override

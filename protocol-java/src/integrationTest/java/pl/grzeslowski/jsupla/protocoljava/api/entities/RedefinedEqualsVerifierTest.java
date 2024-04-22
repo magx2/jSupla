@@ -8,13 +8,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValue;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.ChannelNewValueB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClient;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.cs.RegisterClientB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannel;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannels;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelsB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.*;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.Channel;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ChannelB;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.RegisterClientResult;
@@ -52,9 +46,9 @@ public class RedefinedEqualsVerifierTest<T> {
     @Parameterized.Parameters(name = "{0}")
     public static Object[][] params() {
         return REDEFINED_TYPES
-                   .stream()
-                   .map(hierarchy -> new Object[]{hierarchy})
-                   .toArray(Object[][]::new);
+            .stream()
+            .map(hierarchy -> new Object[]{hierarchy})
+            .toArray(Object[][]::new);
 
     }
 
@@ -102,10 +96,10 @@ public class RedefinedEqualsVerifierTest<T> {
         @Override
         public String toString() {
             return "Hierarchy{" +
-                       "clazz=" + clazz +
-                       ", subClass=" + subClass +
-                       ", superClass=" + superClass +
-                       '}';
+                "clazz=" + clazz +
+                ", subClass=" + subClass +
+                ", superClass=" + superClass +
+                '}';
         }
     }
 }

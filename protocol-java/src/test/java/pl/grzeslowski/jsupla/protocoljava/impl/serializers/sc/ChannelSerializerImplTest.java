@@ -18,15 +18,18 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelSerializerImplTest extends SerializerTest<Channel, SuplaChannel> {
-    @InjectMocks ChannelSerializerImpl serializer;
-    @Mock ChannelValueSerializer channelValueSerializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    ChannelSerializerImpl serializer;
+    @Mock
+    ChannelValueSerializer channelValueSerializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected Channel given() {
         final Channel entity = super.given();
         BDDMockito.given(channelValueSerializer.serialize(entity.getChannelValue()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
         givenStringSerializer(stringSerializer);
         return entity;
     }

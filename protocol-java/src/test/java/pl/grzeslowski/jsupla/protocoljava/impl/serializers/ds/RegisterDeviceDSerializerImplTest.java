@@ -37,7 +37,7 @@ public class RegisterDeviceDSerializerImplTest extends SerializerTest<RegisterDe
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
         verify(stringSerializer).serialize(entity.getServerName(), SUPLA_SERVER_NAME_MAXSIZE);
         assertThat(proto.channelCount).isEqualTo((short) entity.getChannels().size());
-        entity.getChannels().forEach(channel -> verify(deviceChannelBSerializer).serialize(channel));
+        entity.getChannels().getChannels().forEach(channel -> verify(deviceChannelBSerializer).serialize(channel));
     }
 
     @Override

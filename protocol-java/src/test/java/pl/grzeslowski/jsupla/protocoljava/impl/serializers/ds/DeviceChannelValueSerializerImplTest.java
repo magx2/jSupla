@@ -16,14 +16,16 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 @SuppressWarnings("WeakerAccess")
 public class DeviceChannelValueSerializerImplTest extends SerializerTest<DeviceChannelValue, SuplaDeviceChannelValue> {
-    @InjectMocks DeviceChannelValueSerializerImpl serializer;
-    @Mock ChannelTypeEncoder channelTypeEncoder;
+    @InjectMocks
+    DeviceChannelValueSerializerImpl serializer;
+    @Mock
+    ChannelTypeEncoder channelTypeEncoder;
 
     @Override
     protected DeviceChannelValue given() {
         final DeviceChannelValue entity = super.given();
         BDDMockito.given(channelTypeEncoder.encode(entity.getValue()))
-                .willReturn(new byte[SUPLA_CHANNELVALUE_SIZE]);
+            .willReturn(new byte[SUPLA_CHANNELVALUE_SIZE]);
         return entity;
     }
 

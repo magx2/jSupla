@@ -3,12 +3,7 @@ package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ChannelValue;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
@@ -69,14 +64,14 @@ public class ChannelB extends Channel {
             return false;
         }
         return altIcon == channelB.altIcon &&
-                   flags == channelB.flags &&
-                   protocolVersion == channelB.protocolVersion;
+            flags == channelB.flags &&
+            protocolVersion == channelB.protocolVersion;
     }
 
     protected boolean canEqual(final Object other) {
         return other instanceof ChannelB;
     }
-    
+
     @Override
     public final int hashCode() {
         return Objects.hash(super.hashCode(), altIcon, flags, protocolVersion);
@@ -85,9 +80,9 @@ public class ChannelB extends Channel {
     @Override
     public String toString() {
         return "ChannelB{" +
-                "altIcon=" + altIcon +
-                ", flags=" + flags +
-                ", protocolVersion=" + protocolVersion +
-                "} " + super.toString();
+            "altIcon=" + altIcon +
+            ", flags=" + flags +
+            ", protocolVersion=" + protocolVersion +
+            "} " + super.toString();
     }
 }

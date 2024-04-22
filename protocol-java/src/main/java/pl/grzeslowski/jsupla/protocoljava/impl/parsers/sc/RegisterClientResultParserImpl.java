@@ -10,13 +10,13 @@ public class RegisterClientResultParserImpl implements RegisterClientResultParse
     @Override
     public RegisterClientResult parse(@NotNull final SuplaRegisterClientResult proto) {
         return new RegisterClientResult(
-                                               proto.resultCode,
-                                               proto.clientId,
-                                               proto.locationCount,
-                                               proto.channelCount,
-                                               proto.activityTimeout,
-                                               proto.version,
-                                               proto.versionMin
+            proto.resultCode,
+            proto.clientId,
+            proto.locationCount,
+            proto.channelCount,
+            proto.activityTimeout,
+            proto.version,
+            proto.versionMin
         );
     }
 }

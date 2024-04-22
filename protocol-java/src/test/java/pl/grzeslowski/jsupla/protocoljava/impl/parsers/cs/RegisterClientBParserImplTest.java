@@ -18,16 +18,18 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class RegisterClientBParserImplTest extends AbstractParserTest<RegisterClientB, SuplaRegisterClientB> {
-    @InjectMocks RegisterClientBParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    RegisterClientBParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaRegisterClientB given() {
         final SuplaRegisterClientB supla = super.given();
         BDDMockito.given(stringParser.parsePassword(supla.accessIdPwd))
-                .willReturn(copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
+            .willReturn(copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 10));
         BDDMockito.given(stringParser.parse(any()))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         return supla;
     }
 

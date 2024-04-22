@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class EventSerializerImplTest extends SerializerTest<Event, SuplaEvent> {
-    @InjectMocks EventSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    EventSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected Event given() {

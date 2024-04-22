@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public class SuplaRegisterClientResultBDecoderImpl implements SuplaRegisterClientResultBDecoder {
     public static final SuplaRegisterClientResultBDecoderImpl INSTANCE = new SuplaRegisterClientResultBDecoderImpl();
-    
+
     @Override
     public SuplaRegisterClientResultB decode(byte[] bytes, int offset) {
 
@@ -38,14 +38,14 @@ public class SuplaRegisterClientResultBDecoderImpl implements SuplaRegisterClien
         final short versionMin = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);
 
         return new SuplaRegisterClientResultB(
-                resultCode,
-                clientId,
-                locationCount,
-                channelCount,
-                flags,
-                activityTimeout,
-                version,
-                versionMin
+            resultCode,
+            clientId,
+            locationCount,
+            channelCount,
+            flags,
+            activityTimeout,
+            version,
+            versionMin
         );
     }
 }

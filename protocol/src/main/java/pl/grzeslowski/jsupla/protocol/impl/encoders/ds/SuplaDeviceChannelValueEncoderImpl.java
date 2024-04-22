@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaDeviceChannelValueEncoderImpl implements SuplaDeviceChannelValueEncoder {
     public static final SuplaDeviceChannelValueEncoderImpl INSTANCE =
-            new SuplaDeviceChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaDeviceChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaDeviceChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {

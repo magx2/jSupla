@@ -7,36 +7,16 @@ import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaChannelNewValueB;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.cs.SuplaRegisterClientB;
+import pl.grzeslowski.jsupla.protocol.api.structs.cs.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.DeviceClientServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaChannelNewValueResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaFirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaEvent;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocationPack;
-import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.*;
 import pl.grzeslowski.jsupla.protocol.api.types.Proto;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.TimevalParser;
@@ -62,58 +42,70 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 @RunWith(Parameterized.class)
 public class ParserFactoryImplParametrizedTest {
     static final Collection<Class<? extends ClientServer>> CLIENT_SERVER_CLASSES = Arrays.asList(
-            SuplaChannelNewValue.class,
-            SuplaChannelNewValueB.class,
-            SuplaRegisterClient.class,
-            SuplaRegisterClientB.class
+        SuplaChannelNewValue.class,
+        SuplaChannelNewValueB.class,
+        SuplaRegisterClient.class,
+        SuplaRegisterClientB.class
     );
     static final Collection<Class<? extends DeviceClientServer>> DEVICE_CLIENT_SERVER_CLASSES = Arrays.asList(
-            SuplaPingServer.class,
-            SuplaSetActivityTimeout.class
+        SuplaPingServer.class,
+        SuplaSetActivityTimeout.class
     );
     static final Collection<Class<? extends DeviceServer>> DEVICE_SERVER_CLASSES = Arrays.asList(
-            SuplaChannelNewValueResult.class,
-            SuplaDeviceChannelValue.class,
-            SuplaFirmwareUpdateParams.class,
-            SuplaRegisterDevice.class,
-            SuplaRegisterDeviceB.class,
-            SuplaRegisterDeviceC.class
+        SuplaChannelNewValueResult.class,
+        SuplaDeviceChannelValue.class,
+        SuplaFirmwareUpdateParams.class,
+        SuplaRegisterDevice.class,
+        SuplaRegisterDeviceB.class,
+        SuplaRegisterDeviceC.class
     );
     static final Collection<Class<? extends ServerClient>> SERVER_CLIENT_CLASSES = Arrays.asList(
-            SuplaChannel.class,
-            SuplaChannelPack.class,
-            pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
-            SuplaEvent.class,
-            SuplaLocation.class,
-            SuplaLocationPack.class,
-            SuplaRegisterClientResult.class
+        SuplaChannel.class,
+        SuplaChannelPack.class,
+        pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
+        SuplaEvent.class,
+        SuplaLocation.class,
+        SuplaLocationPack.class,
+        SuplaRegisterClientResult.class
     );
     static final Collection<Class<? extends ServerDevice>> SERVER_DEVICE_CLASSES = Arrays.asList(
-            pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class,
-            SuplaFirmwareUpdateUrlResult.class,
-            SuplaRegisterDeviceResult.class
+        pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class,
+        SuplaFirmwareUpdateUrlResult.class,
+        SuplaRegisterDeviceResult.class
     );
     static final Collection<Class<? extends ServerDeviceClient>> SERVER_DEVICE_CLIENT_CLASSES = Arrays.asList(
-            SuplaGetVersionResult.class,
-            SuplaPingServerResultClient.class,
-            SuplaSetActivityTimeoutResult.class,
-            SuplaVersionError.class
+        SuplaGetVersionResult.class,
+        SuplaPingServerResultClient.class,
+        SuplaSetActivityTimeoutResult.class,
+        SuplaVersionError.class
     );
 
-    @InjectMocks ParserImpl parser;
+    @InjectMocks
+    ParserImpl parser;
 
-    @Mock ClientServerParser clientServerParserFactory;
-    @Mock DeviceClientServerParser deviceClientServerParserFactory;
-    @Mock DeviceServerParser deviceServerParserFactory;
-    @Mock ServerClientParser serverClientParserFactory;
-    @Mock ServerDeviceParser serverDeviceParserFactory;
-    @Mock ServerDeviceClientParser serverDeviceClientParserFactory;
+    @Mock
+    ClientServerParser clientServerParserFactory;
+    @Mock
+    DeviceClientServerParser deviceClientServerParserFactory;
+    @Mock
+    DeviceServerParser deviceServerParserFactory;
+    @Mock
+    ServerClientParser serverClientParserFactory;
+    @Mock
+    ServerDeviceParser serverDeviceParserFactory;
+    @Mock
+    ServerDeviceClientParser serverDeviceClientParserFactory;
 
-    @Mock DeviceChannelParser deviceChannelParser;
-    @Mock DeviceChannelBParser deviceChannelBParser;
-    @Mock FirmwareUpdateUrlParser firmwareUpdateUrlParser;
-    @Mock ChannelValueParser channelValueParser;
-    @Mock TimevalParser timevalParser;
+    @Mock
+    DeviceChannelParser deviceChannelParser;
+    @Mock
+    DeviceChannelBParser deviceChannelBParser;
+    @Mock
+    FirmwareUpdateUrlParser firmwareUpdateUrlParser;
+    @Mock
+    ChannelValueParser channelValueParser;
+    @Mock
+    TimevalParser timevalParser;
 
     final Collection<Class<? extends Proto>> protosToTest;
     final BiConsumer<Proto, MockFactories> verify;
@@ -127,20 +119,20 @@ public class ParserFactoryImplParametrizedTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {CLIENT_SERVER_CLASSES, (BiConsumer<Proto, MockFactories>)
-                                                ParserFactoryImplParametrizedTest::invokeOnlyClientServerParserFactory},
-                {DEVICE_CLIENT_SERVER_CLASSES,
-                        (BiConsumer<Proto, MockFactories>)
-                                ParserFactoryImplParametrizedTest::invokeOnlyDeviceClientServerParserFactory},
-                {DEVICE_SERVER_CLASSES, (BiConsumer<Proto, MockFactories>)
-                                                ParserFactoryImplParametrizedTest::invokeOnlyDeviceServerParserFactory},
-                {SERVER_CLIENT_CLASSES, (BiConsumer<Proto, MockFactories>)
-                                                ParserFactoryImplParametrizedTest::invokeOnlyServerClientParserFactory},
-                {SERVER_DEVICE_CLASSES, (BiConsumer<Proto, MockFactories>)
-                                                ParserFactoryImplParametrizedTest::invokeOnlyServerDeviceParserFactory},
-                {SERVER_DEVICE_CLIENT_CLASSES,
-                        (BiConsumer<Proto, MockFactories>)
-                                ParserFactoryImplParametrizedTest::invokeOnlyServerDeviceClientParserFactory},
+            {CLIENT_SERVER_CLASSES, (BiConsumer<Proto, MockFactories>)
+                ParserFactoryImplParametrizedTest::invokeOnlyClientServerParserFactory},
+            {DEVICE_CLIENT_SERVER_CLASSES,
+                (BiConsumer<Proto, MockFactories>)
+                    ParserFactoryImplParametrizedTest::invokeOnlyDeviceClientServerParserFactory},
+            {DEVICE_SERVER_CLASSES, (BiConsumer<Proto, MockFactories>)
+                ParserFactoryImplParametrizedTest::invokeOnlyDeviceServerParserFactory},
+            {SERVER_CLIENT_CLASSES, (BiConsumer<Proto, MockFactories>)
+                ParserFactoryImplParametrizedTest::invokeOnlyServerClientParserFactory},
+            {SERVER_DEVICE_CLASSES, (BiConsumer<Proto, MockFactories>)
+                ParserFactoryImplParametrizedTest::invokeOnlyServerDeviceParserFactory},
+            {SERVER_DEVICE_CLIENT_CLASSES,
+                (BiConsumer<Proto, MockFactories>)
+                    ParserFactoryImplParametrizedTest::invokeOnlyServerDeviceClientParserFactory},
         });
     }
 
@@ -212,8 +204,8 @@ public class ParserFactoryImplParametrizedTest {
     @Test
     public void shouldFindAndUserProperFactoryForAllClasses() throws Exception {
         protosToTest.stream()
-                .map(clazz -> RANDOM_SUPLA.nextObject(clazz))
-                .forEach(this::shouldFindAndUserProperFactory);
+            .map(clazz -> RANDOM_SUPLA.nextObject(clazz))
+            .forEach(this::shouldFindAndUserProperFactory);
     }
 
     void shouldFindAndUserProperFactory(Proto proto) {
@@ -223,12 +215,12 @@ public class ParserFactoryImplParametrizedTest {
 
         // then
         verify.accept(proto, new MockFactories(
-                                                      clientServerParserFactory,
-                                                      deviceClientServerParserFactory,
-                                                      deviceServerParserFactory,
-                                                      serverClientParserFactory,
-                                                      serverDeviceParserFactory,
-                                                      serverDeviceClientParserFactory
+            clientServerParserFactory,
+            deviceClientServerParserFactory,
+            deviceServerParserFactory,
+            serverClientParserFactory,
+            serverDeviceParserFactory,
+            serverDeviceClientParserFactory
         ));
     }
 

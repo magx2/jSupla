@@ -7,21 +7,15 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.ds.SuplaRegisterDeviceCDecode
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-@Deprecated
 public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDeviceCDecoder {
     public static final SuplaRegisterDeviceCDecoderImpl INSTANCE = new SuplaRegisterDeviceCDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE, SuplaDeviceChannelBDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE, SuplaDeviceChannelBDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaDeviceChannelBDecoder channelBDecoder;
 
@@ -63,13 +57,13 @@ public final class SuplaRegisterDeviceCDecoderImpl implements SuplaRegisterDevic
         }
 
         return new SuplaRegisterDeviceC(
-                locationId,
-                locationPwd,
-                guid,
-                name,
-                softVer,
-                serverName,
-                channelCount,
-                channels);
+            locationId,
+            locationPwd,
+            guid,
+            name,
+            softVer,
+            serverName,
+            channelCount,
+            channels);
     }
 }

@@ -2,16 +2,11 @@ package pl.grzeslowski.jsupla.protocol.api.structs.sc;
 
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
-import static pl.grzeslowski.jsupla.Preconditions.id;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public final class SuplaRegisterClientResult implements ServerClient {
     public static final int SIZE = BYTE_SIZE * 3 + INT_SIZE * 4;
     public final int resultCode;
@@ -105,13 +100,13 @@ public final class SuplaRegisterClientResult implements ServerClient {
     @Override
     public String toString() {
         return "SuplaRegisterClientResult{" +
-                       "resultCode=" + resultCode +
-                       ", clientId=" + clientId +
-                       ", locationCount=" + locationCount +
-                       ", channelCount=" + channelCount +
-                       ", activityTimeout=" + activityTimeout +
-                       ", version=" + version +
-                       ", versionMin=" + versionMin +
-                       '}';
+            "resultCode=" + resultCode +
+            ", clientId=" + clientId +
+            ", locationCount=" + locationCount +
+            ", channelCount=" + channelCount +
+            ", activityTimeout=" + activityTimeout +
+            ", version=" + version +
+            ", versionMin=" + versionMin +
+            '}';
     }
 }

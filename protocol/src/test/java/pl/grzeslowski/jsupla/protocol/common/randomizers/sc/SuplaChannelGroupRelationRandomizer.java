@@ -14,9 +14,9 @@ public class SuplaChannelGroupRelationRandomizer implements Randomizer<SuplaChan
     @Override
     public SuplaChannelGroupRelation getRandomValue() {
         return new SuplaChannelGroupRelation(
-                randomSupla.nextByte(),
-                randomSupla.nextPositiveInt(),
-                randomSupla.nextPositiveInt()
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            randomSupla.nextPositiveInt()
         );
     }
 }

@@ -12,7 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelBDecoderImpl implements SuplaChannelBDecoder {
     public static final SuplaChannelBDecoderImpl INSTANCE = new SuplaChannelBDecoderImpl(
-            pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaChannelValueDecoderImpl.INSTANCE);
+        pl.grzeslowski.jsupla.protocol.impl.decoders.SuplaChannelValueDecoderImpl.INSTANCE);
     private final SuplaChannelValueDecoder suplaChannelValueDecoder;
 
     public SuplaChannelBDecoderImpl(SuplaChannelValueDecoder suplaChannelValueDecoder) {
@@ -54,17 +54,17 @@ public final class SuplaChannelBDecoderImpl implements SuplaChannelBDecoder {
         final byte[] caption = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, offset + (int) captionSize);
 
         return new SuplaChannelB(
-                eol,
-                id,
-                locationId,
-                func,
-                altIcon,
-                flags,
-                protocolVersion,
-                online,
-                value,
-                captionSize,
-                caption
+            eol,
+            id,
+            locationId,
+            func,
+            altIcon,
+            flags,
+            protocolVersion,
+            online,
+            value,
+            captionSize,
+            caption
         );
     }
 }

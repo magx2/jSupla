@@ -36,7 +36,7 @@ public abstract class AbstractSerializerFactoryTest<T extends Entity> {
 
         // given
         final Serializer<T, ?> givenSerializer = (Serializer<T, ?>) getDeclaredField(this.getClass(), serializerName)
-                                                                            .get(this);
+            .get(this);
 
         // when
         getSerializer().serialize(entity);

@@ -7,7 +7,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class OpenCloseTypeEncoderImplTest extends ChannelTypeEncoderTest<OpenClose> {
-    @InjectMocks OpenCloseTypeEncoderImpl encoder;
+    @InjectMocks
+    OpenCloseTypeEncoderImpl encoder;
 
     @Override
     protected Class<OpenClose> getChannelValueClass() {

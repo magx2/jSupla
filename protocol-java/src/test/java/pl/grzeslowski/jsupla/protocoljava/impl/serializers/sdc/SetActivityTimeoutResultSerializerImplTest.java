@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class SetActivityTimeoutResultSerializerImplTest
-        extends SerializerTest<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
-    @InjectMocks SetActivityTimeoutResultSerializerImpl serializer;
+    extends SerializerTest<SetActivityTimeoutResult, SuplaSetActivityTimeoutResult> {
+    @InjectMocks
+    SetActivityTimeoutResultSerializerImpl serializer;
 
     @Override
     protected void then(final SetActivityTimeoutResult entity, final SuplaSetActivityTimeoutResult proto) {

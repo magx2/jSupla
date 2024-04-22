@@ -15,7 +15,8 @@ import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterClientResultBEncoderImplTest extends EncoderTest<SuplaRegisterClientResultB> {
-    @InjectMocks SuplaRegisterClientResultBEncoderImpl encoder;
+    @InjectMocks
+    SuplaRegisterClientResultBEncoderImpl encoder;
 
     SuplaRegisterClientResultB proto;
 
@@ -23,14 +24,14 @@ public class SuplaRegisterClientResultBEncoderImplTest extends EncoderTest<Supla
     public void setUp() {
         final short version = RANDOM_SUPLA.nextUnsignedByte();
         proto = new SuplaRegisterClientResultB(
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextPositiveInt(),
-                RANDOM_SUPLA.nextInt(),
-                RANDOM_SUPLA.nextUnsignedByte(),
-                version,
-                RANDOM_SUPLA.nextUnsignedByte(version)
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextPositiveInt(),
+            RANDOM_SUPLA.nextPositiveInt(),
+            RANDOM_SUPLA.nextPositiveInt(),
+            RANDOM_SUPLA.nextInt(),
+            RANDOM_SUPLA.nextUnsignedByte(),
+            version,
+            RANDOM_SUPLA.nextUnsignedByte(version)
         );
     }
 

@@ -14,17 +14,18 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-@Deprecated
 @SuppressWarnings("WeakerAccess")
 public class DeviceChannelSerializerImplTest extends SerializerTest<DeviceChannel, SuplaDeviceChannel> {
-    @InjectMocks DeviceChannelSerializerImpl serializer;
-    @Mock ChannelTypeEncoder channelTypeEncoder;
+    @InjectMocks
+    DeviceChannelSerializerImpl serializer;
+    @Mock
+    ChannelTypeEncoder channelTypeEncoder;
 
     @Override
     protected DeviceChannel given() {
         final DeviceChannel entity = super.given();
         BDDMockito.given(channelTypeEncoder.encode(entity.getValue()))
-                .willReturn(new byte[SUPLA_CHANNELVALUE_SIZE]);
+            .willReturn(new byte[SUPLA_CHANNELVALUE_SIZE]);
         return entity;
     }
 

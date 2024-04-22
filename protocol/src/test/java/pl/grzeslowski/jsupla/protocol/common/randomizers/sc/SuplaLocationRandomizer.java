@@ -19,10 +19,10 @@ public class SuplaLocationRandomizer implements Randomizer<SuplaLocation> {
     public SuplaLocation getRandomValue() {
         byte[] captionWithProperSize = findCaptionWithProperSize();
         return new SuplaLocation(
-                                        randomSupla.nextByte(),
-                                        randomSupla.nextPositiveInt(),
-                captionWithProperSize.length,
-                captionWithProperSize
+            randomSupla.nextByte(),
+            randomSupla.nextPositiveInt(),
+            captionWithProperSize.length,
+            captionWithProperSize
         );
     }
 

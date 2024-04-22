@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.nettytest;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +43,7 @@ public class Server {
                 maxKeySize,
                 PROPER_AES_KEY_SIZE);
         }
-        
+
         buildSslContext();
 
         final ServerFactory factory = buildServerFactory();
@@ -73,9 +72,9 @@ public class Server {
     @SuppressWarnings("unchecked")
     private ServerFactory buildServerFactory() {
         return new NettyServerFactory(
-                new CallTypeParserImpl(),
-                DecoderFactoryImpl.INSTANCE,
-                EncoderFactoryImpl.INSTANCE);
+            new CallTypeParserImpl(),
+            DecoderFactoryImpl.INSTANCE,
+            EncoderFactoryImpl.INSTANCE);
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {

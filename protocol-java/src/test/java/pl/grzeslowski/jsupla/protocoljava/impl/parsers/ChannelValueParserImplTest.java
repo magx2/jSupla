@@ -18,14 +18,17 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelValueParserImplTest extends AbstractParserTest<ChannelValue, SuplaChannelValue> {
-    @InjectMocks ChannelValueParserImpl parser;
-    @Mock ChannelTypeDecoder channelTypeDecoder;
-    @Mock SuplaChannelValueToChannelType suplaChannelValueToChannelType;
+    @InjectMocks
+    ChannelValueParserImpl parser;
+    @Mock
+    ChannelTypeDecoder channelTypeDecoder;
+    @Mock
+    SuplaChannelValueToChannelType suplaChannelValueToChannelType;
 
     final pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue value =
-            RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue.class);
+        RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue.class);
     final pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue subValue =
-            RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue.class);
+        RANDOM_ENTITY.nextObject(pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue.class);
 
     final ChannelType channelType = RANDOM_ENTITY.nextObject(ChannelType.class);
     final ChannelType channelTypeSubValue = RANDOM_ENTITY.nextObject(ChannelType.class);
@@ -36,7 +39,7 @@ public class ChannelValueParserImplTest extends AbstractParserTest<ChannelValue,
 
         BDDMockito.given(channelTypeDecoder.decode(channelType, supla.value)).willReturn(value);
         BDDMockito.given(channelTypeDecoder.decode(channelTypeSubValue, supla.subValue))
-                .willReturn(subValue);
+            .willReturn(subValue);
 
         BDDMockito.given(suplaChannelValueToChannelType.toChannelType(supla)).willReturn(channelType);
         BDDMockito.given(suplaChannelValueToChannelType.toChannelTypeSubValue(supla)).willReturn(channelTypeSubValue);

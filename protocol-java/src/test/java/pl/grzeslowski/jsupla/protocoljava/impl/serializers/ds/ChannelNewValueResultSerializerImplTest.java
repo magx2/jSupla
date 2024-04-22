@@ -10,8 +10,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("WeakerAccess")
 public class ChannelNewValueResultSerializerImplTest extends
-        SerializerTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
-    @InjectMocks ChannelNewValueResultSerializerImpl serializer;
+    SerializerTest<ChannelNewValueResult, SuplaChannelNewValueResult> {
+    @InjectMocks
+    ChannelNewValueResultSerializerImpl serializer;
 
     @Override
     protected void then(final ChannelNewValueResult entity, final SuplaChannelNewValueResult proto) {

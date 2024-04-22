@@ -12,7 +12,8 @@ import static org.mockito.Mockito.verify;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaSetActivityTimeoutEncoderImplTest extends EncoderTest<SuplaSetActivityTimeout> {
-    @InjectMocks SuplaSetActivityTimeoutEncoderImpl encoder;
+    @InjectMocks
+    SuplaSetActivityTimeoutEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaSetActivityTimeout proto) {

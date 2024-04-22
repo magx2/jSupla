@@ -4,11 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.GetVersionResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.PingServerResultClient;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.ServerDeviceClientEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.SetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.VersionError;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.sdc.*;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.GetVersionResultSerializer;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.sdc.PingServerResultClientSerializer;
@@ -26,19 +22,24 @@ public class ServerDeviceClientSerializerImplTest extends AbstractSerializerFact
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {GetVersionResult.class},
-                {VersionError.class},
-                {SetActivityTimeoutResult.class},
-                {PingServerResultClient.class}
+            {GetVersionResult.class},
+            {VersionError.class},
+            {SetActivityTimeoutResult.class},
+            {PingServerResultClient.class}
         });
     }
 
-    @InjectMocks ServerDeviceClientSerializerImpl serializer;
+    @InjectMocks
+    ServerDeviceClientSerializerImpl serializer;
 
-    @Mock GetVersionResultSerializer getVersionResultSerializer;
-    @Mock PingServerResultClientSerializer pingServerResultClientSerializer;
-    @Mock SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer;
-    @Mock VersionErrorSerializer versionErrorSerializer;
+    @Mock
+    GetVersionResultSerializer getVersionResultSerializer;
+    @Mock
+    PingServerResultClientSerializer pingServerResultClientSerializer;
+    @Mock
+    SetActivityTimeoutResultSerializer setActivityTimeoutResultSerializer;
+    @Mock
+    VersionErrorSerializer versionErrorSerializer;
 
     public ServerDeviceClientSerializerImplTest(final Class<ServerDeviceClientEntity> entityClass) {
         super(entityClass);

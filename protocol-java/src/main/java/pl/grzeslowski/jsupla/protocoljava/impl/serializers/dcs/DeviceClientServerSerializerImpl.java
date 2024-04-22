@@ -14,7 +14,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class DeviceClientServerSerializerImpl
-        implements DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer> {
+    implements DeviceClientServerSerializer<DeviceClientServerEntity, DeviceClientServer> {
     private final PingServerSerializer pingServerSerializer;
     private final SetActivityTimeoutSerializer setActivityTimeoutSerializer;
 
@@ -32,6 +32,6 @@ public class DeviceClientServerSerializerImpl
             return setActivityTimeoutSerializer.serialize((SetActivityTimeout) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

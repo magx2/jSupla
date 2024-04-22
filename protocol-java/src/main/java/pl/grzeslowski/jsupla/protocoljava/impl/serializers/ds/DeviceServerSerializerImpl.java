@@ -1,22 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.impl.serializers.ds;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.ChannelNewValueResult;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannelValue;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceServerEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.FirmwareUpdateParams;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceC;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceD;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.ChannelNewValueResultSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceChannelValueSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.DeviceServerSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.FirmwareUpdateParamsSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceBSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceCSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceDSerializer;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.RegisterDeviceSerializer;
+import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.*;
+import pl.grzeslowski.jsupla.protocoljava.api.serializers.ds.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +10,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class DeviceServerSerializerImpl
-        implements DeviceServerSerializer<DeviceServerEntity, DeviceServer> {
+    implements DeviceServerSerializer<DeviceServerEntity, DeviceServer> {
     private final ChannelNewValueResultSerializer channelNewValueResultSerializer;
     private final RegisterDeviceSerializer registerDeviceSerializer;
     private final RegisterDeviceBSerializer registerDeviceBSerializer;
@@ -67,6 +53,6 @@ public class DeviceServerSerializerImpl
             return registerDeviceDSerializer.serialize((RegisterDeviceD) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

@@ -39,11 +39,11 @@ public abstract class AbstractParserTest<EntityT extends Entity, SuplaProtoT ext
 
     protected void givenStringParser(StringParser stringParser) {
         BDDMockito.given(stringParser.parse(any()))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         BDDMockito.given(stringParser.parseHexString(any()))
-                .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
+            .willReturn(RANDOM_ENTITY.nextObject(String.class).substring(0, 5));
         BDDMockito.given(stringParser.parsePassword(any()))
-                .willReturn(Arrays.copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 5));
+            .willReturn(Arrays.copyOfRange(RANDOM_ENTITY.nextObject(char[].class), 0, 5));
     }
 
     protected abstract void then(final EntityT entity, final SuplaProtoT supla);

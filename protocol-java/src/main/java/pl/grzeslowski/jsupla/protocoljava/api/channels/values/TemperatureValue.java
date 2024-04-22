@@ -61,7 +61,7 @@ public final class TemperatureValue implements ChannelValue {
     @Override
     public String toString() {
         return "TemperatureValue{" +
-                       "temperature=" + temperature +
-                       '}';
+            "temperature=" + temperature +
+            '}';
     }
 }

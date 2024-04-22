@@ -10,8 +10,6 @@ import javax.validation.constraints.NotNull;
 
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class ChannelSerializerImpl implements ChannelSerializer {
     private final ChannelValueSerializer channelValueSerializer;
     private final StringSerializer stringSerializer;
@@ -25,14 +23,14 @@ public class ChannelSerializerImpl implements ChannelSerializer {
     @Override
     public SuplaChannel serialize(@NotNull final Channel entity) {
         return new SuplaChannel(
-                (byte) entity.getEol(),
-                entity.getId(),
-                entity.getLocationId(),
-                entity.getFunction(),
-                (byte) (entity.isOnline() ? 1 : 0),
-                channelValueSerializer.serialize(entity.getChannelValue()),
-                entity.getCaption().length(),
-                stringSerializer.serialize(entity.getCaption())
+            (byte) entity.getEol(),
+            entity.getId(),
+            entity.getLocationId(),
+            entity.getFunction(),
+            (byte) (entity.isOnline() ? 1 : 0),
+            channelValueSerializer.serialize(entity.getChannelValue()),
+            entity.getCaption().length(),
+            stringSerializer.serialize(entity.getCaption())
         );
     }
 }

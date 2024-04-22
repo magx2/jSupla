@@ -10,8 +10,6 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public final class SuplaChannelPack implements ServerClient {
     public static final int MIN_SIZE = INT_SIZE * 2;
 
@@ -37,8 +35,8 @@ public final class SuplaChannelPack implements ServerClient {
 
     private int channelsSize() {
         return Arrays.stream(channels)
-                       .mapToInt(SuplaChannel::size)
-                       .sum();
+            .mapToInt(SuplaChannel::size)
+            .sum();
     }
 
     @Override
@@ -73,9 +71,9 @@ public final class SuplaChannelPack implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelPack{" +
-                       "count=" + count +
-                       ", totalLeft=" + totalLeft +
-                       ", channels=" + Arrays.toString(channels) +
-                       '}';
+            "count=" + count +
+            ", totalLeft=" + totalLeft +
+            ", channels=" + Arrays.toString(channels) +
+            '}';
     }
 }

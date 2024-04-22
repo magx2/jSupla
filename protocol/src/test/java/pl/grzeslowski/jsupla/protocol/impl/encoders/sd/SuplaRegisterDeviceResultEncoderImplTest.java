@@ -14,7 +14,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaRegisterDeviceResultEncoderImplTest extends EncoderTest<SuplaRegisterDeviceResult> {
-    @InjectMocks SuplaRegisterDeviceResultEncoderImpl encoder;
+    @InjectMocks
+    SuplaRegisterDeviceResultEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaRegisterDeviceResult proto) {
@@ -42,10 +43,10 @@ public class SuplaRegisterDeviceResultEncoderImplTest extends EncoderTest<SuplaR
     @Override
     public SuplaRegisterDeviceResult getProto() {
         return new SuplaRegisterDeviceResult(
-                                                    1,
-                                                    (byte) 2,
-                                                    (byte) 4,
-                                                    (byte) 3
+            1,
+            (byte) 2,
+            (byte) 4,
+            (byte) 3
 
         );
     }

@@ -28,7 +28,7 @@ public final class SuplaChannelGroup implements ServerClient {
     public final long flags;
     /**
      * Including the terminating null byte ('\0').
-     * 
+     *
      * <p>unsigned
      */
     public final long captionSize;
@@ -73,13 +73,13 @@ public final class SuplaChannelGroup implements ServerClient {
         }
         final SuplaChannelGroup that = (SuplaChannelGroup) o;
         return eol == that.eol &&
-                       id == that.id &&
-                       locationId == that.locationId &&
-                       func == that.func &&
-                       altIcon == that.altIcon &&
-                       flags == that.flags &&
-                       captionSize == that.captionSize &&
-                       Arrays.equals(caption, that.caption);
+            id == that.id &&
+            locationId == that.locationId &&
+            func == that.func &&
+            altIcon == that.altIcon &&
+            flags == that.flags &&
+            captionSize == that.captionSize &&
+            Arrays.equals(caption, that.caption);
     }
 
     @Override
@@ -92,14 +92,14 @@ public final class SuplaChannelGroup implements ServerClient {
     @Override
     public String toString() {
         return "SuplaChannelGroup{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", locationId=" + locationId +
-                       ", func=" + func +
-                       ", altIcon=" + altIcon +
-                       ", flags=" + flags +
-                       ", captionSize=" + captionSize +
-                       ", caption=" + Arrays.toString(caption) +
-                       '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", locationId=" + locationId +
+            ", func=" + func +
+            ", altIcon=" + altIcon +
+            ", flags=" + flags +
+            ", captionSize=" + captionSize +
+            ", caption=" + Arrays.toString(caption) +
+            '}';
     }
 }

@@ -20,9 +20,9 @@ public class GetVersionResultSerializerImpl implements GetVersionResultSerialize
     @Override
     public SuplaGetVersionResult serialize(@NotNull final GetVersionResult entity) {
         return new SuplaGetVersionResult(
-                                                (short) entity.getProtoVersionMin(),
-                                                (short) entity.getProtoVersion(),
-                                                stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE)
+            (short) entity.getProtoVersionMin(),
+            (short) entity.getProtoVersion(),
+            stringSerializer.serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE)
         );
     }
 }

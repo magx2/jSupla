@@ -24,8 +24,10 @@ public class SuplaChannelPackDecoderImplTest extends DecoderTest<SuplaChannelPac
     private static final int CHANNELS_COUNT = 5;
     public static final int CAPTION_SIZE = 6;
 
-    @InjectMocks SuplaChannelPackDecoderImpl decoder;
-    @Mock SuplaChannelDecoder channelDecoder;
+    @InjectMocks
+    SuplaChannelPackDecoderImpl decoder;
+    @Mock
+    SuplaChannelDecoder channelDecoder;
 
     @Override
     public SuplaChannelPackDecoderImpl getDecoder() {
@@ -36,16 +38,16 @@ public class SuplaChannelPackDecoderImplTest extends DecoderTest<SuplaChannelPac
     public void givenParseEntity(final byte[] bytes, final int offset) {
         given(primitiveDecoder.parseInt(eq(bytes), anyInt())).willReturn(CHANNELS_COUNT);
         given(channelDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaChannel((byte) 1,
-                                        2,
-                                        3,
-                                        4,
-                                        (byte) 1,
-                                        new SuplaChannelValue(
-                                                                     new byte[SUPLA_CHANNELVALUE_SIZE],
-                                                                     new byte[SUPLA_CHANNELVALUE_SIZE]),
-                                        CAPTION_SIZE,
-                                        new byte[CAPTION_SIZE]));
+            new SuplaChannel((byte) 1,
+                2,
+                3,
+                4,
+                (byte) 1,
+                new SuplaChannelValue(
+                    new byte[SUPLA_CHANNELVALUE_SIZE],
+                    new byte[SUPLA_CHANNELVALUE_SIZE]),
+                CAPTION_SIZE,
+                new byte[CAPTION_SIZE]));
     }
 
     @Override

@@ -85,11 +85,11 @@ public class FirmwareUpdateParams implements DeviceServerEntity {
     @Override
     public String toString() {
         return "FirmwareUpdateParams{" +
-                       "platform=" + platform +
-                       ", param1=" + param1 +
-                       ", param2=" + param2 +
-                       ", param3=" + param3 +
-                       ", param4=" + param4 +
-                       '}';
+                "platform=" + platform +
+                ", param1=" + param1 +
+                ", param2=" + param2 +
+                ", param3=" + param3 +
+                ", param4=" + param4 +
+                '}';
     }
 }

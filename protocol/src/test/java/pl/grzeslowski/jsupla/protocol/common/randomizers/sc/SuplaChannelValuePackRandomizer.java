@@ -20,12 +20,12 @@ public class SuplaChannelValuePackRandomizer implements Randomizer<SuplaChannelV
     public SuplaChannelValuePack getRandomValue() {
         int count = randomSupla.nextPositiveInt(SUPLA_CHANNELVALUE_PACK_MAXCOUNT);
         SuplaChannelValue[] items = Stream.generate(() -> randomSupla.nextObject(SuplaChannelValue.class))
-                .limit(count)
-                .toArray(SuplaChannelValue[]::new);
+            .limit(count)
+            .toArray(SuplaChannelValue[]::new);
         return new SuplaChannelValuePack(
-                count,
-                randomSupla.nextPositiveInt(),
-                items
+            count,
+            randomSupla.nextPositiveInt(),
+            items
         );
     }
 }

@@ -20,12 +20,12 @@ public class ChannelPackSerializerImpl implements ChannelPackSerializer {
     @Override
     public SuplaChannelPack serialize(@NotNull final ChannelPack entity) {
         return new SuplaChannelPack(
-                                           entity.getChannels().size(),
-                                           entity.getTotalLeft(),
-                                           entity.getChannels()
-                                                   .stream()
-                                                   .map(channelSerializer::serialize)
-                                                   .toArray(SuplaChannel[]::new)
+            entity.getChannels().size(),
+            entity.getTotalLeft(),
+            entity.getChannels()
+                .stream()
+                .map(channelSerializer::serialize)
+                .toArray(SuplaChannel[]::new)
         );
     }
 }

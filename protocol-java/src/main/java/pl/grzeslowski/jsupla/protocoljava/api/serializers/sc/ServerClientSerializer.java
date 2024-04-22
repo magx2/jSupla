@@ -5,5 +5,5 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.ServerClientEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 
 public interface ServerClientSerializer<EntityT extends ServerClientEntity, SuplaProtoT extends ServerClient>
-        extends Serializer<EntityT, SuplaProtoT> {
+    extends Serializer<EntityT, SuplaProtoT> {
 }

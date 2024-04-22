@@ -8,7 +8,8 @@ public final class UnknownValue implements ChannelValue {
     public static final UnknownValue UNKNOWN_VALUE = new UnknownValue(new byte[0], "UNKNOWN_VALUE");
 
     public final byte[] bytes;
-    @SuppressWarnings("WeakerAccess") public final String message;
+    @SuppressWarnings("WeakerAccess")
+    public final String message;
 
     public UnknownValue(final byte[] bytes, final String message) {
         this.bytes = requireNonNull(bytes);
@@ -41,8 +42,8 @@ public final class UnknownValue implements ChannelValue {
     @Override
     public String toString() {
         return "UnknownValue{" +
-                       "bytes=" + Arrays.toString(bytes) +
-                       ", message='" + message + '\'' +
-                       '}';
+            "bytes=" + Arrays.toString(bytes) +
+            ", message='" + message + '\'' +
+            '}';
     }
 }

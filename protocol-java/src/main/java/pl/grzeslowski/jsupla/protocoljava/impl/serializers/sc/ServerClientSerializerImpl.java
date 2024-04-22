@@ -10,7 +10,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class ServerClientSerializerImpl
-        implements ServerClientSerializer<ServerClientEntity, ServerClient> {
+    implements ServerClientSerializer<ServerClientEntity, ServerClient> {
     private final ChannelPackSerializer channelPackSerializer;
     private final ChannelSerializer channelSerializer;
     private final ChannelValueSerializer channelValueSerializer;
@@ -88,6 +88,6 @@ public class ServerClientSerializerImpl
             return channelGroupSerializer.serialize((ChannelGroup) entity);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to serializer! %s",
-                entity.getClass(), entity));
+            entity.getClass(), entity));
     }
 }

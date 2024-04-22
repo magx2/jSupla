@@ -17,14 +17,16 @@ import static pl.grzeslowski.jsupla.protocoljava.common.RandomEntity.RANDOM_ENTI
 
 @SuppressWarnings("WeakerAccess")
 public class PingServerSerializerImplTest extends SerializerTest<PingServer, SuplaPingServer> {
-    @InjectMocks PingServerSerializerImpl serializer;
-    @Mock TimevalSerializer timevalSerializer;
+    @InjectMocks
+    PingServerSerializerImpl serializer;
+    @Mock
+    TimevalSerializer timevalSerializer;
 
     @Override
     protected PingServer given() {
         final PingServer entity = super.given();
         BDDMockito.given(timevalSerializer.serialize(entity.getTimeval()))
-                .willReturn(RANDOM_ENTITY.nextObject(SuplaTimeval.class));
+            .willReturn(RANDOM_ENTITY.nextObject(SuplaTimeval.class));
         return entity;
     }
 

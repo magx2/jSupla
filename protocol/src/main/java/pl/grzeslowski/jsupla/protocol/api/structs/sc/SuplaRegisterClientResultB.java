@@ -4,9 +4,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType;
 
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.Preconditions.id;
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMax;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
@@ -67,38 +65,38 @@ public final class SuplaRegisterClientResultB implements ServerClient {
     public boolean equals(final Object o) {
         if (this == o) {
             return true;
-        } 
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
-        } 
+        }
         final SuplaRegisterClientResultB that = (SuplaRegisterClientResultB) o;
         return resultCode == that.resultCode &&
-                       clientId == that.clientId &&
-                       locationCount == that.locationCount &&
-                       channelCount == that.channelCount &&
-                       flags == that.flags &&
-                       activityTimeout == that.activityTimeout &&
-                       version == that.version &&
-                       versionMin == that.versionMin;
+            clientId == that.clientId &&
+            locationCount == that.locationCount &&
+            channelCount == that.channelCount &&
+            flags == that.flags &&
+            activityTimeout == that.activityTimeout &&
+            version == that.version &&
+            versionMin == that.versionMin;
     }
 
     @Override
     public final int hashCode() {
         return Objects.hash(resultCode, clientId, locationCount, channelCount, flags, activityTimeout, version,
-                versionMin);
+            versionMin);
     }
 
     @Override
     public String toString() {
         return "SuplaRegisterClientResultB{" +
-                       "resultCode=" + resultCode +
-                       ", clientId=" + clientId +
-                       ", locationCount=" + locationCount +
-                       ", channelCount=" + channelCount +
-                       ", flags=" + flags +
-                       ", activityTimeout=" + activityTimeout +
-                       ", version=" + version +
-                       ", versionMin=" + versionMin +
-                       '}';
+            "resultCode=" + resultCode +
+            ", clientId=" + clientId +
+            ", locationCount=" + locationCount +
+            ", channelCount=" + channelCount +
+            ", flags=" + flags +
+            ", activityTimeout=" + activityTimeout +
+            ", version=" + version +
+            ", versionMin=" + versionMin +
+            '}';
     }
 }

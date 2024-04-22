@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelValueEncoderImpl implements SuplaChannelValueEncoder {
     public static final SuplaChannelValueEncoderImpl INSTANCE =
-            new SuplaChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaChannelValueEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaChannelValueEncoderImpl(PrimitiveEncoder primitiveEncoder) {

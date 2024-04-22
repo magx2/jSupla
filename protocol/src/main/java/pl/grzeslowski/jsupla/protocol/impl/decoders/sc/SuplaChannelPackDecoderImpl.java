@@ -7,14 +7,13 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPack;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.cs.SuplaChannelNewValueBDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaChannelPackDecoderImpl implements SuplaChannelPackDecoder {
     public static final SuplaChannelPackDecoderImpl INSTANCE = new SuplaChannelPackDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE, SuplaChannelDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE, SuplaChannelDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final SuplaChannelDecoder channelDecoder;
 

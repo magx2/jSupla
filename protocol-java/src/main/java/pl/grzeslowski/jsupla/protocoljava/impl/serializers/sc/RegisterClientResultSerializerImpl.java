@@ -10,13 +10,13 @@ public class RegisterClientResultSerializerImpl implements RegisterClientResultS
     @Override
     public SuplaRegisterClientResult serialize(@NotNull final RegisterClientResult entity) {
         return new SuplaRegisterClientResult(
-                                                    entity.getResultCode(),
-                                                    entity.getClientId(),
-                                                    entity.getLocationCount(),
-                                                    entity.getChannelCount(),
-                                                    (short) entity.getActivityTimeout(),
-                                                    (short) entity.getVersion(),
-                                                    (short) entity.getVersionMin()
+            entity.getResultCode(),
+            entity.getClientId(),
+            entity.getLocationCount(),
+            entity.getChannelCount(),
+            (short) entity.getActivityTimeout(),
+            (short) entity.getVersion(),
+            (short) entity.getVersionMin()
         );
     }
 }

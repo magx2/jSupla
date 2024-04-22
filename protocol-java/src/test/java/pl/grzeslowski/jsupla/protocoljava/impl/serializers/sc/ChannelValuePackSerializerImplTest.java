@@ -26,7 +26,7 @@ public class ChannelValuePackSerializerImplTest extends SerializerTest<ChannelVa
     @Override
     protected ChannelValuePack given() {
         BDDMockito.given(channelValueSerializer.serialize(any()))
-                .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
+            .willReturn(RANDOM_SUPLA.nextObject(SuplaChannelValue.class));
         return super.given();
     }
 

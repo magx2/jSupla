@@ -5,12 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 import static pl.grzeslowski.jsupla.Preconditions.size;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_AUTHKEY_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CLIENT_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_EMAIL_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.C;
 
 public class RegisterClientC implements ClientServerEntity {
@@ -87,11 +82,11 @@ public class RegisterClientC implements ClientServerEntity {
         }
         RegisterClientC that = (RegisterClientC) o;
         return Objects.equals(email, that.email) &&
-                   Objects.equals(authKey, that.authKey) &&
-                   Objects.equals(guid, that.guid) &&
-                   Objects.equals(name, that.name) &&
-                   Objects.equals(softVer, that.softVer) &&
-                   Objects.equals(serverName, that.serverName);
+            Objects.equals(authKey, that.authKey) &&
+            Objects.equals(guid, that.guid) &&
+            Objects.equals(name, that.name) &&
+            Objects.equals(softVer, that.softVer) &&
+            Objects.equals(serverName, that.serverName);
     }
 
     @Override
@@ -102,12 +97,12 @@ public class RegisterClientC implements ClientServerEntity {
     @Override
     public String toString() {
         return "RegisterClientC{" +
-                   "email='" + email + '\'' +
-                   ", authKey='[PROTECTED]'" +
-                   ", guid='" + guid + '\'' +
-                   ", name='" + name + '\'' +
-                   ", softVer='" + softVer + '\'' +
-                   ", serverName='" + serverName + '\'' +
-                   '}';
+            "email='" + email + '\'' +
+            ", authKey='[PROTECTED]'" +
+            ", guid='" + guid + '\'' +
+            ", name='" + name + '\'' +
+            ", softVer='" + softVer + '\'' +
+            ", serverName='" + serverName + '\'' +
+            '}';
     }
 }

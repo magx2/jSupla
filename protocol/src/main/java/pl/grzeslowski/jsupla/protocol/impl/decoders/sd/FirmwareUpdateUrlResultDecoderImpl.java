@@ -7,14 +7,13 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.sd.FirmwareUpdateUrlResultDec
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.sc.SuplaEventDecoderImpl;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 
 public final class FirmwareUpdateUrlResultDecoderImpl implements FirmwareUpdateUrlResultDecoder {
     public static final FirmwareUpdateUrlResultDecoderImpl INSTANCE = new FirmwareUpdateUrlResultDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE, FirmwareUpdateUrlDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE, FirmwareUpdateUrlDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
     private final FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
 

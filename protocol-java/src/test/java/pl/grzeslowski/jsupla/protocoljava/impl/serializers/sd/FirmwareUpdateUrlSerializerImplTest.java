@@ -16,8 +16,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 
 @SuppressWarnings("WeakerAccess")
 public class FirmwareUpdateUrlSerializerImplTest extends SerializerTest<FirmwareUpdateUrl, SuplaFirmwareUpdateUrl> {
-    @InjectMocks FirmwareUpdateUrlSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    FirmwareUpdateUrlSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected FirmwareUpdateUrl given() {

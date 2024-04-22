@@ -11,7 +11,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public final class SuplaEventDecoderImpl implements SuplaEventDecoder {
     public static final SuplaEventDecoderImpl INSTANCE = new SuplaEventDecoderImpl(
-            PrimitiveDecoderImpl.INSTANCE);
+        PrimitiveDecoderImpl.INSTANCE);
     private final PrimitiveDecoder primitiveDecoder;
 
     public SuplaEventDecoderImpl(PrimitiveDecoder primitiveDecoder) {

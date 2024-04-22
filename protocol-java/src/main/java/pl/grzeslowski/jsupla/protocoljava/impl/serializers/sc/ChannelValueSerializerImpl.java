@@ -12,18 +12,18 @@ public class ChannelValueSerializerImpl implements ChannelValueSerializer {
     private final pl.grzeslowski.jsupla.protocoljava.api.serializers.ChannelValueSerializer channelValueSerializer;
 
     public ChannelValueSerializerImpl(
-                                             final pl.grzeslowski.jsupla.protocoljava.api.serializers
-                                                           .ChannelValueSerializer channelValueSerializer) {
+        final pl.grzeslowski.jsupla.protocoljava.api.serializers
+            .ChannelValueSerializer channelValueSerializer) {
         this.channelValueSerializer = requireNonNull(channelValueSerializer);
     }
 
     @Override
     public SuplaChannelValue serialize(@NotNull final ChannelValue entity) {
         return new SuplaChannelValue(
-                                            (byte) entity.getEol(),
-                                            entity.getId(),
-                                            (byte) (entity.isOnline() ? 1 : 0),
-                                            channelValueSerializer.serialize(entity.getValue())
+            (byte) entity.getEol(),
+            entity.getId(),
+            (byte) (entity.isOnline() ? 1 : 0),
+            channelValueSerializer.serialize(entity.getValue())
         );
     }
 }

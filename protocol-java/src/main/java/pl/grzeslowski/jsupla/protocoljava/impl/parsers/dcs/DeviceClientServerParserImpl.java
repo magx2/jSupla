@@ -14,7 +14,7 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public class DeviceClientServerParserImpl implements DeviceClientServerParser<DeviceClientServerEntity,
-                                                                                           DeviceClientServer> {
+    DeviceClientServer> {
 
     private final PingServerParser pingServerParser;
     private final SetActivityTimeoutParser setActivityTimeoutParser;
@@ -34,6 +34,6 @@ public class DeviceClientServerParserImpl implements DeviceClientServerParser<De
             return setActivityTimeoutParser.parse((SuplaSetActivityTimeout) proto);
         }
         throw new IllegalArgumentException(format("Don't know how to map this class \"%s\" to parser! %s",
-                proto.getClass(), proto));
+            proto.getClass(), proto));
     }
 }

@@ -7,10 +7,9 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
 
 import static java.util.Objects.requireNonNull;
 
-@Deprecated
 public final class SuplaRegisterClientEncoderImpl implements SuplaRegisterClientEncoder {
     public static final SuplaRegisterClientEncoderImpl INSTANCE =
-            new SuplaRegisterClientEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaRegisterClientEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaRegisterClientEncoderImpl(PrimitiveEncoder primitiveEncoder) {

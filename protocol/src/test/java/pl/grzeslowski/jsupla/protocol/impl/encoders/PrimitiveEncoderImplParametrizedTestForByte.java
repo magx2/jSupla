@@ -21,13 +21,13 @@ public class PrimitiveEncoderImplParametrizedTestForByte {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {new byte[]{0}, 0, (byte) 0},
-                {new byte[]{127}, 0, Byte.MAX_VALUE},
-                {new byte[]{-128}, 0, Byte.MIN_VALUE},
-                {new byte[]{-86}, 0, (byte) -86}, // 10101010
-                {new byte[]{-16}, 0, (byte) -16}, // 11110000
-                {new byte[]{85}, 0, (byte) 85}, // 01010101
-                {new byte[]{15}, 0, (byte) 15} // 00001111
+            {new byte[]{0}, 0, (byte) 0},
+            {new byte[]{127}, 0, Byte.MAX_VALUE},
+            {new byte[]{-128}, 0, Byte.MIN_VALUE},
+            {new byte[]{-86}, 0, (byte) -86}, // 10101010
+            {new byte[]{-16}, 0, (byte) -16}, // 11110000
+            {new byte[]{85}, 0, (byte) 85}, // 01010101
+            {new byte[]{15}, 0, (byte) 15} // 00001111
         });
     }
 

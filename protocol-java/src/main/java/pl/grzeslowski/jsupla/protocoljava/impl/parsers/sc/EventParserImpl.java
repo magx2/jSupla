@@ -19,11 +19,11 @@ public class EventParserImpl implements EventParser {
     @Override
     public Event parse(@NotNull final SuplaEvent proto) {
         return new Event(
-                                proto.event,
-                                proto.channelId,
-                                proto.durationMs,
-                                proto.senderId,
-                                stringParser.parse(proto.senderName)
+            proto.event,
+            proto.channelId,
+            proto.durationMs,
+            proto.senderId,
+            stringParser.parse(proto.senderName)
         );
     }
 }

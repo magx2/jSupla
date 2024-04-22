@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -29,9 +30,9 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DA
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @SuppressWarnings("WeakerAccess")
-class NettyServerInitializer extends ChannelInitializer<SocketChannel>
+public final class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     implements Publisher<NettyChannel>, AutoCloseable {
-    private final Logger logger = LoggerFactory.getLogger(NettyServerInitializer.class);
+    private final Logger logger;
 
     private final SslContext sslCtx;
     private final Flux<NettyChannel> flux;
@@ -48,7 +49,8 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
                            final CallTypeParser callTypeParser,
                            final DecoderFactory decoderFactory,
                            final EncoderFactory encoderFactory) {
-        logger.debug("New instance #{}", hashCode());
+        logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
+        logger.debug("New instance");
         this.sslCtx = sslCtx;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
@@ -68,48 +70,28 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     }
 
     @Override
-    public void initChannel(SocketChannel ch) throws Exception {
-        logger.debug("Initializing new channel #{}", hashCode());
+    public void initChannel(SocketChannel ch) {
+        logger.debug("Initializing new channel");
         ChannelPipeline pipeline = ch.pipeline();
 
-        initPipeline(pipeline);
-        addSslContext(ch, pipeline);
-        addDelimiterBasedFrameDecoder(pipeline);
-        addDecoder(pipeline);
-        addEncoder(pipeline);
-        addHandler(pipeline);
-        initLastPipeline(pipeline);
-    }
-
-    /**
-     * This method can be overloaded to initialize pipeline before (@link {@link NettyServerInitializer} does.
-     */
-    @SuppressWarnings("unused")
-    protected void initPipeline(final ChannelPipeline pipeline) {
-
-    }
-
-    protected void addSslContext(final SocketChannel ch, final ChannelPipeline pipeline) {
         if (sslCtx != null) {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
-    }
-
-    protected void addDelimiterBasedFrameDecoder(final ChannelPipeline pipeline) {
         pipeline.addLast(new DelimiterBasedFrameDecoder(
             SUPLA_MAX_DATA_SIZE,
             false,
             true,
             Unpooled.copiedBuffer(SUPLA_TAG)
         ));
-    }
-
-    protected void addDecoder(final ChannelPipeline pipeline) {
         pipeline.addLast(new SuplaDataPacketDecoder());
+        pipeline.addLast(new SuplaDataPacketEncoder());
+        addHandler(pipeline);
     }
 
-    protected void addEncoder(final ChannelPipeline pipeline) {
-        pipeline.addLast(new SuplaDataPacketEncoder());
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        logger.warn("Exception caught", cause);
+        super.exceptionCaught(ctx, cause);
     }
 
     protected void addHandler(final ChannelPipeline pipeline) {
@@ -122,14 +104,6 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
         suplaHandlers.add(suplaHandler);
     }
 
-    /**
-     * This method can be overloaded to initialize pipeline after (@link {@link NettyServerInitializer} does.
-     */
-    @SuppressWarnings("unused")
-    protected void initLastPipeline(final ChannelPipeline pipeline) {
-
-    }
-
     @Override
     public void close() {
         logger.debug("Closing NettyServerInitializer #{}", hashCode());
@@ -140,7 +114,7 @@ class NettyServerInitializer extends ChannelInitializer<SocketChannel>
             try {
                 suplaHandler.close();
             } catch (Exception e) {
-                logger.warn("Error closing SuplaHandler #{}",suplaHandler.hashCode(), e);
+                logger.warn("Error closing SuplaHandler #{}", suplaHandler.hashCode(), e);
             }
         }
     }

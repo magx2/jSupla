@@ -20,8 +20,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PA
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaSuplaFirmwareUpdateUrlResultDecoderImplTest extends DecoderTest<FirmwareUpdateUrlResultDecoderImpl> {
-    @InjectMocks FirmwareUpdateUrlResultDecoderImpl decoder;
-    @Mock FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
+    @InjectMocks
+    FirmwareUpdateUrlResultDecoderImpl decoder;
+    @Mock
+    FirmwareUpdateUrlDecoder firmwareUpdateUrlDecoder;
 
     @Override
     public FirmwareUpdateUrlResultDecoderImpl getDecoder() {
@@ -31,10 +33,10 @@ public class SuplaSuplaFirmwareUpdateUrlResultDecoderImplTest extends DecoderTes
     @Override
     public void givenParseEntity(final byte[] bytes, final int offset) {
         given(firmwareUpdateUrlDecoder.decode(eq(bytes), anyInt())).willReturn(
-                new SuplaFirmwareUpdateUrl((byte) 1,
-                                             new byte[SUPLA_URL_HOST_MAXSIZE],
-                                             9090,
-                                             new byte[SUPLA_URL_PATH_MAXSIZE]));
+            new SuplaFirmwareUpdateUrl((byte) 1,
+                new byte[SUPLA_URL_HOST_MAXSIZE],
+                9090,
+                new byte[SUPLA_URL_PATH_MAXSIZE]));
     }
 
     @Override

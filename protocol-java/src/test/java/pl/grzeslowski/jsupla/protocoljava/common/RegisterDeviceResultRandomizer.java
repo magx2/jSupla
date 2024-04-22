@@ -16,10 +16,10 @@ class RegisterDeviceResultRandomizer implements Randomizer<RegisterDeviceResult>
         final int version = random.nextInt(Byte.MAX_VALUE) + 1;
         final int versionMin = random.nextInt(version);
         return new RegisterDeviceResult(
-                                               random.nextInt(100),
-                                               random.nextInt(Byte.MAX_VALUE),
-                                               version,
-                                               versionMin
+            random.nextInt(100),
+            random.nextInt(Byte.MAX_VALUE),
+            version,
+            versionMin
         );
     }
 }

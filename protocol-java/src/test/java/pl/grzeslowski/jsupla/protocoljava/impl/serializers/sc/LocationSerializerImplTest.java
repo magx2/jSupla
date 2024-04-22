@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class LocationSerializerImplTest extends SerializerTest<Location, SuplaLocation> {
-    @InjectMocks LocationSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
+    @InjectMocks
+    LocationSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
 
     @Override
     protected Location given() {

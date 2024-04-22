@@ -11,7 +11,7 @@ public class TestUtil {
 
     public static String lowerFirstLetter(String string) {
         return Character.toLowerCase(string.charAt(0)) +
-                       (string.length() > 1 ? string.substring(1) : "");
+            (string.length() > 1 ? string.substring(1) : "");
     }
 
 }

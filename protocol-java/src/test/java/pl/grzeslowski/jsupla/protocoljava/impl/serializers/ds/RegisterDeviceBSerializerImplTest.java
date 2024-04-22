@@ -16,11 +16,13 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @SuppressWarnings("WeakerAccess")
-@Deprecated
 public class RegisterDeviceBSerializerImplTest extends SerializerTest<RegisterDeviceB, SuplaRegisterDeviceB> {
-    @InjectMocks RegisterDeviceBSerializerImpl serializer;
-    @Mock StringSerializer stringSerializer;
-    @Mock DeviceChannelBSerializer deviceChannelBSerializer;
+    @InjectMocks
+    RegisterDeviceBSerializerImpl serializer;
+    @Mock
+    StringSerializer stringSerializer;
+    @Mock
+    DeviceChannelBSerializer deviceChannelBSerializer;
 
     @Override
     protected RegisterDeviceB given() {
@@ -37,7 +39,7 @@ public class RegisterDeviceBSerializerImplTest extends SerializerTest<RegisterDe
         verify(stringSerializer).serialize(entity.getSoftVer(), SUPLA_SOFTVER_MAXSIZE);
         assertThat((int) proto.channelCount).isEqualTo(entity.getChannels().size());
         entity.getChannels().getChannels().forEach(channel ->
-                                                           verify(deviceChannelBSerializer).serialize(channel));
+            verify(deviceChannelBSerializer).serialize(channel));
 
         verifyNoMoreInteractions(stringSerializer);
         verifyNoMoreInteractions(deviceChannelBSerializer);

@@ -46,7 +46,7 @@ public final class SuplaPingServer implements DeviceClientServer {
     @Override
     public String toString() {
         return "SuplaPingServer{" +
-                       "timeval=" + timeval +
-                       '}';
+            "timeval=" + timeval +
+            '}';
     }
 }

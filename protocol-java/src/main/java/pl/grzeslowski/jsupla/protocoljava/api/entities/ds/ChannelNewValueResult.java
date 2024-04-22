@@ -63,9 +63,9 @@ public class ChannelNewValueResult implements DeviceServerEntity {
     @Override
     public String toString() {
         return "ChannelNewValueResult{" +
-                       "channelNumber=" + channelNumber +
-                       ", senderId=" + senderId +
-                       ", success=" + success +
-                       '}';
+            "channelNumber=" + channelNumber +
+            ", senderId=" + senderId +
+            ", success=" + success +
+            '}';
     }
 }

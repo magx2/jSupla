@@ -12,7 +12,8 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaTimevalEncoderImplTest extends EncoderTest<SuplaTimeval> {
-    @InjectMocks TimevalEncoderImpl encoder;
+    @InjectMocks
+    TimevalEncoderImpl encoder;
 
     @Override
     protected void verifyEncodeEntity(final byte[] encode, final SuplaTimeval proto) {

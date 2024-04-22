@@ -19,8 +19,8 @@ public class DeviceChannelValueSerializerImpl implements DeviceChannelValueSeria
     @Override
     public SuplaDeviceChannelValue serialize(@NotNull final DeviceChannelValue entity) {
         return new SuplaDeviceChannelValue(
-                                                  (short) entity.getChannelNumber(),
-                                                  channelTypeEncoder.encode(entity.getValue())
+            (short) entity.getChannelNumber(),
+            channelTypeEncoder.encode(entity.getValue())
         );
     }
 }

@@ -1,14 +1,8 @@
 package pl.grzeslowski.jsupla.protocoljava.api.entities.sc;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
-import static pl.grzeslowski.jsupla.Preconditions.byteSize;
-import static pl.grzeslowski.jsupla.Preconditions.min;
-import static pl.grzeslowski.jsupla.Preconditions.size;
+import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
 
 public class Location implements ServerClientEntity {
@@ -70,9 +64,9 @@ public class Location implements ServerClientEntity {
     @Override
     public String toString() {
         return "Location{" +
-                       "eol=" + eol +
-                       ", id=" + id +
-                       ", caption='" + caption + '\'' +
-                       '}';
+            "eol=" + eol +
+            ", id=" + id +
+            ", caption='" + caption + '\'' +
+            '}';
     }
 }

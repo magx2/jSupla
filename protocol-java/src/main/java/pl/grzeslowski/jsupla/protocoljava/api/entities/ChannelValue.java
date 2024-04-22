@@ -12,7 +12,8 @@ public class ChannelValue implements Entity {
     @Valid
     @NotNull
     private final pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue value;
-    @Valid private final pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue subValue;
+    @Valid
+    private final pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue subValue;
 
     @SuppressWarnings("WeakerAccess")
     public ChannelValue(final @Valid @NotNull pl.grzeslowski.jsupla.protocoljava.api.channels.values.ChannelValue value,
@@ -58,8 +59,8 @@ public class ChannelValue implements Entity {
     @Override
     public String toString() {
         return "ChannelValue{" +
-                       "value=" + value +
-                       ", subValue=" + subValue +
-                       '}';
+            "value=" + value +
+            ", subValue=" + subValue +
+            '}';
     }
 }

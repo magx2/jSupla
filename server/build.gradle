@@ -1,10 +1,10 @@
 repositories {
-    maven { url 'https://repo.spring.io/milestone' }
-    mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	mavenCentral()
 }
 
 dependencies {
-    compile rootProject.project("protocolJava")
-    compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
-    compile "io.projectreactor:reactor-core:$reactorVersion"
+	compile rootProject.project("protocolJava")
+	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
+	compile "io.projectreactor:reactor-core:$reactorVersion"
 }

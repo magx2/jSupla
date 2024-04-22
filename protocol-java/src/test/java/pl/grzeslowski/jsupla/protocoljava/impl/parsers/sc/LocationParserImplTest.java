@@ -14,8 +14,10 @@ import static org.mockito.Mockito.verify;
 
 @SuppressWarnings("WeakerAccess")
 public class LocationParserImplTest extends AbstractParserTest<Location, SuplaLocation> {
-    @InjectMocks LocationParserImpl parser;
-    @Mock StringParser stringParser;
+    @InjectMocks
+    LocationParserImpl parser;
+    @Mock
+    StringParser stringParser;
 
     @Override
     protected SuplaLocation given() {

@@ -15,8 +15,8 @@ public class DeviceChannelValueParserImpl implements DeviceChannelValueParser {
     private final TypeMapper typeMapper;
 
     public DeviceChannelValueParserImpl(
-            final ChannelTypeDecoder channelTypeDecoder,
-            final TypeMapper typeMapper) {
+        final ChannelTypeDecoder channelTypeDecoder,
+        final TypeMapper typeMapper) {
         this.channelTypeDecoder = requireNonNull(channelTypeDecoder);
         this.typeMapper = requireNonNull(typeMapper);
     }

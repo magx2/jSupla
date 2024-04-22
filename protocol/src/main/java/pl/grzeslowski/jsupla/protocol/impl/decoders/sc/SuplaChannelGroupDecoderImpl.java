@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 
 public class SuplaChannelGroupDecoderImpl implements SuplaChannelGroupDecoder {
     public static final SuplaChannelGroupDecoderImpl INSTANCE = new SuplaChannelGroupDecoderImpl();
-    
+
     @SuppressWarnings("UnusedAssignment")
     @Override
     public SuplaChannelGroup decode(final byte[] bytes, int offset) {
@@ -36,16 +36,16 @@ public class SuplaChannelGroupDecoderImpl implements SuplaChannelGroupDecoder {
 
         final byte[] caption = PrimitiveDecoderImpl.INSTANCE.copyOfRange(bytes, offset, (int) (offset + captionSize));
         offset += caption.length;
-        
+
         return new SuplaChannelGroup(
-                eol,
-                id,
-                locationId,
-                func,
-                altIcon,
-                flags,
-                captionSize,
-                caption
+            eol,
+            id,
+            locationId,
+            func,
+            altIcon,
+            flags,
+            captionSize,
+            caption
         );
     }
 }

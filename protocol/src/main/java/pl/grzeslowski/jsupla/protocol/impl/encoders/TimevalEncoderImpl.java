@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 public class TimevalEncoderImpl implements TimevalEncoder {
     public static final TimevalEncoderImpl INSTANCE =
-            new TimevalEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new TimevalEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     TimevalEncoderImpl(final PrimitiveEncoder primitiveEncoder) {

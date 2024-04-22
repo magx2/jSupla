@@ -25,11 +25,11 @@ public class DeviceChannelBParserImpl implements DeviceChannelBParser {
     public DeviceChannelB parse(@NotNull final SuplaDeviceChannelB proto) {
         final ChannelType channelType = suplaDeviceChannelBToChannelType.toChannelType(proto);
         return new DeviceChannelB(
-                                         proto.number,
-                                         proto.type,
-                                         channelTypeDecoder.decode(channelType, proto.value),
-                                         proto.funcList,
-                                         proto.defaultValue
+            proto.number,
+            proto.type,
+            channelTypeDecoder.decode(channelType, proto.value),
+            proto.funcList,
+            proto.defaultValue
         );
     }
 }

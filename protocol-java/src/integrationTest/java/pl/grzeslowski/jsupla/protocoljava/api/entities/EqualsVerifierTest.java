@@ -24,21 +24,21 @@ public class EqualsVerifierTest {
     @Parameterized.Parameters(name = "{0}")
     public static Object[][] params() throws Exception {
         return ClassPath.from(pl.grzeslowski.jsupla.protocol.api.structs.EqualsVerifierTest.class.getClassLoader())
-                   .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
-                   .asList()
-                   .stream()
-                   .map(ClassPath.ClassInfo::load)
-                   .filter(clazz -> !clazz.isInterface())
-                   .filter(Entity.class::isAssignableFrom)
-                   .filter(clazz -> !ALL_REDEFINED_TYPES.contains(clazz))
-                   .map(clazz -> new Object[]{clazz})
-                   .toArray(Object[][]::new);
+            .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
+            .asList()
+            .stream()
+            .map(ClassPath.ClassInfo::load)
+            .filter(clazz -> !clazz.isInterface())
+            .filter(Entity.class::isAssignableFrom)
+            .filter(clazz -> !ALL_REDEFINED_TYPES.contains(clazz))
+            .map(clazz -> new Object[]{clazz})
+            .toArray(Object[][]::new);
     }
 
     @Test
     public void shouldVerifyEqualsAndHashCode() {
         EqualsVerifier.forClass(clazz)
-                .suppress(NULL_FIELDS, STRICT_HASHCODE)
-                .verify();
+            .suppress(NULL_FIELDS, STRICT_HASHCODE)
+            .verify();
     }
 }

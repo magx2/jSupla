@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaDeviceChannelBEncoderImpl implements SuplaDeviceChannelBEncoder {
     public static final SuplaDeviceChannelBEncoderImpl INSTANCE =
-            new SuplaDeviceChannelBEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
+        new SuplaDeviceChannelBEncoderImpl(PrimitiveEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
 
     SuplaDeviceChannelBEncoderImpl(PrimitiveEncoder primitiveEncoder) {

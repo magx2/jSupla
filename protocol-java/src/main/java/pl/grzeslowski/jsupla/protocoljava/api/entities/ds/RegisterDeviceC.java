@@ -6,15 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_DEVICE_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SERVER_NAME_MAXSIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.C;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
 public class RegisterDeviceC extends RegisterDeviceB {
     @NotNull
     @Size(min = 1, max = SUPLA_SERVER_NAME_MAXSIZE)
@@ -72,7 +66,7 @@ public class RegisterDeviceC extends RegisterDeviceB {
     @Override
     public String toString() {
         return "RegisterDeviceC{" +
-                   "serverName='" + serverName + '\'' +
-                   "} " + super.toString();
+            "serverName='" + serverName + '\'' +
+            "} " + super.toString();
     }
 }

@@ -11,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class SuplaChannelPackBEncoderImpl implements SuplaChannelPackBEncoder {
     public static final SuplaChannelPackBEncoderImpl INSTANCE =
-            new SuplaChannelPackBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelBEncoderImpl.INSTANCE);
+        new SuplaChannelPackBEncoderImpl(PrimitiveEncoderImpl.INSTANCE, SuplaChannelBEncoderImpl.INSTANCE);
     private final PrimitiveEncoder primitiveEncoder;
     private final SuplaChannelBEncoder suplaChannelBEncoder;
 

@@ -1,18 +1,18 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders.sc;
 
-import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.sc.SuplaChannelPackBDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelPackB;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+
 public final class SuplaChannelPackBDecoderImpl implements SuplaChannelPackBDecoder {
     public static final SuplaChannelPackBDecoderImpl INSTANCE = new SuplaChannelPackBDecoderImpl(
-            SuplaChannelBDecoderImpl.INSTANCE);
+        SuplaChannelBDecoderImpl.INSTANCE);
     private final SuplaChannelBDecoder suplaChannelBDecoder;
 
     public SuplaChannelPackBDecoderImpl(SuplaChannelBDecoder suplaChannelBDecoder) {
@@ -29,8 +29,8 @@ public final class SuplaChannelPackBDecoderImpl implements SuplaChannelPackBDeco
         for (int i = 0; i < count; i++) {
             if (bytes.length - offset < SuplaChannelB.MIN_SIZE) {
                 throw new IllegalArgumentException(format(
-                        "Can't parse SuplaChannelB from byte array of length %s with offset %s, " +
-                                "because min length is %s!", bytes.length, offset, SuplaChannelB.MIN_SIZE));
+                    "Can't parse SuplaChannelB from byte array of length %s with offset %s, " +
+                        "because min length is %s!", bytes.length, offset, SuplaChannelB.MIN_SIZE));
             }
             final SuplaChannelB channel = suplaChannelBDecoder.decode(bytes, offset);
             offset += channel.size();

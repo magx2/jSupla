@@ -19,9 +19,9 @@ public class GetVersionResultParserImpl implements GetVersionResultParser {
     @Override
     public GetVersionResult parse(@NotNull final SuplaGetVersionResult proto) {
         return new GetVersionResult(
-                                           proto.protoVersionMin,
-                                           proto.protoVersion,
-                                           stringParser.parse(proto.softVer)
+            proto.protoVersionMin,
+            proto.protoVersion,
+            stringParser.parse(proto.softVer)
         );
     }
 }
