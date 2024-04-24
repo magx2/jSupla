@@ -79,7 +79,6 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void channelUnregistered(final ChannelHandlerContext ctx) throws Exception {
         logger.debug("SuplaHandler.channelUnregistered(ctx), emitters.size={}", emitters.size());
         super.channelUnregistered(ctx);
-        rootEmitters.forEach(FluxSink::complete);
         emitters.forEach(FluxSink::complete);
     }
 
@@ -87,7 +86,6 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
         logger.debug("SuplaHandler.exceptionCaught(ctx, {})", cause);
         super.exceptionCaught(ctx, cause);
-        rootEmitters.forEach(e -> e.error(cause));
         emitters.forEach(e -> e.error(cause));
     }
 
@@ -95,7 +93,6 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         logger.debug("SuplaHandler.channelInactive(ctx), emitters.size={}", emitters.size());
         super.channelInactive(ctx);
-        rootEmitters.forEach(FluxSink::complete);
         emitters.forEach(FluxSink::complete);
     }
 
