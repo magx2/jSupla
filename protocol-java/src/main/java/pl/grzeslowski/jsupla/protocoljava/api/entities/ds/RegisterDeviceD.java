@@ -67,6 +67,7 @@ public class RegisterDeviceD implements DeviceServerEntity, RegisterDeviceTrait 
         return name;
     }
 
+    @Override
     public String getSoftVer() {
         return softVer;
     }
