@@ -15,13 +15,13 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
 import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
 import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.FromServerEntity;
 import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
+import pl.grzeslowski.jsupla.protocoljava.api.types.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import reactor.core.publisher.Flux;
 
@@ -67,8 +67,8 @@ public final class NettyChannel implements Channel {
             .cast(ToServerEntity.class);
 
         this.messagePipe
-            .filter(entity -> RegisterDevice.class.isAssignableFrom(entity.getClass()))
-            .cast(RegisterDevice.class)
+            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
+            .cast(RegisterDeviceTrait.class)
             .subscribe(typeMapper::registerDevice);
     }
 

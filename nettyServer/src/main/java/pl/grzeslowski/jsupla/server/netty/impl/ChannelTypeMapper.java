@@ -2,8 +2,8 @@ package pl.grzeslowski.jsupla.server.netty.impl;
 
 import pl.grzeslowski.jsupla.protocoljava.api.channels.decoders.ChannelType;
 import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.DeviceChannel;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDevice;
 import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
+import pl.grzeslowski.jsupla.protocoljava.api.types.traits.RegisterDeviceTrait;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +17,7 @@ public final class ChannelTypeMapper implements DeviceChannelValueParser.TypeMap
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private List<DeviceChannel> deviceChannels;
 
-    public void registerDevice(RegisterDevice registerDevice) {
+    public void registerDevice(RegisterDeviceTrait registerDevice) {
         lock.writeLock().lock();
         try {
             if (deviceChannels != null) {
