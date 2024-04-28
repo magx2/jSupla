@@ -1,0 +1,3 @@
+  _supla_int16_t Index;  // BIT0 Temperature[0], BIT1 Temperature[1] etc...
+  unsigned _supla_int16_t Temperature[10];
+// i name TThermostatTemperatureCfg

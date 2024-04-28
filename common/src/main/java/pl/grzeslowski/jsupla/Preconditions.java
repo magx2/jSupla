@@ -238,12 +238,36 @@ public final class Preconditions {
         return value;
     }
 
+    public static long[] checkArrayLength(long[] longs, int length) {
+        if (longs.length != length) {
+            throw new IllegalArgumentException(
+                format("Length of array should be %s but was %s!", length, longs.length));
+        }
+        return longs;
+    }
+
     public static byte[] checkArrayLength(byte[] bytes, int length) {
         if (bytes.length != length) {
             throw new IllegalArgumentException(
                 format("Length of array should be %s but was %s!", length, bytes.length));
         }
         return bytes;
+    }
+
+    public static short[] checkArrayLength(short[] shorts, int length) {
+        if (shorts.length != length) {
+            throw new IllegalArgumentException(
+                format("Length of array should be %s but was %s!", length, shorts.length));
+        }
+        return shorts;
+    }
+
+    public static int[] checkArrayLength(int[] ints, int length) {
+        if (ints.length != length) {
+            throw new IllegalArgumentException(
+                format("Length of array should be %s but was %s!", length, ints.length));
+        }
+        return ints;
     }
 
     public static char[] checkArrayLength(char[] bytes, int length) {
@@ -284,6 +308,27 @@ public final class Preconditions {
 
     public static int unsignedShortSize(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 65_535);
+    }
+
+    public static int[] unsigned(int[] unsignedByteValues) {
+        for (int unsignedByteValue : unsignedByteValues) {
+            unsigned(unsignedByteValue);
+        }
+        return unsignedByteValues;
+    }
+
+    public static short[] unsigned(short[] unsignedShortValues) {
+        for (short unsignedByteValue : unsignedShortValues) {
+            unsignedByteSize(unsignedByteValue);
+        }
+        return unsignedShortValues;
+    }
+
+    public static long[] unsigned(long[] unsignedByteValues) {
+        for (long unsignedByteValue : unsignedByteValues) {
+            unsigned(unsignedByteValue);
+        }
+        return unsignedByteValues;
     }
 
     public static long unsigned(final long value) {

@@ -700,7 +700,7 @@ typedef struct {
   char type;  // EV_TYPE_
   unsigned _supla_int_t size;
   char value[SUPLA_CHANNELEXTENDEDVALUE_SIZE];  // Last variable in struct!
-} TSuplaChannelExtendedValue;                   // v. >= 10
+} TSuplaChannelExtendedValue;✅                   // v. >= 10
 
 typedef struct {
   // server -> client
@@ -709,7 +709,7 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_LOCATION_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_SuplaLocation;
+} TSC_SuplaLocation;✅
 
 typedef struct {
   // server -> client
@@ -717,14 +717,14 @@ typedef struct {
   _supla_int_t total_left;
   TSC_SuplaLocation
       items[SUPLA_LOCATIONPACK_MAXCOUNT];  // Last variable in struct!
-} TSC_SuplaLocationPack;
+} TSC_SuplaLocationPack;✅
 
 typedef struct {
   // device -> server
   unsigned char Number;
   _supla_int_t Type;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TDS_SuplaDeviceChannel;
+} TDS_SuplaDeviceChannel;✅
 
 typedef struct {
   // device -> server
@@ -739,7 +739,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice;
+} TDS_SuplaRegisterDevice;✅
 
 typedef struct {
   // device -> server
@@ -751,12 +751,12 @@ typedef struct {
   _supla_int_t Default;
 
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TDS_SuplaDeviceChannel_B;  // ver. >= 2
+} TDS_SuplaDeviceChannel_B; ✅ // ver. >= 2
 
 typedef struct {
   unsigned char relatedChannelNumber;  // ChannelNumber + 1.
   unsigned _supla_int_t disablesLocalOperation;
-} TActionTriggerProperties;
+} TActionTriggerProperties;✅
 
 #define SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET (1ULL << 0)
 #define SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET (1ULL << 1)
@@ -812,7 +812,7 @@ typedef struct {
   _supla_int16_t
       SetpointTemperatureCool;    // * 0.01 - Celcius degree used for cooling
   unsigned _supla_int16_t Flags;  // SUPLA_HVAC_VALUE_FLAG_
-} THVACValue;
+} THVACValue;✅
 
 typedef struct {
   // device -> server
@@ -833,7 +833,7 @@ typedef struct {
     TActionTriggerProperties actionTriggerProperties;  // ver. >= 16
     THVACValue hvacValue;
   };
-} TDS_SuplaDeviceChannel_C;  // ver. >= 10
+} TDS_SuplaDeviceChannel_C;❌  // ver. >= 10
 
 typedef struct {
   // device -> server
@@ -860,7 +860,7 @@ typedef struct {
 
   unsigned char DefaultIcon;
 
-} TDS_SuplaDeviceChannel_D;  // ver. >= 23
+} TDS_SuplaDeviceChannel_D; ❌ // ver. >= 23
 
 typedef struct {
   // device -> server
@@ -875,7 +875,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_B
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice_B;            // ver. >= 2
+} TDS_SuplaRegisterDevice_B;   ✅         // ver. >= 2
 
 typedef struct {
   // device -> server
@@ -893,7 +893,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_B
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice_C;            // ver. >= 6
+} TDS_SuplaRegisterDevice_C;  ✅          // ver. >= 6
 
 typedef struct {
   // device -> server
@@ -911,7 +911,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_B
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice_D;            // ver. >= 7
+} TDS_SuplaRegisterDevice_D;    ✅        // ver. >= 7
 
 typedef struct {
   // device -> server
@@ -933,7 +933,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_C
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice_E;            // ver. >= 10
+} TDS_SuplaRegisterDevice_E;  ✅          // ver. >= 10
 
 typedef struct {
   // device -> server
@@ -1047,7 +1047,7 @@ typedef struct {
   char online;
 
   TSuplaChannelValue_B value;
-} TSC_SuplaChannelValue_B; ✅/❌ it looks likes it is in structs but it looks different //  ver. >= 15
+} TSC_SuplaChannelValue_B; ✅ //  ver. >= 15
 
 typedef struct {
   // server -> client
@@ -1188,7 +1188,7 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_SuplaChannel_D;                           // ver. >= 15
+} TSC_SuplaChannel_D;      ✅                     // ver. >= 15
 
 typedef struct {
   // server -> client
@@ -1548,7 +1548,7 @@ typedef struct {
   unsigned char activity_timeout;
   unsigned char version;
   unsigned char version_min;
-} TSC_SuplaRegisterClientResult;
+} TSC_SuplaRegisterClientResult;✅
 
 typedef struct {
   // server -> client
@@ -1562,7 +1562,7 @@ typedef struct {
   unsigned char activity_timeout;
   unsigned char version;
   unsigned char version_min;
-} TSC_SuplaRegisterClientResult_B;  // ver. >= 9
+} TSC_SuplaRegisterClientResult_B; ✅ // ver. >= 9
 
 typedef struct {
   // server -> client
@@ -1577,7 +1577,7 @@ typedef struct {
   unsigned char version;
   unsigned char version_min;
   unsigned _supla_int_t serverUnixTimestamp;  // current server time
-} TSC_SuplaRegisterClientResult_C;            // ver. >= 17
+} TSC_SuplaRegisterClientResult_C;   ✅         // ver. >= 17
 
 typedef struct {
   // server -> client
@@ -1593,26 +1593,26 @@ typedef struct {
   unsigned char version;
   unsigned char version_min;
   unsigned _supla_int_t serverUnixTimestamp;  // current server time
-} TSC_SuplaRegisterClientResult_D;            // ver. >= 19
+} TSC_SuplaRegisterClientResult_D;  ✅          // ver. >= 19
 
 typedef struct {
   // client -> server
   unsigned char ChannelId;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TCS_SuplaChannelNewValue;  // Deprecated
+} TCS_SuplaChannelNewValue; ✅ // Deprecated
 
 typedef struct {
   // client -> server
   _supla_int_t ChannelId;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TCS_SuplaChannelNewValue_B;
+} TCS_SuplaChannelNewValue_B;✅
 
 typedef struct {
   // client -> server
   _supla_int_t Id;
   char Target;  // SUPLA_TARGET_
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TCS_SuplaNewValue;  // ver. >= 9
+} TCS_SuplaNewValue; ✅ // ver. >= 9
 
 typedef struct {
   // server -> client
@@ -1625,7 +1625,7 @@ typedef struct {
       SenderNameSize;  // including the terminating null byte ('\0')
   char
       SenderName[SUPLA_SENDER_NAME_MAXSIZE];  // Last variable in struct! | UTF8
-} TSC_SuplaEvent;
+} TSC_SuplaEvent;✅
 
 typedef struct {
   char Platform;
@@ -1634,36 +1634,36 @@ typedef struct {
   _supla_int_t Param2;
   _supla_int_t Param3;
   _supla_int_t Param4;
-} TDS_FirmwareUpdateParams;
+} TDS_FirmwareUpdateParams;✅
 
 typedef struct {
   char available_protocols;
   char host[SUPLA_URL_HOST_MAXSIZE];
   _supla_int_t port;
   char path[SUPLA_URL_PATH_MAXSIZE];
-} TSD_FirmwareUpdate_Url;
+} TSD_FirmwareUpdate_Url;✅
 
 typedef struct {
   char exists;
   TSD_FirmwareUpdate_Url url;
-} TSD_FirmwareUpdate_UrlResult;
+} TSD_FirmwareUpdate_UrlResult;✅
 
 typedef struct {
   unsigned _supla_int_t client_timestamp;    // time >= now == enabled
   unsigned _supla_int_t iodevice_timestamp;  // time >= now == enabled
-} TSDC_RegistrationEnabled;
+} TSDC_RegistrationEnabled;✅
 
 typedef struct {
   unsigned _supla_int_t ExpiresIn;
   unsigned _supla_int_t
       TokenSize;  // including the terminating null byte ('\0')
   char Token[SUPLA_OAUTH_TOKEN_MAXSIZE];  // Last variable in struct!
-} TSC_OAuthToken;                         // ver. >= 10
+} TSC_OAuthToken;    ✅                     // ver. >= 10
 
 typedef struct {
   unsigned char ResultCode;
   TSC_OAuthToken Token;
-} TSC_OAuthTokenRequestResult;  // ver. >= 10
+} TSC_OAuthTokenRequestResult;✅  // ver. >= 10
 
 typedef struct {
   // 3 phases
@@ -1679,7 +1679,7 @@ typedef struct {
                                    // EM_VAR_POWER_APPARENT_KVA)
   _supla_int16_t power_factor[3];  // * 0.001
   _supla_int16_t phase_angle[3];   // * 0.1 degree
-} TElectricityMeter_Measurement;   // v. >= 10
+} TElectricityMeter_Measurement;✅   // v. >= 10
 
 #define EM_VAR_FREQ 0x0001
 #define EM_VAR_VOLTAGE 0x0002
@@ -1736,7 +1736,7 @@ typedef struct {
   _supla_int_t m_count;
   TElectricityMeter_Measurement m[EM_MEASUREMENT_COUNT];  // Last variable in
                                                           // struct!
-} TElectricityMeter_ExtendedValue;                        // v. >= 10
+} TElectricityMeter_ExtendedValue;    ✅                    // v. >= 10
 #endif /*USE_DEPRECATED_EMEV_V1*/
 
 // [IODevice->Server->Client]
@@ -1765,7 +1765,7 @@ typedef struct {
   _supla_int_t m_count;
   TElectricityMeter_Measurement m[EM_MEASUREMENT_COUNT];  // Last variable in
                                                           // struct!
-} TElectricityMeter_ExtendedValue_V2;                     // v. >= 12
+} TElectricityMeter_ExtendedValue_V2;     ✅                // v. >= 12
 
 // [IODevice->Server->Client]
 typedef struct {
@@ -1802,7 +1802,7 @@ typedef struct {
   _supla_int_t m_count;
   TElectricityMeter_Measurement m[EM_MEASUREMENT_COUNT];  // Last variable in
                                                           // struct!
-} TElectricityMeter_ExtendedValue_V3;                     // v. >= 22
+} TElectricityMeter_ExtendedValue_V3;          ✅            // v. >= 22
 
 #define EM_VALUE_FLAG_PHASE1_ON 0x01
 #define EM_VALUE_FLAG_PHASE2_ON 0x02
@@ -1812,7 +1812,7 @@ typedef struct {
 typedef struct {
   char flags;
   unsigned _supla_int_t total_forward_active_energy;  // * 0.01 kW
-} TElectricityMeter_Value;                            // v. >= 10
+} TElectricityMeter_Value;      ✅                       // v. >= 10
 
 typedef struct {
   // The price per unit, total cost and currency is overwritten by the server
@@ -1826,11 +1826,11 @@ typedef struct {
   _supla_int_t impulses_per_unit;
   unsigned _supla_int64_t counter;
   _supla_int64_t calculated_value;   // * 0.001
-} TSC_ImpulseCounter_ExtendedValue;  // v. >= 10
+} TSC_ImpulseCounter_ExtendedValue;✅  // v. >= 10
 
 typedef struct {
   unsigned _supla_int64_t counter;
-} TDS_ImpulseCounter_Value;
+} TDS_ImpulseCounter_Value; ✅
 
 #define RS_VALUE_FLAG_TILT_IS_SET 0x1
 #define RS_VALUE_FLAG_CALIBRATION_FAILED 0x2
@@ -1852,7 +1852,7 @@ typedef struct {
   char reserved2;
   char reserved3;
   char reserved4;
-} TDSC_RollerShutterValue;
+} TDSC_RollerShutterValue;✅
 
 // Roller shutter channel value payload
 // Client -> Server -> Device
@@ -1865,7 +1865,7 @@ typedef struct {
                          // 5 - STEP_BY_STEP
                          // 10-110 - target position + 10
   char reserved[7];
-} TCSD_RollerShutterValue;
+} TCSD_RollerShutterValue;✅
 
 // Facade blind channel value payload
 // Device -> Server -> Client
@@ -1877,7 +1877,7 @@ typedef struct {
   unsigned char tilt_0_angle;       // SC
   unsigned char tilt_100_angle;     // SC
   unsigned char facade_blind_type;  // DSC SUPLA_FACADEBLIND_TYPE_*
-} TDSC_FacadeBlindValue;
+} TDSC_FacadeBlindValue;✅
 
 // Facade blind channel value payload
 // Client -> Server -> Device
@@ -1893,20 +1893,20 @@ typedef struct {
   signed char tilt;      // -1 - not set (actual behavior is device specific)
                          // 10-110 - target position + 10
   char reserved[6];
-} TCSD_FacadeBlindValue;
+} TCSD_FacadeBlindValue;✅
 
 typedef struct {
   unsigned _supla_int64_t calculated_value;  // * 0.001
-} TSC_ImpulseCounter_Value;                  // v. >= 10
+} TSC_ImpulseCounter_Value;  ✅                // v. >= 10
 
 typedef struct {
   char Email[SUPLA_EMAIL_MAXSIZE];        // UTF8
   char Password[SUPLA_PASSWORD_MAXSIZE];  // UTF8
-} TCS_SuperUserAuthorizationRequest;      // v. >= 10
+} TCS_SuperUserAuthorizationRequest;      // v. >= 10✅
 
 typedef struct {
   _supla_int_t Result;
-} TSC_SuperUserAuthorizationResult;  // v. >= 10
+} TSC_SuperUserAuthorizationResult;  // v. >= 10✅
 
 #define SUPLA_CALCFG_RESULT_FALSE 0                          // ver. >= 12
 #define SUPLA_CALCFG_RESULT_TRUE 1                           // ver. >= 12
@@ -2104,14 +2104,14 @@ typedef struct {
   char onOff;
   char command;  // RGBW_COMMAND_, requires
                  // SUPLA_CHANNEL_FLAG_RGBW_COMMANDS_SUPPORTED v. >= 21
-} TRGBW_Value;   // v. >= 10
+} TRGBW_Value;   // v. >= 10 ✅
 
 #define SUPLA_RELAY_FLAG_OVERCURRENT_RELAY_OFF 0x1
 
 typedef struct {
   char hi;  // actual state of relay  - 0 turned off, >= 1 - turned on
   unsigned short flags;  // SUPLA_RELAY_FLAG_*
-} TRelayChannel_Value;   // v. >= 15
+} TRelayChannel_Value;   ✅ // v. >= 15
 
 #define DIGIGLASS_TOO_LONG_OPERATION_WARNING 0x1
 #define DIGIGLASS_PLANNED_REGENERATION_IN_PROGRESS 0x2
@@ -2121,20 +2121,20 @@ typedef struct {
   unsigned char flags;
   unsigned char sectionCount;  // 1 - 16 Filled by server
   unsigned short mask;         // bit mask. 0 - opaque, 1 - transparent
-} TDigiglass_Value;            // v. >= 14
+} TDigiglass_Value;   ✅         // v. >= 14
 
 typedef struct {
   unsigned short mask;  // Bit mask. 0 - opaque, 1 - transparent
   unsigned short
       active_bits;          // Specifies which bits of the mask are not skipped
-} TCSD_Digiglass_NewValue;  // v. >= 14
+} TCSD_Digiglass_NewValue;  // v. >= 14 ✅
 
 typedef struct {
   unsigned char sec;        // 0-59
   unsigned char min;        // 0-59
   unsigned char hour;       // 0-24
   unsigned char dayOfWeek;  // 1 = Sunday, 2 = Monday, …, 7 = Saturday
-} TThermostat_Time;         // v. >= 11
+} TThermostat_Time;         // v. >= 11✅
 
 #define THERMOSTAT_SCHEDULE_DAY_SUNDAY 0x01
 #define THERMOSTAT_SCHEDULE_DAY_MONDAY 0x02
@@ -2152,18 +2152,18 @@ typedef struct {
   unsigned char ValueType;  // THERMOSTAT_SCHEDULE_HOURVALUE_TYPE_
   char HourValue[7][24];    // 7 days x 24h
                             // 0 = Sunday, 1 = Monday, …, 6 = Saturday
-} TThermostat_Schedule;     // v. >= 11
+} TThermostat_Schedule;   ✅  // v. >= 11
 
 typedef struct {
   unsigned char ValueType;  // THERMOSTAT_SCHEDULE_HOURVALUE_TYPE_
   unsigned char WeekDays;   // THERMOSTAT_SCHEDULE_DAY_
   char HourValue[24];
-} TThermostatValueGroup;  // v. >= 11
+} TThermostatValueGroup; ✅ // v. >= 11
 
 // Used in Heatpol thermostat
 typedef struct {
   TThermostatValueGroup Group[4];
-} TThermostat_ScheduleCfg;  // v. >= 11
+} TThermostat_ScheduleCfg; ✅ // v. >= 11
 
 // Tempeature definitions for Heatpol thermostat
 // TThermostatTemperatureCfg
@@ -2183,7 +2183,7 @@ typedef struct {
 typedef struct {
   _supla_int16_t Index;  // BIT0 Temperature[0], BIT1 Temperature[1] etc...
   unsigned _supla_int16_t Temperature[10];
-} TThermostatTemperatureCfg;
+} TThermostatTemperatureCfg;✅
 
 // Tempeature definitions for HVAC
 // THVACTemperatureCfg
@@ -2239,7 +2239,7 @@ typedef struct {
   unsigned _supla_int_t Index;  // BIT0 Temperature[0], BIT1 Temperature[1]
                                 // etc...
   _supla_int16_t Temperature[24];
-} THVACTemperatureCfg;
+} THVACTemperatureCfg;✅
 
 // Heatpol: Thermostat configuration commands - ver. >= 11
 #define SUPLA_THERMOSTAT_CMD_TURNON 1
@@ -2283,7 +2283,7 @@ typedef struct {
   _supla_int16_t Values[8];
   TThermostat_Time Time;
   TThermostat_Schedule Schedule;  // 7 days x 24h (4bit/hour)
-} TThermostat_ExtendedValue;      // v. >= 11
+} TThermostat_ExtendedValue;     ✅ // v. >= 11
 
 // Used in Heatpol only
 typedef struct {
@@ -2291,7 +2291,7 @@ typedef struct {
   unsigned char Flags;
   _supla_int16_t MeasuredTemperature;  // * 0.01
   _supla_int16_t PresetTemperature;    // * 0.01
-} TThermostat_Value;                   // v. >= 11
+} TThermostat_Value;              ✅     // v. >= 11
 
 typedef struct {
   unsigned _supla_int16_t year;
@@ -2304,7 +2304,7 @@ typedef struct {
   unsigned _supla_int_t
       timezoneSize;  // including the terminating null byte ('\0')
   char timezone[SUPLA_TIMEZONE_MAXSIZE];  // Last variable in struct!
-} TSDC_UserLocalTimeResult;
+} TSDC_UserLocalTimeResult; ✅
 
 typedef struct {
   _supla_int_t SenderID;
@@ -2368,7 +2368,7 @@ typedef struct {
 
 typedef struct {
   _supla_int_t ChannelID;
-} TCS_ChannelBasicCfgRequest;  // v. >= 12
+} TCS_ChannelBasicCfgRequest;  // v. >= 12 ✅
 
 typedef struct {
   union {
@@ -2390,7 +2390,7 @@ typedef struct {
 typedef struct {
   TChannelState_ExtendedValue Channel;
   TTimerState_ExtendedValue Timer;  // Last variable in struct!
-} TChannelAndTimerState_ExtendedValue;
+} TChannelAndTimerState_ExtendedValue;❌ dpends on unions
 
 typedef struct {
   char DeviceName[SUPLA_DEVICE_NAME_MAXSIZE];  // UTF8
@@ -2410,18 +2410,18 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_ChannelBasicCfg;                          // v. >= 12
+} TSC_ChannelBasicCfg;                        ✅  // v. >= 12
 
 typedef struct {
   _supla_int_t ChannelID;
   _supla_int_t Func;
-} TCS_SetChannelFunction;  // v. >= 12
+} TCS_SetChannelFunction;  ✅ // v. >= 12
 
 typedef struct {
   _supla_int_t ChannelID;
   _supla_int_t Func;
   unsigned char ResultCode;
-} TSC_SetChannelFunctionResult;  // v. >= 12
+} TSC_SetChannelFunctionResult; ✅ // v. >= 12
 
 typedef struct {
   union {
@@ -2448,27 +2448,27 @@ typedef struct {
 
 typedef struct {
   unsigned char ResultCode;
-} TSC_ClientsReconnectRequestResult;  // v. >= 12
+} TSC_ClientsReconnectRequestResult; ✅ // v. >= 12
 
 typedef struct {
   // Disabled: 0
   // Ignore: <0
   _supla_int_t IODeviceRegistrationTimeSec;
   _supla_int_t ClientRegistrationTimeSec;
-} TCS_SetRegistrationEnabled;  // v. >= 12
+} TCS_SetRegistrationEnabled;  // v. >= 12✅
 
 typedef struct {
   unsigned char ResultCode;
-} TSC_SetRegistrationEnabledResult;  // v. >= 12
+} TSC_SetRegistrationEnabledResult;  // v. >= 12✅
 
 typedef struct {
   int DeviceID;
-} TCS_DeviceReconnectRequest;  // v. >= 12
+} TCS_DeviceReconnectRequest;  // v. >= 12✅
 
 typedef struct {
   int DeviceID;
   unsigned char ResultCode;
-} TSC_DeviceReconnectRequestResult;  // v. >= 12
+} TSC_DeviceReconnectRequestResult;  // v. >= 12✅
 
 typedef struct {
   // server -> device
@@ -2476,18 +2476,18 @@ typedef struct {
   unsigned char ChannelCount;
   _supla_int_t Functions[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
   // Functions[ChannelNumber]
-} TSD_ChannelFunctions;  // ver. >= 12
+} TSD_ChannelFunctions;  // ver. >= 12✅
 
 typedef struct {
   unsigned char ChannelNumber;
-} TDS_GetChannelIntParamsRequest;
+} TDS_GetChannelIntParamsRequest;✅
 
 typedef struct {
   unsigned char ChannelNumber;
   _supla_int_t Param1;
   _supla_int_t Param2;
   _supla_int_t Param3;
-} TSD_ChannelIntParams;
+} TSD_ChannelIntParams;✅
 
 #define SUPLA_CHANNEL_CONFIG_MAXSIZE 512  // v. <= 19 - 128; v. >= 21 - 512
 #define SUPLA_DEVICE_CONFIG_MAXSIZE 512
@@ -2516,14 +2516,14 @@ typedef struct {
   unsigned _supla_int64_t Fields;  // bit map of SUPLA_DEVICE_CONFIG_FIELD_
   unsigned _supla_int16_t ConfigSize;
   char Config[SUPLA_DEVICE_CONFIG_MAXSIZE];  // Last variable in struct!
-} TSDS_SetDeviceConfig;                      // v. >= 21
+} TSDS_SetDeviceConfig;   ✅                   // v. >= 21
 
 // SUPLA_SD_CALL_SET_DEVICE_CONFIG_RESULT
 // SUPLA_DS_CALL_SET_DEVICE_CONFIG_RESULT
 typedef struct {
   unsigned char Result;   // SUPLA_CONFIG_RESULT_*
   unsigned char zero[9];  // for future use
-} TSDS_SetDeviceConfigResult;
+} TSDS_SetDeviceConfigResult; ✅  
 
 typedef struct {
   _supla_int_t DeviceId;
@@ -2534,21 +2534,21 @@ typedef struct {
   unsigned _supla_int64_t Fields;  // bit map of SUPLA_DEVICE_CONFIG_FIELD_
   unsigned _supla_int16_t ConfigSize;
   char Config[SUPLA_DEVICE_CONFIG_MAXSIZE];  // Last variable in struct!
-} TSCS_DeviceConfig;                         // v. >= 21
+} TSCS_DeviceConfig;                  ✅        // v. >= 21
 
 // SUPLA_SC_CALL_DEVICE_CONFIG_UPDATE_OR_RESULT
 typedef struct {
   unsigned char Result;      // SUPLA_CONFIG_RESULT_*. It matters when it is a
                              // response to SUPLA_CS_CALL_GET_DEVICE_CONFIG
   TSCS_DeviceConfig Config;  // Last variable in struct!
-} TSC_DeviceConfigUpdateOrResult;
+} TSC_DeviceConfigUpdateOrResult; ✅
 
 // SUPLA_CS_CALL_GET_DEVICE_CONFIG
 typedef struct {
   _supla_int_t DeviceId;
   unsigned _supla_int64_t Fields;  // bit map of SUPLA_DEVICE_CONFIG_FIELD_
   unsigned char zero[8];           // for future use
-} TCS_GetDeviceConfigRequest;
+} TCS_GetDeviceConfigRequest; ✅
 
 #define SUPLA_DEVCFG_STATUS_LED_ON_WHEN_CONNECTED 0
 #define SUPLA_DEVCFG_STATUS_LED_OFF_WHEN_CONNECTED 1
