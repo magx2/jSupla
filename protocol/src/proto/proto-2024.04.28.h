@@ -1047,14 +1047,14 @@ typedef struct {
   char online;
 
   TSuplaChannelValue_B value;
-} TSC_SuplaChannelValue_B;  //  ver. >= 15
+} TSC_SuplaChannelValue_B; ✅/❌ it looks likes it is in structs but it looks different //  ver. >= 15
 
 typedef struct {
   // server -> client
   _supla_int_t Id;
 
   TSuplaChannelExtendedValue value;  // Last variable in struct!
-} TSC_SuplaChannelExtendedValue;
+} TSC_SuplaChannelExtendedValue;✅
 
 typedef struct {
   // server -> client
@@ -1064,7 +1064,7 @@ typedef struct {
 
   TSC_SuplaChannelValue
       items[SUPLA_CHANNELVALUE_PACK_MAXCOUNT];  // Last variable in struct!
-} TSC_SuplaChannelValuePack;                    // ver. >= 9
+} TSC_SuplaChannelValuePack;   ✅                 // ver. >= 9
 
 typedef struct {
   // server -> client
@@ -1074,7 +1074,7 @@ typedef struct {
 
   TSC_SuplaChannelValue_B
       items[SUPLA_CHANNELVALUE_PACK_MAXCOUNT];  // Last variable in struct!
-} TSC_SuplaChannelValuePack_B;                  // ver. >= 15
+} TSC_SuplaChannelValuePack_B; ✅                 // ver. >= 15
 
 typedef struct {
   // server -> client
@@ -1085,7 +1085,7 @@ typedef struct {
 
   char pack[SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE];  // Last variable in
                                                            // struct!
-} TSC_SuplaChannelExtendedValuePack;                       // ver. >= 10
+} TSC_SuplaChannelExtendedValuePack;   ✅                    // ver. >= 10
 
 typedef struct {
   // server -> client
@@ -1101,7 +1101,7 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_SuplaChannel;
+} TSC_SuplaChannel;✅
 
 typedef struct {
   // server -> client
@@ -1110,7 +1110,7 @@ typedef struct {
   _supla_int_t total_left;
   TSC_SuplaChannel
       items[SUPLA_CHANNELPACK_MAXCOUNT];  // Last variable in struct!
-} TSC_SuplaChannelPack;
+} TSC_SuplaChannelPack;✅
 
 typedef struct {
   // server -> client
@@ -1129,7 +1129,7 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_SuplaChannel_B;                           // ver. >= 8
+} TSC_SuplaChannel_B;        ✅                   // ver. >= 8
 
 typedef struct {
   // server -> client
@@ -1138,7 +1138,7 @@ typedef struct {
   _supla_int_t total_left;
   TSC_SuplaChannel_B
       items[SUPLA_CHANNELPACK_MAXCOUNT];  // Last variable in struct!
-} TSC_SuplaChannelPack_B;                 // ver. >= 8
+} TSC_SuplaChannelPack_B;         ✅        // ver. >= 8
 
 typedef struct {
   // server -> client
@@ -1163,7 +1163,7 @@ typedef struct {
   unsigned _supla_int_t
       CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
-} TSC_SuplaChannel_C;                           // ver. >= 10
+} TSC_SuplaChannel_C;               ✅            // ver. >= 10
 
 typedef struct {
   // server -> client

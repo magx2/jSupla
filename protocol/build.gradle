@@ -227,6 +227,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 	def extendsClass = "ProtoWithSize"
 	def callType = null
 	def preconditions = new HashMap<String, Object>()
+	def staticSize = false
 	structFile.readLines()
 		.stream()
 		.filter { it.startsWith("// instruction ") }
@@ -258,6 +259,8 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 				imports.add("import pl.grzeslowski.jsupla.protocol.api.calltypes.${extendsClass}CallType")
 			} else if (keyword == "precondition") {
 				preconditions[instruction[1]] = [value: instruction[2], variable: instruction[3]]
+			} else if (keyword == "size") {
+				staticSize = instruction[1] == "static"
 			} else {
 				logger.log(LogLevel.ERROR, " > Unknown instruction: [${keyword}]")
 			}
@@ -296,6 +299,12 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 				name = camelCase(match[1])
 				//noinspection GroovyAssignabilityCheck
 				type.arraySize = match[2]
+				if (preconditions.containsKey(name)) {
+					def precondition = preconditions.get(name)
+					if (precondition.value == "length") {
+						type.arraySize = precondition.variable
+					}
+				}
 			} else {
 				name = camelCase(name)
 			}
@@ -310,7 +319,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 
 	def relativize = structsDir.relativize(structFile.parent)
 	def packageName = "pl.grzeslowski.jsupla.protocol.api.structs"
-	if (relativize) packageName += "." + relativize
+	if (relativize.toString()?.trim()) packageName += "." + relativize
 	def properties = rawProperties
 		.stream()
 		.map { property ->
@@ -386,13 +395,25 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 				if (xSize.startsWith("UNKNOWN")) {
 					xSize = "${type.value}.SIZE"
 				}
-				finalType = "${property.name}.length * ${xSize}"
+				if (type.arraySize) {
+					finalType = "${type.arraySize} * ${xSize}"
+				} else {
+					finalType = "${property.name}.length * ${xSize}"
+				}
 			} else {
 				finalType = mapSimpleType(type.value)
+				if (finalType.startsWith("UNKNOWN")) {
+					finalType = property.name + ".size()"
+				}
 			}
 			return finalType + " // ${property.name}"
 		}
 		.collect(Collectors.joining("\n\t\t + "))
+	def staticSizeJava = "";
+	if (staticSize) {
+		staticSizeJava = "public static final int SIZE = $size\n;"
+		size = "SIZE"
+	}
 
 	def java = """
 		|package ${packageName};
@@ -401,6 +422,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 		|
 		|@lombok.EqualsAndHashCode @lombok.ToString
 		|public final class ${className} implements ${extendsClass} {
+		|	$staticSizeJava
 		|	$properties
 		|
 		|	public ${className}(${constructorProperties}) {
@@ -439,3 +461,5 @@ task compileNativeStructs {
 	}
 }
 compileJava.dependsOn "compileNativeStructs"
+compileNativeStructs.dependsOn "buildCallTypes"
+compileNativeStructs.dependsOn "generateProtoConst"
