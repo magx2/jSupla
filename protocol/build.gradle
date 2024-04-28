@@ -241,6 +241,8 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 	def staticSize = false
 	def originalName = "<UNKNOWN>"
 	def deprecated = false
+	def javadoc = ""
+	def version = ""
 	structFile.readLines()
 		.stream()
 		.filter { it.startsWith("// instruction ") || it.startsWith("// i ") }
@@ -284,6 +286,12 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 				originalName = instruction[1]
 			} else if (keyword == "deprecated") {
 				deprecated = Boolean.parseBoolean(instruction[1])
+			} else if (keyword == "javadoc") {
+				for (int i = 1; i < instruction.length; i++) {
+					javadoc += instruction[i] + " "
+				}
+			} else if (keyword == "version") {
+				version = instruction[1]
 			} else {
 				logger.log(LogLevel.ERROR, " > Unknown instruction: [${keyword}]")
 			}
@@ -440,14 +448,32 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 		size = "SIZE"
 	}
 	def deprecatedJava = ""
-	if (deprecated) deprecatedJava = "@java.lang.Deprecated"
+	if (deprecated) deprecatedJava = "\n@java.lang.Deprecated"
+
+	if (javadoc || version) {
+		def javadoc2 = """\
+			|/**"""
+		if (javadoc) {
+			javadoc2 += """
+				| * $javadoc"""
+		}
+		if (version) {
+			javadoc2 += """
+				| * @since version $version"""
+		}
+
+		javadoc2 += """
+			| */"""
+
+		javadoc = javadoc2.stripMargin()
+	}
 
 	def java = """
 		|package ${packageName};
 		|
 		|${String.join(";\n|", imports)};
 		|
-		|${deprecatedJava}
+		|$javadoc ${deprecatedJava}
 		|@lombok.EqualsAndHashCode @lombok.ToString
 		|@javax.annotation.Generated(value="Generated from $originalName -> proto.h (supla core)", date = "${ZonedDateTime.now()}")
 		|public final class ${className} implements ${extendsClass} {

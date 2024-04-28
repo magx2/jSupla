@@ -2556,17 +2556,17 @@ typedef struct {
 
 typedef struct {
   unsigned char StatusLedType;  // SUPLA_DEVCFG_STATUS_LED_
-} TDeviceConfig_StatusLed;      // v. >= 21
+} TDeviceConfig_StatusLed;      // v. >= 21✅
 
 typedef struct {
   unsigned char ScreenBrightness;  // 0-100%
   unsigned char Automatic;         // 0 - false; 1 - true
   signed char AdjustmentForAutomatic;
-} TDeviceConfig_ScreenBrightness;  // v. >= 21
+} TDeviceConfig_ScreenBrightness;  // v. >= 21✅
 
 typedef struct {
   unsigned char Volume;        // 0-100%
-} TDeviceConfig_ButtonVolume;  // v. >= 21
+} TDeviceConfig_ButtonVolume;  // v. >= 21✅
 
 typedef struct {
   unsigned char DisableUserInterface;  // 0 - false (local UI enabled)
@@ -2575,25 +2575,25 @@ typedef struct {
   // min/max allowed parameters are mandatory for "partial" variant
   unsigned _supla_int16_t minAllowedTemperatureSetpointFromLocalUI;
   unsigned _supla_int16_t maxAllowedTemperatureSetpointFromLocalUI;
-} TDeviceConfig_DisableUserInterface;  // v. >= 21
+} TDeviceConfig_DisableUserInterface;  // v. >= 21✅
 
 typedef struct {
   unsigned char AutomaticTimeSync;  // 0 - disabled
                                     // 1 - enabled
-} TDeviceConfig_AutomaticTimeSync;  // v. >= 21
+} TDeviceConfig_AutomaticTimeSync;  // v. >= 21✅
 
 typedef struct {
   unsigned _supla_int16_t HomeScreenOffDelayS;  // delay in seconds
                                                 // 0 - disabled
-} TDeviceConfig_HomeScreenOffDelay;             // v. >= 21
+} TDeviceConfig_HomeScreenOffDelay;             // v. >= 21 ✅
 
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_NONE (1ULL << 0)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE (1ULL << 1)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE_AND_HUMIDITY (1ULL << 2)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TIME (1ULL << 3)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TIME_DATE (1ULL << 4)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE_TIME (1ULL << 5)
-#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_MAIN_AND_AUX_TEMPERATURE (1ULL << 6)
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_NONE 1
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE 2 
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE_AND_HUMIDITY 4 
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TIME 8
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TIME_DATE 16  
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_TEMPERATURE_TIME 32 
+#define SUPLA_DEVCFG_HOME_SCREEN_CONTENT_MAIN_AND_AUX_TEMPERATURE 64 
 
 typedef struct {
   // bitfield with all available modes (reported by device, readonly for other
@@ -2602,7 +2602,7 @@ typedef struct {
   // configured mode (settable)
   unsigned _supla_int64_t
       HomeScreenContent;            // SUPLA_DEVCFG_HOME_SCREEN_CONTENT_
-} TDeviceConfig_HomeScreenContent;  // v. >= 21
+} TDeviceConfig_HomeScreenContent;  // v. >= 21✅
 
 /********************************************
  * CHANNEL CONFIG STRUCTURES
@@ -2622,7 +2622,7 @@ typedef struct {
   _supla_int_t ChannelId;
   unsigned char ConfigType;  // SUPLA_CONFIG_TYPE_
   unsigned _supla_int_t Flags;
-} TCS_GetChannelConfigRequest;  // v. >= 21
+} TCS_GetChannelConfigRequest;  // v. >= 21✅
 
 // SUPLA_CS_CALL_SET_CHANNEL_CONFIG
 typedef struct {
@@ -2633,7 +2633,7 @@ typedef struct {
   char Config[SUPLA_CHANNEL_CONFIG_MAXSIZE];  // Last variable in struct!
                                               // v. >= 21
                                               // TChannelConfig_*
-} TSCS_ChannelConfig;
+} TSCS_ChannelConfig;✅
 
 // SUPLA_SC_CALL_CHANNEL_CONFIG_UPDATE
 typedef struct {
@@ -2641,14 +2641,14 @@ typedef struct {
                               // response to SUPLA_CS_CALL_GET_CHANNEL_CONFIG or
                               // SUPLA_CS_CALL_SET_CHANNEL_CONFIG
   TSCS_ChannelConfig Config;  // Last variable in struct!
-} TSC_ChannelConfigUpdateOrResult;
+} TSC_ChannelConfigUpdateOrResult;✅
 
 // SUPLA_DS_CALL_GET_CHANNEL_CONFIG
 typedef struct {
   unsigned char ChannelNumber;
   unsigned char ConfigType;  // SUPLA_CONFIG_TYPE_
   unsigned _supla_int_t Flags;
-} TDS_GetChannelConfigRequest;  // v. >= 16
+} TDS_GetChannelConfigRequest;  // v. >= 16✅
 
 // SUPLA_SD_CALL_GET_CHANNEL_CONFIG_RESULT
 // SUPLA_DS_CALL_SET_CHANNEL_CONFIG
@@ -2661,7 +2661,7 @@ typedef struct {
   char Config[SUPLA_CHANNEL_CONFIG_MAXSIZE];  // Last variable in struct!
                                               // v. >= 16
                                               // TChannelConfig_*
-} TSD_ChannelConfig;
+} TSD_ChannelConfig;✅
 
 // SUPLA_DS_CALL_SET_CHANNEL_CONFIG
 // SUPLA_SD_CALL_SET_CHANNEL_CONFIG
@@ -2673,21 +2673,21 @@ typedef struct {
   unsigned char Result;      // SUPLA_CONFIG_RESULT_*
   unsigned char ConfigType;  // SUPLA_CONFIG_TYPE_
   unsigned char ChannelNumber;
-} TSDS_SetChannelConfigResult;
+} TSDS_SetChannelConfigResult;✅
 
 // SUPLA_SD_CALL_CHANNEL_CONFIG_FINISHED
 typedef struct {
   unsigned char ChannelNumber;
-} TSD_ChannelConfigFinished;
+} TSD_ChannelConfigFinished;✅
 
 typedef struct {
   _supla_int_t TimeMS;
-} TChannelConfig_StaircaseTimer;  // v. >= 16
+} TChannelConfig_StaircaseTimer;  // v. >= 16✅
 
 typedef struct {
   _supla_int_t ClosingTimeMS;
   _supla_int_t OpeningTimeMS;
-} TChannelConfig_Rollershutter;  // v. >= 16
+} TChannelConfig_Rollershutter;  // v. >= 16✅
 
 typedef struct {
   _supla_int_t ClosingTimeMS;
