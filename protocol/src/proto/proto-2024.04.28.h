@@ -955,7 +955,7 @@ typedef struct {
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_D
       channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
-} TDS_SuplaRegisterDevice_F;            // ver. >= 23
+} TDS_SuplaRegisterDevice_F; ✅            // ver. >= 23
 
 typedef struct {
   // server -> device
@@ -964,14 +964,14 @@ typedef struct {
   unsigned char activity_timeout;
   unsigned char version;
   unsigned char version_min;
-} TSD_SuplaRegisterDeviceResult;
+} TSD_SuplaRegisterDeviceResult; ✅
 
 typedef struct {
   // device -> server
 
   unsigned char ChannelNumber;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TDS_SuplaDeviceChannelValue;
+} TDS_SuplaDeviceChannelValue; ✅
 
 typedef struct {
   // device -> server
@@ -979,7 +979,7 @@ typedef struct {
   unsigned char ChannelNumber;
   unsigned char Offline;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TDS_SuplaDeviceChannelValue_B;  // v. >= 12
+} TDS_SuplaDeviceChannelValue_B; ✅  // v. >= 12
 
 typedef struct {
   // device -> server
@@ -988,14 +988,14 @@ typedef struct {
   unsigned char Offline;
   unsigned _supla_int_t ValidityTimeSec;
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TDS_SuplaDeviceChannelValue_C;  // v. >= 12
+} TDS_SuplaDeviceChannelValue_C; ✅  // v. >= 12
 
 typedef struct {
   // device -> server
 
   unsigned char ChannelNumber;
   TSuplaChannelExtendedValue value;     // Last variable in struct!
-} TDS_SuplaDeviceChannelExtendedValue;  // v. >= 10
+} TDS_SuplaDeviceChannelExtendedValue; ✅  // v. >= 10
 
 typedef struct {
   // server -> device
@@ -1007,7 +1007,7 @@ typedef struct {
   };
 
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TSD_SuplaChannelNewValue;
+} TSD_SuplaChannelNewValue; ✅
 
 typedef struct {
   // server -> device
@@ -1020,14 +1020,14 @@ typedef struct {
     unsigned _supla_int_t DurationSec;  // ver. >= 21. Applies to HVAC
   };
   char value[SUPLA_CHANNELVALUE_SIZE];
-} TSD_SuplaChannelGroupNewValue;  // v. >= 13
+} TSD_SuplaChannelGroupNewValue; ❌  // v. >= 13
 
 typedef struct {
   // device -> server
   unsigned char ChannelNumber;
   _supla_int_t SenderID;
   char Success;
-} TDS_SuplaChannelNewValueResult;
+} TDS_SuplaChannelNewValueResult; ✅
 
 typedef struct {
   // server -> client
@@ -1037,7 +1037,7 @@ typedef struct {
   char online;
 
   TSuplaChannelValue value;
-} TSC_SuplaChannelValue;
+} TSC_SuplaChannelValue; ✅
 
 typedef struct {
   // server -> client
