@@ -282,6 +282,31 @@ public final class Preconditions {
         return size(unsignedByteValue, (short) 0, (short) 255);
     }
 
+    public static int unsignedShortSize(int unsignedByteValue) {
+        return size(unsignedByteValue, 0, 65_535);
+    }
+
+    public static long unsigned(final long value) {
+        return size(value, 0, 4294967295L);
+    }
+
+    /**
+     * same as unsignedByteSize
+     */
+    public static short unsigned(short unsignedByteValue) {
+        return size(unsignedByteValue, (short) 0, (short) 255);
+    }
+
+    /**
+     * same as unsignedShortSize
+     */
+    public static int unsigned(int unsignedByteValue) {
+        return size(unsignedByteValue, 0, 65_535);
+    }
+
+    /**
+     * same as unsignedIntSize
+     */
     public static long unsignedIntSize(final long value) {
         return size(value, 0, 4294967295L);
     }
