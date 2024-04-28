@@ -153,6 +153,8 @@ prodProjects {
 		sign configurations.archives
 	}
 
+	tasks.withType(Sign)*.enabled = !version.endsWith("SNAPSHOT")
+
 	group = project.group
 	archivesBaseName = project.name
 	version = project.version
