@@ -106,7 +106,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
 
     @Override
     public void close() {
-        logger.debug("Closing NettyServerInitializer #{}", hashCode());
+        logger.debug("Closing NettyServerInitializer");
         disposable.dispose();
         List<SuplaHandler> local = new ArrayList<>(suplaHandlers);
         suplaHandlers.clear();
@@ -114,7 +114,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
             try {
                 suplaHandler.close();
             } catch (Exception e) {
-                logger.warn("Error closing SuplaHandler #{}", suplaHandler.hashCode(), e);
+                logger.warn("Error closing SuplaHandler", e);
             }
         }
     }

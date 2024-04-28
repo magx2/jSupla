@@ -89,7 +89,7 @@ public final class NettyServer implements Server {
 
     @Override
     public void close() {
-        logger.debug("Closing NettyServer #{}", hashCode());
+        logger.debug("Closing NettyServer");
         try {
             nettyServerInitializer.close();
             {
