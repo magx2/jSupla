@@ -1,5 +1,3 @@
-// TDS_SuplaRegisterDevice_E
-
   char Email[SUPLA_EMAIL_MAXSIZE];  // UTF8
   char AuthKey[SUPLA_AUTHKEY_SIZE];
 
@@ -17,6 +15,7 @@
   unsigned char channel_count;
   TDS_SuplaDeviceChannel_C channels[SUPLA_CHANNELMAXCOUNT];  // Last variable in struct!
   
+// instruction name TDS_SuplaRegisterDevice_E
 // instruction map TDS_SuplaDeviceChannel_C SuplaDeviceChannelC 
 // instruction import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelC
 // instruction extends DeviceServer SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED

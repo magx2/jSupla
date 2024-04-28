@@ -228,6 +228,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 	def callType = null
 	def preconditions = new HashMap<String, Object>()
 	def staticSize = false
+	def originalName = "<UNKNOWN>"
 	structFile.readLines()
 		.stream()
 		.filter { it.startsWith("// instruction ") }
@@ -261,6 +262,8 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 				preconditions[instruction[1]] = [value: instruction[2], variable: instruction[3]]
 			} else if (keyword == "size") {
 				staticSize = instruction[1] == "static"
+			} else if (keyword == "name") {
+				originalName = instruction[1]
 			} else {
 				logger.log(LogLevel.ERROR, " > Unknown instruction: [${keyword}]")
 			}
@@ -421,6 +424,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 		|${String.join(";\n|", imports)};
 		|
 		|@lombok.EqualsAndHashCode @lombok.ToString
+		|@javax.annotation.Generated(value="Generated from $originalName -> proto.h (supla core)", date = "${ZonedDateTime.now()}")
 		|public final class ${className} implements ${extendsClass} {
 		|	$staticSizeJava
 		|	$properties

@@ -1,5 +1,3 @@
-// TSC_SuplaChannel_C
-
   char EOL;  // End Of List
 
   _supla_int_t Id;
@@ -21,6 +19,7 @@
   unsigned _supla_int_t CaptionSize;  // including the terminating null byte ('\0')
   char Caption[SUPLA_CHANNEL_CAPTION_MAXSIZE];  // Last variable in struct!
   
+// instruction name TSC_SuplaChannel_C
 // instruction map TSuplaChannelValue pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue 
 // !instruction extends ServerClient null; //TODO
 // I dont know what to set as call type
