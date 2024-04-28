@@ -27,7 +27,6 @@ import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
@@ -55,14 +54,17 @@ public final class NettyChannel implements Channel {
         this.serializer = context.getService(Serializer.class);
         this.bufferParams = requireNonNull(bufferParams);
         final Parser<Entity, Proto> parser = context.getService(Parser.class);
-        //noinspection ConstantConditions,OptionalGetWithoutIsPresent
         this.messagePipe = messagePipe
-            .map(suplaDataPacket -> callTypePair(callTypeParser, suplaDataPacket))
+            .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType)))
             .filter(pair -> pair.getValue1().isPresent())
-            .map(pair -> Pair.with(pair.getValue0(), pair.getValue1().get()))
-            .map(pair -> decoderPair(decoderFactory, pair))
-            .map(pair -> pair.getValue1().decode(pair.getValue0().data))
-            .map(parser::parse)
+            .map(pair -> {
+                SuplaDataPacket suplaDataPacket = pair.getValue0();
+                // optional checked in filter
+                @SuppressWarnings("OptionalGetWithoutIsPresent") CallType callType = pair.getValue1().get();
+                Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
+                ProtoWithSize proto = decoder.decode(suplaDataPacket.data);
+                return parser.parse(proto);
+            })
             .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
             .cast(ToServerEntity.class);
 
@@ -134,11 +136,6 @@ public final class NettyChannel implements Channel {
             new ChannelTypeMapper(),
             bufferParams,
             contextGenerator);
-    }
-
-    private static Pair<SuplaDataPacket, Optional<CallType>> callTypePair(final CallTypeParser callTypeParser,
-                                                                          final SuplaDataPacket suplaDataPacket) {
-        return Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType));
     }
 
     private static Pair<SuplaDataPacket,

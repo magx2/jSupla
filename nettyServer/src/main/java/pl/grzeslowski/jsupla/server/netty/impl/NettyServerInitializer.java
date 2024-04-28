@@ -73,7 +73,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
 
     @Override
     public void initChannel(SocketChannel ch) {
-        logger.debug("Initializing new channel");
+        logger.debug("Initializing new channel, localAddress={}, remoteAddress={}", ch.localAddress(), ch.remoteAddress());
         ChannelPipeline pipeline = ch.pipeline();
 
         if (sslCtx != null) {
