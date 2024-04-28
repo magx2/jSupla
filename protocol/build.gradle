@@ -9,7 +9,7 @@ dependencies {
 
 sourceSets {
 	main {
-		java.srcDirs += "${project.buildDir}/generated/sources/annotationProcessor/java/main"
+		java.srcDirs += "${project.buildDir}/generated/sources/jsupla/java/main"
 	}
 }
 
@@ -107,7 +107,7 @@ task buildCallTypes {
 			generateCallTypeClass(file, "csd", csd),
 		]
 
-		def generatedDir = project.file("build/generated/sources/annotationProcessor/java/main/pl/grzeslowski/jsupla/protocol/api/calltypes").toPath()
+		def generatedDir = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/calltypes").toPath()
 		Files.createDirectories(generatedDir)
 
 		classes.forEach {
@@ -161,7 +161,7 @@ task generateProtoConst {
 			|	$consts
 			|}""".stripMargin()
 
-		def generatedDir = project.file("build/generated/sources/annotationProcessor/java/main/pl/grzeslowski/jsupla/protocol/api/consts").toPath()
+		def generatedDir = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/consts").toPath()
 		Files.createDirectories(generatedDir)
 		generatedDir.resolve("ProtoConsts.java").write(java)
 	}
