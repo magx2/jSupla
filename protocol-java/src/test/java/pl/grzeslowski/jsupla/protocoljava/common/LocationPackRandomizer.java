@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocoljava.api.entities.sc.LocationPack;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 
 class LocationPackRandomizer implements Randomizer<LocationPack> {
     private final EnhancedRandom random;
@@ -20,7 +20,7 @@ class LocationPackRandomizer implements Randomizer<LocationPack> {
     @Override
     public LocationPack getRandomValue() {
         final List<Location> locations = random.objects(Location.class,
-                random.nextInt(SUPLA_LOCATIONPACK_MAXSIZE - 1) + 1)
+                random.nextInt(SUPLA_LOCATIONPACK_MAXCOUNT - 1) + 1)
             .collect(Collectors.toList());
         return new LocationPack(random.nextInt(100), locations);
     }

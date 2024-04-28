@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,7 +31,7 @@ public class SuplaChannelPackBEncoderImplTest extends EncoderTest<SuplaChannelPa
 
     @Before
     public void setUp() {
-        final int count = RANDOM_SUPLA.nextPositiveInt(SUPLA_CHANNELPACK_MAXSIZE);
+        final int count = RANDOM_SUPLA.nextPositiveInt(SUPLA_LOCATIONPACK_MAXCOUNT);
         proto = new SuplaChannelPackB(
             count,
             RANDOM_SUPLA.nextPositiveInt(),

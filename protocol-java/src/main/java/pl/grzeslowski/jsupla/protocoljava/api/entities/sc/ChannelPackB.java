@@ -5,13 +5,13 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 import static pl.grzeslowski.jsupla.protocoljava.api.types.Entity.Version.B;
 
 public class ChannelPackB extends ChannelPack {
     public ChannelPackB(
         @PositiveOrZero int totalLeft,
-        @NotNull @Size(min = 1, max = SUPLA_CHANNELPACK_MAXSIZE) List<? extends ChannelB> channels) {
+        @NotNull @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXCOUNT) List<? extends ChannelB> channels) {
         super(totalLeft, channels);
     }
 

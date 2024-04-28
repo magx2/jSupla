@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
 @SuppressWarnings("WeakerAccess")
@@ -37,7 +37,7 @@ public class SuplaChannelPackBDecoderImplTest extends ProperDecoderTest<SuplaCha
 
     @Before
     public void setUp() {
-        count = RANDOM_SUPLA.nextPositiveInt(SUPLA_CHANNELPACK_MAXSIZE);
+        count = RANDOM_SUPLA.nextPositiveInt(SUPLA_LOCATIONPACK_MAXCOUNT);
         totalLeft = RANDOM_SUPLA.nextPositiveInt();
         channels = Stream.generate(this::minSuplaChannelB)
             .limit(count)

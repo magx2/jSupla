@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNELPACK_UPDATE_B;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 
 /**
  * @since ver. 8
@@ -22,7 +22,7 @@ public final class SuplaChannelPackB implements ServerClient {
     public final SuplaChannelB[] channels;
 
     public SuplaChannelPackB(final int count, final int totalLeft, final SuplaChannelB[] channels) {
-        this.count = max(count, SUPLA_CHANNELPACK_MAXSIZE);
+        this.count = max(count, SUPLA_LOCATIONPACK_MAXCOUNT);
         this.totalLeft = totalLeft;
         this.channels = checkArrayLength(channels, count);
     }

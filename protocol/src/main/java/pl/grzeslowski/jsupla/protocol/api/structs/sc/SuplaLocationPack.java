@@ -8,7 +8,7 @@ import java.util.Arrays;
 import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_LOCATIONPACK_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 
 public final class SuplaLocationPack implements ServerClient {
     public static final int MIN_SIZE = INT_SIZE * 2;
@@ -17,7 +17,7 @@ public final class SuplaLocationPack implements ServerClient {
     public final SuplaLocation[] locations;
 
     public SuplaLocationPack(int count, int totalLeft, SuplaLocation[] locations) {
-        this.count = max(count, SUPLA_LOCATIONPACK_MAXSIZE);
+        this.count = max(count, SUPLA_LOCATIONPACK_MAXCOUNT);
         this.totalLeft = totalLeft;
         this.locations = Preconditions.checkArrayLength(locations, count);
     }

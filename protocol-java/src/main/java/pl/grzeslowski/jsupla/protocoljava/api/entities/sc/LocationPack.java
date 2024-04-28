@@ -9,21 +9,21 @@ import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.Preconditions.size;
 import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXSIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATIONPACK_MAXCOUNT;
 
 public class LocationPack implements ServerClientEntity {
     @PositiveOrZero
     private final int totalLeft;
-    @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE)
+    @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXCOUNT)
     private final List<Location> locations;
 
     public LocationPack(@PositiveOrZero final int totalLeft,
-                        final @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXSIZE) List<Location> locations) {
+                        final @Size(min = 1, max = SUPLA_LOCATIONPACK_MAXCOUNT) List<Location> locations) {
         this.totalLeft = sizeMin(totalLeft, 0);
         this.locations = unmodifiableList(
             new ArrayList<>(
                 requireNonNull(
-                    size(locations, 1, SUPLA_LOCATIONPACK_MAXSIZE))));
+                    size(locations, 1, SUPLA_LOCATIONPACK_MAXCOUNT))));
     }
 
     public int getTotalLeft() {
