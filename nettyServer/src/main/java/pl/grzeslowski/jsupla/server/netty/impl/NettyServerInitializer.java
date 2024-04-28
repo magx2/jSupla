@@ -7,6 +7,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import static java.util.Collections.synchronizedList;
 import static java.util.Collections.unmodifiableCollection;
+import static java.util.concurrent.TimeUnit.MINUTES;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
@@ -77,6 +79,9 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         if (sslCtx != null) {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
+        // todo 1 min can be parametrized
+        // 1 min was used because this is the time between 1 Register event send by the device
+        pipeline.addLast(new ReadTimeoutHandler(1, MINUTES));
         pipeline.addLast(new DelimiterBasedFrameDecoder(
             SUPLA_MAX_DATA_SIZE,
             false,
