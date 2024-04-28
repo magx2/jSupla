@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import static pl.grzeslowski.jsupla.Preconditions.max;
 import static pl.grzeslowski.jsupla.Preconditions.min;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.SUPLA_SC_CALL_CHANNEL_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNEL_CAPTION_MAXSIZE;
@@ -50,7 +49,7 @@ public final class SuplaChannel implements ServerClient {
 
     @Override
     public ServerClientCallType callType() {
-        return SUPLA_SC_CALL_CHANNEL_UPDATE;
+        throw new UnsupportedOperationException("Do not know what to return here...");
     }
 
     @Override

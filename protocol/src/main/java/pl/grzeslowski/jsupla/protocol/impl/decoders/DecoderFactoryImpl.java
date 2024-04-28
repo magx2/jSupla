@@ -254,9 +254,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         }
 
         // sc
-        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE) {
-            return (Decoder<T>) SuplaChannelDecoderImpl.INSTANCE;
-        }
+//        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE) {
+//            return (Decoder<T>) SuplaChannelDecoderImpl.INSTANCE;
+//        }
         if (callType == SUPLA_SC_CALL_CHANNELPACK_UPDATE) {
             return (Decoder<T>) SuplaChannelPackDecoderImpl.INSTANCE;
         }
@@ -285,9 +285,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (callType == SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE) {
             return (Decoder<T>) SuplaChannelGroupRelationPackDecoderImpl.INSTANCE;
         }
-        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE_B) {
-            return (Decoder<T>) SuplaChannelBDecoderImpl.INSTANCE;
-        }
+//        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE_B) {
+//            return (Decoder<T>) SuplaChannelBDecoderImpl.INSTANCE;
+//        }
         if (callType == SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE) {
             return (Decoder<T>) SuplaChannelGroupDecoderImpl.INSTANCE;
         }
