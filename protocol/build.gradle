@@ -167,3 +167,275 @@ task generateProtoConst {
 	}
 }
 compileJava.dependsOn "generateProtoConst"
+
+static String camelCase(String name) {
+	name = name.replaceAll("GUID", "Guid")
+	name = name.replaceAll("ID", "Id")
+	name = name[0].toLowerCase() + name.substring(1)
+	// remove underscores
+	def newName = ""
+	for (def i = 0; i < name.length(); i++) {
+		def first = name[i]
+		if (first != '_') {
+			newName += name[i]
+		} else {
+			newName += name[i + 1].toUpperCase()
+			i++
+		}
+	}
+	return newName
+}
+
+static String mapSuplaTypeToJava(type) {
+	if (type.unsigned) {
+		if (type.value == "_supla_int_t") {
+			return "long"
+		}
+		if (type.value == "char") {
+			return "short"
+		}
+	} else {
+		if (type.value == "_supla_int_t") {
+			return "int"
+		}
+		if (type.value == "_supla_int16_t") {
+			return "short"
+		}
+	}
+	return type.value
+}
+
+static String mapSimpleType(String type) {
+	if (type == "int") {
+		return "INT_SIZE"
+	} else if (type == "char" || type == "byte") {
+		return "BYTE_SIZE"
+	} else if (type == "short") {
+		return "SHORT_SIZE"
+	}
+	return "UNKNOWN_" + type
+}
+
+def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) {
+	def typeMaps = new HashMap<String, String>()
+	def imports = new TreeSet<>([
+		"import static pl.grzeslowski.jsupla.Preconditions.*",
+		"import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*",
+		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
+		"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize",
+	])
+	def extendsClass = "ProtoWithSize"
+	def callType = null
+	def preconditions = new HashMap<String, Object>()
+	structFile.readLines()
+		.stream()
+		.filter { it.startsWith("// instruction ") }
+		.map { it.substring("// instruction ".length()) }
+		.forEach { instruction ->
+			instruction = instruction.split(" ")
+			def keyword = instruction[0]
+			if (keyword == "map") {
+				typeMaps[instruction[1]] = instruction[2]
+			} else if (keyword == "import") {
+				imports.add("import " + instruction[1])
+			} else if (keyword == "extends") {
+				extendsClass = instruction[1]
+				if (extendsClass == "ClientServer") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer")
+				} else if (extendsClass == "DeviceClientServer") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.dsc.DeviceClientServer")
+				} else if (extendsClass == "DeviceServer") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer")
+				} else if (extendsClass == "ServerClient") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient")
+				} else if (extendsClass == "ServerDevice") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice")
+				} else if (extendsClass == "ServerDeviceClient") {
+					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient")
+				}
+				callType = instruction[2]
+				imports.add("import static pl.grzeslowski.jsupla.protocol.api.calltypes.${extendsClass}CallType.$callType")
+				imports.add("import pl.grzeslowski.jsupla.protocol.api.calltypes.${extendsClass}CallType")
+			} else if (keyword == "precondition") {
+				preconditions[instruction[1]] = [value: instruction[2], variable: instruction[3]]
+			} else {
+				logger.log(LogLevel.ERROR, " > Unknown instruction: [${keyword}]")
+			}
+		}
+
+	def rawProperties = structFile.readLines()
+		.stream()
+		.map { it.trim() }
+		.filter { !it.isBlank() }
+		.filter { !it.startsWith("//") }
+		.map { line ->
+			def split = line.split("//", 2)
+			def code = split[0]
+			def comment = null
+			if (split.length > 1) {
+				comment = split[1]
+			}
+
+			def unsigned = code.startsWith("unsigned")
+			def codeSplit = code.replaceAll('unsigned ', '').split(" ", 2)
+
+			def typeValue = codeSplit[0]
+			if (typeMaps.containsKey(typeValue)) {
+				typeValue = typeMaps[typeValue]
+			}
+			def type = [value: typeValue, array: false, arraySize: null as String, unsigned: unsigned]
+			def name = codeSplit[1].replaceAll(";", "").trim()
+
+			// check if this is not an array
+			def regexPattern = /^(.*?)\[(.*?)\]$/
+			def matcher = name =~ regexPattern
+			if (matcher.matches()) {
+				def match = matcher[0]
+				type.array = true
+				//noinspection GroovyAssignabilityCheck
+				name = camelCase(match[1])
+				//noinspection GroovyAssignabilityCheck
+				type.arraySize = match[2]
+			} else {
+				name = camelCase(name)
+			}
+
+			type.value = mapSuplaTypeToJava(type)
+
+			return [type: type, name: name, comment: comment]
+		}
+		.collect(Collectors.toList())
+
+	def className = structFile.fileName.toString().take(structFile.fileName.toString().lastIndexOf('.'))
+
+	def relativize = structsDir.relativize(structFile.parent)
+	def packageName = "pl.grzeslowski.jsupla.protocol.api.structs"
+	if (relativize) packageName += "." + relativize
+	def properties = rawProperties
+		.stream()
+		.map { property ->
+			def type = property.type.value
+			if (property.type.array) {
+				type += "[]"
+			}
+			def comment = ""
+			if (property.comment || property.type.unsigned) {
+				comment += "/**\n"
+				if (property.comment) {
+					comment += "\t * ${property.comment}\n"
+				}
+				if (property.type.unsigned) {
+					comment += "\t * unsgigned ${property.type.value}\n"
+				}
+				comment += "\t */\n\t"
+			}
+			"${comment}private final ${type} ${property.name};"
+		}
+		.collect(Collectors.joining("\n\t|\t"))
+	def constructorProperties = rawProperties
+		.stream()
+		.map { property ->
+			def type = property.type.value
+			if (property.type.array) {
+				type += "[]"
+			}
+			"${type} ${property.name}"
+		}
+		.collect(Collectors.joining(", "))
+	def constructorAssignments = rawProperties
+		.stream()
+		.map { property ->
+			def value = property.name
+			if (property.type.array) {
+				def size = "(int) ${property.type.arraySize}"
+				if (preconditions.containsKey(value)) {
+					def precondition = preconditions.get(value)
+					if (precondition.value == "length") {
+						size = precondition.variable
+					}
+				}
+				value = "checkArrayLength(${value}, $size)"
+			}
+			if (property.type.unsigned) {
+				value = "unsigned(${value})"
+			}
+			"this.${property.name} = $value;"
+		}
+		.collect(Collectors.joining("\n\t\t|\t\t"))
+	def callTypeJava = ""
+	if (callType) {
+		callTypeJava = """
+			|	@Override
+    		|	public ${extendsClass}CallType callType() {
+        	|		return $callType;
+    		|	}""".stripMargin()
+	}
+	def size = rawProperties
+		.stream()
+		.map { property ->
+			def type = property.type
+			def finalType = "UNKNOWN_FIX_SCRIPT // ${type.value}"
+			if (type.unsigned) {
+				if (type.value == "long") {
+					finalType = "INT_SIZE"
+				} else if (type.value == "short") {
+					finalType = "BYTE_SIZE"
+				}
+			} else if (type.array) {
+				def xSize = mapSimpleType(type.value)
+				if (xSize.startsWith("UNKNOWN")) {
+					xSize = "${type.value}.SIZE"
+				}
+				finalType = "${property.name}.length * ${xSize}"
+			} else {
+				finalType = mapSimpleType(type.value)
+			}
+			return finalType + " // ${property.name}"
+		}
+		.collect(Collectors.joining("\n\t\t + "))
+
+	def java = """
+		|package ${packageName};
+		|
+		|${String.join(";\n|", imports)};
+		|
+		|@lombok.EqualsAndHashCode @lombok.ToString
+		|public final class ${className} implements ${extendsClass} {
+		|	$properties
+		|
+		|	public ${className}(${constructorProperties}) {
+		|		${constructorAssignments}
+		|	}
+		|	
+		|	$callTypeJava
+		|
+		|	@Override
+    	|	public int size() {
+        |		return ${size}
+		|			;
+    	|	}
+		|}
+		|""".stripMargin()
+	return java
+}
+
+task compileNativeStructs {
+	doLast {
+		def structsDir = project.file("src/main/native/pl/grzeslowski/jsupla/protocol/api/structs").toPath()
+		def structs = Files.walk(structsDir)
+			.filter { Files.isRegularFile(it) && it.toString().endsWith(".h") }
+			.toList()
+		for (def structPath : structs) {
+			def compiled = compileStruct(structsDir, structPath)
+
+			def fileName = structPath.fileName.toString().take(structPath.fileName.toString().lastIndexOf('.')) + ".java"
+			def relativize = structsDir.relativize(structPath.parent)
+			def javaFile = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/structs/").toPath().resolve(relativize).resolve(fileName)
+
+			Files.createDirectories(javaFile.parent)
+			javaFile.toFile().createNewFile()
+			javaFile.write(compiled)
+		}
+	}
+}
+compileJava.dependsOn "compileNativeStructs"
