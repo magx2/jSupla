@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterEmailDeviceTrait;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.positive;
@@ -14,11 +14,13 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @EqualsAndHashCode
 @ToString
-public final class SuplaRegisterDeviceF implements DeviceServer, RegisterDeviceTrait {
+public final class SuplaRegisterDeviceF implements DeviceServer, RegisterEmailDeviceTrait {
+    @Getter
     public final byte[] email;
     /**
      * UTF-8.
      */
+    @Getter
     public final byte[] authKey;
     @Getter
     public final byte[] guid;
@@ -29,6 +31,7 @@ public final class SuplaRegisterDeviceF implements DeviceServer, RegisterDeviceT
     public final byte[] name;
     @Getter
     public final byte[] softVer;
+    @Getter
     public final byte[] serverName;
 
     /**

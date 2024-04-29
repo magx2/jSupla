@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
 import lombok.Getter;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
-import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterEmailDeviceTrait;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.unsigned;
@@ -14,12 +14,14 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @lombok.EqualsAndHashCode
 @lombok.ToString
-public final class SuplaRegisterDeviceE implements DeviceServer, RegisterDeviceTrait {
+public final class SuplaRegisterDeviceE implements DeviceServer, RegisterEmailDeviceTrait {
 
     /**
      * UTF8
      */
+    @Getter
     private final byte[] email;
+    @Getter
     private final byte[] authKey;
     @Getter
     private final byte[] guid;
@@ -30,6 +32,7 @@ public final class SuplaRegisterDeviceE implements DeviceServer, RegisterDeviceT
     private final byte[] name;
     @Getter
     private final byte[] softVer;
+    @Getter
     private final byte[] serverName;
     /**
      * SUPLA_DEVICE_FLAG_*
