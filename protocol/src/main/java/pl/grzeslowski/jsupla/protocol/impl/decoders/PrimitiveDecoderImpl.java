@@ -29,6 +29,19 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
 
     /**
      * TODO can be optimized!!!.
+     *
+     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
+     */
+    @Override
+    public long parseUnsignedLong(byte[] bytes, int offset) {
+        sizeMin(bytes, LONG_SIZE + offset);
+        ByteBuffer bb = ByteBuffer.wrap(bytes, offset, LONG_SIZE);
+        bb.order(LITTLE_ENDIAN);
+        return bb.getLong() & 0xffffffffL;
+    }
+
+    /**
+     * TODO can be optimized!!!.
      */
     @Override
     public int parseInt(byte[] bytes, int offset) {

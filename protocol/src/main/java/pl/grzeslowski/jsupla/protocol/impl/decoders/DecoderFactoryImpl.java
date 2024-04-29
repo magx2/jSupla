@@ -109,6 +109,12 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (SuplaRegisterDeviceD.class.isAssignableFrom(proto)) {
             return (Decoder<T>) SuplaRegisterDeviceDDecoderImpl.INSTANCE;
         }
+        if (SuplaRegisterDeviceE.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) SuplaRegisterDeviceEDecoderImpl.INSTANCE;
+        }
+        if (SuplaRegisterDeviceF.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) SuplaRegisterDeviceFDecoderImpl.INSTANCE;
+        }
 
         // sc
         if (SuplaChannel.class.isAssignableFrom(proto)) {

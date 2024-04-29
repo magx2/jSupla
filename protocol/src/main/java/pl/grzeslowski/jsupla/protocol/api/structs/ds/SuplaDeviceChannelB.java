@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
+import lombok.Getter;
+import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import java.util.Arrays;
@@ -13,18 +15,21 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 /**
  * @since ver 2.
  */
-public final class SuplaDeviceChannelB implements ProtoWithSize {
+public final class SuplaDeviceChannelB implements ProtoWithSize, DeviceChannelTrait {
     public static final int SIZE = BYTE_SIZE + INT_SIZE * 3 + SUPLA_CHANNELVALUE_SIZE;
     /**
      * unsigned byte.
      */
+    @Getter
     public final short number;
+    @Getter
     public final int type;
     public final int funcList;
     /**
      * This field name should be default, but this is keyword in Java.
      */
     public final int defaultValue;
+    @Getter
     public final byte[] value;
 
     public SuplaDeviceChannelB(short number, int type, int funcList, int defaultValue, byte[] value) {

@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.server.netty.impl;
 
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
+import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.server.netty.api.TypeMapper;
 
@@ -17,7 +17,7 @@ import static java.util.Comparator.comparingInt;
 
 public final class ChannelTypeMapper implements TypeMapper {
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-    private List<SuplaDeviceChannel> deviceChannels;
+    private List<DeviceChannelTrait> deviceChannels;
 
     public void registerDevice(RegisterDeviceTrait registerDevice) {
         lock.writeLock().lock();
@@ -25,9 +25,8 @@ public final class ChannelTypeMapper implements TypeMapper {
             if (deviceChannels != null) {
                 throw new IllegalStateException("Cannot set device channels twice!");
             }
-            deviceChannels = registerDevice.getChannels()
-                .stream()
-                .sorted(comparingInt(x -> x.number))
+            deviceChannels = registerDevice.getChannelsStream()
+                .sorted(comparingInt(DeviceChannelTrait::getNumber))
                 .collect(Collectors.toList());
 
         } finally {
@@ -48,12 +47,12 @@ public final class ChannelTypeMapper implements TypeMapper {
             if (deviceChannel == null) {
                 throw new IllegalStateException(format("There is no channel with channel number %s", channelNumber));
             }
-            final Optional<ChannelType> channelType = ChannelType.findByValue(deviceChannel.type);
+            final Optional<ChannelType> channelType = ChannelType.findByValue(deviceChannel.getType());
             if (channelType.isPresent()) {
                 return channelType.get();
             } else {
                 throw new IllegalArgumentException(
-                    format("There is no channel type with ID=%s", deviceChannel.type));
+                    format("There is no channel type with ID=%s", deviceChannel.getType()));
             }
         } finally {
             readLock.unlock();

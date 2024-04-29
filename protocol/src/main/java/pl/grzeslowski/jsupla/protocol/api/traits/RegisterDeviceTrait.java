@@ -1,8 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.traits;
 
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
-
-import java.util.List;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public interface RegisterDeviceTrait {
     byte[] getGuid();
@@ -10,5 +9,10 @@ public interface RegisterDeviceTrait {
     byte[] getName();
 
     byte[] getSoftVer();
-    List<SuplaDeviceChannel> getChannels();
+
+    DeviceChannelTrait[] getChannels();
+
+    default Stream<DeviceChannelTrait> getChannelsStream() {
+        return Arrays.stream(getChannels());
+    }
 }

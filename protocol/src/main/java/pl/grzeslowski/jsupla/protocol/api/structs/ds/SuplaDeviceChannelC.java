@@ -1,11 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts;
 import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.Union;
+import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import static pl.grzeslowski.jsupla.Preconditions.*;
@@ -17,20 +19,22 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
  */
 @EqualsAndHashCode
 @ToString
-public final class SuplaDeviceChannelC implements ProtoWithSize {
+public final class SuplaDeviceChannelC implements ProtoWithSize, DeviceChannelTrait {
+    public static final int UNION_2_SIZE = JavaConsts.union(BYTE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE); // union 2 / value | actionTriggerProperties | hvacValue 
     public static final int SIZE =
         BYTE_SIZE + //number
             INT_SIZE + //type
             INT_SIZE + // union 1 / funcList | actionTriggerCaps
             INT_SIZE + // defaultValue 
             INT_SIZE + // flags 
-            JavaConsts.union(BYTE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE) // union 2 / value | actionTriggerProperties | hvacValue
-        ;
+            UNION_2_SIZE;
 
     /**
      * unsigned char
      */
+    @Getter
     public final short number;
+    @Getter
     public final int type;
     @Union(groupNumber = 1)
     public final Integer funcList;
@@ -46,6 +50,7 @@ public final class SuplaDeviceChannelC implements ProtoWithSize {
     public final int flags;
 
     @Union(groupNumber = 2)
+    @Getter
     public final byte[] value;
     @Union(groupNumber = 2)
     public final ActionTriggerProperties actionTriggerProperties;

@@ -19,18 +19,18 @@ public final class SuplaRegisterDeviceE implements DeviceServer, RegisterDeviceT
     /**
      * UTF8
      */
-    private final char[] email;
-    private final char[] authKey;
+    private final byte[] email;
+    private final byte[] authKey;
     @Getter
-    private final char[] guid;
+    private final byte[] guid;
     /**
      * UTF8
      */
     @Getter
-    private final char[] name;
+    private final byte[] name;
     @Getter
-    private final char[] softVer;
-    private final char[] serverName;
+    private final byte[] softVer;
+    private final byte[] serverName;
     /**
      * SUPLA_DEVICE_FLAG_*
      */
@@ -47,7 +47,7 @@ public final class SuplaRegisterDeviceE implements DeviceServer, RegisterDeviceT
     @Getter
     private final SuplaDeviceChannelC[] channels;
 
-    public SuplaRegisterDeviceE(char[] email, char[] authKey, char[] guid, char[] name, char[] softVer, char[] serverName, int flags, short manufacturerId, short productId, short channelCount, SuplaDeviceChannelC[] channels) {
+    public SuplaRegisterDeviceE(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer, byte[] serverName, int flags, short manufacturerId, short productId, short channelCount, SuplaDeviceChannelC[] channels) {
         this.email = checkArrayLength(email, SUPLA_EMAIL_MAXSIZE);
         this.authKey = checkArrayLength(authKey, SUPLA_AUTHKEY_SIZE);
         this.guid = checkArrayLength(guid, SUPLA_GUID_SIZE);
