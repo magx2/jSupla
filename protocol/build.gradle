@@ -227,6 +227,36 @@ static String mapSimpleType(String type) {
 	return "UNKNOWN_" + type
 }
 
+static String findSize(property) {
+	def type = property.type
+	def finalType = "UNKNOWN_FIX_SCRIPT // ${type.value}"
+	if (type.unsigned) {
+		if (type.value == "long") {
+			finalType = "INT_SIZE"
+		} else if (type.value == "short") {
+			finalType = "BYTE_SIZE"
+		} else if (type.value == "int") {
+			finalType = "SHORT_SIZE"
+		}
+	} else if (type.array) {
+		def xSize = mapSimpleType(type.value)
+		if (xSize.startsWith("UNKNOWN")) {
+			xSize = "${type.value}.SIZE"
+		}
+		if (type.arraySize) {
+			finalType = "${type.arraySize} * ${xSize}"
+		} else {
+			finalType = "${property.name}.length * ${xSize}"
+		}
+	} else {
+		finalType = mapSimpleType(type.value)
+		if (finalType.startsWith("UNKNOWN")) {
+			finalType = property.name + ".size()"
+		}
+	}
+	return finalType
+}
+
 def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) {
 	def typeMaps = new HashMap<String, String>()
 	def imports = new TreeSet<>([
@@ -342,7 +372,9 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 
 			type.value = mapSuplaTypeToJava(type)
 
-			return [type: type, name: name, comment: comment]
+			def property = [type: type, name: name, comment: comment]
+			type.size = findSize(property)
+			return property
 		}
 		.collect(Collectors.toList())
 
@@ -412,35 +444,7 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 	}
 	def size = rawProperties
 		.stream()
-		.map { property ->
-			def type = property.type
-			def finalType = "UNKNOWN_FIX_SCRIPT // ${type.value}"
-			if (type.unsigned) {
-				if (type.value == "long") {
-					finalType = "INT_SIZE"
-				} else if (type.value == "short") {
-					finalType = "BYTE_SIZE"
-				} else if (type.value == "int") {
-					finalType = "SHORT_SIZE"
-				}
-			} else if (type.array) {
-				def xSize = mapSimpleType(type.value)
-				if (xSize.startsWith("UNKNOWN")) {
-					xSize = "${type.value}.SIZE"
-				}
-				if (type.arraySize) {
-					finalType = "${type.arraySize} * ${xSize}"
-				} else {
-					finalType = "${property.name}.length * ${xSize}"
-				}
-			} else {
-				finalType = mapSimpleType(type.value)
-				if (finalType.startsWith("UNKNOWN")) {
-					finalType = property.name + ".size()"
-				}
-			}
-			return finalType + " // ${property.name}"
-		}
+		.map { property -> property.type.size + " // ${property.name}" }
 		.collect(Collectors.joining("\n\t\t + "))
 	def staticSizeJava = "";
 	if (staticSize) {
