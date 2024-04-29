@@ -10,6 +10,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
+import reactor.core.Disposable;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
@@ -30,7 +31,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
 
     private final Flux<SuplaDataPacket> flux;
     private final Collection<FluxSink<SuplaDataPacket>> emitters = Collections.synchronizedList(new LinkedList<>());
-    //    private final Disposable disposable;
+    private final Disposable disposable;
 
     SuplaHandler(final Collection<FluxSink<NettyChannel>> rootEmitters,
                  final CallTypeParser callTypeParser,
@@ -48,8 +49,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
                 this.emitters.add(emitter);
                 emitter.onDispose(() -> this.emitters.remove(emitter));
             }).publish();
-            /*this.disposable =*/
-            flux.connect();
+            this.disposable = flux.connect();
             this.flux = flux;
         }
     }
@@ -107,6 +107,6 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     public void close() {
         logger.debug("Closing SuplaHandler");
         emitters.clear();
-        //        disposable.dispose();
+        disposable.dispose();
     }
 }
