@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.channel.ChannelHandlerContext;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.javatuples.Pair;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
@@ -24,6 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
 
+@Slf4j
 public final class NettyChannel implements Channel {
     private final ChannelHandlerContext channelHandlerContext;
     private final EncoderFactory encoderFactory;
@@ -50,7 +52,9 @@ public final class NettyChannel implements Channel {
                 @SuppressWarnings("OptionalGetWithoutIsPresent")
                 val callType = pair.getValue1().get();
                 Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-                return decoder.decode(suplaDataPacket.data);
+                val data = suplaDataPacket.data;
+                log.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
+                return decoder.decode(data);
             })
             .filter(entity -> ToServerProto.class.isAssignableFrom(entity.getClass()))
             .cast(ToServerProto.class);
