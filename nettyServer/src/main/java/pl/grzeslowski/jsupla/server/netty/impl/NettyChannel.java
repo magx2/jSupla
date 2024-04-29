@@ -3,7 +3,6 @@ package pl.grzeslowski.jsupla.server.netty.impl;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.val;
 import org.javatuples.Pair;
-import pl.grzeslowski.jsupla.JSuplaContext;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
@@ -17,7 +16,6 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.api.Channel;
-import pl.grzeslowski.jsupla.server.netty.api.TypeMapper;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -39,9 +37,7 @@ public final class NettyChannel implements Channel {
                  DecoderFactory decoderFactory,
                  EncoderFactory encoderFactory,
                  ChannelTypeMapper typeMapper,
-                 BufferParams bufferParams,
-                 ContextGenerator contextGenerator) {
-        final JSuplaContext context = contextGenerator.newJSuplaContext(typeMapper);
+                 BufferParams bufferParams) {
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
         this.encoderFactory = requireNonNull(encoderFactory);
         this.bufferParams = requireNonNull(bufferParams);
@@ -65,68 +61,8 @@ public final class NettyChannel implements Channel {
             .subscribe(typeMapper::registerDevice);
     }
 
-    NettyChannel(final ChannelHandlerContext channelHandlerContext,
-                 final Flux<SuplaDataPacket> messagePipe,
-                 final CallTypeParser callTypeParser,
-                 final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory) {
-        this(channelHandlerContext,
-            messagePipe,
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            new ChannelTypeMapper(),
-            BufferParams.DEFAULT,
-            ContextGeneratorImpl.INSTANCE);
-    }
-
-    NettyChannel(final ChannelHandlerContext channelHandlerContext,
-                 final Flux<SuplaDataPacket> messagePipe,
-                 final CallTypeParser callTypeParser,
-                 final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory,
-                 final BufferParams bufferParams) {
-        this(channelHandlerContext,
-            messagePipe,
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            new ChannelTypeMapper(),
-            bufferParams,
-            ContextGeneratorImpl.INSTANCE);
-    }
-
-    NettyChannel(final ChannelHandlerContext channelHandlerContext,
-                 final Flux<SuplaDataPacket> messagePipe,
-                 final CallTypeParser callTypeParser,
-                 final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory,
-                 final ContextGenerator contextGenerator) {
-        this(channelHandlerContext,
-            messagePipe,
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            new ChannelTypeMapper(),
-            BufferParams.DEFAULT,
-            contextGenerator);
-    }
-
-    NettyChannel(final ChannelHandlerContext channelHandlerContext,
-                 final Flux<SuplaDataPacket> messagePipe,
-                 final CallTypeParser callTypeParser,
-                 final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory,
-                 final BufferParams bufferParams,
-                 final ContextGenerator contextGenerator) {
-        this(channelHandlerContext,
-            messagePipe,
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            new ChannelTypeMapper(),
-            bufferParams,
-            contextGenerator);
+    public NettyChannel(ChannelHandlerContext ctx, Flux<SuplaDataPacket> flux, CallTypeParser callTypeParser, DecoderFactory decoderFactory, EncoderFactory encoderFactory) {
+        this(ctx, flux, callTypeParser, decoderFactory, encoderFactory, new ChannelTypeMapper(), BufferParams.DEFAULT);
     }
 
     private static Pair<SuplaDataPacket,
@@ -189,18 +125,4 @@ public final class NettyChannel implements Channel {
                 '}';
         }
     }
-
-    public interface ContextGenerator {
-        JSuplaContext newJSuplaContext(TypeMapper typeMapper);
-    }
-
-    private enum ContextGeneratorImpl implements ContextGenerator {
-        INSTANCE;
-
-        @Override
-        public JSuplaContext newJSuplaContext(TypeMapper typeMapper) {
-            return new ProtocolJavaContext(typeMapper);
-        }
-    }
-
 }
