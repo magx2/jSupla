@@ -4,7 +4,7 @@ repositories {
 }
 
 dependencies {
-	compile rootProject.project("protocolJava")
+	compile rootProject.project("protocol")
 	compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
 	compile "io.projectreactor:reactor-core:$reactorVersion"
 }
