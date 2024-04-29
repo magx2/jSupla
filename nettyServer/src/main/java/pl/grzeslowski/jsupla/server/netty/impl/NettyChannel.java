@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.channel.ChannelHandlerContext;
+import lombok.val;
 import org.javatuples.Pair;
 import pl.grzeslowski.jsupla.JSuplaContext;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
@@ -10,19 +11,13 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.types.Proto;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
+import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
-import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
-import pl.grzeslowski.jsupla.protocoljava.api.ProtocolJavaContext;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.Parser;
-import pl.grzeslowski.jsupla.protocoljava.api.parsers.ds.DeviceChannelValueParser;
-import pl.grzeslowski.jsupla.protocoljava.api.serializers.Serializer;
-import pl.grzeslowski.jsupla.protocoljava.api.types.Entity;
-import pl.grzeslowski.jsupla.protocoljava.api.types.FromServerEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
-import pl.grzeslowski.jsupla.protocoljava.api.types.traits.RegisterDeviceTrait;
+import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.api.Channel;
+import pl.grzeslowski.jsupla.server.netty.api.TypeMapper;
 import reactor.core.publisher.Flux;
 
 import java.time.Duration;
@@ -34,39 +29,35 @@ import static java.util.Objects.requireNonNull;
 public final class NettyChannel implements Channel {
     private final ChannelHandlerContext channelHandlerContext;
     private final EncoderFactory encoderFactory;
-    private final Serializer<Entity, ProtoWithCallType> serializer;
     private final BufferParams bufferParams;
-    private final Flux<ToServerEntity> messagePipe;
+    private final Flux<ToServerProto> messagePipe;
     private final AtomicLong msgId = new AtomicLong(1);
 
-    @SuppressWarnings("unchecked")
-    NettyChannel(final ChannelHandlerContext channelHandlerContext,
-                 final Flux<SuplaDataPacket> messagePipe,
-                 final CallTypeParser callTypeParser,
-                 final DecoderFactory decoderFactory,
-                 final EncoderFactory encoderFactory,
-                 final ChannelTypeMapper typeMapper,
-                 final BufferParams bufferParams,
-                 final ContextGenerator contextGenerator) {
+    NettyChannel(ChannelHandlerContext channelHandlerContext,
+                 Flux<SuplaDataPacket> messagePipe,
+                 CallTypeParser callTypeParser,
+                 DecoderFactory decoderFactory,
+                 EncoderFactory encoderFactory,
+                 ChannelTypeMapper typeMapper,
+                 BufferParams bufferParams,
+                 ContextGenerator contextGenerator) {
         final JSuplaContext context = contextGenerator.newJSuplaContext(typeMapper);
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
         this.encoderFactory = requireNonNull(encoderFactory);
-        this.serializer = context.getService(Serializer.class);
         this.bufferParams = requireNonNull(bufferParams);
-        final Parser<Entity, Proto> parser = context.getService(Parser.class);
         this.messagePipe = messagePipe
             .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType)))
             .filter(pair -> pair.getValue1().isPresent())
             .map(pair -> {
-                SuplaDataPacket suplaDataPacket = pair.getValue0();
+                val suplaDataPacket = pair.getValue0();
                 // optional checked in filter
-                @SuppressWarnings("OptionalGetWithoutIsPresent") CallType callType = pair.getValue1().get();
+                @SuppressWarnings("OptionalGetWithoutIsPresent")
+                val callType = pair.getValue1().get();
                 Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-                ProtoWithSize proto = decoder.decode(suplaDataPacket.data);
-                return parser.parse(proto);
+                return decoder.decode(suplaDataPacket.data);
             })
-            .filter(entity -> ToServerEntity.class.isAssignableFrom(entity.getClass()))
-            .cast(ToServerEntity.class);
+            .filter(entity -> ToServerProto.class.isAssignableFrom(entity.getClass()))
+            .cast(ToServerProto.class);
 
         this.messagePipe
             .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
@@ -145,16 +136,13 @@ public final class NettyChannel implements Channel {
     }
 
     @Override
-    public Flux<ToServerEntity> getMessagePipe() {
+    public Flux<ToServerProto> getMessagePipe() {
         return messagePipe;
     }
 
     @Override
-    public Flux<LocalDateTime> write(final Flux<FromServerEntity> fromServerEntityFlux) {
+    public Flux<LocalDateTime> write(final Flux<FromServerProto> fromServerEntityFlux) {
         return fromServerEntityFlux
-            .map(serializer::serialize)
-            .filter(proto -> proto instanceof ProtoToSend)
-            .cast(ProtoToSend.class)
             .map(this::encodeProto)
             .map(channelHandlerContext::write)
             .bufferTimeout(bufferParams.bufferMaxSize, bufferParams.timespan)
@@ -203,14 +191,14 @@ public final class NettyChannel implements Channel {
     }
 
     public interface ContextGenerator {
-        JSuplaContext newJSuplaContext(DeviceChannelValueParser.TypeMapper typeMapper);
+        JSuplaContext newJSuplaContext(TypeMapper typeMapper);
     }
 
     private enum ContextGeneratorImpl implements ContextGenerator {
         INSTANCE;
 
         @Override
-        public JSuplaContext newJSuplaContext(final DeviceChannelValueParser.TypeMapper typeMapper) {
+        public JSuplaContext newJSuplaContext(TypeMapper typeMapper) {
             return new ProtocolJavaContext(typeMapper);
         }
     }
