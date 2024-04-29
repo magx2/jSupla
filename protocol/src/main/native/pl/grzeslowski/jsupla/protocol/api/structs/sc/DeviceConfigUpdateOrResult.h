@@ -3,3 +3,5 @@
 // i name TSC_DeviceConfigUpdateOrResult
 // i javadoc SUPLA_SC_CALL_DEVICE_CONFIG_UPDATE_OR_RESULT
 // i map TSCS_DeviceConfig pl.grzeslowski.jsupla.protocol.api.structs.scs.DeviceConfig
+// i decoder false
+// i encoder false

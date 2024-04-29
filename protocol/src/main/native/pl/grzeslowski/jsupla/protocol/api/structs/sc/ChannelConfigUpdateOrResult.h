@@ -3,3 +3,5 @@
 // i name TSC_ChannelConfigUpdateOrResult
 // i javadoc SUPLA_SC_CALL_CHANNEL_CONFIG_UPDATE 
 // i map TSCS_ChannelConfig pl.grzeslowski.jsupla.protocol.api.structs.scs.ChannelConfig
+// i decoder false
+// i encoder false

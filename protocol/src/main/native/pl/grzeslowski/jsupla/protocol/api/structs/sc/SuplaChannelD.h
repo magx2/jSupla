@@ -24,3 +24,5 @@
 // instruction map TSuplaChannelValue_B pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValueB
 // instruction precondition caption length (int)captionSize
 // !instruction extends ServerClient 
+// i decoder false 
+// i encoder false 

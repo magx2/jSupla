@@ -9,3 +9,5 @@
 // i version 11
 // i map TThermostat_Time ThermostatTime
 // i map TThermostat_Schedule ThermostatSchedule
+// i decoder false
+// i encoder false

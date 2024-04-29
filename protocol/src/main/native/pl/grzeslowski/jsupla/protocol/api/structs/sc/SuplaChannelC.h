@@ -24,3 +24,5 @@
 // !instruction extends ServerClient null; //TODO
 // I dont know what to set as call type
 // instruction precondition caption length (int)captionSize
+// i decoder false
+// i encoder false
