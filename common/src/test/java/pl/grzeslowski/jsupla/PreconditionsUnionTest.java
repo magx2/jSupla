@@ -32,7 +32,7 @@ public class PreconditionsUnionTest {
 
         // then
         assertThatThrownBy(when)
-            .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -47,6 +47,6 @@ public class PreconditionsUnionTest {
 
         // then
         assertThatThrownBy(when)
-            .isInstanceOf(IllegalStateException.class);
+            .isInstanceOf(IllegalArgumentException.class);
     }
 }
