@@ -3,13 +3,14 @@ package pl.grzeslowski.jsupla.nettytest;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.sd.RegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocoljava.api.types.ToServerEntity;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
@@ -62,14 +63,13 @@ public class Server {
         channel.getMessagePipe().subscribe(toServerEntity -> newMessage(toServerEntity, channel));
     }
 
-    private void newMessage(final ToServerEntity toServerEntity, Channel channel) {
+    private void newMessage(ToServerProto toServerEntity, Channel channel) {
         logger.info("New message {}", toServerEntity);
 
-        final RegisterDeviceResult result = new RegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), 100, 5, 1);
+        val result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         channel.write(just(result)).subscribe(System.out::println);
     }
 
-    @SuppressWarnings("unchecked")
     private ServerFactory buildServerFactory() {
         return new NettyServerFactory(
             new CallTypeParserImpl(),

@@ -11,5 +11,4 @@ dependencies {
 
     testCompile("io.projectreactor:reactor-test:$reactorVersion")
     testCompile rootProject.project("protocol").sourceSets.test.output
-    testCompile rootProject.project("protocolJava").sourceSets.test.output
 }
