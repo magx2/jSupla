@@ -400,7 +400,10 @@ def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) 
 					comment += "\t * ${property.comment}\n"
 				}
 				if (property.type.unsigned) {
-					comment += "\t * unsgigned ${property.type.value}\n"
+					if (property.comment) {
+						comment += "\t * <p>\n"
+					}
+					comment += "\t * unsigned ${property.type.value}\n"
 				}
 				comment += "\t */\n\t"
 			}
