@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.api.channeltype;
+package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;

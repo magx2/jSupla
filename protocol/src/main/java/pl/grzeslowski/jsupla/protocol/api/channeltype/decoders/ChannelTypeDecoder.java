@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.api.channeltype;
+package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 
 import lombok.RequiredArgsConstructor;
