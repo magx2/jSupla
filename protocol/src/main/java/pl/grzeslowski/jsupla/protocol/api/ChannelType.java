@@ -2,12 +2,15 @@ package pl.grzeslowski.jsupla.protocol.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 @SuppressWarnings({"SpellCheckingInspection", "DeprecatedIsStillUsed"})
 @Getter
+@Slf4j
 @RequiredArgsConstructor
 public enum ChannelType {
     @Deprecated
@@ -197,8 +200,12 @@ public enum ChannelType {
     private final int value;
 
     public static Optional<ChannelType> findByValue(int value) {
-        return Arrays.stream(values())
+        val any = Arrays.stream(values())
             .filter(type -> type.value == value)
             .findAny();
+        if (!any.isPresent()) {
+            log.warn("Unknown channel type value: {}", value);
+        }
+        return any;
     }
 }
