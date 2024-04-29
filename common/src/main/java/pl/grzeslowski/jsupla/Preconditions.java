@@ -356,6 +356,11 @@ public final class Preconditions {
         return size(value, 0, 4294967295L);
     }
 
+    public static Long unsignedIntSize(Long value) {
+        if (value == null) return null;
+        return size(value, 0, 4294967295L);
+    }
+
     public static int equalsTo(int value, int equalTo) {
         if (value != equalTo) {
             throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
@@ -404,6 +409,21 @@ public final class Preconditions {
             throw new IllegalArgumentException("Given parameter was empty!");
         }
         return string;
+    }
+
+    public static void union(Object... objects) {
+        boolean allNull = true;
+        for (Object object : objects) {
+            if (object != null) {
+                if (!allNull) {
+                    throw new IllegalArgumentException("More that one objects in union was not null!");
+                }
+                allNull = false;
+            }
+        }
+        if (allNull) {
+            throw new IllegalArgumentException("All objects in union were null!");
+        }
     }
 
     private Preconditions() {

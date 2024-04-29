@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.SHORT_SIZE;
 @EqualsAndHashCode
 @ToString
 public final class HVACValue implements ProtoWithSize {
+    public static final int SIZE = BYTE_SIZE * 2 + SHORT_SIZE * 2;
     /**
      * DS: 0/1 (or 0..100 ?)
      * <p>
@@ -49,6 +50,6 @@ public final class HVACValue implements ProtoWithSize {
 
     @Override
     public int size() {
-        return BYTE_SIZE * 2 + SHORT_SIZE * 2;
+        return SIZE;
     }
 }

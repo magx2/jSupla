@@ -12,6 +12,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 @EqualsAndHashCode
 @ToString
 public final class ActionTriggerProperties implements ProtoWithSize {
+    public static final int SIZE = BYTE_SIZE + INT_SIZE;
     /**
      * ChannelNumber + 1
      * <p>
@@ -30,6 +31,6 @@ public final class ActionTriggerProperties implements ProtoWithSize {
 
     @Override
     public int size() {
-        return BYTE_SIZE + INT_SIZE;
+        return SIZE;
     }
 }
