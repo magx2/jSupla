@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.UnknownValue;
+import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
 
 @RequiredArgsConstructor(access = PRIVATE)
 public final class ChannelTypeDecoder {
+    public static final ChannelTypeDecoder INSTANCE = new ChannelTypeDecoder();
     private final ColorTypeChannelDecoderImpl colorTypeChannelDecoder;
     private final RelayTypeChannelDecoderImpl relayTypeChannelDecoder;
     private final ThermometerTypeChannelDecoderImpl thermometerTypeChannelDecoder;
@@ -19,6 +21,19 @@ public final class ChannelTypeDecoder {
         this(new ColorTypeChannelDecoderImpl(),
             new RelayTypeChannelDecoderImpl(),
             new ThermometerTypeChannelDecoderImpl());
+    }
+
+    public ChannelValue decode(DeviceChannelTrait deviceChannelTrait) {
+        return decode(deviceChannelTrait.getType(), deviceChannelTrait.getValue());
+    }
+
+    public ChannelValue decode(int type, byte[] value) {
+        return ChannelType.findByValue(type)
+            .map(t -> decode(t, value))
+            .orElseGet(() ->
+                new UnknownValue(
+                    new byte[0],
+                    format("Don't know how to map device channel type %s to channel value", type)));
     }
 
     @SuppressWarnings("deprecation")
