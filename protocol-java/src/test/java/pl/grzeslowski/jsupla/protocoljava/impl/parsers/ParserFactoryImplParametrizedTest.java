@@ -60,7 +60,6 @@ public class ParserFactoryImplParametrizedTest {
         SuplaRegisterDeviceC.class
     );
     static final Collection<Class<? extends ServerClient>> SERVER_CLIENT_CLASSES = Arrays.asList(
-        SuplaChannel.class,
         SuplaChannelPack.class,
         pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue.class,
         SuplaEvent.class,

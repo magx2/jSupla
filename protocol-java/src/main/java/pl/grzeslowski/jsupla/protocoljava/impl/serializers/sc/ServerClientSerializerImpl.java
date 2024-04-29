@@ -58,12 +58,8 @@ public class ServerClientSerializerImpl
 
     @Override
     public ServerClient serialize(@NotNull final ServerClientEntity entity) {
-        if (entity instanceof ChannelB) {
-            return channelBSerializer.serialize((ChannelB) entity);
-        } else if (entity instanceof ChannelPackB) {
+        if (entity instanceof ChannelPackB) {
             return channelPackBSerializer.serialize((ChannelPackB) entity);
-        } else if (entity instanceof Channel) {
-            return channelSerializer.serialize((Channel) entity);
         } else if (entity instanceof ChannelPack) {
             return channelPackSerializer.serialize((ChannelPack) entity);
         } else if (entity instanceof ChannelValue) {

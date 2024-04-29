@@ -58,9 +58,7 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
     @Override
     public ServerClientEntity parse(@NotNull final ServerClient proto) {
         requireNonNull(proto);
-        if (proto instanceof SuplaChannel) {
-            return channelParser.parse((SuplaChannel) proto);
-        } else if (proto instanceof SuplaChannelPackB) {
+        if (proto instanceof SuplaChannelPackB) {
             return channelPackBParser.parse((SuplaChannelPackB) proto);
         } else if (proto instanceof SuplaChannelPack) {
             return channelPackParser.parse((SuplaChannelPack) proto);
@@ -80,8 +78,6 @@ public class ServerClientParserImpl implements ServerClientParser<ServerClientEn
             return registerClientResultBParser.parse((SuplaRegisterClientResultB) proto);
         } else if (proto instanceof SuplaChannelGroupRelationPack) {
             return channelGroupRelationPackParser.parse((SuplaChannelGroupRelationPack) proto);
-        } else if (proto instanceof SuplaChannelB) {
-            return channelBParser.parse((SuplaChannelB) proto);
         } else if (proto instanceof SuplaChannelValuePack) {
             return channelValuePackParser.parse((SuplaChannelValuePack) proto);
         } else if (proto instanceof SuplaChannelGroup) {

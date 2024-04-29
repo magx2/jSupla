@@ -15,7 +15,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
  */
 @EqualsAndHashCode
 @ToString
-public class SuplaDeviceChannelValueB implements DeviceServer {
+public final class SuplaDeviceChannelValueB implements DeviceServer {
     public static final int SIZE = BYTE_SIZE * 2 + SUPLA_CHANNELVALUE_SIZE;
 
     /**
