@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 
 import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.Preconditions.positive;
@@ -12,17 +14,20 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @EqualsAndHashCode
 @ToString
-public final class SuplaRegisterDeviceF implements DeviceServer {
+public final class SuplaRegisterDeviceF implements DeviceServer, RegisterDeviceTrait {
     public final byte[] email;
     /**
      * UTF-8.
      */
     public final byte[] authKey;
+    @Getter
     public final byte[] guid;
     /**
      * UTF-8.
      */
+    @Getter
     public final byte[] name;
+    @Getter
     public final byte[] softVer;
     public final byte[] serverName;
 
@@ -38,6 +43,7 @@ public final class SuplaRegisterDeviceF implements DeviceServer {
      * unsigned.
      */
     public final short channelCount;
+    @Getter
     public final SuplaDeviceChannelD[] channels;
 
     public SuplaRegisterDeviceF(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer,

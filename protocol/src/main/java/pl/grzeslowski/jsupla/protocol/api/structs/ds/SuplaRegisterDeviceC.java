@@ -1,7 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
+import lombok.Getter;
 import pl.grzeslowski.jsupla.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 
 import java.util.Arrays;
 
@@ -14,7 +16,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 /**
  * @since ver 6.
  */
-public final class SuplaRegisterDeviceC implements DeviceServer {
+public final class SuplaRegisterDeviceC implements DeviceServer, RegisterDeviceTrait {
     public static final int SIZE = BYTE_SIZE + INT_SIZE + SUPLA_LOCATION_PWD_MAXSIZE + SUPLA_GUID_SIZE
         + SUPLA_DEVICE_NAME_MAXSIZE + SUPLA_SOFTVER_MAXSIZE
         + SUPLA_SERVER_NAME_MAXSIZE
@@ -24,17 +26,21 @@ public final class SuplaRegisterDeviceC implements DeviceServer {
      * UTF-8.
      */
     public final byte[] locationPwd;
+    @Getter
     public final byte[] guid;
     /**
      * UTF-8.
      */
+    @Getter
     public final byte[] name;
+    @Getter
     public final byte[] softVer;
     public final byte[] serverName;
     /**
      * unsigned.
      */
     public final short channelCount;
+    @Getter
     public final SuplaDeviceChannelB[] channels;
 
     public SuplaRegisterDeviceC(int locationId,
