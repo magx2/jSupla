@@ -264,6 +264,9 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_F) {
             return (Decoder<T>) SuplaRegisterDeviceFDecoderImpl.INSTANCE;
         }
+        if (callType == SUPLA_DS_CALL_DEVICE_CHANNEL_EXTENDEDVALUE_CHANGED) {
+            return (Decoder<T>) SuplaDeviceChannelExtendedValueDecoderImpl.INSTANCE;
+        }
 
         // sc
 //        if (callType == SUPLA_SC_CALL_CHANNEL_UPDATE) {
