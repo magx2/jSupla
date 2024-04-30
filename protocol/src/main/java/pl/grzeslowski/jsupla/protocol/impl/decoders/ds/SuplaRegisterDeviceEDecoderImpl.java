@@ -9,8 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceE;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @RequiredArgsConstructor
@@ -47,10 +46,10 @@ public final class SuplaRegisterDeviceEDecoderImpl implements SuplaRegisterDevic
         offset += INT_SIZE;
 
         val manufacturerId = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
+        offset += SHORT_SIZE;
 
         val productId = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
+        offset += SHORT_SIZE;
 
         val channelCount = PrimitiveDecoderImpl.INSTANCE.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
