@@ -1,7 +1,0 @@
-package pl.grzeslowski.jsupla.protocoljava.api.parsers.ds;
-
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceB;
-import pl.grzeslowski.jsupla.protocoljava.api.entities.ds.RegisterDeviceB;
-
-public interface RegisterDeviceBParser extends DeviceServerParser<RegisterDeviceB, SuplaRegisterDeviceB> {
-}

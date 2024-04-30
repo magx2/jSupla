@@ -109,6 +109,12 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (SuplaRegisterDeviceD.class.isAssignableFrom(proto)) {
             return (Decoder<T>) SuplaRegisterDeviceDDecoderImpl.INSTANCE;
         }
+        if (SuplaRegisterDeviceE.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) SuplaRegisterDeviceEDecoderImpl.INSTANCE;
+        }
+        if (SuplaRegisterDeviceF.class.isAssignableFrom(proto)) {
+            return (Decoder<T>) SuplaRegisterDeviceFDecoderImpl.INSTANCE;
+        }
 
         // sc
         if (SuplaChannel.class.isAssignableFrom(proto)) {
@@ -240,17 +246,26 @@ public final class DecoderFactoryImpl implements DecoderFactory {
         if (callType == SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT) {
             return (Decoder<T>) SuplaChannelNewValueResultDecoderImpl.INSTANCE;
         }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE) {
+            return (Decoder<T>) SuplaRegisterDeviceDecoderImpl.INSTANCE;
+        }
         if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_B) {
             return (Decoder<T>) SuplaRegisterDeviceBDecoderImpl.INSTANCE;
         }
         if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_C) {
             return (Decoder<T>) SuplaRegisterDeviceCDecoderImpl.INSTANCE;
         }
-        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE) {
-            return (Decoder<T>) SuplaRegisterDeviceDecoderImpl.INSTANCE;
-        }
         if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_D) {
             return (Decoder<T>) SuplaRegisterDeviceDDecoderImpl.INSTANCE;
+        }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_E) {
+            return (Decoder<T>) SuplaRegisterDeviceEDecoderImpl.INSTANCE;
+        }
+        if (callType == SUPLA_DS_CALL_REGISTER_DEVICE_F) {
+            return (Decoder<T>) SuplaRegisterDeviceFDecoderImpl.INSTANCE;
+        }
+        if (callType == SUPLA_DS_CALL_DEVICE_CHANNEL_EXTENDEDVALUE_CHANGED) {
+            return (Decoder<T>) SuplaDeviceChannelExtendedValueDecoderImpl.INSTANCE;
         }
 
         // sc

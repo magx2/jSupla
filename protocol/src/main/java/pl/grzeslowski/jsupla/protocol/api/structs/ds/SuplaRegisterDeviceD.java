@@ -1,6 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.ds;
 
+import lombok.Getter;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
+import pl.grzeslowski.jsupla.protocol.api.traits.RegisterEmailDeviceTrait;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -14,23 +16,30 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 /**
  * @since ver. 7
  */
-public final class SuplaRegisterDeviceD implements DeviceServer {
+public final class SuplaRegisterDeviceD implements DeviceServer, RegisterEmailDeviceTrait {
+    @Getter
     public final byte[] email;
     /**
      * UTF-8.
      */
+    @Getter
     public final byte[] authKey;
+    @Getter
     public final byte[] guid;
     /**
      * UTF-8.
      */
+    @Getter
     public final byte[] name;
+    @Getter
     public final byte[] softVer;
+    @Getter
     public final byte[] serverName;
     /**
      * unsigned.
      */
     public final short channelCount;
+    @Getter
     public final SuplaDeviceChannelB[] channels;
 
     public SuplaRegisterDeviceD(byte[] email, byte[] authKey, byte[] guid, byte[] name, byte[] softVer,

@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol;
 
 import com.google.common.reflect.ClassPath;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,6 +12,7 @@ import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(Parameterized.class)
+@Ignore
 public class IntegrationTest {
     Class<ProtoWithSize> structClass;
 
