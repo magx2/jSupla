@@ -1,3 +1,5 @@
+apply from: 'parser.gradle'
+
 import java.nio.file.Files
 import java.time.ZonedDateTime
 import java.util.stream.Collectors
