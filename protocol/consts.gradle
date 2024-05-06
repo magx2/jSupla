@@ -167,12 +167,20 @@ static String generateConst(constObj, List consts) {
 		.filter { it.name == constObj.value }
 		.findAny()
 	if (value.isPresent()) {
+		def javaDoc = ""
+		if (value.get().javaDoc) {
+			javaDoc = "/** ${value.get().javaDoc} */\n\t"
+		}
 		def type = findType(value.get().value)
-		return "public static final $type ${constObj.name} = ${value.get().name};"
+		return "${javaDoc}public static final $type ${constObj.name} = ${value.get().name};"
 	}
 
+	def javaDoc = ""
+	if (constObj.javaDoc) {
+		javaDoc = "/** ${constObj.javaDoc} */\n\t"
+	}
 	def type = findType(constObj.value)
-	return "public static final $type ${constObj.name} = ${mapValue(constObj.value)};"
+	return "${javaDoc}public static final $type ${constObj.name} = ${mapValue(constObj.value)};"
 }
 
 static String mapValue(String value) {
