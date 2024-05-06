@@ -625,7 +625,6 @@ class Names {
 			name = "T" + name
 		}
 
-
 		if (name == "TSuplaChannelValue_B") {
 			return "TSuplaChannelValueB"
 		}
@@ -635,20 +634,50 @@ class Names {
 			|| name == "TSuplaChannelExtendedValue"
 			|| name == "TActionTriggerProperties"
 			|| name == "THVACValue"
-			|| name == "TThermostatValueGroup"
-			|| name == "TElectricityMeter_Measurement"
-			|| name == "TThermostatTemperatureCfg"
-			|| name == "TWeeklyScheduleProgram"
-			|| name == "TThermostat_Time"
-			|| name == "TThermostat_ScheduleCfg"
-			|| name == "TChannelState"
-			|| name == "TTimerState"
-			|| name == "TSuplaChannelValue_B"
+			|| name == "TChannelState_ExtendedValue"
 			|| name == "TThermostat_ExtendedValue"
 			|| name == "TThermostat_Schedule"
 			|| name == "TTimerState_ExtendedValue"
-			|| name == "TChannelState_ExtendedValue"
+			|| name == "TThermostat_ScheduleCfg"
+			|| name == "TThermostat_Time"
+			|| name == "TElectricityMeter_Measurement"
+			|| name == "TThermostatValueGroup"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TChannelState"
+			|| name == "TTimerState"
+			|| name == "TThermostatTemperatureCfg"
+			|| name == "timeval_compat"
 			|| name == "THVACTemperatureCfg"
+			|| name == "TWeeklyScheduleProgram"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TAction_RS_Parameters"
+			|| name == "TElectricityMeter_ExtendedValue"
+			|| name == "TElectricityMeter_ExtendedValue_V2"
+			|| name == "TElectricityMeter_Value"
+			|| name == "TElectricityMeter_ExtendedValue_V3"
+			|| name == "TCalCfg_ZWave_Node"
+			|| name == "TCalCfg_ZWave_WakeupSettingsReport"
+			|| name == "TAction_HVAC_Parameters"
+			|| name == "TCalCfg_FacadeBlindSettings"
+			|| name == "TCalCfg_ProgressReport"
+			|| name == "TRGBW_Value"
+			|| name == "TCalCfg_LightSourceLifespan"
+			|| name == "TCalCfg_RollerShutterSettings"
+			|| name == "TRelayChannel_Value"
+			|| name == "TDeviceConfig_ScreenBrightness"
+			|| name == "TDigiglass_Value"
+			|| name == "TDeviceConfig_ButtonVolume"
+			|| name == "TDeviceConfig_DisableUserInterface"
+			|| name == "TDeviceConfig_HomeScreenContent"
+			|| name == "TDeviceConfig_HomeScreenOffDelay"
+			|| name == "TDeviceConfig_AutomaticTimeSync"
+			|| name == "TDeviceConfig_StatusLed"
+			|| name == "TChannelAndTimerState_ExtendedValue"
+			|| name.startsWith("TChannelConfig_")
+			|| name == "TCalCfg_ZWave_WakeUpTime"
+			|| name == "TValve_Value"
+			|| name == "TThermostat_Value"
+			|| name == "TAction_RGBW_Parameters"
 			|| name == "TSuplaChannelExtendedValue") {
 			return classNameCase(name.substring(1))
 		}
@@ -686,10 +715,60 @@ class Names {
 			|| name == "THVACTemperatureCfg"
 			|| name == "TWeeklyScheduleProgram"
 			|| name == "TSuplaChannelValue_B"
+			|| name == "TAction_RS_Parameters"
+			|| name == "TElectricityMeter_ExtendedValue"
+			|| name == "TElectricityMeter_ExtendedValue_V2"
+			|| name == "TElectricityMeter_Value"
+			|| name == "TElectricityMeter_ExtendedValue_V3"
+			|| name == "TCalCfg_ZWave_Node"
+			|| name == "TCalCfg_ZWave_WakeupSettingsReport"
+			|| name == "TAction_HVAC_Parameters"
+			|| name == "TCalCfg_FacadeBlindSettings"
+			|| name == "TCalCfg_ProgressReport"
+			|| name == "TRGBW_Value"
+			|| name == "TCalCfg_LightSourceLifespan"
+			|| name == "TCalCfg_RollerShutterSettings"
+			|| name == "TRelayChannel_Value"
+			|| name == "TDeviceConfig_ScreenBrightness"
+			|| name == "TDigiglass_Value"
+			|| name == "TDeviceConfig_ButtonVolume"
+			|| name == "TDeviceConfig_DisableUserInterface"
+			|| name == "TDeviceConfig_HomeScreenContent"
+			|| name == "TDeviceConfig_HomeScreenOffDelay"
+			|| name == "TDeviceConfig_AutomaticTimeSync"
+			|| name == "TDeviceConfig_StatusLed"
+			|| name == "TChannelAndTimerState_ExtendedValue"
+			|| name.startsWith("TChannelConfig_")
+			|| name == "TCalCfg_ZWave_WakeUpTime"
+			|| name == "TValve_Value"
+			|| name == "TThermostat_Value"
+			|| name == "TAction_RGBW_Parameters"
 			|| name == "TSuplaChannelExtendedValue") {
 			return "T"
 		}
-		return name.split("_", 2)[0]
+
+		def split = name.split("_", 2)
+		if (split.length == 1) {
+			return split[0]
+		}
+		def prefix = split[0]
+
+		if (prefix != "T"
+			&& prefix != "TCS"
+			&& prefix != "TCSD"
+			&& prefix != "TSCD"
+			&& prefix != "TSDS"
+			&& prefix != "TSCS"
+			&& prefix != "TDCS"
+			&& prefix != "TDSC"
+			&& prefix != "TDS"
+			&& prefix != "TSC"
+			&& prefix != "TSD"
+			&& prefix != "TSDC") {
+			throw new IllegalArgumentException("prefix = [${prefix}] is wrong. Do not know how to parse prefix from $name")
+		}
+
+		return prefix
 	}
 
 

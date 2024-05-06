@@ -11,8 +11,8 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import java.util.List;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
