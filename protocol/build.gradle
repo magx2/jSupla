@@ -10,7 +10,7 @@ dependencies {
 
 sourceSets {
 	main {
-		java.srcDirs += "${project.buildDir}/generated/sources/jsupla/java/main"
+		java.srcDirs += "${project.buildDir}/generated/sources/jsupla/main/java"
 	}
 }
 

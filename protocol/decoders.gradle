@@ -16,7 +16,7 @@ task decodersGenerator {
 		def jsonSlurper = new JsonSlurper()
 		def structs = (jsonSlurper.parse(jsonFile) as List)
 
-		def generatedSourceRoot = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/").toPath()
+		def generatedSourceRoot = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/").toPath()
 		Files.createDirectories(generatedSourceRoot)
 
 		structs

@@ -28,7 +28,7 @@ task constsGenerator {
 			.filter { !predefined(it, overrides) }
 			.toList()
 
-		def protoConsts = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java").toPath()
+		def protoConsts = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java").toPath()
 		Files.createDirectories(protoConsts.parent)
 
 		def java = """\
@@ -67,7 +67,7 @@ task callTypesGenerator {
 			.filter { isCallType(it.name) }
 			.toList()
 
-		def callTypesFolder = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/calltypes/").toPath()
+		def callTypesFolder = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/calltypes/").toPath()
 		Files.createDirectories(callTypesFolder)
 
 		buildCallType('ClientServer', "SUPLA_CS_", callTypesFolder, consts)
@@ -106,7 +106,7 @@ task resultCodeGenerator {
 			}
 			.collect(Collectors.joining(",\n\t"))
 
-		def resultCodePath = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/ResultCode.java").toPath()
+		def resultCodePath = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ResultCode.java").toPath()
 		Files.createDirectories(resultCodePath.parent)
 
 		resultCodePath.write("""\
@@ -145,7 +145,7 @@ task channelTypeGenerator {
 			}
 			.collect(Collectors.joining(",\n\t"))
 
-		def channelTypePath = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/ChannelType.java").toPath()
+		def channelTypePath = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelType.java").toPath()
 		Files.createDirectories(channelTypePath.parent)
 
 		channelTypePath.write("""\
