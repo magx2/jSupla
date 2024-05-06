@@ -18,7 +18,7 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
         out.writeBytes(SUPLA_TAG)
             .writeByte((byte) msg.version)
             .writeIntLE((int) msg.rrId)
-            .writeIntLE((int) msg.callType)
+            .writeIntLE((int) msg.callId)
             .writeIntLE((int) msg.dataSize)
             .writeBytes(msg.data)
             .writeBytes(SUPLA_TAG);

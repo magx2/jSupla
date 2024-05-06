@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 class RelayTypeChannelDecoderImpl implements Decoder<OnOff> {
     @Override

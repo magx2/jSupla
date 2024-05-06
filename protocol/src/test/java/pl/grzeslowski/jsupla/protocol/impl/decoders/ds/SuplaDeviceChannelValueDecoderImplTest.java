@@ -8,7 +8,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
 
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 @SuppressWarnings("WeakerAccess")
@@ -27,7 +27,7 @@ public class SuplaDeviceChannelValueDecoderImplTest extends DecoderTest {
         verify(primitiveDecoder).parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override

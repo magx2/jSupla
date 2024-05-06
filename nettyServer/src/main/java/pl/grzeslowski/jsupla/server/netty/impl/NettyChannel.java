@@ -11,7 +11,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
@@ -24,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @Slf4j
 public final class NettyChannel implements Channel {
@@ -44,7 +44,7 @@ public final class NettyChannel implements Channel {
         this.encoderFactory = requireNonNull(encoderFactory);
         this.bufferParams = requireNonNull(bufferParams);
         this.messagePipe = messagePipe
-            .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType)))
+            .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callId)))
             .filter(pair -> pair.getValue1().isPresent())
             .map(pair -> {
                 val suplaDataPacket = pair.getValue0();
@@ -59,10 +59,11 @@ public final class NettyChannel implements Channel {
             .filter(entity -> ToServerProto.class.isAssignableFrom(entity.getClass()))
             .cast(ToServerProto.class);
 
-        this.messagePipe
-            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
-            .cast(RegisterDeviceTrait.class)
-            .subscribe(typeMapper::registerDevice);
+        // todo
+//        this.messagePipe
+//            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
+//            .cast(RegisterDeviceTrait.class)
+//            .subscribe(typeMapper::registerDevice);
     }
 
     public NettyChannel(ChannelHandlerContext ctx, Flux<SuplaDataPacket> flux, CallTypeParser callTypeParser, DecoderFactory decoderFactory, EncoderFactory encoderFactory) {
@@ -92,11 +93,14 @@ public final class NettyChannel implements Channel {
 
     private SuplaDataPacket encodeProto(ProtoToSend proto) {
         final Encoder<ProtoToSend> encoder = encoderFactory.getEncoder(proto);
+        byte[] encode = encoder.encode(proto);
         return new SuplaDataPacket(
+            SUPLA_TAG,
             (short) 5,
             msgId.getAndIncrement(),
             proto.callType().getValue(),
-            encoder.encode(proto));
+            encode.length,
+            encode);
     }
 
     @Override

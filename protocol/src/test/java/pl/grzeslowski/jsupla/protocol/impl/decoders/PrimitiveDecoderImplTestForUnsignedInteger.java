@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
 import org.junit.Test;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 public class PrimitiveDecoderImplTestForUnsignedInteger {
 

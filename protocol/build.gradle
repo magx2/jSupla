@@ -1,6 +1,7 @@
-import java.nio.file.Files
-import java.time.ZonedDateTime
-import java.util.stream.Collectors
+apply from: 'parser.gradle'
+apply from: 'pojoGenerator.gradle'
+apply from: 'consts.gradle'
+apply from: 'decoders.gradle'
 
 dependencies {
 	compile rootProject.project("common")
@@ -9,598 +10,129 @@ dependencies {
 
 sourceSets {
 	main {
-		java.srcDirs += "${project.buildDir}/generated/sources/jsupla/java/main"
+		java.srcDirs += "${project.buildDir}/generated/sources/jsupla/main/java"
 	}
 }
 
-static def generateCallTypeClass(File file, String shortName, List list) {
-	def name = Arrays.stream(shortName.split(""))
-		.map {
-			if (it == "d") return "Device"
-			if (it == "c") return "Client"
-			if (it == "s") return "Server"
-		}
-		.collect(Collectors.joining()) + "CallType"
-	def values = list.stream()
-		.map { "${it.name}(${it.value})" }
-		.collect(Collectors.joining(", \n\t"))
-
-	def java = """
-		|package pl.grzeslowski.jsupla.protocol.api.calltypes;
-		|
-		|@javax.annotation.Generated(value="${file.absolutePath.replaceAll("\\\\", "\\\\\\\\")}", date = "${ZonedDateTime.now()}", comments = "generated from ${file.name}")
-		|public enum ${name} implements CallType {
-		|	$values ;
-		|	private final int value;
-		|
-		|	${name}(int value) {
-		|		this.value = value;
-		|	}
-		|
-		|	@Override
-		|	public int getValue() {
-		|		return value;
-		|	}
-		|}""".stripMargin()
-	return [name: name, java: java]
-}
-
-task buildCallTypes {
-	doLast {
-		logger.info("Building Call Types")
-		def file = project.file("src/main/native/CallTypes.h")
-		def dcs = new ArrayList<>()
-		def ds = new ArrayList<>()
-		def sdc = new ArrayList<>()
-		def cs = new ArrayList<>()
-		def sd = new ArrayList<>()
-		def sc = new ArrayList<>()
-		def csd = new ArrayList<>()
-		def dsc = new ArrayList<>()
-		def scd = new ArrayList<>()
-		file
-			.readLines()
-			.stream()
-			.filter { it.startsWith("#define") }
-			.map { line ->
-				line = line.replaceAll("#define ", "")
-
-				def split = line.split(" ", 3)
-				def name = split[0]
-				def value = split[1]
-
-				return [name: name, value: value]
-			}
-			.forEach { obj ->
-				if (obj.name.startsWith("SUPLA_DCS_")) {
-					dcs.add(obj)
-				} else if (obj.name.startsWith("SUPLA_DS_")) {
-					ds.add(obj)
-				} else if (obj.name.startsWith("SUPLA_SDC_")) {
-					sdc.add(obj)
-				} else if (obj.name.startsWith("SUPLA_CS_")) {
-					cs.add(obj)
-				} else if (obj.name.startsWith("SUPLA_SD_")) {
-					sd.add(obj)
-				} else if (obj.name.startsWith("SUPLA_SC_")) {
-					sc.add(obj)
-				} else if (obj.name.startsWith("SUPLA_CSD_")) {
-					csd.add(obj)
-				} else if (obj.name.startsWith("SUPLA_DSC_")) {
-					dsc.add(obj)
-				} else if (obj.name.startsWith("SUPLA_SCD_")) {
-					scd.add(obj)
-				} else {
-					throw new IllegalStateException("${obj.name} does not match any list!")
-				}
-			}
-
-		def classes = [
-			generateCallTypeClass(file, "dcs", dcs),
-			generateCallTypeClass(file, "ds", ds),
-			generateCallTypeClass(file, "dsc", dsc),
-			generateCallTypeClass(file, "sdc", sdc),
-			generateCallTypeClass(file, "sd", sd),
-			generateCallTypeClass(file, "sc", sc),
-			generateCallTypeClass(file, "scd", scd),
-			generateCallTypeClass(file, "cs", cs),
-			generateCallTypeClass(file, "csd", csd),
-		]
-
-		def generatedDir = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/calltypes").toPath()
-		Files.createDirectories(generatedDir)
-
-		classes.forEach {
-			generatedDir.resolve(it.name + ".java").write(it.java)
-		}
-	}
-}
-compileJava.dependsOn "buildCallTypes"
-
-task generateProtoConst {
-	doLast {
-		logger.info("Building Call Types")
-
-		def file = project.file("src/main/native/ProtoConsts.h")
-		def consts = file
-			.readLines()
-			.stream()
-			.filter { it.startsWith("#define") }
-			.map { line ->
-				line = line.replaceAll("#define ", "").trim()
-
-				def split = line.split(" ", 2)
-				def name = split[0]
-				def value = split[1]
-
-				if (value.contains("//")) {
-					def valueSplit = value.split("//", 2)
-					value = valueSplit[0] + "; //" + valueSplit[1]
-				}
-
-				return [name: name, value: value, deprecated: value.toUpperCase().endsWith("DEPRECATED")]
-			}
-			.map {
-				def line = ""
-				if (it.deprecated) {
-					line += "@java.lang.Deprecated "
-				}
-				line += "public static final int ${it.name} = ${it.value};"
-				return line;
-			}
-			.collect(Collectors.joining("\n|\t"))
-
-		def java = """
-			|package pl.grzeslowski.jsupla.protocol.api.consts;
-			|
-			|@javax.annotation.Generated(value="${file.absolutePath.replaceAll("\\\\", "\\\\\\\\")}", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
-			|public interface ProtoConsts {
-			|
-			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
-			|
-			|	$consts
-			|}""".stripMargin()
-
-		def generatedDir = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/consts").toPath()
-		Files.createDirectories(generatedDir)
-		generatedDir.resolve("ProtoConsts.java").write(java)
-	}
-}
-compileJava.dependsOn "generateProtoConst"
-
-static String camelCase(String name) {
-	name = name.replaceAll("GUID", "Guid")
-	name = name.replaceAll("ID", "Id")
-	name = name[0].toLowerCase() + name.substring(1)
-	// remove underscores
-	def newName = ""
-	for (def i = 0; i < name.length(); i++) {
-		def first = name[i]
-		if (first != '_') {
-			newName += name[i]
-		} else {
-			newName += name[i + 1].toUpperCase()
-			i++
-		}
-	}
-	return newName
-}
-
-static String mapSuplaTypeToJava(type) {
-	if (type.unsigned) {
-		if (type.value == "_supla_int_t") {
-			return "long"
-		}
-		if (type.value == "char") {
-			return "short"
-		}
-		if (type.value == "_supla_int16_t") {
-			return "int"
-		}
-		if (type.value == "_supla_int64_t") {
-			return "long"
-		}
-	} else {
-		if (type.value == "_supla_int_t") {
-			return "int"
-		}
-		if (type.value == "_supla_int16_t") {
-			return "short"
-		}
-		if (type.value == "_supla_int64_t") {
-			return "long"
-		}
-	}
-	return type.value
-}
-
-static String mapSimpleType(String type) {
-	if (type == "int") {
-		return "INT_SIZE"
-	} else if (type == "char" || type == "byte") {
-		return "BYTE_SIZE"
-	} else if (type == "short") {
-		return "SHORT_SIZE"
-	} else if (type == "long") {
-		return "LONG_SIZE"
-	}
-	return "UNKNOWN_" + type
-}
-
-static String findSize(property) {
-	def type = property.type
-	def finalType = "UNKNOWN_FIX_SCRIPT // ${type.value}"
-	if (type.unsigned) {
-		if (type.value == "long") {
-			finalType = "INT_SIZE"
-		} else if (type.value == "short") {
-			finalType = "BYTE_SIZE"
-		} else if (type.value == "int") {
-			finalType = "SHORT_SIZE"
-		}
-	} else if (type.array) {
-		def xSize = mapSimpleType(type.value)
-		if (xSize.startsWith("UNKNOWN")) {
-			xSize = "${type.value}.SIZE"
-		}
-		if (type.arraySize) {
-			finalType = "${type.arraySize} * ${xSize}"
-		} else {
-			finalType = "${property.name}.length * ${xSize}"
-		}
-	} else {
-		finalType = mapSimpleType(type.value)
-		if (finalType.startsWith("UNKNOWN")) {
-			finalType = property.name + ".size()"
-		}
-	}
-	return finalType
-}
-
-def compileStruct(java.nio.file.Path structsDir, java.nio.file.Path structFile) {
-	def typeMaps = new HashMap<String, String>()
-	def imports = new TreeSet<>([
-		"import static pl.grzeslowski.jsupla.Preconditions.*",
-		"import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*",
-		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
-		"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize",
-	])
-	def extendsClass = "ProtoWithSize"
-	def callType = null
-	def preconditions = new HashMap<String, Object>()
-	def staticSize = false
-	def originalName = "<UNKNOWN>"
-	def deprecated = false
-	def javadoc = ""
-	def version = ""
-	def generateDecoder = true
-	structFile.readLines()
-		.stream()
-		.filter { it.startsWith("// instruction ") || it.startsWith("// i ") }
-		.map {
-			if (it.startsWith("// instruction ")) {
-				return it.substring("// instruction ".length())
-			} else {
-				return it.substring("// i ".length())
-			}
-		}
-		.forEach { instruction ->
-			instruction = instruction.split(" ")
-			def keyword = instruction[0]
-			if (keyword == "map") {
-				typeMaps[instruction[1]] = instruction[2]
-			} else if (keyword == "import") {
-				imports.add("import " + instruction[1])
-			} else if (keyword == "extends") {
-				extendsClass = instruction[1]
-				if (extendsClass == "ClientServer") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer")
-				} else if (extendsClass == "DeviceClientServer") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.dsc.DeviceClientServer")
-				} else if (extendsClass == "DeviceServer") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer")
-				} else if (extendsClass == "ServerClient") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient")
-				} else if (extendsClass == "ServerDevice") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice")
-				} else if (extendsClass == "ServerDeviceClient") {
-					imports.add("import pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient")
-				}
-				callType = instruction[2]
-				imports.add("import static pl.grzeslowski.jsupla.protocol.api.calltypes.${extendsClass}CallType.$callType")
-				imports.add("import pl.grzeslowski.jsupla.protocol.api.calltypes.${extendsClass}CallType")
-			} else if (keyword == "precondition") {
-				preconditions[instruction[1]] = [value: instruction[2], variable: instruction[3]]
-			} else if (keyword == "size") {
-				staticSize = instruction[1] == "static"
-			} else if (keyword == "name") {
-				originalName = instruction[1]
-			} else if (keyword == "deprecated") {
-				deprecated = Boolean.parseBoolean(instruction[1])
-			} else if (keyword == "decoder") {
-				generateDecoder = Boolean.parseBoolean(instruction[1])
-			} else if (keyword == "javadoc") {
-				for (int i = 1; i < instruction.length; i++) {
-					javadoc += instruction[i] + " "
-				}
-			} else if (keyword == "version") {
-				version = instruction[1]
-			} else {
-				logger.log(LogLevel.ERROR, " > Unknown instruction: [${keyword}]")
-			}
-		}
-
-	def rawProperties = structFile.readLines()
-		.stream()
-		.map { it.trim() }
-		.filter { !it.isBlank() }
-		.filter { !it.startsWith("//") }
-		.map { line ->
-			def split = line.split("//", 2)
-			def code = split[0]
-			def comment = null
-			if (split.length > 1) {
-				comment = split[1]
-			}
-
-			def unsigned = code.startsWith("unsigned")
-			def codeSplit = code.replaceAll('unsigned ', '').split(" ", 2)
-
-			def typeValue = codeSplit[0]
-			if (typeMaps.containsKey(typeValue)) {
-				typeValue = typeMaps[typeValue]
-			}
-			def type = [value: typeValue, array: false, arraySize: null as String, unsigned: unsigned]
-			def name = codeSplit[1].replaceAll(";", "").trim()
-
-			// check if this is not an array
-			def regexPattern = /^(.*?)\[(.*?)\]$/
-			def matcher = name =~ regexPattern
-			if (matcher.matches()) {
-				def match = matcher[0]
-				type.array = true
-				//noinspection GroovyAssignabilityCheck
-				name = camelCase(match[1])
-				//noinspection GroovyAssignabilityCheck
-				type.arraySize = match[2]
-				if (preconditions.containsKey(name)) {
-					def precondition = preconditions.get(name)
-					if (precondition.value == "length") {
-						type.arraySize = precondition.variable
-					}
-				}
-			} else {
-				name = camelCase(name)
-			}
-
-			type.value = mapSuplaTypeToJava(type)
-
-			def property = [type: type, name: name, comment: comment]
-			type.size = findSize(property)
-			return property
-		}
-		.collect(Collectors.toList())
-
-	def className = structFile.fileName.toString().take(structFile.fileName.toString().lastIndexOf('.'))
-
-	def relativize = structsDir.relativize(structFile.parent)
-	def packageName = "pl.grzeslowski.jsupla.protocol.api.structs"
-	if (relativize.toString()?.trim()) packageName += "." + relativize
-	def properties = rawProperties
-		.stream()
-		.map { property ->
-			def type = property.type.value
-			if (property.type.array) {
-				type += "[]"
-			}
-			def comment = ""
-			if (property.comment || property.type.unsigned) {
-				comment += "/**\n"
-				if (property.comment) {
-					comment += "\t * ${property.comment}\n"
-				}
-				if (property.type.unsigned) {
-					if (property.comment) {
-						comment += "\t * <p>\n"
-					}
-					comment += "\t * unsigned ${property.type.value}\n"
-				}
-				comment += "\t */\n\t"
-			}
-			"${comment}private final ${type} ${property.name};"
-		}
-		.collect(Collectors.joining("\n\t|\t"))
-	def constructorProperties = rawProperties
-		.stream()
-		.map { property ->
-			def type = property.type.value
-			if (property.type.array) {
-				type += "[]"
-			}
-			"${type} ${property.name}"
-		}
-		.collect(Collectors.joining(", "))
-	def constructorAssignments = rawProperties
-		.stream()
-		.map { property ->
-			def value = property.name
-			if (property.type.array) {
-				def size = "(int) ${property.type.arraySize}"
-				if (preconditions.containsKey(value)) {
-					def precondition = preconditions.get(value)
-					if (precondition.value == "length") {
-						size = precondition.variable
-					}
-				}
-				value = "checkArrayLength(${value}, $size)"
-			}
-			if (property.type.unsigned) {
-				value = "unsigned(${value})"
-			}
-			"this.${property.name} = $value;"
-		}
-		.collect(Collectors.joining("\n\t\t|\t\t"))
-	def callTypeJava = ""
-	if (callType) {
-		callTypeJava = """
-			|	@Override
-    		|	public ${extendsClass}CallType callType() {
-        	|		return $callType;
-    		|	}""".stripMargin()
-	}
-	def size = rawProperties
-		.stream()
-		.map { property -> property.type.size + " // ${property.name}" }
-		.collect(Collectors.joining("\n\t\t + "))
-	def staticSizeJava = "";
-	if (staticSize) {
-		staticSizeJava = "public static final int SIZE = $size\n;"
-		size = "SIZE"
-	}
-	def deprecatedJava = ""
-	if (deprecated) deprecatedJava = "\n@java.lang.Deprecated"
-
-	if (javadoc || version) {
-		def javadoc2 = """\
-			|/**"""
-		if (javadoc) {
-			javadoc2 += """
-				| * $javadoc"""
-		}
-		if (version) {
-			javadoc2 += """
-				| * @since version $version"""
-		}
-
-		javadoc2 += """
-			| */"""
-
-		javadoc = javadoc2.stripMargin()
-	}
-
-	def entity = """
-		|package ${packageName};
-		|
-		|${String.join(";\n|", imports)};
-		|
-		|$javadoc ${deprecatedJava}
-		|@lombok.EqualsAndHashCode @lombok.ToString
-		|@javax.annotation.Generated(value="Generated from $originalName -> proto.h (supla core)", date = "${ZonedDateTime.now()}")
-		|public final class ${className} implements ${extendsClass} {
-		|	$staticSizeJava
-		|	$properties
-		|
-		|	public ${className}(${constructorProperties}) {
-		|		${constructorAssignments}
-		|	}
-		|	
-		|	$callTypeJava
-		|
-		|	@Override
-    	|	public int size() {
-        |		return ${size}
-		|			;
-    	|	}
-		|}
-		|""".stripMargin()
-
-
-	def decoding = rawProperties.stream()
-		.map { decodeProperty(it) }
-		.collect(Collectors.joining("\n"))
-
-	def newInstance = "new ${className}(" +
-		rawProperties.stream()
-			.map { property -> property.name }
-			.collect(Collectors.joining(", ")) + ");"
-	def decoder = null
-
-	if (generateDecoder) {
-		decoder = """
-		|package ${packageName};
-		|
-		|${String.join(";\n|", imports)};
-		|import lombok.val;
-		|import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
-		|import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
-		|import pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl;
-		|
-		|@lombok.RequiredArgsConstructor
-		|@javax.annotation.Generated(value="Generated from $originalName -> proto.h (supla core)", date = "${ZonedDateTime.now()}")
-		|public final class ${className}DecoderImpl implements Decoder<${className}> {
-		|	public static final ${className}DecoderImpl INSTANCE = new ${className}DecoderImpl(PrimitiveDecoderImpl.INSTANCE);
-		|	private final PrimitiveDecoder primitiveDecoder;
-		|
-		|	@Override
-    	|	public ${className} decode(byte[] bytes, int offset) {
-		|		$decoding
-		|		
-		|		return $newInstance
-    	|	}
-		|}
-		|""".stripMargin()
-	}
-
-	return [entity: entity, decoder: decoder]
-}
-
-private static String parseType(String value, boolean unsigned) {
-	def parseType = value.capitalize()
-	if (unsigned) {
-		if (parseType == "Long") {
-			parseType = "Long"
-		} else if (parseType == "Int") {
-			parseType = "Short"
-		} else if (parseType == "Short") {
-			parseType = "Byte"
-		}
-
-		parseType = "Unsigned" + parseType
-	}
-	return "primitiveDecoder.parse${parseType}(bytes, offset);"
-}
-
-private static String decodeProperty(property) {
-	if (property.type.array) {
-		return """
-					|val ${property.name} = new ${property.type.value}[${property.type.arraySize}] ;
-					|for (int i = 0; i < ${property.type.arraySize}; i++) {
-					|	${property.name}[i] = ${parseType(property.type.value, property.type.unsigned)};
-					|}
-					|offset += ${property.type.size};""".stripMargin()
-	}
-	return """
-			|val ${property.name} = ${parseType(property.type.value, property.type.unsigned)};
-			|offset += ${property.type.size};""".stripMargin()
-}
-
-task compileNativeStructs {
-	doLast {
-		def structsDir = project.file("src/main/native/pl/grzeslowski/jsupla/protocol/api/structs").toPath()
-		def structs = Files.walk(structsDir)
-			.filter { Files.isRegularFile(it) && it.toString().endsWith(".h") }
-			.toList()
-		for (def structPath : structs) {
-			def compiled = compileStruct(structsDir, structPath)
-
-			def fileName = structPath.fileName.toString().take(structPath.fileName.toString().lastIndexOf('.'))
-			def relativize = structsDir.relativize(structPath.parent)
-			def javaFile = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/structs/").toPath().resolve(relativize)
-
-			def entityFile = javaFile.resolve(fileName + ".java")
-			Files.createDirectories(entityFile.parent)
-			entityFile.toFile().createNewFile()
-			entityFile.write(compiled.entity)
-
-			if (compiled.decoder) {
-				def decoderFile = javaFile.resolve(fileName + "DecoderImpl.java")
-				Files.createDirectories(decoderFile.parent)
-				decoderFile.toFile().createNewFile()
-				decoderFile.write(compiled.decoder)
-			}
-		}
-	}
-}
-compileJava.dependsOn "compileNativeStructs"
-compileNativeStructs.dependsOn "buildCallTypes"
-compileNativeStructs.dependsOn "generateProtoConst"
+ext.callTypes = [
+	// cs
+	[proto: "TCS_SuplaRegisterClient", callType: "SUPLA_CS_CALL_REGISTER_CLIENT"],
+	[proto: "TCS_SuplaRegisterClient_B", callType: "SUPLA_CS_CALL_REGISTER_CLIENT_B"],
+	[proto: "TCS_SuplaRegisterClient_C", callType: "SUPLA_CS_CALL_REGISTER_CLIENT_C"],
+	[proto: "TCS_SuplaRegisterClient_D", callType: "SUPLA_CS_CALL_REGISTER_CLIENT_D"],
+	[proto: "", callType: "SUPLA_CS_CALL_GET_NEXT"],
+	[proto: "TCS_SuplaChannelNewValue", callType: "SUPLA_CS_CALL_CHANNEL_SET_VALUE"],
+	[proto: "TCS_SuplaChannelNewValue_B", callType: "SUPLA_CS_CALL_CHANNEL_SET_VALUE_B"],
+	[proto: "", callType: "SUPLA_CS_CALL_OAUTH_TOKEN_REQUEST"],
+	[proto: "", callType: "SUPLA_CS_CALL_SET_VALUE"],
+	[proto: "TCS_SuperUserAuthorizationRequest", callType: "SUPLA_CS_CALL_SUPERUSER_AUTHORIZATION_REQUEST"],
+	[proto: "", callType: "SUPLA_CS_CALL_GET_SUPERUSER_AUTHORIZATION_RESULT"],
+	[proto: "TCS_DeviceCalCfgRequest", callType: "SUPLA_CS_CALL_DEVICE_CALCFG_REQUEST"],
+	[proto: "TCS_DeviceCalCfgRequest_B", callType: "SUPLA_CS_CALL_DEVICE_CALCFG_REQUEST_B"],
+	[proto: "", callType: "SUPLA_CS_CALL_GET_CHANNEL_BASIC_CFG"],
+	[proto: "TCS_SetChannelFunction", callType: "SUPLA_CS_CALL_SET_CHANNEL_FUNCTION"],
+	[proto: "", callType: "SUPLA_CS_CALL_CLIENTS_RECONNECT_REQUEST"],
+	[proto: "TCS_SetRegistrationEnabled", callType: "SUPLA_CS_CALL_SET_REGISTRATION_ENABLED"],
+	[proto: "TCS_DeviceReconnectRequest", callType: "SUPLA_CS_CALL_DEVICE_RECONNECT_REQUEST"],
+	[proto: "", callType: "SUPLA_CS_CALL_SET_CHANNEL_GROUP_CAPTION"],
+	[proto: "", callType: "SUPLA_CS_CALL_SET_LOCATION_CAPTION"],
+	[proto: "TCS_TimerArmRequest", callType: "SUPLA_CS_CALL_TIMER_ARM"],
+	[proto: "TCS_Action", callType: "SUPLA_CS_CALL_EXECUTE_ACTION"],
+	[proto: "TCS_ActionWithAuth", callType: "SUPLA_CS_CALL_EXECUTE_ACTION_WITH_AUTH"],
+	[proto: "TCS_GetChannelValueWithAuth", callType: "SUPLA_CS_CALL_GET_CHANNEL_VALUE_WITH_AUTH"],
+	[proto: "", callType: "SUPLA_CS_CALL_SET_SCENE_CAPTION"],
+	[proto: "TCS_PnClientToken", callType: "SUPLA_CS_CALL_REGISTER_PN_CLIENT_TOKEN"],
+	[proto: "TCS_GetChannelConfigRequest", callType: "SUPLA_CS_CALL_GET_CHANNEL_CONFIG"],
+	[proto: "", callType: "SUPLA_CS_CALL_SET_CHANNEL_CONFIG"],
+	[proto: "TCS_GetDeviceConfigRequest", callType: "SUPLA_CS_CALL_GET_DEVICE_CONFIG"],
+	// dcs
+	[proto: "", callType: "SUPLA_DCS_CALL_GETVERSION"],
+	[proto: "TDCS_SuplaPingServer", callType: "SUPLA_DCS_CALL_PING_SERVER"],
+	[proto: "TDCS_SuplaPingServer_COMPAT", callType: "SUPLA_DCS_CALL_PING_SERVER"],
+	[proto: "TDCS_SuplaSetActivityTimeout", callType: "SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT"],
+	[proto: "", callType: "SUPLA_DCS_CALL_GET_REGISTRATION_ENABLED"],
+	[proto: "", callType: "SUPLA_DCS_CALL_GET_USER_LOCALTIME"],
+	[proto: "", callType: "SUPLA_DCS_CALL_GET_USER_LOCALTIME_RESULT"],
+	[proto: "TDCS_SetCaption", callType: "SUPLA_DCS_CALL_SET_CHANNEL_CAPTION"],
+	// ds
+	[proto: "TDS_SuplaRegisterDevice", callType: "SUPLA_DS_CALL_REGISTER_DEVICE"],
+	[proto: "TDS_SuplaRegisterDevice_B", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_B"],
+	[proto: "TDS_SuplaRegisterDevice_C", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_C"],
+	[proto: "TDS_SuplaRegisterDevice_D", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_D"],
+	[proto: "TDS_SuplaRegisterDevice_E", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_E"],
+	[proto: "TDS_SuplaRegisterDevice_F", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_F"],
+	[proto: "TDS_SuplaDeviceChannelValue", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED"],
+	[proto: "TDS_SuplaDeviceChannelValue_B", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_B"],
+	[proto: "TDS_SuplaDeviceChannelValue_C", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_C"],
+	[proto: "TDS_SuplaDeviceChannelExtendedValue", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_EXTENDEDVALUE_CHANGED"],
+	[proto: "", callType: "SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT"],
+	[proto: "TDS_FirmwareUpdateParams", callType: "SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL"],
+	[proto: "", callType: "SUPLA_DS_CALL_DEVICE_CALCFG_RESULT"],
+	[proto: "", callType: "SUPLA_DS_CALL_GET_CHANNEL_FUNCTIONS"],
+	[proto: "TDS_GetChannelConfigRequest", callType: "SUPLA_DS_CALL_GET_CHANNEL_CONFIG"],
+	[proto: "", callType: "SUPLA_DS_CALL_SET_CHANNEL_CONFIG"],
+	[proto: "", callType: "SUPLA_DS_CALL_SET_CHANNEL_CONFIG_RESULT"],
+	[proto: "", callType: "SUPLA_DS_CALL_SET_DEVICE_CONFIG"],
+	[proto: "", callType: "SUPLA_DS_CALL_SET_DEVICE_CONFIG_RESULT"],
+	[proto: "TDS_ActionTrigger", callType: "SUPLA_DS_CALL_ACTIONTRIGGER"],
+	[proto: "TDS_RegisterPushNotification", callType: "SUPLA_DS_CALL_REGISTER_PUSH_NOTIFICATION"],
+	[proto: "TDS_PushNotification", callType: "SUPLA_DS_CALL_SEND_PUSH_NOTIFICATION"],
+	// sc
+	[proto: "TSC_SuplaRegisterClientResult", callType: "SUPLA_SC_CALL_REGISTER_CLIENT_RESULT"],
+	[proto: "TSC_SuplaRegisterClientResult_B", callType: "SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_B"],
+	[proto: "TSC_SuplaRegisterClientResult_C", callType: "SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_C"],
+	[proto: "TSC_SuplaRegisterClientResult_D", callType: "SUPLA_SC_CALL_REGISTER_CLIENT_RESULT_D"],
+	[proto: "TSC_SuplaLocation", callType: "SUPLA_SC_CALL_LOCATION_UPDATE"],
+	[proto: "TSC_SuplaLocationPack", callType: "SUPLA_SC_CALL_LOCATIONPACK_UPDATE"],
+	[proto: "TSC_SuplaChannelValue", callType: "SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE"],
+	[proto: "TSC_SuplaChannelValue_B", callType: "SUPLA_SC_CALL_CHANNEL_VALUE_UPDATE_B"],
+	[proto: "", callType: "SUPLA_SC_CALL_EVENT"],
+	[proto: "TSC_OAuthTokenRequestResult", callType: "SUPLA_SC_CALL_OAUTH_TOKEN_REQUEST_RESULT"],
+	[proto: "TSC_SuplaChannelPack", callType: "SUPLA_SC_CALL_CHANNELPACK_UPDATE"],
+	[proto: "TSC_SuplaChannelPack_B", callType: "SUPLA_SC_CALL_CHANNELPACK_UPDATE_B"],
+	[proto: "TSC_SuplaChannelPack_C", callType: "SUPLA_SC_CALL_CHANNELPACK_UPDATE_C"],
+	[proto: "TSC_SuplaChannelPack_D", callType: "SUPLA_SC_CALL_CHANNELPACK_UPDATE_D"],
+	[proto: "TSC_SuplaChannelPack_E", callType: "SUPLA_SC_CALL_CHANNELPACK_UPDATE_E"],
+	[proto: "TSC_SuplaChannelValuePack", callType: "SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE"],
+	[proto: "TSC_SuplaChannelValuePack_B", callType: "SUPLA_SC_CALL_CHANNELGROUP_PACK_UPDATE_B"],
+	[proto: "", callType: "SUPLA_SC_CALL_CHANNELGROUP_RELATION_PACK_UPDATE"],
+	[proto: "TSC_SuplaChannelRelationPack", callType: "SUPLA_SC_CALL_CHANNEL_RELATION_PACK_UPDATE"],
+	[proto: "TSC_SuplaChannelGroupPack", callType: "SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE"],
+	[proto: "TSC_SuplaChannelGroupPack_B", callType: "SUPLA_SC_CALL_CHANNELVALUE_PACK_UPDATE_B"],
+	[proto: "TSC_SuplaChannelExtendedValuePack", callType: "SUPLA_SC_CALL_CHANNELEXTENDEDVALUE_PACK_UPDATE"],
+	[proto: "TSC_SuperUserAuthorizationResult", callType: "SUPLA_SC_CALL_SUPERUSER_AUTHORIZATION_RESULT"],
+	[proto: "", callType: "SUPLA_SC_CALL_DEVICE_CALCFG_RESULT"],
+	[proto: "", callType: "SUPLA_SC_CALL_CHANNEL_BASIC_CFG_RESULT"],
+	[proto: "TSC_SetChannelFunctionResult", callType: "SUPLA_SC_CALL_SET_CHANNEL_FUNCTION_RESULT"],
+	[proto: "", callType: "SUPLA_SC_CALL_CLIENTS_RECONNECT_REQUEST_RESULT"],
+	[proto: "TSC_SetRegistrationEnabledResult", callType: "SUPLA_SC_CALL_SET_REGISTRATION_ENABLED_RESULT"],
+	[proto: "TSC_DeviceReconnectRequestResult", callType: "SUPLA_SC_CALL_DEVICE_RECONNECT_REQUEST_RESULT"],
+	[proto: "", callType: "SUPLA_SC_CALL_SET_LOCATION_CAPTION_RESULT"],
+	[proto: "TSC_SuplaScenePack", callType: "SUPLA_SC_CALL_SCENE_PACK_UPDATE"],
+	[proto: "TSC_SuplaSceneStatePack", callType: "SUPLA_SC_CALL_SCENE_STATE_PACK_UPDATE"],
+	[proto: "TSC_ActionExecutionResult", callType: "SUPLA_SC_CALL_ACTION_EXECUTION_RESULT"],
+	[proto: "TSC_GetChannelValueResult", callType: "SUPLA_SC_CALL_GET_CHANNEL_VALUE_RESULT"],
+	[proto: "", callType: "SUPLA_SC_CALL_SET_SCENE_CAPTION_RESULT"],
+	[proto: "TSC_RegisterPnClientTokenResult", callType: "SUPLA_SC_CALL_REGISTER_PN_CLIENT_TOKEN_RESULT"],
+	[proto: "TSC_ChannelConfigUpdateOrResult", callType: "SUPLA_SC_CALL_CHANNEL_CONFIG_UPDATE_OR_RESULT"],
+	[proto: "TSC_DeviceConfigUpdateOrResult", callType: "SUPLA_SC_CALL_DEVICE_CONFIG_UPDATE_OR_RESULT"],
+	// sd
+	[proto: "TSD_SuplaRegisterDeviceResult", callType: "SUPLA_SD_CALL_REGISTER_DEVICE_RESULT"],
+	[proto: "TSD_SuplaChannelNewValue", callType: "SUPLA_SD_CALL_CHANNEL_SET_VALUE"],
+	[proto: "TSD_SuplaChannelGroupNewValue", callType: "SUPLA_SD_CALL_CHANNELGROUP_SET_VALUE"],
+	[proto: "TSD_FirmwareUpdate_UrlResult", callType: "SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT"],
+	[proto: "TSD_DeviceCalCfgRequest", callType: "SUPLA_SD_CALL_DEVICE_CALCFG_REQUEST"],
+	[proto: "TSD_ChannelFunctions", callType: "SUPLA_SD_CALL_GET_CHANNEL_FUNCTIONS_RESULT"],
+	[proto: "", callType: "SUPLA_SD_CALL_GET_CHANNEL_CONFIG_RESULT"],
+	[proto: "", callType: "SUPLA_SD_CALL_SET_CHANNEL_CONFIG_RESULT"],
+	[proto: "TSD_ChannelConfig", callType: "SUPLA_SD_CALL_SET_CHANNEL_CONFIG"],
+	[proto: "TSD_ChannelConfigFinished", callType: "SUPLA_SD_CALL_CHANNEL_CONFIG_FINISHED"],
+	[proto: "", callType: "SUPLA_SD_CALL_SET_DEVICE_CONFIG_RESULT"],
+	[proto: "", callType: "SUPLA_SD_CALL_SET_DEVICE_CONFIG"],
+	// sdc
+	[proto: "TSDC_SuplaGetVersionResult", callType: "SUPLA_SDC_CALL_GETVERSION_RESULT"],
+	[proto: "TSDC_SuplaVersionError", callType: "SUPLA_SDC_CALL_VERSIONERROR"],
+	[proto: "TSDC_SuplaPingServerResult", callType: "SUPLA_SDC_CALL_PING_SERVER_RESULT"],
+	[proto: "TSDC_SuplaSetActivityTimeoutResult", callType: "SUPLA_SDC_CALL_SET_ACTIVITY_TIMEOUT_RESULT"],
+	[proto: "TSDC_RegistrationEnabled", callType: "SUPLA_SDC_CALL_GET_REGISTRATION_ENABLED_RESULT"],
+]

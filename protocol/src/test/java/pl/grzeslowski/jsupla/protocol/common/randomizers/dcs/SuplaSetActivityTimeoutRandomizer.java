@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.dcs;
 
 import io.github.benas.randombeans.api.Randomizer;
-import pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts;
+import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 

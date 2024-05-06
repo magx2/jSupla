@@ -1,0 +1,795 @@
+import groovy.json.JsonBuilder
+import groovy.transform.ToString
+
+import java.nio.file.Files
+import java.util.stream.Collectors
+
+class ParseException extends Exception {
+	static final long serialVersionUID = 1L
+
+	ParseException(int line, int column, String msg) {
+		super(String.format("%s:%s %s", line, column, msg))
+	}
+
+	ParseException(int line, int column, Exception ex) {
+		super(String.format("%s:%s %s", line, column, ex.message), ex)
+	}
+}
+
+interface Parser<T> {
+	void next(String character, int line, int column)
+
+	T output()
+}
+
+interface Field {
+	boolean hasJavaDoc();
+}
+
+@ToString(includeNames = true, ignoreNulls = true)
+class SimpleField implements Field {
+	String name
+	String type
+	String rawType
+	String rawPrefix
+	boolean unsigned
+	boolean array
+	String arraySize
+	String javaDoc
+	boolean struct
+
+	@Override
+	boolean hasJavaDoc() {
+		return javaDoc != null
+	}
+}
+
+@ToString(includeNames = true, ignoreNulls = true)
+class UnionField implements Field {
+	List<SimpleField> fields
+
+	@Override
+	boolean hasJavaDoc() {
+		return false
+	}
+}
+
+@ToString(includeNames = true, ignoreNulls = true, excludes = ["raw"])
+class Struct {
+	String name
+	String rawName
+	String prefix
+	List<Field> fields
+	String javaDoc
+	String raw
+	boolean staticSize = true
+}
+
+class FieldParser implements Parser<SimpleField> {
+	final Logger logger
+	SimpleField output = null
+	List<String> tokens = new ArrayList<>()
+	String token = ""
+	boolean wasSemicolon = false
+
+	FieldParser(Logger logger) {
+		this.logger = logger
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (character == ";") {
+			wasSemicolon = true
+		}
+		if (character.allWhitespace || character == ";") {
+			if (token != "") {
+				tokens.add(token)
+				logger.debug("{}:{} Added token: {}", line, column, token)
+			}
+			token = ""
+		} else {
+			token += character
+		}
+
+		if (character == "\n" && wasSemicolon) {
+			if (tokens.size() < 2) return
+
+			this.output = new SimpleField()
+			List<String> rawJavaDoc = new ArrayList<>()
+			if (tokens[0] == "signed") {
+				tokens.remove(0)
+			}
+			if (tokens[0] == "unsigned") {
+				this.output.unsigned = true
+				this.output.type = tokens[1]
+				this.output.name = tokens[2]
+				if (tokens.size() > 3) {
+					rawJavaDoc = tokens.subList(3, tokens.size())
+				}
+			} else if (tokens[0] == "struct") {
+				this.output.struct = true
+				this.output.type = tokens[1]
+				this.output.name = tokens[2]
+				logger.debug("struct type = " + this.output.type + " name = " + this.output.name)
+				if (tokens.size() > 3) {
+					rawJavaDoc = tokens.subList(3, tokens.size())
+				}
+			} else {
+				this.output.unsigned = false
+				this.output.type = tokens[0]
+				this.output.name = tokens[1]
+				if (tokens.size() > 2) {
+					rawJavaDoc = tokens.subList(2, tokens.size())
+				}
+			}
+			logger.debug("$line:$column tokens = $tokens")
+			this.output.javaDoc = rawJavaDoc.stream()
+				.map { it.trim() }
+				.filter { it != "//" }
+				.collect(Collectors.joining(" "))
+			if (this.output.name.contains("[")) {
+				// this is array type
+				this.output.array = true
+				def (name, arraySize) = this.output.name.split("[\\[\\]]")
+				this.output.name = Names.fieldNameCase(name)
+				this.output.arraySize = arraySize
+				this.output.rawType = this.output.type
+				this.output.rawPrefix = Names.findPrefix(this.output.type)
+				this.output.type = Names.parseRawClassName(this.output.type)
+			} else {
+				this.output.name = Names.fieldNameCase(this.output.name)
+				this.output.rawType = this.output.type
+				this.output.rawPrefix = Names.findPrefix(this.output.type)
+				this.output.type = Names.parseRawClassName(this.output.type)
+			}
+			logger.debug("{}:{} Finished parsing field: {}", line, column, this.output)
+		}
+	}
+
+	@Override
+	SimpleField output() {
+		return this.output
+	}
+}
+
+
+class UnionParser implements Parser<UnionField> {
+	final Logger logger
+	UnionField output
+	List<SimpleField> fields = new ArrayList<>()
+	int curlyBrackets = 0
+	FieldParser fieldParser = new FieldParser(logger)
+	String currentLine = ""
+
+	UnionParser(Logger logger) {
+		this.logger = logger
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (character != "\n") {
+			currentLine += character
+		} else {
+			currentLine = ""
+		}
+
+		if (character == "{") {
+			curlyBrackets++
+		} else if (character == "}") {
+			curlyBrackets--
+		} else if (character == ";" && curlyBrackets == 0) {
+			if (fields.isEmpty()) {
+				throw new ParseException(line, column, "Union does not have any fields!")
+			}
+			output = new UnionField()
+			output.fields = fields
+		} else {
+			if (!currentLine.trim().startsWith("/")) {
+				fieldParser.next(character, line, column)
+				def output = fieldParser.output()
+				if (output) {
+					logger.debug("{}:{} Parsed union field", line, column)
+					fields.add(output)
+					fieldParser = new FieldParser(logger)
+				}
+			}
+		}
+	}
+
+	@Override
+	UnionField output() {
+		return output
+	}
+}
+
+class StructParser implements Parser<Struct> {
+	final Logger logger
+
+	static final String unionStart = "union {"
+	int unionIndex = 0
+	UnionParser unionParser = null
+
+	FieldParser fieldParser = null
+	int curlyBrackets = 1
+	List<Field> fields = new ArrayList<>()
+	Struct output = null
+	String raw = StructsParser.start
+
+	String currentLine = ""
+	boolean parseExtraJavaDoc = false
+
+	String structName = ""
+	boolean parseStructName = false
+
+	String structJavaDoc = ""
+	boolean parseStructJavaDoc = false
+
+	StructParser(Logger logger) {
+		this.logger = logger
+		fieldParser = new FieldParser(logger)
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		currentLine += character
+		raw += character
+
+		// union parsing
+		if (unionIndex < unionStart.length() && character == unionStart[unionIndex]) {
+			unionIndex++
+			if (unionIndex >= unionStart.length()) {
+				logger.debug("{}:{} Parsed union header", line, column)
+				unionParser = new UnionParser(logger)
+				fieldParser = null
+				unionIndex = 0
+			}
+		} else if (character != unionStart[unionIndex]) {
+			unionIndex = 0
+		}
+
+		if (fields.isEmpty() && currentLine.trim() == "//") {
+			// first comment after "typedef struct {" might be a java doc for whole struct 
+			logger.debug("{}:{} Parsing struct javadoc", line, column)
+			parseStructJavaDoc = true
+			// null previous fieldParse because it already parsed some input from javadoc 
+			fieldParser = new FieldParser(logger)
+		} else if (parseStructJavaDoc) {
+			if (character == "\n") {
+				parseStructJavaDoc = false
+				logger.debug("{}:{} Finished parsing struct javadoc", line, column)
+			} else {
+				structJavaDoc += character
+			}
+		}
+
+		if (!parseStructJavaDoc) {
+			if (!parseStructName) {
+				if (unionParser != null) {
+					unionParser.next(character, line, column)
+					def output = unionParser.output()
+					if (output) {
+						fields.add(output)
+						unionParser = null
+						fieldParser = new FieldParser(logger)
+						logger.debug("{}:{} Finished union", line, column)
+					}
+				} else if (fieldParser) {
+					// check if it's a line with only comment
+					// if yes then add this comment to last field javadoc
+					if (parseExtraJavaDoc) {
+						if (character == "\n") {
+							parseExtraJavaDoc = false
+							logger.debug("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
+							// reset fieldParser
+							fieldParser = new FieldParser(logger)
+						} else {
+							def lastField = fields[-1]
+							if (lastField.hasJavaDoc()) {
+								lastField.javaDoc += character
+								logger.debug("{}:{} NEXT parseExtraJavaDoc={}, javaDoc={}", line, column, parseExtraJavaDoc, fields[-1].javaDoc)
+							}
+						}
+					}
+					if (currentLine.trim() == "//") {
+						parseExtraJavaDoc = true
+						logger.debug("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
+					}
+
+					fieldParser.next(character, line, column)
+					def fieldOutput = fieldParser.output
+					if (fieldOutput) {
+						fields.add(fieldOutput)
+						fieldParser = new FieldParser(logger)
+					}
+
+					if (character == "{") {
+						curlyBrackets++
+					}
+					if (character == "}") {
+						curlyBrackets--
+						if (curlyBrackets == 0) {
+							// time to parse name of the struct
+							parseStructName = true
+						}
+					}
+				} else {
+					throw new ParseException(line, column, "There is no filed parser active!")
+				}
+			} else {
+				if (character == ";") {
+					output = new Struct()
+					output.name = Names.parseRawClassName(structName)
+					output.rawName = structName
+					output.prefix = Names.findPrefix(structName)
+					// check if 2 last fields are named fooSize and foo
+					if (fields.size() >= 2) {
+						def secondToLast = fields[-2]
+						def last = fields[-1]
+						if (secondToLast instanceof SimpleField
+							&& last instanceof SimpleField) {
+							if (last.array) {
+								def sizeCheck = secondToLast.name == last.name + "Size"
+								def countCheck = false
+								if (last.name.endsWith("s")) {
+									countCheck = secondToLast.name == last.name.substring(0, last.name.length() - 1) + "Count"
+								}
+								if (sizeCheck || countCheck) {
+									last.arraySize = secondToLast.name
+									output.staticSize = false
+								}
+							}
+						}
+					}
+					output.fields = fields
+					if (fields.isEmpty()) {
+						throw new ParseException(line, column, "There are no fields in struct ${structName}")
+					}
+					output.raw = raw
+					output.javaDoc = structJavaDoc.trim()
+					logger.debug("{}:{} Parsed struct: {}", line, column, output)
+					parseStructName = false
+					structName = ""
+				} else {
+					if (!character.isAllWhitespace()) {
+						structName += character
+					}
+				}
+			}
+		}
+
+		if (character == "\n") {
+			currentLine = ""
+		}
+	}
+
+	@Override
+	Struct output() {
+		return output
+	}
+}
+
+class StructsParser implements Parser<List<Struct>> {
+	static final String start = "typedef struct {"
+	final Logger logger
+	int index = 0
+	StructParser structParser = null
+	List<Struct> outputs = new ArrayList<>()
+
+	StructsParser(Logger logger) {
+		this.logger = logger
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (structParser) {
+			structParser.next(character, line, column)
+			def output = structParser.output()
+			if (output != null) {
+				outputs.add(output)
+				structParser = null
+			}
+		} else if (index < start.length() && character == start[index]) {
+			index++
+			if (index >= start.length()) {
+				logger.debug("{}:{} Parsed struct header", line, column)
+				structParser = new StructParser(logger)
+				index = 0
+			}
+		} else if (character != start[index]) {
+			index = 0
+		}
+	}
+
+	@Override
+	List<Struct> output() {
+		return outputs
+	}
+}
+
+class Const {
+	String name
+	String value
+	String javaDoc
+
+	boolean equals(o) {
+		if (this.is(o)) return true
+		if (o == null || getClass() != o.class) return false
+
+		Const that = (Const) o
+
+		if (name != that.name) return false
+
+		return true
+	}
+
+	int hashCode() {
+		return name.hashCode()
+	}
+}
+
+class ConstParser implements Parser<Const> {
+	final Logger logger
+	Const output
+	List<String> tokens = new ArrayList<>()
+	String token = ""
+	int curlyBrackets = 0
+
+	ConstParser(Logger logger) {
+		this.logger = logger
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (character == "(") {
+			curlyBrackets++
+		}
+		if (character == ")") {
+			curlyBrackets--
+		}
+		if (character.allWhitespace && curlyBrackets == 0) {
+			if (token != "") {
+				tokens.add(token)
+				logger.debug("{}:{} Added token: {}", line, column, token)
+			}
+			token = ""
+		} else {
+			token += character
+		}
+		if (character == "\n") {
+			output = new Const()
+			output.name = tokens[0]
+			output.value = tokens[1]
+			if (tokens.size() > 2) {
+				output.javaDoc = tokens.subList(2, tokens.size())
+					.stream()
+					.map { it.trim() }
+					.filter { it != "//" }
+					.collect(Collectors.joining(" "))
+			}
+		}
+	}
+
+	@Override
+	Const output() {
+		return output
+	}
+}
+
+
+class ConstsParser implements Parser<List<Const>> {
+	final Logger logger
+
+	final String start = "#define"
+	int index = 0
+
+	String previousCharacter
+	String extraJavaDoc = ""
+	boolean parseExtraJavaDoc
+
+	ConstParser constParser
+	List<Const> outputs = new ArrayList<>()
+
+	ConstsParser(Logger logger) {
+		this.logger = logger
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (character == "/" && previousCharacter == "/" && column == 2) {
+			logger.debug("{}:{} Parsing comment", line, column)
+			parseExtraJavaDoc = true
+		} else if (parseExtraJavaDoc) {
+			extraJavaDoc += character
+		}
+		if (parseExtraJavaDoc && character == "\n") {
+			logger.debug("{}:{} Finished parsing comment", line, column)
+			parseExtraJavaDoc = false
+		}
+
+		// normal const
+		if (constParser) {
+			constParser.next(character, line, column)
+			def output = constParser.output()
+			if (output != null) {
+				if (extraJavaDoc) {
+					extraJavaDoc = extraJavaDoc.trim()
+					if (output.javaDoc) {
+						output.javaDoc = extraJavaDoc + "<p>" + output.javaDoc
+					} else {
+						output.javaDoc = extraJavaDoc
+					}
+					extraJavaDoc = ""
+				}
+
+				outputs.add(output)
+				constParser = null
+			}
+		} else if (index < start.length() && character == start[index]) {
+			index++
+			if (index >= start.length()) {
+				logger.debug("{}:{} Parsed const header", line, column)
+				constParser = new ConstParser(logger)
+				index = 0
+			}
+		} else if (character != start[index]) {
+			index = 0
+		}
+
+		previousCharacter = character
+	}
+
+	@Override
+	List<Const> output() {
+		return outputs
+	}
+}
+
+task parseProtoh {
+	doLast {
+		File protohFile = new File(project.file("src/proto"), "proto.h")
+		if (!protohFile.exists()) {
+			throw new IOException("File ${protohFile.absolutePath} does not exists!")
+		}
+		def structsParser = new StructsParser(logger)
+		def constsParser = new ConstsParser(logger)
+		int lineIdx = 1
+		protohFile.eachLine { line ->
+			int columnIdx = 1
+			for (def character : line) {
+				try {
+					structsParser.next(character, lineIdx, columnIdx)
+				} catch (Exception ex) {
+					throw new ParseException(lineIdx, columnIdx, ex)
+				}
+				try {
+					constsParser.next(character, lineIdx, columnIdx)
+				} catch (Exception ex) {
+					throw new ParseException(lineIdx, columnIdx, ex)
+				}
+				columnIdx++
+			}
+			try {
+				structsParser.next("\n", lineIdx, columnIdx)
+			} catch (Exception ex) {
+				throw new ParseException(lineIdx, columnIdx, ex)
+			}
+			try {
+				constsParser.next("\n", lineIdx, columnIdx)
+			} catch (Exception ex) {
+				throw new ParseException(lineIdx, columnIdx, ex)
+			}
+			lineIdx++
+		}
+
+		def rootDir = project.file("build/parser").toPath()
+		Files.createDirectories(rootDir)
+
+		def structsJson = new JsonBuilder(structsParser.output()).toPrettyString()
+		def structsOutputFile = rootDir.resolve("proto.h.json")
+		structsOutputFile.write(structsJson)
+
+		def constsJson = new JsonBuilder(constsParser.output()).toPrettyString()
+		def constsOutputFile = rootDir.resolve("consts.json")
+		constsOutputFile.write(constsJson)
+	}
+}
+
+class Names {
+	static String classNameCase(String name) {
+		return camelCase(name).capitalize()
+	}
+
+	static String fieldNameCase(String name) {
+		return camelCase(name)
+	}
+
+	static String parseRawClassName(String name) {
+		if (name == "_supla_int64_t"
+			|| name == "_supla_int16_t"
+			|| name == "short"
+			|| name == "_supla_int_t"
+			|| name == "int"
+			|| name == "char"
+			|| name == "long"
+			|| name == "struct"
+			|| name == "union"
+			|| name == "union") {
+			return name
+		}
+
+		if (name == "timeval_compat") {
+			return "TimevalCompat"
+		}
+
+		if (name.startsWith("_")) {
+			name = "T" + name
+		}
+
+		if (name == "TSuplaChannelValue_B") {
+			return "TSuplaChannelValueB"
+		}
+
+		if (name == "TSuplaDataPacket"
+			|| name == "TSuplaChannelValue"
+			|| name == "TSuplaChannelExtendedValue"
+			|| name == "TActionTriggerProperties"
+			|| name == "THVACValue"
+			|| name == "TChannelState_ExtendedValue"
+			|| name == "TThermostat_ExtendedValue"
+			|| name == "TThermostat_Schedule"
+			|| name == "TTimerState_ExtendedValue"
+			|| name == "TThermostat_ScheduleCfg"
+			|| name == "TThermostat_Time"
+			|| name == "TElectricityMeter_Measurement"
+			|| name == "TThermostatValueGroup"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TChannelState"
+			|| name == "TTimerState"
+			|| name == "TThermostatTemperatureCfg"
+			|| name == "timeval_compat"
+			|| name == "THVACTemperatureCfg"
+			|| name == "TWeeklyScheduleProgram"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TAction_RS_Parameters"
+			|| name == "TElectricityMeter_ExtendedValue"
+			|| name == "TElectricityMeter_ExtendedValue_V2"
+			|| name == "TElectricityMeter_Value"
+			|| name == "TElectricityMeter_ExtendedValue_V3"
+			|| name == "TCalCfg_ZWave_Node"
+			|| name == "TCalCfg_ZWave_WakeupSettingsReport"
+			|| name == "TAction_HVAC_Parameters"
+			|| name == "TCalCfg_FacadeBlindSettings"
+			|| name == "TCalCfg_ProgressReport"
+			|| name == "TRGBW_Value"
+			|| name == "TCalCfg_LightSourceLifespan"
+			|| name == "TCalCfg_RollerShutterSettings"
+			|| name == "TRelayChannel_Value"
+			|| name == "TDeviceConfig_ScreenBrightness"
+			|| name == "TDigiglass_Value"
+			|| name == "TDeviceConfig_ButtonVolume"
+			|| name == "TDeviceConfig_DisableUserInterface"
+			|| name == "TDeviceConfig_HomeScreenContent"
+			|| name == "TDeviceConfig_HomeScreenOffDelay"
+			|| name == "TDeviceConfig_AutomaticTimeSync"
+			|| name == "TDeviceConfig_StatusLed"
+			|| name == "TChannelAndTimerState_ExtendedValue"
+			|| name.startsWith("TChannelConfig_")
+			|| name == "TCalCfg_ZWave_WakeUpTime"
+			|| name == "TValve_Value"
+			|| name == "TThermostat_Value"
+			|| name == "TAction_RGBW_Parameters"
+			|| name == "TSuplaChannelExtendedValue") {
+			return classNameCase(name.substring(1))
+		}
+		def split = name.split("_", 2)
+		if (split.length != 2) {
+			throw new IllegalArgumentException("Cannot get raw name from: " + name)
+		}
+
+		return classNameCase(split[1])
+	}
+
+	static String findPrefix(String name) {
+		if (name.startsWith("_")) {
+			return "T"
+		}
+
+		if (name == "TSuplaDataPacket"
+			|| name == "TSuplaChannelValue"
+			|| name == "TSuplaChannelExtendedValue"
+			|| name == "TActionTriggerProperties"
+			|| name == "THVACValue"
+			|| name == "TChannelState_ExtendedValue"
+			|| name == "TThermostat_ExtendedValue"
+			|| name == "TThermostat_Schedule"
+			|| name == "TTimerState_ExtendedValue"
+			|| name == "TThermostat_ScheduleCfg"
+			|| name == "TThermostat_Time"
+			|| name == "TElectricityMeter_Measurement"
+			|| name == "TThermostatValueGroup"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TChannelState"
+			|| name == "TTimerState"
+			|| name == "TThermostatTemperatureCfg"
+			|| name == "timeval_compat"
+			|| name == "THVACTemperatureCfg"
+			|| name == "TWeeklyScheduleProgram"
+			|| name == "TSuplaChannelValue_B"
+			|| name == "TAction_RS_Parameters"
+			|| name == "TElectricityMeter_ExtendedValue"
+			|| name == "TElectricityMeter_ExtendedValue_V2"
+			|| name == "TElectricityMeter_Value"
+			|| name == "TElectricityMeter_ExtendedValue_V3"
+			|| name == "TCalCfg_ZWave_Node"
+			|| name == "TCalCfg_ZWave_WakeupSettingsReport"
+			|| name == "TAction_HVAC_Parameters"
+			|| name == "TCalCfg_FacadeBlindSettings"
+			|| name == "TCalCfg_ProgressReport"
+			|| name == "TRGBW_Value"
+			|| name == "TCalCfg_LightSourceLifespan"
+			|| name == "TCalCfg_RollerShutterSettings"
+			|| name == "TRelayChannel_Value"
+			|| name == "TDeviceConfig_ScreenBrightness"
+			|| name == "TDigiglass_Value"
+			|| name == "TDeviceConfig_ButtonVolume"
+			|| name == "TDeviceConfig_DisableUserInterface"
+			|| name == "TDeviceConfig_HomeScreenContent"
+			|| name == "TDeviceConfig_HomeScreenOffDelay"
+			|| name == "TDeviceConfig_AutomaticTimeSync"
+			|| name == "TDeviceConfig_StatusLed"
+			|| name == "TChannelAndTimerState_ExtendedValue"
+			|| name.startsWith("TChannelConfig_")
+			|| name == "TCalCfg_ZWave_WakeUpTime"
+			|| name == "TValve_Value"
+			|| name == "TThermostat_Value"
+			|| name == "TAction_RGBW_Parameters"
+			|| name == "TSuplaChannelExtendedValue") {
+			return "T"
+		}
+
+		def split = name.split("_", 2)
+		if (split.length == 1) {
+			return split[0]
+		}
+		def prefix = split[0]
+
+		if (prefix != "T"
+			&& prefix != "TCS"
+			&& prefix != "TCSD"
+			&& prefix != "TSCD"
+			&& prefix != "TSDS"
+			&& prefix != "TSCS"
+			&& prefix != "TDCS"
+			&& prefix != "TDSC"
+			&& prefix != "TDS"
+			&& prefix != "TSC"
+			&& prefix != "TSD"
+			&& prefix != "TSDC") {
+			throw new IllegalArgumentException("prefix = [${prefix}] is wrong. Do not know how to parse prefix from $name")
+		}
+
+		return prefix
+	}
+
+
+	static String camelCase(String name) {
+		name = name.replaceAll("GUID", "Guid")
+		name = name.replaceAll("ID", "Id")
+		name = name[0].toLowerCase() + name.substring(1)
+		// remove underscores
+		def newName = ""
+		for (def i = 0; i < name.length(); i++) {
+			def first = name[i]
+			if (first != '_') {
+				newName += name[i]
+			} else {
+				newName += name[i + 1].toUpperCase()
+				i++
+			}
+		}
+		if (newName == "default") {
+			return "defaultValue"
+		}
+		return newName
+	}
+}

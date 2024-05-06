@@ -411,7 +411,7 @@ public final class Preconditions {
         return string;
     }
 
-    public static void union(Object... objects) {
+    public static void unionCheck(Object... objects) {
         boolean allNull = true;
         for (Object object : objects) {
             if (object != null) {

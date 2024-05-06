@@ -10,7 +10,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)
@@ -46,7 +46,7 @@ public class SuplaEventDecoderImplTest extends DecoderTest<SuplaEventDecoderImpl
         verify(primitiveDecoder).parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SENDER_NAME_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SENDER_NAME_SIZE);
     }
 
     @Override
