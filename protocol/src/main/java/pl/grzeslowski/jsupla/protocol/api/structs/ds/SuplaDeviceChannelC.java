@@ -21,7 +21,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 @EqualsAndHashCode
 @ToString
 public final class SuplaDeviceChannelC implements ProtoWithSize, DeviceChannelTrait {
-    public static final int UNION_2_SIZE = JavaConsts.union(BYTE_SIZE * SUPLA_CHANNELVALUE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE); // union 2 / value | actionTriggerProperties | hvacValue 
+    public static final int UNION_2_SIZE = JavaConsts.unionSize(BYTE_SIZE * SUPLA_CHANNELVALUE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE); // union 2 / value | actionTriggerProperties | hvacValue 
     public static final int SIZE =
         BYTE_SIZE + //number
             INT_SIZE + //type
@@ -64,7 +64,7 @@ public final class SuplaDeviceChannelC implements ProtoWithSize, DeviceChannelTr
 
         this.funcList = funcList;
         this.actionTriggerCaps = unsignedIntSize(actionTriggerCaps);
-        union(funcList, actionTriggerCaps);
+        unionCheck(funcList, actionTriggerCaps);
 
         this.defaultValue = defaultValue;
         this.flags = flags;
@@ -75,7 +75,7 @@ public final class SuplaDeviceChannelC implements ProtoWithSize, DeviceChannelTr
         }
         this.actionTriggerProperties = actionTriggerProperties;
         this.hvacValue = hvacValue;
-        union(value, actionTriggerProperties, hvacValue);
+        unionCheck(value, actionTriggerProperties, hvacValue);
     }
 
     @Override

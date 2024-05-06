@@ -14,7 +14,7 @@ public class PreconditionsUnionTest {
         String obj3 = null;
 
         // when
-        Preconditions.union(obj1, obj2, obj3);
+        Preconditions.unionCheck(obj1, obj2, obj3);
 
         // then
         // should not throw exception
@@ -28,7 +28,7 @@ public class PreconditionsUnionTest {
         String obj3 = "obj3";
 
         // when
-        ThrowingCallable when = () -> Preconditions.union(obj1, obj2, obj3);
+        ThrowingCallable when = () -> Preconditions.unionCheck(obj1, obj2, obj3);
 
         // then
         assertThatThrownBy(when)
@@ -43,7 +43,7 @@ public class PreconditionsUnionTest {
         String obj3 = null;
 
         // when
-        ThrowingCallable when = () -> Preconditions.union(obj1, obj2, obj3);
+        ThrowingCallable when = () -> Preconditions.unionCheck(obj1, obj2, obj3);
 
         // then
         assertThatThrownBy(when)

@@ -10,7 +10,7 @@ public interface JavaConsts {
     public static final int UNSIGNED_BYTE_MAX = 255;
     public static final long UNSIGNED_INT_MAX = 4294967295L;
 
-    public static int union(int... sizes) {
+    public static int unionSize(int... sizes) {
         int max = sizes[0];
         for (int size : sizes) {
             max = Math.max(max, size);

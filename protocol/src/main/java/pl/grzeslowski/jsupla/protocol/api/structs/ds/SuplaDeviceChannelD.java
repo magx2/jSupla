@@ -10,14 +10,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.Union;
 import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
-import static pl.grzeslowski.jsupla.Preconditions.union;
 import static pl.grzeslowski.jsupla.Preconditions.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
 
 @EqualsAndHashCode
 @ToString
 public final class SuplaDeviceChannelD implements ProtoWithSize, DeviceChannelTrait {
-    public static final int UNION_2_SIZE = JavaConsts.union(BYTE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE); // union 2 / value | actionTriggerProperties | hvacValue 
+    public static final int UNION_2_SIZE = JavaConsts.unionSize(BYTE_SIZE, ActionTriggerProperties.SIZE, HVACValue.SIZE); // union 2 / value | actionTriggerProperties | hvacValue 
     public static final int SIZE =
         BYTE_SIZE + //number
             INT_SIZE + //type
@@ -89,7 +88,7 @@ public final class SuplaDeviceChannelD implements ProtoWithSize, DeviceChannelTr
 
         this.funcList = funcList;
         this.actionTriggerCaps = unsignedIntSize(actionTriggerCaps);
-        union(funcList, actionTriggerCaps);
+        unionCheck(funcList, actionTriggerCaps);
 
         this.defaultValue = defaultValue;
         this.flags = flags;
@@ -99,7 +98,7 @@ public final class SuplaDeviceChannelD implements ProtoWithSize, DeviceChannelTr
         this.value = value;
         this.actionTriggerProperties = actionTriggerProperties;
         this.hvacValue = hvacValue;
-        union(value, actionTriggerProperties, hvacValue);
+        unionCheck(value, actionTriggerProperties, hvacValue);
 
         this.defaultIcon = unsignedByteSize(defaultIcon);
     }
