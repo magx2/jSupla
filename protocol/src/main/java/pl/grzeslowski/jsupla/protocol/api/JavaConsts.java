@@ -1,4 +1,6 @@
-package pl.grzeslowski.jsupla.protocol.api.consts;
+package pl.grzeslowski.jsupla.protocol.api;
+
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 public interface JavaConsts {
     public static final int INT_SIZE = 4;
@@ -16,5 +18,13 @@ public interface JavaConsts {
             max = Math.max(max, size);
         }
         return max;
+    }
+    
+    public static <T extends ProtoWithSize> int arraySize(T[] array) {
+        int size = 0;
+        for (T proto : array) {
+            size += proto.size();
+        }
+        return size;
     }
 }

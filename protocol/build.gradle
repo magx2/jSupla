@@ -1,5 +1,6 @@
 apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
+apply from: 'consts.gradle'
 
 import java.nio.file.Files
 import java.time.ZonedDateTime
@@ -119,57 +120,6 @@ task buildCallTypes {
 	}
 }
 compileJava.dependsOn "buildCallTypes"
-
-task generateProtoConst {
-	doLast {
-		logger.info("Building Call Types")
-
-		def file = project.file("src/main/native/ProtoConsts.h")
-		def consts = file
-			.readLines()
-			.stream()
-			.filter { it.startsWith("#define") }
-			.map { line ->
-				line = line.replaceAll("#define ", "").trim()
-
-				def split = line.split(" ", 2)
-				def name = split[0]
-				def value = split[1]
-
-				if (value.contains("//")) {
-					def valueSplit = value.split("//", 2)
-					value = valueSplit[0] + "; //" + valueSplit[1]
-				}
-
-				return [name: name, value: value, deprecated: value.toUpperCase().endsWith("DEPRECATED")]
-			}
-			.map {
-				def line = ""
-				if (it.deprecated) {
-					line += "@java.lang.Deprecated "
-				}
-				line += "public static final int ${it.name} = ${it.value};"
-				return line;
-			}
-			.collect(Collectors.joining("\n|\t"))
-
-		def java = """
-			|package pl.grzeslowski.jsupla.protocol.api.consts;
-			|
-			|@javax.annotation.Generated(value="${file.absolutePath.replaceAll("\\\\", "\\\\\\\\")}", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
-			|public interface ProtoConsts {
-			|
-			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
-			|
-			|	$consts
-			|}""".stripMargin()
-
-		def generatedDir = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/consts").toPath()
-		Files.createDirectories(generatedDir)
-		generatedDir.resolve("ProtoConsts.java").write(java)
-	}
-}
-compileJava.dependsOn "generateProtoConst"
 
 static String camelCase(String name) {
 	name = name.replaceAll("GUID", "Guid")

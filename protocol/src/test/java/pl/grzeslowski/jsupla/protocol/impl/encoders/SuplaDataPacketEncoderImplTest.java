@@ -11,8 +11,8 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 @SuppressWarnings("WeakerAccess")
 @RunWith(MockitoJUnitRunner.class)

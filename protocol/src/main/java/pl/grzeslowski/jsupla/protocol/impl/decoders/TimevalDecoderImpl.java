@@ -6,7 +6,7 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.TimevalDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 public class TimevalDecoderImpl implements TimevalDecoder {
     public static final TimevalDecoderImpl INSTANCE = new TimevalDecoderImpl(PrimitiveDecoderImpl.INSTANCE);

@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @Slf4j
 public final class NettyChannel implements Channel {
@@ -44,7 +45,7 @@ public final class NettyChannel implements Channel {
         this.encoderFactory = requireNonNull(encoderFactory);
         this.bufferParams = requireNonNull(bufferParams);
         this.messagePipe = messagePipe
-            .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callType)))
+            .map(suplaDataPacket -> Pair.with(suplaDataPacket, callTypeParser.parse(suplaDataPacket.callId)))
             .filter(pair -> pair.getValue1().isPresent())
             .map(pair -> {
                 val suplaDataPacket = pair.getValue0();
@@ -92,11 +93,14 @@ public final class NettyChannel implements Channel {
 
     private SuplaDataPacket encodeProto(ProtoToSend proto) {
         final Encoder<ProtoToSend> encoder = encoderFactory.getEncoder(proto);
+        byte[] encode = encoder.encode(proto);
         return new SuplaDataPacket(
+            SUPLA_TAG,
             (short) 5,
             msgId.getAndIncrement(),
             proto.callType().getValue(),
-            encoder.encode(proto));
+            encode.length,
+            encode);
     }
 
     @Override

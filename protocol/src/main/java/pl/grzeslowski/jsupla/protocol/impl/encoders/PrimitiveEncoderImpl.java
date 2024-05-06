@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import java.nio.ByteBuffer;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
 public final class PrimitiveEncoderImpl implements PrimitiveEncoder {
     public static final PrimitiveEncoderImpl INSTANCE = new PrimitiveEncoderImpl();

@@ -14,8 +14,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SuplaLocationPackDecoderImplTest extends DecoderTest<SuplaLocationPackDecoderImpl> {

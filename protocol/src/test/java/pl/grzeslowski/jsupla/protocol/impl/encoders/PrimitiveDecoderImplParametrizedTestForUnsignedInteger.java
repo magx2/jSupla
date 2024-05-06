@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImplTestUtil.removeOffset;
 

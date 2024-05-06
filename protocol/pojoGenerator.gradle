@@ -329,12 +329,13 @@ static String findSize(field) {
 	} else if (field.array) {
 		def xSize = mapSimpleType(field.type)
 		if (xSize.startsWith("UNKNOWN")) {
-			xSize = "${field.type}.SIZE"
-		}
-		if (field.arraySize) {
-			return "(int) ${field.arraySize} * ${xSize}"
+			return "arraySize(" + field.name + ")"
 		} else {
-			return "${field.name}.length * ${xSize}"
+			if (field.arraySize) {
+				return "(int) ${field.arraySize} * ${xSize}"
+			} else {
+				return "${field.name}.length * ${xSize}"
+			}
 		}
 	} else {
 		def finalType = mapSimpleType(mapSuplaTypeToJava(field))

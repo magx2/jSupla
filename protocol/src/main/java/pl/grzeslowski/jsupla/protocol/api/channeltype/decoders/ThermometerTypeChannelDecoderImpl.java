@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static java.math.RoundingMode.CEILING;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
 
 class ThermometerTypeChannelDecoderImpl implements Decoder<ChannelValue> {

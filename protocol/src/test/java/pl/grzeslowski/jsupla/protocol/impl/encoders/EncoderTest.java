@@ -11,7 +11,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class EncoderTest<ProtoT extends ProtoWithSize> {

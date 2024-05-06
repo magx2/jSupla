@@ -11,15 +11,18 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import java.util.List;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
-import static pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket.MIN_SIZE;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
+    public static final int SUPLA_DATA_PACKET_MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
+    ;
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        if (in.readableBytes() < MIN_SIZE + SUPLA_TAG.length * 2) {
+        if (in.readableBytes() < SUPLA_DATA_PACKET_MIN_SIZE + SUPLA_TAG.length * 2) {
             return;
         }
 
@@ -52,6 +55,6 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         byte[] data = new byte[Math.toIntExact(dataSize)];
         in.readBytes(data);
 
-        return new SuplaDataPacket(version, rrId, callType, dataSize, data);
+        return new SuplaDataPacket(SUPLA_TAG, version, rrId, callType, dataSize, data);
     }
 }

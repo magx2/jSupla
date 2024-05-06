@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.impl.encoders;
 
 import org.junit.Test;
 
-import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.BYTE_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
 
 @SuppressWarnings({"PointlessArithmeticExpression", "ResultOfMethodCallIgnored"})

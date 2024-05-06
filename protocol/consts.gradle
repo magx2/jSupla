@@ -1,0 +1,135 @@
+import groovy.json.JsonSlurper
+
+import java.nio.file.Files
+import java.util.stream.Collectors
+import java.util.stream.Stream
+
+List overrides = [
+	[name: "SUPLA_MAX_DATA_SIZE", value: "3264"],
+	[name: "SPROTO_WITHOUT_OUT_BUFFER", value: "true"],
+	[name: "SUPLA_CHANNELMAXCOUNT", value: "128"],
+	[name: "SUPLA_CHANNELEXTENDEDVALUE_SIZE", value: "1024"],
+	[name: "EM_MEASUREMENT_COUNT", value: "5"],
+	[name: "PROTO_ICACHE_FLASH", value: "true"],
+]
+
+task constsGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "consts.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def consts = (jsonSlurper.parse(jsonFile) as List)
+			.stream()
+			.filter { !predefined(it, overrides) }
+			.toList()
+
+		def protoConsts = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java").toPath()
+		Files.createDirectories(protoConsts.parent)
+
+		def java = """\
+			|package pl.grzeslowski.jsupla.protocol.api.consts;
+			|
+			|@javax.annotation.Generated(value="Const from proto.h", date = "2024-05-06T14:31:48.642+02:00[Europe/Belgrade]", comments = "generated from ProtoConsts.h")
+			|public interface ProtoConsts {
+			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
+			|""".stripMargin()
+		java += Stream.concat(consts.stream(), overrides.stream())
+			.filter { !it.name.startsWith("_") }
+			.filter { it.name != "timeval" }
+			.map { generateConst(it, consts) }
+			.collect(Collectors.joining("\n\t"))
+		java += "\n}"
+
+		protoConsts.write(java)
+	}
+}
+constsGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "constsGenerator"
+
+static String generateConst(constObj, List consts) {
+	def value = consts
+		.stream()
+		.filter { it.name == constObj.value }
+		.findAny()
+	if (value.isPresent()) {
+		def type = findType(value.get().value)
+		return "public static final $type ${constObj.name} = ${value.get().name};"
+	}
+
+	def type = findType(constObj.value)
+	return "public static final $type ${constObj.name} = ${mapValue(constObj.value)};"
+}
+
+static String mapValue(String value) {
+	if (value == null) {
+		return "true"
+	}
+	if (value == "\\") {
+		return '"' + "\\\\" + '"'
+	}
+	if (value.matches(/\(1ULL << \d+\)/)) {
+		return value.replaceAll(/(1ULL) << (\d+)/, '1L << $2')
+	}
+	if (value.matches(/\(1 << \d+\)/)) {
+		return value.replaceAll(/(1) << (\d+)/, '1 << $2')
+	}
+	if (value.startsWith("0x")) {
+		return value
+	}
+	try {
+		Eval.me(value)
+		return value
+	} catch (Exception ignore) {
+	}
+	try {
+		Integer.parseInt(value)
+		return value
+	} catch (NumberFormatException ignored) {
+		return '"' + value + '"'
+	}
+}
+
+static String findType(String value) {
+	if (value == null) {
+		return "boolean"
+	}
+	if (value.matches(/\(1ULL << \d+\)/)) {
+		return "long"
+	}
+	if (value.contains("<<")) {
+		return "int"
+	}
+	if (value.startsWith("0x")) {
+		return "int"
+	}
+	try {
+		def eval = Eval.me(value)
+		def clazz = eval.class
+		if (clazz == Integer.class) {
+			return "int"
+		}
+		if (clazz == String.class) {
+			return "String"
+		}
+		if (clazz == Long.class) {
+			return "long"
+		}
+		return clazz.simpleName
+	} catch (Exception ignore) {
+	}
+	try {
+		Integer.parseInt(value)
+		return "int"
+	} catch (NumberFormatException ignored) {
+		return "String"
+	}
+}
+
+static boolean predefined(constObj, List overrides) {
+	overrides.stream()
+		.map { it.name }
+		.anyMatch { it == constObj.name }
+}
