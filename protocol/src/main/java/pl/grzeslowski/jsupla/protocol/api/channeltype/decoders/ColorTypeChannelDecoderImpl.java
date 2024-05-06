@@ -5,7 +5,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.decoders.PrimitiveDecoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 class ColorTypeChannelDecoderImpl implements Decoder<RgbValue> {
     private static final int BYTES_MIN = 5;

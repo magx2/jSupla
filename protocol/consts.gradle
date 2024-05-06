@@ -71,11 +71,16 @@ task callTypesGenerator {
 		Files.createDirectories(callTypesFolder)
 
 		buildCallType('ClientServer', "SUPLA_CS_", callTypesFolder, consts)
+		buildCallType('ClientServerDevice', "SUPLA_CSD_", callTypesFolder, consts)
 		buildCallType('DeviceClientServer', "SUPLA_DCS_", callTypesFolder, consts)
 		buildCallType('DeviceServer', "SUPLA_DS_", callTypesFolder, consts)
+		buildCallType('DeviceServerClient', "SUPLA_DSC_", callTypesFolder, consts)
 		buildCallType('ServerClient', "SUPLA_SC_", callTypesFolder, consts)
+		buildCallType('ServerClientDevice', "SUPLA_SCD_", callTypesFolder, consts)
+		buildCallType('ServerClientServer', "SUPLA_SCS_", callTypesFolder, consts)
 		buildCallType('ServerDevice', "SUPLA_SD_", callTypesFolder, consts)
 		buildCallType('ServerDeviceClient', "SUPLA_SDC_", callTypesFolder, consts)
+		buildCallType('ServerDeviceServer', "SUPLA_SDS_", callTypesFolder, consts)
 	}
 }
 callTypesGenerator.dependsOn "parseProtoh"
@@ -174,11 +179,16 @@ compileJava.dependsOn "channelTypeGenerator"
 
 static boolean isCallType(String name) {
 	return name.startsWith("SUPLA_CS_") ||
+		name.startsWith("SUPLA_CSD_") ||
 		name.startsWith("SUPLA_DCS_") ||
 		name.startsWith("SUPLA_DS_") ||
+		name.startsWith("SUPLA_DSC_") ||
 		name.startsWith("SUPLA_SC_") ||
+		name.startsWith("SUPLA_SCD_") ||
+		name.startsWith("SUPLA_SCS_") ||
 		name.startsWith("SUPLA_SD_") ||
-		name.startsWith("SUPLA_SDC_")
+		name.startsWith("SUPLA_SDC_") ||
+		name.startsWith("SUPLA_SDS_")
 }
 
 static boolean isResultCode(String name) {

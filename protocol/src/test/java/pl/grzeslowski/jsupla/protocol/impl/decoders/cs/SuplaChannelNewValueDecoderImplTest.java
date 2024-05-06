@@ -24,7 +24,7 @@ public class SuplaChannelNewValueDecoderImplTest extends DecoderTest<SuplaChanne
     @Override
     public void verifyParseEntity(final byte[] bytes, final int offset) {
         verify(primitiveDecoder).parseByte(bytes, offset);
-        verify(primitiveDecoder).copyOfRange(bytes, offset + BYTE_SIZE, offset + BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset + BYTE_SIZE, offset + BYTE_SIZE + SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override

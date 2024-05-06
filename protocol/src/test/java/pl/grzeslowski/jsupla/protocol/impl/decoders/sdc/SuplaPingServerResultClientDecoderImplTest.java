@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.grzeslowski.jsupla.protocol.api.decoders.TimevalDecoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.SuplaTimevalDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderTest;
@@ -22,7 +22,7 @@ public class SuplaPingServerResultClientDecoderImplTest extends DecoderTest<Supl
     @InjectMocks
     SuplaPingServerResultClientDecoderImpl decoder;
     @Mock
-    TimevalDecoder timevalDecoder;
+    SuplaTimevalDecoder suplaTimevalDecoder;
 
     @Override
     public SuplaPingServerResultClientDecoderImpl getDecoder() {
@@ -31,13 +31,13 @@ public class SuplaPingServerResultClientDecoderImplTest extends DecoderTest<Supl
 
     @Override
     public void givenParseEntity(final byte[] bytes, final int offset) {
-        given(timevalDecoder.decode(any(byte[].class), anyInt())).willReturn(new SuplaTimeval(101, 102));
+        given(suplaTimevalDecoder.decode(any(byte[].class), anyInt())).willReturn(new SuplaTimeval(101, 102));
     }
 
     @Override
     public void verifyParseEntity(final byte[] bytes, final int offset) {
-        verify(timevalDecoder).decode(bytes, offset);
-        verifyNoMoreInteractions(timevalDecoder);
+        verify(suplaTimevalDecoder).decode(bytes, offset);
+        verifyNoMoreInteractions(suplaTimevalDecoder);
     }
 
     @Override

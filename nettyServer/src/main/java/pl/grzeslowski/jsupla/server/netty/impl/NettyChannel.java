@@ -11,7 +11,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.Encoder;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
@@ -60,10 +59,11 @@ public final class NettyChannel implements Channel {
             .filter(entity -> ToServerProto.class.isAssignableFrom(entity.getClass()))
             .cast(ToServerProto.class);
 
-        this.messagePipe
-            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
-            .cast(RegisterDeviceTrait.class)
-            .subscribe(typeMapper::registerDevice);
+        // todo
+//        this.messagePipe
+//            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
+//            .cast(RegisterDeviceTrait.class)
+//            .subscribe(typeMapper::registerDevice);
     }
 
     public NettyChannel(ChannelHandlerContext ctx, Flux<SuplaDataPacket> flux, CallTypeParser callTypeParser, DecoderFactory decoderFactory, EncoderFactory encoderFactory) {

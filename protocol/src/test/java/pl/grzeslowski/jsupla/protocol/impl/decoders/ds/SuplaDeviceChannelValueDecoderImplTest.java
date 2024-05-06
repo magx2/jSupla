@@ -27,7 +27,7 @@ public class SuplaDeviceChannelValueDecoderImplTest extends DecoderTest {
         verify(primitiveDecoder).parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
     }
 
     @Override

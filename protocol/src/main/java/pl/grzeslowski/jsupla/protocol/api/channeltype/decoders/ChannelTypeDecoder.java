@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.UnknownValue;
-import pl.grzeslowski.jsupla.protocol.api.traits.DeviceChannelTrait;
 
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
@@ -21,10 +20,6 @@ public final class ChannelTypeDecoder {
         this(new ColorTypeChannelDecoderImpl(),
             new RelayTypeChannelDecoderImpl(),
             new ThermometerTypeChannelDecoderImpl());
-    }
-
-    public ChannelValue decode(DeviceChannelTrait deviceChannelTrait) {
-        return decode(deviceChannelTrait.getType(), deviceChannelTrait.getValue());
     }
 
     public ChannelValue decode(int type, byte[] value) {

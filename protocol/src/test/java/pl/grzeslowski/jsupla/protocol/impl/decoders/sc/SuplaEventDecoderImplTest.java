@@ -46,7 +46,7 @@ public class SuplaEventDecoderImplTest extends DecoderTest<SuplaEventDecoderImpl
         verify(primitiveDecoder).parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SENDER_NAME_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SENDER_NAME_SIZE);
     }
 
     @Override

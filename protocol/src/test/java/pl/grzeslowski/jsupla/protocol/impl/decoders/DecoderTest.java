@@ -23,7 +23,7 @@ public abstract class DecoderTest<T extends ProtoWithSizeDecoder<?>> {
 
     @Before
     public void init() {
-        given(primitiveDecoder.copyOfRange(any(), anyInt(), anyInt())).will(invocation -> {
+        given(primitiveDecoder.copyOfRangeByte(any(), anyInt(), anyInt())).will(invocation -> {
             final byte[] original = invocation.getArgumentAt(0, byte[].class);
             final Integer from = invocation.getArgumentAt(1, Integer.class);
             final Integer to = invocation.getArgumentAt(2, Integer.class);

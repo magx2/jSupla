@@ -1,6 +1,7 @@
 apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
 apply from: 'consts.gradle'
+apply from: 'decoders.gradle'
 
 dependencies {
 	compile rootProject.project("common")

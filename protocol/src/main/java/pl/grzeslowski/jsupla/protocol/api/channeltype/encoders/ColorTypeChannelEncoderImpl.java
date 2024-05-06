@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
 
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
 public class ColorTypeChannelEncoderImpl {
     public byte[] encode(final RgbValue rgbValue) {
@@ -20,7 +20,7 @@ public class ColorTypeChannelEncoderImpl {
 
     private static byte toByte(int unsignedByte) {
         final byte[] bytes = new byte[1];
-        PrimitiveEncoderImpl.INSTANCE.writeUnsignedByte((short) unsignedByte, bytes, 0);
+        PrimitiveEncoder.INSTANCE.writeUnsignedByte((short) unsignedByte, bytes, 0);
         return bytes[0];
     }
 }

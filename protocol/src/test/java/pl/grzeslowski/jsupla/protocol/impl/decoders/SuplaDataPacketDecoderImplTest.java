@@ -48,7 +48,7 @@ public class SuplaDataPacketDecoderImplTest extends DecoderTest<SuplaDataPacketD
         verify(primitiveDecoder).parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + (int) DATA_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + (int) DATA_SIZE);
     }
 
     @Override

@@ -28,13 +28,13 @@ public class SuplaFirmwareUpdateUrlDecoderImplTest extends DecoderTest<FirmwareU
         verify(primitiveDecoder).parseByte(bytes, offset);
         offset += BYTE_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_URL_HOST_MAXSIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_URL_HOST_MAXSIZE);
         offset += SUPLA_URL_HOST_MAXSIZE;
 
         verify(primitiveDecoder).parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_URL_PATH_MAXSIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_URL_PATH_MAXSIZE);
     }
 
     @Override

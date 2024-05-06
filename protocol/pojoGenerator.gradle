@@ -14,7 +14,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 	}
 	def imports = new TreeSet<>([
 		"import static pl.grzeslowski.jsupla.Preconditions.*",
-		"import static pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.*",
+		"import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*",
 		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
 		"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize",
 		"import pl.grzeslowski.jsupla.protocol.api.structs.*",
@@ -307,7 +307,7 @@ static String findSizeForClass(struct) {
 					.stream()
 					.map { findSizeForField(it) }
 					.collect(Collectors.joining("\n\t\t\t,"))
-				return "pl.grzeslowski.jsupla.protocol.api.consts.JavaConsts.unionSize(\n\t\t\t$sizes\n\t\t)"
+				return "pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize(\n\t\t\t$sizes\n\t\t)"
 			} else {
 				throw new IllegalArgumentException("Unknown type: " + field.originalClassName.toString())
 			}

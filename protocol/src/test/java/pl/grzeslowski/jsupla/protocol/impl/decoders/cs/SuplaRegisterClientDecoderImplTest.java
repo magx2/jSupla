@@ -27,16 +27,16 @@ public class SuplaRegisterClientDecoderImplTest extends DecoderTest<SuplaRegiste
         verify(primitiveDecoder).parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_ACCESSID_PWD_MAXSIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_ACCESSID_PWD_MAXSIZE);
         offset += SUPLA_ACCESSID_PWD_MAXSIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_GUID_SIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_GUID_SIZE);
         offset += SUPLA_GUID_SIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_CLIENT_NAME_MAXSIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_CLIENT_NAME_MAXSIZE);
         offset += SUPLA_CLIENT_NAME_MAXSIZE;
 
-        verify(primitiveDecoder).copyOfRange(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
+        verify(primitiveDecoder).copyOfRangeByte(bytes, offset, offset + SUPLA_SOFTVER_MAXSIZE);
     }
 
     @Override
