@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
-static void generatePojo(struct, Path generatedSourceRoot) {
+void generatePojo(struct, Path generatedSourceRoot) {
 	def path = "api.structs"
 	def prefix = struct.prefix
 	if (prefix != "T") {
@@ -71,7 +71,10 @@ task pojoGenerator {
 		def generatedSourceRoot = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol").toPath()
 		Files.createDirectories(generatedSourceRoot)
 
-		structs.forEach { generatePojo(it, generatedSourceRoot) }
+		structs
+			.stream()
+			.sorted { a, b -> a.rawName.compareTo(b.rawName) }
+			.forEach { generatePojo(it, generatedSourceRoot) }
 	}
 }
 pojoGenerator.dependsOn "parseProtoh"
@@ -139,12 +142,6 @@ static String buildConstructorAssignment(field) {
 	def value = field.name
 	if (field.array) {
 		def size = "(int) ${field.arraySize}"
-//				if (preconditions.containsKey(value)) {
-//					def precondition = preconditions.get(value)
-//					if (precondition.value == "length") {
-//						size = precondition.variable
-//					}
-//				}
 		value = "checkArrayLength(${value}, $size)"
 	}
 	if (field.unsigned) {
@@ -271,18 +268,31 @@ static String findImplementClass(struct) {
 	return "pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize"
 }
 
-// todo set call type
-static String findCallType(struct) {
+@SuppressWarnings('GrMethodMayBeStatic')
+String findCallType(struct) {
 	def clazz = findImplementClass(struct)
 	if (clazz == "pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize") {
 		return "/* no call type */"
 	}
 
 	def returnValue = "pl.grzeslowski.jsupla.protocol.api.calltypes." + clazz.split("\\.")[-1]
+
+
+	def callType = ext.callTypes
+		.stream()
+		.filter { it.proto == struct.rawName }
+		.map { it.callType }
+		.map { "return ${returnValue}CallType.$it;" }
+		.findAny()
+		.orElseGet {
+			logger.warn("${struct.rawName} does not have call type!")
+			"throw new UnsupportedOperationException(\"CallType for \" +getClass().getSimpleName()+\" is not set!\");"
+		}
+
 	return """
 			|	@Override
     		|	public ${returnValue}CallType callType() {
-        	|		return null; // todo no call type
+        	|		$callType
     		|	}""".stripMargin()
 }
 
