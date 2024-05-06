@@ -34,7 +34,7 @@ task constsGenerator {
 		def java = """\
 			|package pl.grzeslowski.jsupla.protocol.api.consts;
 			|
-			|@javax.annotation.Generated(value="Const from proto.h", date = "2024-05-06T14:31:48.642+02:00[Europe/Belgrade]", comments = "generated from ProtoConsts.h")
+			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
 			|public interface ProtoConsts {
 			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
 			|""".stripMargin()
@@ -42,6 +42,7 @@ task constsGenerator {
 			.filter { !it.name.startsWith("_") }
 			.filter { it.name != "timeval" }
 			.filter { !isCallType(it.name) }
+			.filter { !isResultCode(it.name) }
 			.map { generateConst(it, consts) }
 			.collect(Collectors.joining("\n\t"))
 		java += "\n}"
@@ -51,7 +52,6 @@ task constsGenerator {
 }
 constsGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "constsGenerator"
-
 
 task callTypesGenerator {
 	doLast {
@@ -80,6 +80,44 @@ task callTypesGenerator {
 callTypesGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "callTypesGenerator"
 
+task resultCodeGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "consts.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def resultCodes = (jsonSlurper.parse(jsonFile) as List)
+			.stream()
+			.filter { isResultCode(it.name) }
+			.map {
+				def javaDoc = ""
+				if (it.javaDoc) {
+					javaDoc = "/** ${it.javaDoc} */\n\t"
+				}
+				"$javaDoc${it.name}(${it.value})"
+			}
+			.collect(Collectors.joining(",\n\t"))
+
+		def resultCodePath = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/ResultCode.java").toPath()
+		Files.createDirectories(resultCodePath.parent)
+
+		resultCodePath.write("""\
+			|package pl.grzeslowski.jsupla.protocol.api;
+			|
+			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
+			|@lombok.Getter @lombok.RequiredArgsConstructor
+			|public enum ResultCode {
+			|	$resultCodes
+			|	;
+			|	private final int value;
+			|}""".stripMargin())
+	}
+}
+resultCodeGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "resultCodeGenerator"
+
 static boolean isCallType(String name) {
 	return name.startsWith("SUPLA_CS_") ||
 		name.startsWith("SUPLA_DCS_") ||
@@ -87,6 +125,13 @@ static boolean isCallType(String name) {
 		name.startsWith("SUPLA_SC_") ||
 		name.startsWith("SUPLA_SD_") ||
 		name.startsWith("SUPLA_SDC_")
+}
+
+static boolean isResultCode(String name) {
+	if (name == "SUPLA_RESULTCODE_DENY_CHANNEL_IS_ASSOCIETED_WITH_ACTION_TRIGGER") {
+		return false
+	}
+	name.startsWith("SUPLA_RESULTCODE_")
 }
 
 static void buildCallType(String callTypeName, String callTypePrefix, Path callTypesFolder, consts) {
