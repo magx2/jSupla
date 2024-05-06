@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.impl.decoders;
 
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.*;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -107,18 +106,4 @@ public final class PrimitiveDecoderImpl implements PrimitiveDecoder {
         return Arrays.copyOfRange(original, from, to);
     }
 
-    @Override
-    public ElectricityMeterMeasurement parseElectricityMeterMeasurement(byte[] bytes, int offset) {
-        return ElectricityMeterMeasurementDecoderImpl.INSTANCE.decode(bytes, offset);
-    }
-
-    @Override
-    public SuplaChannelValueB parseSuplaChannelValueB(byte[] bytes, int offset) {
-        return SuplaChannelValueBDecoderImpl.INSTANCE.decode(bytes, offset);
-    }
-
-    @Override
-    public ThermostatValueGroup parseThermostatValueGroup(byte[] bytes, int offset) {
-        return ThermostatValueGroupDecoderImpl.INSTANCE.decode(bytes, offset);
-    }
 }
