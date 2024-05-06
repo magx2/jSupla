@@ -43,6 +43,7 @@ task constsGenerator {
 			.filter { it.name != "timeval" }
 			.filter { !isCallType(it.name) }
 			.filter { !isResultCode(it.name) }
+			.filter { !isChannelType(it.name) }
 			.map { generateConst(it, consts) }
 			.collect(Collectors.joining("\n\t"))
 		java += "\n}"
@@ -118,6 +119,59 @@ task resultCodeGenerator {
 resultCodeGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "resultCodeGenerator"
 
+task channelTypeGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "consts.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def channelTypes = Stream.concat(
+			(jsonSlurper.parse(jsonFile) as List).stream(),
+			Stream.of([name: "UNKNOWN", value: "-1", javaDoc: "This is when you don't know ChannelType, i.e. when smth was added to cloud/device code without changing it here."]))
+			.filter { isChannelType(it.name) }
+			.map {
+				def javaDoc = ""
+				if (it.javaDoc) {
+					javaDoc = "/** ${it.javaDoc} */\n\t"
+				}
+				"$javaDoc${it.name}(${it.value})"
+			}
+			.collect(Collectors.joining(",\n\t"))
+
+		def channelTypePath = project.file("build/generated/sources/jsupla/java/main/pl/grzeslowski/jsupla/protocol/api/ChannelType.java").toPath()
+		Files.createDirectories(channelTypePath.parent)
+
+		channelTypePath.write("""\
+			|package pl.grzeslowski.jsupla.protocol.api;
+			|
+			|import lombok.val;
+			|import java.util.Arrays;
+			|import java.util.Optional;
+			|
+			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
+			|@lombok.Getter @lombok.RequiredArgsConstructor @lombok.extern.slf4j.Slf4j
+			|public enum ChannelType {
+			|	$channelTypes
+			|	;
+			|	private final int value;
+			|
+    		|	public static Optional<ChannelType> findByValue(int value) {
+    		|	    val any = Arrays.stream(values())
+    		|	        .filter(type -> type.value == value)
+    		|	        .findAny();
+    		|	    if (!any.isPresent()) {
+    		|	        log.warn("Unknown channel type value: {}", value);
+    		|	    }
+    		|	    return any;
+    		|	}
+			|}""".stripMargin())
+	}
+}
+channelTypeGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "channelTypeGenerator"
+
 static boolean isCallType(String name) {
 	return name.startsWith("SUPLA_CS_") ||
 		name.startsWith("SUPLA_DCS_") ||
@@ -132,6 +186,13 @@ static boolean isResultCode(String name) {
 		return false
 	}
 	name.startsWith("SUPLA_RESULTCODE_")
+}
+
+static boolean isChannelType(String name) {
+	if (name == "UNKNOWN") {
+		return true
+	}
+	name.startsWith("SUPLA_CHANNELTYPE_")
 }
 
 static void buildCallType(String callTypeName, String callTypePrefix, Path callTypesFolder, consts) {
