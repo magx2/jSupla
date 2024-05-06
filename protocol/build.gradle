@@ -1,4 +1,5 @@
 apply from: 'parser.gradle'
+apply from: 'pojoGenerator.gradle'
 
 import java.nio.file.Files
 import java.time.ZonedDateTime
