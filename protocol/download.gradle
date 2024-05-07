@@ -1,0 +1,60 @@
+import java.nio.file.Files
+
+task downloadProtoLatest {
+	doLast {
+		downloadProtoByTag(download.latestTag as String)
+	}
+}
+task downloadProtoStable {
+	doLast {
+		downloadProtoByTag(download.stableTag as String)
+	}
+}
+parseProtoh.dependsOn "downloadProtoStable"
+
+task checkForProtoUpdate {
+	doLast {
+		def rootDir = new File(download.rootDir.toString()).toPath()
+		def latestTag = rootDir.resolve("proto-${download.latestTag}.h").toFile()
+		def stableTag = rootDir.resolve("proto-${download.stableTag}.h").toFile()
+
+		if (latestTag.text != stableTag.text) {
+			throw new RuntimeException("Content of ${latestTag.name} and ${stableTag.name} are different! Please update stableTag in ext.")
+		} else {
+			logger.debug("Content of ${latestTag.name} and ${stableTag.name} are equal")
+		}
+	}
+}
+checkForProtoUpdate.dependsOn "downloadProtoStable"
+checkForProtoUpdate.dependsOn "downloadProtoLatest"
+
+void downloadProtoByTag(String tag) {
+	def rootDir = new File(download.rootDir.toString()).toPath()
+	Files.createDirectories(rootDir)
+
+	def path = rootDir.resolve("proto-${tag}.h")
+	if (Files.exists(path)) {
+		logger.warn("Path [${path.fileName}] already exists! Not downloading...")
+		return
+	}
+	def linkTemplate = "https://raw.githubusercontent.com/SUPLA/supla-core/%s/supla-common/proto.h"
+	def link = String.format(linkTemplate, tag)
+	downloadFileWithRedirects(link, path.toFile())
+}
+
+void downloadFileWithRedirects(String url, File file) {
+	logger.debug("Downloading file from: {} to {}", url, file.absolutePath)
+	while (url) {
+		new URL(url).openConnection().with { conn ->
+			conn.instanceFollowRedirects = false
+			url = conn.getHeaderField("Location")
+			if (!url) {
+				file.withOutputStream { out ->
+					conn.inputStream.with { inp ->
+						out << inp
+					}
+				}
+			}
+		}
+	}
+}

@@ -2,6 +2,7 @@ apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
 apply from: 'consts.gradle'
 apply from: 'decoders.gradle'
+apply from: 'download.gradle'
 
 dependencies {
 	compile rootProject.project("common")
@@ -14,6 +15,11 @@ sourceSets {
 	}
 }
 
+ext.download = [
+	latestTag: "master",
+	stableTag: "56205f2f6d9ff37e491d9bca27e57f9061f6d7d7",
+	rootDir  : "${project.buildDir}/download",
+]
 ext.callTypes = [
 	// cs
 	[proto: "TCS_SuplaRegisterClient", callType: "SUPLA_CS_CALL_REGISTER_CLIENT"],

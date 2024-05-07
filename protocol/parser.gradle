@@ -546,7 +546,7 @@ class ConstsParser implements Parser<List<Const>> {
 
 task parseProtoh {
 	doLast {
-		File protohFile = new File(project.file("src/proto"), "proto.h")
+		File protohFile = new File(download.rootDir.toString()).toPath().resolve("proto-${download.stableTag}.h").toFile()
 		if (!protohFile.exists()) {
 			throw new IOException("File ${protohFile.absolutePath} does not exists!")
 		}
