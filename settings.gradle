@@ -1,6 +1,5 @@
 include 'protocol'
 include 'server'
-include 'nettyServer'
 
 // test projects
 include 'nettyTest'

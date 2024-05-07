@@ -3,35 +3,21 @@ package pl.grzeslowski.jsupla.nettytest;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
-import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
-import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
-import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
-import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
-import pl.grzeslowski.jsupla.server.netty.api.NettyServerFactory;
 
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
-import static pl.grzeslowski.jsupla.server.netty.api.NettyServerFactory.PORT;
-import static pl.grzeslowski.jsupla.server.netty.api.NettyServerFactory.SSL_CTX;
-import static reactor.core.publisher.Flux.just;
+import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
+import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -73,32 +59,33 @@ public class Server {
     private void newMessage(ToServerProto toServerEntity, Channel channel) {
         FromServerProto result;
 
-        if (toServerEntity instanceof RegisterDeviceTrait) {
-            val register = (RegisterDeviceTrait) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
-        } else if (toServerEntity instanceof SuplaSetActivityTimeout) {
-            val setTimout = (SuplaSetActivityTimeout) toServerEntity;
-            result = new SuplaSetActivityTimeoutResult(setTimout.activityTimeout, (short) (setTimout.activityTimeout - 2), (short) (setTimout.activityTimeout + 2));
-        } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
-            result = null;
-        } else if (toServerEntity instanceof SuplaPingServer) {
-            val ping = (SuplaPingServer) toServerEntity;
-            result = new SuplaPingServerResultClient(ping.timeval);
-        } else {
-            throw new RuntimeException("Unsupported message " + toServerEntity);
-        }
+//        if (toServerEntity instanceof RegisterDeviceTrait) {
+//            val register = (RegisterDeviceTrait) toServerEntity;
+//            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+//        } else if (toServerEntity instanceof SuplaSetActivityTimeout) {
+//            val setTimout = (SuplaSetActivityTimeout) toServerEntity;
+//            result = new SuplaSetActivityTimeoutResult(setTimout.activityTimeout, (short) (setTimout.activityTimeout - 2), (short) (setTimout.activityTimeout + 2));
+//        } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
+//            result = null;
+//        } else if (toServerEntity instanceof SuplaPingServer) {
+//            val ping = (SuplaPingServer) toServerEntity;
+//            result = new SuplaPingServerResultClient(ping.timeval);
+//        } else {
+//            throw new RuntimeException("Unsupported message " + toServerEntity);
+//        }
 
-        logger.info("Got {}, Sending {}", toServerEntity, result);
-        if (result != null) {
-            channel.write(just(result)).subscribe();
-        }
+//        logger.info("Got {}, Sending {}", toServerEntity, result);
+//        if (result != null) {
+//            channel.write(just(result)).subscribe();
+//        }
     }
 
     private ServerFactory buildServerFactory() {
-        return new NettyServerFactory(
-            new CallTypeParserImpl(),
-            DecoderFactoryImpl.INSTANCE,
-            EncoderFactoryImpl.INSTANCE);
+//        return new NettyServerFactory(
+//            new CallTypeParserImpl(),
+//            DecoderFactoryImpl.INSTANCE,
+//            EncoderFactoryImpl.INSTANCE);
+        throw new UnsupportedOperationException("Server.buildServerFactory()");
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {
