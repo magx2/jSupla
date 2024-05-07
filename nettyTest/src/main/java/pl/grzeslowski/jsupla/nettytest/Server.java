@@ -6,6 +6,8 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
@@ -16,8 +18,6 @@ import pl.grzeslowski.jsupla.protocol.api.traits.RegisterDeviceTrait;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.protocol.impl.calltypes.CallTypeParserImpl;
-import pl.grzeslowski.jsupla.protocol.impl.decoders.DecoderFactoryImpl;
-import pl.grzeslowski.jsupla.protocol.impl.encoders.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
@@ -97,8 +97,8 @@ public class Server {
     private ServerFactory buildServerFactory() {
         return new NettyServerFactory(
             new CallTypeParserImpl(),
-            DecoderFactoryImpl.INSTANCE,
-            EncoderFactoryImpl.INSTANCE);
+            DecoderFactory.INSTANCE,
+            EncoderFactory.INSTANCE);
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {
