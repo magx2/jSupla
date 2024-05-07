@@ -21,6 +21,7 @@ public class SuplaChannelNewValueRandomizer implements Randomizer<SuplaChannelNe
             randomSupla.nextPositiveInt(),
             randomSupla.nextUnsignedByte(),
             randomSupla.nextUnsignedInt(),
+            randomSupla.nextUnsignedInt(),
             value
         );
     }

@@ -14,7 +14,7 @@ public class PrimitiveDecoderImplTestForByte {
         final byte[] bytes = new byte[BYTE_SIZE - 1];
 
         // when
-        PrimitiveDecoderImpl.INSTANCE.parseByte(bytes, 0);
+        PrimitiveDecoder.INSTANCE.parseByte(bytes, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,6 +25,6 @@ public class PrimitiveDecoderImplTestForByte {
         final byte[] bytes = new byte[BYTE_SIZE - 1 + offset];
 
         // when
-        PrimitiveDecoderImpl.INSTANCE.parseByte(bytes, offset);
+        PrimitiveDecoder.INSTANCE.parseByte(bytes, offset);
     }
 }

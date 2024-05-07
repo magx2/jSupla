@@ -11,11 +11,10 @@ import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.*;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrl;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaFirmwareUpdateUrlResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.FirmwareUpdateUrlResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
-import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResultClient;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaDataPacketRandomizer;
@@ -29,7 +28,6 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.FirmwareUpdateUrlRan
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.FirmwareUpdateUrlResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sd.SuplaRegisterDeviceResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaGetVersionResultRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaPingServerResultClientRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaSetActivityTimeoutResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRandomizer;
 
@@ -42,6 +40,7 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.min;
 
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
+    private static final long serialVersionUID = 1L;
     @SuppressWarnings("FieldCanBeLocal")
     private final Logger logger = LoggerFactory.getLogger(RandomSupla.class);
     private final EnhancedRandom random;
@@ -62,7 +61,7 @@ public class RandomSupla extends EnhancedRandom {
             .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
             .randomize(SuplaSetActivityTimeout.class, new SuplaSetActivityTimeoutRandomizer(this))
             // decoders
-            .randomize(SuplaFirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
+            .randomize(FirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
             .randomize(SuplaChannelNewValueResult.class, new SuplaChannelNewValueResultRandomizer(this))
             .randomize(SuplaDeviceChannelB.class, new SuplaDeviceChannelBRandomizer(this))
             .randomize(SuplaDeviceChannel.class, new SuplaDeviceChannelRandomizer(this))
@@ -87,8 +86,8 @@ public class RandomSupla extends EnhancedRandom {
             .randomize(SuplaChannelGroup.class, new SuplaChannelGroupRandomizer(this))
             .randomize(SuplaChannelPackB.class, new SuplaChannelPackBRandomizer(this))
             // sd
-            .randomize(SuplaFirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
-            .randomize(SuplaFirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))
+            .randomize(FirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
+            .randomize(FirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))
             // @formatter:off
                      .randomize(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class,
                              new pl.grzeslowski.jsupla.protocol.common.randomizers.sd
@@ -97,7 +96,7 @@ public class RandomSupla extends EnhancedRandom {
             .randomize(SuplaRegisterDeviceResult.class, new SuplaRegisterDeviceResultRandomizer(this))
             // sdc
             .randomize(SuplaGetVersionResult.class, new SuplaGetVersionResultRandomizer(this))
-            .randomize(SuplaPingServerResultClient.class, new SuplaPingServerResultClientRandomizer(this))
+//            .randomize(SuplaPingServerResultClient.class, new SuplaPingServerResultClientRandomizer(this))
             .randomize(SuplaSetActivityTimeoutResult.class,
                 new SuplaSetActivityTimeoutResultRandomizer(this))
             .randomize(SuplaVersionError.class, new SuplaVersionErrorRandomizer(this))

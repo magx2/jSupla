@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 import org.junit.Test;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;
 
 @SuppressWarnings({"PointlessArithmeticExpression", "ResultOfMethodCallIgnored"})
 public class PrimitiveDecoderImplTestForByte {

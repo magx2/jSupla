@@ -9,7 +9,7 @@ import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 public class PrimitiveIntEncoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
-    private PrimitiveEncoderImpl primitiveEncoder = PrimitiveEncoderImpl.INSTANCE;
+    private final PrimitiveEncoder primitiveEncoder = PrimitiveEncoder.INSTANCE;
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenArrayIsToSmall() {

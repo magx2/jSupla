@@ -22,6 +22,7 @@ public class SuplaRegisterClientResultBRandomizer implements Randomizer<SuplaReg
             randomSupla.nextInt(),
             randomSupla.nextUnsignedByte(),
             version,
+            randomSupla.nextUnsignedByte(version),
             randomSupla.nextUnsignedByte(version)
         );
     }

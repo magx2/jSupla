@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -10,7 +9,8 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.impl.encoders.PrimitiveEncoderImpl.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoderTestUtil.removeOffset;
 
 @RunWith(Parameterized.class)
 public class PrimitiveDecoderImplParametrizedTestForUnsignedByte {
@@ -47,6 +47,6 @@ public class PrimitiveDecoderImplParametrizedTestForUnsignedByte {
 
         // then
         assertThat(wroteBytes).isEqualTo(BYTE_SIZE);
-        Assertions.assertThat(PrimitiveEncoderImplTestUtil.removeOffset(bytes, offset)).isEqualTo(PrimitiveEncoderImplTestUtil.removeOffset(intBytes, offset));
+        assertThat(removeOffset(bytes, offset)).isEqualTo(removeOffset(intBytes, offset));
     }
 }
