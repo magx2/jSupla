@@ -2,8 +2,8 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
-import static pl.grzeslowski.jsupla.Preconditions.positiveOrZero;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.positiveOrZero;
 
 public final class SuplaTimeval implements ProtoWithSize {
     public static final int SIZE = INT_SIZE * 2;

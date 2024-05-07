@@ -1,4 +1,3 @@
-include 'common'
 include 'protocol'
 include 'server'
 include 'nettyServer'

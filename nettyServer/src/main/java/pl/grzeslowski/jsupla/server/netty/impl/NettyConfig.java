@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server.netty.impl;
 
 import io.netty.handler.ssl.SslContext;
-import pl.grzeslowski.jsupla.Preconditions;
+import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 
 @SuppressWarnings("WeakerAccess")
 public class NettyConfig {

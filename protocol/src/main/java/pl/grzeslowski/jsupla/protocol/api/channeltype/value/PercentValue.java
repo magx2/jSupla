@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import lombok.Value;
 
-import static pl.grzeslowski.jsupla.Preconditions.size;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.size;
 
 @Value
 public class PercentValue implements ChannelValue {

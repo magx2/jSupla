@@ -13,7 +13,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		path += "/" + prefix.toLowerCase().substring(1)
 	}
 	def imports = new TreeSet<>([
-		"import static pl.grzeslowski.jsupla.Preconditions.*",
+		"import static pl.grzeslowski.jsupla.protocol.api.Preconditions.*",
 		"import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*",
 		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
 		"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize",

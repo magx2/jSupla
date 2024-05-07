@@ -8,8 +8,8 @@ import java.util.Arrays;
 
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
-import static pl.grzeslowski.jsupla.Preconditions.sizeMin;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.sizeMin;
 
 public class PrimitiveDecoder {
     public static final PrimitiveDecoder INSTANCE = new PrimitiveDecoder();

@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla;
+package pl.grzeslowski.jsupla.protocol.api;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PreconditionsTestSizeMax {
+public class PreconditionsTestSizeMin {
     @Test
     public void shouldReturnCollectionWhenSizeIsInBounds() throws Exception {
 
@@ -15,7 +15,7 @@ public class PreconditionsTestSizeMax {
         final Collection<String> expectedCollection = Arrays.asList("1", "2");
 
         // when
-        final Collection<String> collection = Preconditions.sizeMax(expectedCollection, 2);
+        final Collection<String> collection = Preconditions.sizeMin(expectedCollection, 1);
 
         // then
         assertThat(collection).isEqualTo(expectedCollection);
@@ -28,7 +28,7 @@ public class PreconditionsTestSizeMax {
         final String[] expectedArray = new String[]{"1", "2"};
 
         // when
-        final String[] array = Preconditions.sizeMax(expectedArray, 2);
+        final String[] array = Preconditions.sizeMin(expectedArray, 1);
 
         // then
         assertThat(array).isEqualTo(expectedArray);
@@ -41,7 +41,7 @@ public class PreconditionsTestSizeMax {
         final CharSequence expectedCharSequence = " ";
 
         // when
-        final CharSequence charSequence = Preconditions.sizeMax(expectedCharSequence, 2);
+        final CharSequence charSequence = Preconditions.sizeMin(expectedCharSequence, 1);
 
         // then
         assertThat(charSequence).isEqualTo(expectedCharSequence);
@@ -54,7 +54,7 @@ public class PreconditionsTestSizeMax {
         final byte[] expectedByteArray = new byte[]{1};
 
         // when
-        final byte[] bytes = Preconditions.sizeMax(expectedByteArray, 2);
+        final byte[] bytes = Preconditions.sizeMin(expectedByteArray, 1);
 
         // then
         assertThat(bytes).isEqualTo(expectedByteArray);
@@ -67,7 +67,7 @@ public class PreconditionsTestSizeMax {
         final byte[] expectedByteArray = new byte[]{1};
 
         // when
-        final byte[] bytes = Preconditions.sizeMax(expectedByteArray, 2L);
+        final byte[] bytes = Preconditions.sizeMin(expectedByteArray, 1L);
 
         // then
         assertThat(bytes).isEqualTo(expectedByteArray);
@@ -80,7 +80,7 @@ public class PreconditionsTestSizeMax {
         final Collection<String> expectedCollection = Arrays.asList("1", "2", "3");
 
         // when
-        Preconditions.sizeMax(expectedCollection, 2);
+        Preconditions.sizeMin(expectedCollection, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -90,7 +90,7 @@ public class PreconditionsTestSizeMax {
         final String[] expectedArray = new String[]{"1", "2", "3"};
 
         // when
-        Preconditions.sizeMax(expectedArray, 2);
+        Preconditions.sizeMin(expectedArray, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -100,7 +100,7 @@ public class PreconditionsTestSizeMax {
         final CharSequence expectedCharSequence = "123";
 
         // when
-        Preconditions.sizeMax(expectedCharSequence, 2);
+        Preconditions.sizeMin(expectedCharSequence, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -110,7 +110,7 @@ public class PreconditionsTestSizeMax {
         final byte[] expectedByteArray = new byte[]{1, 2, 3};
 
         // when
-        Preconditions.sizeMax(expectedByteArray, 2);
+        Preconditions.sizeMin(expectedByteArray, 5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -120,6 +120,6 @@ public class PreconditionsTestSizeMax {
         final byte[] expectedByteArray = new byte[]{1, 2, 3};
 
         // when
-        Preconditions.sizeMax(expectedByteArray, 2L);
+        Preconditions.sizeMin(expectedByteArray, 5L);
     }
 }

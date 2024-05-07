@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla;
+package pl.grzeslowski.jsupla.protocol.api;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Test;

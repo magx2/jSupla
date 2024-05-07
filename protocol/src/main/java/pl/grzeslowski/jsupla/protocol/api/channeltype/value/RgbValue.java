@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import lombok.Value;
 
-import static pl.grzeslowski.jsupla.Preconditions.unsignedByteSize;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsignedByteSize;
 
 @Value
 public class RgbValue implements ChannelValue {

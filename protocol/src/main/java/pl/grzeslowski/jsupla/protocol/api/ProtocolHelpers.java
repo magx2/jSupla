@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static pl.grzeslowski.jsupla.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.checkArrayLength;
 
 public interface ProtocolHelpers {
     static String parseString(byte[] bytes) {

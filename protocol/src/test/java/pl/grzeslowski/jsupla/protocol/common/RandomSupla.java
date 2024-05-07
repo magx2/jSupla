@@ -38,7 +38,7 @@ import java.util.stream.Stream;
 
 import static java.lang.System.arraycopy;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static pl.grzeslowski.jsupla.Preconditions.min;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.min;
 
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);

@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import lombok.val;
-import pl.grzeslowski.jsupla.Preconditions;
+import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;

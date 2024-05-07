@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import pl.grzeslowski.jsupla.Preconditions;
+import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 
