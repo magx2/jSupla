@@ -24,6 +24,8 @@ public interface ProtocolHelpers {
      * TODO can be optimized!!!.
      *
      * @see <a href="https://stackoverflow.com/a/4932112/1819402">https://stackoverflow.com/a/4932112/1819402</a>
+     * @param utfBytes utf bytes
+     * @return given value
      */
     static char[] parsePassword(final byte[] utfBytes) {
         final CharBuffer charBuffer = UTF_8.decode(ByteBuffer.wrap(utfBytes)); // also decode to String

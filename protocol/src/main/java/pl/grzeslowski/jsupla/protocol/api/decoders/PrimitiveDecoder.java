@@ -25,8 +25,10 @@ public class PrimitiveDecoder {
      * TODO can be optimized!!!.
      *
      * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
+     * @param bytes given bytes
+     * @param offset given offset
+     * @return uint
      */
-
     public long parseUnsignedInt(byte[] bytes, int offset) {
         sizeMin(bytes, INT_SIZE + offset);
         ByteBuffer bb = ByteBuffer.wrap(bytes, offset, INT_SIZE);
@@ -38,6 +40,9 @@ public class PrimitiveDecoder {
      * TODO can be optimized!!!.
      *
      * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
+     * @param bytes given bytes
+     * @param offset given offset
+     * @return ulong
      */
 
     public long parseUnsignedLong(byte[] bytes, int offset) {
@@ -55,20 +60,12 @@ public class PrimitiveDecoder {
         return byteBuffer.getShort();
     }
 
-    /**
-     * TODO can be optimized!!!.
-     */
-
     public int parseInt(byte[] bytes, int offset) {
         sizeMin(bytes, INT_SIZE + offset);
         final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
         byteBuffer.order(LITTLE_ENDIAN);
         return byteBuffer.getInt();
     }
-
-    /**
-     * TODO can be optimized!!!.
-     */
 
     public long parseLong(byte[] bytes, int offset) {
         sizeMin(bytes, LONG_SIZE + offset);

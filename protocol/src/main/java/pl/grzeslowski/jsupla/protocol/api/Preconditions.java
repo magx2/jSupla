@@ -337,6 +337,8 @@ public final class Preconditions {
 
     /**
      * same as unsignedByteSize
+     * @param unsignedByteValue value to check
+     * @return given value
      */
     public static short unsigned(short unsignedByteValue) {
         return size(unsignedByteValue, (short) 0, (short) 255);
@@ -344,6 +346,8 @@ public final class Preconditions {
 
     /**
      * same as unsignedShortSize
+     * @param unsignedByteValue value to check
+     * @return given value
      */
     public static int unsigned(int unsignedByteValue) {
         return size(unsignedByteValue, 0, 65_535);
@@ -351,6 +355,8 @@ public final class Preconditions {
 
     /**
      * same as unsignedIntSize
+     * @param value value to check
+     * @return given value
      */
     public static long unsignedIntSize(final long value) {
         return size(value, 0, 4294967295L);
