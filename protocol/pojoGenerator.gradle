@@ -84,12 +84,19 @@ static String buildJavaDoc(struct) {
 	def javaDoc = "/**\n"
 	if (struct.javaDoc) {
 		javaDoc += Arrays.stream(struct.javaDoc.toString().split("\n"))
+			.map {
+				it.replaceAll("&", "&amp;")
+					.replaceAll("<", "&#60;")
+					.replaceAll(">", "&#62;")
+					.replaceAll("@", "&#64;")
+			}
 			.map { " * $it" }
 			.collect(Collectors.joining("\n")) + "\n\n<p>\n\n"
 	}
 	if (struct.raw) {
 		javaDoc += "Original code:\n<pre>\n"
 		javaDoc += struct.raw.toString()
+			.replaceAll("&", "&amp;")
 			.replaceAll("<", "&#60;")
 			.replaceAll(">", "&#62;")
 			.replaceAll("@", "&#64;")
@@ -238,6 +245,10 @@ static String buildSimpleProperty(field) {
 		comment += "/**\n"
 		if (field.javaDoc) {
 			comment += "\t * ${field.javaDoc}\n"
+				.replaceAll("&", "&amp;")
+				.replaceAll("<", "&#60;")
+				.replaceAll(">", "&#62;")
+				.replaceAll("@", "&#64;")
 		}
 		if (field.unsigned) {
 			if (field.javaDoc) {

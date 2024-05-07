@@ -101,6 +101,10 @@ task resultCodeGenerator {
 				def javaDoc = ""
 				if (it.javaDoc) {
 					javaDoc = "/** ${it.javaDoc} */\n\t"
+						.replaceAll("&", "&amp;")
+						.replaceAll("&", "&amp;")
+						.replaceAll("<", "&#60;")
+						.replaceAll(">", "&#62;")
 				}
 				"$javaDoc${it.name}(${it.value})"
 			}
@@ -140,6 +144,10 @@ task channelTypeGenerator {
 				def javaDoc = ""
 				if (it.javaDoc) {
 					javaDoc = "/** ${it.javaDoc} */\n\t"
+						.replaceAll("&", "&amp;")
+						.replaceAll("<", "&#60;")
+						.replaceAll(">", "&#62;")
+						.replaceAll("@", "&#64;")
 				}
 				"$javaDoc${it.name}(${it.value})"
 			}
@@ -214,6 +222,10 @@ static void buildCallType(String callTypeName, String callTypePrefix, Path callT
 			def javaDoc = ""
 			if (it.javaDoc) {
 				javaDoc = "/** ${it.javaDoc} */\n\t"
+					.replaceAll("&", "&amp;")
+					.replaceAll("<", "&#60;")
+					.replaceAll(">", "&#62;")
+					.replaceAll("@", "&#64;")
 			}
 			"$javaDoc${it.name}(${it.value})"
 		}
@@ -241,6 +253,10 @@ static String generateConst(constObj, List consts) {
 		def javaDoc = ""
 		if (value.get().javaDoc) {
 			javaDoc = "/** ${value.get().javaDoc} */\n\t"
+				.replaceAll("&", "&amp;")
+				.replaceAll("<", "&#60;")
+				.replaceAll(">", "&#62;")
+				.replaceAll("@", "&#64;")
 		}
 		def type = findType(value.get().value)
 		return "${javaDoc}public static final $type ${constObj.name} = ${value.get().name};"
@@ -249,6 +265,10 @@ static String generateConst(constObj, List consts) {
 	def javaDoc = ""
 	if (constObj.javaDoc) {
 		javaDoc = "/** ${constObj.javaDoc} */\n\t"
+			.replaceAll("&", "&amp;")
+			.replaceAll("<", "&#60;")
+			.replaceAll(">", "&#62;")
+			.replaceAll("@", "&#64;")
 	}
 	def type = findType(constObj.value)
 	return "${javaDoc}public static final $type ${constObj.name} = ${mapValue(constObj.value)};"
