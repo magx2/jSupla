@@ -7,7 +7,14 @@ import java.util.stream.Collectors
 import java.util.stream.Stream
 
 void generatePojo(struct, Path generatedSourceRoot) {
+	def javaName = struct.name
 	def path = "api/structs"
+	def sourcesPath = project.file("src/main/java/pl/grzeslowski/jsupla/protocol/").toPath().resolve(path).resolve(javaName + ".java")
+	if (Files.exists(sourcesPath)) {
+		logger.warn("Struct {} already exists, ignoring...", sourcesPath.toFile().path)
+		return
+	}
+
 	def prefix = struct.prefix
 	if (prefix != "T") {
 		path += "/" + prefix.toLowerCase().substring(1)
@@ -19,7 +26,6 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize",
 		"import pl.grzeslowski.jsupla.protocol.api.structs.*",
 	])
-	def javaName = struct.name
 	def javaDoc = buildJavaDoc(struct)
 	def constructorProperties = buildConstructorProperties(struct)
 	def constructorAssignments = buildConstructorAssignments(struct)
