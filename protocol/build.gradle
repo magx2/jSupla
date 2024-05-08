@@ -54,7 +54,6 @@ ext.callTypes = [
 	// dcs
 	[proto: "", callType: "SUPLA_DCS_CALL_GETVERSION"],
 	[proto: "TDCS_SuplaPingServer", callType: "SUPLA_DCS_CALL_PING_SERVER"],
-	[proto: "TDCS_SuplaPingServer_COMPAT", callType: "SUPLA_DCS_CALL_PING_SERVER"],
 	[proto: "TDCS_SuplaSetActivityTimeout", callType: "SUPLA_DCS_CALL_SET_ACTIVITY_TIMEOUT"],
 	[proto: "", callType: "SUPLA_DCS_CALL_GET_REGISTRATION_ENABLED"],
 	[proto: "", callType: "SUPLA_DCS_CALL_GET_USER_LOCALTIME"],
