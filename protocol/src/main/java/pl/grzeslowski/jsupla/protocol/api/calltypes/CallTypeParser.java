@@ -9,15 +9,19 @@ import java.util.stream.Stream;
 
 @Slf4j
 public class CallTypeParser {
+    public static final CallTypeParser INSTANCE = new CallTypeParser();
     private final List<CallType> callTypes;
 
-    public CallTypeParser() {
+    private CallTypeParser() {
         callTypes = Stream.of(ServerDeviceClientCallType.values(),
                 ServerDeviceCallType.values(),
                 ServerClientCallType.values(),
                 DeviceServerCallType.values(),
                 DeviceClientServerCallType.values(),
-                ClientServerCallType.values())
+                ClientServerCallType.values(),
+                ServerClientDeviceCallType.values(),
+                ClientServerDeviceCallType.values(),
+                DeviceServerClientCallType.values())
             .flatMap(Stream::of)
             .map(v -> (CallType) v)
             .collect(Collectors.toList());
