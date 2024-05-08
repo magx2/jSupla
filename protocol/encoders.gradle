@@ -28,6 +28,51 @@ task encodersGenerator {
 encodersGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "encodersGenerator"
 
+task encoderFactoryGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def structs = (jsonSlurper.parse(jsonFile) as List)
+
+		def imports = [
+			"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;"
+		].stream().collect(joining("\n"))
+		def findEncoder = structs.stream()
+			.sorted { a, b -> a.rawName.compareTo(b.rawName) }
+			.map { findEncoder(it) }
+			.collect(joining("\n"))
+
+		def content = """\
+			|package pl.grzeslowski.jsupla.protocol.api.encoders;
+			|
+			|$imports
+			|
+			|public class EncoderFactoryImpl implements EncoderFactory {
+    		|	public static final EncoderFactoryImpl INSTANCE = new EncoderFactoryImpl();
+			|
+			|	@SuppressWarnings("unchecked")
+    		|	@Override
+    		|	public <T extends ProtoWithSize> Encoder<T> getEncoder(final Class<T> proto) {
+			|$findEncoder
+			|
+			|		throw new IllegalArgumentException("Can't find encoder for class " + proto);
+			|	}
+			|}
+			|""".stripMargin()
+
+		def encoderFactoryImpl = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/encoders/EncoderFactoryImpl.java").toPath()
+		Files.createDirectories(encoderFactoryImpl.parent)
+
+		encoderFactoryImpl.write(content)
+	}
+}
+encoderFactoryGenerator.dependsOn "encodersGenerator"
+compileJava.dependsOn "encoderFactoryGenerator"
+
 void generateEncoder(struct, Path generatedSourceRoot) {
 	def path = "api/encoders"
 	def javaName = struct.name + "Encoder"
@@ -174,4 +219,14 @@ static String findEncoderImportForType(rawPrefix) {
 	}
 	def prefix = rawPrefix.substring(1).toLowerCase()
 	return "pl.grzeslowski.jsupla.protocol.api.encoders.${prefix}."
+}
+
+static String findEncoder(struct) {
+	def encoderImport = findEncoderImportForType(struct.prefix)
+	def protoClass = encoderImport.replaceAll(".encoders.", ".structs.") + struct.name
+	def encoderClass = encoderImport + struct.name + "Encoder"
+	return """\
+		|		if (${protoClass}.class.isAssignableFrom(proto)) {
+        |    		return (Encoder<T>) ${encoderClass}.INSTANCE; 
+        |		}""".stripMargin()
 }
