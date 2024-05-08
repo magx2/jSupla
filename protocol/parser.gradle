@@ -1,4 +1,5 @@
 import groovy.json.JsonBuilder
+import groovy.transform.MapConstructor
 import groovy.transform.ToString
 
 import java.nio.file.Files
@@ -26,6 +27,7 @@ interface Field {
 	boolean hasJavaDoc();
 }
 
+@MapConstructor
 @ToString(includeNames = true, ignoreNulls = true)
 class SimpleField implements Field {
 	String name
@@ -54,6 +56,7 @@ class UnionField implements Field {
 	}
 }
 
+@MapConstructor
 @ToString(includeNames = true, ignoreNulls = true, excludes = ["raw"])
 class Struct {
 	String name
@@ -584,7 +587,58 @@ task parseProtoh {
 		def rootDir = project.file("build/parser").toPath()
 		Files.createDirectories(rootDir)
 
-		def structsJson = new JsonBuilder(structsParser.output()).toPrettyString()
+		def structs = structsParser.output()
+		structs.add(new Struct([
+			name   : "TimevalCompat",
+			rawName: "timeval_compat",
+			prefix : "T",
+			fields : [
+				new SimpleField([
+					name     : "tvSec",
+					type     : "int",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+				]),
+				new SimpleField([
+					name     : "tvUsec",
+					type     : "int",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+				]),
+			],
+			raw    : """\
+				|struct timeval_compat {
+				|  _supla_int_t tv_sec;
+				|  _supla_int_t tv_usec;
+				|};""".stripMargin(),
+			javaDoc: "MANUALLY ADDED! Compatibility with ESP8266",
+		]))
+		structs.add(new Struct([
+			name   : "SuplaTimeval",
+			rawName: "_supla_timeval",
+			prefix : "T",
+			fields : [
+				new SimpleField([
+					name     : "tvSec",
+					type     : "_supla_int64_t",
+					rawType  : "_supla_int64_t",
+					rawPrefix: "T",
+				]),
+				new SimpleField([
+					name     : "tvUsec",
+					type     : "_supla_int64_t",
+					rawType  : "_supla_int64_t",
+					rawPrefix: "T",
+				]),
+			],
+			raw    : """\
+				|struct _supla_timeval {
+				|  long long tv_sec;
+				|  long long tv_usec;
+				|};""".stripMargin(),
+			javaDoc: "MANUALLY ADDED!",
+		]))
+		def structsJson = new JsonBuilder(structs).toPrettyString()
 		def structsOutputFile = rootDir.resolve("proto.h.json")
 		structsOutputFile.write(structsJson)
 
