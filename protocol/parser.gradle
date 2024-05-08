@@ -775,6 +775,7 @@ class Names {
 	static String camelCase(String name) {
 		name = name.replaceAll("GUID", "Guid")
 		name = name.replaceAll("ID", "Id")
+		name = name.replaceAll("PWD", "Pwd")
 		name = name[0].toLowerCase() + name.substring(1)
 		// remove underscores
 		def newName = ""
