@@ -78,7 +78,7 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 		|public class ${javaName} implements ${implementClass}<${structName}> {
 		|	public static final ${javaName} INSTANCE = new ${javaName}();
 		|
-		|    @Override
+		|   @Override
     	|	public byte[] encode($structName proto) {
 		|$parse
 		|		
@@ -93,20 +93,25 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 
 static String findImplementClass(struct) {
 	def prefix = struct.prefix
-	if (prefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.cs.ClientServerEncoder"
-	} else if (prefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.dcs.DeviceClientServerEncoder"
-	} else if (prefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.ds.DeviceServerEncoder"
-	} else if (prefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sc.ServerClientEncoder"
-	} else if (prefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sd.ServerDeviceEncoder"
-	} else if (prefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sdc.ServerDeviceClientEncoder"
+	if (prefix == "T") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.ProtoWithSizeEncoder"
 	}
-	return "pl.grzeslowski.jsupla.protocol.api.encoders.ProtoWithSizeEncoder"
+	prefix = prefix.toString().substring(1).toLowerCase()
+
+	def implementClass = "pl.grzeslowski.jsupla.protocol.api.encoders.${prefix}."
+	for (def letter : prefix) {
+		def s
+		if (letter == "c") {
+			implementClass += "Client"
+		} else if (letter == "s") {
+			implementClass += "Server"
+		} else if (letter == "d") {
+			implementClass += "Device"
+		} else {
+			throw new IllegalArgumentException("Unknown letter [$letter] !")
+		}
+	}
+	return implementClass + "Encoder"
 }
 
 static String parseField(field) {
@@ -117,7 +122,7 @@ static String parseField(field) {
 			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}, bytes, offset);"
 		} else {
 			return """\
-				|byte[] ${field.name}Bytes = ${findDecoderImportForType(field)}${field.type}Encoder.INSTANCE.encode(proto.${field.name});
+				|byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(proto.${field.name});
 				|		offset += ${field.name}Bytes.length;\
 			""".stripMargin()
 		}
@@ -129,7 +134,7 @@ static String parseField(field) {
 		} else {
 			return """\
 				|for (val element : proto.${field.name}) {
-				|			byte[] ${field.name}Bytes = ${findDecoderImportForType(field)}${field.type}Encoder.INSTANCE.encode(element);
+				|			byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element);
 				|			offset += ${field.name}Bytes.length;
 				|		}\
 				""".stripMargin()
@@ -163,24 +168,10 @@ static boolean isPrimitiveType(type) {
 		|| type == "long")
 }
 
-static String findDecoderImportForType(field) {
-	if (field.rawPrefix == "T") {
+static String findEncoderImportForType(rawPrefix) {
+	if (rawPrefix == "T") {
 		return "pl.grzeslowski.jsupla.protocol.api.encoders."
-	} else if (field.rawPrefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.cs."
-	} else if (field.rawPrefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.dcs."
-	} else if (field.rawPrefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.ds."
-	} else if (field.rawPrefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sc."
-	} else if (field.rawPrefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sd."
-	} else if (field.rawPrefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.sdc."
-	} else if (field.rawPrefix == "TSCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.encoders.scs."
-	} else {
-		throw new IllegalArgumentException("Unknown raw prefix: " + field.rawPrefix + "\n" + field)
 	}
+	def prefix = rawPrefix.substring(1).toLowerCase()
+	return "pl.grzeslowski.jsupla.protocol.api.encoders.${prefix}."
 }

@@ -204,23 +204,10 @@ static String mapSuplaTypeToJava(field) {
 static String findImportClass(field) {
 	if (field.rawPrefix == "T") {
 		return "pl.grzeslowski.jsupla.protocol.api.structs."
-	} else if (field.rawPrefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.cs."
-	} else if (field.rawPrefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.dcs."
-	} else if (field.rawPrefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.ds."
-	} else if (field.rawPrefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sc."
-	} else if (field.rawPrefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sd."
-	} else if (field.rawPrefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sdc."
-	} else if (field.rawPrefix == "TSCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.scs."
-	} else {
-		throw new IllegalArgumentException("Unknown raw prefix: " + field.rawPrefix)
 	}
+
+	def prefix = field.rawPrefix.toString().substring(1).toLowerCase()
+	return "pl.grzeslowski.jsupla.protocol.api.structs.${prefix}."
 }
 
 static String buildProperties(struct) {
@@ -263,20 +250,25 @@ static String buildSimpleProperty(field) {
 
 static String findImplementClass(struct) {
 	def prefix = struct.prefix
-	if (prefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.cs.ClientServer"
-	} else if (prefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.dcs.DeviceClientServer"
-	} else if (prefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer"
-	} else if (prefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sc.ServerClient"
-	} else if (prefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice"
-	} else if (prefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sdc.ServerDeviceClient"
+	if (prefix == "T") {
+		return "pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize"
 	}
-	return "pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize"
+	prefix = prefix.toString().substring(1).toLowerCase()
+
+	def implementClass = "pl.grzeslowski.jsupla.protocol.api.structs.${prefix}."
+	for (def letter : prefix) {
+		def s
+		if (letter == "c") {
+			implementClass += "Client"
+		} else if (letter == "s") {
+			implementClass += "Server"
+		} else if (letter == "d") {
+			implementClass += "Device"
+		} else {
+			throw new IllegalArgumentException("Unknown letter [$letter] !")
+		}
+	}
+	return implementClass
 }
 
 @SuppressWarnings('GrMethodMayBeStatic')

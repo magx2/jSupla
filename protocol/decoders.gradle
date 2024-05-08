@@ -89,20 +89,25 @@ void generateDecoder(struct, Path generatedSourceRoot) {
 
 static String findImplementClass(struct) {
 	def prefix = struct.prefix
-	if (prefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.cs.ClientServerDecoder"
-	} else if (prefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.dcs.DeviceClientServerDecoder"
-	} else if (prefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.ds.DeviceServerDecoder"
-	} else if (prefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sc.ServerClientDecoder"
-	} else if (prefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sd.ServerDeviceDecoder"
-	} else if (prefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sdc.ServerDeviceClientDecoder"
+	if (prefix == "T") {
+		return "pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder"
 	}
-	return "pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder"
+	prefix = prefix.toString().substring(1).toLowerCase()
+
+	def implementClass = "pl.grzeslowski.jsupla.protocol.api.decoders.${prefix}."
+	for (def letter : prefix) {
+		def s
+		if (letter == "c") {
+			implementClass += "Client"
+		} else if (letter == "s") {
+			implementClass += "Server"
+		} else if (letter == "d") {
+			implementClass += "Device"
+		} else {
+			throw new IllegalArgumentException("Unknown letter [$letter] !")
+		}
+	}
+	return implementClass + "Decoder"
 }
 
 static String buildParse(field) {
@@ -118,7 +123,7 @@ static String parseField(field) {
 			def type = mapSuplaTypeToJava(field.type).capitalize()
 			return "PrimitiveDecoder.INSTANCE.parse${sign}${type}(bytes, offset);"
 		} else {
-			return "${findDecoderImportForType(field)}${field.type}Decoder.INSTANCE.decode(bytes, offset);"
+			return "${findDecoderImportForType(field.rawPrefix)}${field.type}Decoder.INSTANCE.decode(bytes, offset);"
 		}
 	} else {
 		if (isPrimitiveType(field.type)) {
@@ -129,7 +134,7 @@ static String parseField(field) {
 			return """\
 				|new ${findStructImportForType(field)}${field.type}[${field.arraySize}];
 				|		for (int i = 0; i < ${field.arraySize}; i++) {
-				|			${field.name}[i] = ${findDecoderImportForType(field)}${field.type}Decoder.INSTANCE.decode(bytes, offset);
+				|			${field.name}[i] = ${findDecoderImportForType(field.rawPrefix)}${field.type}Decoder.INSTANCE.decode(bytes, offset);
 				|			offset += ${field.name}[i].size();
 				|		}\
 				""".stripMargin()
@@ -202,45 +207,18 @@ static boolean isPrimitiveType(type) {
 }
 
 static String findStructImportForType(field) {
-	if (field.rawPrefix == "T") {
+	def prefix = field.rawPrefix
+	if (prefix == "T") {
 		return "pl.grzeslowski.jsupla.protocol.api.structs."
-	} else if (field.rawPrefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.cs."
-	} else if (field.rawPrefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.dcs."
-	} else if (field.rawPrefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.ds."
-	} else if (field.rawPrefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sc."
-	} else if (field.rawPrefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sd."
-	} else if (field.rawPrefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.sdc."
-	} else if (field.rawPrefix == "TSCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.structs.scs."
-	} else {
-		throw new IllegalArgumentException("Unknown raw prefix: " + field.rawPrefix)
 	}
+	prefix = prefix.toString().substring(1).toLowerCase()
+	return "pl.grzeslowski.jsupla.protocol.api.structs.${prefix}."
 }
 
-static String findDecoderImportForType(field) {
-	if (field.rawPrefix == "T") {
+static String findDecoderImportForType(rawPrefix) {
+	if (rawPrefix == "T") {
 		return "pl.grzeslowski.jsupla.protocol.api.decoders."
-	} else if (field.rawPrefix == "TCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.cs."
-	} else if (field.rawPrefix == "TDCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.dcs."
-	} else if (field.rawPrefix == "TDS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.ds."
-	} else if (field.rawPrefix == "TSC") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sc."
-	} else if (field.rawPrefix == "TSD") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sd."
-	} else if (field.rawPrefix == "TSDC") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.sdc."
-	} else if (field.rawPrefix == "TSCS") {
-		return "pl.grzeslowski.jsupla.protocol.api.decoders.scs."
-	} else {
-		throw new IllegalArgumentException("Unknown raw prefix: " + field.rawPrefix + "\n" + field)
 	}
+	def prefix = rawPrefix.substring(1).toLowerCase()
+	return "pl.grzeslowski.jsupla.protocol.api.decoders.${prefix}."
 }
