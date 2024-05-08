@@ -7,6 +7,12 @@ public class SuplaTimevalEncoder implements Encoder<SuplaTimeval> {
 
     @Override
     public byte[] encode(SuplaTimeval proto) {
-        throw new UnsupportedOperationException("SuplaTimevalEncoder.encode(proto)");
+        final byte[] bytes = new byte[proto.size()];
+        int offset = 0;
+
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.seconds, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.milliseconds, bytes, offset);
+
+        return bytes;
     }
 }

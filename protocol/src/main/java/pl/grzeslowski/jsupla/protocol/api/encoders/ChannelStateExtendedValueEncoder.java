@@ -7,6 +7,6 @@ public class ChannelStateExtendedValueEncoder implements Encoder<ChannelStateExt
 
     @Override
     public byte[] encode(ChannelStateExtendedValue proto) {
-        throw new UnsupportedOperationException("ChannelStateExtendedValueEncoder.encode(proto)");
+        throw new java.lang.UnsupportedOperationException("Do not support encoding structs with unions!");
     }
 }
