@@ -7,6 +7,12 @@ public class TimevalCompatEncoder implements Encoder<TimevalCompat> {
 
     @Override
     public byte[] encode(TimevalCompat proto) {
-        throw new UnsupportedOperationException("TimevalCompatEncoder.encode(proto)");
+        final byte[] bytes = new byte[proto.size()];
+        int offset = 0;
+
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.seconds, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.milliseconds, bytes, offset);
+
+        return bytes;
     }
 }
