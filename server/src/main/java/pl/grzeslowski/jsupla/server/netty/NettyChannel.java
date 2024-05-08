@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 @Slf4j
 public final class NettyChannel implements Channel {
@@ -95,7 +94,6 @@ public final class NettyChannel implements Channel {
         final Encoder<ProtoToSend> encoder = encoderFactory.getEncoder(proto);
         byte[] encode = encoder.encode(proto);
         return new SuplaDataPacket(
-            SUPLA_TAG,
             (short) 5,
             msgId.getAndIncrement(),
             proto.callType().getValue(),

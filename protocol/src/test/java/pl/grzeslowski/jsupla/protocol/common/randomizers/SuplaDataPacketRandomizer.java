@@ -5,7 +5,6 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 public class SuplaDataPacketRandomizer implements Randomizer<SuplaDataPacket> {
     private final RandomSupla randomSupla;
@@ -18,7 +17,6 @@ public class SuplaDataPacketRandomizer implements Randomizer<SuplaDataPacket> {
     public SuplaDataPacket getRandomValue() {
         final int dataSize = randomSupla.nextPositiveInt(SUPLA_MAX_DATA_SIZE);
         return new SuplaDataPacket(
-            SUPLA_TAG,
             randomSupla.nextUnsignedByte(),
             randomSupla.nextUnsignedInt(),
             randomSupla.nextLong(100),

@@ -54,6 +54,6 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         byte[] data = new byte[Math.toIntExact(dataSize)];
         in.readBytes(data);
 
-        return new SuplaDataPacket(SUPLA_TAG, version, rrId, callType, dataSize, data);
+        return new SuplaDataPacket(version, rrId, callType, dataSize, data);
     }
 }
