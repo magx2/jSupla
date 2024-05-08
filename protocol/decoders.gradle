@@ -28,6 +28,76 @@ task decodersGenerator {
 decodersGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "decodersGenerator"
 
+task decoderFactoryGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def structs = (jsonSlurper.parse(jsonFile) as List)
+
+		def imports = [
+			"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;",
+			"import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithCallType;",
+			"import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ClientServerDeviceCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerClientCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientDeviceCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerClientServerCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.*;",
+			"import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceServerCallType.*;",
+
+		].stream().collect(joining("\n"))
+		def findDecoder = structs.stream()
+			.sorted { a, b -> a.rawName.compareTo(b.rawName) }
+			.map { findDecoder(it) }
+			.collect(joining("\n"))
+		def findDecoderForCallType = structs.stream()
+			.sorted { a, b -> a.rawName.compareTo(b.rawName) }
+			.map { findDecoderForCallType(it) }
+			.collect(joining("\n"))
+
+		def content = """\
+			|package pl.grzeslowski.jsupla.protocol.api.decoders;
+			|
+			|$imports
+			|
+			|public class DecoderFactoryImpl implements DecoderFactory {
+    		|	public static final DecoderFactoryImpl INSTANCE = new DecoderFactoryImpl();
+			|
+			|	@SuppressWarnings("unchecked")
+    		|	@Override
+    		|	public <T extends ProtoWithSize> Decoder<T> getDecoder(final Class<T> proto) {
+			|$findDecoder
+			|
+			|		throw new IllegalArgumentException("Can't find decoder for class " + proto);
+			|	}
+			|
+			|	@SuppressWarnings("unchecked")
+			|   @Override
+    		|	public <T extends ProtoWithSize & ProtoWithCallType> Decoder<T> getDecoder(CallType callType) {
+    		|$findDecoderForCallType
+			|		throw new IllegalArgumentException("Can't find decoder for callType " + callType);
+    		|	}
+			|}
+			|""".stripMargin()
+
+		def decoderFactoryImpl = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/decoders/DecoderFactoryImpl.java").toPath()
+		Files.createDirectories(decoderFactoryImpl.parent)
+
+		decoderFactoryImpl.write(content)
+	}
+}
+decoderFactoryGenerator.dependsOn "decodersGenerator"
+compileJava.dependsOn "decoderFactoryGenerator"
+
 void generateDecoder(struct, Path generatedSourceRoot) {
 	def path = "api/decoders"
 	def javaName = struct.name + "Decoder"
@@ -132,7 +202,7 @@ static String parseField(field) {
 			return "PrimitiveDecoder.INSTANCE.copyOfRange${type}${sign}(bytes, offset, offset + (int) ${field.arraySize});"
 		} else {
 			return """\
-				|new ${findStructImportForType(field)}${field.type}[${field.arraySize}];
+				|new ${findStructImportForType(field.rawPrefix)}${field.type}[${field.arraySize}];
 				|		for (int i = 0; i < ${field.arraySize}; i++) {
 				|			${field.name}[i] = ${findDecoderImportForType(field.rawPrefix)}${field.type}Decoder.INSTANCE.decode(bytes, offset);
 				|			offset += ${field.name}[i].size();
@@ -206,8 +276,8 @@ static boolean isPrimitiveType(type) {
 		|| type == "long")
 }
 
-static String findStructImportForType(field) {
-	def prefix = field.rawPrefix
+static String findStructImportForType(rawPrefix) {
+	def prefix = rawPrefix
 	if (prefix == "T") {
 		return "pl.grzeslowski.jsupla.protocol.api.structs."
 	}
@@ -221,4 +291,32 @@ static String findDecoderImportForType(rawPrefix) {
 	}
 	def prefix = rawPrefix.substring(1).toLowerCase()
 	return "pl.grzeslowski.jsupla.protocol.api.decoders.${prefix}."
+}
+
+static String findDecoder(struct) {
+	def decoderImport = findDecoderImportForType(struct.prefix)
+	def protoClass = decoderImport.replaceAll(".decoders.", ".structs.") + struct.name
+	def decoderClass = decoderImport + struct.name + "Decoder"
+	return """\
+		|		if (${protoClass}.class.isAssignableFrom(proto)) {
+        |    		return (Decoder<T>) ${decoderClass}.INSTANCE; 
+        |		}""".stripMargin()
+}
+
+@SuppressWarnings('GrMethodMayBeStatic')
+String findDecoderForCallType(struct) {
+	return ext.callTypes
+		.stream()
+		.filter { it.proto == struct.rawName }
+		.map { it.callType }
+		.map {
+			"""\
+			|		if (callType == ${it}) {
+			|			return (Decoder<T>) getDecoder(${findStructImportForType(struct.prefix)}${struct.name}.class);
+			|		}""".stripMargin()
+		}
+		.findAny()
+		.orElseGet {
+			"\t\t// no call type for ${struct.rawName}"
+		}
 }
