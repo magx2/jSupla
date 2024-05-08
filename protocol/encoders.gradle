@@ -1,0 +1,186 @@
+import groovy.json.JsonSlurper
+
+import java.nio.file.Files
+import java.nio.file.Path
+import java.time.ZonedDateTime
+
+import static java.util.stream.Collectors.joining
+
+task encodersGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def structs = (jsonSlurper.parse(jsonFile) as List)
+
+		def generatedSourceRoot = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/").toPath()
+		Files.createDirectories(generatedSourceRoot)
+
+		structs
+			.stream()
+			.sorted { a, b -> a.rawName.compareTo(b.rawName) }
+			.forEach { generateEncoder(it, generatedSourceRoot) }
+	}
+}
+encodersGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "encodersGenerator"
+
+void generateEncoder(struct, Path generatedSourceRoot) {
+	def path = "api/encoders"
+	def javaName = struct.name + "Encoder"
+	def prefix = struct.prefix
+	if (prefix != "T") {
+		path += "/" + prefix.toLowerCase().substring(1)
+	}
+	def toWrite = generatedSourceRoot.resolve(path).resolve(javaName + ".java")
+	def sourcesPath = project.file("src/main/java/pl/grzeslowski/jsupla/protocol/").toPath().resolve(path).resolve(javaName + ".java")
+	if (Files.exists(sourcesPath)) {
+		logger.warn("Encoder {} already exists, ignoring...", sourcesPath.toFile().path)
+		return
+	}
+
+	def classPackage = "pl.grzeslowski.jsupla.protocol.${path.replaceAll("/", ".")}"
+	def imports = new TreeSet<>([
+		"import lombok.val",
+		"import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder",
+		"import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*",
+		"import " + classPackage.replaceAll("encoders", "structs") + "." + struct.name,
+		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
+	])
+	def implementClass = findImplementClass(struct)
+	def structName = struct.name
+	def hasUnionFields = struct.fields.stream().filter { it.originalClassName == "UnionField" }.findAny().isPresent()
+	def parse
+	if (!hasUnionFields) {
+		String fields = struct.fields
+			.stream()
+			.map { field -> "\t\t${parseField(field)}" }
+			.collect(joining("\n"))
+		parse = """\
+			|final byte[] bytes = new byte[proto.size()];
+        	|int offset = 0;
+        	|
+        	|$fields""".stripMargin()
+	} else {
+		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support encoding structs with unions!\");"
+	}
+
+	def content = """\
+		|package $classPackage;
+		|
+		|${String.join(";\n|", imports)};
+		|
+		|@javax.annotation.Generated(value="Struct original name: ${struct.rawName}", date = "${ZonedDateTime.now()}")
+		|@lombok.NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+		|public class ${javaName} implements ${implementClass}<${structName}> {
+		|	public static final ${javaName} INSTANCE = new ${javaName}();
+		|
+		|    @Override
+    	|	public byte[] encode($structName proto) {
+		|$parse
+		|		
+    	|	    ${hasUnionFields ? "//" : ""}return bytes;
+    	|	}
+		|}
+		|""".stripMargin()
+
+	Files.createDirectories(toWrite.parent)
+	toWrite.write(content)
+}
+
+static String findImplementClass(struct) {
+	def prefix = struct.prefix
+	if (prefix == "TCS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.cs.ClientServerEncoder"
+	} else if (prefix == "TDCS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.dcs.DeviceClientServerEncoder"
+	} else if (prefix == "TDS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.ds.DeviceServerEncoder"
+	} else if (prefix == "TSC") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sc.ServerClientEncoder"
+	} else if (prefix == "TSD") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sd.ServerDeviceEncoder"
+	} else if (prefix == "TSDC") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sdc.ServerDeviceClientEncoder"
+	}
+	return "pl.grzeslowski.jsupla.protocol.api.encoders.ProtoWithSizeEncoder"
+}
+
+static String parseField(field) {
+	if (!field.array) {
+		if (isPrimitiveType(field.type)) {
+			def sign = field.unsigned ? "Unsigned" : ""
+			def type = mapSuplaTypeToJava(field.type).capitalize()
+			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}, bytes, offset);"
+		} else {
+			return """\
+				|byte[] ${field.name}Bytes = ${findDecoderImportForType(field)}${field.type}Encoder.INSTANCE.encode(proto.${field.name});
+				|		offset += ${field.name}Bytes.length;\
+			""".stripMargin()
+		}
+	} else {
+		if (isPrimitiveType(field.type)) {
+			def sign = field.unsigned ? "Unsigned" : ""
+			def type = mapSuplaTypeToJava(field.type).capitalize()
+			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}Array(proto.${field.name}, bytes, offset);"
+		} else {
+			return """\
+				|for (val element : proto.${field.name}) {
+				|			byte[] ${field.name}Bytes = ${findDecoderImportForType(field)}${field.type}Encoder.INSTANCE.encode(element);
+				|			offset += ${field.name}Bytes.length;
+				|		}\
+				""".stripMargin()
+		}
+	}
+}
+
+static String mapSuplaTypeToJava(type) {
+	if (type == "_supla_int_t" || type == "int") {
+		return "int"
+	}
+	if (type == "char") {
+		return "byte"
+	}
+	if (type == "_supla_int16_t" || type == "short") {
+		return "short"
+	}
+	if (type == "_supla_int64_t" || type == "long") {
+		return "long"
+	}
+	return null
+}
+
+static boolean isPrimitiveType(type) {
+	return (type == "_supla_int_t"
+		|| type == "int"
+		|| type == "char"
+		|| type == "_supla_int16_t"
+		|| type == "short"
+		|| type == "_supla_int64_t"
+		|| type == "long")
+}
+
+static String findDecoderImportForType(field) {
+	if (field.rawPrefix == "T") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders."
+	} else if (field.rawPrefix == "TCS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.cs."
+	} else if (field.rawPrefix == "TDCS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.dcs."
+	} else if (field.rawPrefix == "TDS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.ds."
+	} else if (field.rawPrefix == "TSC") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sc."
+	} else if (field.rawPrefix == "TSD") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sd."
+	} else if (field.rawPrefix == "TSDC") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.sdc."
+	} else if (field.rawPrefix == "TSCS") {
+		return "pl.grzeslowski.jsupla.protocol.api.encoders.scs."
+	} else {
+		throw new IllegalArgumentException("Unknown raw prefix: " + field.rawPrefix + "\n" + field)
+	}
+}

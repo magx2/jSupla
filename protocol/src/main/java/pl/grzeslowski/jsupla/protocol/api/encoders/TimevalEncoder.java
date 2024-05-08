@@ -11,8 +11,8 @@ public class TimevalEncoder implements Encoder<SuplaTimeval> {
         final byte[] bytes = new byte[proto.size()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.INSTANCE.writeInteger(proto.seconds, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeInteger(proto.milliseconds, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.seconds, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.milliseconds, bytes, offset);
 
         return bytes;
     }

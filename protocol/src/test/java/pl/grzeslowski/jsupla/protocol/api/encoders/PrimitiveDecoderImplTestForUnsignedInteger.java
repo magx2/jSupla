@@ -15,7 +15,7 @@ public class PrimitiveDecoderImplTestForUnsignedInteger {
         final byte[] bytes = new byte[INT_SIZE - 1];
 
         // when
-        INSTANCE.writeUnsignedInteger(1, bytes, 0);
+        INSTANCE.writeUnsignedInt(1, bytes, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -26,6 +26,6 @@ public class PrimitiveDecoderImplTestForUnsignedInteger {
         final byte[] bytes = new byte[INT_SIZE - 1 + offset];
 
         // when
-        INSTANCE.writeUnsignedInteger(1, bytes, offset);
+        INSTANCE.writeUnsignedInt(1, bytes, offset);
     }
 }

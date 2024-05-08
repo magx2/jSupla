@@ -43,7 +43,7 @@ public class PrimitiveDecoderImplParametrizedTestForInteger {
 
         // when
         final byte[] bytes = new byte[INT_SIZE + offset];
-        final int writeInteger = INSTANCE.writeInteger(intValue, bytes, offset);
+        final int writeInteger = INSTANCE.writeInt(intValue, bytes, offset);
 
         // then
         assertThat(writeInteger).isEqualTo(INT_SIZE);

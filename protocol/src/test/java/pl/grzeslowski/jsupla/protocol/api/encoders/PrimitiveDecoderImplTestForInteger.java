@@ -15,7 +15,7 @@ public class PrimitiveDecoderImplTestForInteger {
         final byte[] bytes = new byte[INT_SIZE - 1];
 
         // when
-        INSTANCE.writeInteger(1, bytes, 0);
+        INSTANCE.writeInt(1, bytes, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -26,6 +26,6 @@ public class PrimitiveDecoderImplTestForInteger {
         final byte[] bytes = new byte[INT_SIZE - 1 + offset];
 
         // when
-        INSTANCE.writeInteger(1, bytes, offset);
+        INSTANCE.writeInt(1, bytes, offset);
     }
 }

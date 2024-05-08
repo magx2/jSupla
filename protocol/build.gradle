@@ -2,6 +2,7 @@ apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
 apply from: 'consts.gradle'
 apply from: 'decoders.gradle'
+apply from: 'encoders.gradle'
 apply from: 'download.gradle'
 
 dependencies {

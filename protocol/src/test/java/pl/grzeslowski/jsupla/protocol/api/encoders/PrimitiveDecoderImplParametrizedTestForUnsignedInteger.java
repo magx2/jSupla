@@ -44,7 +44,7 @@ public class PrimitiveDecoderImplParametrizedTestForUnsignedInteger {
 
         // when
         final byte[] bytes = new byte[INT_SIZE + offset];
-        final int writeUnsignedInteger = INSTANCE.writeUnsignedInteger(intValue, bytes, offset);
+        final int writeUnsignedInteger = INSTANCE.writeUnsignedInt(intValue, bytes, offset);
 
         // then
         assertThat(writeUnsignedInteger).isEqualTo(INT_SIZE);
