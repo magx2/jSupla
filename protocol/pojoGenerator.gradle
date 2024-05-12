@@ -165,42 +165,31 @@ static String buildConstructorAssignment(field) {
 
 static String mapSuplaTypeToJava(field) {
 	def array = field.array ? "[]" : ""
+	def lowerType = field.type.toLowerCase()
 	if (field.unsigned) {
-		if (field.type == "_supla_int_t") {
-			return "long" + array
+		if (lowerType == "int") {
+			return matchType("long", field.type) + array
 		}
-		if (field.type == "int") {
-			return "long" + array
+		if (lowerType == "char" || lowerType == "byte") {
+			return matchType("short", field.type) + array
 		}
-		if (field.type == "char") {
-			return "short" + array
+		if (lowerType == "short") {
+			return matchType("int", field.type) + array
 		}
-		if (field.type == "_supla_int16_t") {
-			return "int" + array
-		}
-		if (field.type == "short") {
-			return "int" + array
-		}
-		if (field.type == "_supla_int64_t") {
-			return "long" + array
+		if (lowerType == "long") {
+			return matchType("long", field.type) + array
 		}
 	} else {
-		if (field.type == "_supla_int_t") {
+		if (lowerType == "int") {
 			return "int" + array
 		}
-		if (field.type == "int") {
-			return "int" + array
-		}
-		if (field.type == "_supla_int16_t") {
+		if (lowerType == "short") {
 			return "short" + array
 		}
-		if (field.type == "short") {
-			return "short" + array
-		}
-		if (field.type == "_supla_int64_t") {
+		if (lowerType == "long") {
 			return "long" + array
 		}
-		if (field.type == "char") {
+		if (lowerType == "char" || lowerType == "byte") {
 			return "byte" + array
 		}
 	}
@@ -329,24 +318,23 @@ static String findSizeForField(field) {
 }
 
 static String findSize(field) {
+	def type = field.type.toLowerCase()
 	if (field.unsigned) {
-		if (field.type == "_supla_int64_t") {
-			return "LONG_SIZE"
-		} else if (field.type == "short") {
-			return "SHORT_SIZE"
-		} else if (field.type == "_supla_int_t") {
-			return "INT_SIZE"
-		} else if (field.type == "int") {
-			return "INT_SIZE"
-		} else if (field.type == "char") {
+		if (type == "byte") {
 			return "CHAR_SIZE"
-		} else if (field.type == "_supla_int16_t") {
+		} else if (type == "short") {
 			return "SHORT_SIZE"
+		} else if (type == "int") {
+			return "INT_SIZE"
+		} else if (type == "char") {
+			return "CHAR_SIZE"
+		} else if (field.type == "long") {
+			return "LONG_SIZE"
 		} else {
-			throw new IllegalArgumentException("Unknown unsigned type: " + field.type)
+			throw new IllegalArgumentException("Unknown unsigned type: " + type)
 		}
 	} else if (field.array) {
-		def xSize = mapSimpleType(field.type)
+		def xSize = mapSimpleType(type)
 		if (xSize.startsWith("UNKNOWN")) {
 			return "arraySize(" + field.name + ")"
 		} else {
@@ -366,6 +354,7 @@ static String findSize(field) {
 }
 
 static String mapSimpleType(String type) {
+	type = type.toLowerCase()
 	if (type == "int") {
 		return "INT_SIZE"
 	} else if (type == "char" || type == "byte") {
@@ -374,10 +363,20 @@ static String mapSimpleType(String type) {
 		return "SHORT_SIZE"
 	} else if (type == "long") {
 		return "LONG_SIZE"
-	} else if (type == "_supla_int16_t") {
+	} else if (type == "short") {
 		return "SHORT_SIZE"
-	} else if (type == "_supla_int_t") {
+	} else if (type == "int") {
 		return "INT_SIZE"
 	}
 	return "UNKNOWN_" + type
+}
+
+static String matchType(String newType, String originalType) {
+	if (originalType == originalType.toLowerCase()) {
+		return newType
+	}
+	if (originalType == "Int") {
+		return "Integer"
+	}
+	return newType.capitalize()
 }

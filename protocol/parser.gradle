@@ -146,6 +146,21 @@ class FieldParser implements Parser<SimpleField> {
 				this.output.rawPrefix = Names.findPrefix(this.output.type)
 				this.output.type = Names.parseRawClassName(this.output.type)
 			}
+			if (this.output.type == "char") {
+				this.output.type = "byte"
+			}
+			if (this.output.type == "_supla_int16_t") {
+				this.output.type = "short"
+			}
+			if (this.output.type == "_supla_int16_t") {
+				this.output.type = "int"
+			}
+			if (this.output.type == "_supla_int_t") {
+				this.output.type = "int"
+			}
+			if (this.output.type == "_supla_int64_t") {
+				this.output.type = "long"
+			}
 			logger.debug("{}:{} Finished parsing field: {}", line, column, this.output)
 		}
 	}
@@ -192,6 +207,10 @@ class UnionParser implements Parser<UnionField> {
 				fieldParser.next(character, line, column)
 				def output = fieldParser.output()
 				if (output) {
+					def type = output.type
+					if (type == "char" || type == "int" || type == "long") {
+						output.type = output.type.capitalize()
+					}
 					logger.debug("{}:{} Parsed union field", line, column)
 					fields.add(output)
 					fieldParser = new FieldParser(logger)
@@ -621,13 +640,13 @@ task parseProtoh {
 			fields : [
 				new SimpleField([
 					name     : "tvSec",
-					type   : "_supla_int_t",
+					type: "int",
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
-					type   : "_supla_int_t",
+					type: "int",
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
@@ -646,21 +665,21 @@ task parseProtoh {
 			fields : [
 				new SimpleField([
 					name     : "receiverId",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new UnionField([fields: [
 					new SimpleField([
 						name     : "cahnnelId",
-						type     : "_supla_int_t",
+						type: "int",
 						rawType  : "_supla_int_t",
 						rawPrefix: "T",
 						javaDoc  : "Server -> Client",
 					]),
 					new SimpleField([
 						name     : "channelNumber",
-						type     : "char",
+						type: "byte",
 						rawType  : "char",
 						rawPrefix: "char",
 						unsigned : true,
@@ -669,27 +688,27 @@ task parseProtoh {
 				]]),
 				new SimpleField([
 					name     : "fields",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "defaultIconField",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 					javaDoc  : "SUPLA_CHANNELSTATE_FIELD_*",
 				]),
 				new SimpleField([
 					name     : "ipV4",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 					unsigned : true,
 				]),
 				new SimpleField([
 					name     : "mac",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					array    : true,
@@ -697,7 +716,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "BatteryLevel",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "0 - 100%",
@@ -705,7 +724,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "BatteryPowered",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "true(1)/false(0)",
@@ -713,14 +732,14 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "wifiRssi",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "",
 				]),
 				new SimpleField([
 					name     : "wifiSignalStrength",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "0 - 100%",
@@ -728,7 +747,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "bridgeNodeOnline",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "0/1",
@@ -736,7 +755,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "bridgeNodeSignalStrength",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "0 - 100%",
@@ -744,7 +763,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "uptime",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 					javaDoc  : "sec.",
@@ -752,7 +771,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "connectionUptime",
-					type     : "_supla_int_t",
+					type: "int",
 					rawType  : "_supla_int_t",
 					rawPrefix: "T",
 					javaDoc  : "sec.",
@@ -760,14 +779,14 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "batteryHealth",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					unsigned : true,
 				]),
 				new SimpleField([
 					name     : "lastConnectionResetCause",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					javaDoc  : "SUPLA_LASTCONNECTIONRESETCAUSE_*",
@@ -792,7 +811,7 @@ task parseProtoh {
 						]),
 						new SimpleField([
 							name     : "LightSourceOperatingTime",
-							type     : "_supla_int_t",
+							type: "int",
 							rawType  : "_supla_int_t",
 							rawPrefix: "T",
 							javaDoc  : "-3932100sec. - 3932100sec.",
@@ -801,7 +820,7 @@ task parseProtoh {
 				]),
 				new SimpleField([
 					name     : "emptySpace",
-					type     : "char",
+					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
 					array    : true,

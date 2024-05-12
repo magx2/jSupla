@@ -335,6 +335,11 @@ public final class Preconditions {
         return size(value, 0, 4294967295L);
     }
 
+    public static Long unsigned(Long value) {
+        if (value == null) return null;
+        return size(value, 0, 4294967295L);
+    }
+
     /**
      * same as unsignedByteSize
      * @param unsignedByteValue value to check
@@ -345,11 +350,33 @@ public final class Preconditions {
     }
 
     /**
+     * same as unsignedByteSize
+     *
+     * @param unsignedByteValue value to check
+     * @return given value
+     */
+    public static Short unsigned(Short unsignedByteValue) {
+        if (unsignedByteValue == null) return null;
+        return size(unsignedByteValue, (short) 0, (short) 255);
+    }
+
+    /**
      * same as unsignedShortSize
      * @param unsignedByteValue value to check
      * @return given value
      */
     public static int unsigned(int unsignedByteValue) {
+        return size(unsignedByteValue, 0, 65_535);
+    }
+
+    /**
+     * same as unsignedShortSize
+     *
+     * @param unsignedByteValue value to check
+     * @return given value
+     */
+    public static Integer unsigned(Integer unsignedByteValue) {
+        if (unsignedByteValue == null) return null;
         return size(unsignedByteValue, 0, 65_535);
     }
 

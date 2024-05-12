@@ -226,23 +226,15 @@ static String findSize(field) {
 }
 
 static String findSizeByType(type) {
-	if (type == "_supla_int_t") {
-		return "INT_SIZE"
-	}
+	type = type.toLowerCase()
 	if (type == "int") {
 		return "INT_SIZE"
 	}
-	if (type == "char") {
+	if (type == "char" || type == "byte") {
 		return "BYTE_SIZE"
-	}
-	if (type == "_supla_int16_t") {
-		return "SHORT_SIZE"
 	}
 	if (type == "short") {
 		return "SHORT_SIZE"
-	}
-	if (type == "_supla_int64_t") {
-		return "LONG_SIZE"
 	}
 	if (type == "long") {
 		return "LONG_SIZE"
@@ -251,10 +243,11 @@ static String findSizeByType(type) {
 }
 
 static String mapSuplaTypeToJava(type) {
+	type = type.toLowerCase()
 	if (type == "_supla_int_t" || type == "int") {
 		return "int"
 	}
-	if (type == "char") {
+	if (type == "char" || type == "byte") {
 		return "byte"
 	}
 	if (type == "_supla_int16_t" || type == "short") {
@@ -267,9 +260,11 @@ static String mapSuplaTypeToJava(type) {
 }
 
 static boolean isPrimitiveType(type) {
+	type = type.toLowerCase()
 	return (type == "_supla_int_t"
 		|| type == "int"
 		|| type == "char"
+		|| type == "byte"
 		|| type == "_supla_int16_t"
 		|| type == "short"
 		|| type == "_supla_int64_t"

@@ -188,10 +188,11 @@ static String parseField(field) {
 }
 
 static String mapSuplaTypeToJava(type) {
+	type = type.toLowerCase()
 	if (type == "_supla_int_t" || type == "int") {
 		return "int"
 	}
-	if (type == "char") {
+	if (type == "char" || type == "byte") {
 		return "byte"
 	}
 	if (type == "_supla_int16_t" || type == "short") {
@@ -204,9 +205,11 @@ static String mapSuplaTypeToJava(type) {
 }
 
 static boolean isPrimitiveType(type) {
+	type = type.toLowerCase()
 	return (type == "_supla_int_t"
 		|| type == "int"
 		|| type == "char"
+		|| type == "byte"
 		|| type == "_supla_int16_t"
 		|| type == "short"
 		|| type == "_supla_int64_t"
