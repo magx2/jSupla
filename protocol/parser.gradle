@@ -46,6 +46,7 @@ class SimpleField implements Field {
 	}
 }
 
+@MapConstructor
 @ToString(includeNames = true, ignoreNulls = true)
 class UnionField implements Field {
 	List<SimpleField> fields
@@ -637,6 +638,210 @@ task parseProtoh {
 				|  long long tv_usec;
 				|};""".stripMargin(),
 			javaDoc: "MANUALLY ADDED!",
+		]))
+		structs.add(new Struct([
+			name   : "ChannelStateExtendedValue",
+			rawName: "TChannelState_ExtendedValue",
+			prefix : "T",
+			fields : [
+				new SimpleField([
+					name     : "receiverId",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+				]),
+				new UnionField([fields: [
+					new SimpleField([
+						name     : "cahnnelId",
+						type     : "_supla_int_t",
+						rawType  : "_supla_int_t",
+						rawPrefix: "T",
+						javaDoc  : "Server -> Client",
+					]),
+					new SimpleField([
+						name     : "channelNumber",
+						type     : "char",
+						rawType  : "char",
+						rawPrefix: "char",
+						unsigned : true,
+						javaDoc  : "Device -> Server",
+					]),
+				]]),
+				new SimpleField([
+					name     : "fields",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+				]),
+				new SimpleField([
+					name     : "defaultIconField",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+					javaDoc  : "SUPLA_CHANNELSTATE_FIELD_*",
+				]),
+				new SimpleField([
+					name     : "ipV4",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "mac",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					array    : true,
+					arraySize: "6",
+				]),
+				new SimpleField([
+					name     : "BatteryLevel",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "0 - 100%",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "BatteryPowered",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "true(1)/false(0)",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "wifiRssi",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "",
+				]),
+				new SimpleField([
+					name     : "wifiSignalStrength",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "0 - 100%",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "bridgeNodeOnline",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "0/1",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "bridgeNodeSignalStrength",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "0 - 100%",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "uptime",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+					javaDoc  : "sec.",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "connectionUptime",
+					type     : "_supla_int_t",
+					rawType  : "_supla_int_t",
+					rawPrefix: "T",
+					javaDoc  : "sec.",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "batteryHealth",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "lastConnectionResetCause",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					javaDoc  : "SUPLA_LASTCONNECTIONRESETCAUSE_*",
+					unsigned : true,
+				]),
+				new SimpleField([
+					name     : "LightSourceLifespan",
+					type     : "short",
+					rawType  : "short",
+					rawPrefix: "T",
+					javaDoc  : "0 - 65535 hours",
+					unsigned : true,
+				]),
+				new UnionField([
+					fields: [
+						new SimpleField([
+							name     : "LightSourceLifespanLeft",
+							type     : "short",
+							rawType  : "short",
+							rawPrefix: "T",
+							javaDoc  : "-327,67 - 100.00% LightSourceLifespan * 0.01",
+						]),
+						new SimpleField([
+							name     : "LightSourceOperatingTime",
+							type     : "_supla_int_t",
+							rawType  : "_supla_int_t",
+							rawPrefix: "T",
+							javaDoc  : "-3932100sec. - 3932100sec.",
+						]),
+					]
+				]),
+				new SimpleField([
+					name     : "emptySpace",
+					type     : "char",
+					rawType  : "char",
+					rawPrefix: "T",
+					array    : true,
+					arraySize: "2",
+					javaDoc  : "Empty space for future use",
+				]),
+			],
+			raw    : """\
+				|typedef struct {
+				|  _supla_int_t ReceiverID;  // Not used in extended values
+				|  union {
+				|    // Not used in extended values
+				|    _supla_int_t ChannelID;       // Server -> Client
+				|    unsigned char ChannelNumber;  // Device -> Server
+				|  };
+				|  _supla_int_t Fields;
+				|  _supla_int_t defaultIconField;  // SUPLA_CHANNELSTATE_FIELD_*
+				|  unsigned _supla_int_t IPv4;
+				|  unsigned char MAC[6];
+				|  unsigned char BatteryLevel;    // 0 - 100%
+				|  unsigned char BatteryPowered;  // true(1)/false(0)
+				|  char WiFiRSSI;
+				|  unsigned char WiFiSignalStrength;        // 0 - 100%
+				|  unsigned char BridgeNodeOnline;          // 0/1
+				|  unsigned char BridgeNodeSignalStrength;  // 0 - 100%
+				|  unsigned _supla_int_t Uptime;            // sec.
+				|  unsigned _supla_int_t ConnectionUptime;  // sec.
+				|  unsigned char BatteryHealth;
+				|  unsigned char LastConnectionResetCause;  // SUPLA_LASTCONNECTIONRESETCAUSE_*
+				|  unsigned short LightSourceLifespan;      // 0 - 65535 hours
+				|  union {
+				|    short LightSourceLifespanLeft;  // -327,67 - 100.00% LightSourceLifespan *
+				|                                    // 0.01
+				|    _supla_int_t LightSourceOperatingTime;  // -3932100sec. - 3932100sec.
+				|  };
+				|  char EmptySpace[2];  // Empty space for future use
+				|} TDSC_ChannelState;   // v. >= 12 Device -> Server -> Client
+				|
+				|#define TChannelState_ExtendedValue TDSC_ChannelState""".stripMargin(),
+			javaDoc: "MANUALLY ADDED! v. >= 12 Device -> Server -> Client",
 		]))
 		def structsJson = new JsonBuilder(structs).toPrettyString()
 		def structsOutputFile = rootDir.resolve("proto.h.json")
