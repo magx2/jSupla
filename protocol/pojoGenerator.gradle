@@ -167,7 +167,7 @@ static String mapSuplaTypeToJava(field) {
 	def array = field.array ? "[]" : ""
 	def lowerType = field.type.toLowerCase()
 	if (field.unsigned) {
-		if (lowerType == "int") {
+		if (lowerType == "int" || lowerType == "integer") {
 			return matchType("long", field.type) + array
 		}
 		if (lowerType == "char" || lowerType == "byte") {
@@ -180,17 +180,17 @@ static String mapSuplaTypeToJava(field) {
 			return matchType("long", field.type) + array
 		}
 	} else {
-		if (lowerType == "int") {
-			return "int" + array
+		if (lowerType == "int" || lowerType == "integer") {
+			return matchType("int", field.type) + array
 		}
 		if (lowerType == "short") {
-			return "short" + array
+			return matchType("short", field.type) + array
 		}
 		if (lowerType == "long") {
-			return "long" + array
+			return matchType("long", field.type) + array
 		}
 		if (lowerType == "char" || lowerType == "byte") {
-			return "byte" + array
+			return matchType("byte", field.type) + array
 		}
 	}
 	return findImportClass(field) + field.type + array
@@ -324,7 +324,7 @@ static String findSize(field) {
 			return "CHAR_SIZE"
 		} else if (type == "short") {
 			return "SHORT_SIZE"
-		} else if (type == "int") {
+		} else if (type == "int" || type == "integer") {
 			return "INT_SIZE"
 		} else if (type == "char") {
 			return "CHAR_SIZE"
@@ -355,7 +355,7 @@ static String findSize(field) {
 
 static String mapSimpleType(String type) {
 	type = type.toLowerCase()
-	if (type == "int") {
+	if (type == "int" || type == "integer") {
 		return "INT_SIZE"
 	} else if (type == "char" || type == "byte") {
 		return "BYTE_SIZE"
@@ -375,7 +375,10 @@ static String matchType(String newType, String originalType) {
 	if (originalType == originalType.toLowerCase()) {
 		return newType
 	}
-	if (originalType == "Int") {
+	if (newType == "int" && originalType == "Short") {
+		return "Integer"
+	}
+	if (newType == "int" && originalType == "Int") {
 		return "Integer"
 	}
 	return newType.capitalize()
