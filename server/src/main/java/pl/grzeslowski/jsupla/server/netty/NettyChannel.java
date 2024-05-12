@@ -37,7 +37,6 @@ public final class NettyChannel implements Channel {
                  CallTypeParser callTypeParser,
                  DecoderFactory decoderFactory,
                  EncoderFactory encoderFactory,
-                 ChannelTypeMapper typeMapper,
                  BufferParams bufferParams) {
         this.channelHandlerContext = requireNonNull(channelHandlerContext);
         this.encoderFactory = requireNonNull(encoderFactory);
@@ -57,16 +56,10 @@ public final class NettyChannel implements Channel {
             })
             .filter(entity -> ToServerProto.class.isAssignableFrom(entity.getClass()))
             .cast(ToServerProto.class);
-
-        // todo
-//        this.messagePipe
-//            .filter(entity -> RegisterDeviceTrait.class.isAssignableFrom(entity.getClass()))
-//            .cast(RegisterDeviceTrait.class)
-//            .subscribe(typeMapper::registerDevice);
     }
 
     public NettyChannel(ChannelHandlerContext ctx, Flux<SuplaDataPacket> flux, CallTypeParser callTypeParser, DecoderFactory decoderFactory, EncoderFactory encoderFactory) {
-        this(ctx, flux, callTypeParser, decoderFactory, encoderFactory, new ChannelTypeMapper(), BufferParams.DEFAULT);
+        this(ctx, flux, callTypeParser, decoderFactory, encoderFactory, BufferParams.DEFAULT);
     }
 
     private static Pair<SuplaDataPacket,
