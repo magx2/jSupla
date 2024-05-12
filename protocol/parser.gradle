@@ -621,21 +621,21 @@ task parseProtoh {
 			fields : [
 				new SimpleField([
 					name     : "tvSec",
-					type     : "_supla_int64_t",
-					rawType  : "_supla_int64_t",
+					type   : "_supla_int_t",
+					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
-					type     : "_supla_int64_t",
-					rawType  : "_supla_int64_t",
+					type   : "_supla_int_t",
+					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 			],
 			raw    : """\
 				|struct _supla_timeval {
-				|  long long tv_sec;
-				|  long long tv_usec;
+				|  long tv_sec;
+				|  long tv_usec;
 				|};""".stripMargin(),
 			javaDoc: "MANUALLY ADDED!",
 		]))
