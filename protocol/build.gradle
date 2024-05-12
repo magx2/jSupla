@@ -70,7 +70,7 @@ ext.callTypes = [
 	[proto: "TDS_SuplaDeviceChannelValue_B", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_B"],
 	[proto: "TDS_SuplaDeviceChannelValue_C", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_C"],
 	[proto: "TDS_SuplaDeviceChannelExtendedValue", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_EXTENDEDVALUE_CHANGED"],
-	[proto: "", callType: "SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT"],
+	[proto: "TDS_SuplaChannelNewValueResult", callType: "SUPLA_DS_CALL_CHANNEL_SET_VALUE_RESULT"],
 	[proto: "TDS_FirmwareUpdateParams", callType: "SUPLA_DS_CALL_GET_FIRMWARE_UPDATE_URL"],
 	[proto: "", callType: "SUPLA_DS_CALL_DEVICE_CALCFG_RESULT"],
 	[proto: "", callType: "SUPLA_DS_CALL_GET_CHANNEL_FUNCTIONS"],
