@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.nettytest;
+package pl.grzeslowski.jsupla.server;
 
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
