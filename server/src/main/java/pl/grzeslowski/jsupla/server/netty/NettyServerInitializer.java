@@ -19,6 +19,7 @@ import reactor.core.Disposable;
 import reactor.core.publisher.ConnectableFlux;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
+import reactor.util.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,11 +32,12 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "ReactiveStreamsPublisherImplementation"})
 public final class NettyServerInitializer extends ChannelInitializer<SocketChannel>
     implements Publisher<NettyChannel>, AutoCloseable {
     private final Logger logger;
 
+    @Nullable
     private final SslContext sslCtx;
     private final Flux<NettyChannel> flux;
     private final Collection<FluxSink<NettyChannel>> emitters = synchronizedList(new LinkedList<>());
@@ -47,10 +49,10 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     private final Disposable disposable;
     private final Collection<SuplaHandler> suplaHandlers = synchronizedList(new LinkedList<>());
 
-    NettyServerInitializer(SslContext sslCtx,
-                           final CallTypeParser callTypeParser,
-                           final DecoderFactory decoderFactory,
-                           final EncoderFactory encoderFactory) {
+    NettyServerInitializer(@Nullable SslContext sslCtx,
+                           CallTypeParser callTypeParser,
+                           DecoderFactory decoderFactory,
+                           EncoderFactory encoderFactory) {
         logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
         logger.debug("New instance");
         this.sslCtx = sslCtx;

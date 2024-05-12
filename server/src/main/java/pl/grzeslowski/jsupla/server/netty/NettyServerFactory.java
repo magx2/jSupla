@@ -1,6 +1,8 @@
 package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.handler.ssl.SslContext;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
@@ -10,23 +12,17 @@ import pl.grzeslowski.jsupla.server.api.ServerProperties;
 
 import javax.validation.constraints.NotNull;
 
-import static java.util.Objects.requireNonNull;
-
+@RequiredArgsConstructor
 public final class NettyServerFactory implements ServerFactory {
     public static final String PORT = "port";
     public static final String SSL_CTX = "sslCtx";
 
+    @NonNull
     private final CallTypeParser callTypeParser;
+    @NonNull
     private final DecoderFactory decoderFactory;
+    @NonNull
     private final EncoderFactory encoderFactory;
-
-    public NettyServerFactory(final CallTypeParser callTypeParser,
-                              final DecoderFactory decoderFactory,
-                              final EncoderFactory encoderFactory) {
-        this.callTypeParser = requireNonNull(callTypeParser);
-        this.decoderFactory = requireNonNull(decoderFactory);
-        this.encoderFactory = requireNonNull(encoderFactory);
-    }
 
     @Override
     public Server createNewServer(@NotNull final ServerProperties serverProperties) {

@@ -6,22 +6,28 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import lombok.Getter;
+import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.server.api.Server;
-import pl.grzeslowski.jsupla.server.api.exceptions.CloseServerException;
 import reactor.core.publisher.Flux;
+
+import java.util.concurrent.ExecutionException;
 
 import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("WeakerAccess")
+@ToString(onlyExplicitlyIncluded = true)
 public final class NettyServer implements Server {
     private final Logger logger;
 
+    @ToString.Include
     private final NettyConfig nettyConfig;
+    @Getter
     private final Flux<? extends NettyChannel> newChannelsPipe;
     private final NioEventLoopGroup bossGroup;
     private final NioEventLoopGroup workerGroup;
@@ -36,9 +42,9 @@ public final class NettyServer implements Server {
         logger.debug("New instance");
         this.nettyConfig = requireNonNull(nettyConfig);
 
-        bossGroup = newBossGroup();
-        workerGroup = newWorkerGroup();
-        final ServerBootstrap serverBootstrap = newServerBootstrap();
+        bossGroup = new NioEventLoopGroup();
+        workerGroup = new NioEventLoopGroup();
+        final ServerBootstrap serverBootstrap = new ServerBootstrap();
         nettyServerInitializer = new NettyServerInitializer(
             nettyConfig.getSslCtx(),
             callTypeParser,
@@ -46,7 +52,11 @@ public final class NettyServer implements Server {
             encoderFactory);
 
         logger.trace("Configuring server bootstrap");
-        configureServerBootstrap(serverBootstrap, nettyServerInitializer);
+        serverBootstrap.group(bossGroup, workerGroup)
+            .channel(NioServerSocketChannel.class)
+            .childHandler(nettyServerInitializer)
+            .option(ChannelOption.SO_BACKLOG, 128)
+            .childOption(ChannelOption.SO_KEEPALIVE, true); 
 
         // Bind and start to accept incoming connections.
         logger.debug("Binding to port {}", nettyConfig.getPort());
@@ -55,61 +65,24 @@ public final class NettyServer implements Server {
     }
 
     @Override
-    public Flux<? extends NettyChannel> getNewChannelsPipe() {
-        return newChannelsPipe;
-    }
-
-    protected NioEventLoopGroup newWorkerGroup() {
-        return new NioEventLoopGroup();
-    }
-
-    protected NioEventLoopGroup newBossGroup() {
-        return new NioEventLoopGroup();
-    }
-
-    protected ServerBootstrap newServerBootstrap() {
-        return new ServerBootstrap();
-    }
-
-    protected void configureServerBootstrap(final ServerBootstrap serverBootstrap,
-                                            final NettyServerInitializer nettyServerInitializer) {
-        serverBootstrap.group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class) // (3)
-            .childHandler(nettyServerInitializer)
-            .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-            .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
-    }
-
-    @Override
-    public String toString() {
-        return "NettyServer{" +
-            "nettyConfig=" + nettyConfig +
-            '}';
-    }
-
-    @Override
-    public void close() {
+    public void close() throws ExecutionException, InterruptedException {
         logger.debug("Closing NettyServer");
-        try {
-            nettyServerInitializer.close();
-            {
-                logger.debug("Closing workerGroup");
-                workerGroup.shutdownGracefully().get();
-                logger.debug("Closed workerGroup");
-            }
-            {
-                logger.debug("Closing bossGroup");
-                bossGroup.shutdownGracefully().get();
-                logger.debug("Closed bossGroup");
-            }
-            Channel channel = channelFuture.channel();
-            channel.closeFuture().sync();
-            Channel parent = channel.parent();
-            if (parent != null) {
-                parent.closeFuture().sync();
-            }
-        } catch (Exception e) {
-            throw new CloseServerException(this, e);
+        nettyServerInitializer.close();
+        {
+            logger.debug("Closing workerGroup");
+            workerGroup.shutdownGracefully().get();
+            logger.debug("Closed workerGroup");
+        }
+        {
+            logger.debug("Closing bossGroup");
+            bossGroup.shutdownGracefully().get();
+            logger.debug("Closed bossGroup");
+        }
+        Channel channel = channelFuture.channel();
+        channel.closeFuture().sync();
+        Channel parent = channel.parent();
+        if (parent != null) {
+            parent.closeFuture().sync();
         }
     }
 }

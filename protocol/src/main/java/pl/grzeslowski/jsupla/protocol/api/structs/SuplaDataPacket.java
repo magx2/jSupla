@@ -22,6 +22,8 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 @lombok.EqualsAndHashCode
 @lombok.ToString
 public class SuplaDataPacket implements ProtoWithSize {
+    @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
+    public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
     /**
      * unsigned char
      */

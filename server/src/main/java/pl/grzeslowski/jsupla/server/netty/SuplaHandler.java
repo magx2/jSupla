@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+@SuppressWarnings("ReactiveStreamsPublisherImplementation")
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket>
     implements Publisher<SuplaDataPacket>, AutoCloseable {
     private final Logger logger;

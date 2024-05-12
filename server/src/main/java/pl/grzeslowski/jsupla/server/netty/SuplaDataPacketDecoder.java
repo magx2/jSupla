@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
+import lombok.var;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
@@ -11,12 +12,10 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import java.util.List;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
-    public static final int SUPLA_DATA_PACKET_MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
+    public static final int SUPLA_DATA_PACKET_MIN_SIZE = SuplaDataPacket.MIN_SIZE;
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
     @Override
@@ -27,7 +26,7 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
 
         in.markReaderIndex();
         moveThoughtSuplaTag(in);
-        final SuplaDataPacket suplaDataPacket = readTSuplaDataPacket(in);
+        var suplaDataPacket = readTSuplaDataPacket(in);
         moveThoughtSuplaTag(in);
 
         logger.trace("Decoded {}", suplaDataPacket);

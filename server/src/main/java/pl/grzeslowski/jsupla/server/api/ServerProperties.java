@@ -1,7 +1,9 @@
 package pl.grzeslowski.jsupla.server.api;
 
+import lombok.ToString;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
+import reactor.util.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.Map;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
+@ToString
 public final class ServerProperties {
     private final Map<String, ?> properties;
 
@@ -62,10 +65,12 @@ public final class ServerProperties {
         }
     }
 
-    @Override
-    public String toString() {
-        return "ServerProperties{" +
-            "properties=" + properties +
-            '}';
+    @Nullable
+    public <T> T getPropertyOrNull(String name, Class<T> clazz) throws PropertyCastException, PropertyNotExistsException {
+        Object o = properties.get(name);
+        if (o == null) {
+            return null;
+        }
+        return getProperty(name, clazz);
     }
 }
