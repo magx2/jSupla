@@ -3,21 +3,34 @@ package pl.grzeslowski.jsupla.server;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
+import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
+import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
+import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
 
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
+import static reactor.core.publisher.Flux.just;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -59,33 +72,47 @@ public class Server {
     private void newMessage(ToServerProto toServerEntity, Channel channel) {
         FromServerProto result;
 
-//        if (toServerEntity instanceof RegisterDeviceTrait) {
-//            val register = (RegisterDeviceTrait) toServerEntity;
-//            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
-//        } else if (toServerEntity instanceof SuplaSetActivityTimeout) {
-//            val setTimout = (SuplaSetActivityTimeout) toServerEntity;
-//            result = new SuplaSetActivityTimeoutResult(setTimout.activityTimeout, (short) (setTimout.activityTimeout - 2), (short) (setTimout.activityTimeout + 2));
-//        } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
-//            result = null;
-//        } else if (toServerEntity instanceof SuplaPingServer) {
-//            val ping = (SuplaPingServer) toServerEntity;
-//            result = new SuplaPingServerResultClient(ping.timeval);
-//        } else {
-//            throw new RuntimeException("Unsupported message " + toServerEntity);
-//        }
+        if (toServerEntity instanceof SuplaRegisterDevice) {
+            val register = (SuplaRegisterDevice) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaRegisterDeviceB) {
+            val register = (SuplaRegisterDeviceB) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaRegisterDeviceC) {
+            val register = (SuplaRegisterDeviceC) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaRegisterDeviceD) {
+            val register = (SuplaRegisterDeviceD) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaRegisterDeviceE) {
+            val register = (SuplaRegisterDeviceE) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaRegisterDeviceF) {
+            val register = (SuplaRegisterDeviceF) toServerEntity;
+            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+        } else if (toServerEntity instanceof SuplaSetActivityTimeout) {
+            val setTimout = (SuplaSetActivityTimeout) toServerEntity;
+            result = new SuplaSetActivityTimeoutResult(setTimout.activityTimeout, (short) (setTimout.activityTimeout - 2), (short) (setTimout.activityTimeout + 2));
+        } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
+            result = null;
+        } else if (toServerEntity instanceof SuplaPingServer) {
+            val ping = (SuplaPingServer) toServerEntity;
+            result = new SuplaPingServerResult(ping.now);
+        } else {
+            throw new RuntimeException("Unsupported message " + toServerEntity);
+        }
 
-//        logger.info("Got {}, Sending {}", toServerEntity, result);
-//        if (result != null) {
-//            channel.write(just(result)).subscribe();
-//        }
+        logger.info("Got {}, Sending {}", toServerEntity, result);
+        if (result != null) {
+            channel.write(just(result)).subscribe();
+        }
     }
 
     private ServerFactory buildServerFactory() {
-//        return new NettyServerFactory(
-//            new CallTypeParserImpl(),
-//            DecoderFactoryImpl.INSTANCE,
-//            EncoderFactoryImpl.INSTANCE);
-        throw new UnsupportedOperationException("Server.buildServerFactory()");
+        return new NettyServerFactory(
+            CallTypeParser.INSTANCE,
+            DecoderFactoryImpl.INSTANCE,
+            EncoderFactoryImpl.INSTANCE);
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {

@@ -44,7 +44,7 @@ public final class ServerProperties {
     }
 
     /**
-     * Finds property in map with given type.
+     * Finds property in a map with given type.
      *
      * @param name  property name
      * @param clazz property class
@@ -65,6 +65,16 @@ public final class ServerProperties {
         }
     }
 
+    /**
+     * Finds property in a map with given type. If property does not exist, returns null.
+     *
+     * @param name  property name
+     * @param clazz property class
+     * @param <T>   type of property
+     * @return Property of given name with given class
+     * @throws PropertyCastException      when cannot cast property to given class
+     * @throws PropertyNotExistsException when there is no property with given name
+     */
     @Nullable
     public <T> T getPropertyOrNull(String name, Class<T> clazz) throws PropertyCastException, PropertyNotExistsException {
         Object o = properties.get(name);
