@@ -208,7 +208,11 @@ class UnionParser implements Parser<UnionField> {
 				def output = fieldParser.output()
 				if (output) {
 					def type = output.type
-					if (type == "char" || type == "int" || type == "long") {
+					if (type == "char"
+						|| type == "byte"
+						|| type == "int"
+						|| type == "long"
+						|| type == "short") {
 						output.type = output.type.capitalize()
 					}
 					logger.debug("{}:{} Parsed union field", line, column)
@@ -672,14 +676,14 @@ task parseProtoh {
 				new UnionField([fields: [
 					new SimpleField([
 						name     : "cahnnelId",
-						type: "int",
+						type: "Int",
 						rawType  : "_supla_int_t",
 						rawPrefix: "T",
 						javaDoc  : "Server -> Client",
 					]),
 					new SimpleField([
 						name     : "channelNumber",
-						type: "byte",
+						type: "Byte",
 						rawType  : "char",
 						rawPrefix: "char",
 						unsigned : true,
@@ -715,7 +719,7 @@ task parseProtoh {
 					arraySize: "6",
 				]),
 				new SimpleField([
-					name     : "BatteryLevel",
+					name: "batteryLevel",
 					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
@@ -723,7 +727,7 @@ task parseProtoh {
 					unsigned : true,
 				]),
 				new SimpleField([
-					name     : "BatteryPowered",
+					name: "batteryPowered",
 					type: "byte",
 					rawType  : "char",
 					rawPrefix: "T",
@@ -793,7 +797,7 @@ task parseProtoh {
 					unsigned : true,
 				]),
 				new SimpleField([
-					name     : "LightSourceLifespan",
+					name: "lightSourceLifespan",
 					type     : "short",
 					rawType  : "short",
 					rawPrefix: "T",
@@ -803,15 +807,15 @@ task parseProtoh {
 				new UnionField([
 					fields: [
 						new SimpleField([
-							name     : "LightSourceLifespanLeft",
-							type     : "short",
+							name: "lightSourceLifespanLeft",
+							type: "Short",
 							rawType  : "short",
 							rawPrefix: "T",
 							javaDoc  : "-327,67 - 100.00% LightSourceLifespan * 0.01",
 						]),
 						new SimpleField([
-							name     : "LightSourceOperatingTime",
-							type: "int",
+							name: "lightSourceOperatingTime",
+							type: "Int",
 							rawType  : "_supla_int_t",
 							rawPrefix: "T",
 							javaDoc  : "-3932100sec. - 3932100sec.",

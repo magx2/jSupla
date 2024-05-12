@@ -168,29 +168,29 @@ static String mapSuplaTypeToJava(field) {
 	def lowerType = field.type.toLowerCase()
 	if (field.unsigned) {
 		if (lowerType == "int" || lowerType == "integer") {
-			return matchType("long", field.type) + array
+			return matchType("long", field.type, array)
 		}
 		if (lowerType == "char" || lowerType == "byte") {
-			return matchType("short", field.type) + array
+			return matchType("short", field.type, array)
 		}
 		if (lowerType == "short") {
-			return matchType("int", field.type) + array
+			return matchType("int", field.type, array)
 		}
 		if (lowerType == "long") {
-			return matchType("long", field.type) + array
+			return matchType("long", field.type, array)
 		}
 	} else {
 		if (lowerType == "int" || lowerType == "integer") {
-			return matchType("int", field.type) + array
+			return matchType("int", field.type, array)
 		}
 		if (lowerType == "short") {
-			return matchType("short", field.type) + array
+			return matchType("short", field.type, array)
 		}
 		if (lowerType == "long") {
-			return matchType("long", field.type) + array
+			return matchType("long", field.type, array)
 		}
 		if (lowerType == "char" || lowerType == "byte") {
-			return matchType("byte", field.type) + array
+			return matchType("byte", field.type, array)
 		}
 	}
 	return findImportClass(field) + field.type + array
@@ -303,7 +303,7 @@ static String findSizeForClass(struct) {
 			} else if (field.originalClassName == "UnionField") {
 				def sizes = field.fields
 					.stream()
-					.map { findSizeForField(it) }
+					.map { findSizeForUnionField(it) }
 					.collect(Collectors.joining("\n\t\t\t,"))
 				return "pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize(\n\t\t\t$sizes\n\t\t)"
 			} else {
@@ -315,6 +315,12 @@ static String findSizeForClass(struct) {
 
 static String findSizeForField(field) {
 	findSize(field) + " // ${field.name}"
+}
+
+// might be a problem cause not set union fields still have size...
+// probably should introduce MIN_SIZE
+static String findSizeForUnionField(field) {
+	"$field.name != null ? ${findSize(field)} : 0 // ${field.name}"
 }
 
 static String findSize(field) {
@@ -371,15 +377,19 @@ static String mapSimpleType(String type) {
 	return "UNKNOWN_" + type
 }
 
-static String matchType(String newType, String originalType) {
+static String matchType(String newType, String originalType, String array) {
 	if (originalType == originalType.toLowerCase()) {
-		return newType
+		return newType + array
 	}
 	if (newType == "int" && originalType == "Short") {
-		return "Integer"
+		return "Integer" + array
 	}
 	if (newType == "int" && originalType == "Int") {
-		return "Integer"
+		return "Integer" + array
 	}
-	return newType.capitalize()
+	if (array) {
+		return newType + array
+	} else {
+		return newType.capitalize() + array
+	}
 }
