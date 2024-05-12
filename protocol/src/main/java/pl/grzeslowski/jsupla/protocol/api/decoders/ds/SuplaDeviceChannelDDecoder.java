@@ -4,19 +4,19 @@ import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
-import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelC;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelD;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-@javax.annotation.Generated(value = "Struct original name: TDS_SuplaDeviceChannel_C", date = "2024-05-06T21:16:48.661+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "Struct original name: TDS_SuplaDeviceChannel_D", date = "2024-05-12T14:09:10.232+02:00[Europe/Belgrade]")
 @lombok.NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class SuplaDeviceChannelCDecoder implements pl.grzeslowski.jsupla.protocol.api.decoders.ds.DeviceServerDecoder<SuplaDeviceChannelC> {
-    public static final SuplaDeviceChannelCDecoder INSTANCE = new SuplaDeviceChannelCDecoder();
+public class SuplaDeviceChannelDDecoder implements DeviceServerDecoder<SuplaDeviceChannelD> {
+    public static final SuplaDeviceChannelDDecoder INSTANCE = new SuplaDeviceChannelDDecoder();
 
     @Override
-    public SuplaDeviceChannelC decode(byte[] bytes, int offset) {
+    public SuplaDeviceChannelD decode(byte[] bytes, int offset) {
         val number = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
         offset += BYTE_SIZE;
 
@@ -32,7 +32,13 @@ public class SuplaDeviceChannelCDecoder implements pl.grzeslowski.jsupla.protoco
         val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        int flags = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+        val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
+        offset += INT_SIZE;
+
+        val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        offset += INT_SIZE;
+
+        val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
         // start union 2
@@ -42,15 +48,21 @@ public class SuplaDeviceChannelCDecoder implements pl.grzeslowski.jsupla.protoco
         HVACValue hvacValue = null;
         // end union 2
 
-        return new SuplaDeviceChannelC(
+        val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        offset += INT_SIZE;
+
+        return new SuplaDeviceChannelD(
             number,
             type,
             funcList,
             actionTriggerCaps,
             defaultValue,
             flags,
+            offline,
+            valueValidityTimeSec,
             value,
             actionTriggerProperties,
-            hvacValue);
+            hvacValue,
+            defaultIcon);
     }
 }
