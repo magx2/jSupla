@@ -168,7 +168,21 @@ public final class Preconditions {
         return value;
     }
 
-    public static short sizeMax(short value, short max) {
+    public static short sizeMax(short value, long max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
+    }
+
+    public static byte sizeMax(byte value, long max) {
+        if (value > max) {
+            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+        }
+        return value;
+    }
+
+    public static long sizeMax(long value, long max) {
         if (value > max) {
             throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
         }

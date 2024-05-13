@@ -160,6 +160,9 @@ static String buildConstructorAssignment(field) {
 	if (field.unsigned) {
 		value = "unsigned(${value})"
 	}
+	if (field.extraCheck) {
+		value = String.format(field.extraCheck, value)
+	}
 	"this.${field.name} = $value;"
 }
 

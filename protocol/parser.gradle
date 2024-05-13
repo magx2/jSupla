@@ -39,6 +39,7 @@ class SimpleField implements Field {
 	String arraySize
 	String javaDoc
 	boolean struct
+	String extraCheck
 
 	@Override
 	boolean hasJavaDoc() {
@@ -356,11 +357,18 @@ class StructParser implements Parser<Struct> {
 							&& last instanceof SimpleField) {
 							if (last.array) {
 								def sizeCheck = secondToLast.name == last.name + "Size"
+
 								def countCheck = false
 								if (last.name.endsWith("s")) {
 									countCheck = secondToLast.name == last.name.substring(0, last.name.length() - 1) + "Count"
 								}
-								if (sizeCheck || countCheck) {
+
+								def secondToLastIsSize = secondToLast.name == "size"
+
+								if (sizeCheck || countCheck || secondToLastIsSize) {
+									if (last.arraySize != "SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE") {
+										secondToLast.extraCheck = "sizeMax(%s, $last.arraySize)"
+									}
 									last.arraySize = secondToLast.name
 									output.staticSize = false
 								}
