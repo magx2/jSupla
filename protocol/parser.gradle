@@ -365,7 +365,10 @@ class StructParser implements Parser<Struct> {
 
 								def secondToLastIsSize = secondToLast.name == "size"
 
-								if (sizeCheck || countCheck || secondToLastIsSize) {
+								// example: fooCount -> foo
+								def countCheck2 = secondToLast.name == last.name + "Count"
+
+								if (sizeCheck || countCheck || secondToLastIsSize || countCheck2) {
 									if (last.arraySize != "SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE") {
 										secondToLast.extraCheck = "sizeMax(%s, $last.arraySize)"
 									}

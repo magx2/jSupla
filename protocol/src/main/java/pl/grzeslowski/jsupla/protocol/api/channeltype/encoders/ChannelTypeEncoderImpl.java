@@ -10,12 +10,14 @@ public class ChannelTypeEncoderImpl {
         new ColorTypeChannelEncoderImpl(),
         new RelayTypeChannelEncoderImpl(),
         new ThermometerTypeChannelEncoderImpl(),
-        new StoppableOpenCloseEncoderImpl()
+        new StoppableOpenCloseEncoderImpl(),
+        new ElectricityMeterEncoder()
     );
     private final ColorTypeChannelEncoderImpl colorTypeChannelEncoder;
     private final RelayTypeChannelEncoderImpl relayTypeChannelEncoder;
     private final ThermometerTypeChannelEncoderImpl thermometerTypeChannelEncoder;
     private final StoppableOpenCloseEncoderImpl stoppableOpenCloseEncoder;
+    private final ElectricityMeterEncoder electricityMeterEncoder;
 
     private final ChannelValueSwitch.Callback<byte[]> callback = new ChannelValueSwitch.Callback<byte[]>() {
         @Override
@@ -56,6 +58,11 @@ public class ChannelTypeEncoderImpl {
         @Override
         public byte[] onTemperatureAndHumidityValue(final TemperatureAndHumidityValue temperatureAndHumidityValue) {
             return thermometerTypeChannelEncoder.encode(temperatureAndHumidityValue);
+        }
+
+        @Override
+        public byte[] onElectricityMeter(ElectricityMeterValue electricityMeterValue) {
+            return electricityMeterEncoder.encode(electricityMeterValue);
         }
 
         @Override

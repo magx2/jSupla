@@ -210,7 +210,10 @@ static boolean isChannelType(String name) {
 	if (name == "UNKNOWN") {
 		return true
 	}
-	name.startsWith("SUPLA_CHANNELTYPE_")
+	return name.startsWith("SUPLA_CHANNELTYPE_") ||
+		name.startsWith("EV_TYPE") ||
+		name.startsWith("SUBV_TYPE_") ||
+		name.startsWith("CALCFG_TYPE_")
 }
 
 static void buildCallType(String callTypeName, String callTypePrefix, Path callTypesFolder, consts) {
