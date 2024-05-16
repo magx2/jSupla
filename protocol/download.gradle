@@ -19,7 +19,8 @@ task checkForProtoUpdate {
 		def stableTag = rootDir.resolve("proto-${download.stableTag}.h").toFile()
 
 		if (latestTag.text != stableTag.text) {
-			throw new RuntimeException("Content of ${latestTag.name} and ${stableTag.name} are different! Please update stableTag in ext.")
+			throw new RuntimeException("Content of ${latestTag.name} and ${stableTag.name} are different! Please update stableTag in ext.\n" +
+				"Visit https://github.com/SUPLA/supla-core/blob/master/supla-common/proto.h to get latest proto.h")
 		} else {
 			logger.debug("Content of ${latestTag.name} and ${stableTag.name} are equal")
 		}
