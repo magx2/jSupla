@@ -1,0 +1,62 @@
+name: Release with Gradle
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      - name: Release with Gradle
+        id: release
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          
+          ./gradlew clean releaseVersion  -PossrhUsername=ignore -PossrhPassword=ignore2
+          git add gradle.properties
+          git commit -m "Update jSuplaVersion to release version in gradle.properties"
+          
+          ./gradlew noSnapshots build uploadArchives tag -PossrhUsername=ignore -PossrhPassword=ignore2
+          
+          # Define the file path
+          FILE="build/tag.txt"
+
+          # Check if the file exists
+          if [ -f "$FILE" ]; then
+              # Read the content of the file into the TAG variable
+              TAG=$(cat "$FILE")
+              echo "tag value: $TAG"
+              echo "tag=$TAG" >> $GITHUB_OUTPUT
+          
+              echo "New tag $tag"
+              git tag $TAG
+              echo "Pushing tag..."
+              git push origin $TAG
+          else
+              echo "File $FILE does not exist."
+              exit 33
+          fi
+          
+          ./gradlew nextSnapshot -PossrhUsername=ignore -PossrhPassword=ignore2
+          git add gradle.properties
+          git commit -m "Update jSuplaVersion to SNAPSHOT version in gradle.properties"
+          
+          echo "Pushing master to origin..."
+          git push origin master
+      - name: Release with Github
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.conig.outputs.tag }}
+          overwrite: true
+          release_name: Tag ${{ steps.release.outputs.tag }}
+          body: "Release of ${{ steps.release.outputs.tag }}"

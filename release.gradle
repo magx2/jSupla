@@ -1,0 +1,86 @@
+import java.nio.file.Files
+
+task tag {
+	doLast {
+		def gradleProps = project.file('gradle.properties')
+		def match = gradleProps.text =~ /jSuplaVersion=(.+)/
+		if (!match) {
+			throw new RuntimeException("Version not found in gradle.properties")
+		}
+		//noinspection GroovyAssignabilityCheck
+		def version = match[0][1]
+		def tagName = "jSupla-$version"
+
+		def tagFile = project.buildDir.toPath().resolve("tag.txt")
+		Files.createDirectories(tagFile.parent)
+		if (Files.exists(tagFile)) {
+			Files.delete(tagFile)
+		}
+		Files.createFile(tagFile)
+		tagFile.write(tagName)
+	}
+}
+
+task noSnapshots {
+	doLast {
+		def gradleProps = project.file('gradle.properties')
+
+		def versionLine = gradleProps.text.find(/jSuplaVersion=(\d+\.\d+\.\d+(.+)?)/)
+		if (!versionLine) {
+			throw new RuntimeException("Version not found in gradle.properties")
+		}
+
+		if (versionLine.contains('SNAPSHOT')) {
+			throw new RuntimeException("No snapshots allowed at this point! version=$versionLine")
+		}
+
+		logger.debug("version=$versionLine is not snapshot")
+	}
+}
+prodProjects {
+	uploadArchives.dependsOn "noSnapshots"
+}
+tag.dependsOn "noSnapshots"
+
+task releaseVersion {
+	doLast {
+		def gradleProps = project.file('gradle.properties')
+		def originalContent = gradleProps.text
+		def updatedContent = originalContent.replaceAll(/jSuplaVersion=(\d+\.\d+\.\d+)-SNAPSHOT/, "jSuplaVersion=\$1")
+		gradleProps.text = updatedContent
+
+		def versionLine = gradleProps.text.find(/jSuplaVersion=(\d+\.\d+\.\d+)/)
+		if (!versionLine) {
+			throw new RuntimeException("Version not found in gradle.properties")
+		}
+
+		def currentVersion = versionLine[1]
+		logger.info "Current version: $currentVersion"
+	}
+}
+
+task nextSnapshot {
+	doLast {
+		def gradleProps = project.file('gradle.properties')
+		def match = gradleProps.text =~ /jSuplaVersion=(\d+)\.(\d+)\.(\d+)/
+		if (!match) {
+			throw new RuntimeException("Version not found in gradle.properties")
+		}
+
+		//noinspection GroovyAssignabilityCheck
+		def major = match[0][1] as int
+		//noinspection GroovyAssignabilityCheck
+		def minor = match[0][2] as int
+		//noinspection GroovyAssignabilityCheck
+		def patch = match[0][3] as int
+
+		// Increment the minor version
+		minor++
+
+		// Update the version line
+		def updatedVersion = "jSuplaVersion=$major.$minor.$patch-SNAPSHOT"
+		gradleProps.text = gradleProps.text.replaceFirst(/jSuplaVersion=\d+\.\d+\.\d+/, updatedVersion)
+
+		logger.info("Updated version: $updatedVersion")
+	}
+}
