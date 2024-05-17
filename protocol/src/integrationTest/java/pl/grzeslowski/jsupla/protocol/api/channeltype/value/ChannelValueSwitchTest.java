@@ -140,12 +140,11 @@ public class ChannelValueSwitchTest {
             @Override
             public ChannelValue onElectricityMeter() {
                 return new ElectricityMeterValue(
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
                     1,
+                    1,
+                    null,
+                    null,
+                    null,
                     1,
                     1,
                     null);
