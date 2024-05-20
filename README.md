@@ -2,113 +2,165 @@
 
 <div align="center">
     <b><em>jSupla</em></b><br>
-    IoT with Java and <why href="https://supla.org">Supla</why>
+    Java ❤️ <a href="https://supla.org">Supla</a>
 </div>
 
 <div align="center">
-
-[![Build Status](https://travis-ci.org/magx2/jSupla.svg?branch=master)](https://travis-ci.org/magx2/jSupla)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/magx2/jSupla.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/magx2/jSupla/alerts/)
-[![Download](https://api.bintray.com/packages/big-boy/bigboy/jSupla/images/download.svg) ](https://bintray.com/big-boy/bigboy/jSupla/_latestVersion)
-
 </div>
 
 ***
 
+**jSupla** is an implementation of the Supla protocol for Java, designed to facilitate the development of IoT (Internet
+of Things) applications. The Supla protocol is used for communication between smart devices, enabling them to interact
+seamlessly within a connected environment. With **jSupla**, developers can create servers that communicate with
+Supla-compatible devices, handling various operations such as data exchange, command execution, and device status
+monitoring.
+
+The project provides two main modules: `protocol` and `server`. The `protocol` module includes the necessary data
+structures and serialization/deserialization mechanisms for the Supla protocol, while the `server` module offers a
+robust server implementation using Reactor and Netty. This combination allows for efficient, asynchronous communication
+with Supla devices, making it easier to build scalable and responsive IoT solutions.
+
 # Modules
 
-There are few modules in jSupla project. Two most important are ```server``` and ```nettyServer```.
-First is an abstraction on server-client communication. Second is implementation done in Netty framework.
-
-| Artifact ID  | Depends On   | Comment                                                                                                                                                                                 |
-|--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| nettyServer  | server       | This is module required for creating server that will handle connecting Supla devices and clients.                                                                                      |
-| server       | protocolJava | Abstraction for creating Supla server. Use this interfaces when dealing with Supla server                                                                                               |
-| protocolJava | protocol     | Module that contains all entity classes that are send in protocol. Entities are Java friendly                                                                                           |
-| protocol     | common       | Very similar to ```protocolJava```, but entities are more familiar to C/C++ programmers. They do not obey ```POJO``` rules. Use this module if you need to get really good performance. |
-| common       | N/A          | Common classes used by all modules. Do not use them by yourself.                                                                                                                        |
+| Module   | Description                                                                                                                                     |
+|----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| protocol | Contains structures that are sent in the Supla environment and decoders/encoders for them. The code generation is done during the Gradle build. |
+| server   | Implements a server for Supla devices and clients. Internally, it uses Reactor and Netty.                                                       |
 
 # Installing
 
-## Repository
+Both modules are deployed to Maven Central.
 
-Add ```Big Boy``` maven repository to your ```build.gradle```:
+## `protocol` module
 
-### Gradle
-
-```groovy
-repositories {
-	maven {
-		url "https://dl.bintray.com/big-boy/bigboy"
-	}
-}
-``` 
-
-### Maven
-
-```xml
-
-<repositories>
-	<repository>
-		<id>big-boy</id>
-		<name>Big Boy</name>
-		<url>https://dl.bintray.com/big-boy/bigboy</url>
-	</repository>
-</repositories>
-```
-
-## Dependency
-
-Depending which module you want to use add it as dependency:
-
-### Gradle
-
-```groovy
-compile 'pl.grzeslowski.jSupla:$module:0.9.0'
-```
-
-### Maven
+The protocol module can be found
+at [Maven Repository - Protocol](https://mvnrepository.com/artifact/pl.grzeslowski.jSupla/protocol):
 
 ```xml
 
 <dependency>
 	<groupId>pl.grzeslowski.jSupla</groupId>
-	<artifactId>$module</artifactId>
-	<version>0.9.0</version>
-	<type>pom</type>
+	<artifactId>protocol</artifactId>
+	<version>X.Y.Z</version>
 </dependency>
 ```
 
-# Usage
-
-Full tutorial need to be written, but at this time you can
-check [Netty Test project](https://github.com/magx2/jSupla/blob/master/nettyTest/src/main/java/pl/grzeslowski/jsupla/nettytest/Server.java)
-or jSupla binding in OpenHAB.
-
-# Deploying to Maven Central
-
-1. Run `gradle uploadArchives`
-2. Login here: https://account.oss.sonatype.org/realms/central-ossrh/account/#/
-2. Go to [sonatype](https://s01.oss.sonatype.org/#stagingRepositories) and select `Staging Repositories`
-3. Select `plgrzeslowski-100X` and click `close` and after `release`
-4. Artifact should be visible after some time
-
-## Prerequisites
-
-In `~/.gradle/gradle.properties` add this values:
-
-```properties
-// https://central.sonatype.org/publish/publish-gradle/#credentials
-signing.keyId=<Short GPG Key - 8 chars>
-signing.password=<GPG Key Pass>
-signing.secretKeyRingFile=<GPG File>
-ossrhUsername=<username>
-ossrhPassword=<password>
+```groovy
+implementation group: 'pl.grzeslowski.jSupla', name: 'protocol', version: 'X.Y.Z'
 ```
 
-## Links
+## `server` module
 
-1. [Releasing Deployment from OSSRH to the Central Repository](https://central.sonatype.org/publish/release/)
-2. [Deploying to OSSRH with Gradle](https://central.sonatype.org/publish/publish-gradle/)
-3. [OSSRH: Various projects under "pl.grzeslowski"](https://issues.sonatype.org/projects/OSSRH/issues/OSSRH-98249?filter=reportedbyme)
+The server module can be found
+at [Maven Repository - Server:](https://mvnrepository.com/artifact/pl.grzeslowski.jSupla/server)
+
+```xml
+
+<dependency>
+	<groupId>pl.grzeslowski.jSupla</groupId>
+	<artifactId>server</artifactId>
+	<version>X.Y.Z</version>
+</dependency>
+```
+
+```groovy
+implementation group: 'pl.grzeslowski.jSupla', name: 'server', version: 'X.Y.Z'
+```
+
+# Examples
+
+This section provides examples of how to use the **jSupla** library to set up a server and handle communication with
+Supla devices.
+
+## Protocol Module Usage
+
+The proto module provides the necessary structures and codecs for communication in the Supla environment. Below is an
+example of how to use these structures.
+
+### Encoding and Decoding Example
+
+Here is a basic example of encoding and decoding a Supla protocol message:
+
+```java
+import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+
+public class ProtoExample {
+	public static void main(String[] args) {
+		// Create encoder and decoder factories
+		EncoderFactoryImpl encoderFactory = new EncoderFactoryImpl();
+		DecoderFactoryImpl decoderFactory = new DecoderFactoryImpl();
+
+		// Example structure
+		SuplaRegisterDeviceResult result = new SuplaRegisterDeviceResult(
+			1, // resultCode
+			2, // activityTimeout
+			3, // version
+			4  // minVersion
+		);
+
+		// Encode the structure
+		byte[] encodedData = encoderFactory.getEncoder(SuplaRegisterDeviceResult.class).encode(result);
+
+		// Decode the structure
+		SuplaRegisterDeviceResult decodedResult = (SuplaRegisterDeviceResult) decoderFactory.getDecoder(SuplaRegisterDeviceResult.class).decode(encodedData);
+
+		// Print the decoded result
+		System.out.println("Decoded Result: " + decodedResult);
+	}
+}
+```
+
+## Server Setup Example
+
+To create a server using the `server` module, you can refer to the `Server` class provided in the project. This class
+demonstrates how to initialize and run a server that communicates with Supla devices.
+
+### Basic Server Setup
+
+Here is a simplified example based on
+the [`Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
+class:
+
+```java
+public class SimpleServer {
+	public static void main(String[] args) throws Exception {
+		// Create server properties
+		ServerProperties properties = ServerProperties.fromList(Arrays.asList(
+			PORT, 2016,
+			SSL_CTX, buildSslContext()));
+
+		// Create server factory
+		ServerFactory serverFactory = new NettyServerFactory(
+			CallTypeParser.INSTANCE,
+			DecoderFactoryImpl.INSTANCE,
+			EncoderFactoryImpl.INSTANCE);
+
+		// Create and start the server
+		Server server = factory.createNewServer(buildServerProperties());
+		server.getNewChannelsPipe().subscribe(this::newChannel);
+	}
+
+	private static SslContext buildSslContext() throws CertificateException, SSLException {
+		SelfSignedCertificate ssc = new SelfSignedCertificate();
+		return SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
+			.protocols("TLSv1.3", "TLSv1.2", "TLSv1")
+			.build();
+	}
+
+	private void newMessage(ToServerProto toServerEntity, Channel channel) {
+		System.out.println("Got: " + toServerEntity);
+		FromServerProto ping = new SuplaPingServerResult(new SuplaTimeval(0, 0));
+		channel.write(just(ping)).subscribe();
+	}
+}
+```
+
+# Support ❤️
+
+If you find **jSupla** helpful and would like to support the author of this project, consider buying him a coffee:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/S6S8UBWWY) <a href="https://buycoffee.to/magx2" target="_blank"><img src="https://buycoffee.to/btn/buycoffeeto-btn-primary.svg" alt="Postaw mi kawę na buycoffee.to" width="150"></a>
