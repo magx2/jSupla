@@ -37,7 +37,7 @@ jobs:
             -PossrhPassword=$OSSRH_PASSWORD \
             -Psigning.keyId=$KEY_ID \
             -Psigning.password=$PASSWORD \
-            -Psigning.secretKeyRingFile=./secring.gpg \
+            -Psigning.secretKeyRingFile=$(realpath ./secring.gpg) \
           
           # Define the file path
           FILE="build/tag.txt"
