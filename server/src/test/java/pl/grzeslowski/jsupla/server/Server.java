@@ -51,8 +51,6 @@ public class Server {
                 PROPER_AES_KEY_SIZE);
         }
 
-        buildSslContext();
-
         final ServerFactory factory = buildServerFactory();
         pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(buildServerProperties());
 
