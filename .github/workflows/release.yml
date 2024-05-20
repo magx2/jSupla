@@ -66,11 +66,3 @@ jobs:
           
           echo "Pushing master to origin..."
           git push origin master
-      - name: Release with Github
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.release.outputs.tag }}
-          overwrite: true
-          release_name: Tag ${{ steps.release.outputs.tag }}
-          body: "Release of ${{ steps.release.outputs.tag }}"
