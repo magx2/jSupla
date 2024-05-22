@@ -1,8 +1,6 @@
 name: Release with Gradle
-
 on:
   workflow_dispatch:
-
 jobs:
   release:
     runs-on: ubuntu-latest
