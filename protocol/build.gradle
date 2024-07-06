@@ -66,6 +66,7 @@ ext.callTypes = [
 	[proto: "TDS_SuplaRegisterDevice_D", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_D"],
 	[proto: "TDS_SuplaRegisterDevice_E", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_E"],
 	[proto: "TDS_SuplaRegisterDevice_F", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_F"],
+	[proto: "TDS_SuplaRegisterDevice_G", callType: "SUPLA_DS_CALL_REGISTER_DEVICE_G"],
 	[proto: "TDS_SuplaDeviceChannelValue", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED"],
 	[proto: "TDS_SuplaDeviceChannelValue_B", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_B"],
 	[proto: "TDS_SuplaDeviceChannelValue_C", callType: "SUPLA_DS_CALL_DEVICE_CHANNEL_VALUE_CHANGED_C"],
@@ -123,6 +124,7 @@ ext.callTypes = [
 	[proto: "TSC_DeviceConfigUpdateOrResult", callType: "SUPLA_SC_CALL_DEVICE_CONFIG_UPDATE_OR_RESULT"],
 	// sd
 	[proto: "TSD_SuplaRegisterDeviceResult", callType: "SUPLA_SD_CALL_REGISTER_DEVICE_RESULT"],
+	[proto: "TSD_SuplaRegisterDeviceResult_B", callType: "SUPLA_SD_CALL_REGISTER_DEVICE_RESULT_B"],
 	[proto: "TSD_SuplaChannelNewValue", callType: "SUPLA_SD_CALL_CHANNEL_SET_VALUE"],
 	[proto: "TSD_SuplaChannelGroupNewValue", callType: "SUPLA_SD_CALL_CHANNELGROUP_SET_VALUE"],
 	[proto: "TSD_FirmwareUpdate_UrlResult", callType: "SUPLA_SD_CALL_GET_FIRMWARE_UPDATE_URL_RESULT"],
