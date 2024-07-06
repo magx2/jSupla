@@ -1033,6 +1033,7 @@ class Names {
 			|| name == "TChannelAndTimerState_ExtendedValue"
 			|| name.startsWith("TChannelConfig_")
 			|| name.startsWith("TAction")
+			|| name.startsWith("TDeviceConfig")
 			|| name == "TCalCfg_ZWave_WakeUpTime"
 			|| name == "TValve_Value"
 			|| name == "TThermostat_Value"
