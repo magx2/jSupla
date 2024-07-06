@@ -33,7 +33,8 @@ task checkForProtoUpdate {
 
 		assertThat(latestTag)
 			.as("Content of ${latestTag.name} and ${stableTag.name} are different! Please update stableTag in ext.\n" +
-				"Visit https://github.com/SUPLA/supla-core/blob/master/supla-common/proto.h to get latest proto.h")
+				"Visit https://github.com/SUPLA/supla-core/blob/master/supla-common/proto.h to get latest proto.h or \n" +
+				"visit https://github.com/SUPLA/supla-core/compare/${download.stableTag}..master to get diff")
 			.hasSameTextualContentAs(stableTag)
 
 		logger.debug("Content of ${latestTag.name} and ${stableTag.name} are equal")
