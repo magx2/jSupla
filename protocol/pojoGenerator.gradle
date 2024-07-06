@@ -279,14 +279,16 @@ String findCallType(struct) {
 	def returnValue = "pl.grzeslowski.jsupla.protocol.api.calltypes." + clazz.split("\\.")[-1]
 
 
-	def callType = ext.callTypes
+	def any = ext.callTypes
 		.stream()
 		.filter { it.proto == struct.rawName }
 		.map { it.callType }
 		.map { "return ${returnValue}CallType.$it;" }
 		.findAny()
-		.orElseGet {
-			logger.warn("${struct.rawName} does not have call type!")
+	if (!any.isPresent() && !ext.noCallTypes.contains(struct.rawName)) {
+		throw new IllegalArgumentException("Cannot find call type for: " + struct.rawName)
+	}
+	def callType = any.orElseGet {
 			"throw new UnsupportedOperationException(\"CallType for \" +getClass().getSimpleName()+\" is not set!\");"
 		}
 

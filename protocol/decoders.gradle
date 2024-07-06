@@ -300,7 +300,7 @@ static String findDecoder(struct) {
 
 @SuppressWarnings('GrMethodMayBeStatic')
 String findDecoderForCallType(struct) {
-	return ext.callTypes
+	def any = ext.callTypes
 		.stream()
 		.filter { it.proto == struct.rawName }
 		.map { it.callType }
@@ -311,6 +311,10 @@ String findDecoderForCallType(struct) {
 			|		}""".stripMargin()
 		}
 		.findAny()
+	if (!any.isPresent() && !ext.noCallTypes.contains(struct.rawName)) {
+		throw new IllegalArgumentException("No call type for ${struct.rawName}")
+	}
+	return any
 		.orElseGet {
 			"\t\t// no call type for ${struct.rawName}"
 		}
