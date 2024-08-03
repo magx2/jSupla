@@ -6,7 +6,7 @@ repositories {
 dependencies {
 	compile rootProject.project("protocol")
 	compile group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
-	compile group: 'io.netty', name: 'netty-all', version: '4.1.106.Final'
+	compile group: 'io.netty', name: 'netty-all', version: '4.1.112.Final'
 	compile 'org.javatuples:javatuples:1.2'
 
 	testCompile rootProject.project("protocol").sourceSets.test.output
