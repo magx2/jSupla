@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server.netty;
 
 import io.netty.handler.ssl.SslContext;
+import jakarta.annotation.Nullable;
 import lombok.Value;
-import reactor.util.annotation.Nullable;
 
 @SuppressWarnings("WeakerAccess")
 @Value

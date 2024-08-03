@@ -17,7 +17,6 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
-import pl.grzeslowski.jsupla.server.api.Channel;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
 import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
@@ -25,12 +24,12 @@ import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
-import static reactor.core.publisher.Flux.just;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -52,9 +51,7 @@ public class Server {
         }
 
         final ServerFactory factory = buildServerFactory();
-        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(buildServerProperties());
-
-        server.getNewChannelsPipe().subscribe(this::newChannel);
+        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(buildServerProperties(), () -> this::newMessage);
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
@@ -62,12 +59,7 @@ public class Server {
         server.close();
     }
 
-    private void newChannel(final Channel channel) {
-        logger.info("New channel {}", channel);
-        channel.getMessagePipe().subscribe(toServerEntity -> newMessage(toServerEntity, channel));
-    }
-
-    private void newMessage(ToServerProto toServerEntity, Channel channel) {
+    private Optional<FromServerProto> newMessage(ToServerProto toServerEntity) {
         FromServerProto result;
 
         if (toServerEntity instanceof SuplaRegisterDevice) {
@@ -101,9 +93,7 @@ public class Server {
         }
 
         logger.info("Got {}, Sending {}", toServerEntity, result);
-        if (result != null) {
-            channel.write(just(result)).subscribe();
-        }
+        return Optional.ofNullable(result);
     }
 
     private ServerFactory buildServerFactory() {

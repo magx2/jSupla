@@ -1,6 +1,9 @@
 package pl.grzeslowski.jsupla.server.api;
 
-import javax.validation.constraints.NotNull;
+
+import lombok.NonNull;
+
+import java.util.function.Supplier;
 
 public interface ServerFactory {
     /**
@@ -11,5 +14,5 @@ public interface ServerFactory {
      * @return running server
      * @throws IllegalArgumentException when serverProperties does not have all required fields
      */
-    Server createNewServer(@NotNull ServerProperties serverProperties) throws IllegalArgumentException;
+    Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull Supplier<MessageHandler> messageHandlerFactory) throws IllegalArgumentException;
 }
