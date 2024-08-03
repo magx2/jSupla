@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.server.api;
 
+import jakarta.annotation.Nullable;
 import lombok.ToString;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
-import reactor.util.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.List;

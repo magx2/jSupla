@@ -17,20 +17,21 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
-import pl.grzeslowski.jsupla.server.api.Channel;
+import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
+import pl.grzeslowski.jsupla.server.api.Writer;
 import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
 
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
 import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
-import static reactor.core.publisher.Flux.just;
 
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
@@ -52,9 +53,27 @@ public class Server {
         }
 
         final ServerFactory factory = buildServerFactory();
-        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(buildServerProperties());
+        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(
+            buildServerProperties(),
+            () -> new MessageHandler() {
+                Writer writer;
 
-        server.getNewChannelsPipe().subscribe(this::newChannel);
+                @Override
+                public void handle(ToServerProto toServerProto) {
+                    Server.this.newMessage(toServerProto)
+                        .ifPresent(proto -> writer.write(proto));
+                }
+
+                @Override
+                public void active(Writer writer) {
+                    this.writer = writer;
+                }
+
+                @Override
+                public void inactive() {
+
+                }
+            });
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
@@ -62,12 +81,7 @@ public class Server {
         server.close();
     }
 
-    private void newChannel(final Channel channel) {
-        logger.info("New channel {}", channel);
-        channel.getMessagePipe().subscribe(toServerEntity -> newMessage(toServerEntity, channel));
-    }
-
-    private void newMessage(ToServerProto toServerEntity, Channel channel) {
+    private Optional<FromServerProto> newMessage(ToServerProto toServerEntity) {
         FromServerProto result;
 
         if (toServerEntity instanceof SuplaRegisterDevice) {
@@ -101,9 +115,7 @@ public class Server {
         }
 
         logger.info("Got {}, Sending {}", toServerEntity, result);
-        if (result != null) {
-            channel.write(just(result)).subscribe();
-        }
+        return Optional.ofNullable(result);
     }
 
     private ServerFactory buildServerFactory() {
