@@ -123,43 +123,9 @@ demonstrates how to initialize and run a server that communicates with Supla dev
 
 ### Basic Server Setup
 
-Here is a simplified example based on
-the [`Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
+Check example code
+in  [`Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
 class:
-
-```java
-public class SimpleServer {
-	public static void main(String[] args) throws Exception {
-		// Create server properties
-		ServerProperties properties = ServerProperties.fromList(Arrays.asList(
-			PORT, 2016,
-			SSL_CTX, buildSslContext()));
-
-		// Create server factory
-		ServerFactory serverFactory = new NettyServerFactory(
-			CallTypeParser.INSTANCE,
-			DecoderFactoryImpl.INSTANCE,
-			EncoderFactoryImpl.INSTANCE);
-
-		// Create and start the server
-		Server server = factory.createNewServer(buildServerProperties());
-		server.getNewChannelsPipe().subscribe(this::newChannel);
-	}
-
-	private static SslContext buildSslContext() throws CertificateException, SSLException {
-		SelfSignedCertificate ssc = new SelfSignedCertificate();
-		return SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
-			.protocols("TLSv1.3", "TLSv1.2", "TLSv1")
-			.build();
-	}
-
-	private void newMessage(ToServerProto toServerEntity, Channel channel) {
-		System.out.println("Got: " + toServerEntity);
-		FromServerProto ping = new SuplaPingServerResult(new SuplaTimeval(0, 0));
-		channel.write(just(ping)).subscribe();
-	}
-}
-```
 
 # Support ❤️
 
