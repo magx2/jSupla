@@ -17,8 +17,10 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
+import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
+import pl.grzeslowski.jsupla.server.api.Writer;
 import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
 
 import javax.net.ssl.SSLException;
@@ -51,7 +53,27 @@ public class Server {
         }
 
         final ServerFactory factory = buildServerFactory();
-        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(buildServerProperties(), () -> this::newMessage);
+        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(
+            buildServerProperties(),
+            () -> new MessageHandler() {
+                Writer writer;
+
+                @Override
+                public void handle(ToServerProto toServerProto) {
+                    Server.this.newMessage(toServerProto)
+                        .ifPresent(proto -> writer.write(proto));
+                }
+
+                @Override
+                public void active(Writer writer) {
+                    this.writer = writer;
+                }
+
+                @Override
+                public void inactive() {
+
+                }
+            });
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
