@@ -3,7 +3,8 @@
 1. Run [Release with Gradle](https://github.com/magx2/jSupla/actions/workflows/release.yml) action
 2. Go to [sonatype](https://s01.oss.sonatype.org/#stagingRepositories) and select `Staging Repositories`
 3. Select `plgrzeslowski-100X` and click `close` and after `release`
-4. Artifact should be visible after some time
+4. Artifact should be visible after some
+   time ([protocol](https://mvnrepository.com/artifact/pl.grzeslowski.jSupla/protocol), [server](https://mvnrepository.com/artifact/pl.grzeslowski.jSupla/server))
 
 ## Prerequisites
 
