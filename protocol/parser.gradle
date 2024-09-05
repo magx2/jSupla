@@ -49,6 +49,12 @@ class SimpleField implements Field {
 
 @MapConstructor
 @ToString(includeNames = true, ignoreNulls = true)
+class EmbeddedStruct {
+	List<Field> fields
+}
+
+@MapConstructor
+@ToString(includeNames = true, ignoreNulls = true)
 class UnionField implements Field {
 	List<SimpleField> fields
 
@@ -173,12 +179,65 @@ class FieldParser implements Parser<SimpleField> {
 }
 
 
+class EmbeddedStructParser implements Parser<EmbeddedStruct> {
+	final Logger logger
+	EmbeddedStruct output = null
+	FieldParser fieldParser
+	List<Field> fields = new ArrayList<>()
+	String currentLine = ""
+	boolean finished
+
+	EmbeddedStructParser(logger) {
+		this.logger = logger
+		fieldParser = new FieldParser(logger)
+	}
+
+	@Override
+	void next(String character, int line, int column) {
+		if (character != "\n") {
+			currentLine += character
+		} else {
+			currentLine = ""
+		}
+
+		if (finished && character != "\n") {
+			// finish the struct
+			if (fields.isEmpty()) {
+				throw new IllegalStateException("There are no fields in embedded struct")
+			}
+			def join = fields.stream().map { it.toString() }.collect(Collectors.joining(", "))
+			logger.debug("{}:{} Parsed embedded struct with fields: {}", line, column, join)
+			output = new EmbeddedStruct([fields: fields])
+		}
+
+		if (character == "}") {
+			finished = true
+			return
+		}
+
+		// parse fields in struct
+		fieldParser.next(character, line, column)
+		def next = fieldParser.output()
+		if (next) {
+			fields.add(next)
+			fieldParser = new FieldParser(logger)
+		}
+	}
+
+	@Override
+	EmbeddedStruct output() {
+		return output
+	}
+}
+
 class UnionParser implements Parser<UnionField> {
 	final Logger logger
 	UnionField output
 	List<SimpleField> fields = new ArrayList<>()
+	List<EmbeddedStruct> structs = new ArrayList<>()
 	int curlyBrackets = 0
 	FieldParser fieldParser = new FieldParser(logger)
+	EmbeddedStructParser embeddedStructParser
 	String currentLine = ""
 
 	UnionParser(Logger logger) {
@@ -197,6 +256,7 @@ class UnionParser implements Parser<UnionField> {
 			curlyBrackets++
 		} else if (character == "}") {
 			curlyBrackets--
+			embeddedStructParser?.next(character, line, column)
 		} else if (character == ";" && curlyBrackets == 0) {
 			if (fields.isEmpty()) {
 				throw new ParseException(line, column, "Union does not have any fields!")
@@ -205,20 +265,37 @@ class UnionParser implements Parser<UnionField> {
 			output.fields = fields
 		} else {
 			if (!currentLine.trim().startsWith("/")) {
-				fieldParser.next(character, line, column)
-				def output = fieldParser.output()
-				if (output) {
-					def type = output.type
-					if (type == "char"
-						|| type == "byte"
-						|| type == "int"
-						|| type == "long"
-						|| type == "short") {
-						output.type = output.type.capitalize()
+				// here we can have field or embedded struct
+				if (currentLine.trim().startsWith("struct")) {
+					embeddedStructParser = new EmbeddedStructParser(logger)
+					fieldParser = null
+				}
+
+				if (embeddedStructParser) {
+					embeddedStructParser.next(character, line, column)
+					def output = embeddedStructParser.output()
+					if (output) {
+						logger.debug("{}:{} Parsed embedded struct", line, column)
+						structs.add(output)
+						embeddedStructParser = null
+						fieldParser = new FieldParser(logger)
 					}
-					logger.debug("{}:{} Parsed union field", line, column)
-					fields.add(output)
-					fieldParser = new FieldParser(logger)
+				} else {
+					fieldParser.next(character, line, column)
+					def output = fieldParser.output()
+					if (output) {
+						def type = output.type
+						if (type == "char"
+							|| type == "byte"
+							|| type == "int"
+							|| type == "long"
+							|| type == "short") {
+							output.type = output.type.capitalize()
+						}
+						logger.debug("{}:{} Parsed union field", line, column)
+						fields.add(output)
+						fieldParser = new FieldParser(logger)
+					}
 				}
 			}
 		}
@@ -578,7 +655,10 @@ class ConstsParser implements Parser<List<Const>> {
 
 	@Override
 	List<Const> output() {
-		return outputs
+		return outputs.stream()
+		// USE_DEPRECATED_EMEV_V2 is deprecated in proto.h and will be removed
+			.filter { it.name != 'USE_DEPRECATED_EMEV_V2' }
+			.toList()
 	}
 }
 
@@ -655,13 +735,13 @@ task parseProtoh {
 			fields : [
 				new SimpleField([
 					name     : "tvSec",
-					type: "int",
+					type   : "int",
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
-					type: "int",
+					type   : "int",
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
@@ -922,6 +1002,10 @@ class Names {
 			return "TSuplaChannelValueB"
 		}
 
+		if (name == "HvacParameterFlags") {
+			name = "T_HvacParameterFlags"
+		}
+
 		if (name == "TSuplaDataPacket"
 			|| name == "TSuplaChannelValue"
 			|| name == "TSuplaChannelExtendedValue"
@@ -983,8 +1067,25 @@ class Names {
 	}
 
 	static String findPrefix(String name) {
+		if (name == "_supla_int64_t"
+			|| name == "_supla_int16_t"
+			|| name == "short"
+			|| name == "_supla_int_t"
+			|| name == "int"
+			|| name == "char"
+			|| name == "long"
+			|| name == "struct"
+			|| name == "union"
+			|| name == "union") {
+			return name
+		}
+
 		if (name.startsWith("_")) {
 			return "T"
+		}
+
+		if (name == "HvacParameterFlags") {
+			name = "T_HvacParameterFlags"
 		}
 
 		if (name == "TSuplaDataPacket"
@@ -1034,6 +1135,7 @@ class Names {
 			|| name.startsWith("TChannelConfig_")
 			|| name.startsWith("TAction")
 			|| name.startsWith("TDeviceConfig")
+			|| name.startsWith("TCalCfg")
 			|| name == "TCalCfg_ZWave_WakeUpTime"
 			|| name == "TValve_Value"
 			|| name == "TThermostat_Value"
@@ -1043,8 +1145,8 @@ class Names {
 		}
 
 		def split = name.split("_", 2)
-		if (split.length == 1) {
-			return split[0]
+		if (split.length != 2) {
+			throw new IllegalArgumentException("Cannot get prefix from: " + name)
 		}
 		def prefix = split[0]
 

@@ -263,7 +263,7 @@ static String findImplementClass(struct) {
 		} else if (letter == "d") {
 			implementClass += "Device"
 		} else {
-			throw new IllegalArgumentException("Unknown letter [$letter] !")
+			throw new IllegalArgumentException("[structs] Unknown letter [$letter] !")
 		}
 	}
 	return implementClass

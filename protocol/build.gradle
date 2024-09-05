@@ -17,7 +17,7 @@ sourceSets {
 
 ext.download = [
 	latestTag: "master",
-	stableTag: "943711715e738e02db79d3f4f58178f4ecf5d5f8",
+	stableTag: "fbdfec965db952ce92c2b2727b9d7040f14ac1e6",
 	rootDir  : "${project.buildDir}/download",
 ]
 ext.callTypes = [
@@ -144,6 +144,13 @@ ext.callTypes = [
 	[proto: "TSDC_RegistrationEnabled", callType: "SUPLA_SDC_CALL_GET_REGISTRATION_ENABLED_RESULT"],
 ]
 ext.noCallTypes = new HashSet([
+	'TDeviceConfig_PowerStatusLed',
+	'TDS_SubdeviceDetails',
+	'TChannelConfig_PowerSwitch',
+	'TChannelConfig_OCR',
+	'TChannelConfig_ImpulseCounter',
+	'TCalCfg_SubdevicePairingResult',
+	'HvacParameterFlags',
 	'TCSD_ChannelStateRequest',
 	'TCSD_Digiglass_NewValue',
 	'TCSD_FacadeBlindValue',
