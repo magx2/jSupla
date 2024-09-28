@@ -17,7 +17,7 @@ sourceSets {
 
 ext.download = [
 	latestTag: "master",
-	stableTag: "fbdfec965db952ce92c2b2727b9d7040f14ac1e6",
+	stableTag: "044698b260c9f590bdfbf41e9b253f257eaa3082",
 	rootDir  : "${project.buildDir}/download",
 ]
 ext.callTypes = [
