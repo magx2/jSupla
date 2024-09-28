@@ -51,7 +51,6 @@ private static boolean isReleasableProject(Project p) {
 
 allprojects {
 	repositories {
-		mavenLocal()
 		mavenCentral()
 	}
 }
