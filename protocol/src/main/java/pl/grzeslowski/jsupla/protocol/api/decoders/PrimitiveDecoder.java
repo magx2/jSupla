@@ -54,8 +54,8 @@ public class PrimitiveDecoder {
 
 
     public short parseShort(byte[] bytes, int offset) {
-        sizeMin(bytes, INT_SIZE + offset);
-        final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, INT_SIZE);
+        sizeMin(bytes, SHORT_SIZE + offset);
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes, offset, SHORT_SIZE);
         byteBuffer.order(LITTLE_ENDIAN);
         return byteBuffer.getShort();
     }
