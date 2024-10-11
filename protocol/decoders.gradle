@@ -84,7 +84,7 @@ task decoderFactoryGenerator {
 			|   @Override
     		|	public <T extends ProtoWithSize & ProtoWithCallType> Decoder<T> getDecoder(CallType callType) {
     		|$findDecoderForCallType
-			|		throw new IllegalArgumentException("Can't find decoder for callType " + callType);
+			|		throw new IllegalArgumentException("Can't find decoder for callType " + callType + "(" +callType.getValue()+ ")");
     		|	}
 			|}
 			|""".stripMargin()

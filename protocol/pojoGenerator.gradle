@@ -300,6 +300,9 @@ String findCallType(struct) {
 }
 
 static String findSizeForClass(struct) {
+	if (struct.fields.isEmpty()) {
+		return "0"
+	}
 	struct.fields
 		.stream()
 		.map { field ->

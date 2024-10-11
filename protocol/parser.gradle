@@ -671,7 +671,9 @@ task parseProtoh {
 		def structsParser = new StructsParser(logger)
 		def constsParser = new ConstsParser(logger)
 		int lineIdx = 1
-		protohFile.eachLine { line ->
+		def content = protohFile.text
+		content += "\n#define SUPLA_SDC_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11\n"
+		content.eachLine { line ->
 			int columnIdx = 1
 			for (def character : line) {
 				try {
@@ -956,6 +958,14 @@ task parseProtoh {
 				|
 				|#define TChannelState_ExtendedValue TDSC_ChannelState""".stripMargin(),
 			javaDoc: "MANUALLY ADDED! v. >= 12 Device -> Server -> Client",
+		]))
+		structs.add(new Struct([
+			name   : "LocalTimeRequest",
+			rawName: "TDCS_LocalTimeRequest",
+			prefix : "TDCS",
+			fields : [],
+			raw    : "This is just mark class",
+			javaDoc: "MANUALLY ADDED!",
 		]))
 		def structsJson = new JsonBuilder(structs).toPrettyString()
 		def structsOutputFile = rootDir.resolve("proto.h.json")
