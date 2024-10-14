@@ -13,9 +13,6 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.server.api.MessageHandler;
-
-import java.util.function.Supplier;
 
 import static java.util.concurrent.TimeUnit.MINUTES;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
@@ -32,13 +29,13 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
-    private final Supplier<MessageHandler> messageHandlerFactory;
+    private final MessageHandlerFactory messageHandlerFactory;
 
     NettyServerInitializer(@Nullable SslContext sslCtx,
                            CallTypeParser callTypeParser,
                            DecoderFactory decoderFactory,
                            EncoderFactory encoderFactory,
-                           Supplier<MessageHandler> messageHandlerFactory) {
+                           MessageHandlerFactory messageHandlerFactory) {
         logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
         logger.debug("New instance");
         this.sslCtx = sslCtx;
@@ -67,6 +64,6 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         ));
         pipeline.addLast(new SuplaDataPacketDecoder());
         pipeline.addLast(new SuplaDataPacketEncoder());
-        pipeline.addLast(new SuplaHandler(callTypeParser, decoderFactory, encoderFactory, messageHandlerFactory.get()));
+        pipeline.addLast(new SuplaHandler(callTypeParser, decoderFactory, encoderFactory, messageHandlerFactory.create(ch)));
     }
 }

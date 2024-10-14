@@ -2,8 +2,7 @@ package pl.grzeslowski.jsupla.server.api;
 
 
 import lombok.NonNull;
-
-import java.util.function.Supplier;
+import pl.grzeslowski.jsupla.server.netty.MessageHandlerFactory;
 
 public interface ServerFactory {
     /**
@@ -15,5 +14,5 @@ public interface ServerFactory {
      * @return running server
      * @throws IllegalArgumentException when serverProperties does not have all required fields
      */
-    Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull Supplier<MessageHandler> messageHandlerFactory) throws IllegalArgumentException;
+    Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull MessageHandlerFactory messageHandlerFactory) throws IllegalArgumentException;
 }
