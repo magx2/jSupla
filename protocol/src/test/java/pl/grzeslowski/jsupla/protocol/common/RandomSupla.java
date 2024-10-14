@@ -5,7 +5,6 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.structs.cs.*;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
@@ -18,7 +17,6 @@ import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaGetVersionResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaVersionError;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaDataPacketRandomizer;
-import pl.grzeslowski.jsupla.protocol.common.randomizers.TimevalRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.cs.*;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaPingServerRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.dcs.SuplaSetActivityTimeoutRandomizer;
@@ -107,7 +105,6 @@ public class RandomSupla extends EnhancedRandom {
                                      this))
                      // @formatter:on
             .randomize(SuplaDataPacket.class, new SuplaDataPacketRandomizer(this))
-            .randomize(SuplaTimeval.class, new TimevalRandomizer(this))
             //build
             .build();
     }

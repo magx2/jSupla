@@ -2,28 +2,36 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
+import java.util.Arrays;
+
 import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
 
+@Slf4j
 @RequiredArgsConstructor(access = PRIVATE)
 public final class ChannelTypeDecoder {
     public static final ChannelTypeDecoder INSTANCE = new ChannelTypeDecoder();
     private final ColorTypeChannelDecoderImpl colorTypeChannelDecoder;
     private final RelayTypeChannelDecoderImpl relayTypeChannelDecoder;
     private final ThermometerTypeChannelDecoderImpl thermometerTypeChannelDecoder;
+    private final ThermometerTypeDoubleChannelDecoderImpl thermometerTypeDoubleChannelDecoder;
     private final ElectricityMeterDecoderImpl electricityMeterDecoder;
     private final ElectricityMeterV2DecoderImpl electricityMeterV2Decoder;
+    private final HVACValueDecoderImpl hvacValueDecoder;
 
     private ChannelTypeDecoder() {
         this(new ColorTypeChannelDecoderImpl(),
             new RelayTypeChannelDecoderImpl(),
             new ThermometerTypeChannelDecoderImpl(),
+            new ThermometerTypeDoubleChannelDecoderImpl(),
             new ElectricityMeterDecoderImpl(),
-            new ElectricityMeterV2DecoderImpl());
+            new ElectricityMeterV2DecoderImpl(),
+            HVACValueDecoderImpl.INSTANCE);
     }
 
     public ChannelValue decode(int type, byte[] value) {
@@ -51,6 +59,8 @@ public final class ChannelTypeDecoder {
             case SUPLA_CHANNELTYPE_AM2302:
             case SUPLA_CHANNELTYPE_AM2301:
                 return thermometerTypeChannelDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_THERMOMETER:
+                return thermometerTypeDoubleChannelDecoder.decode(value);
             case SUPLA_CHANNELTYPE_DIMMER:
             case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER:
             case SUPLA_CHANNELTYPE_DIMMERANDRGBLED:
@@ -60,11 +70,24 @@ public final class ChannelTypeDecoder {
                 return electricityMeterDecoder.decode(value);
             case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2:
                 return electricityMeterV2Decoder.decode(value);
+            case SUPLA_CHANNELTYPE_HVAC:
+                return hvacValueDecoder.decode(value);
+/*            case EV_TYPE_TIMER_STATE_V1:
+                // todo
+                throw new UnsupportedOperationException("ChannelTypeDecoder.decode(channelType, value)");
+            case EV_TYPE_TIMER_STATE_V1_SEC:
+                // todo
+                throw new UnsupportedOperationException("ChannelTypeDecoder.decode(channelType, value)");
+ */
             case UNKNOWN:
                 return UnknownValue.UNKNOWN_VALUE;
             default:
-                return new UnknownValue(value, format("Don't know how to map channel type %s to channel value!",
-                    channelType));
+                val message = format("Don't know how to map channel type %s to channel value!",
+                    channelType);
+                if (log.isDebugEnabled()) {
+                    log.debug(message + " value={}", Arrays.toString(value));
+                }
+                return new UnknownValue(value, message);
         }
     }
 
@@ -93,6 +116,8 @@ public final class ChannelTypeDecoder {
             case SUPLA_CHANNELTYPE_AM2302:
             case SUPLA_CHANNELTYPE_AM2301:
                 return TemperatureAndHumidityValue.class;
+            case SUPLA_CHANNELTYPE_THERMOMETER:
+                return TemperatureValue.class;
             case SUPLA_CHANNELTYPE_DIMMER:
             case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER:
             case SUPLA_CHANNELTYPE_DIMMERANDRGBLED:
@@ -102,9 +127,12 @@ public final class ChannelTypeDecoder {
             case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2:
             case SUPLA_CHANNELTYPE_ELECTRICITY_METER:
                 return ElectricityMeterValue.class;
+            case SUPLA_CHANNELTYPE_HVAC:
+                return HvacValue.class;
             case UNKNOWN:
                 return UnknownValue.class;
             default:
+                log.warn("Don't know how to map channel type {} to channel value!", channelType);
                 return UnknownValue.class;
         }
     }

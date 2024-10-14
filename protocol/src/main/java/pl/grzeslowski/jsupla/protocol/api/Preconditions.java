@@ -261,6 +261,9 @@ public final class Preconditions {
     }
 
     public static byte[] checkArrayLength(byte[] bytes, int length) {
+        if (bytes == null) {
+            return null;
+        }
         if (bytes.length != length) {
             throw new IllegalArgumentException(
                 format("Length of array should be %s but was %s!", length, bytes.length));

@@ -32,7 +32,14 @@ void generatePojo(struct, Path generatedSourceRoot) {
 	def properties = buildProperties(struct)
 	def implementClass = findImplementClass(struct)
 	def callType = findCallType(struct)
+	def hasDynamicSize = hasDynamicSize(struct)
 	def size = findSizeForClass(struct)
+	def staticSize = ""
+	if (!hasDynamicSize) {
+		staticSize = "public static final int SIZE = ${size}\n" +
+			"\t\t;"
+		size = "SIZE"
+	}
 	def content = """\
 		|package pl.grzeslowski.jsupla.protocol.${path.replaceAll("/", ".")};
 		|
@@ -42,6 +49,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		|@lombok.EqualsAndHashCode @lombok.ToString
 		|@javax.annotation.Generated(value="Struct original name: ${struct.rawName}", date = "${ZonedDateTime.now()}")
 		|public class ${javaName} implements ${implementClass} {
+		|	${staticSize}
 		|	$properties
 		|
 		|	public ${javaName}(${constructorProperties}) {
@@ -289,8 +297,8 @@ String findCallType(struct) {
 		throw new IllegalArgumentException("Cannot find call type for: " + struct.rawName)
 	}
 	def callType = any.orElseGet {
-			"throw new UnsupportedOperationException(\"CallType for \" +getClass().getSimpleName()+\" is not set!\");"
-		}
+		"throw new UnsupportedOperationException(\"CallType for \" +getClass().getSimpleName()+\" is not set!\");"
+	}
 
 	return """
 			|	@Override
@@ -321,19 +329,34 @@ static String findSizeForClass(struct) {
 		.collect(Collectors.joining("\n\t\t + "))
 }
 
+boolean hasDynamicSize(struct) {
+	return ext.dynamicSize.contains(struct.name)
+}
+
 static String findSizeForField(field) {
-	findSize(field) + " // ${field.name}"
+	findSize(field, false) + " // ${field.name}"
 }
 
 // might be a problem cause not set union fields still have size...
 // probably should introduce MIN_SIZE
 static String findSizeForUnionField(field) {
-	"$field.name != null ? ${findSize(field)} : 0 // ${field.name}"
+	"${findSize(field, true)}  // ${field.name}"
 }
 
-static String findSize(field) {
+static String findSize(field, union) {
 	def type = field.type.toLowerCase()
-	if (field.unsigned) {
+	if (field.array) {
+		def xSize = mapSimpleType(type)
+		if (xSize.startsWith("UNKNOWN")) {
+			return "arraySize(" + field.name + ")"
+		} else {
+			if (field.arraySize) {
+				return "(int) ${field.arraySize} * ${xSize}"
+			} else {
+				return "${field.name}.length * ${xSize}"
+			}
+		}
+	} else if (field.unsigned) {
 		if (type == "byte") {
 			return "CHAR_SIZE"
 		} else if (type == "short") {
@@ -347,21 +370,14 @@ static String findSize(field) {
 		} else {
 			throw new IllegalArgumentException("Unknown unsigned type: " + type)
 		}
-	} else if (field.array) {
-		def xSize = mapSimpleType(type)
-		if (xSize.startsWith("UNKNOWN")) {
-			return "arraySize(" + field.name + ")"
-		} else {
-			if (field.arraySize) {
-				return "(int) ${field.arraySize} * ${xSize}"
-			} else {
-				return "${field.name}.length * ${xSize}"
-			}
-		}
 	} else {
 		def finalType = mapSimpleType(mapSuplaTypeToJava(field))
 		if (finalType.startsWith("UNKNOWN")) {
-			finalType = field.name + ".size()"
+			if (union) {
+				finalType = "(${field.name}!= null ? ${field.name}.size() : ${mapSuplaTypeToJava(field)}.SIZE)"
+			} else {
+				finalType = field.name + ".size()"
+			}
 		}
 		return finalType
 	}

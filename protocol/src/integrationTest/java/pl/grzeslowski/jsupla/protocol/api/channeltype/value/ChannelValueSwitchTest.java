@@ -90,6 +90,11 @@ public class ChannelValueSwitchTest {
         }
 
         @Override
+        public ChannelValue onHvacValue(HvacValue channelValue) {
+            return channelValue;
+        }
+
+        @Override
         public ChannelValue onUnknownValue(UnknownValue unknownValue) {
             return unknownValue;
         }
@@ -148,6 +153,11 @@ public class ChannelValueSwitchTest {
                     1,
                     1,
                     null);
+            }
+
+            @Override
+            public ChannelValue onHvacValue() {
+                return new HvacValue(true, HvacValue.Mode.DRY, 1.1, 2.2, new HvacValue.Flags(0));
             }
 
             @Override
