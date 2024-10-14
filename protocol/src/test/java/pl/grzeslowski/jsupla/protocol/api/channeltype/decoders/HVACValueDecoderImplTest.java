@@ -21,7 +21,7 @@ public class HVACValueDecoderImplTest {
         assertThat(decode.isOn()).isFalse();
         assertThat(decode.getMode()).isEqualTo(HEAT_COOL);
         assertThat(decode.getSetPointTemperatureHeat()).isEqualTo(18.1);
-        assertThat(decode.getSetPointTemperatureCool()).isZero();
+        assertThat(decode.getSetPointTemperatureCool()).isNull();
 
         val flags = decode.getFlags();
         assertThat(flags).isNotNull();

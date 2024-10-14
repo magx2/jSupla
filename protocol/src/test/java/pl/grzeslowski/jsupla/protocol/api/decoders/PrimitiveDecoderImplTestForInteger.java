@@ -30,7 +30,7 @@ public class PrimitiveDecoderImplTestForInteger {
 
     @Test
     public void shouldParseUnsignedInt() {
-        byte[] uint = {0, 0, 0, 25,};
+        byte[] uint = {25, 0, 0, 0};
         long parsed = PrimitiveDecoder.INSTANCE.parseUnsignedInt(uint, 0);
         assertThat(parsed).isEqualTo(25L);
     }
