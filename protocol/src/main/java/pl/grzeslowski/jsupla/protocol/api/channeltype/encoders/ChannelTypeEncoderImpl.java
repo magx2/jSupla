@@ -66,6 +66,11 @@ public class ChannelTypeEncoderImpl {
         }
 
         @Override
+        public byte[] onHvacValue(HvacValue channelValue) {
+            throw new UnsupportedOperationException("ChannelTypeEncoderImpl.onUnknownValue(unknownValue)");
+        }
+
+        @Override
         public byte[] onUnknownValue(final UnknownValue unknownValue) {
             throw new UnsupportedOperationException("ChannelTypeEncoderImpl.onUnknownValue(unknownValue)");
         }

@@ -62,6 +62,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         logger.debug("SuplaHandler.channelRead0(ctx, {})", suplaDataPacket);
         val callTypeOptional = callTypeParser.parse(suplaDataPacket.callId);
         if (!callTypeOptional.isPresent()) {
+            // warning message was already logged
             return;
         }
         val callType = callTypeOptional.get();
@@ -69,7 +70,17 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val data = suplaDataPacket.data;
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
+        if (suplaDataPacket.dataSize != entity.size()) {
+            logger.warn("WTF?! The size of the entity is different than `dataSize` from `suplaDataPacket.dataSize`. " +
+                    "Looks like a bug in the Netty implementation. " +
+                    "entity.size={}, suplaDataPacket.dataSize={}, entity={}, suplaDataPacket={}",
+                entity.size(), suplaDataPacket.dataSize, entity, suplaDataPacket);
+        }
         if (!ToServerProto.class.isAssignableFrom(entity.getClass())) {
+            logger.warn("Why device/client has send a proto that do not extends {}? " +
+                    "Looks like a bug... " +
+                    "entity.class={}, entity={}",
+                ToServerProto.class.getName(), entity.getClass(), entity);
             return;
         }
 

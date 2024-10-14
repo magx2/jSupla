@@ -673,6 +673,7 @@ task parseProtoh {
 		int lineIdx = 1
 		def content = protohFile.text
 		content += "\n#define SUPLA_SDC_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11\n"
+		content = content.replaceAll(/\\\n/, "")
 		content.eachLine { line ->
 			int columnIdx = 1
 			for (def character : line) {
@@ -738,20 +739,24 @@ task parseProtoh {
 				new SimpleField([
 					name     : "tvSec",
 					type   : "int",
+					array    : true,
+					arraySize: 2,
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
 					type   : "int",
+					array    : true,
+					arraySize: 2,
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 			],
 			raw    : """\
 				|struct _supla_timeval {
-				|  long tv_sec;
-				|  long tv_usec;
+				|  long tv_sec[2];
+				|  long tv_usec[2];
 				|};""".stripMargin(),
 			javaDoc: "MANUALLY ADDED!",
 		]))

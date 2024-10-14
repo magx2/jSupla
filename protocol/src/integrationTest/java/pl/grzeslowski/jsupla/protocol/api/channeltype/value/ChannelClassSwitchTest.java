@@ -89,6 +89,11 @@ public class ChannelClassSwitchTest {
         }
 
         @Override
+        public String onHvacValue() {
+            return "HvacValue";
+        }
+
+        @Override
         public String onUnknownValue() {
             return "UnknownValue";
         }

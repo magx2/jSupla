@@ -11,6 +11,7 @@ public interface ServerFactory {
      * Supla devices.
      *
      * @param serverProperties properties for new server
+     * @param messageHandlerFactory factory
      * @return running server
      * @throws IllegalArgumentException when serverProperties does not have all required fields
      */

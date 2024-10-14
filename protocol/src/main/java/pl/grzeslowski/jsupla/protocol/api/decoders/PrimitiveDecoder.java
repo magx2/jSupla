@@ -92,6 +92,13 @@ public class PrimitiveDecoder {
         return (char) bytes[offset];
     }
 
+    public double parseDouble(byte[] bytes, int offset) {
+        sizeMin(bytes, DOUBLE_SIZE + offset);
+        val byteBuffer = ByteBuffer.wrap(bytes, offset, DOUBLE_SIZE);
+        byteBuffer.order(LITTLE_ENDIAN);
+        return byteBuffer.getDouble();
+    }
+
     public byte[] copyOfRangeByte(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(

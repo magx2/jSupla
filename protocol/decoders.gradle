@@ -127,7 +127,7 @@ void generateDecoder(struct, Path generatedSourceRoot) {
 	if (!hasUnionFields) {
 		parse = struct.fields.stream().map { buildParse(it) }.collect(joining("\n\n"))
 	} else {
-		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support decoding structs with unions!\");"
+		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support decoding structs with unions! data=\" +  java.util.Arrays.toString(bytes));"
 	}
 	def properties = struct.fields
 		.stream()
