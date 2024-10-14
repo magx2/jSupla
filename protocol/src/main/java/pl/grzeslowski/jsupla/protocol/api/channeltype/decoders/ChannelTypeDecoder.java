@@ -72,13 +72,9 @@ public final class ChannelTypeDecoder {
                 return electricityMeterV2Decoder.decode(value);
             case SUPLA_CHANNELTYPE_HVAC:
                 return hvacValueDecoder.decode(value);
-/*            case EV_TYPE_TIMER_STATE_V1:
-                // todo
-                throw new UnsupportedOperationException("ChannelTypeDecoder.decode(channelType, value)");
+            //ignore those 2 because I do not know what to do with them
+            case EV_TYPE_TIMER_STATE_V1:
             case EV_TYPE_TIMER_STATE_V1_SEC:
-                // todo
-                throw new UnsupportedOperationException("ChannelTypeDecoder.decode(channelType, value)");
- */
             case UNKNOWN:
                 return UnknownValue.UNKNOWN_VALUE;
             default:
@@ -99,7 +95,6 @@ public final class ChannelTypeDecoder {
         return optional.get();
     }
 
-    @SuppressWarnings("DuplicateBranchesInSwitch")
     public Class<? extends ChannelValue> findClass(final ChannelType channelType) {
         switch (channelType) {
             case SUPLA_CHANNELTYPE_SENSORNO:
@@ -130,6 +125,9 @@ public final class ChannelTypeDecoder {
             case SUPLA_CHANNELTYPE_HVAC:
                 return HvacValue.class;
             case UNKNOWN:
+                //ignore those 2 because I do not know what to do with them
+            case EV_TYPE_TIMER_STATE_V1:
+            case EV_TYPE_TIMER_STATE_V1_SEC:
                 return UnknownValue.class;
             default:
                 log.warn("Don't know how to map channel type {} to channel value!", channelType);

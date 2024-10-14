@@ -1,3 +1,7 @@
+ext.staticArraySize = [
+	'TimerStateExtendedValue'
+]
+
 apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
 apply from: 'consts.gradle'

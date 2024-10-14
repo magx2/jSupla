@@ -41,12 +41,15 @@ task constsGenerator {
 		java += Stream.concat(consts.stream(), overrides.stream())
 			.filter { !it.name.startsWith("_") }
 			.filter { it.name != "timeval" }
+			.filter { it.name != "SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE" }
 			.filter { !isCallType(it.name) }
 			.filter { !isResultCode(it.name) }
 			.filter { !isChannelType(it.name) }
 			.map { generateConst(it, consts) }
 			.collect(Collectors.joining("\n\t"))
-		java += "\n}"
+		java += """
+			|	public static final int SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE = SUPLA_MAX_DATA_SIZE - 50;
+			|}""".stripMargin()
 
 		protoConsts.write(java)
 	}

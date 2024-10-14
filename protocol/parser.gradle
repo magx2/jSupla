@@ -329,9 +329,12 @@ class StructParser implements Parser<Struct> {
 	String structJavaDoc = ""
 	boolean parseStructJavaDoc = false
 
-	StructParser(Logger logger) {
+	List<String> staticArraySize
+
+	StructParser(Logger logger, List<String> staticArraySize) {
 		this.logger = logger
 		fieldParser = new FieldParser(logger)
+		this.staticArraySize = staticArraySize
 	}
 
 	@Override
@@ -427,7 +430,7 @@ class StructParser implements Parser<Struct> {
 					output.rawName = structName
 					output.prefix = Names.findPrefix(structName)
 					// check if 2 last fields are named fooSize and foo
-					if (fields.size() >= 2) {
+					if (fields.size() >= 2 && !staticArraySize.contains(output.name)) {
 						def secondToLast = fields[-2]
 						def last = fields[-1]
 						if (secondToLast instanceof SimpleField
@@ -489,9 +492,11 @@ class StructsParser implements Parser<List<Struct>> {
 	int index = 0
 	StructParser structParser = null
 	List<Struct> outputs = new ArrayList<>()
+	List<String> staticArraySize
 
-	StructsParser(Logger logger) {
+	StructsParser(Logger logger, staticArraySize) {
 		this.logger = logger
+		this.staticArraySize = staticArraySize
 	}
 
 	@Override
@@ -507,7 +512,7 @@ class StructsParser implements Parser<List<Struct>> {
 			index++
 			if (index >= start.length()) {
 				logger.debug("{}:{} Parsed struct header", line, column)
-				structParser = new StructParser(logger)
+				structParser = new StructParser(logger, staticArraySize)
 				index = 0
 			}
 		} else if (character != start[index]) {
@@ -662,13 +667,15 @@ class ConstsParser implements Parser<List<Const>> {
 	}
 }
 
+def staticArraySize = ext.staticArraySize
+
 task parseProtoh {
 	doLast {
 		File protohFile = new File(download.rootDir.toString()).toPath().resolve("proto-${download.stableTag}.h").toFile()
 		if (!protohFile.exists()) {
 			throw new IOException("File ${protohFile.absolutePath} does not exists!")
 		}
-		def structsParser = new StructsParser(logger)
+		def structsParser = new StructsParser(logger, staticArraySize)
 		def constsParser = new ConstsParser(logger)
 		int lineIdx = 1
 		def content = protohFile.text
