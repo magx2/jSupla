@@ -137,6 +137,7 @@ public class AuratonTest {
         // when
         byte[] data = packet.data;
         SuplaRegisterDeviceG entity = SuplaRegisterDeviceGDecoder.INSTANCE.decode(data);
+        System.out.println(entity);
     }
 
     @Test
@@ -159,6 +160,7 @@ public class AuratonTest {
         // when
         byte[] data = packet.data;
         SuplaRegisterDeviceG entity = SuplaRegisterDeviceGDecoder.INSTANCE.decode(data);
+        System.out.println(entity);
     }
 
     @Test
