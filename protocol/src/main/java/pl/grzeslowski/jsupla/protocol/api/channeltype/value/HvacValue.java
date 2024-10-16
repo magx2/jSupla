@@ -3,6 +3,9 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @Value
@@ -13,8 +16,26 @@ public class HvacValue implements ChannelValue {
     Double setPointTemperatureCool;
     Flags flags;
 
+    @RequiredArgsConstructor
     public static enum Mode {
-        NOT_SET, HEAT, HEAT_COOL, DRY
+        NOT_SET(SUPLA_HVAC_MODE_NOT_SET),
+        OFF(SUPLA_HVAC_MODE_OFF),
+        HEAT(SUPLA_HVAC_MODE_HEAT),
+        COOL(SUPLA_HVAC_MODE_COOL),
+        HEAT_COOL(SUPLA_HVAC_MODE_HEAT_COOL),
+        FAN_ONLY(SUPLA_HVAC_MODE_FAN_ONLY),
+        DRY(SUPLA_HVAC_MODE_DRY);
+        private final int mask;
+
+        public boolean isOn(int flag) {
+            return (flag & mask) != 0;
+        }
+
+        public static Optional<Mode> findMode(int flag) {
+            return Arrays.stream(values())
+                .filter(mode -> mode.isOn(flag))
+                .findAny();
+        }
     }
 
     @RequiredArgsConstructor

@@ -4,7 +4,7 @@ import lombok.val;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.HEAT_COOL;
+import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.HEAT;
 
 public class HVACValueDecoderImplTest {
     HVACValueDecoderImpl decoder = HVACValueDecoderImpl.INSTANCE;
@@ -19,7 +19,7 @@ public class HVACValueDecoderImplTest {
 
         // then
         assertThat(decode.isOn()).isFalse();
-        assertThat(decode.getMode()).isEqualTo(HEAT_COOL);
+        assertThat(decode.getMode()).isEqualTo(HEAT);
         assertThat(decode.getSetPointTemperatureHeat()).isEqualTo(18.1);
         assertThat(decode.getSetPointTemperatureCool()).isNull();
 
