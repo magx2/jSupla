@@ -149,6 +149,8 @@ ext.callTypes = [
 	[proto: "TSDC_RegistrationEnabled", callType: "SUPLA_SDC_CALL_GET_REGISTRATION_ENABLED_RESULT"],
 	// dsc
 	[proto: "TDSC_ChannelState", callType: "SUPLA_DSC_CALL_CHANNEL_STATE_RESULT"],
+	// csd
+	[proto: "TCSD_ChannelStateRequest", callType: "SUPLA_CSD_CALL_GET_CHANNEL_STATE"],
 ]
 ext.noCallTypes = new HashSet([
 	'TDeviceConfig_PowerStatusLed',
@@ -158,7 +160,6 @@ ext.noCallTypes = new HashSet([
 	'TChannelConfig_ImpulseCounter',
 	'TCalCfg_SubdevicePairingResult',
 	'HvacParameterFlags',
-	'TCSD_ChannelStateRequest',
 	'TCSD_Digiglass_NewValue',
 	'TCSD_FacadeBlindValue',
 	'TCSD_RollerShutterValue',
