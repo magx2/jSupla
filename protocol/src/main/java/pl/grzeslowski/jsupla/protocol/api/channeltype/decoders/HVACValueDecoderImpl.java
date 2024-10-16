@@ -6,7 +6,6 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
-import static java.util.Arrays.stream;
 import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.NOT_SET;
 
 @Slf4j
@@ -25,7 +24,11 @@ public class HVACValueDecoderImpl implements Decoder<HvacValue> {
         HvacValue.Flags flags = new HvacValue.Flags(decode.flags);
         return new HvacValue(
             decode.isOn != 0,
-            findMode(decode.mode),
+            HvacValue.Mode.findMode(decode.mode)
+                .orElseGet(() -> {
+                    log.warn("Cannot find mode for value={}", decode.mode);
+                    return NOT_SET;
+                }),
             findHeatDetPoint(decode, flags),
             findCoolSetPoint(decode, flags),
             flags);
@@ -45,13 +48,4 @@ public class HVACValueDecoderImpl implements Decoder<HvacValue> {
         return decode.setpointTemperatureCool * 0.01;
     }
 
-    private HvacValue.Mode findMode(short mode) {
-        return stream(HvacValue.Mode.values())
-            .filter(m -> m.ordinal() == mode)
-            .findAny()
-            .orElseGet(() -> {
-                log.warn("Cannot find mode for value={}", mode);
-                return NOT_SET;
-            });
-    }
 }
