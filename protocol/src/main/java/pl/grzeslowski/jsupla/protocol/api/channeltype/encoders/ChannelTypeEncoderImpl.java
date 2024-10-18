@@ -11,13 +11,14 @@ public class ChannelTypeEncoderImpl {
         new RelayTypeChannelEncoderImpl(),
         new ThermometerTypeChannelEncoderImpl(),
         new StoppableOpenCloseEncoderImpl(),
-        new ElectricityMeterEncoder()
-    );
+        new ElectricityMeterEncoder(),
+        new HvacChannelEncoderImpl());
     private final ColorTypeChannelEncoderImpl colorTypeChannelEncoder;
     private final RelayTypeChannelEncoderImpl relayTypeChannelEncoder;
     private final ThermometerTypeChannelEncoderImpl thermometerTypeChannelEncoder;
     private final StoppableOpenCloseEncoderImpl stoppableOpenCloseEncoder;
     private final ElectricityMeterEncoder electricityMeterEncoder;
+    private final HvacChannelEncoderImpl hvacChannelEncoderImpl;
 
     private final ChannelValueSwitch.Callback<byte[]> callback = new ChannelValueSwitch.Callback<byte[]>() {
         @Override
@@ -67,7 +68,7 @@ public class ChannelTypeEncoderImpl {
 
         @Override
         public byte[] onHvacValue(HvacValue channelValue) {
-            throw new UnsupportedOperationException("ChannelTypeEncoderImpl.onUnknownValue(unknownValue)");
+            return hvacChannelEncoderImpl.encode(channelValue);
         }
 
         @Override

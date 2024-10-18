@@ -45,6 +45,7 @@ task constsGenerator {
 			.filter { !isCallType(it.name) }
 			.filter { !isResultCode(it.name) }
 			.filter { !isChannelType(it.name) }
+			.filter { !isChannelFunction(it.name) }
 			.map { generateConst(it, consts) }
 			.collect(Collectors.joining("\n\t"))
 		java += """
@@ -202,6 +203,52 @@ static boolean isCallType(String name) {
 		name.startsWith("SUPLA_SDS_")
 }
 
+task channelFunctionGenerator {
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "consts.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def channelFunctions = (jsonSlurper.parse(jsonFile) as List)
+			.stream()
+			.filter { isChannelFunction(it.name) }
+			.map {
+				def javaDoc = ""
+				if (it.javaDoc) {
+					javaDoc = "/** ${it.javaDoc} */\n\t"
+						.replaceAll("&", "&amp;")
+						.replaceAll("<", "&#60;")
+						.replaceAll(">", "&#62;")
+						.replaceAll("@", "&#64;")
+				}
+				"$javaDoc${it.name}(${it.value})"
+			}
+			.collect(Collectors.joining(",\n\t"))
+
+		def channelTypePath = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelFunction.java").toPath()
+		Files.createDirectories(channelTypePath.parent)
+
+		channelTypePath.write("""\
+			|package pl.grzeslowski.jsupla.protocol.api;
+			|
+			|import lombok.val;
+			|import java.util.Arrays;
+			|import java.util.Optional;
+			|
+			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
+			|@lombok.Getter @lombok.RequiredArgsConstructor @lombok.extern.slf4j.Slf4j
+			|public enum ChannelFunction {
+			|	$channelFunctions
+			|	;
+			|	private final int value;
+			|}""".stripMargin())
+	}
+}
+channelFunctionGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "channelFunctionGenerator"
+
 static boolean isResultCode(String name) {
 	if (name == "SUPLA_RESULTCODE_DENY_CHANNEL_IS_ASSOCIETED_WITH_ACTION_TRIGGER") {
 		return false
@@ -217,6 +264,10 @@ static boolean isChannelType(String name) {
 		name.startsWith("EV_TYPE") ||
 		name.startsWith("SUBV_TYPE_") ||
 		name.startsWith("CALCFG_TYPE_")
+}
+
+static boolean isChannelFunction(String name) {
+	return name.startsWith("SUPLA_CHANNELFNC_")
 }
 
 static void buildCallType(String callTypeName, String callTypePrefix, Path callTypesFolder, consts) {

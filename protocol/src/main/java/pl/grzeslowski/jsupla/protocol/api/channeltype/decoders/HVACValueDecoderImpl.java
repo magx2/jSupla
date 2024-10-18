@@ -29,12 +29,12 @@ public class HVACValueDecoderImpl implements Decoder<HvacValue> {
                     log.warn("Cannot find mode for value={}", decode.mode);
                     return NOT_SET;
                 }),
-            findHeatDetPoint(decode, flags),
+            findHeatSetPoint(decode, flags),
             findCoolSetPoint(decode, flags),
             flags);
     }
 
-    private static Double findHeatDetPoint(HVACValue decode, HvacValue.Flags flags) {
+    private static Double findHeatSetPoint(HVACValue decode, HvacValue.Flags flags) {
         if (!flags.isSetPointTempHeatSet()) {
             return null;
         }
