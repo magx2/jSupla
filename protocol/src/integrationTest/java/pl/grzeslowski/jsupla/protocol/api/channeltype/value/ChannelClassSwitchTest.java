@@ -94,6 +94,11 @@ public class ChannelClassSwitchTest {
         }
 
         @Override
+        public String onTimerValue() {
+            return "TimerValue";
+        }
+
+        @Override
         public String onUnknownValue() {
             return "UnknownValue";
         }

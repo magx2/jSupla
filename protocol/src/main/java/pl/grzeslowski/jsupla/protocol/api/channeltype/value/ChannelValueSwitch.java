@@ -72,6 +72,8 @@ public final class ChannelValueSwitch<T> {
 
         T onHvacValue(HvacValue channelValue);
 
+        T onTimerValue(TimerValue channelValue);
+
         T onUnknownValue(UnknownValue unknownValue);
     }
 }

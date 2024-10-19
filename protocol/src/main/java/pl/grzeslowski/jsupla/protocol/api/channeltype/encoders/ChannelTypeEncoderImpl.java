@@ -72,6 +72,11 @@ public class ChannelTypeEncoderImpl {
         }
 
         @Override
+        public byte[] onTimerValue(TimerValue channelValue) {
+            throw new UnsupportedOperationException("ChannelTypeEncoderImpl.onTimerValue(channelValue)");
+        }
+
+        @Override
         public byte[] onUnknownValue(final UnknownValue unknownValue) {
             throw new UnsupportedOperationException("ChannelTypeEncoderImpl.onUnknownValue(unknownValue)");
         }
