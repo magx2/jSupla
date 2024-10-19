@@ -41,6 +41,9 @@ public final class ChannelValueSwitch<T> {
         if (channelValue instanceof HvacValue) {
             return callback.onHvacValue((HvacValue) channelValue);
         }
+        if (channelValue instanceof TimerValue) {
+            return callback.onTimerValue((TimerValue) channelValue);
+        }
         if (channelValue instanceof UnknownValue) {
             return callback.onUnknownValue((UnknownValue) channelValue);
         }
