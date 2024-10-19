@@ -4,8 +4,10 @@ import lombok.val;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
+import java.util.stream.IntStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.stream.Collectors.joining;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.checkArrayLength;
 
 public interface ProtocolHelpers {
@@ -53,5 +55,24 @@ public interface ProtocolHelpers {
             bytes[14],
             bytes[15]
         );
+    }
+
+    public static String parseIpv4(long ip) {
+        return String.format("%s.%s.%s.%s",
+            (ip & 0xFF),
+            ((ip >> 8) & 0xFF),
+            ((ip >> 16) & 0xFF),
+            ((ip >> 24) & 0xFF));
+    }
+
+    public static String parseMac(short[] mac) {
+        if (mac == null || mac.length != 6) {
+            throw new IllegalArgumentException("MAC address must be a 6-element short array.");
+        }
+
+        // Convert each short to unsigned byte and format it as a two-digit hex string
+        return IntStream.range(0, mac.length)
+            .mapToObj(i -> String.format("%02X", mac[i] & 0xFF)) // & 0xFF ensures unsigned byte
+            .collect(joining(":")); // Join with ":"
     }
 }
