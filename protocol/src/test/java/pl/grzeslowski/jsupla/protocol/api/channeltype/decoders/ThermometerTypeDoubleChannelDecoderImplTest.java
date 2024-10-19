@@ -1,7 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import lombok.val;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
+
+import java.math.BigDecimal;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ThermometerTypeDoubleChannelDecoderImplTest {
     ThermometerTypeDoubleChannelDecoderImpl decoder = new ThermometerTypeDoubleChannelDecoderImpl();
@@ -15,7 +21,9 @@ public class ThermometerTypeDoubleChannelDecoderImplTest {
         ChannelValue decode = decoder.decode(data);
 
         // then
-        System.out.println(decode);
+        assertThat(decode).isInstanceOf(TemperatureValue.class);
+        val temperature = (TemperatureValue) decode;
+        assertThat(temperature.getTemperature()).isEqualTo(BigDecimal.valueOf(-275));
     }
 
     @Test
@@ -27,6 +35,8 @@ public class ThermometerTypeDoubleChannelDecoderImplTest {
         ChannelValue decode = decoder.decode(data);
 
         // then
-        System.out.println(decode);
+        assertThat(decode).isInstanceOf(TemperatureValue.class);
+        val temperature = (TemperatureValue) decode;
+        assertThat(temperature.getTemperature()).isBetween(BigDecimal.valueOf(25.3), BigDecimal.valueOf(25.4));
     }
 }
