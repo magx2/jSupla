@@ -18,10 +18,8 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
 
         // union
         // lets assume it's Server -> Client
-        Integer channelId = null;// PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-//        Integer channelId = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset); offset += INT_SIZE;
+        Integer channelId = null;
         Short channelNumber = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-//        Short channelNumber =null;
         offset += INT_SIZE;
 
         int fields = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
