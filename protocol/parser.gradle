@@ -680,6 +680,8 @@ task parseProtoh {
 		int lineIdx = 1
 		def content = protohFile.text
 		content += "\n#define SUPLA_SDC_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11\n"
+		content = content.replace("#define SUPLA_DCS_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11",
+			"")
 		content = content.replaceAll(/\\\n/, "")
 		content.eachLine { line ->
 			int columnIdx = 1
