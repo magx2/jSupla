@@ -80,7 +80,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val entity = decoder.decode(data);
         if (suplaDataPacket.dataSize != entity.size()) {
             logger.warn("WTF?! The size of the entity is different than `dataSize` from `suplaDataPacket.dataSize`. " +
-                    "Looks like a bug in the Netty implementation. " +
+                    "Looks like a bug in the Supla decoder implementation. " +
                     "entity.size={}, suplaDataPacket.dataSize={}, entity={}, suplaDataPacket={}",
                 entity.size(), suplaDataPacket.dataSize, entity, suplaDataPacket);
         }
