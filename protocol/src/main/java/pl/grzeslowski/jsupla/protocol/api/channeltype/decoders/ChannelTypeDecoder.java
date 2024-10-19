@@ -23,6 +23,8 @@ public final class ChannelTypeDecoder {
     private final ElectricityMeterDecoderImpl electricityMeterDecoder;
     private final ElectricityMeterV2DecoderImpl electricityMeterV2Decoder;
     private final HVACValueDecoderImpl hvacValueDecoder;
+    private final TimerSecChannelDecoder timerSecChannelDecoder;
+    private final TimerMsecChannelDecoder timerMsecChannelDecoder;
 
     private ChannelTypeDecoder() {
         this(new ColorTypeChannelDecoderImpl(),
@@ -31,7 +33,9 @@ public final class ChannelTypeDecoder {
             new ThermometerTypeDoubleChannelDecoderImpl(),
             new ElectricityMeterDecoderImpl(),
             new ElectricityMeterV2DecoderImpl(),
-            HVACValueDecoderImpl.INSTANCE);
+            HVACValueDecoderImpl.INSTANCE,
+            new TimerSecChannelDecoder(),
+            new TimerMsecChannelDecoder());
     }
 
     public ChannelValue decode(int type, byte[] value) {
@@ -72,9 +76,10 @@ public final class ChannelTypeDecoder {
                 return electricityMeterV2Decoder.decode(value);
             case SUPLA_CHANNELTYPE_HVAC:
                 return hvacValueDecoder.decode(value);
-            //ignore those 2 because I do not know what to do with them
             case EV_TYPE_TIMER_STATE_V1:
+                return timerMsecChannelDecoder.decode(value);
             case EV_TYPE_TIMER_STATE_V1_SEC:
+                return timerSecChannelDecoder.decode(value);
             case UNKNOWN:
                 return UnknownValue.UNKNOWN_VALUE;
             default:
@@ -125,10 +130,9 @@ public final class ChannelTypeDecoder {
             case SUPLA_CHANNELTYPE_HVAC:
                 return HvacValue.class;
             case UNKNOWN:
-                //ignore those 2 because I do not know what to do with them
             case EV_TYPE_TIMER_STATE_V1:
             case EV_TYPE_TIMER_STATE_V1_SEC:
-                return UnknownValue.class;
+                return TimerValue.class;
             default:
                 log.warn("Don't know how to map channel type {} to channel value!", channelType);
                 return UnknownValue.class;
