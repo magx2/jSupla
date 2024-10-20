@@ -24,7 +24,7 @@ class ChannelHandlerContextWriter implements Writer {
     private final AtomicReference<ChannelHandlerContext> context;
 
     @Override
-    public Future write(@Nonnull FromServerProto proto) {
+    public ChannelFuture write(@Nonnull FromServerProto proto) {
         val ctx = requireNonNull(context.get(), "Context is null");
 
         val encoder = encoderFactory.getEncoder(proto);
@@ -35,19 +35,6 @@ class ChannelHandlerContextWriter implements Writer {
             proto.callType().getValue(),
             encode.length,
             encode);
-        return new FutureImpl(ctx.writeAndFlush(packet));
-    }
-
-    private static class FutureImpl implements Future {
-        private final ChannelFuture channelFuture;
-
-        public FutureImpl(ChannelFuture channelFuture) {
-            this.channelFuture = channelFuture;
-        }
-
-        @Override
-        public void addCompleteListener(@Nonnull Runnable listener) {
-            channelFuture.addListener(f -> listener.run());
-        }
+        return ctx.writeAndFlush(packet);
     }
 }
