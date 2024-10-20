@@ -16,12 +16,12 @@ public class TimerStateExtendedValueDecoder implements pl.grzeslowski.jsupla.pro
         // EV_TYPE_TIMER_STATE_V1_SEC uses remainingTimeS and EV_TYPE_TIMER_STATE_V1 uses ms
         // at this point I don't know which one I'm parsing,
         // so I will always parse `remainingTimeMs` 
-        Long remainingTimeMs = PrimitiveDecoder.INSTANCE.parseUnsignedLong(bytes, offset);
+        Long remainingTimeMs = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
         Long remainingTimeS = null;
         Long countdownEndsAt = null;
         offset += INT_SIZE;
 
-        short[] targetValue = PrimitiveDecoder.INSTANCE.copyOfRangeByteUnsigned(bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE);
+        short[] targetValue = PrimitiveDecoder.INSTANCE.copyOfRangeByteUnsigned(bytes, offset, offset + (SUPLA_CHANNELVALUE_SIZE * BYTE_SIZE));
         offset += SUPLA_CHANNELVALUE_SIZE * BYTE_SIZE;
 
         int senderId = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);

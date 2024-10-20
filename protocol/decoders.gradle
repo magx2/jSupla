@@ -199,7 +199,7 @@ static String parseField(field) {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "PrimitiveDecoder.INSTANCE.copyOfRange${type}${sign}(bytes, offset, offset + (int) ${field.arraySize});"
+			return "PrimitiveDecoder.INSTANCE.copyOfRange${type}${sign}(bytes, offset, offset + (int) (${field.arraySize} * ${findSizeByType(field.type)}));"
 		} else {
 			return """\
 				|new ${findStructImportForType(field.rawPrefix)}${field.type}[${field.arraySize}];

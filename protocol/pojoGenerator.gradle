@@ -188,7 +188,7 @@ static String mapSuplaTypeToJava(field) {
 			return matchType("int", field.type, array)
 		}
 		if (lowerType == "long") {
-			return matchType("long", field.type, array)
+			return matchType("java.math.BigInteger", field.type, array)
 		}
 	} else {
 		if (lowerType == "int" || lowerType == "integer") {

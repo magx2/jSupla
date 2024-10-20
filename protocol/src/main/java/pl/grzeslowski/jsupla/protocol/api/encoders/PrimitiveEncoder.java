@@ -1,6 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 
+import lombok.val;
+
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 
 import static java.lang.String.format;
@@ -55,8 +58,12 @@ public class PrimitiveEncoder {
         return LONG_SIZE;
     }
 
-    public int writeUnsignedLong(long value, byte[] bytes, int offset) {
-        return writeLong(value, bytes, offset);
+    public int writeUnsignedLong(BigInteger value, byte[] bytes, int offset) {
+        if (value.bitLength() > 64) {
+            throw new IllegalArgumentException("BigInteger value is too large to fit into an unsigned long. " +
+                "bitLength=" + value.bitLength());
+        }
+        return writeLong(value.longValue(), bytes, offset);
     }
 
     public int writeByte(byte value, byte[] bytes, int offset) {
@@ -105,6 +112,15 @@ public class PrimitiveEncoder {
         return from.length * INT_SIZE;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
+    public int writeLongArray(long[] from, byte[] to, int toOffset) {
+        for (long longValue : from) {
+            toOffset += writeLong(longValue, to, toOffset);
+        }
+        return from.length * LONG_SIZE;
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
     public int writeUnsignedIntArray(long[] from, byte[] to, int toOffset) {
         for (long uint : from) {
             toOffset += writeUnsignedInt(uint, to, toOffset);
@@ -112,8 +128,8 @@ public class PrimitiveEncoder {
         return from.length * INT_SIZE;
     }
 
-    public int writeUnsignedLongArray(long[] from, byte[] to, int toOffset) {
-        for (long longValue : from) {
+    public int writeUnsignedLongArray(BigInteger[] from, byte[] to, int toOffset) {
+        for (val longValue : from) {
             toOffset += writeUnsignedLong(longValue, to, toOffset);
         }
         return from.length * LONG_SIZE;
