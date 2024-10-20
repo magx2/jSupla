@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
+import java.math.BigInteger;
 import java.time.Duration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -153,8 +154,8 @@ public class ChannelValueSwitchTest {
             @Override
             public ChannelValue onElectricityMeter() {
                 return new ElectricityMeterValue(
-                    1,
-                    1,
+                    BigInteger.ONE,
+                    BigInteger.ONE,
                     null,
                     null,
                     null,

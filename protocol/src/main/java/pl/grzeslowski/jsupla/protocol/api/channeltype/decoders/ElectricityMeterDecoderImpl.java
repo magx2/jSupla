@@ -9,6 +9,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterMeasurement;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -22,6 +23,7 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
     public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     public static final BigDecimal ONE_THOUSAND = new BigDecimal(1_000);
     public static final int NUMBER_OF_PHASES = 3;
+    private static final BigInteger DIVIDER = new BigInteger("100" + "000");
 
     @Override
     public ElectricityMeterValue decode(byte[] bytes, int offset) {
@@ -39,16 +41,16 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
             .build();
     }
 
-    private double computeTotalForwardActiveEnergyBalanced(List<ElectricityMeterValue.Phase> phases) {
+    private BigInteger computeTotalForwardActiveEnergyBalanced(List<ElectricityMeterValue.Phase> phases) {
         return phases.stream()
-            .mapToDouble(phase -> phase.getTotalForwardActiveEnergy() - phase.getTotalForwardReactiveEnergy())
-            .sum();
+            .map(phase -> phase.getTotalForwardActiveEnergy().subtract(phase.getTotalForwardReactiveEnergy()))
+            .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
-    private double computeTotalReverseActiveEnergyBalanced(List<ElectricityMeterValue.Phase> phases) {
+    private BigInteger computeTotalReverseActiveEnergyBalanced(List<ElectricityMeterValue.Phase> phases) {
         return phases.stream()
-            .mapToDouble(phase -> phase.getTotalReverseActiveEnergy() - phase.getTotalReverseReactiveEnergy())
-            .sum();
+            .map(phase -> phase.getTotalReverseActiveEnergy().subtract(phase.getTotalReverseReactiveEnergy()))
+            .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
     private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValue value) {
@@ -59,18 +61,19 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
 
     private ElectricityMeterValue.Phase mapPhase(int idx, ElectricityMeterExtendedValue parent, ElectricityMeterMeasurement value) {
         log.debug("Mapping phase {} from parent {} and value {}", idx, parent, value);
+        val multiplier = 0.00001;
         return ElectricityMeterValue.Phase.builder()
             // from parent
-            .totalForwardActiveEnergy(parent.totalForwardActiveEnergy[idx] * 0.00001)
-            .totalReverseActiveEnergy(parent.totalReverseActiveEnergy[idx] * 0.00001)
-            .totalForwardReactiveEnergy(parent.totalForwardReactiveEnergy[idx] * 0.00001)
-            .totalReverseReactiveEnergy(parent.totalReverseReactiveEnergy[idx] * 0.00001)
+            .totalForwardActiveEnergy(parent.totalForwardActiveEnergy[idx].divide(DIVIDER))
+            .totalReverseActiveEnergy(parent.totalReverseActiveEnergy[idx].divide(DIVIDER))
+            .totalForwardReactiveEnergy(parent.totalForwardReactiveEnergy[idx].divide(DIVIDER))
+            .totalReverseReactiveEnergy(parent.totalReverseReactiveEnergy[idx].divide(DIVIDER))
             // from value
             .voltage(value.voltage[idx] * 0.01)
             .current(value.current[idx] * 0.001)
-            .powerActive(value.powerActive[idx] * 0.00001)
-            .powerReactive(value.powerReactive[idx] * 0.00001)
-            .powerApparent(value.powerApparent[idx] * 0.00001)
+            .powerActive(value.powerActive[idx] * multiplier)
+            .powerReactive(value.powerReactive[idx] * multiplier)
+            .powerApparent(value.powerApparent[idx] * multiplier)
             .powerFactor(value.powerFactor[idx] * 0.001)
             .phaseAngle(value.phaseAngle[idx] * 0.1)
             .frequency(value.freq)

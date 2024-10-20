@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import lombok.val;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
@@ -24,10 +25,10 @@ public class PrimitiveDecoder {
     /**
      * TODO can be optimized!!!.
      *
-     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
-     * @param bytes given bytes
+     * @param bytes  given bytes
      * @param offset given offset
      * @return uint
+     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
      */
     public long parseUnsignedInt(byte[] bytes, int offset) {
         sizeMin(bytes, INT_SIZE + offset);
@@ -39,19 +40,21 @@ public class PrimitiveDecoder {
     /**
      * TODO can be optimized!!!.
      *
-     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
-     * @param bytes given bytes
+     * @param bytes  given bytes
      * @param offset given offset
      * @return ulong
+     * @see <a href="https://stackoverflow.com/q/31750160/1819402">Stack overflow answer that I've used</a>
      */
-
-    public long parseUnsignedLong(byte[] bytes, int offset) {
+    public BigInteger parseUnsignedLong(byte[] bytes, int offset) {
         sizeMin(bytes, LONG_SIZE + offset);
         ByteBuffer bb = ByteBuffer.wrap(bytes, offset, LONG_SIZE);
         bb.order(LITTLE_ENDIAN);
-        return bb.getLong() & 0xffffffffL;
-    }
 
+        // Read the long value from the ByteBuffer
+        long signedLong = bb.getLong();
+
+        return BigInteger.valueOf(signedLong).and(UNSIGNED_LONG_MASK);
+    }
 
     public short parseShort(byte[] bytes, int offset) {
         sizeMin(bytes, SHORT_SIZE + offset);
@@ -112,9 +115,9 @@ public class PrimitiveDecoder {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new short[to - from];
-        for (int i = from; i < to; i += BYTE_SIZE) {
-            result[i - from] = parseUnsignedByte(original, i);
+        val result = new short[(to - from) / BYTE_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += BYTE_SIZE) {
+            result[idx] = parseUnsignedByte(original, offset);
         }
         return result;
     }
@@ -124,9 +127,9 @@ public class PrimitiveDecoder {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new short[to - from];
-        for (int i = from; i < to; i += SHORT_SIZE) {
-            result[i - from] = parseShort(original, i);
+        val result = new short[(to - from) / SHORT_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += SHORT_SIZE) {
+            result[idx] = parseShort(original, offset);
         }
         return result;
     }
@@ -136,9 +139,9 @@ public class PrimitiveDecoder {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new int[to - from];
-        for (int i = from; i < to; i += SHORT_SIZE) {
-            result[i - from] = parseUnsignedShort(original, i);
+        val result = new int[(to - from) / SHORT_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += SHORT_SIZE) {
+            result[idx] = parseUnsignedShort(original, offset);
         }
         return result;
     }
@@ -148,9 +151,9 @@ public class PrimitiveDecoder {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new long[to - from];
-        for (int i = from; i < to; i += INT_SIZE) {
-            result[i - from] = parseUnsignedInt(original, i);
+        val result = new long[(to - from) / INT_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += INT_SIZE) {
+            result[idx] = parseUnsignedInt(original, offset);
         }
         return result;
     }
@@ -160,21 +163,33 @@ public class PrimitiveDecoder {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new int[to - from];
-        for (int i = from; i < to; i += INT_SIZE) {
-            result[i - from] = parseInt(original, i);
+        val result = new int[(to - from) / INT_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += INT_SIZE) {
+            result[idx] = parseInt(original, offset);
         }
         return result;
     }
 
-    public long[] copyOfRangeLongUnsigned(final byte[] original, final int from, final int to) {
+    public long[] copyOfRangeLong(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
                 format("Index 'to' (%s) is too big for array with size %s", to, original.length));
         }
-        val result = new long[to - from];
-        for (int i = from; i < to; i += LONG_SIZE) {
-            result[i - from] = parseUnsignedLong(original, i);
+        val result = new long[(to - from) / LONG_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += LONG_SIZE) {
+            result[idx] = parseLong(original, offset);
+        }
+        return result;
+    }
+
+    public BigInteger[] copyOfRangeLongUnsigned(final byte[] original, final int from, final int to) {
+        if (to > original.length) {
+            throw new IllegalArgumentException(
+                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+        }
+        val result = new BigInteger[(to - from) / LONG_SIZE];
+        for (int idx = 0, offset = from; idx < result.length; idx++, offset += LONG_SIZE) {
+            result[idx] = parseUnsignedLong(original, offset);
         }
         return result;
     }
