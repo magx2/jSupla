@@ -4,6 +4,10 @@ import com.google.common.reflect.ClassPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
+
+import java.math.BigInteger;
+import java.time.Duration;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -90,6 +94,16 @@ public class ChannelValueSwitchTest {
         }
 
         @Override
+        public ChannelValue onHvacValue(HvacValue channelValue) {
+            return channelValue;
+        }
+
+        @Override
+        public ChannelValue onTimerValue(TimerValue channelValue) {
+            return channelValue;
+        }
+
+        @Override
         public ChannelValue onUnknownValue(UnknownValue unknownValue) {
             return unknownValue;
         }
@@ -140,14 +154,24 @@ public class ChannelValueSwitchTest {
             @Override
             public ChannelValue onElectricityMeter() {
                 return new ElectricityMeterValue(
-                    1,
-                    1,
+                    BigInteger.ONE,
+                    BigInteger.ONE,
                     null,
                     null,
                     null,
                     1,
                     1,
                     null);
+            }
+
+            @Override
+            public ChannelValue onHvacValue() {
+                return new HvacValue(true, HvacValue.Mode.DRY, 1.1, 2.2, new HvacValue.Flags(0));
+            }
+
+            @Override
+            public ChannelValue onTimerValue() {
+                return new TimerValue(Duration.ofSeconds(1), new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE], 1, "test");
             }
 
             @Override
