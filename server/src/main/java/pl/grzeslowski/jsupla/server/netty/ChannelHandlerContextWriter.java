@@ -33,7 +33,7 @@ class ChannelHandlerContextWriter implements Writer {
         val encoder = encoderFactory.getEncoder(proto);
         val encode = encoder.encode(proto);
         val packet = new SuplaDataPacket(
-            (short) 5,
+            (short) SUPLA_PROTO_VERSION,
             msgId.getAndIncrement(),
             proto.callType().getValue(),
             encode.length,
