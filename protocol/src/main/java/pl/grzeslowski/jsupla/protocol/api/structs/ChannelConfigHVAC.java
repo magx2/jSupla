@@ -3,13 +3,12 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
-import static pl.grzeslowski.jsupla.protocol.api.Preconditions.*;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unionCheck;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 
 /**
  * Channel numbers for thermometer config. Channels have to be local andnumbering is the same as for registration message
  *
- * <p>
- * <p>
  * Original code:
  * <pre>
  * typedef struct {
@@ -96,7 +95,7 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.*;
 @lombok.ToString
 @javax.annotation.Generated(value = "Struct original name: TChannelConfig_HVAC", date = "2024-10-20T23:38:23.496+02:00[Europe/Belgrade]")
 public class ChannelConfigHVAC implements ProtoWithSize {
-
+    public static final int RESERVED_SIZE = 48 - HvacParameterFlags.SIZE - INT_SIZE * 3;
     public final Integer mainThermometerChannelId;
     /**
      * unsigned Byte
@@ -187,7 +186,6 @@ public class ChannelConfigHVAC implements ProtoWithSize {
      * <p>
      * unsigned byte
      */
-    public final short[] reserved;
     public final HVACTemperatureCfg temperatures;
 
     public ChannelConfigHVAC(Integer mainThermometerChannelId,
@@ -211,7 +209,6 @@ public class ChannelConfigHVAC implements ProtoWithSize {
                              Integer masterThermostatChannelId,
                              Integer heatOrColdSourceSwitchChannelId,
                              Integer pumpSwitchChannelId,
-                             short[] reserved,
                              HVACTemperatureCfg temperatures) {
         this.mainThermometerChannelId = mainThermometerChannelId;
         this.mainThermometerChannelNo = unsigned(mainThermometerChannelNo);
@@ -242,7 +239,6 @@ public class ChannelConfigHVAC implements ProtoWithSize {
         unionCheck(pumpSwitchChannelId);
         // here is manual fix
         // length was `48` instead of `48 - HvacParameterFlags.SIZE - INT_SIZE * 3`
-        this.reserved = unsigned(checkArrayLength(reserved, 48 - HvacParameterFlags.SIZE - INT_SIZE * 3));
         this.temperatures = temperatures;
     }
 
@@ -283,7 +279,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
             + pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize(
             INT_SIZE  // pumpSwitchChannelId
         )
-            + (int) 48 * BYTE_SIZE // reserved
+            + (int) RESERVED_SIZE * BYTE_SIZE // reserved
             + temperatures.size() // temperatures
             ;
     }
