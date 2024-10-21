@@ -33,9 +33,10 @@ public class HvacValue implements ChannelValue {
         private final int mask;
 
         public boolean isOn(int flag) {
-            return (flag & mask) != 0;
+            return flag == mask;
         }
 
+        @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
         public static Optional<Mode> findMode(int flag) {
             return Arrays.stream(values())
                 .filter(mode -> mode.isOn(flag))
