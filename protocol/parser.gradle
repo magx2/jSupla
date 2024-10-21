@@ -715,6 +715,85 @@ task parseProtoh {
 		Files.createDirectories(rootDir)
 
 		def structs = structsParser.output()
+
+		// change TSDS_SetDeviceConfig to TDS_SetDeviceConfig and TSD_SetDeviceConfig
+		invoke {
+			def setDeviceConfig = structs.stream()
+				.filter { it.rawName == 'TSDS_SetDeviceConfig' }
+				.findAny()
+				.get()
+			def setDeviceConfigDs = new Struct(setDeviceConfig.properties)
+			setDeviceConfigDs.name = "SetDeviceConfig"
+			setDeviceConfigDs.rawName = "TDS_SetDeviceConfig"
+			setDeviceConfigDs.prefix = "TDS"
+			setDeviceConfigDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigDs)
+
+			def setDeviceConfigSd = new Struct(setDeviceConfig.properties)
+			setDeviceConfigSd.name = "SetDeviceConfig"
+			setDeviceConfigSd.rawName = "TSD_SetDeviceConfig"
+			setDeviceConfigSd.prefix = "TSD"
+			setDeviceConfigSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetDeviceConfig' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetDeviceConfig`!")
+			}
+		}
+
+		// change TSDS_SetDeviceConfigResult to TDS_SetDeviceConfigResult and TSD_SetDeviceConfigResult
+		invoke {
+			def setDeviceConfigResult = structs.stream()
+				.filter { it.rawName == 'TSDS_SetDeviceConfigResult' }
+				.findAny()
+				.get()
+			def setDeviceConfigResultDs = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultDs.name = "SetDeviceConfigResult"
+			setDeviceConfigResultDs.rawName = "TDS_SetDeviceConfigResult"
+			setDeviceConfigResultDs.prefix = "TDS"
+			setDeviceConfigResultDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultDs)
+
+			def setDeviceConfigResultSd = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultSd.name = "SetDeviceConfigResult"
+			setDeviceConfigResultSd.rawName = "TSD_SetDeviceConfigResult"
+			setDeviceConfigResultSd.prefix = "TSD"
+			setDeviceConfigResultSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetDeviceConfigResult' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetDeviceConfigResult`!")
+			}
+		}
+
+		// change TSDS_SetChannelConfigResult to TDS_SetChannelConfigResult and TSD_SetChannelConfigResult
+		invoke {
+			def setDeviceConfigResult = structs.stream()
+				.filter { it.rawName == 'TSDS_SetChannelConfigResult' }
+				.findAny()
+				.get()
+			def setDeviceConfigResultDs = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultDs.name = "SetChannelConfigResult"
+			setDeviceConfigResultDs.rawName = "TDS_SetChannelConfigResult"
+			setDeviceConfigResultDs.prefix = "TDS"
+			setDeviceConfigResultDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultDs)
+
+			def setDeviceConfigResultSd = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultSd.name = "SetChannelConfigResult"
+			setDeviceConfigResultSd.rawName = "TSD_SetChannelConfigResult"
+			setDeviceConfigResultSd.prefix = "TSD"
+			setDeviceConfigResultSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetChannelConfigResult' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetChannelConfigResult`!")
+			}
+		}
+
 		structs.add(new Struct([
 			name   : "TimevalCompat",
 			rawName: "timeval_compat",
@@ -1214,4 +1293,8 @@ class Names {
 		}
 		return newName
 	}
+}
+
+static invoke(function) {
+	function()
 }
