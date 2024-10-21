@@ -15,6 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_PROTO_VERSION;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,6 +38,12 @@ class ChannelHandlerContextWriter implements Writer {
             proto.callType().getValue(),
             encode.length,
             encode);
+        if (packet.callId == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+            // log pings in trace
+            log.trace("ctx.writeAndFlush({})", packet);
+        } else {
+            log.debug("ctx.writeAndFlush({})", packet);
+        }
         return ctx.writeAndFlush(packet);
     }
 }
