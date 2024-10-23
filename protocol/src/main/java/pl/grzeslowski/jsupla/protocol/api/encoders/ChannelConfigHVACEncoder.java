@@ -58,9 +58,11 @@ public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelCon
             bytes,
             offset);
 
-        // encoding only masterThermostatChannelId in this union 
         if (proto.masterThermostatChannelId != null) {
             PrimitiveEncoder.INSTANCE.writeInt(proto.masterThermostatChannelId, bytes, offset);
+        } else if (proto.masterThermostatIsSet != null && proto.masterThermostatChannelNo != null) {
+            int add = PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.masterThermostatIsSet, bytes, offset);
+            PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.masterThermostatChannelNo, bytes, offset + add);
         } else {
             throw new UnionException(proto, "masterThermostatChannelId", "[masterThermostatIsSet|masterThermostatChannelNo]");
         }
