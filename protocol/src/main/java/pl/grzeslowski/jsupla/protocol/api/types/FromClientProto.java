@@ -1,4 +1,4 @@
 package pl.grzeslowski.jsupla.protocol.api.types;
 
-public interface FromClientProto extends FromDeviceClientProto {
+public interface FromClientProto extends ProtoToSend {
 }

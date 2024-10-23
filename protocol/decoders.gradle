@@ -84,7 +84,7 @@ task decoderFactoryGenerator {
 			|   @Override
     		|	public <T extends ProtoWithSize & ProtoWithCallType> Decoder<T> getDecoder(CallType callType) {
     		|$findDecoderForCallType
-			|		throw new IllegalArgumentException("Can't find decoder for callType " + callType);
+			|		throw new IllegalArgumentException("Can't find decoder for callType " + callType + "(" +callType.getValue()+ ")");
     		|	}
 			|}
 			|""".stripMargin()
@@ -127,7 +127,7 @@ void generateDecoder(struct, Path generatedSourceRoot) {
 	if (!hasUnionFields) {
 		parse = struct.fields.stream().map { buildParse(it) }.collect(joining("\n\n"))
 	} else {
-		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support decoding structs with unions!\");"
+		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support decoding structs with unions! data=\" +  java.util.Arrays.toString(bytes));"
 	}
 	def properties = struct.fields
 		.stream()
@@ -199,7 +199,7 @@ static String parseField(field) {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "PrimitiveDecoder.INSTANCE.copyOfRange${type}${sign}(bytes, offset, offset + (int) ${field.arraySize});"
+			return "PrimitiveDecoder.INSTANCE.copyOfRange${type}${sign}(bytes, offset, offset + (int) (${field.arraySize} * ${findSizeByType(field.type)}));"
 		} else {
 			return """\
 				|new ${findStructImportForType(field.rawPrefix)}${field.type}[${field.arraySize}];

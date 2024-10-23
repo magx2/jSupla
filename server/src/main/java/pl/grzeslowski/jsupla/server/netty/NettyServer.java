@@ -12,11 +12,9 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import pl.grzeslowski.jsupla.server.api.Server;
 
 import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
 
 import static java.util.Objects.requireNonNull;
 
@@ -35,7 +33,7 @@ public final class NettyServer implements Server {
                        CallTypeParser callTypeParser,
                        DecoderFactory decoderFactory,
                        EncoderFactory encoderFactory,
-                       Supplier<MessageHandler> messageHandlerFactory) {
+                       MessageHandlerFactory messageHandlerFactory) {
         logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + hashCode());
         logger.debug("New instance");
         this.nettyConfig = requireNonNull(nettyConfig);

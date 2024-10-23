@@ -15,6 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_PROTO_VERSION;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,30 +27,23 @@ class ChannelHandlerContextWriter implements Writer {
     private final AtomicReference<ChannelHandlerContext> context;
 
     @Override
-    public Future write(@Nonnull FromServerProto proto) {
+    public ChannelFuture write(@Nonnull FromServerProto proto) {
         val ctx = requireNonNull(context.get(), "Context is null");
 
         val encoder = encoderFactory.getEncoder(proto);
         val encode = encoder.encode(proto);
         val packet = new SuplaDataPacket(
-            (short) 5,
+            (short) SUPLA_PROTO_VERSION,
             msgId.getAndIncrement(),
             proto.callType().getValue(),
             encode.length,
             encode);
-        return new FutureImpl(ctx.writeAndFlush(packet));
-    }
-
-    private static class FutureImpl implements Future {
-        private final ChannelFuture channelFuture;
-
-        public FutureImpl(ChannelFuture channelFuture) {
-            this.channelFuture = channelFuture;
+        if (packet.callId == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+            // log pings in trace
+            log.trace("ctx.writeAndFlush({})", packet);
+        } else {
+            log.debug("ctx.writeAndFlush({})", packet);
         }
-
-        @Override
-        public void addCompleteListener(@Nonnull Runnable listener) {
-            channelFuture.addListener(f -> listener.run());
-        }
+        return ctx.writeAndFlush(packet);
     }
 }

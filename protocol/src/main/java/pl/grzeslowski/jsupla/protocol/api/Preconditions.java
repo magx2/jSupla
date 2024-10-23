@@ -1,12 +1,17 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
+import lombok.val;
+
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
 public final class Preconditions {
+
     public static int min(int value, int min) {
         if (value < min) {
             throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
@@ -23,6 +28,13 @@ public final class Preconditions {
 
     public static long min(long value, long min) {
         if (value < min) {
+            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+        }
+        return value;
+    }
+
+    public static BigInteger min(BigInteger value, BigInteger min) {
+        if (value.compareTo(min) < 0) {
             throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
@@ -63,6 +75,13 @@ public final class Preconditions {
         return value;
     }
 
+    public static BigInteger max(BigInteger value, BigInteger max) {
+        if (value.compareTo(max) > 0) {
+            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+        }
+        return value;
+    }
+
     public static short size(short value, short min, short max) {
         return max(min(value, min), max);
     }
@@ -72,6 +91,10 @@ public final class Preconditions {
     }
 
     public static long size(long value, long min, long max) {
+        return max(min(value, min), max);
+    }
+
+    public static BigInteger size(BigInteger value, BigInteger min, BigInteger max) {
         return max(min(value, min), max);
     }
 
@@ -261,6 +284,9 @@ public final class Preconditions {
     }
 
     public static byte[] checkArrayLength(byte[] bytes, int length) {
+        if (bytes == null) {
+            return null;
+        }
         if (bytes.length != length) {
             throw new IllegalArgumentException(
                 format("Length of array should be %s but was %s!", length, bytes.length));
@@ -313,11 +339,11 @@ public final class Preconditions {
     }
 
     public static int unsignedByteSize(int unsignedByteValue) {
-        return size(unsignedByteValue, 0, 255);
+        return size(unsignedByteValue, 0, UNSIGNED_BYTE_MAX);
     }
 
     public static short unsignedByteSize(short unsignedByteValue) {
-        return size(unsignedByteValue, (short) 0, (short) 255);
+        return size(unsignedByteValue, (short) 0, (short) UNSIGNED_BYTE_MAX);
     }
 
     public static int unsignedShortSize(int unsignedByteValue) {
@@ -346,7 +372,18 @@ public final class Preconditions {
     }
 
     public static long unsigned(final long value) {
-        return size(value, 0, 4294967295L);
+        return size(value, 0, UNSIGNED_INT_MAX);
+    }
+
+    public static BigInteger unsigned(final BigInteger value) {
+        return size(value, BigInteger.ZERO, UNSIGNED_LONG_MAX);
+    }
+
+    public static BigInteger[] unsigned(BigInteger[] ulongs) {
+        for (val ulong : ulongs) {
+            unsigned(ulong);
+        }
+        return ulongs;
     }
 
     public static Long unsigned(Long value) {

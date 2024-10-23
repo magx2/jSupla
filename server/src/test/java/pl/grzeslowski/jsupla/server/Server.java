@@ -55,7 +55,7 @@ public class Server {
         final ServerFactory factory = buildServerFactory();
         pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(
             buildServerProperties(),
-            () -> new MessageHandler() {
+            (socketChannel) -> new MessageHandler() {
                 Writer writer;
 
                 @Override
