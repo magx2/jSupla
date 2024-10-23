@@ -2,13 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
+import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unionCheck;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 
 /**
  * Channel numbers for thermometer config. Channels have to be local andnumbering is the same as for registration message
- *
+ * <p>
  * Original code:
  * <pre>
  * typedef struct {
@@ -179,6 +180,8 @@ public class ChannelConfigHVAC implements ProtoWithSize {
     public final short useSeparateHeatCoolOutputs;
     public final HvacParameterFlags parameterFlags;
     public final Integer masterThermostatChannelId;
+    public final Short masterThermostatIsSet;
+    public final Short masterThermostatChannelNo;
     public final Integer heatOrColdSourceSwitchChannelId;
     public final Integer pumpSwitchChannelId;
     /**
@@ -207,6 +210,8 @@ public class ChannelConfigHVAC implements ProtoWithSize {
                              short useSeparateHeatCoolOutputs,
                              HvacParameterFlags parameterFlags,
                              Integer masterThermostatChannelId,
+                             Short masterThermostatIsSet,
+                             Short masterThermostatChannelNo,
                              Integer heatOrColdSourceSwitchChannelId,
                              Integer pumpSwitchChannelId,
                              HVACTemperatureCfg temperatures) {
@@ -232,7 +237,16 @@ public class ChannelConfigHVAC implements ProtoWithSize {
         this.useSeparateHeatCoolOutputs = unsigned(useSeparateHeatCoolOutputs);
         this.parameterFlags = parameterFlags;
         this.masterThermostatChannelId = masterThermostatChannelId;
-        unionCheck(masterThermostatChannelId);
+        this.masterThermostatIsSet = masterThermostatIsSet;
+        this.masterThermostatChannelNo = masterThermostatChannelNo;
+        if ((masterThermostatIsSet == null && masterThermostatChannelNo != null)
+            || (masterThermostatIsSet != null && masterThermostatChannelNo == null)) {
+            throw new IllegalArgumentException(
+                "if `masterThermostatIsSet` is set then `masterThermostatChannelNo` also needs to be set (and vice versa). " +
+                    format("masterThermostatIsSet=%s, masterThermostatChannelNo=%s",
+                        masterThermostatIsSet, masterThermostatChannelNo));
+        }
+        unionCheck(masterThermostatChannelId, masterThermostatIsSet);
         this.heatOrColdSourceSwitchChannelId = heatOrColdSourceSwitchChannelId;
         unionCheck(heatOrColdSourceSwitchChannelId);
         this.pumpSwitchChannelId = pumpSwitchChannelId;
