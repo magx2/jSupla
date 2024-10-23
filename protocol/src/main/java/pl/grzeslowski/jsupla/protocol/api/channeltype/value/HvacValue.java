@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -46,6 +47,7 @@ public class HvacValue implements ChannelValue {
 
     @RequiredArgsConstructor
     @Value
+    @Builder
     public static class Flags {
         boolean setPointTempHeatSet;
         boolean setPointTempCoolSet;
