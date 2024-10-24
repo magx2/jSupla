@@ -85,18 +85,24 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
  * };  // v. &#62;= 25
  * };
  *
+ * // TemperatureControlType allows to switch between work based on main
+ * // thermometer (room) and aux thermometer (heater/cooler).
+ * // Option is available only for SUPLA_CHANNELFNC_HVAC_THERMOSTAT
+ * // If set to 0, then it is not supported.
+ * unsigned char TemperatureControlType;  // SUPLA_HVAC_TEMPERATURE_CONTROL_TYPE_
+ *
  * unsigned char Reserved[48 - sizeof(HvacParameterFlags) -
  * sizeof(_supla_int_t) - sizeof(_supla_int_t) -
- * sizeof(_supla_int_t)];
+ * sizeof(_supla_int_t) - sizeof(unsigned char)];
  * THVACTemperatureCfg Temperatures;
- * } TChannelConfig_HVAC;
+ * } TChannelConfig_HVAC;  // v. &#62;= 21
  * </pre>
  */
 @lombok.EqualsAndHashCode
 @lombok.ToString
 @javax.annotation.Generated(value = "Struct original name: TChannelConfig_HVAC", date = "2024-10-20T23:38:23.496+02:00[Europe/Belgrade]")
 public class ChannelConfigHVAC implements ProtoWithSize {
-    public static final int RESERVED_SIZE = 48 - HvacParameterFlags.SIZE - INT_SIZE * 3;
+    public static final int RESERVED_SIZE = 48 - HvacParameterFlags.SIZE - INT_SIZE * 3 - BYTE_SIZE;
     public final Integer mainThermometerChannelId;
     /**
      * unsigned Byte
@@ -185,6 +191,12 @@ public class ChannelConfigHVAC implements ProtoWithSize {
     public final Integer heatOrColdSourceSwitchChannelId;
     public final Integer pumpSwitchChannelId;
     /**
+     * SUPLA_HVAC_TEMPERATURE_CONTROL_TYPE_
+     * <p>
+     * unsigned byte
+     */
+    public final short temperatureControlType;
+    /**
      * - sizeof(HvacParameterFlags) - sizeof(_supla_int_t) - sizeof(_supla_int_t) - sizeof(_supla_int_t)]
      * <p>
      * unsigned byte
@@ -214,6 +226,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
                              Short masterThermostatChannelNo,
                              Integer heatOrColdSourceSwitchChannelId,
                              Integer pumpSwitchChannelId,
+                             short temperatureControlType,
                              HVACTemperatureCfg temperatures) {
         this.mainThermometerChannelId = mainThermometerChannelId;
         this.mainThermometerChannelNo = unsigned(mainThermometerChannelNo);
@@ -251,6 +264,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
         unionCheck(heatOrColdSourceSwitchChannelId);
         this.pumpSwitchChannelId = pumpSwitchChannelId;
         unionCheck(pumpSwitchChannelId);
+        this.temperatureControlType = unsigned(temperatureControlType);
         // here is manual fix
         // length was `48` instead of `48 - HvacParameterFlags.SIZE - INT_SIZE * 3`
         this.temperatures = temperatures;
