@@ -73,6 +73,8 @@ void generatePojo(struct, Path generatedSourceRoot) {
 }
 
 task pojoGenerator {
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
 		if (!jsonFile.exists()) {
@@ -93,6 +95,7 @@ task pojoGenerator {
 }
 pojoGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "pojoGenerator"
+sourcesJar.dependsOn "pojoGenerator"
 
 static String buildJavaDoc(struct) {
 	def javaDoc = "/**\n"

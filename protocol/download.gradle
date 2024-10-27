@@ -14,27 +14,30 @@ import static org.assertj.core.api.Assertions.*
 import static org.assertj.core.api.Assertions.assertThat
 
 task downloadProtoLatest {
+	outputs.dir project.file("build" + project.downloadRootDir)
 	doLast {
-		downloadProtoByTag(download.latestTag as String)
+		downloadProtoByTag(project.downloadLatestTag as String)
 	}
 }
 task downloadProtoStable {
+	outputs.dir project.file("build" + project.downloadRootDir)
 	doLast {
-		downloadProtoByTag(download.stableTag as String)
+		downloadProtoByTag(project.downloadStableTag as String)
 	}
 }
 parseProtoh.dependsOn "downloadProtoStable"
 
 task checkForProtoUpdate {
 	doLast {
-		def rootDir = new File(download.rootDir.toString()).toPath()
-		def latestTag = rootDir.resolve("proto-${download.latestTag}.h").toFile()
-		def stableTag = rootDir.resolve("proto-${download.stableTag}.h").toFile()
+		def rootDir = project.file("build" + project.downloadRootDir).toPath()
+		def downloadStableTag = project.downloadStableTag
+		def latestTag = rootDir.resolve("proto-${project.downloadLatestTag}.h").toFile()
+		def stableTag = rootDir.resolve("proto-${downloadStableTag}.h").toFile()
 
 		assertThat(latestTag)
 			.as("Content of ${latestTag.name} and ${stableTag.name} are different! Please update stableTag in ext.\n" +
 				"Visit https://github.com/SUPLA/supla-core/blob/master/supla-common/proto.h to get latest proto.h or \n" +
-				"visit https://github.com/SUPLA/supla-core/compare/${download.stableTag}..master to get diff")
+				"visit https://github.com/SUPLA/supla-core/compare/${downloadStableTag}..master to get diff")
 			.hasSameTextualContentAs(stableTag)
 
 		logger.debug("Content of ${latestTag.name} and ${stableTag.name} are equal")
@@ -44,7 +47,7 @@ checkForProtoUpdate.dependsOn "downloadProtoStable"
 checkForProtoUpdate.dependsOn "downloadProtoLatest"
 
 void downloadProtoByTag(String tag) {
-	def rootDir = new File(download.rootDir.toString()).toPath()
+	def rootDir = project.file("build" + project.downloadRootDir).toPath()
 	Files.createDirectories(rootDir)
 
 	def path = rootDir.resolve("proto-${tag}.h")

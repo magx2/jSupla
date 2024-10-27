@@ -16,6 +16,8 @@ List overrides = [
 ]
 
 task constsGenerator {
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "consts.json")
 		if (!jsonFile.exists()) {
@@ -59,6 +61,8 @@ constsGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "constsGenerator"
 
 task callTypesGenerator {
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/calltypes/")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "consts.json")
 		if (!jsonFile.exists()) {
@@ -91,6 +95,8 @@ callTypesGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "callTypesGenerator"
 
 task resultCodeGenerator {
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ResultCode.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "consts.json")
 		if (!jsonFile.exists()) {
@@ -133,6 +139,8 @@ resultCodeGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "resultCodeGenerator"
 
 task channelTypeGenerator {
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelType.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "consts.json")
 		if (!jsonFile.exists()) {
@@ -204,6 +212,8 @@ static boolean isCallType(String name) {
 }
 
 task channelFunctionGenerator {
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelFunction.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "consts.json")
 		if (!jsonFile.exists()) {
@@ -400,4 +410,12 @@ static boolean predefined(constObj, List overrides) {
 	overrides.stream()
 		.map { it.name }
 		.anyMatch { it == constObj.name }
+}
+
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('callTypesGenerator'),
+		tasks.named('channelFunctionGenerator'),
+		tasks.named('channelTypeGenerator'),
+		tasks.named('constsGenerator'),
+		tasks.named('resultCodeGenerator')
 }

@@ -7,6 +7,8 @@ import java.time.ZonedDateTime
 import static java.util.stream.Collectors.joining
 
 task decodersGenerator {
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
 		if (!jsonFile.exists()) {
@@ -29,6 +31,8 @@ decodersGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "decodersGenerator"
 
 task decoderFactoryGenerator {
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/decoders/DecoderFactoryImpl.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
 		if (!jsonFile.exists()) {
@@ -318,4 +322,9 @@ String findDecoderForCallType(struct) {
 		.orElseGet {
 			"\t\t// no call type for ${struct.rawName}"
 		}
+}
+
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('decodersGenerator'),
+		tasks.named('decoderFactoryGenerator')
 }

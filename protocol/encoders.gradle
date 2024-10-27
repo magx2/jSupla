@@ -7,6 +7,8 @@ import java.time.ZonedDateTime
 import static java.util.stream.Collectors.joining
 
 task encodersGenerator {
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
 		if (!jsonFile.exists()) {
@@ -29,6 +31,8 @@ encodersGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "encodersGenerator"
 
 task encoderFactoryGenerator {
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/encoders/EncoderFactoryImpl.java")
 	doLast {
 		def jsonFile = new File(project.file("build/parser"), "proto.h.json")
 		if (!jsonFile.exists()) {
@@ -232,4 +236,9 @@ static String findEncoder(struct) {
 		|		if (${protoClass}.class.isAssignableFrom(proto)) {
         |    		return (Encoder<T>) ${encoderClass}.INSTANCE; 
         |		}""".stripMargin()
+}
+
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('encodersGenerator'),
+		tasks.named('encoderFactoryGenerator')
 }
