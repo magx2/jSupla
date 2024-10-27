@@ -27,7 +27,11 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           
-          ./gradlew clean releaseVersion  -PossrhUsername=ignore -PossrhPassword=ignore2
+          ./gradlew clean releaseVersion \
+            -PossrhUsername=ignore \
+            -PossrhPassword=ignore2 \
+            -Psigning.keyId=ignore3 \
+            -Psigning.password=ignore4 
           git add gradle.properties
           git commit -m "Update jSuplaVersion to release version in gradle.properties"
           
