@@ -65,6 +65,8 @@ allProjects {
 	apply plugin: 'maven-publish'
 	group = 'pl.grzeslowski.jSupla'
 	java {
+		withSourcesJar()
+		withJavadocJar()
 		toolchain {
 			languageVersion = JavaLanguageVersion.of(17)
 		}
@@ -223,6 +225,14 @@ prodProjects {
 
 	javadoc {
 		options.addBooleanOption('html5', true)
+	}
+
+	signing {
+		useInMemoryPgpKeys(
+			project.findProperty("signing.keyId") ?: System.getenv("SIGNING_KEY"),
+			project.findProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
+		)
+		sign(publishing.publications["mavenJava"])
 	}
 }
 
