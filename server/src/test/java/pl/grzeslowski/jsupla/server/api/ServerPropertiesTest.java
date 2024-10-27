@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.server.api;
 
+import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
@@ -12,12 +13,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
 public class ServerPropertiesTest {
+    EnhancedRandom random = new EnhancedRandomBuilder().build();
 
     @Test
-    public void shouldReturnPreviouslyGivenProperty() throws Exception {
+    public void shouldReturnPreviouslyGivenProperty() {
 
         // given
-        final String keyName = EnhancedRandom.random(String.class);
+        final String keyName = random.nextObject(String.class);
         final Object obj = new Object();
 
         final Map<String, Object> properties = new HashMap<>();
@@ -32,11 +34,11 @@ public class ServerPropertiesTest {
     }
 
     @Test
-    public void shouldReturnPropertyWithProperType() throws Exception {
+    public void shouldReturnPropertyWithProperType() {
 
         // given
-        final String keyName = EnhancedRandom.random(String.class);
-        final Integer obj = EnhancedRandom.random(Integer.class);
+        final String keyName = random.nextObject(String.class);
+        final Integer obj = random.nextObject(Integer.class);
 
         final Map<String, Integer> properties = new HashMap<>();
         properties.put(keyName, obj);
@@ -50,11 +52,11 @@ public class ServerPropertiesTest {
     }
 
     @Test
-    public void shouldThrowPropertyCastExceptionWhenCannotCastObject() throws Exception {
+    public void shouldThrowPropertyCastExceptionWhenCannotCastObject() {
 
         // given
-        final String keyName = EnhancedRandom.random(String.class);
-        final Integer obj = EnhancedRandom.random(Integer.class);
+        final String keyName = random.nextObject(String.class);
+        final Integer obj = random.nextObject(Integer.class);
 
         final Map<String, Integer> properties = new HashMap<>();
         properties.put(keyName, obj);
@@ -71,10 +73,10 @@ public class ServerPropertiesTest {
     }
 
     @Test
-    public void shouldThrowPropertyNotExistsExceptionWhenCantFindGivenProperty() throws Exception {
+    public void shouldThrowPropertyNotExistsExceptionWhenCantFindGivenProperty() {
 
         // given
-        final String keyName = EnhancedRandom.random(String.class);
+        final String keyName = random.nextObject(String.class);
 
         final Map<String, Integer> properties = new HashMap<>();
         final ServerProperties serverProperties = new ServerProperties(properties);
