@@ -38,7 +38,9 @@ jobs:
             -Psigning.keyId=$KEY_ID \
             -Psigning.password=$PASSWORD \
             -Psigning.secretKeyRingFile=$(realpath ./secring.gpg) \
-            -PskipSigning=false
+            -PskipSigning=false \
+            --info \
+            --stacktrace
           
           # Define the file path
           FILE="build/tag.txt"
