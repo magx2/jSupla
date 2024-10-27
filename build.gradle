@@ -136,25 +136,15 @@ allProjects {
 
 // Maven Central release
 prodProjects {
-	task javadocJar(type: Jar) {
-		archiveClassifier = 'javadoc'
+	tasks.register('javadocJar', Jar) {
+		archiveClassifier.set('javadoc')
 		from javadoc
 	}
 
-	task sourcesJar(type: Jar) {
-		archiveClassifier = 'sources'
+	tasks.register('sourcesJar', Jar) {
+		archiveClassifier.set('sources')
 		from sourceSets.main.allSource
 	}
-
-	artifacts {
-		archives javadocJar, sourcesJar
-	}
-
-//	signing {
-//		sign configurations.archives
-//	}
-
-//	tasks.withType(Sign)*.enabled = !version.endsWith("SNAPSHOT")
 
 	group = project.group
 	archivesBaseName = project.name
@@ -165,6 +155,8 @@ prodProjects {
 		publications {
 			mavenJava(MavenPublication) {
 				from components.java
+				artifact tasks.javadocJar
+				artifact tasks.sourcesJar
 
 				pom {
 					name.set(project.name)
@@ -218,7 +210,7 @@ prodProjects {
 	}
 
 	signing {
-		sign(publishing.publications["mavenJava"])
+		sign publishing.publications.mavenJava
 	}
 }
 
