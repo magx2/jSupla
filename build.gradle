@@ -219,8 +219,8 @@ prodProjects {
 
 	signing {
 		useInMemoryPgpKeys(
-			project.findProperty("signing.keyId") ?: System.getenv("SIGNING_KEY"),
-			project.findProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
+			project.property("signing.keyId") ?: System.getenv("SIGNING_KEY"),
+			project.property("signing.password") ?: System.getenv("SIGNING_PASSWORD")
 		)
 		sign configurations.archives
 	}
