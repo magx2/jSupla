@@ -39,21 +39,6 @@ private static boolean isTestProject(Project p) {
 	p.name.toLowerCase().contains("test")
 }
 
-@SuppressWarnings("UnnecessaryQualifiedReference")
-def releasableProjects(Closure c) {
-	allprojects { p ->
-		if (isReleasableProject(p)) {
-			c.delegate = p
-			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
-			c(p)
-		}
-	}
-}
-
-private static boolean isReleasableProject(Project p) {
-	!isRootProject(p)
-}
-
 allprojects {
 	repositories {
 		mavenCentral()
@@ -73,13 +58,6 @@ allProjects {
 
 allProjects {
 	version jSuplaVersion
-	publishing {
-		publications {
-			maven(MavenPublication) {
-				from components.java
-			}
-		}
-	}
 }
 
 // Integration tests
@@ -162,7 +140,7 @@ prodProjects {
 				pom {
 					name = project.name
 					description = project.description
-//					packaging = 'jar'
+					packaging = 'jar'
 					url = "https://github.com/${githubRepo}"
 
 					scm {
