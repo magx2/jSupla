@@ -159,21 +159,21 @@ prodProjects {
 				artifact tasks.sourcesJar
 
 				pom {
-					name.set(project.name)
-					description.set(project.description)
+					name = project.name
+					description = project.description
 //					packaging = 'jar'
-					url.set("https://github.com/${githubRepo}")
+					url = "https://github.com/${githubRepo}"
 
 					scm {
-						connection.set("scm:git:git://github.com/${githubRepo}.git")
-						developerConnection.set("scm:git:git://github.com/${githubRepo}.git")
-						url.set("https://github.com/${githubRepo}.git")
+						connection = "scm:git:git://github.com/${githubRepo}.git"
+						developerConnection = "scm:git:git://github.com/${githubRepo}.git"
+						url = "https://github.com/${githubRepo}.git"
 					}
 
 					licenses {
 						license {
-							name.set("MIT")
-							url.set("https://opensource.org/licenses/MIT")
+							name = "MIT"
+							url = "https://opensource.org/licenses/MIT"
 						}
 					}
 
