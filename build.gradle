@@ -218,11 +218,12 @@ prodProjects {
 	}
 
 	signing {
-		sign configurations.archives
+		sign(publishing.publications["mavenJava"])
 	}
 }
 
-tasks.named('signArchives').configure {
+//tasks.named('signArchives').configure {
+tasks.named('signMavenJavaPublication').configure {
 	onlyIf {
 		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
 	}
