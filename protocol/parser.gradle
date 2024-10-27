@@ -670,8 +670,13 @@ class ConstsParser implements Parser<List<Const>> {
 def staticArraySize = ext.staticArraySize
 
 task parseProtoh {
+	inputs.dir project.file("build" + project.downloadRootDir)
+	outputs.dir project.file("build/parser")
 	doLast {
-		File protohFile = new File(download.rootDir.toString()).toPath().resolve("proto-${download.stableTag}.h").toFile()
+		File protohFile = project.file("build" + project.downloadRootDir)
+			.toPath()
+			.resolve("proto-${project.downloadStableTag}.h")
+			.toFile()
 		if (!protohFile.exists()) {
 			throw new IOException("File ${protohFile.absolutePath} does not exists!")
 		}
