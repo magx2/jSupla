@@ -128,6 +128,10 @@ allProjects {
 		testCompileOnly 'org.projectlombok:lombok:1.18.32'
 		testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
 	}
+
+	tasks.withType(Javadoc) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
 }
 
 // Maven Central release
