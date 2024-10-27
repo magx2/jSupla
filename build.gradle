@@ -164,7 +164,7 @@ prodProjects {
 	publishing {
 		publications {
 			mavenJava(MavenPublication) {
-//				from components.java
+				from components.java
 
 				pom {
 					name.set(project.name)
@@ -226,7 +226,7 @@ prodProjects {
 	}
 }
 
-tasks.named('signMavenJavaPublication').configure {
+tasks.named('signArchives').configure {
 	onlyIf {
 		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
 	}
