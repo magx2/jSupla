@@ -39,21 +39,6 @@ private static boolean isTestProject(Project p) {
 	p.name.toLowerCase().contains("test")
 }
 
-@SuppressWarnings("UnnecessaryQualifiedReference")
-def releasableProjects(Closure c) {
-	allprojects { p ->
-		if (isReleasableProject(p)) {
-			c.delegate = p
-			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
-			c(p)
-		}
-	}
-}
-
-private static boolean isReleasableProject(Project p) {
-	!isRootProject(p)
-}
-
 allprojects {
 	repositories {
 		mavenCentral()
@@ -63,6 +48,7 @@ allprojects {
 allProjects {
 	apply plugin: 'java'
 	apply plugin: 'maven-publish'
+	apply plugin: 'signing'
 	group = 'pl.grzeslowski.jSupla'
 	java {
 		toolchain {
@@ -73,13 +59,6 @@ allProjects {
 
 allProjects {
 	version jSuplaVersion
-	publishing {
-		publications {
-			maven(MavenPublication) {
-				from components.java
-			}
-		}
-	}
 }
 
 // Integration tests
@@ -136,25 +115,15 @@ allProjects {
 
 // Maven Central release
 prodProjects {
-	task javadocJar(type: Jar) {
-		archiveClassifier = 'javadoc'
+	tasks.register('javadocJar', Jar) {
+		archiveClassifier.set('javadoc')
 		from javadoc
 	}
 
-	task sourcesJar(type: Jar) {
-		archiveClassifier = 'sources'
+	tasks.register('sourcesJar', Jar) {
+		archiveClassifier.set('sources')
 		from sourceSets.main.allSource
 	}
-
-	artifacts {
-		archives javadocJar, sourcesJar
-	}
-
-	signing {
-		sign configurations.archives
-	}
-
-	tasks.withType(Sign)*.enabled = !version.endsWith("SNAPSHOT")
 
 	group = project.group
 	archivesBaseName = project.name
@@ -164,24 +133,27 @@ prodProjects {
 	publishing {
 		publications {
 			mavenJava(MavenPublication) {
+				artifactId = project.name
 				from components.java
+				artifact tasks.javadocJar
+				artifact tasks.sourcesJar
 
 				pom {
-					name.set(project.name)
-					description.set(project.description)
+					name = project.name
+					description = project.description
 					packaging = 'jar'
-					url.set("https://github.com/${githubRepo}")
+					url = "https://github.com/${githubRepo}"
 
 					scm {
-						connection.set("scm:git:git://github.com/${githubRepo}.git")
-						developerConnection.set("scm:git:git://github.com/${githubRepo}.git")
-						url.set("https://github.com/${githubRepo}.git")
+						connection = "scm:git:git://github.com/${githubRepo}.git"
+						developerConnection = "scm:git:git://github.com/${githubRepo}.git"
+						url = "https://github.com/${githubRepo}.git"
 					}
 
 					licenses {
 						license {
-							name.set("MIT")
-							url.set("https://opensource.org/licenses/MIT")
+							name = "MIT"
+							url = "https://opensource.org/licenses/MIT"
 						}
 					}
 
@@ -222,11 +194,12 @@ prodProjects {
 	}
 }
 
-tasks.named('signArchives').configure {
-	onlyIf {
-		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
-	}
-}
+//tasks.named('signArchives').configure {
+//tasks.named('signMavenJavaPublication').configure {
+//	onlyIf {
+//		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
+//	}
+//}
 
 allProjects {
 	dependencies {
