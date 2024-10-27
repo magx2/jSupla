@@ -48,6 +48,7 @@ allprojects {
 allProjects {
 	apply plugin: 'java'
 	apply plugin: 'maven-publish'
+	apply plugin: 'signing'
 	group = 'pl.grzeslowski.jSupla'
 	java {
 		toolchain {
