@@ -150,11 +150,11 @@ prodProjects {
 		archives javadocJar, sourcesJar
 	}
 
-	signing {
-		sign configurations.archives
-	}
+//	signing {
+//		sign configurations.archives
+//	}
 
-	tasks.withType(Sign)*.enabled = !version.endsWith("SNAPSHOT")
+//	tasks.withType(Sign)*.enabled = !version.endsWith("SNAPSHOT")
 
 	group = project.group
 	archivesBaseName = project.name
@@ -222,7 +222,7 @@ prodProjects {
 	}
 }
 
-tasks.named('signArchives').configure {
+tasks.named('signMavenJavaPublication').configure {
 	onlyIf {
 		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
 	}
