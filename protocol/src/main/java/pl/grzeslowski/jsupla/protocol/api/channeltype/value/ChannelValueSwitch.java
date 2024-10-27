@@ -38,6 +38,12 @@ public final class ChannelValueSwitch<T> {
         if (channelValue instanceof ElectricityMeterValue) {
             return callback.onElectricityMeter((ElectricityMeterValue) channelValue);
         }
+        if (channelValue instanceof HvacValue) {
+            return callback.onHvacValue((HvacValue) channelValue);
+        }
+        if (channelValue instanceof TimerValue) {
+            return callback.onTimerValue((TimerValue) channelValue);
+        }
         if (channelValue instanceof UnknownValue) {
             return callback.onUnknownValue((UnknownValue) channelValue);
         }
@@ -66,6 +72,10 @@ public final class ChannelValueSwitch<T> {
         T onTemperatureAndHumidityValue(TemperatureAndHumidityValue temperatureAndHumidityValue);
 
         T onElectricityMeter(ElectricityMeterValue electricityMeterValue);
+
+        T onHvacValue(HvacValue channelValue);
+
+        T onTimerValue(TimerValue channelValue);
 
         T onUnknownValue(UnknownValue unknownValue);
     }

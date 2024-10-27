@@ -21,7 +21,8 @@ public class CallTypeParser {
                 ClientServerCallType.values(),
                 ServerClientDeviceCallType.values(),
                 ClientServerDeviceCallType.values(),
-                DeviceServerClientCallType.values())
+                DeviceServerClientCallType.values(),
+                ServerDeviceClientCallType.values())
             .flatMap(Stream::of)
             .map(v -> (CallType) v)
             .collect(Collectors.toList());

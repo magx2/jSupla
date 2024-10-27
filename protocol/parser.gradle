@@ -329,9 +329,12 @@ class StructParser implements Parser<Struct> {
 	String structJavaDoc = ""
 	boolean parseStructJavaDoc = false
 
-	StructParser(Logger logger) {
+	List<String> staticArraySize
+
+	StructParser(Logger logger, List<String> staticArraySize) {
 		this.logger = logger
 		fieldParser = new FieldParser(logger)
+		this.staticArraySize = staticArraySize
 	}
 
 	@Override
@@ -427,7 +430,7 @@ class StructParser implements Parser<Struct> {
 					output.rawName = structName
 					output.prefix = Names.findPrefix(structName)
 					// check if 2 last fields are named fooSize and foo
-					if (fields.size() >= 2) {
+					if (fields.size() >= 2 && !staticArraySize.contains(output.name)) {
 						def secondToLast = fields[-2]
 						def last = fields[-1]
 						if (secondToLast instanceof SimpleField
@@ -489,9 +492,11 @@ class StructsParser implements Parser<List<Struct>> {
 	int index = 0
 	StructParser structParser = null
 	List<Struct> outputs = new ArrayList<>()
+	List<String> staticArraySize
 
-	StructsParser(Logger logger) {
+	StructsParser(Logger logger, staticArraySize) {
 		this.logger = logger
+		this.staticArraySize = staticArraySize
 	}
 
 	@Override
@@ -507,7 +512,7 @@ class StructsParser implements Parser<List<Struct>> {
 			index++
 			if (index >= start.length()) {
 				logger.debug("{}:{} Parsed struct header", line, column)
-				structParser = new StructParser(logger)
+				structParser = new StructParser(logger, staticArraySize)
 				index = 0
 			}
 		} else if (character != start[index]) {
@@ -662,16 +667,23 @@ class ConstsParser implements Parser<List<Const>> {
 	}
 }
 
+def staticArraySize = ext.staticArraySize
+
 task parseProtoh {
 	doLast {
 		File protohFile = new File(download.rootDir.toString()).toPath().resolve("proto-${download.stableTag}.h").toFile()
 		if (!protohFile.exists()) {
 			throw new IOException("File ${protohFile.absolutePath} does not exists!")
 		}
-		def structsParser = new StructsParser(logger)
+		def structsParser = new StructsParser(logger, staticArraySize)
 		def constsParser = new ConstsParser(logger)
 		int lineIdx = 1
-		protohFile.eachLine { line ->
+		def content = protohFile.text
+		content += "\n#define SUPLA_SDC_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11\n"
+		content = content.replace("#define SUPLA_DCS_CALL_GET_USER_LOCALTIME_RESULT 490          // ver. >= 11",
+			"")
+		content = content.replaceAll(/\\\n/, "")
+		content.eachLine { line ->
 			int columnIdx = 1
 			for (def character : line) {
 				try {
@@ -703,6 +715,85 @@ task parseProtoh {
 		Files.createDirectories(rootDir)
 
 		def structs = structsParser.output()
+
+		// change TSDS_SetDeviceConfig to TDS_SetDeviceConfig and TSD_SetDeviceConfig
+		invoke {
+			def setDeviceConfig = structs.stream()
+				.filter { it.rawName == 'TSDS_SetDeviceConfig' }
+				.findAny()
+				.get()
+			def setDeviceConfigDs = new Struct(setDeviceConfig.properties)
+			setDeviceConfigDs.name = "SetDeviceConfig"
+			setDeviceConfigDs.rawName = "TDS_SetDeviceConfig"
+			setDeviceConfigDs.prefix = "TDS"
+			setDeviceConfigDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigDs)
+
+			def setDeviceConfigSd = new Struct(setDeviceConfig.properties)
+			setDeviceConfigSd.name = "SetDeviceConfig"
+			setDeviceConfigSd.rawName = "TSD_SetDeviceConfig"
+			setDeviceConfigSd.prefix = "TSD"
+			setDeviceConfigSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetDeviceConfig' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetDeviceConfig`!")
+			}
+		}
+
+		// change TSDS_SetDeviceConfigResult to TDS_SetDeviceConfigResult and TSD_SetDeviceConfigResult
+		invoke {
+			def setDeviceConfigResult = structs.stream()
+				.filter { it.rawName == 'TSDS_SetDeviceConfigResult' }
+				.findAny()
+				.get()
+			def setDeviceConfigResultDs = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultDs.name = "SetDeviceConfigResult"
+			setDeviceConfigResultDs.rawName = "TDS_SetDeviceConfigResult"
+			setDeviceConfigResultDs.prefix = "TDS"
+			setDeviceConfigResultDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultDs)
+
+			def setDeviceConfigResultSd = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultSd.name = "SetDeviceConfigResult"
+			setDeviceConfigResultSd.rawName = "TSD_SetDeviceConfigResult"
+			setDeviceConfigResultSd.prefix = "TSD"
+			setDeviceConfigResultSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetDeviceConfigResult' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetDeviceConfigResult`!")
+			}
+		}
+
+		// change TSDS_SetChannelConfigResult to TDS_SetChannelConfigResult and TSD_SetChannelConfigResult
+		invoke {
+			def setDeviceConfigResult = structs.stream()
+				.filter { it.rawName == 'TSDS_SetChannelConfigResult' }
+				.findAny()
+				.get()
+			def setDeviceConfigResultDs = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultDs.name = "SetChannelConfigResult"
+			setDeviceConfigResultDs.rawName = "TDS_SetChannelConfigResult"
+			setDeviceConfigResultDs.prefix = "TDS"
+			setDeviceConfigResultDs.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultDs)
+
+			def setDeviceConfigResultSd = new Struct(setDeviceConfigResult.properties)
+			setDeviceConfigResultSd.name = "SetChannelConfigResult"
+			setDeviceConfigResultSd.rawName = "TSD_SetChannelConfigResult"
+			setDeviceConfigResultSd.prefix = "TSD"
+			setDeviceConfigResultSd.javaDoc += "MANUALLY ADDED!"
+			structs.add(setDeviceConfigResultSd)
+
+			def removed = structs.removeIf { it.rawName == 'TSDS_SetChannelConfigResult' }
+			if (!removed) {
+				throw new IllegalArgumentException("Did not removed `TSDS_SetChannelConfigResult`!")
+			}
+		}
+
 		structs.add(new Struct([
 			name   : "TimevalCompat",
 			rawName: "timeval_compat",
@@ -736,20 +827,24 @@ task parseProtoh {
 				new SimpleField([
 					name     : "tvSec",
 					type   : "int",
+					array    : true,
+					arraySize: 2,
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
 					type   : "int",
+					array    : true,
+					arraySize: 2,
 					rawType: "_supla_int_t",
 					rawPrefix: "T",
 				]),
 			],
 			raw    : """\
 				|struct _supla_timeval {
-				|  long tv_sec;
-				|  long tv_usec;
+				|  long tv_sec[2];
+				|  long tv_usec[2];
 				|};""".stripMargin(),
 			javaDoc: "MANUALLY ADDED!",
 		]))
@@ -956,6 +1051,14 @@ task parseProtoh {
 				|
 				|#define TChannelState_ExtendedValue TDSC_ChannelState""".stripMargin(),
 			javaDoc: "MANUALLY ADDED! v. >= 12 Device -> Server -> Client",
+		]))
+		structs.add(new Struct([
+			name   : "LocalTimeRequest",
+			rawName: "TDCS_LocalTimeRequest",
+			prefix : "TDCS",
+			fields : [],
+			raw    : "This is just mark class",
+			javaDoc: "MANUALLY ADDED!",
 		]))
 		def structsJson = new JsonBuilder(structs).toPrettyString()
 		def structsOutputFile = rootDir.resolve("proto.h.json")
@@ -1190,4 +1293,8 @@ class Names {
 		}
 		return newName
 	}
+}
+
+static invoke(function) {
+	function()
 }

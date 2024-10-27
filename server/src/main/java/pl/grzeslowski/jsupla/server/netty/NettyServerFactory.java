@@ -6,12 +6,9 @@ import lombok.RequiredArgsConstructor;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import pl.grzeslowski.jsupla.server.api.Server;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
-
-import java.util.function.Supplier;
 
 
 @RequiredArgsConstructor
@@ -27,7 +24,7 @@ public final class NettyServerFactory implements ServerFactory {
     private final EncoderFactory encoderFactory;
 
     @Override
-    public Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull Supplier<MessageHandler> messageHandlerFactory) {
+    public Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull MessageHandlerFactory messageHandlerFactory) {
         return new NettyServer(
             fromServerProperties(serverProperties),
             callTypeParser,

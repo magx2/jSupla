@@ -38,6 +38,12 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(ElectricityMeterValue.class)) {
             return callback.onElectricityMeter();
         }
+        if (channelClass.isAssignableFrom(HvacValue.class)) {
+            return callback.onHvacValue();
+        }
+        if (channelClass.isAssignableFrom(TimerValue.class)) {
+            return callback.onTimerValue();
+        }
         if (channelClass.isAssignableFrom(UnknownValue.class)) {
             return callback.onUnknownValue();
         }
@@ -66,6 +72,10 @@ public final class ChannelClassSwitch<T> {
         T onTemperatureAndHumidityValue();
 
         T onElectricityMeter();
+
+        T onHvacValue();
+
+        T onTimerValue();
 
         T onUnknownValue();
     }

@@ -1,11 +1,16 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
+import lombok.val;
 import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
+
+import java.math.BigInteger;
 
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.LONG_SIZE;
 
 public class PrimitiveIntEncoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
@@ -115,7 +120,6 @@ public class PrimitiveIntEncoderTest {
         assertThat(bytes[3]).isEqualTo((byte) 0);
     }
 
-    @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
     public void shouldPutMaxUnsignedIntIntoBuffer() {
 
@@ -131,5 +135,47 @@ public class PrimitiveIntEncoderTest {
         assertThat(bytes[1]).isEqualTo((byte) -1);
         assertThat(bytes[2]).isEqualTo((byte) -1);
         assertThat(bytes[3]).isEqualTo((byte) -1);
+    }
+
+    @Test
+    public void shouldPutMinimalUnsignedLongIntoBuffer() {
+
+        // given
+        val value = BigInteger.ZERO;
+        byte[] bytes = new byte[LONG_SIZE];
+
+        // when
+        primitiveEncoder.writeUnsignedLong(value, bytes, 0);
+
+        // then
+        assertThat(bytes[0]).isEqualTo((byte) 0);
+        assertThat(bytes[1]).isEqualTo((byte) 0);
+        assertThat(bytes[2]).isEqualTo((byte) 0);
+        assertThat(bytes[3]).isEqualTo((byte) 0);
+        assertThat(bytes[4]).isEqualTo((byte) 0);
+        assertThat(bytes[5]).isEqualTo((byte) 0);
+        assertThat(bytes[6]).isEqualTo((byte) 0);
+        assertThat(bytes[7]).isEqualTo((byte) 0);
+    }
+
+    @Test
+    public void shouldPutMaxUnsignedLongIntoBuffer() {
+
+        // given
+        val value = JavaConsts.UNSIGNED_LONG_MAX;
+        byte[] bytes = new byte[LONG_SIZE];
+
+        // when
+        primitiveEncoder.writeUnsignedLong(value, bytes, 0);
+
+        // then
+        assertThat(bytes[0]).isEqualTo((byte) -1);
+        assertThat(bytes[1]).isEqualTo((byte) -1);
+        assertThat(bytes[2]).isEqualTo((byte) -1);
+        assertThat(bytes[3]).isEqualTo((byte) -1);
+        assertThat(bytes[4]).isEqualTo((byte) -1);
+        assertThat(bytes[5]).isEqualTo((byte) -1);
+        assertThat(bytes[6]).isEqualTo((byte) -1);
+        assertThat(bytes[7]).isEqualTo((byte) -1);
     }
 }

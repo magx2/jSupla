@@ -18,6 +18,8 @@ import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
+
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger;
     private final AtomicLong msgId = new AtomicLong(1);
@@ -59,9 +61,16 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket suplaDataPacket) {
-        logger.debug("SuplaHandler.channelRead0(ctx, {})", suplaDataPacket);
+        val msg = "SuplaHandler.channelRead0(ctx, {})";
+        if (suplaDataPacket.callId == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
+            // log pings in trace
+            logger.trace(msg, suplaDataPacket);
+        } else {
+            logger.debug(msg, suplaDataPacket);
+        }
         val callTypeOptional = callTypeParser.parse(suplaDataPacket.callId);
         if (!callTypeOptional.isPresent()) {
+            // warning message was already logged
             return;
         }
         val callType = callTypeOptional.get();
@@ -69,7 +78,17 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val data = suplaDataPacket.data;
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
+        if (suplaDataPacket.dataSize != entity.size()) {
+            logger.warn("WTF?! The size of the entity is different than `dataSize` from `suplaDataPacket.dataSize`. " +
+                    "Looks like a bug in the Supla decoder implementation. " +
+                    "entity.size={}, suplaDataPacket.dataSize={}, entity={}, suplaDataPacket={}",
+                entity.size(), suplaDataPacket.dataSize, entity, suplaDataPacket);
+        }
         if (!ToServerProto.class.isAssignableFrom(entity.getClass())) {
+            logger.warn("Why device/client has send a proto that do not extends {}? " +
+                    "Looks like a bug... " +
+                    "entity.class={}, entity={}",
+                ToServerProto.class.getName(), entity.getClass(), entity);
             return;
         }
 

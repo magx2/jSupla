@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
 
@@ -13,11 +14,11 @@ public class ElectricityMeterValue implements ChannelValue {
     /**
      * kWh Vector phase-to-phase balancing
      */
-    double totalForwardActiveEnergyBalanced;
+    BigInteger totalForwardActiveEnergyBalanced;
     /**
      * kWh Vector phase-to-phase balancing The price per unit, total cost and currency is overwritten by the server
      */
-    double totalReverseActiveEnergyBalanced;
+    BigInteger totalReverseActiveEnergyBalanced;
     /**
      * total_cost == SUM(total_forward_active_energy[n] * price_per_unit
      */
@@ -36,10 +37,10 @@ public class ElectricityMeterValue implements ChannelValue {
     @Builder
     @Value
     public static class Phase {
-        double totalForwardActiveEnergy;
-        double totalReverseActiveEnergy;
-        double totalForwardReactiveEnergy;
-        double totalReverseReactiveEnergy;
+        BigInteger totalForwardActiveEnergy;
+        BigInteger totalReverseActiveEnergy;
+        BigInteger totalForwardReactiveEnergy;
+        BigInteger totalReverseReactiveEnergy;
 
         /**
          * V

@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureAndHumidityValue;
@@ -22,13 +23,15 @@ class ThermometerTypeChannelDecoderImpl implements Decoder<ChannelValue> {
     @Override
     public ChannelValue decode(final byte[] bytes, final int offset) {
         Preconditions.sizeMin(bytes, offset + MINIMAL_SIZE);
-        final int temperatureInt = INSTANCE.parseInt(bytes, offset);
-        final BigDecimal temperature = parseDoubleValue(temperatureInt);
+        val temperatureInt = INSTANCE.parseInt(bytes, offset);
+        val temperature = parseDoubleValue(temperatureInt);
+        
         if (bytes.length < offset + INT_SIZE * 2) {
             return new TemperatureValue(temperature);
         }
-        final int humidityInt = INSTANCE.parseInt(bytes, offset + INT_SIZE);
-        final BigDecimal humidity = parseDoubleValue(humidityInt);
+        val humidityInt = INSTANCE.parseInt(bytes, offset + INT_SIZE);
+        val humidity = parseDoubleValue(humidityInt);
+        
         return new TemperatureAndHumidityValue(temperature, humidity);
     }
 
