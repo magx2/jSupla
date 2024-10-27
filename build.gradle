@@ -206,14 +206,14 @@ prodProjects {
 				}
 			}
 
-//			maven {
-//				name = "sonatypeSnapshots"
-//				url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-//				credentials {
-//					username = ossrhUsername
-//					password = ossrhPassword
-//				}
-//			}
+			maven {
+				name = "sonatypeSnapshots"
+				url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+				credentials {
+					username = ossrhUsername
+					password = ossrhPassword
+				}
+			}
 		}
 	}
 
