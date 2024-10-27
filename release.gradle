@@ -38,7 +38,7 @@ task noSnapshots {
 	}
 }
 prodProjects {
-	uploadArchives.dependsOn ":noSnapshots"
+	publish.dependsOn ":noSnapshots"
 }
 tag.dependsOn "noSnapshots"
 

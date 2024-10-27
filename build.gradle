@@ -1,3 +1,8 @@
+plugins {
+	id 'maven-publish'
+	id 'signing'
+}
+
 ext {
 	slf4j_version = '2.0.11'
 	random_beans_version = '3.9.0'
@@ -59,7 +64,11 @@ allProjects {
 	apply plugin: 'java'
 	apply plugin: 'maven-publish'
 	group = 'pl.grzeslowski.jSupla'
-	sourceCompatibility = 1.8
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(17)
+		}
+	}
 }
 
 allProjects {
@@ -110,14 +119,6 @@ allProjects {
 	}
 }
 
-// Add check style to all projects
-//prodProjects {
-//	apply plugin: 'checkstyle'
-//	tasks.withType(Checkstyle) {
-//		configFile = "${rootDir.path}/config/checkstyle/checkstyle.xml" as File
-//	}
-//}
-
 // lombok
 allProjects {
 	dependencies {
@@ -131,9 +132,6 @@ allProjects {
 
 // Maven Central release
 prodProjects {
-	apply plugin: 'maven'
-	apply plugin: 'signing'
-
 	task javadocJar(type: Jar) {
 		archiveClassifier = 'javadoc'
 		from javadoc
@@ -159,66 +157,85 @@ prodProjects {
 	version = project.version
 
 	def final githubRepo = "magx2/jSupla"
-	uploadArchives {
-		repositories {
-			mavenDeployer {
-				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+	publishing {
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
 
-				repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
-					authentication(userName: ossrhUsername, password: ossrhPassword)
-				}
-
-				snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
-					authentication(userName: ossrhUsername, password: ossrhPassword)
-				}
-
-				pom.project {
-					//noinspection GroovyAssignabilityCheck
-					name project.name
-					description description
-					packaging 'jar'
-					url = "https://github.com/${githubRepo}"
+				pom {
+					name.set(project.name)
+					description.set(project.description)
+					packaging = 'jar'
+					url.set("https://github.com/${githubRepo}")
 
 					scm {
-						connection "scm:git:git://github.com/${githubRepo}.git"
-						developerConnection "scm:git:git://github.com/${githubRepo}.git"
-						url "https://github.com/${githubRepo}.git"
+						connection.set("scm:git:git://github.com/${githubRepo}.git")
+						developerConnection.set("scm:git:git://github.com/${githubRepo}.git")
+						url.set("https://github.com/${githubRepo}.git")
 					}
 
 					licenses {
 						license {
-							//noinspection GroovyAssignabilityCheck
-							name "MIT"
-							url "https://opensource.org/licenses/MIT"
+							name.set("MIT")
+							url.set("https://opensource.org/licenses/MIT")
 						}
 					}
 
 					developers {
 						developer {
-							id 'magx2'
-							//noinspection GroovyAssignabilityCheck
-							name 'Martin Grzeslowski'
-							email 'hello@grzeslowski.pl'
+							id.set('magx2')
+							name.set('Martin Grzeslowski')
+							email.set('hello@grzeslowski.pl')
 						}
 					}
 				}
 			}
 		}
+
+		repositories {
+			maven {
+				name = "sonatype"
+				url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+				credentials {
+					username = ossrhUsername
+					password = ossrhPassword
+				}
+			}
+
+			maven {
+				name = "sonatypeSnapshots"
+				url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+				credentials {
+					username = ossrhUsername
+					password = ossrhPassword
+				}
+			}
+		}
+	}
+
+	signing {
+		sign publishing.publications.mavenJava
+	}
+}
+
+tasks.named('signArchives').configure {
+	onlyIf {
+		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
 	}
 }
 
 allProjects {
 	dependencies {
-		compile group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
+		implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
-		testCompile 'junit:junit:4.12'
-		testCompile 'org.assertj:assertj-core:3.8.0'
-		testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
-		testCompile group: 'io.github.benas', name: 'random-beans', version: random_beans_version
-		testCompile group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
-		testCompile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
-		testCompile group: 'com.google.guava', name: 'guava', version: '23.3-jre'
-		testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.3'
+		testImplementation 'junit:junit:4.12'
+		testImplementation 'org.assertj:assertj-core:3.8.0'
+		testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+		testImplementation group: 'io.github.benas', name: 'random-beans', version: random_beans_version
+		testImplementation group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
+		testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+		testImplementation group: 'com.google.guava', name: 'guava', version: '23.3-jre'
+		testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.3'
 	}
 }
 

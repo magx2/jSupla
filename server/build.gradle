@@ -4,15 +4,15 @@ repositories {
 }
 
 dependencies {
-	compile rootProject.project("protocol")
-	compile group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
-	compile group: 'io.netty', name: 'netty-all', version: '4.1.112.Final'
-	compile 'org.javatuples:javatuples:1.2'
+	implementation rootProject.project("protocol")
+	implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
+	implementation group: 'io.netty', name: 'netty-all', version: '4.1.112.Final'
+	implementation 'org.javatuples:javatuples:1.2'
 
-	testCompile rootProject.project("protocol").sourceSets.test.output
+	testImplementation rootProject.project("protocol").sourceSets.test.output
 
 	// for Netty Test
-	testCompile group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
+	testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
 	testImplementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 	testImplementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
 	testImplementation 'org.bouncycastle:bcutil-jdk15on:1.70'
