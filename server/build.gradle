@@ -4,9 +4,9 @@ repositories {
 }
 
 dependencies {
-	implementation rootProject.project("protocol")
+	api rootProject.project("protocol")
+	api group: 'io.netty', name: 'netty-all', version: '4.1.112.Final'
 	implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
-	implementation group: 'io.netty', name: 'netty-all', version: '4.1.112.Final'
 	implementation 'org.javatuples:javatuples:1.2'
 
 	testImplementation rootProject.project("protocol").sourceSets.test.output
