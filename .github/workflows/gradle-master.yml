@@ -27,8 +27,6 @@ jobs:
           echo -n "$SECRET_KEY_RING_BASE64" | base64 --decode > secring.gpg
           ./gradlew build \
             publishAllPublicationsToGithubSnapshotsRepository \
-            -PossrhUsername=ignore1 \
-            -PossrhPassword=ignore2 \
             -Psigning.keyId=$KEY_ID \
             -Psigning.password=$PASSWORD \
             -Psigning.secretKeyRingFile=$(realpath ./secring.gpg) \
@@ -47,5 +45,3 @@ jobs:
           distribution: 'temurin'
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-        with:
-          additional-arguments: -PossrhUsername=ignore -PossrhPassword=ignore2
