@@ -42,8 +42,7 @@ jobs:
             -PossrhPassword=$OSSRH_PASSWORD \
             -Psigning.keyId=$KEY_ID \
             -Psigning.password=$PASSWORD \
-            -Psigning.secretKeyRingFile=$(realpath ./secring.gpg) \
-            -PskipSigning=false
+            -Psigning.secretKeyRingFile=$(realpath ./secring.gpg)
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:

@@ -194,13 +194,6 @@ prodProjects {
 	}
 }
 
-//tasks.named('signArchives').configure {
-//tasks.named('signMavenJavaPublication').configure {
-//	onlyIf {
-//		!project.hasProperty('skipSigning') || !project.skipSigning.toBoolean()
-//	}
-//}
-
 allProjects {
 	dependencies {
 		implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
