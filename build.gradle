@@ -179,11 +179,11 @@ prodProjects {
 			}
 
 			maven {
-				name = "sonatypeSnapshots"
-				url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+				name = "githubSnapshots"
+				url = uri("https://maven.pkg.github.com/magx2/jSupla")
 				credentials {
-					username = ossrhUsername
-					password = ossrhPassword
+					username = findProperty("githubUsername") ?: System.getenv("GITHUB_USERNAME") ?: ""
+					password = findProperty("githubPassword") ?: System.getenv("GITHUB_PASSWORD") ?: ""
 				}
 			}
 		}
