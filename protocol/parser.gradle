@@ -670,6 +670,7 @@ class ConstsParser implements Parser<List<Const>> {
 def staticArraySize = ext.staticArraySize
 
 task parseProtoh {
+	group = 'jSupla'
 	inputs.dir project.file("build" + project.downloadRootDir)
 	outputs.dir project.file("build/parser")
 	doLast {

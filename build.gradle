@@ -80,6 +80,7 @@ allProjects {
 		integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
 	}
 	task integrationTest(type: Test) {
+		group = 'verification'
 		description = 'Runs integration tests.'
 		group = 'verification'
 

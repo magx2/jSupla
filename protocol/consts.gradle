@@ -16,6 +16,7 @@ List overrides = [
 ]
 
 task constsGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "consts.json")
 	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java")
 	doLast {
@@ -61,6 +62,7 @@ constsGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "constsGenerator"
 
 task callTypesGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "consts.json")
 	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/calltypes/")
 	doLast {
@@ -95,6 +97,7 @@ callTypesGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "callTypesGenerator"
 
 task resultCodeGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "consts.json")
 	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ResultCode.java")
 	doLast {
@@ -139,6 +142,7 @@ resultCodeGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "resultCodeGenerator"
 
 task channelTypeGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "consts.json")
 	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelType.java")
 	doLast {
@@ -212,6 +216,7 @@ static boolean isCallType(String name) {
 }
 
 task channelFunctionGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "consts.json")
 	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/ChannelFunction.java")
 	doLast {

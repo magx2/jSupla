@@ -73,6 +73,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 }
 
 task pojoGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "proto.h.json")
 	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol")
 	doLast {

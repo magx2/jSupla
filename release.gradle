@@ -1,6 +1,7 @@
 import java.nio.file.Files
 
 task tag {
+	group = 'jSupla'
 	doLast {
 		def gradleProps = project.file('gradle.properties')
 		def match = gradleProps.text =~ /jSuplaVersion=(.+)/
@@ -22,6 +23,7 @@ task tag {
 }
 
 task noSnapshots {
+	group = 'jSupla'
 	doLast {
 		def gradleProps = project.file('gradle.properties')
 
@@ -43,6 +45,7 @@ prodProjects {
 tag.dependsOn "noSnapshots"
 
 task releaseVersion {
+	group = 'jSupla'
 	doLast {
 		def gradleProps = project.file('gradle.properties')
 		def originalContent = gradleProps.text
@@ -60,6 +63,7 @@ task releaseVersion {
 }
 
 task nextSnapshot {
+	group = 'jSupla'
 	doLast {
 		def gradleProps = project.file('gradle.properties')
 		def match = gradleProps.text =~ /jSuplaVersion=(\d+)\.(\d+)\.(\d+)/

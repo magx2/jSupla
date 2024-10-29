@@ -7,6 +7,7 @@ import java.time.ZonedDateTime
 import static java.util.stream.Collectors.joining
 
 task encodersGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "proto.h.json")
 	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/")
 	doLast {
@@ -31,6 +32,7 @@ encodersGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "encodersGenerator"
 
 task encoderFactoryGenerator {
+	group = 'jSupla'
 	inputs.file new File(project.file("build/parser"), "proto.h.json")
 	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/encoders/EncoderFactoryImpl.java")
 	doLast {

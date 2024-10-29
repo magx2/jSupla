@@ -14,12 +14,14 @@ import static org.assertj.core.api.Assertions.*
 import static org.assertj.core.api.Assertions.assertThat
 
 task downloadProtoLatest {
+	group = 'jSupla'
 	outputs.dir project.file("build" + project.downloadRootDir)
 	doLast {
 		downloadProtoByTag(project.downloadLatestTag as String)
 	}
 }
 task downloadProtoStable {
+	group = 'jSupla'
 	outputs.dir project.file("build" + project.downloadRootDir)
 	doLast {
 		downloadProtoByTag(project.downloadStableTag as String)
@@ -28,6 +30,7 @@ task downloadProtoStable {
 parseProtoh.dependsOn "downloadProtoStable"
 
 task checkForProtoUpdate {
+	group = 'jSupla'
 	doLast {
 		def rootDir = project.file("build" + project.downloadRootDir).toPath()
 		def downloadStableTag = project.downloadStableTag
