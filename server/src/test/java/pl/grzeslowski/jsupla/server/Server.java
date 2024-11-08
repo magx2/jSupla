@@ -73,6 +73,11 @@ public class Server {
                 public void inactive() {
 
                 }
+
+                @Override
+                public void socketException(Throwable exception) {
+                    logger.warn("Socket exception", exception);
+                }
             });
 
         logger.info("Started");

@@ -7,4 +7,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 public interface Writer {
     ChannelFuture write(@Nonnull FromServerProto proto);
 
+    short getVersion();
+
+    void setVersion(short version);
 }
