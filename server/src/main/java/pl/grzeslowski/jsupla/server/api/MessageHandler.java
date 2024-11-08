@@ -8,4 +8,6 @@ public interface MessageHandler {
     void active(Writer writer);
 
     void inactive();
+
+    void socketException(Throwable exception);
 }

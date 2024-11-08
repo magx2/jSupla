@@ -14,6 +14,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.api.MessageHandler;
+import pl.grzeslowski.jsupla.server.api.Writer;
 
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,6 +30,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final MessageHandler messageHandler;
 
     private final AtomicReference<ChannelHandlerContext> context = new AtomicReference<>();
+    private final AtomicReference<Writer> writer = new AtomicReference<>();
 
     SuplaHandler(CallTypeParser callTypeParser,
                  DecoderFactory decoderFactory,
@@ -48,6 +50,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         super.channelActive(ctx);
         context.set(ctx);
         val writer = new ChannelHandlerContextWriter(msgId, encoderFactory, context);
+        this.writer.set(writer);
         messageHandler.active(writer);
     }
 
@@ -56,11 +59,18 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         logger.debug("SuplaHandler.channelInactive(ctx)");
         messageHandler.inactive();
         context.set(null);
+        writer.set(null);
         super.channelInactive(ctx);
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, SuplaDataPacket suplaDataPacket) {
+        {
+            var writer = this.writer.get();
+            if (writer != null) {
+                writer.setVersion(suplaDataPacket.version);
+            }
+        }
         val msg = "SuplaHandler.channelRead0(ctx, {})";
         if (suplaDataPacket.callId == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
             // log pings in trace
@@ -78,7 +88,9 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val data = suplaDataPacket.data;
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
-        if (suplaDataPacket.dataSize != entity.size()) {
+        if (suplaDataPacket.dataSize != entity.size() &&
+            !callType.equals(SUPLA_DCS_CALL_PING_SERVER) // because the size of SuplaTimeval varies, we are not checking this
+        ) {
             logger.warn("WTF?! The size of the entity is different than `dataSize` from `suplaDataPacket.dataSize`. " +
                     "Looks like a bug in the Supla decoder implementation. " +
                     "entity.size={}, suplaDataPacket.dataSize={}, entity={}, suplaDataPacket={}",
@@ -93,5 +105,11 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         }
 
         messageHandler.handle((ToServerProto) entity);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        messageHandler.socketException(cause);
+        ctx.close();
     }
 }

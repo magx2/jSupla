@@ -3,7 +3,9 @@ package pl.grzeslowski.jsupla.server.netty;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Nonnull;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
@@ -25,6 +27,9 @@ class ChannelHandlerContextWriter implements Writer {
     private final AtomicLong msgId;
     private final EncoderFactory encoderFactory;
     private final AtomicReference<ChannelHandlerContext> context;
+    @Setter
+    @Getter
+    private short version = SUPLA_PROTO_VERSION;
 
     @Override
     public ChannelFuture write(@Nonnull FromServerProto proto) {
@@ -33,7 +38,7 @@ class ChannelHandlerContextWriter implements Writer {
         val encoder = encoderFactory.getEncoder(proto);
         val encode = encoder.encode(proto);
         val packet = new SuplaDataPacket(
-            (short) SUPLA_PROTO_VERSION,
+            version,
             msgId.getAndIncrement(),
             proto.callType().getValue(),
             encode.length,
