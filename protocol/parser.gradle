@@ -832,18 +832,14 @@ task parseProtoh {
 			fields : [
 				new SimpleField([
 					name     : "tvSec",
-					type   : "int",
-					array    : true,
-					arraySize: 2,
-					rawType: "_supla_int_t",
+					type   : "long",
+					rawType: "_supla_int64_t",
 					rawPrefix: "T",
 				]),
 				new SimpleField([
 					name     : "tvUsec",
-					type   : "int",
-					array    : true,
-					arraySize: 2,
-					rawType: "_supla_int_t",
+					type   : "long",
+					rawType: "_supla_int64_t",
 					rawPrefix: "T",
 				]),
 			],
