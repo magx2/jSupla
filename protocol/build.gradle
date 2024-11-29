@@ -384,4 +384,5 @@ ext.dynamicSize = [
 	'SubdevicePairingResult',
 	'ThermostatExtendedValue',
 	'ThermostatScheduleCfg',
+	'SuplaChannelStatePack',
 ]
