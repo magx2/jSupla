@@ -42,6 +42,7 @@ public class ChannelStateDecoderTest {
         assertThat(decode.lightSourceLifespanLeft).isNull();
         assertThat(decode.lightSourceOperatingTime).isZero();
         assertThat(decode.operatingTime).isNull();
-        assertThat(decode.emptySpace).isEqualTo(new byte[]{0, 0});
+        assertThat(decode.eOL).isOne();
+        assertThat(decode.emptySpace).isEqualTo(new byte[]{0});
     }
 }
