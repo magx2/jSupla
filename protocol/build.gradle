@@ -301,6 +301,7 @@ ext.noCallTypes = new HashSet([
 	'TChannelConfig_TemperatureAndHumidity',
 	'TChannelConfig_WeeklySchedule',
 	'TChannelState_ExtendedValue',
+	'TSC_SuplaChannelStatePack',
 ])
 
 ext.dynamicSize = [
