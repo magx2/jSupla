@@ -101,7 +101,7 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
         }
         offset += INT_SIZE;
 
-        int emptySpaceLength = 2;
+        int emptySpaceLength = 1;
         byte[] emptySpace = new byte[emptySpaceLength];
         System.arraycopy(bytes, offset, emptySpace, 0, emptySpaceLength);
         offset += emptySpaceLength * BYTE_SIZE;
@@ -129,6 +129,7 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
             lightSourceLifespanLeft,
             lightSourceOperatingTime,
             operatingTime,
+            (byte) 1,
             emptySpace);
     }
 }
