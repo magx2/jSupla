@@ -15,14 +15,14 @@ import static org.assertj.core.api.Assertions.assertThat
 
 task downloadProtoLatest {
 	group = 'jSupla'
-	outputs.dir project.file("build" + project.downloadRootDir)
+	outputs.file project.file("build" + project.downloadRootDir + "/proto-${project.downloadLatestTag}.h")
 	doLast {
 		downloadProtoByTag(project.downloadLatestTag as String)
 	}
 }
 task downloadProtoStable {
 	group = 'jSupla'
-	outputs.dir project.file("build" + project.downloadRootDir)
+	outputs.file project.file("build" + project.downloadRootDir + "/proto-${project.downloadStableTag}.h")
 	doLast {
 		downloadProtoByTag(project.downloadStableTag as String)
 	}

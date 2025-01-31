@@ -1245,6 +1245,8 @@ class Names {
 			|| name == "TValve_Value"
 			|| name == "TThermostat_Value"
 			|| name == "TAction_RGBW_Parameters"
+			|| name == "TContainerChannel_Value"
+			|| name == "TContainer_SensorInfo"
 			|| name == "TSuplaChannelExtendedValue") {
 			return "T"
 		}

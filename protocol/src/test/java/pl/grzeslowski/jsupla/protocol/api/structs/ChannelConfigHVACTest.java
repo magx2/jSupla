@@ -34,6 +34,10 @@ public class ChannelConfigHVACTest {
             16,
             17,
             (short) 20,
+            (short) 5,
+            (short) 6,
+            (short) 7,
+            (short) 8,
             new HVACTemperatureCfg(1, new short[24]));
 
         // when

@@ -102,7 +102,7 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 @lombok.ToString
 @javax.annotation.Generated(value = "Struct original name: TChannelConfig_HVAC", date = "2024-10-20T23:38:23.496+02:00[Europe/Belgrade]")
 public class ChannelConfigHVAC implements ProtoWithSize {
-    public static final int RESERVED_SIZE = 48 - HvacParameterFlags.SIZE - INT_SIZE * 3 - BYTE_SIZE;
+    public static final int RESERVED_SIZE = 48 - HvacParameterFlags.SIZE - INT_SIZE * 3 - BYTE_SIZE * 3 - SHORT_SIZE * 2;
     public final Integer mainThermometerChannelId;
     /**
      * unsigned Byte
@@ -197,6 +197,29 @@ public class ChannelConfigHVAC implements ProtoWithSize {
      */
     public final short temperatureControlType;
     /**
+     * LOCAL_UI_LOCK_*
+     * <p>
+     * unsigned char
+     */
+    public final short localUILockingCapabilities;
+    /**
+     * LOCAL_UI_LOCK_*
+     * <p>
+     * unsigned char
+     */
+    public final short localUILock;
+
+    /**
+     * min/max allowed parameters are used only with LocalUILock &
+     * LOCAL_UI_LOCK_TEMPERATURE
+     */
+    public final short minAllowedTemperatureSetpointFromLocalUI;
+    /**
+     * min/max allowed parameters are used only with LocalUILock &
+     * LOCAL_UI_LOCK_TEMPERATURE
+     */
+    public final short maxAllowedTemperatureSetpointFromLocalUI;
+    /**
      * - sizeof(HvacParameterFlags) - sizeof(_supla_int_t) - sizeof(_supla_int_t) - sizeof(_supla_int_t)]
      * <p>
      * unsigned byte
@@ -227,6 +250,10 @@ public class ChannelConfigHVAC implements ProtoWithSize {
                              Integer heatOrColdSourceSwitchChannelId,
                              Integer pumpSwitchChannelId,
                              short temperatureControlType,
+                             short localUILockingCapabilities,
+                             short localUILock,
+                             short minAllowedTemperatureSetpointFromLocalUI,
+                             short maxAllowedTemperatureSetpointFromLocalUI,
                              HVACTemperatureCfg temperatures) {
         this.mainThermometerChannelId = mainThermometerChannelId;
         this.mainThermometerChannelNo = unsigned(mainThermometerChannelNo);
@@ -268,6 +295,10 @@ public class ChannelConfigHVAC implements ProtoWithSize {
         // here is manual fix
         // length was `48` instead of `48 - HvacParameterFlags.SIZE - INT_SIZE * 3`
         this.temperatures = temperatures;
+        this.localUILockingCapabilities = unsigned(localUILockingCapabilities);
+        this.localUILock = unsigned(localUILock);
+        this.minAllowedTemperatureSetpointFromLocalUI = minAllowedTemperatureSetpointFromLocalUI;
+        this.maxAllowedTemperatureSetpointFromLocalUI = maxAllowedTemperatureSetpointFromLocalUI;
     }
 
     /* no call type */
@@ -309,6 +340,10 @@ public class ChannelConfigHVAC implements ProtoWithSize {
         )
             + (int) RESERVED_SIZE * BYTE_SIZE // reserved
             + temperatures.size() // temperatures
+            + CHAR_SIZE// localUILockingCapabilities;
+            + CHAR_SIZE// localUILock;
+            + SHORT_SIZE// minAllowedTemperatureSetpointFromLocalUI;
+            + SHORT_SIZE// maxAllowedTemperatureSetpointFromLocalUI;
             ;
     }
 }
