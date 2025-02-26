@@ -305,6 +305,9 @@ ext.noCallTypes = new HashSet([
 	'TChannelConfig_Container',
 	'TContainerChannel_Value',
 	'TContainer_SensorInfo',
+	'TCSD_Valve',
+	'TChannelConfig_Valve',
+	'TValve_SensorInfo',
 ])
 
 ext.dynamicSize = [
@@ -389,4 +392,5 @@ ext.dynamicSize = [
 	'ThermostatScheduleCfg',
 	'SuplaChannelStatePack',
 	'ChannelConfigContainer',
+	'ChannelConfigValve',
 ]
