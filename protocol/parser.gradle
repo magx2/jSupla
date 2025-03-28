@@ -1071,6 +1071,7 @@ task parseProtoh {
 		constsOutputFile.write(constsJson)
 	}
 }
+parseProtoh.dependsOn "downloadProtoLatest"
 
 class Names {
 	static String classNameCase(String name) {
