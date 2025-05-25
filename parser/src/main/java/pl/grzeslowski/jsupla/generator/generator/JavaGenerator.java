@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.generator.generator;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.generator.generator.JavaFile.JavaInterface;
@@ -11,12 +12,14 @@ import pl.grzeslowski.jsupla.generator.parser.Field.UnionField;
 import pl.grzeslowski.jsupla.generator.parser.ParsedFile;
 import pl.grzeslowski.jsupla.generator.parser.Struct;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.lang.Long.parseLong;
 import static java.util.Collections.singletonList;
+import static java.util.Objects.requireNonNullElse;
 import static java.util.function.Predicate.not;
 import static pl.grzeslowski.jsupla.generator.generator.JavaType.PrimitiveType.*;
 
@@ -43,41 +46,41 @@ public class JavaGenerator {
     public JavaEnv generate(ParsedFile file, List<String> lines) {
         var protoConsts = generateDefinesFile(file.defines());
         var records = file.structs()
-                .stream()
-                .map((Struct struct) -> generateRecordFile(struct, lines))
-                .collect(Collectors.toCollection(TreeSet::new));
+            .stream()
+            .map((Struct struct) -> generateRecordFile(struct, lines))
+            .collect(Collectors.toCollection(TreeSet::new));
         return new JavaEnv(
-                protoConsts,
-                records,
-                buildMap(records));
+            protoConsts,
+            records,
+            buildMap(records));
     }
 
     private Map<String, String> buildMap(Collection<JavaFile.JavaRecord> records) {
         return records.stream()
-                .collect(Collectors.toMap(
-                        JavaFile.JavaRecord::name,
-                        x -> x.javaPackage() + "." + nameMapper.mapRecordName(x.name())));
+            .collect(Collectors.toMap(
+                JavaFile.JavaRecord::name,
+                x -> x.javaPackage() + "." + nameMapper.mapRecordName(x.name())));
     }
 
     private JavaInterface generateDefinesFile(Collection<Define> defines) {
         var consts = defines.stream()
-                .map(this::mapDefine)
-                .collect(Collectors.groupingBy(
-                        JavaField::name,
-                        LinkedHashMap::new,
-                        Collectors.toList()
-                ))
-                .values()
-                .stream()
-                .map(list -> list.stream().filter(x -> x.type() instanceof PrimitiveType).toList())
-                .filter(not(Collection::isEmpty))
-                .map(this::unique)
-                .filter(Objects::nonNull)
-                .toList();
+            .map(this::mapDefine)
+            .collect(Collectors.groupingBy(
+                JavaField::name,
+                LinkedHashMap::new,
+                Collectors.toList()
+            ))
+            .values()
+            .stream()
+            .map(list -> list.stream().filter(x -> x.type() instanceof PrimitiveType).toList())
+            .filter(not(Collection::isEmpty))
+            .map(this::unique)
+            .filter(Objects::nonNull)
+            .toList();
         return new JavaInterface(
-                "pl.grzeslowski.jsupla.protocol.api.consts",
-                "ProtoConsts",
-                consts);
+            "pl.grzeslowski.jsupla.protocol.api.consts",
+            "ProtoConsts",
+            consts);
     }
 
     private JavaField unique(List<JavaField> javaFields) {
@@ -123,19 +126,20 @@ public class JavaGenerator {
 
     private JavaField mapDefine(Define define) {
         return new JavaField(
-                typeFinder.findType(define.value()),
-                define.key(),
-                valueExpander.expand(define.value()),
-                define.comment());
+            typeFinder.findType(define.value()),
+            define.key(),
+            valueExpander.expand(define.value()),
+            null,
+            define.comment());
     }
 
     private JavaFile.JavaRecord generateRecordFile(Struct struct, List<String> lines) {
         var f = struct.fields();
         var fields = IntStream.range(0, f.size())
-                .mapToObj(idx -> Map.entry(idx + 1, f.get(idx)))
-                .map(entry -> mapField(entry.getValue(), entry.getKey()))
-                .flatMap(Collection::stream)
-                .toList();
+            .mapToObj(idx -> Map.entry(idx + 1, f.get(idx)))
+            .map(entry -> mapField(entry.getValue(), entry.getKey()))
+            .flatMap(Collection::stream)
+            .toList();
 
         var structLines = lines.subList(struct.start().line() - 1, struct.end().line());
         var originalCode = String.join("\n", structLines);
@@ -172,66 +176,81 @@ public class JavaGenerator {
             case T -> "pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize";
         };
         return new JavaFile.JavaRecord(
-                javaPackage,
-                struct.name(),
-                fields,
-                implementInterface,
-                originalCode,
-                struct.comment());
+            javaPackage,
+            struct.name(),
+            fields,
+            implementInterface,
+            originalCode,
+            struct.comment());
     }
 
     private List<JavaField> mapField(Field field, int index) {
-        return mapField(field, index, field.comment());
+        return mapField(field, index, null, field.comment());
     }
 
-    private List<JavaField> mapField(Field field, int index, String comment) {
+    private List<JavaField> mapField(Field field, int index, @Nullable String byteSize, String comment) {
         JavaType type;
         if (field instanceof SimpleField simpleField) {
             type = typeFinder.findType(simpleField.type(), simpleField.byteSize());
             return singletonList(new JavaField(
-                    type,
-                    simpleField.name(),
-                    null,
-                    comment));
+                type,
+                simpleField.name(),
+                null,
+                requireNonNullElse(byteSize, field.byteSize()),
+                comment));
         }
         if (field instanceof ArrayField arrayField) {
             var fieldType = typeFinder.findType(arrayField.type());
             type = new ArrayType(
-                    arrayField.name(),
-                    fieldType,
-                    null);
+                arrayField.name(),
+                fieldType,
+                null);
             return singletonList(new JavaField(
-                    type,
-                    arrayField.name(),
-                    null,
-                    comment));
+                type,
+                arrayField.name(),
+                null,
+                requireNonNullElse(byteSize, field.byteSize()),
+                comment));
         }
-        if (field instanceof UnionField unionField) {
-            return unionField.fields()
-                    .stream()
-                    .map(uf -> {
-                        var c = "UNION #" + index;
-                        if (uf.comment() != null) {
-                            c += " - " + uf.comment();
-                        }
-                        return mapField(uf, index, c);
-                    })
-                    .flatMap(Collection::stream)
-                    .toList();
-        }
-        if (field instanceof UnionField.UnionStruct unionStruct) {
-            return unionStruct.fields()
-                    .stream()
-                    .map(uf -> {
-                        var c = "UNION #" + index + " (STRUCT)";
-                        if (uf.comment() != null) {
-                            c += " - " + uf.comment();
-                        }
-                        return mapField(uf, index, c);
-                    })
-                    .flatMap(Collection::stream)
-                    .toList();
+        if (field instanceof UnionField unionField
+            || field instanceof UnionField.UnionStruct unionStruct) {
+            List<Field> fields;
+            String unionComment;
+            String ubyteSize;
+            if (field instanceof UnionField unionField) {
+                fields = unionField.fields();
+                unionComment = "";
+                ubyteSize = unionField.byteSize();
+            } else {
+                var unionStruct = (UnionField.UnionStruct) field;
+                fields = unionStruct.fields();
+                unionComment = " (STRUCT) ";
+                ubyteSize = unionStruct.byteSize();
+            }
+            var first = fields.get(0);
+            var fieldWithSize = mapField(first, index, ubyteSize, buildComment(index, first, unionComment));
+            var restFields = fields.subList(1, fields.size())
+                .stream()
+                .map(uf -> {
+                    var c = buildComment(index, uf, unionComment);
+                    return mapField(uf, index, "0", c);
+                })
+                .flatMap(Collection::stream)
+                .toList();
+
+            var javaFields = new ArrayList<JavaField>();
+            javaFields.addAll(fieldWithSize);
+            javaFields.addAll(restFields);
+            return javaFields;
         }
         throw new IllegalArgumentException("Unsupported field type: " + field);
+    }
+
+    private static @NotNull String buildComment(int index, Field uf, String unionComment) {
+        var c = "UNION #" + index + unionComment;
+        if (uf.comment() != null) {
+            c += " - " + uf.comment();
+        }
+        return c;
     }
 }

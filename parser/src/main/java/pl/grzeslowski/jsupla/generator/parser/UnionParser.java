@@ -8,6 +8,7 @@ import pl.grzeslowski.jsupla.generator.tokenizer.Token;
 
 import java.util.LinkedList;
 
+import static java.util.stream.Collectors.joining;
 import static pl.grzeslowski.jsupla.generator.tokenizer.Token.CodeKeyword.*;
 
 class UnionParser {
@@ -45,7 +46,8 @@ class UnionParser {
             comment = commentToken.comment();
             tokens.poll(); // eat comment
         }
-        var union = new UnionField(fields, comment);
+        var byteSize = findByteSize(fields);
+        var union = new UnionField(fields, byteSize, comment);
         log.debug("Union parsed: {}", union);
         return union;
     }
@@ -65,6 +67,21 @@ class UnionParser {
             comment = commentToken.comment();
             tokens.poll(); // eat comment
         }
-        return new UnionStruct(fields, comment);
+        var byteSize = findByteSize(fields);
+        return new UnionStruct(fields, byteSize, comment);
+    }
+
+    private static String findByteSize(LinkedList<Field> fields) {
+        var byteSizes = fields.stream()
+            .map(Field::byteSize)
+            .distinct()
+            .toList();
+        String byteSize;
+        if (byteSizes.size() == 1) {
+            byteSize = byteSizes.get(0);
+        } else {
+            byteSize = byteSizes.stream().collect(joining(", ", "max(", ")"));
+        }
+        return byteSize;
     }
 }

@@ -35,4 +35,12 @@ public interface JavaConsts {
         }
         return size;
     }
+
+    public static int max(int... sizes) {
+        int max = 0;
+        for (int size : sizes) {
+            max = Math.max(max, size);
+        }
+        return max;
+    }
 }

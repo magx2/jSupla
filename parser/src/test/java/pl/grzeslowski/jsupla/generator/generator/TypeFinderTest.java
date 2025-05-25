@@ -31,7 +31,7 @@ public class TypeFinderTest {
         var tokens = List.of(new Token.SimpleToken(p, "1"));
 
         // when
-        var expand = finder.findType(tokens, 1);
+        var expand = finder.findType(tokens, "1");
 
         // then
         assertThat(expand).isEqualTo(BOOLEAN);
@@ -257,7 +257,7 @@ public class TypeFinderTest {
             new Token.SimpleToken(p, "_supla_int_t"));
 
         // when
-        var expand = finder.findType(tokens, 24);
+        var expand = finder.findType(tokens, "24");
 
         // then
         assertThat(expand).isEqualTo(UINT);

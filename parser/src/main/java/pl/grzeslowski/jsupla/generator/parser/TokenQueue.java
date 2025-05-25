@@ -10,7 +10,7 @@ import java.util.Queue;
 class TokenQueue {
     private final Queue<? extends Token> queue;
 
-    TokenQueue(Queue<? extends Token> queue) {
+    private TokenQueue(Queue<? extends Token> queue) {
         this.queue = queue;
     }
 

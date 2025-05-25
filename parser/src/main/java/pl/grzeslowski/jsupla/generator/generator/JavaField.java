@@ -2,9 +2,10 @@ package pl.grzeslowski.jsupla.generator.generator;
 
 import javax.annotation.Nullable;
 
-public record JavaField(JavaType type, String name, @Nullable String value, @Nullable String comment) {
-    public JavaField(JavaType type, String name, String value) {
-        this(type, name, value, null);
+public record JavaField(JavaType type, String name, @Nullable String value,
+                        @Nullable String byteSize, @Nullable String comment) {
+    public JavaField(JavaType type, String name, String value, @Nullable String byteSize) {
+        this(type, name, value, byteSize, null);
     }
 
     @Override

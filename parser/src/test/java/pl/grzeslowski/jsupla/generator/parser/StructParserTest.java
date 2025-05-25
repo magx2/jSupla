@@ -43,11 +43,13 @@ public class StructParserTest {
                         "command",
                         List.of(
                             new SimpleToken(currentPosition, "unsigned"),
-                            new SimpleToken(currentPosition, "char"))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null),
                     new SimpleField(
                         "reserved",
                         List.of(
-                            new SimpleToken(currentPosition, "char")))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null)),
                 start, end));
     }
 
@@ -77,11 +79,13 @@ public class StructParserTest {
                         "command",
                         List.of(
                             new SimpleToken(currentPosition, "unsigned"),
-                            new SimpleToken(currentPosition, "char"))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null),
                     new SimpleField(
                         "reserved",
                         List.of(
-                            new SimpleToken(currentPosition, "char")))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null)),
                 start, end,
                 "device -> server",
                 null));
@@ -113,11 +117,13 @@ public class StructParserTest {
                         "command",
                         List.of(
                             new SimpleToken(currentPosition, "unsigned"),
-                            new SimpleToken(currentPosition, "char"))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null),
                     new SimpleField(
                         "reserved",
                         List.of(
-                            new SimpleToken(currentPosition, "char")))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null)),
                 start, end,
                 null,
                 "foo\nboo"));
@@ -152,15 +158,26 @@ public class StructParserTest {
                         "command",
                         List.of(
                             new SimpleToken(currentPosition, "unsigned"),
-                            new SimpleToken(currentPosition, "char"))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null),
                     new Field.UnionField(
                         List.of(
-                            new SimpleField("x", List.of(new SimpleToken(currentPosition, "char"))),
-                            new SimpleField("y", List.of(new SimpleToken(currentPosition, "char"))))),
+                            new SimpleField(
+                                "x",
+                                List.of(new SimpleToken(currentPosition, "char")),
+                                null,
+                                null),
+                            new SimpleField(
+                                "y",
+                                List.of(new SimpleToken(currentPosition, "char")),
+                                null,
+                                null)),
+                        null, null),
                     new SimpleField(
                         "reserved",
                         List.of(
-                            new SimpleToken(currentPosition, "char")))),
+                            new SimpleToken(currentPosition, "char")),
+                        null, null)),
                 start, end
             ));
     }
@@ -186,10 +203,12 @@ public class StructParserTest {
                 List.of(
                     new SimpleField(
                         "tv_sec",
-                        List.of(new SimpleToken(currentPosition, "_supla_int_t"))),
+                        List.of(new SimpleToken(currentPosition, "_supla_int_t")),
+                        null, null),
                     new SimpleField(
                         "tv_usec",
-                        List.of(new SimpleToken(currentPosition, "_supla_int_t")))),
+                        List.of(new SimpleToken(currentPosition, "_supla_int_t")),
+                        null, null)),
                 start, end));
     }
 }

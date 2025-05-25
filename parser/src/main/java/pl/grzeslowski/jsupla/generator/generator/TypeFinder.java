@@ -25,12 +25,20 @@ public class TypeFinder {
         return findType(tokens, null);
     }
 
-    public JavaType findType(List<? extends Token> tokens, @Nullable Integer byteSize) {
+    public JavaType findType(List<? extends Token> tokens, @Nullable String byteSizeString) {
         if (tokens.isEmpty()) {
             return BOOLEAN;
         }
         if (tokens.size() == 1 && tokens.get(0).is(ENTER)) {
             return BOOLEAN;
+        }
+        Integer byteSize = null;
+        if (byteSizeString != null) {
+            try {
+                byteSize = Integer.parseInt(byteSizeString);
+            } catch (NumberFormatException e) {
+                // do not log
+            }
         }
         if (byteSize != null && byteSize == 1) {
             return BOOLEAN;
