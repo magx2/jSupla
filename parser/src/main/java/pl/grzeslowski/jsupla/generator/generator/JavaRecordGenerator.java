@@ -1,0 +1,141 @@
+package pl.grzeslowski.jsupla.generator.generator;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+
+import static java.util.stream.Collectors.joining;
+
+class JavaRecordGenerator {
+    static final JavaRecordGenerator INSTANCE = new JavaRecordGenerator();
+    private static final String IMPORTS = """
+            import pl.grzeslowski.jsupla.protocol.api.structs.*;
+            import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
+            import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+            import static pl.grzeslowski.jsupla.protocol.api.Preconditions.*;
+            import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+            """;
+    private final TypeMapper typeMapper;
+    private final NameMapper nameMapper;
+
+    private JavaRecordGenerator() {
+        this(TypeMapper.INSTANCE, NameMapper.INSTANCE);
+    }
+
+    private JavaRecordGenerator(TypeMapper typeMapper, NameMapper nameMapper) {
+        this.typeMapper = typeMapper;
+        this.nameMapper = nameMapper;
+    }
+
+    public String generate(JavaFile.JavaRecord javaRecord, Map<String, String> classToJavaClass) {
+        var sb = new StringBuilder();
+
+        var recordName = nameMapper.mapRecordName(javaRecord.name());
+        sb.append("package ")
+                .append(javaRecord.javaPackage())
+                .append(";\n\n")
+                .append(IMPORTS)
+                .append("/**\n")
+                .append(buildComment(javaRecord))
+                .append("*/\n")
+                .append("public record ")
+                .append(recordName)
+                .append(" (\n");
+        sb.append(
+                        javaRecord.fields()
+                                .stream()
+                                .map((JavaField field) -> mapField(field, classToJavaClass))
+                                .collect(joining(",\n")))
+                .append(")");
+        if (javaRecord.implementInterface() != null) {
+            sb.append(" implements ").append(javaRecord.implementInterface());
+        }
+        sb.append(" {\t");
+        sb.append("\n\tpublic ").append(recordName).append(" {\n\t\t");
+        sb.append(
+                javaRecord.fields()
+                        .stream()
+                        .map(this::findPrecondition)
+                        .map(pre -> pre.startsWith("//") ? pre : pre + ";")
+                        .collect(joining("\n\t\t")));
+        sb.append("\n\t}\n}\n");
+
+        return sb.toString();
+    }
+
+    private String findPrecondition(JavaField field) {
+        if (field.type() instanceof JavaType.PrimitiveType primitive) {
+            final var name = nameMapper.mapFieldName(field.name());
+            return switch (primitive) {
+                // unsigned primitives
+                case UBYTE -> "unsigned(this.%s)".formatted(name);
+                case USHORT -> "unsigned(this.%s)".formatted(name);
+                case UINT -> "unsigned(this.%s)".formatted(name);
+                case BYTE -> "unsigned(this.%s)".formatted(name);
+                case ULONG -> "unsigned(this.%s)".formatted(name);
+                // primitives
+                case SHORT -> "// %s: no preconditions for type %s".formatted(name, primitive.getJavaName());
+                case INT -> "// %s: no preconditions for type %s".formatted(name, primitive.getJavaName());
+                case LONG -> "// %s: no preconditions for type %s".formatted(name, primitive.getJavaName());
+                case DOUBLE -> "// %s: no preconditions for type %s".formatted(name, primitive.getJavaName());
+                case BOOLEAN -> "// %s: no preconditions for type %s".formatted(name, primitive.getJavaName());
+            };
+        }
+        if (field.type() instanceof JavaType.ArrayType array) {
+            return "// todo: check array length"; //todo
+        }
+        if (field.type() instanceof JavaType.ReferenceType reference) {
+            final var name = nameMapper.mapFieldName(field.name());
+            // cannot use `Objects.requireNonNull`, because it might be a union
+            return "// %s: no preconditions for type %s".formatted(name, reference.name());
+        }
+        throw new IllegalArgumentException("Unsupported field type: " + field.type());
+    }
+
+    private StringBuilder buildComment(JavaFile.JavaRecord javaRecord) {
+        var sb = new StringBuilder();
+        if (javaRecord.comment() != null) {
+            sb
+                    .append(" * ")
+                    .append(javaRecord.comment().replaceAll("/", ""))
+                    .append("\n * <p>\n");
+        }
+
+        sb.append(" * Original code:\n<pre>\n")
+                .append(javaRecord.originalCode())
+                .append("\n</pre>\n");
+
+        javaRecord.fields()
+                .stream()
+                .map(this::buildCommentForField)
+                .forEach(sb::append);
+        return sb;
+    }
+
+    private @NotNull String buildCommentForField(JavaField field) {
+        var sb = new StringBuilder();
+        sb.append(" * @param ")
+                .append(nameMapper.mapFieldName(field.name()))
+                .append(" ");
+        if (field.type() instanceof JavaType.PrimitiveType primitive) {
+            switch (primitive) {
+                case UBYTE -> sb.append("(UNSIGNED byte) ");
+                case USHORT -> sb.append("(UNSIGNED short) ");
+                case UINT -> sb.append("(UNSIGNED int) ");
+                case ULONG -> sb.append("(UNSIGNED long) ");
+            }
+        }
+        sb.append((field.comment() != null ? field.comment() : ""))
+                .append("\n");
+        return sb.toString();
+    }
+
+    private StringBuilder mapField(JavaField field, Map<String, String> classToJavaClass) {
+        var sb = new StringBuilder();
+        sb.append("\t")
+                .append(typeMapper.mapType(field.type(), classToJavaClass))
+                .append(" ")
+                .append(nameMapper.mapFieldName(field.name()));
+        return sb;
+    }
+}

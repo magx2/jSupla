@@ -1,0 +1,25 @@
+plugins {
+	id 'java-gradle-plugin'
+}
+
+group = 'pl.grzeslowski.generator'
+version = '1.0.0'
+
+gradlePlugin {
+	plugins {
+		protoGeneratorPlugin {
+			id = 'pl.grzeslowski.generator'
+			implementationClass = 'pl.grzeslowski.generator.ProtoGeneratorPlugin'
+		}
+	}
+}
+
+dependencies {
+	testImplementation platform('org.junit:junit-bom:5.10.2')
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+
+test {
+	useJUnitPlatform()
+}

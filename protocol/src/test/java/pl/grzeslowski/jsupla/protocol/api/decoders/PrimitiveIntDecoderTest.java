@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 

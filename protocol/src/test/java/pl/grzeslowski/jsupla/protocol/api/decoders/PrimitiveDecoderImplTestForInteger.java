@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;

@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

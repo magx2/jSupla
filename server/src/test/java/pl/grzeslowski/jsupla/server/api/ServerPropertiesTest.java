@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.server.api;
 
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
 

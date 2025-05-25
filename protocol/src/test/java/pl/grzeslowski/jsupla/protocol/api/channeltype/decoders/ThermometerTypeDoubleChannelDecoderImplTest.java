@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 

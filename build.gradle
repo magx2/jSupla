@@ -35,8 +35,23 @@ def prodProjects(Closure c) {
 	}
 }
 
+@SuppressWarnings("UnnecessaryQualifiedReference")
+def oldProjects(Closure c) {
+	allprojects { p ->
+		if (!isNewProject(p) && !isRootProject(p)) {
+			c.delegate = p
+			c.resolveStrategy = groovy.lang.Closure.DELEGATE_FIRST
+			c(p)
+		}
+	}
+}
+
 private static boolean isTestProject(Project p) {
 	p.name.toLowerCase().contains("test")
+}
+
+private static boolean isNewProject(Project p) {
+	p.name.toLowerCase().contains("parser")
 }
 
 allprojects {
@@ -199,7 +214,6 @@ allProjects {
 	dependencies {
 		implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
-		testImplementation 'junit:junit:4.12'
 		testImplementation 'org.assertj:assertj-core:3.8.0'
 		testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 		testImplementation group: 'io.github.benas', name: 'random-beans', version: random_beans_version
@@ -207,6 +221,11 @@ allProjects {
 		testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version
 		testImplementation group: 'com.google.guava', name: 'guava', version: '23.3-jre'
 		testImplementation group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.3'
+	}
+}
+oldProjects {
+	dependencies {
+		testImplementation 'junit:junit:4.13.2'
 	}
 }
 

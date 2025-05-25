@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 import static java.util.Arrays.copyOfRange;

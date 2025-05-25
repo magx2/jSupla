@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;

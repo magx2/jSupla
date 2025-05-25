@@ -49,8 +49,13 @@ class SimpleField implements Field {
 
 @MapConstructor
 @ToString(includeNames = true, ignoreNulls = true)
-class EmbeddedStruct {
+class EmbeddedStruct implements Field {
 	List<Field> fields
+
+	@Override
+	boolean hasJavaDoc() {
+		return false
+	}
 }
 
 @MapConstructor
@@ -95,7 +100,7 @@ class FieldParser implements Parser<SimpleField> {
 		if (character.allWhitespace || character == ";") {
 			if (token != "") {
 				tokens.add(token)
-				logger.debug("{}:{} Added token: {}", line, column, token)
+				logger.info("{}:{} Added token: {}", line, column, token)
 			}
 			token = ""
 		} else {
@@ -121,7 +126,7 @@ class FieldParser implements Parser<SimpleField> {
 				this.output.struct = true
 				this.output.type = tokens[1]
 				this.output.name = tokens[2]
-				logger.debug("struct type = " + this.output.type + " name = " + this.output.name)
+				logger.info("struct type = " + this.output.type + " name = " + this.output.name)
 				if (tokens.size() > 3) {
 					rawJavaDoc = tokens.subList(3, tokens.size())
 				}
@@ -133,7 +138,7 @@ class FieldParser implements Parser<SimpleField> {
 					rawJavaDoc = tokens.subList(2, tokens.size())
 				}
 			}
-			logger.debug("$line:$column tokens = $tokens")
+			logger.info("$line:$column tokens = $tokens")
 			this.output.javaDoc = rawJavaDoc.stream()
 				.map { it.trim() }
 				.filter { it != "//" }
@@ -168,7 +173,7 @@ class FieldParser implements Parser<SimpleField> {
 			if (this.output.type == "_supla_int64_t") {
 				this.output.type = "long"
 			}
-			logger.debug("{}:{} Finished parsing field: {}", line, column, this.output)
+			logger.info("{}:{} Finished parsing field: {}", line, column, this.output)
 		}
 	}
 
@@ -186,6 +191,7 @@ class EmbeddedStructParser implements Parser<EmbeddedStruct> {
 	List<Field> fields = new ArrayList<>()
 	String currentLine = ""
 	boolean finished
+	int curlyBrackets = 0
 
 	EmbeddedStructParser(logger) {
 		this.logger = logger
@@ -200,18 +206,24 @@ class EmbeddedStructParser implements Parser<EmbeddedStruct> {
 			currentLine = ""
 		}
 
+		if (character == "{") {
+			curlyBrackets++
+			return
+		}
+
 		if (finished && character != "\n") {
 			// finish the struct
 			if (fields.isEmpty()) {
 				throw new IllegalStateException("There are no fields in embedded struct")
 			}
 			def join = fields.stream().map { it.toString() }.collect(Collectors.joining(", "))
-			logger.debug("{}:{} Parsed embedded struct with fields: {}", line, column, join)
+			logger.info("{}:{} Parsed embedded struct with fields: {}", line, column, join)
 			output = new EmbeddedStruct([fields: fields])
 		}
 
 		if (character == "}") {
-			finished = true
+			curlyBrackets--
+			finished = curlyBrackets <= 0
 			return
 		}
 
@@ -275,7 +287,7 @@ class UnionParser implements Parser<UnionField> {
 					embeddedStructParser.next(character, line, column)
 					def output = embeddedStructParser.output()
 					if (output) {
-						logger.debug("{}:{} Parsed embedded struct", line, column)
+						logger.info("{}:{} Parsed embedded struct", line, column)
 						structs.add(output)
 						embeddedStructParser = null
 						fieldParser = new FieldParser(logger)
@@ -292,7 +304,7 @@ class UnionParser implements Parser<UnionField> {
 							|| type == "short") {
 							output.type = output.type.capitalize()
 						}
-						logger.debug("{}:{} Parsed union field", line, column)
+						logger.info("{}:{} Parsed union field", line, column)
 						fields.add(output)
 						fieldParser = new FieldParser(logger)
 					}
@@ -313,6 +325,10 @@ class StructParser implements Parser<Struct> {
 	static final String unionStart = "union {"
 	int unionIndex = 0
 	UnionParser unionParser = null
+
+	static final String embeddedStructStart = "struct {"
+	int embeddedStructIndex = 0
+	EmbeddedStructParser embeddedStructParser = null
 
 	FieldParser fieldParser = null
 	int curlyBrackets = 1
@@ -346,25 +362,40 @@ class StructParser implements Parser<Struct> {
 		if (unionIndex < unionStart.length() && character == unionStart[unionIndex]) {
 			unionIndex++
 			if (unionIndex >= unionStart.length()) {
-				logger.debug("{}:{} Parsed union header", line, column)
+				logger.info("{}:{} Parsed union header", line, column)
 				unionParser = new UnionParser(logger)
 				fieldParser = null
+				embeddedStructParser = null
 				unionIndex = 0
 			}
 		} else if (character != unionStart[unionIndex]) {
 			unionIndex = 0
 		}
 
+		// struct parsing
+		if (embeddedStructIndex < embeddedStructStart.length() && character == embeddedStructStart[embeddedStructIndex]) {
+			embeddedStructIndex++
+			if (embeddedStructIndex >= embeddedStructStart.length()) {
+				logger.info("{}:{} Parsed embeddedStruct header", line, column)
+				embeddedStructParser = new EmbeddedStructParser(logger)
+				unionParser = null
+				fieldParser = null
+				embeddedStructIndex = 0
+			}
+		} else if (character != embeddedStructStart[embeddedStructIndex]) {
+			embeddedStructIndex = 0
+		}
+
 		if (fields.isEmpty() && currentLine.trim() == "//") {
 			// first comment after "typedef struct {" might be a java doc for whole struct 
-			logger.debug("{}:{} Parsing struct javadoc", line, column)
+			logger.info("{}:{} Parsing struct javadoc", line, column)
 			parseStructJavaDoc = true
 			// null previous fieldParse because it already parsed some input from javadoc 
 			fieldParser = new FieldParser(logger)
 		} else if (parseStructJavaDoc) {
 			if (character == "\n") {
 				parseStructJavaDoc = false
-				logger.debug("{}:{} Finished parsing struct javadoc", line, column)
+				logger.info("{}:{} Finished parsing struct javadoc", line, column)
 			} else {
 				structJavaDoc += character
 			}
@@ -379,7 +410,16 @@ class StructParser implements Parser<Struct> {
 						fields.add(output)
 						unionParser = null
 						fieldParser = new FieldParser(logger)
-						logger.debug("{}:{} Finished union", line, column)
+						logger.info("{}:{} Finished union", line, column)
+					}
+				} else if (embeddedStructParser != null) {
+					embeddedStructParser.next(character, line, column)
+					def output = embeddedStructParser.output()
+					if (output) {
+						fields.add(output)
+						embeddedStructParser = null
+						fieldParser = new FieldParser(logger)
+						logger.info("{}:{} Finished union", line, column)
 					}
 				} else if (fieldParser) {
 					// check if it's a line with only comment
@@ -387,20 +427,20 @@ class StructParser implements Parser<Struct> {
 					if (parseExtraJavaDoc) {
 						if (character == "\n") {
 							parseExtraJavaDoc = false
-							logger.debug("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
+							logger.info("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
 							// reset fieldParser
 							fieldParser = new FieldParser(logger)
 						} else {
 							def lastField = fields[-1]
 							if (lastField.hasJavaDoc()) {
 								lastField.javaDoc += character
-								logger.debug("{}:{} NEXT parseExtraJavaDoc={}, javaDoc={}", line, column, parseExtraJavaDoc, fields[-1].javaDoc)
+								logger.info("{}:{} NEXT parseExtraJavaDoc={}, javaDoc={}", line, column, parseExtraJavaDoc, fields[-1].javaDoc)
 							}
 						}
 					}
 					if (currentLine.trim() == "//") {
 						parseExtraJavaDoc = true
-						logger.debug("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
+						logger.info("{}:{} parseExtraJavaDoc={}", line, column, parseExtraJavaDoc)
 					}
 
 					fieldParser.next(character, line, column)
@@ -426,6 +466,7 @@ class StructParser implements Parser<Struct> {
 			} else {
 				if (character == ";") {
 					output = new Struct()
+					logger.info("{}:{} xyz: {}", line, column, structName)
 					output.name = Names.parseRawClassName(structName)
 					output.rawName = structName
 					output.prefix = Names.findPrefix(structName)
@@ -464,7 +505,7 @@ class StructParser implements Parser<Struct> {
 					}
 					output.raw = raw
 					output.javaDoc = structJavaDoc.trim()
-					logger.debug("{}:{} Parsed struct: {}", line, column, output)
+					logger.info("{}:{} Parsed struct: {}", line, column, output)
 					parseStructName = false
 					structName = ""
 				} else {
@@ -511,7 +552,7 @@ class StructsParser implements Parser<List<Struct>> {
 		} else if (index < start.length() && character == start[index]) {
 			index++
 			if (index >= start.length()) {
-				logger.debug("{}:{} Parsed struct header", line, column)
+				logger.info("{}:{} Parsed struct header", line, column)
 				structParser = new StructParser(logger, staticArraySize)
 				index = 0
 			}
@@ -569,7 +610,7 @@ class ConstParser implements Parser<Const> {
 		if (character.allWhitespace && curlyBrackets == 0) {
 			if (token != "") {
 				tokens.add(token)
-				logger.debug("{}:{} Added token: {}", line, column, token)
+				logger.info("{}:{} Added token: {}", line, column, token)
 			}
 			token = ""
 		} else {
@@ -616,13 +657,13 @@ class ConstsParser implements Parser<List<Const>> {
 	@Override
 	void next(String character, int line, int column) {
 		if (character == "/" && previousCharacter == "/" && column == 2) {
-			logger.debug("{}:{} Parsing comment", line, column)
+			logger.info("{}:{} Parsing comment", line, column)
 			parseExtraJavaDoc = true
 		} else if (parseExtraJavaDoc) {
 			extraJavaDoc += character
 		}
 		if (parseExtraJavaDoc && character == "\n") {
-			logger.debug("{}:{} Finished parsing comment", line, column)
+			logger.info("{}:{} Finished parsing comment", line, column)
 			parseExtraJavaDoc = false
 		}
 
@@ -647,7 +688,7 @@ class ConstsParser implements Parser<List<Const>> {
 		} else if (index < start.length() && character == start[index]) {
 			index++
 			if (index >= start.length()) {
-				logger.debug("{}:{} Parsed const header", line, column)
+				logger.info("{}:{} Parsed const header", line, column)
 				constParser = new ConstParser(logger)
 				index = 0
 			}
@@ -1108,8 +1149,14 @@ class Names {
 			return "TSuplaChannelValueB"
 		}
 
-		if (name == "HvacParameterFlags") {
-			name = "T_HvacParameterFlags"
+		if (name == "HvacParameterFlags"
+			|| name == "Protocol"
+			|| name == "Baudrate"
+			|| name == "StopBits"
+			|| name == "ModbusSerialConfig"
+			|| name == "ModbusConfigProperties"
+			|| name == "ModbusNetworkConfig") {
+			name = "T_" + name
 		}
 
 		if (name == "TSuplaDataPacket"
@@ -1166,7 +1213,7 @@ class Names {
 		}
 		def split = name.split("_", 2)
 		if (split.length != 2) {
-			throw new IllegalArgumentException("Cannot get raw name from: " + name)
+			throw new IllegalArgumentException("Cannot get raw name from: '$name'")
 		}
 
 		return classNameCase(split[1])
@@ -1249,6 +1296,12 @@ class Names {
 			|| name == "TAction_RGBW_Parameters"
 			|| name == "TContainerChannel_Value"
 			|| name == "TContainer_SensorInfo"
+			|| name == "ModbusSerialConfig"
+			|| name == "ModbusNetworkConfig"
+			|| name == "ModbusConfigProperties"
+			|| name == "Protocol"
+			|| name == "Baudrate"
+			|| name == "StopBits"
 			|| name == "TSuplaChannelExtendedValue") {
 			return "T"
 		}

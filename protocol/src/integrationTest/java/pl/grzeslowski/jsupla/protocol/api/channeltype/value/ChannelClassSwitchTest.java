@@ -2,7 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 
 import com.google.common.reflect.ClassPath;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
