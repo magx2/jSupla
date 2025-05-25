@@ -308,6 +308,10 @@ ext.noCallTypes = new HashSet([
 	'TCSD_Valve',
 	'TChannelConfig_Valve',
 	'TValve_SensorInfo',
+	'ModbusConfigProperties',
+	'ModbusNetworkConfig',
+	'ModbusSerialConfig',
+	'TDeviceConfig_Modbus',
 ])
 
 ext.dynamicSize = [
@@ -393,4 +397,5 @@ ext.dynamicSize = [
 	'SuplaChannelStatePack',
 	'ChannelConfigContainer',
 	'ChannelConfigValve',
+	'Modbus',
 ]

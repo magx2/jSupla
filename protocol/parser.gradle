@@ -82,6 +82,7 @@ class FieldParser implements Parser<SimpleField> {
 	List<String> tokens = new ArrayList<>()
 	String token = ""
 	boolean wasSemicolon = false
+	boolean ignoreTillEndOfStruct = false
 
 	FieldParser(Logger logger) {
 		this.logger = logger
@@ -89,6 +90,13 @@ class FieldParser implements Parser<SimpleField> {
 
 	@Override
 	void next(String character, int line, int column) {
+		if (ignoreTillEndOfStruct) {
+			if (character != "}") {
+				return
+			}
+			logger.debug("{}:{} Got end of struct to ignore", line, column, token)
+			ignoreTillEndOfStruct = false
+		}
 		if (character == ";") {
 			wasSemicolon = true
 		}
@@ -118,6 +126,14 @@ class FieldParser implements Parser<SimpleField> {
 					rawJavaDoc = tokens.subList(3, tokens.size())
 				}
 			} else if (tokens[0] == "struct") {
+				if (tokens[1] == "{") {
+					// this is an embedded struct (check ModbusConfigProperties->protocol)
+					// ignore it till `}`
+					logger.debug("{}:{} Ignoring till `}`", line, column)
+					ignoreTillEndOfStruct = true
+					tokens.clear()
+					return
+				}
 				this.output.struct = true
 				this.output.type = tokens[1]
 				this.output.name = tokens[2]
@@ -200,7 +216,12 @@ class EmbeddedStructParser implements Parser<EmbeddedStruct> {
 			currentLine = ""
 		}
 
-		if (finished && character != "\n") {
+		if (finished) {
+			if (character != "\n") {
+				logger.debug("{}:{} Eating character at the end of embeded struct: {}", line, column, character)
+				return
+			}
+
 			// finish the struct
 			if (fields.isEmpty()) {
 				throw new IllegalStateException("There are no fields in embedded struct")
@@ -314,6 +335,10 @@ class StructParser implements Parser<Struct> {
 	int unionIndex = 0
 	UnionParser unionParser = null
 
+	static final String structStart = "struct {"
+	int structIndex = 0
+	EmbeddedStructParser structParser = null
+
 	FieldParser fieldParser = null
 	int curlyBrackets = 1
 	List<Field> fields = new ArrayList<>()
@@ -343,16 +368,32 @@ class StructParser implements Parser<Struct> {
 		raw += character
 
 		// union parsing
-		if (unionIndex < unionStart.length() && character == unionStart[unionIndex]) {
+		if (!structParser && (unionIndex < unionStart.length() && character == unionStart[unionIndex])) {
 			unionIndex++
 			if (unionIndex >= unionStart.length()) {
 				logger.debug("{}:{} Parsed union header", line, column)
 				unionParser = new UnionParser(logger)
+				structParser = null
 				fieldParser = null
 				unionIndex = 0
 			}
 		} else if (character != unionStart[unionIndex]) {
 			unionIndex = 0
+		}
+
+		// struct parsing
+		if (!unionParser && (structIndex < structStart.length() && character == structStart[structIndex])) {
+			structIndex++
+			if (structIndex >= structStart.length()) {
+				logger.debug("{}:{} Parsed struct header", line, column)
+				unionParser = null
+				structParser = new EmbeddedStructParser(logger)
+				fieldParser = null
+				structIndex = 0
+				return // do not consume `{`
+			}
+		} else if (character != structStart[structIndex]) {
+			structIndex = 0
 		}
 
 		if (fields.isEmpty() && currentLine.trim() == "//") {
@@ -380,6 +421,16 @@ class StructParser implements Parser<Struct> {
 						unionParser = null
 						fieldParser = new FieldParser(logger)
 						logger.debug("{}:{} Finished union", line, column)
+					}
+				} else if (structParser != null) {
+					structParser.next(character, line, column)
+					def output = structParser.output()
+					if (output) {
+//						fields.add(output)
+						structParser = null
+						fieldParser = new FieldParser(logger)
+						logger.debug("{}:{} Finished struct", line, column)
+						return
 					}
 				} else if (fieldParser) {
 					// check if it's a line with only comment
@@ -1108,8 +1159,11 @@ class Names {
 			return "TSuplaChannelValueB"
 		}
 
-		if (name == "HvacParameterFlags") {
-			name = "T_HvacParameterFlags"
+		if (name == "HvacParameterFlags"
+			|| name == "ModbusNetworkConfig"
+			|| name == "ModbusConfigProperties"
+			|| name == "ModbusSerialConfig") {
+			name = "T_$name"
 		}
 
 		if (name == "TSuplaDataPacket"
@@ -1166,7 +1220,7 @@ class Names {
 		}
 		def split = name.split("_", 2)
 		if (split.length != 2) {
-			throw new IllegalArgumentException("Cannot get raw name from: " + name)
+			throw new IllegalArgumentException("Cannot get raw name from: [$name]")
 		}
 
 		return classNameCase(split[1])
@@ -1249,6 +1303,9 @@ class Names {
 			|| name == "TAction_RGBW_Parameters"
 			|| name == "TContainerChannel_Value"
 			|| name == "TContainer_SensorInfo"
+			|| name == "ModbusSerialConfig"
+			|| name == "ModbusNetworkConfig"
+			|| name == "ModbusConfigProperties"
 			|| name == "TSuplaChannelExtendedValue") {
 			return "T"
 		}
