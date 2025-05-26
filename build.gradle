@@ -6,8 +6,8 @@ plugins {
 nexusPublishing {
 	repositories {
 		sonatype {
-			username.set(findProperty("centralUsername") ?: System.getenv("CENTRAL_USERNAME"))
-			password.set(findProperty("centralPassword") ?: System.getenv("CENTRAL_PASSWORD"))
+			username = findProperty("centralUsername") ?: System.getenv("CENTRAL_USERNAME")
+			password = findProperty("centralPassword") ?: System.getenv("CENTRAL_PASSWORD")
 		}
 	}
 }
