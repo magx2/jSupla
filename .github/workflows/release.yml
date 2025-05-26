@@ -32,7 +32,7 @@ jobs:
           git commit -m "Update jSuplaVersion to release version in gradle.properties"
           
            echo -n "$SECRET_KEY_RING_BASE64" | base64 --decode > secring.gpg
-          ./gradlew noSnapshots build publishAllPublicationsToSonatypeRepository tag \
+          ./gradlew noSnapshots build publishToSonatype closeAndReleaseSonatypeStagingRepository tag \
             -PossrhUsername=$OSSRH_USERNAME \
             -PossrhPassword=$OSSRH_PASSWORD \
             -Psigning.keyId=$KEY_ID \

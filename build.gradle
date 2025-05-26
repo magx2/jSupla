@@ -1,5 +1,5 @@
 plugins {
-	id 'maven-publish'
+	id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 	id 'signing'
 }
 
@@ -168,24 +168,14 @@ prodProjects {
 				}
 			}
 		}
+	}
+	
+	nexusPublishing {
 
 		repositories {
-			maven {
-				name = "sonatype"
-				url = uri("https://central.sonatype.com/api/v1/publish")
-				credentials {
-					username = findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME") ?: ""
-					password = findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD") ?: ""
-				}
-			}
-
-			maven {
-				name = "githubSnapshots"
-				url = uri("https://maven.pkg.github.com/magx2/jSupla")
-				credentials {
-					username = findProperty("githubUsername") ?: System.getenv("GITHUB_USERNAME") ?: ""
-					password = findProperty("githubPassword") ?: System.getenv("GITHUB_PASSWORD") ?: ""
-				}
+			sonatype {
+				username = findProperty("githubUsername") ?: System.getenv("GITHUB_USERNAME") ?: ""
+				password = findProperty("githubPassword") ?: System.getenv("GITHUB_PASSWORD") ?: ""
 			}
 		}
 	}
