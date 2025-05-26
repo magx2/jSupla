@@ -24,14 +24,7 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           SECRET_KEY_RING_BASE64: ${{ secrets.SECRET_KEY_RING_BASE64 }}
         run: |
-          echo -n "$SECRET_KEY_RING_BASE64" | base64 --decode > secring.gpg
-          ./gradlew build \
-            publishAllPublicationsToGithubSnapshotsRepository \
-            -Psigning.keyId=$KEY_ID \
-            -Psigning.password=$PASSWORD \
-            -Psigning.secretKeyRingFile=$(realpath ./secring.gpg) \
-            -PgithubUsername=magx2 \
-            -PgithubPassword=$GITHUB_TOKEN 
+          ./gradlew test build 
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:
