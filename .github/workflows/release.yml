@@ -105,7 +105,6 @@ jobs:
 
           log "Accepting release..."
           curl --request POST \
-            --verbose \
             --header "Authorization: Bearer $TOKEN" \
             "https://central.sonatype.com/api/v1/publisher/deployment/$ID"
 
