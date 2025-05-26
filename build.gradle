@@ -7,7 +7,7 @@ nexusPublishing {
 	repositories {
 		// Only define 'sonatype' ONCE globally
 		sonatype {
-			nexusUrl.set(uri("https://central.sonatype.com/api/v1/publish"))
+			nexusUrl.set(uri("https://central.sonatype.com/api/v1/publish/"))
 			username.set(findProperty("centralUsername") ?: System.getenv("CENTRAL_USERNAME"))
 			password.set(findProperty("centralPassword") ?: System.getenv("CENTRAL_PASSWORD"))
 		}
