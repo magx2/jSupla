@@ -130,6 +130,7 @@ jobs:
             exit 33
           fi
 
+          cd ../ || exit
           ./gradlew nextSnapshot
           git add gradle.properties
           git commit -m "Update jSuplaVersion to SNAPSHOT version in gradle.properties"
