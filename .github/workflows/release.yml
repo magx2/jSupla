@@ -109,6 +109,7 @@ jobs:
             "https://central.sonatype.com/api/v1/publisher/deployment/$ID"
 
           log "Tagging"  
+          cd ../ || exit
           ./gradlew tag
           # Define the file path
           FILE="build/tag.txt"
@@ -129,7 +130,6 @@ jobs:
             exit 33
           fi
 
-          cd ../ || exit
           ./gradlew nextSnapshot
           git add gradle.properties
           git commit -m "Update jSuplaVersion to SNAPSHOT version in gradle.properties"
