@@ -33,7 +33,11 @@ jobs:
 
           # Run Gradle tasks
           log "./gradlew clean build releaseVersion publishToMavenLocal"
-          ./gradlew clean build releaseVersion publishToMavenLocal
+           echo -n "$SECRET_KEY_RING_BASE64" | base64 --decode > secring.gpg
+          ./gradlew clean build releaseVersion publishToMavenLocal \
+            -Psigning.keyId=$KEY_ID \
+            -Psigning.password=$PASSWORD \
+            -Psigning.secretKeyRingFile=$(realpath ./secring.gpg)
 
           # Load version from gradle.properties
           J_SUPLA_VERSION=$(grep "^jSuplaVersion=" gradle.properties | cut -d'=' -f2)
