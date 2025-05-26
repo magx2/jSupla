@@ -3,6 +3,17 @@ plugins {
 	id 'signing'
 }
 
+nexusPublishing {
+	repositories {
+		// Only define 'sonatype' ONCE globally
+		sonatype {
+			nexusUrl.set(uri("https://central.sonatype.com/api/v1/publish"))
+			username.set(findProperty("centralUsername") ?: System.getenv("CENTRAL_USERNAME"))
+			password.set(findProperty("centralPassword") ?: System.getenv("CENTRAL_PASSWORD"))
+		}
+	}
+}
+
 ext {
 	slf4j_version = '2.0.11'
 	random_beans_version = '3.9.0'
@@ -166,16 +177,6 @@ prodProjects {
 						}
 					}
 				}
-			}
-		}
-	}
-	
-	nexusPublishing {
-
-		repositories {
-			sonatype {
-				username = findProperty("githubUsername") ?: System.getenv("GITHUB_USERNAME") ?: ""
-				password = findProperty("githubPassword") ?: System.getenv("GITHUB_PASSWORD") ?: ""
 			}
 		}
 	}
