@@ -78,8 +78,8 @@ task nextSnapshot {
 		//noinspection GroovyAssignabilityCheck
 		def patch = match[0][3] as int
 
-		// Increment the minor version
-		minor++
+		// Increment the patch version
+		patch++
 
 		// Update the version line
 		def updatedVersion = "jSuplaVersion=$major.$minor.$patch-SNAPSHOT"
