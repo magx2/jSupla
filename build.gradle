@@ -6,7 +6,10 @@ plugins {
 
 nexusPublishing {
 	repositories {
-		sonatype()
+		sonatype() {
+			username = System.getenv("ORG_GRADLE_PROJECT_sonatypeUsername")
+			password = System.getenv("ORG_GRADLE_PROJECT_sonatypePassword")
+		}
 	}
 }
 
