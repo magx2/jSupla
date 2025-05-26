@@ -172,7 +172,7 @@ prodProjects {
 		repositories {
 			maven {
 				name = "sonatype"
-				url = uri("https://central.sonatype.com/publish/repositories/releases/")
+				url = uri("https://central.sonatype.com/api/v1/publish")
 				credentials {
 					username = findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME") ?: ""
 					password = findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD") ?: ""
