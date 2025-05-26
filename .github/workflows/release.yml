@@ -32,9 +32,11 @@ jobs:
           }
 
           # Run Gradle tasks
-          log "./gradlew clean build releaseVersion publishToMavenLocal"
+          log "./gradlew clean releaseVersion"
+          ./gradlew clean releaseVersion
+          log "./gradlew publishToMavenLocal"
            echo -n "$SECRET_KEY_RING_BASE64" | base64 --decode > secring.gpg
-          ./gradlew clean build releaseVersion publishToMavenLocal \
+          ./gradlew publishToMavenLocal \
             -Psigning.keyId=$KEY_ID \
             -Psigning.password=$PASSWORD \
             -Psigning.secretKeyRingFile=$(realpath ./secring.gpg)
