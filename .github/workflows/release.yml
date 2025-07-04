@@ -104,6 +104,8 @@ jobs:
 
           log "Release ID=$ID"
           log "Waiting for deployment to be validated..."
+          log "Sleeping for 10 seconds..."
+          sleep 10
           for i in {1..50}; do
               log "Checking status... (Attempt $i of 50)"
               STATUS_RESPONSE=$(curl -s --request POST \
