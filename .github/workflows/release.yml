@@ -114,12 +114,12 @@ jobs:
               
               log "Status response: $STATUS_RESPONSE"
 
-              if echo "$STATUS_RESPONSE" | grep -q '"publishingStatus":"FAILED"'; then
+              if echo "$STATUS_RESPONSE" | grep -q '"deploymentState":"FAILED"'; then
                 log "Deployment failed."
                 exit 1
               fi
               
-              if echo "$STATUS_RESPONSE" | grep -q '"publishingStatus":"VALIDATED"'; then
+              if echo "$STATUS_RESPONSE" | grep -q '"deploymentState":"VALIDATED"'; then
                 log "Deployment is validated."
                 break
               fi
