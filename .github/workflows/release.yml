@@ -67,7 +67,12 @@ jobs:
 
             # Copy artifacts
             log "Copying artifacts for $module_name..."
-            cp "$module_name/build/libs/"* "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION.jar" "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION.jar.asc" "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION-javadoc.jar" "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION-javadoc.jar.asc" "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION-sources.jar" "$target_dir/"
+            cp "$module_name/build/libs/$module_name-$J_SUPLA_VERSION-sources.jar.asc" "$target_dir/"
             cp "$module_name/build/publications/mavenJava/pom-default.xml" "$target_dir/$module_name-$J_SUPLA_VERSION.pom"
             cp "$module_name/build/publications/mavenJava/pom-default.xml.asc" "$target_dir/$module_name-$J_SUPLA_VERSION.pom.asc"
 
