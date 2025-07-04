@@ -106,7 +106,7 @@ jobs:
           log "Waiting for deployment to be validated..."
           for i in {1..50}; do
               log "Checking status... (Attempt $i of 50)"
-              STATUS_RESPONSE=$(curl -s --request GET \
+              STATUS_RESPONSE=$(curl -s --request POST \
                 --header "Authorization: Bearer $TOKEN" \
                 "https://central.sonatype.com/api/v1/publisher/status?id=$ID")
               
