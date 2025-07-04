@@ -95,13 +95,33 @@ jobs:
             https://central.sonatype.com/api/v1/publisher/upload)
 
           log "Release ID=$ID"
-          curl --request POST \
-            --header "Authorization: Bearer $TOKEN" \
-            "https://central.sonatype.com/api/v1/publisher/status?id=$ID"
+          log "Waiting for deployment to be validated..."
+          for i in {1..50}; do
+              log "Checking status... (Attempt $i of 50)"
+              STATUS_RESPONSE=$(curl -s --request GET \
+                --header "Authorization: Bearer $TOKEN" \
+                "https://central.sonatype.com/api/v1/publisher/status?id=$ID")
+              
+              log "Status response: $STATUS_RESPONSE"
 
-          log "Sleeping..."
-          sleep 60
-          log "Sleep end"
+              if echo "$STATUS_RESPONSE" | grep -q '"publishingStatus":"FAILED"'; then
+                log "Deployment failed."
+                exit 1
+              fi
+              
+              if echo "$STATUS_RESPONSE" | grep -q '"publishingStatus":"VALIDATED"'; then
+                log "Deployment is validated."
+                break
+              fi
+              
+              if [ "$i" -eq 50 ]; then
+                log "Deployment did not validate after 50 attempts."
+                exit 1
+              fi
+              
+              log "Sleeping for 1 minute..."
+              sleep 60
+          done
 
           log "Accepting release..."
           curl --request POST \
