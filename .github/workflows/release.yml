@@ -104,6 +104,11 @@ jobs:
               
               log "Status response: $STATUS_RESPONSE"
 
+              if echo "$STATUS_RESPONSE" | grep -q '"errorCode"'; then
+                log "Deployment failed with an error: $STATUS_RESPONSE"
+                exit 1
+              fi
+              
               if echo "$STATUS_RESPONSE" | grep -q '"publishingStatus":"FAILED"'; then
                 log "Deployment failed."
                 exit 1
