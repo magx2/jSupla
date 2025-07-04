@@ -1,1 +1,0 @@
-fix: correct deploymentState check in release workflow
