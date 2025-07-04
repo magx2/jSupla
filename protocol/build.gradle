@@ -1,3 +1,9 @@
+description = "Protocol definition for jSupla"
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
 ext.staticArraySize = [
 	'TimerStateExtendedValue'
 ]
