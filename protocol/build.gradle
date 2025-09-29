@@ -314,6 +314,7 @@ ext.noCallTypes = new HashSet([
 	'TDeviceConfig_Modbus',
 	'TCalCfg_FirmwareCheckResult',
 	'TDeviceConfig_FirmwareUpdate',
+	'TCalCfg_SetCfgModePassword',
 ])
 
 ext.dynamicSize = [
