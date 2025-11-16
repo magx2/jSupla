@@ -1,12 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders.csd;
 
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.csd.ChannelStateRequest;
 
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
-
-public class ChannelStateRequestEncoder implements pl.grzeslowski.jsupla.protocol.api.encoders.csd.ClientServerDeviceEncoder<ChannelStateRequest> {
+public class ChannelStateRequestEncoder
+        implements pl.grzeslowski.jsupla.protocol.api.encoders.csd.ClientServerDeviceEncoder<
+                ChannelStateRequest> {
     public static final ChannelStateRequestEncoder INSTANCE = new ChannelStateRequestEncoder();
 
     @SuppressWarnings("UnusedAssignment")

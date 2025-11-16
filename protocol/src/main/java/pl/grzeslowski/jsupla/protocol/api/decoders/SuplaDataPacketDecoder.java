@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import lombok.val;
-import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+
+import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 @lombok.NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class SuplaDataPacketDecoder implements ProtoWithSizeDecoder<SuplaDataPacket> {
@@ -24,7 +24,8 @@ public class SuplaDataPacketDecoder implements ProtoWithSizeDecoder<SuplaDataPac
         val dataSize = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        val data = PrimitiveDecoder.INSTANCE.copyOfRangeByte(bytes, offset, offset + (int) dataSize);
+        val data =
+                PrimitiveDecoder.INSTANCE.copyOfRangeByte(bytes, offset, offset + (int) dataSize);
         offset += dataSize * BYTE_SIZE;
 
         return new SuplaDataPacket(version, rrId, callId, dataSize, data);

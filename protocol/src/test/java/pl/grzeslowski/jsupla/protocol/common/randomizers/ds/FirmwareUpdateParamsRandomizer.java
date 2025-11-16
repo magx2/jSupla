@@ -14,11 +14,10 @@ public class FirmwareUpdateParamsRandomizer implements Randomizer<FirmwareUpdate
     @Override
     public FirmwareUpdateParams getRandomValue() {
         return new FirmwareUpdateParams(
-            randomSupla.nextByte(),
-            randomSupla.nextPositiveInt(),
-            randomSupla.nextPositiveInt(),
-            randomSupla.nextPositiveInt(),
-            randomSupla.nextPositiveInt()
-        );
+                randomSupla.nextByte(),
+                randomSupla.nextPositiveInt(),
+                randomSupla.nextPositiveInt(),
+                randomSupla.nextPositiveInt(),
+                randomSupla.nextPositiveInt());
     }
 }

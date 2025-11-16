@@ -1,9 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.StoppableOpenClose;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class StoppableOpenCloseEncoderImpl {
     public byte[] encode(final StoppableOpenClose stoppableOpenClose) {
@@ -19,7 +18,8 @@ public class StoppableOpenCloseEncoderImpl {
                 bytes[0] = 2;
                 break;
             default:
-                throw new UnsupportedOperationException("Don't know this type " + stoppableOpenClose + "!");
+                throw new UnsupportedOperationException(
+                        "Don't know this type " + stoppableOpenClose + "!");
         }
         return bytes;
     }

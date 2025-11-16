@@ -2,7 +2,9 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
 
-public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol.api.encoders.ProtoWithSizeEncoder<HvacParameterFlags> {
+public class HvacParameterFlagsEncoder
+        implements pl.grzeslowski.jsupla.protocol.api.encoders.ProtoWithSizeEncoder<
+                HvacParameterFlags> {
     public static final HvacParameterFlagsEncoder INSTANCE = new HvacParameterFlagsEncoder();
 
     @Override
@@ -20,11 +22,16 @@ public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol
             flags[idx] = flag(flags[idx], proto.auxThermometerTypeReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.auxThermometerTypeHidden, subIdx++);
             idx++;
-        }//0
+        } // 0
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.antiFreezeAndOverheatProtectionEnabledReadonly, subIdx++);
-            flags[idx] = flag(flags[idx], proto.antiFreezeAndOverheatProtectionEnabledHidden, subIdx++);
+            flags[idx] =
+                    flag(
+                            flags[idx],
+                            proto.antiFreezeAndOverheatProtectionEnabledReadonly,
+                            subIdx++);
+            flags[idx] =
+                    flag(flags[idx], proto.antiFreezeAndOverheatProtectionEnabledHidden, subIdx++);
             flags[idx] = flag(flags[idx], proto.usedAlgorithmReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.usedAlgorithmHidden, subIdx++);
             flags[idx] = flag(flags[idx], proto.minOnTimeSReadonly, subIdx++);
@@ -32,19 +39,27 @@ public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol
             flags[idx] = flag(flags[idx], proto.minOffTimeSReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.minOffTimeSHidden, subIdx++);
             idx++;
-        }//1
+        } // 1
         {
             int subIdx = 0;
             flags[idx] = flag(flags[idx], proto.outputValueOnErrorReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.outputValueOnErrorHidden, subIdx++);
             flags[idx] = flag(flags[idx], proto.subfunctionReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.subfunctionHidden, subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperatureSetpointChangeSwitchesToManualModeReadonly, subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperatureSetpointChangeSwitchesToManualModeHidden, subIdx++);
+            flags[idx] =
+                    flag(
+                            flags[idx],
+                            proto.temperatureSetpointChangeSwitchesToManualModeReadonly,
+                            subIdx++);
+            flags[idx] =
+                    flag(
+                            flags[idx],
+                            proto.temperatureSetpointChangeSwitchesToManualModeHidden,
+                            subIdx++);
             flags[idx] = flag(flags[idx], proto.auxMinMaxSetpointEnabledReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.auxMinMaxSetpointEnabledHidden, subIdx++);
             idx++;
-        }//2
+        } // 2
         {
             int subIdx = 0;
             flags[idx] = flag(flags[idx], proto.useSeparateHeatCoolOutputsReadonly, subIdx++);
@@ -56,7 +71,7 @@ public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol
             flags[idx] = flag(flags[idx], proto.temperaturesComfortReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.temperaturesComfortHidden, subIdx++);
             idx++;
-        }//3
+        } // 3
         {
             int subIdx = 0;
             flags[idx] = flag(flags[idx], proto.temperaturesBoostReadonly, subIdx++);
@@ -68,7 +83,7 @@ public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol
             flags[idx] = flag(flags[idx], proto.temperaturesBelowAlarmReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.temperaturesBelowAlarmHidden, subIdx++);
             idx++;
-        }//4
+        } // 4
         {
             int subIdx = 0;
             flags[idx] = flag(flags[idx], proto.temperaturesAboveAlarmReadonly, subIdx++);
@@ -80,31 +95,31 @@ public class HvacParameterFlagsEncoder implements pl.grzeslowski.jsupla.protocol
             flags[idx] = flag(flags[idx], proto.masterThermostatChannelNoReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.masterThermostatChannelNoHidden, subIdx++);
             idx++;
-        }//5
+        } // 5
         {
             int subIdx = 0;
             flags[idx] = flag(flags[idx], proto.heatOrColdSourceSwitchReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.heatOrColdSourceSwitchHidden, subIdx++);
             flags[idx] = flag(flags[idx], proto.pumpSwitchReadonly, subIdx++);
             flags[idx] = flag(flags[idx], proto.pumpSwitchHidden, subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
             idx++;
-        }//6
+        } // 6
         {
             int subIdx = 0;
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
-//            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
+            //            flags[idx] = flag(flags[idx], , subIdx++);
             idx++;
-        }//7
+        } // 7
 
         return flags;
     }

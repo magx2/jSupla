@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
+
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
-
-import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 class ThermometerTypeDoubleChannelDecoderImpl implements Decoder<ChannelValue> {
 

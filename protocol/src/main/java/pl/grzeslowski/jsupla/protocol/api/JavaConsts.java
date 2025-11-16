@@ -1,8 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
-
 import java.math.BigInteger;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 public interface JavaConsts {
@@ -18,7 +17,8 @@ public interface JavaConsts {
     public static final long UNSIGNED_INT_MAX = 4294967295L;
     public static final BigInteger UNSIGNED_LONG_MAX = new BigInteger("18446744073709551615");
 
-    public static final BigInteger UNSIGNED_LONG_MASK = BigInteger.ONE.shiftLeft(Long.SIZE).subtract(BigInteger.ONE);
+    public static final BigInteger UNSIGNED_LONG_MASK =
+            BigInteger.ONE.shiftLeft(Long.SIZE).subtract(BigInteger.ONE);
 
     public static int unionSize(int... sizes) {
         int max = sizes[0];

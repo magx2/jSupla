@@ -1,13 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
-
-import lombok.val;
+import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-
-import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+import lombok.val;
 
 public class PrimitiveEncoder {
     public static final PrimitiveEncoder INSTANCE = new PrimitiveEncoder();
@@ -29,7 +27,9 @@ public class PrimitiveEncoder {
     public int writeInt(int value, byte[] bytes, int offset) {
         if (bytes.length < INT_SIZE + offset) {
             throw new IllegalArgumentException(
-                format("bytes length %s is too small to have int with offset %s", bytes.length, offset));
+                    format(
+                            "bytes length %s is too small to have int with offset %s",
+                            bytes.length, offset));
         }
         // TODO ca be done faster...
         byte[] integer = ByteBuffer.allocate(INT_SIZE).putInt(value).array();
@@ -46,8 +46,10 @@ public class PrimitiveEncoder {
 
     public int writeLong(long value, byte[] bytes, int offset) {
         if (bytes.length < LONG_SIZE + offset) {
-            throw new IllegalArgumentException(format(
-                "bytes length %s is too small to have int with offset %s", bytes.length, offset));
+            throw new IllegalArgumentException(
+                    format(
+                            "bytes length %s is too small to have int with offset %s",
+                            bytes.length, offset));
         }
         // TODO ca be done faster...
         byte[] integer = ByteBuffer.allocate(LONG_SIZE).putLong(value).array();
@@ -60,8 +62,10 @@ public class PrimitiveEncoder {
 
     public int writeUnsignedLong(BigInteger value, byte[] bytes, int offset) {
         if (value.bitLength() > 64) {
-            throw new IllegalArgumentException("BigInteger value is too large to fit into an unsigned long. " +
-                "bitLength=" + value.bitLength());
+            throw new IllegalArgumentException(
+                    "BigInteger value is too large to fit into an unsigned long. "
+                            + "bitLength="
+                            + value.bitLength());
         }
         return writeLong(value.longValue(), bytes, offset);
     }
@@ -69,7 +73,9 @@ public class PrimitiveEncoder {
     public int writeByte(byte value, byte[] bytes, int offset) {
         if (bytes.length < BYTE_SIZE + offset) {
             throw new IllegalArgumentException(
-                format("bytes length %s is too small to have byte with offset %s", bytes.length, offset));
+                    format(
+                            "bytes length %s is too small to have byte with offset %s",
+                            bytes.length, offset));
         }
         bytes[offset] = value;
         return BYTE_SIZE;

@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.dsc;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import lombok.val;
 import org.junit.Test;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ChannelStateDecoderTest {
     ChannelStateDecoder decoder = ChannelStateDecoder.INSTANCE;
@@ -11,10 +11,12 @@ public class ChannelStateDecoderTest {
     @Test
     public void decodeExampleFromAuraton() {
         // given
-        byte[] data = new byte[]{
-            0, 0, 0, 0, 11, 0, 0, 0, -1, 9, 0, 0, 0, 0, 0, 0, -64, -88, 1, 41, -128, 101, -103, -121, 36, -104, 100, 1,
-            -61, 78, 0, 100, -5, 6, 0, 0, 7, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0
-        };
+        byte[] data =
+                new byte[] {
+                    0, 0, 0, 0, 11, 0, 0, 0, -1, 9, 0, 0, 0, 0, 0, 0, -64, -88, 1, 41, -128, 101,
+                    -103, -121, 36, -104, 100, 1, -61, 78, 0, 100, -5, 6, 0, 0, 7, 0, 0, 0, 0, 3, 0,
+                    0, 0, 0, 0, 0, 0, 0
+                };
 
         // when
         val decode = decoder.decode(data);
@@ -27,7 +29,7 @@ public class ChannelStateDecoderTest {
         assertThat(decode.defaultIconField).isZero();
         assertThat(decode.switchCycleCount).isNull();
         assertThat(decode.iPv4).isEqualTo(687974592);
-        assertThat(decode.mAC).isEqualTo(new short[]{128, 101, 153, 135, 36, 152});
+        assertThat(decode.mAC).isEqualTo(new short[] {128, 101, 153, 135, 36, 152});
         assertThat(decode.batteryLevel).isEqualTo((short) 100);
         assertThat(decode.batteryPowered).isEqualTo((short) 1);
         assertThat(decode.wiFiRSSI).isEqualTo((byte) -61);
@@ -43,6 +45,6 @@ public class ChannelStateDecoderTest {
         assertThat(decode.lightSourceOperatingTime).isZero();
         assertThat(decode.operatingTime).isNull();
         assertThat(decode.eOL).isOne();
-        assertThat(decode.emptySpace).isEqualTo(new byte[]{0});
+        assertThat(decode.emptySpace).isEqualTo(new byte[] {0});
     }
 }

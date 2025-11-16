@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PreconditionsUnionTest {
     @Test
@@ -31,8 +31,7 @@ public class PreconditionsUnionTest {
         ThrowingCallable when = () -> Preconditions.unionCheck(obj1, obj2, obj3);
 
         // then
-        assertThatThrownBy(when)
-            .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(when).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -46,7 +45,6 @@ public class PreconditionsUnionTest {
         ThrowingCallable when = () -> Preconditions.unionCheck(obj1, obj2, obj3);
 
         // then
-        assertThatThrownBy(when)
-            .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(when).isInstanceOf(IllegalArgumentException.class);
     }
 }

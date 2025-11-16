@@ -1,9 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-
-import java.math.BigDecimal;
 
 @Value
 @RequiredArgsConstructor

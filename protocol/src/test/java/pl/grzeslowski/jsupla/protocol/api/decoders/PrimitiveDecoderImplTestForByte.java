@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import org.junit.Test;
-
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
+
+import org.junit.Test;
 
 @SuppressWarnings({"PointlessArithmeticExpression", "ResultOfMethodCallIgnored"})
 public class PrimitiveDecoderImplTestForByte {

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize {
     public static final int SIZE = 8;
 
-    //0
+    // 0
     public final boolean mainThermometerChannelNoReadonly;
     public final boolean mainThermometerChannelNoHidden;
     public final boolean auxThermometerChannelNoReadonly;
@@ -17,7 +17,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean binarySensorChannelNoHidden;
     public final boolean auxThermometerTypeReadonly;
     public final boolean auxThermometerTypeHidden;
-    //1
+    // 1
     public final boolean antiFreezeAndOverheatProtectionEnabledReadonly;
     public final boolean antiFreezeAndOverheatProtectionEnabledHidden;
     public final boolean usedAlgorithmReadonly;
@@ -26,7 +26,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean minOnTimeSHidden;
     public final boolean minOffTimeSReadonly;
     public final boolean minOffTimeSHidden;
-    //2
+    // 2
     public final boolean outputValueOnErrorReadonly;
     public final boolean outputValueOnErrorHidden;
     public final boolean subfunctionReadonly;
@@ -35,7 +35,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean temperatureSetpointChangeSwitchesToManualModeHidden;
     public final boolean auxMinMaxSetpointEnabledReadonly;
     public final boolean auxMinMaxSetpointEnabledHidden;
-    //3
+    // 3
     public final boolean useSeparateHeatCoolOutputsReadonly;
     public final boolean useSeparateHeatCoolOutputsHidden;
     public final boolean temperaturesFreezeProtectionReadonly;
@@ -44,7 +44,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean temperaturesEcoHidden;
     public final boolean temperaturesComfortReadonly;
     public final boolean temperaturesComfortHidden;
-    //4
+    // 4
     public final boolean temperaturesBoostReadonly;
     public final boolean temperaturesBoostHidden;
     public final boolean temperaturesHeatProtectionReadonly;
@@ -53,7 +53,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean temperaturesHisteresisHidden;
     public final boolean temperaturesBelowAlarmReadonly;
     public final boolean temperaturesBelowAlarmHidden;
-    //5
+    // 5
     public final boolean temperaturesAboveAlarmReadonly;
     public final boolean temperaturesAboveAlarmHidden;
     public final boolean temperaturesAuxMinSetpointReadonly;
@@ -62,7 +62,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean temperaturesAuxMaxSetpointHidden;
     public final boolean masterThermostatChannelNoReadonly;
     public final boolean masterThermostatChannelNoHidden;
-    //6
+    // 6
     public final boolean heatOrColdSourceSwitchReadonly;
     public final boolean heatOrColdSourceSwitchHidden;
     public final boolean pumpSwitchReadonly;

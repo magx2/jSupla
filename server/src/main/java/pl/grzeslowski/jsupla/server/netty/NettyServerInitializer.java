@@ -1,5 +1,9 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
+
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -14,16 +18,11 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
-
 @SuppressWarnings("WeakerAccess")
 public final class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private final Logger logger;
 
-    @Nullable
-    private final SslContext sslCtx;
+    @Nullable private final SslContext sslCtx;
 
     // For SuplaHandler
     private final CallTypeParser callTypeParser;
@@ -31,11 +30,12 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     private final EncoderFactory encoderFactory;
     private final MessageHandlerFactory messageHandlerFactory;
 
-    NettyServerInitializer(@Nullable SslContext sslCtx,
-                           CallTypeParser callTypeParser,
-                           DecoderFactory decoderFactory,
-                           EncoderFactory encoderFactory,
-                           MessageHandlerFactory messageHandlerFactory) {
+    NettyServerInitializer(
+            @Nullable SslContext sslCtx,
+            CallTypeParser callTypeParser,
+            DecoderFactory decoderFactory,
+            EncoderFactory encoderFactory,
+            MessageHandlerFactory messageHandlerFactory) {
         logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
         logger.debug("New instance");
         this.sslCtx = sslCtx;
@@ -47,7 +47,10 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
 
     @Override
     public void initChannel(SocketChannel ch) {
-        logger.debug("Initializing new channel, localAddress={}, remoteAddress={}", ch.localAddress(), ch.remoteAddress());
+        logger.debug(
+                "Initializing new channel, localAddress={}, remoteAddress={}",
+                ch.localAddress(),
+                ch.remoteAddress());
         ChannelPipeline pipeline = ch.pipeline();
 
         if (sslCtx != null) {
@@ -56,14 +59,16 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         // todo 1 min can be parametrized
         // 1 min was used because this is the time between 1 Register event send by the device
         pipeline.addLast(new ReadTimeoutHandler(1, MINUTES));
-        pipeline.addLast(new DelimiterBasedFrameDecoder(
-            SUPLA_MAX_DATA_SIZE,
-            false,
-            true,
-            Unpooled.copiedBuffer(SUPLA_TAG)
-        ));
+        pipeline.addLast(
+                new DelimiterBasedFrameDecoder(
+                        SUPLA_MAX_DATA_SIZE, false, true, Unpooled.copiedBuffer(SUPLA_TAG)));
         pipeline.addLast(new SuplaDataPacketDecoder());
         pipeline.addLast(new SuplaDataPacketEncoder());
-        pipeline.addLast(new SuplaHandler(callTypeParser, decoderFactory, encoderFactory, messageHandlerFactory.create(ch)));
+        pipeline.addLast(
+                new SuplaHandler(
+                        callTypeParser,
+                        decoderFactory,
+                        encoderFactory,
+                        messageHandlerFactory.create(ch)));
     }
 }

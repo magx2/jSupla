@@ -1,24 +1,24 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
-
-import java.util.List;
-
-import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     public static final int SUPLA_DATA_PACKET_MIN_SIZE = SuplaDataPacket.MIN_SIZE;
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
+            throws Exception {
         if (in.readableBytes() < SUPLA_DATA_PACKET_MIN_SIZE + SUPLA_TAG.length * 2) {
             return;
         }
@@ -38,8 +38,9 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
             if (tagChar != SUPLA_TAG[charPosition]) {
                 in.resetReaderIndex();
                 throw new CorruptedFrameException(
-                    format("Read char at position %s wsa '%s' but should be '%s'!",
-                        charPosition, tagChar, SUPLA_TAG[charPosition]));
+                        format(
+                                "Read char at position %s wsa '%s' but should be '%s'!",
+                                charPosition, tagChar, SUPLA_TAG[charPosition]));
             }
         }
     }

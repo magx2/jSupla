@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
+
 import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
-
-import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 class RelayTypeChannelDecoderImpl implements Decoder<OnOff> {
     @Override
@@ -18,6 +18,7 @@ class RelayTypeChannelDecoderImpl implements Decoder<OnOff> {
         if (value == 0) {
             return OnOff.OFF;
         }
-        throw new IllegalArgumentException(format("Don't know how to map value %s to ON/OFF!", value));
+        throw new IllegalArgumentException(
+                format("Don't know how to map value %s to ON/OFF!", value));
     }
 }

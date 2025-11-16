@@ -1,14 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+
+import java.util.Arrays;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-
-import java.util.Arrays;
-import java.util.Optional;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 @Value
 public class HvacValue implements ChannelValue {
@@ -39,9 +38,7 @@ public class HvacValue implements ChannelValue {
 
         @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
         public static Optional<Mode> findMode(int flag) {
-            return Arrays.stream(values())
-                .filter(mode -> mode.isOn(flag))
-                .findAny();
+            return Arrays.stream(values()).filter(mode -> mode.isOn(flag)).findAny();
         }
     }
 
@@ -65,20 +62,19 @@ public class HvacValue implements ChannelValue {
 
         public Flags(int flags) {
             this(
-                (flags & SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_HEATING) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_COOLING) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_COUNTDOWN_TIMER) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_THERMOMETER_ERROR) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_CLOCK_ERROR) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_FORCED_OFF_BY_SENSOR) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_COOL) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE) != 0,
-                (flags & SUPLA_HVAC_VALUE_FLAG_BATTERY_COVER_OPEN) != 0
-            );
+                    (flags & SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_HEATING) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_COOLING) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_COUNTDOWN_TIMER) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_THERMOMETER_ERROR) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_CLOCK_ERROR) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_FORCED_OFF_BY_SENSOR) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_COOL) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE) != 0,
+                    (flags & SUPLA_HVAC_VALUE_FLAG_BATTERY_COVER_OPEN) != 0);
         }
 
         public int toInt() {

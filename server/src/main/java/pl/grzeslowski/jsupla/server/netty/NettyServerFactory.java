@@ -10,33 +10,30 @@ import pl.grzeslowski.jsupla.server.api.Server;
 import pl.grzeslowski.jsupla.server.api.ServerFactory;
 import pl.grzeslowski.jsupla.server.api.ServerProperties;
 
-
 @RequiredArgsConstructor
 public final class NettyServerFactory implements ServerFactory {
     public static final String PORT = "port";
     public static final String SSL_CTX = "sslCtx";
 
-    @NonNull
-    private final CallTypeParser callTypeParser;
-    @NonNull
-    private final DecoderFactory decoderFactory;
-    @NonNull
-    private final EncoderFactory encoderFactory;
+    @NonNull private final CallTypeParser callTypeParser;
+    @NonNull private final DecoderFactory decoderFactory;
+    @NonNull private final EncoderFactory encoderFactory;
 
     @Override
-    public Server createNewServer(@NonNull ServerProperties serverProperties, @NonNull MessageHandlerFactory messageHandlerFactory) {
+    public Server createNewServer(
+            @NonNull ServerProperties serverProperties,
+            @NonNull MessageHandlerFactory messageHandlerFactory) {
         return new NettyServer(
-            fromServerProperties(serverProperties),
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            messageHandlerFactory);
+                fromServerProperties(serverProperties),
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                messageHandlerFactory);
     }
 
     private NettyConfig fromServerProperties(ServerProperties serverProperties) {
         return new NettyConfig(
-            serverProperties.getProperty(PORT, Integer.class),
-            serverProperties.getProperty(SSL_CTX, SslContext.class)
-        );
+                serverProperties.getProperty(PORT, Integer.class),
+                serverProperties.getProperty(SSL_CTX, SslContext.class));
     }
 }

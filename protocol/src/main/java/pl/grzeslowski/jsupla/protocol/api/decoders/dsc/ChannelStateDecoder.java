@@ -1,13 +1,15 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.dsc;
 
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.dsc.ChannelState;
 
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
-
-public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.decoders.dsc.DeviceServerClientDecoder<ChannelState> {
+public class ChannelStateDecoder
+        implements pl.grzeslowski.jsupla.protocol.api.decoders.dsc.DeviceServerClientDecoder<
+                ChannelState> {
     public static final ChannelStateDecoder INSTANCE = new ChannelStateDecoder();
 
     @SuppressWarnings({"UnusedAssignment", "ConstantValue"})
@@ -27,7 +29,7 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
 
         // union
         // I have no idea which one to parse
-        // just parse-first int and ignore the second 
+        // just parse-first int and ignore the second
         Integer defaultIconField = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
         Long switchCycleCount = null;
         offset += INT_SIZE;
@@ -76,17 +78,16 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
         offset += SHORT_SIZE;
 
         // union
-        val lightSourceLifespanLeftFlag = (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCELIFESPAN) != 0;
-        val lightSourceOperatingTimeFlag = (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCEOPERATINGTIME) != 0;
+        val lightSourceLifespanLeftFlag =
+                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCELIFESPAN) != 0;
+        val lightSourceOperatingTimeFlag =
+                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCEOPERATINGTIME) != 0;
         val operatingTimeFlag = (fields & SUPLA_CHANNELSTATE_FIELD_OPERATINGTIME) != 0;
-
 
         Short lightSourceLifespanLeft = null;
         Integer lightSourceOperatingTime = null;
         Long operatingTime = null;
-        if (!lightSourceLifespanLeftFlag
-            && !lightSourceOperatingTimeFlag
-            && !operatingTimeFlag) {
+        if (!lightSourceLifespanLeftFlag && !lightSourceOperatingTimeFlag && !operatingTimeFlag) {
             // just set zero to make everybody happy
             lightSourceOperatingTime = 0;
         }
@@ -107,29 +108,29 @@ public class ChannelStateDecoder implements pl.grzeslowski.jsupla.protocol.api.d
         offset += emptySpaceLength * BYTE_SIZE;
 
         return new ChannelState(
-            receiverId,
-            channelId,
-            channelNumber,
-            fields,
-            defaultIconField,
-            switchCycleCount,
-            iPv4,
-            mAC,
-            batteryLevel,
-            batteryPowered,
-            wiFiRSSI,
-            wiFiSignalStrength,
-            bridgeNodeOnline,
-            bridgeNodeSignalStrength,
-            uptime,
-            connectionUptime,
-            batteryHealth,
-            lastConnectionResetCause,
-            lightSourceLifespan,
-            lightSourceLifespanLeft,
-            lightSourceOperatingTime,
-            operatingTime,
-            (byte) 1,
-            emptySpace);
+                receiverId,
+                channelId,
+                channelNumber,
+                fields,
+                defaultIconField,
+                switchCycleCount,
+                iPv4,
+                mAC,
+                batteryLevel,
+                batteryPowered,
+                wiFiRSSI,
+                wiFiSignalStrength,
+                bridgeNodeOnline,
+                bridgeNodeSignalStrength,
+                uptime,
+                connectionUptime,
+                batteryHealth,
+                lastConnectionResetCause,
+                lightSourceLifespan,
+                lightSourceLifespanLeft,
+                lightSourceOperatingTime,
+                operatingTime,
+                (byte) 1,
+                emptySpace);
     }
 }

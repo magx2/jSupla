@@ -1,12 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.sc;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
+
 import io.github.benas.randombeans.api.Randomizer;
+import java.util.Arrays;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaLocation;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
-
-import java.util.Arrays;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_CAPTION_MAXSIZE;
 
 public class SuplaLocationRandomizer implements Randomizer<SuplaLocation> {
     private final RandomSupla randomSupla;
@@ -19,11 +18,10 @@ public class SuplaLocationRandomizer implements Randomizer<SuplaLocation> {
     public SuplaLocation getRandomValue() {
         byte[] captionWithProperSize = findCaptionWithProperSize();
         return new SuplaLocation(
-            randomSupla.nextByte(),
-            randomSupla.nextPositiveInt(),
-            captionWithProperSize.length,
-            captionWithProperSize
-        );
+                randomSupla.nextByte(),
+                randomSupla.nextPositiveInt(),
+                captionWithProperSize.length,
+                captionWithProperSize);
     }
 
     private byte[] findCaptionWithProperSize() {

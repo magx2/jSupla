@@ -30,7 +30,8 @@ public final class ChannelValueSwitch<T> {
             return callback.onStoppableOpenClose((StoppableOpenClose) channelValue);
         }
         if (channelValue instanceof TemperatureAndHumidityValue) {
-            return callback.onTemperatureAndHumidityValue((TemperatureAndHumidityValue) channelValue);
+            return callback.onTemperatureAndHumidityValue(
+                    (TemperatureAndHumidityValue) channelValue);
         }
         if (channelValue instanceof TemperatureValue) {
             return callback.onTemperatureValue((TemperatureValue) channelValue);
@@ -48,9 +49,11 @@ public final class ChannelValueSwitch<T> {
             return callback.onUnknownValue((UnknownValue) channelValue);
         }
 
-        throw new IllegalArgumentException(format("Don't know where to dispatch channels value with class %s! " +
-                "This should NEVER occur on production!",
-            channelValue.getClass().getSimpleName()));
+        throw new IllegalArgumentException(
+                format(
+                        "Don't know where to dispatch channels value with class %s! "
+                                + "This should NEVER occur on production!",
+                        channelValue.getClass().getSimpleName()));
     }
 
     @SuppressWarnings("UnusedReturnValue")

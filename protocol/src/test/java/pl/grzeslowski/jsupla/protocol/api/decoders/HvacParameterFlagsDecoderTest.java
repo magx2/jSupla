@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class HvacParameterFlagsDecoderTest {
     private final HvacParameterFlagsDecoder decoder = HvacParameterFlagsDecoder.INSTANCE;
@@ -11,16 +11,17 @@ public class HvacParameterFlagsDecoderTest {
     @Test
     public void shouldDecodeFlagsFromBytes() {
         // given
-        byte[] raw = new byte[]{
-            (byte) 0b01010101,
-            (byte) 0b10101010,
-            (byte) 0b11000011,
-            (byte) 0b00001111,
-            (byte) 0b11110000,
-            (byte) 0b11110011,
-            (byte) 0b00001111,
-            (byte) 0b00000000
-        };
+        byte[] raw =
+                new byte[] {
+                    (byte) 0b01010101,
+                    (byte) 0b10101010,
+                    (byte) 0b11000011,
+                    (byte) 0b00001111,
+                    (byte) 0b11110000,
+                    (byte) 0b11110011,
+                    (byte) 0b00001111,
+                    (byte) 0b00000000
+                };
 
         // when
         HvacParameterFlags flags = decoder.decode(raw, 0);

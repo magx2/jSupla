@@ -5,33 +5,31 @@ import java.util.List;
 
 public class PrettyPrinter {
 
-    public static final List<Integer> SUPLA_DS_CALL_REGISTER_DEVICE_G = Arrays.asList(
-        // email
-        32 + 32 + 32 + 32 + 32 + 32 + 32 + 32,
-        //auth key,
-        16,
-        //guid
-        16,
-        //name
-        32 + 32 + 32 + 32 + 32 + 32 + 9,
-        // soft ver
-        21,
-        // server name
-        32 + 32 + 1,
-        //flags
-        4,
-        // manufacturerId
-        2,
-        //product id
-        2,
-        //channels count
-        1
-    );
+    public static final List<Integer> SUPLA_DS_CALL_REGISTER_DEVICE_G =
+            Arrays.asList(
+                    // email
+                    32 + 32 + 32 + 32 + 32 + 32 + 32 + 32,
+                    // auth key,
+                    16,
+                    // guid
+                    16,
+                    // name
+                    32 + 32 + 32 + 32 + 32 + 32 + 9,
+                    // soft ver
+                    21,
+                    // server name
+                    32 + 32 + 1,
+                    // flags
+                    4,
+                    // manufacturerId
+                    2,
+                    // product id
+                    2,
+                    // channels count
+                    1);
 
     public static void main(String[] args) {
-        printBytesPerLine(new byte[]{
-            },
-            SUPLA_DS_CALL_REGISTER_DEVICE_G);
+        printBytesPerLine(new byte[] {}, SUPLA_DS_CALL_REGISTER_DEVICE_G);
     }
 
     public static void printBytesPerLine(byte[] byteArray, List<Integer> byteCountsPerLine) {
@@ -43,7 +41,7 @@ public class PrettyPrinter {
 
             // Print each byte in the current line
             for (int i = 0; i < bytesToPrint; i++) {
-//                System.out.printf("%02X ", byteArray[index + i]);
+                //                System.out.printf("%02X ", byteArray[index + i]);
                 System.out.printf("%3d, ", byteArray[index + i]);
             }
             System.out.println(); // New line after printing the required bytes

@@ -1,16 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import static java.lang.String.format;
+import static lombok.AccessLevel.PRIVATE;
 
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
-
-import java.util.Arrays;
-
-import static java.lang.String.format;
-import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @RequiredArgsConstructor(access = PRIVATE)
@@ -27,24 +25,29 @@ public final class ChannelTypeDecoder {
     private final TimerMsecChannelDecoder timerMsecChannelDecoder;
 
     private ChannelTypeDecoder() {
-        this(new ColorTypeChannelDecoderImpl(),
-            new RelayTypeChannelDecoderImpl(),
-            new ThermometerTypeChannelDecoderImpl(),
-            new ThermometerTypeDoubleChannelDecoderImpl(),
-            new ElectricityMeterDecoderImpl(),
-            new ElectricityMeterV2DecoderImpl(),
-            HVACValueDecoderImpl.INSTANCE,
-            new TimerSecChannelDecoder(),
-            new TimerMsecChannelDecoder());
+        this(
+                new ColorTypeChannelDecoderImpl(),
+                new RelayTypeChannelDecoderImpl(),
+                new ThermometerTypeChannelDecoderImpl(),
+                new ThermometerTypeDoubleChannelDecoderImpl(),
+                new ElectricityMeterDecoderImpl(),
+                new ElectricityMeterV2DecoderImpl(),
+                HVACValueDecoderImpl.INSTANCE,
+                new TimerSecChannelDecoder(),
+                new TimerMsecChannelDecoder());
     }
 
     public ChannelValue decode(int type, byte[] value) {
         return ChannelType.findByValue(type)
-            .map(t -> decode(t, value))
-            .orElseGet(() ->
-                new UnknownValue(
-                    new byte[0],
-                    format("Don't know how to map device channel type %s to channel value", type)));
+                .map(t -> decode(t, value))
+                .orElseGet(
+                        () ->
+                                new UnknownValue(
+                                        new byte[0],
+                                        format(
+                                                "Don't know how to map device channel type %s to"
+                                                        + " channel value",
+                                                type)));
     }
 
     public ChannelValue decode(final ChannelType channelType, final byte[] value) {
@@ -83,8 +86,10 @@ public final class ChannelTypeDecoder {
             case UNKNOWN:
                 return UnknownValue.UNKNOWN_VALUE;
             default:
-                val message = format("Don't know how to map channel type %s to channel value!",
-                    channelType);
+                val message =
+                        format(
+                                "Don't know how to map channel type %s to channel value!",
+                                channelType);
                 if (log.isDebugEnabled()) {
                     log.debug(message + " value={}", Arrays.toString(value));
                 }

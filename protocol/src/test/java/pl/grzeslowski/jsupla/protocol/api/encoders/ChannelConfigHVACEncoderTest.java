@@ -1,12 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ChannelConfigHVAC;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACTemperatureCfg;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChannelConfigHVACEncoderTest {
     private static final int AUX_THERMOMETER_CHANNEL_ID = 0x11223344;
@@ -26,8 +26,10 @@ public class ChannelConfigHVACEncoderTest {
 
         // then
         assertThat(PrimitiveDecoder.INSTANCE.parseInt(encoded, 0)).isEqualTo(0x01020304);
-        assertThat(PrimitiveDecoder.INSTANCE.parseInt(encoded, 4)).isEqualTo(AUX_THERMOMETER_CHANNEL_ID);
-        assertThat(PrimitiveDecoder.INSTANCE.parseInt(encoded, 8)).isEqualTo(BINARY_SENSOR_CHANNEL_ID);
+        assertThat(PrimitiveDecoder.INSTANCE.parseInt(encoded, 4))
+                .isEqualTo(AUX_THERMOMETER_CHANNEL_ID);
+        assertThat(PrimitiveDecoder.INSTANCE.parseInt(encoded, 8))
+                .isEqualTo(BINARY_SENSOR_CHANNEL_ID);
     }
 
     @Test
@@ -46,40 +48,41 @@ public class ChannelConfigHVACEncoderTest {
         assertThat(encoded[masterUnionOffset + 1]).isEqualTo((byte) 5);
     }
 
-    private ChannelConfigHVAC createConfig(Integer mainThermometerChannelId,
-                                           Short mainThermometerChannelNo,
-                                           Integer masterThermostatChannelId,
-                                           Short masterThermostatIsSet,
-                                           Short masterThermostatChannelNo) {
+    private ChannelConfigHVAC createConfig(
+            Integer mainThermometerChannelId,
+            Short mainThermometerChannelNo,
+            Integer masterThermostatChannelId,
+            Short masterThermostatIsSet,
+            Short masterThermostatChannelNo) {
         return new ChannelConfigHVAC(
-            mainThermometerChannelId,
-            mainThermometerChannelNo,
-            AUX_THERMOMETER_CHANNEL_ID,
-            null,
-            BINARY_SENSOR_CHANNEL_ID,
-            null,
-            (short) 2,
-            (short) 1,
-            4,
-            5,
-            6,
-            7,
-            (byte) 8,
-            (short) 9,
-            (short) 10,
-            (short) 11,
-            (short) 12,
-            HvacParameterFlags.builder().build(),
-            masterThermostatChannelId,
-            masterThermostatIsSet,
-            masterThermostatChannelNo,
-            HEAT_OR_COLD_SWITCH_CHANNEL_ID,
-            PUMP_SWITCH_CHANNEL_ID,
-            (short) 13,
-            (short) 14,
-            (short) 15,
-            (short) 16,
-            (short) 17,
-            new HVACTemperatureCfg(1, new short[24]));
+                mainThermometerChannelId,
+                mainThermometerChannelNo,
+                AUX_THERMOMETER_CHANNEL_ID,
+                null,
+                BINARY_SENSOR_CHANNEL_ID,
+                null,
+                (short) 2,
+                (short) 1,
+                4,
+                5,
+                6,
+                7,
+                (byte) 8,
+                (short) 9,
+                (short) 10,
+                (short) 11,
+                (short) 12,
+                HvacParameterFlags.builder().build(),
+                masterThermostatChannelId,
+                masterThermostatIsSet,
+                masterThermostatChannelNo,
+                HEAT_OR_COLD_SWITCH_CHANNEL_ID,
+                PUMP_SWITCH_CHANNEL_ID,
+                (short) 13,
+                (short) 14,
+                (short) 15,
+                (short) 16,
+                (short) 17,
+                new HVACTemperatureCfg(1, new short[24]));
     }
 }

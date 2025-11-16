@@ -1,11 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.common.randomizers.ds;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelB;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceC;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 public class SuplaRegisterDeviceCRandomizer implements Randomizer<SuplaRegisterDeviceC> {
     private final RandomSupla randomSupla;
@@ -17,17 +17,18 @@ public class SuplaRegisterDeviceCRandomizer implements Randomizer<SuplaRegisterD
     @Override
     public SuplaRegisterDeviceC getRandomValue() {
         final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
-        final SuplaDeviceChannelB[] channels = randomSupla.objects(SuplaDeviceChannelB.class, channelCount)
-            .toArray(SuplaDeviceChannelB[]::new);
+        final SuplaDeviceChannelB[] channels =
+                randomSupla
+                        .objects(SuplaDeviceChannelB.class, channelCount)
+                        .toArray(SuplaDeviceChannelB[]::new);
         return new SuplaRegisterDeviceC(
-            randomSupla.nextPositiveInt(),
-            randomSupla.nextByteArrayFromString(SUPLA_LOCATION_PWD_MAXSIZE),
-            randomSupla.nextByteArrayFromString(SUPLA_GUID_SIZE),
-            randomSupla.nextByteArrayFromString(SUPLA_DEVICE_NAME_MAXSIZE),
-            randomSupla.nextByteArrayFromString(SUPLA_SOFTVER_MAXSIZE),
-            randomSupla.nextByteArrayFromString(SUPLA_SERVER_NAME_MAXSIZE),
-            channelCount,
-            channels
-        );
+                randomSupla.nextPositiveInt(),
+                randomSupla.nextByteArrayFromString(SUPLA_LOCATION_PWD_MAXSIZE),
+                randomSupla.nextByteArrayFromString(SUPLA_GUID_SIZE),
+                randomSupla.nextByteArrayFromString(SUPLA_DEVICE_NAME_MAXSIZE),
+                randomSupla.nextByteArrayFromString(SUPLA_SOFTVER_MAXSIZE),
+                randomSupla.nextByteArrayFromString(SUPLA_SERVER_NAME_MAXSIZE),
+                channelCount,
+                channels);
     }
 }

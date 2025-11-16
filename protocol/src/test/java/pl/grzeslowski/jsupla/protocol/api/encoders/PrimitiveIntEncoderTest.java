@@ -1,16 +1,15 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
-import lombok.val;
-import org.junit.Test;
-import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
-
-import java.math.BigInteger;
-
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.LONG_SIZE;
+
+import java.math.BigInteger;
+import lombok.val;
+import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
 
 public class PrimitiveIntEncoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;

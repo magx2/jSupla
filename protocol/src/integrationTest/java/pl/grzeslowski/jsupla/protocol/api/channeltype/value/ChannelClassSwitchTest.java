@@ -1,12 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.google.common.reflect.ClassPath;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(Parameterized.class)
 public class ChannelClassSwitchTest {
@@ -16,13 +15,13 @@ public class ChannelClassSwitchTest {
     @Parameterized.Parameters(name = "class = {0}")
     public static Object[][] data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
-            .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
-            .stream()
-            .map(ClassPath.ClassInfo::load)
-            .filter(clazz -> !clazz.isInterface())
-            .filter(ChannelValue.class::isAssignableFrom)
-            .map(clazz -> new Object[]{clazz})
-            .toArray(Object[][]::new);
+                .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
+                .stream()
+                .map(ClassPath.ClassInfo::load)
+                .filter(clazz -> !clazz.isInterface())
+                .filter(ChannelValue.class::isAssignableFrom)
+                .map(clazz -> new Object[] {clazz})
+                .toArray(Object[][]::new);
     }
 
     public ChannelClassSwitchTest(Class<? extends ChannelValue> clazz) {

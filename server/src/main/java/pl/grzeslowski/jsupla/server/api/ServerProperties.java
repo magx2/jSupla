@@ -1,16 +1,15 @@
 package pl.grzeslowski.jsupla.server.api;
 
-import jakarta.annotation.Nullable;
-import lombok.ToString;
-import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
-import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 
+import jakarta.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
+import lombok.ToString;
+import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
+import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
 
 @ToString
 public final class ServerProperties {
@@ -18,7 +17,8 @@ public final class ServerProperties {
 
     public static ServerProperties fromList(final List<Object> properties) {
         if (properties.size() % 2 != 0) {
-            throw new IllegalArgumentException("Size should be even! Actual size is " + properties.size());
+            throw new IllegalArgumentException(
+                    "Size should be even! Actual size is " + properties.size());
         }
         final Map<String, Object> map = new HashMap<>();
         for (int i = 0; i < properties.size() - 1; i += 2) {
@@ -26,9 +26,10 @@ public final class ServerProperties {
             final Object value = properties.get(i + 1);
             if (!(key instanceof String)) {
                 throw new IllegalArgumentException(
-                    format("All keys must be Strings! Key at index %s was not String! key = %s, class = %s",
-                        i, key, key.getClass().getSimpleName())
-                );
+                        format(
+                                "All keys must be Strings! Key at index %s was not String! key ="
+                                        + " %s, class = %s",
+                                i, key, key.getClass().getSimpleName()));
             }
             map.put((String) key, value);
         }
@@ -53,7 +54,8 @@ public final class ServerProperties {
      * @throws PropertyCastException      when cannot cast property to given class
      * @throws PropertyNotExistsException when there is no property with given name
      */
-    public <T> T getProperty(String name, Class<T> clazz) throws PropertyCastException, PropertyNotExistsException {
+    public <T> T getProperty(String name, Class<T> clazz)
+            throws PropertyCastException, PropertyNotExistsException {
         Object o = properties.get(name);
         if (o == null) {
             throw new PropertyNotExistsException(name);
@@ -75,8 +77,8 @@ public final class ServerProperties {
      * @throws PropertyCastException      when cannot cast property to given class
      * @throws PropertyNotExistsException when there is no property with given name
      */
-    @Nullable
-    public <T> T getPropertyOrNull(String name, Class<T> clazz) throws PropertyCastException, PropertyNotExistsException {
+    @Nullable public <T> T getPropertyOrNull(String name, Class<T> clazz)
+            throws PropertyCastException, PropertyNotExistsException {
         Object o = properties.get(name);
         if (o == null) {
             return null;

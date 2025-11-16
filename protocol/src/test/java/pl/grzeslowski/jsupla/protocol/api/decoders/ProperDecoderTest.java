@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import org.junit.Test;
-import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
-
 import static java.util.Arrays.copyOfRange;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
+
+import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 public abstract class ProperDecoderTest<T extends ProtoWithSize> {
     public abstract ProtoWithSizeDecoder<T> getDecoder();
@@ -41,7 +41,8 @@ public abstract class ProperDecoderTest<T extends ProtoWithSize> {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset()
+            throws Exception {
 
         // given
         final byte[] original = givenParseEntity(1);

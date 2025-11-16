@@ -1,14 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
 public class PrimitiveDecoderImplParametrizedTestForByte {
@@ -18,18 +17,20 @@ public class PrimitiveDecoderImplParametrizedTestForByte {
 
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-            {new byte[]{0}, 0, (byte) 0},
-            {new byte[]{127}, 0, Byte.MAX_VALUE},
-            {new byte[]{-128}, 0, Byte.MIN_VALUE},
-            {new byte[]{-86}, 0, (byte) -86}, // 10101010
-            {new byte[]{-16}, 0, (byte) -16}, // 11110000
-            {new byte[]{85}, 0, (byte) 85}, // 01010101
-            {new byte[]{15}, 0, (byte) 15} // 00001111
-        });
+        return Arrays.asList(
+                new Object[][] {
+                    {new byte[] {0}, 0, (byte) 0},
+                    {new byte[] {127}, 0, Byte.MAX_VALUE},
+                    {new byte[] {-128}, 0, Byte.MIN_VALUE},
+                    {new byte[] {-86}, 0, (byte) -86}, // 10101010
+                    {new byte[] {-16}, 0, (byte) -16}, // 11110000
+                    {new byte[] {85}, 0, (byte) 85}, // 01010101
+                    {new byte[] {15}, 0, (byte) 15} // 00001111
+                });
     }
 
-    public PrimitiveDecoderImplParametrizedTestForByte(final byte[] intBytes, final int offset, final byte byteValue) {
+    public PrimitiveDecoderImplParametrizedTestForByte(
+            final byte[] intBytes, final int offset, final byte byteValue) {
         this.intBytes = intBytes;
         this.offset = offset;
         this.byteValue = byteValue;

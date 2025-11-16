@@ -1,7 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.common;
 
+import static java.lang.System.arraycopy;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.min;
+
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
+import java.util.Arrays;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
@@ -29,84 +35,126 @@ import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaGetVersionResu
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaSetActivityTimeoutResultRandomizer;
 import pl.grzeslowski.jsupla.protocol.common.randomizers.sdc.SuplaVersionErrorRandomizer;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
-import static java.lang.System.arraycopy;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static pl.grzeslowski.jsupla.protocol.api.Preconditions.min;
-
 public class RandomSupla extends EnhancedRandom {
     public static final RandomSupla RANDOM_SUPLA = new RandomSupla(1337);
     private static final long serialVersionUID = 1L;
+
     @SuppressWarnings("FieldCanBeLocal")
     private final Logger logger = LoggerFactory.getLogger(RandomSupla.class);
+
     private final EnhancedRandom random;
 
     private RandomSupla(final long seed) {
         logger.info("Starting RandomSupla with seed {}.", seed);
-        random = EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
-            .objectPoolSize(1_000)
-            .seed(seed)
-            // cs
-            .randomize(SuplaChannelNewValueB.class, new SuplaChannelNewValueBRandomizer(this))
-            .randomize(SuplaChannelNewValue.class, new SuplaChannelNewValueRandomizer(this))
-            .randomize(SuplaRegisterClientB.class, new SuplaRegisterClientBRandomizer(this))
-            .randomize(SuplaRegisterClient.class, new SuplaRegisterClientRandomizer(this))
-            .randomize(SuplaRegisterClientC.class, new SuplaRegisterClientCRandomizer(this))
-            .randomize(SuplaNewValue.class, new SuplaNewValueRandomizer(this))
-            // dcs
-            .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
-            .randomize(SuplaSetActivityTimeout.class, new SuplaSetActivityTimeoutRandomizer(this))
-            // decoders
-            .randomize(FirmwareUpdateParams.class, new FirmwareUpdateParamsRandomizer(this))
-            .randomize(SuplaChannelNewValueResult.class, new SuplaChannelNewValueResultRandomizer(this))
-            .randomize(SuplaDeviceChannelB.class, new SuplaDeviceChannelBRandomizer(this))
-            .randomize(SuplaDeviceChannel.class, new SuplaDeviceChannelRandomizer(this))
-            .randomize(SuplaDeviceChannelValue.class, new SuplaDeviceChannelValueRandomizer(this))
-            .randomize(SuplaRegisterDeviceB.class, new SuplaRegisterDeviceBRandomizer(this))
-            .randomize(SuplaRegisterDeviceC.class, new SuplaRegisterDeviceCRandomizer(this))
-            .randomize(SuplaRegisterDeviceD.class, new SuplaRegisterDeviceDRandomizer(this))
-            .randomize(SuplaRegisterDevice.class, new SuplaRegisterDeviceRandomizer(this))
-            // sc
-            .randomize(SuplaChannelPack.class, new SuplaChannelPackRandomizer(this))
-            .randomize(SuplaChannel.class, new SuplaChannelRandomizer(this))
-            .randomize(SuplaChannelB.class, new SuplaChannelBRandomizer(this))
-            .randomize(SuplaChannelValue.class, new SuplaChannelValueRandomizer(this))
-            .randomize(SuplaEvent.class, new SuplaEventRandomizer(this))
-            .randomize(SuplaLocationPack.class, new SuplaLocationPackRandomizer(this))
-            .randomize(SuplaLocation.class, new SuplaLocationRandomizer(this))
-            .randomize(SuplaRegisterClientResult.class, new SuplaRegisterClientResultRandomizer(this))
-            .randomize(SuplaChannelGroupRelation.class, new SuplaChannelGroupRelationRandomizer(this))
-            .randomize(SuplaRegisterClientResultB.class, new SuplaRegisterClientResultBRandomizer(this))
-            .randomize(SuplaChannelGroupRelationPack.class, new SuplaChannelGroupRelationPackRandomizer(this))
-            .randomize(SuplaChannelValuePack.class, new SuplaChannelValuePackRandomizer(this))
-            .randomize(SuplaChannelGroup.class, new SuplaChannelGroupRandomizer(this))
-            .randomize(SuplaChannelPackB.class, new SuplaChannelPackBRandomizer(this))
-            // sd
-            .randomize(FirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
-            .randomize(FirmwareUpdateUrlResult.class, new FirmwareUpdateUrlResultRandomizer(this))
-            // @formatter:off
-                     .randomize(pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue.class,
-                             new pl.grzeslowski.jsupla.protocol.common.randomizers.sd
-                                         .SuplaChannelNewValueRandomizer(this))
-                     // @formatter:on
-            .randomize(SuplaRegisterDeviceResult.class, new SuplaRegisterDeviceResultRandomizer(this))
-            // sdc
-            .randomize(SuplaGetVersionResult.class, new SuplaGetVersionResultRandomizer(this))
-//            .randomize(SuplaPingServerResultClient.class, new SuplaPingServerResultClientRandomizer(this))
-            .randomize(SuplaSetActivityTimeoutResult.class,
-                new SuplaSetActivityTimeoutResultRandomizer(this))
-            .randomize(SuplaVersionError.class, new SuplaVersionErrorRandomizer(this))
-            // common
-            // @formatter:off
-                     .randomize(pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
-                             new pl.grzeslowski.jsupla.protocol.common.randomizers.SuplaChannelValueRandomizer(
-                                     this))
-                     // @formatter:on
-            .randomize(SuplaDataPacket.class, new SuplaDataPacketRandomizer(this))
-            //build
-            .build();
+        random =
+                EnhancedRandomBuilder.aNewEnhancedRandomBuilder()
+                        .objectPoolSize(1_000)
+                        .seed(seed)
+                        // cs
+                        .randomize(
+                                SuplaChannelNewValueB.class,
+                                new SuplaChannelNewValueBRandomizer(this))
+                        .randomize(
+                                SuplaChannelNewValue.class,
+                                new SuplaChannelNewValueRandomizer(this))
+                        .randomize(
+                                SuplaRegisterClientB.class,
+                                new SuplaRegisterClientBRandomizer(this))
+                        .randomize(
+                                SuplaRegisterClient.class, new SuplaRegisterClientRandomizer(this))
+                        .randomize(
+                                SuplaRegisterClientC.class,
+                                new SuplaRegisterClientCRandomizer(this))
+                        .randomize(SuplaNewValue.class, new SuplaNewValueRandomizer(this))
+                        // dcs
+                        .randomize(SuplaPingServer.class, new SuplaPingServerRandomizer(this))
+                        .randomize(
+                                SuplaSetActivityTimeout.class,
+                                new SuplaSetActivityTimeoutRandomizer(this))
+                        // decoders
+                        .randomize(
+                                FirmwareUpdateParams.class,
+                                new FirmwareUpdateParamsRandomizer(this))
+                        .randomize(
+                                SuplaChannelNewValueResult.class,
+                                new SuplaChannelNewValueResultRandomizer(this))
+                        .randomize(
+                                SuplaDeviceChannelB.class, new SuplaDeviceChannelBRandomizer(this))
+                        .randomize(SuplaDeviceChannel.class, new SuplaDeviceChannelRandomizer(this))
+                        .randomize(
+                                SuplaDeviceChannelValue.class,
+                                new SuplaDeviceChannelValueRandomizer(this))
+                        .randomize(
+                                SuplaRegisterDeviceB.class,
+                                new SuplaRegisterDeviceBRandomizer(this))
+                        .randomize(
+                                SuplaRegisterDeviceC.class,
+                                new SuplaRegisterDeviceCRandomizer(this))
+                        .randomize(
+                                SuplaRegisterDeviceD.class,
+                                new SuplaRegisterDeviceDRandomizer(this))
+                        .randomize(
+                                SuplaRegisterDevice.class, new SuplaRegisterDeviceRandomizer(this))
+                        // sc
+                        .randomize(SuplaChannelPack.class, new SuplaChannelPackRandomizer(this))
+                        .randomize(SuplaChannel.class, new SuplaChannelRandomizer(this))
+                        .randomize(SuplaChannelB.class, new SuplaChannelBRandomizer(this))
+                        .randomize(SuplaChannelValue.class, new SuplaChannelValueRandomizer(this))
+                        .randomize(SuplaEvent.class, new SuplaEventRandomizer(this))
+                        .randomize(SuplaLocationPack.class, new SuplaLocationPackRandomizer(this))
+                        .randomize(SuplaLocation.class, new SuplaLocationRandomizer(this))
+                        .randomize(
+                                SuplaRegisterClientResult.class,
+                                new SuplaRegisterClientResultRandomizer(this))
+                        .randomize(
+                                SuplaChannelGroupRelation.class,
+                                new SuplaChannelGroupRelationRandomizer(this))
+                        .randomize(
+                                SuplaRegisterClientResultB.class,
+                                new SuplaRegisterClientResultBRandomizer(this))
+                        .randomize(
+                                SuplaChannelGroupRelationPack.class,
+                                new SuplaChannelGroupRelationPackRandomizer(this))
+                        .randomize(
+                                SuplaChannelValuePack.class,
+                                new SuplaChannelValuePackRandomizer(this))
+                        .randomize(SuplaChannelGroup.class, new SuplaChannelGroupRandomizer(this))
+                        .randomize(SuplaChannelPackB.class, new SuplaChannelPackBRandomizer(this))
+                        // sd
+                        .randomize(FirmwareUpdateUrl.class, new FirmwareUpdateUrlRandomizer(this))
+                        .randomize(
+                                FirmwareUpdateUrlResult.class,
+                                new FirmwareUpdateUrlResultRandomizer(this))
+                        // @formatter:off
+                        .randomize(
+                                pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue
+                                        .class,
+                                new pl.grzeslowski.jsupla.protocol.common.randomizers.sd
+                                        .SuplaChannelNewValueRandomizer(this))
+                        // @formatter:on
+                        .randomize(
+                                SuplaRegisterDeviceResult.class,
+                                new SuplaRegisterDeviceResultRandomizer(this))
+                        // sdc
+                        .randomize(
+                                SuplaGetVersionResult.class,
+                                new SuplaGetVersionResultRandomizer(this))
+                        //            .randomize(SuplaPingServerResultClient.class, new
+                        // SuplaPingServerResultClientRandomizer(this))
+                        .randomize(
+                                SuplaSetActivityTimeoutResult.class,
+                                new SuplaSetActivityTimeoutResultRandomizer(this))
+                        .randomize(SuplaVersionError.class, new SuplaVersionErrorRandomizer(this))
+                        // common
+                        // @formatter:off
+                        .randomize(
+                                pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class,
+                                new pl.grzeslowski.jsupla.protocol.common.randomizers
+                                        .SuplaChannelValueRandomizer(this))
+                        // @formatter:on
+                        .randomize(SuplaDataPacket.class, new SuplaDataPacketRandomizer(this))
+                        // build
+                        .build();
     }
 
     @Override
@@ -115,7 +163,8 @@ public class RandomSupla extends EnhancedRandom {
     }
 
     @Override
-    public <T> Stream<T> objects(final Class<T> type, final int amount, final String... excludedFields) {
+    public <T> Stream<T> objects(
+            final Class<T> type, final int amount, final String... excludedFields) {
         return random.objects(type, amount, excludedFields);
     }
 
@@ -136,7 +185,8 @@ public class RandomSupla extends EnhancedRandom {
                 return bytes;
             }
         }
-        throw new IllegalStateException("Cann not generate nextByteArrayFromString(" + byteSize + ")");
+        throw new IllegalStateException(
+                "Cann not generate nextByteArrayFromString(" + byteSize + ")");
     }
 
     public byte[] nextByteArrayWithoutZerosOnEnd(int maxByteSize) {

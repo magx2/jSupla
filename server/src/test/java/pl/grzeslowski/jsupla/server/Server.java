@@ -1,8 +1,17 @@
 package pl.grzeslowski.jsupla.server;
 
+import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
+import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
+import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
+
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+import java.security.cert.CertificateException;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import javax.net.ssl.SSLException;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +32,6 @@ import pl.grzeslowski.jsupla.server.api.ServerProperties;
 import pl.grzeslowski.jsupla.server.api.Writer;
 import pl.grzeslowski.jsupla.server.netty.NettyServerFactory;
 
-import javax.net.ssl.SSLException;
-import java.security.cert.CertificateException;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
-import static pl.grzeslowski.jsupla.protocol.api.ResultCode.SUPLA_RESULTCODE_TRUE;
-import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.PORT;
-import static pl.grzeslowski.jsupla.server.netty.NettyServerFactory.SSL_CTX;
-
 public class Server {
     private final Logger logger = LoggerFactory.getLogger(Server.class);
     private static final int PROPER_AES_KEY_SIZE = 2147483647;
@@ -47,38 +46,40 @@ public class Server {
         int maxKeySize = javax.crypto.Cipher.getMaxAllowedKeyLength("AES");
         if (maxKeySize < PROPER_AES_KEY_SIZE) {
             logger.warn(
-                "AES key size is too small, {} < {}! Probably you need to enable unlimited crypto",
-                maxKeySize,
-                PROPER_AES_KEY_SIZE);
+                    "AES key size is too small, {} < {}! Probably you need to enable unlimited"
+                            + " crypto",
+                    maxKeySize,
+                    PROPER_AES_KEY_SIZE);
         }
 
         final ServerFactory factory = buildServerFactory();
-        pl.grzeslowski.jsupla.server.api.Server server = factory.createNewServer(
-            buildServerProperties(),
-            (socketChannel) -> new MessageHandler() {
-                Writer writer;
+        pl.grzeslowski.jsupla.server.api.Server server =
+                factory.createNewServer(
+                        buildServerProperties(),
+                        (socketChannel) ->
+                                new MessageHandler() {
+                                    Writer writer;
 
-                @Override
-                public void handle(ToServerProto toServerProto) {
-                    Server.this.newMessage(toServerProto)
-                        .ifPresent(proto -> writer.write(proto));
-                }
+                                    @Override
+                                    public void handle(ToServerProto toServerProto) {
+                                        Server.this
+                                                .newMessage(toServerProto)
+                                                .ifPresent(proto -> writer.write(proto));
+                                    }
 
-                @Override
-                public void active(Writer writer) {
-                    this.writer = writer;
-                }
+                                    @Override
+                                    public void active(Writer writer) {
+                                        this.writer = writer;
+                                    }
 
-                @Override
-                public void inactive() {
+                                    @Override
+                                    public void inactive() {}
 
-                }
-
-                @Override
-                public void socketException(Throwable exception) {
-                    logger.warn("Socket exception", exception);
-                }
-            });
+                                    @Override
+                                    public void socketException(Throwable exception) {
+                                        logger.warn("Socket exception", exception);
+                                    }
+                                });
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
@@ -91,25 +92,41 @@ public class Server {
 
         if (toServerEntity instanceof SuplaRegisterDevice) {
             val register = (SuplaRegisterDevice) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaRegisterDeviceB) {
             val register = (SuplaRegisterDeviceB) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaRegisterDeviceC) {
             val register = (SuplaRegisterDeviceC) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaRegisterDeviceD) {
             val register = (SuplaRegisterDeviceD) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaRegisterDeviceE) {
             val register = (SuplaRegisterDeviceE) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaRegisterDeviceF) {
             val register = (SuplaRegisterDeviceF) toServerEntity;
-            result = new SuplaRegisterDeviceResult(SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
+            result =
+                    new SuplaRegisterDeviceResult(
+                            SUPLA_RESULTCODE_TRUE.getValue(), (byte) 100, (byte) 5, (byte) 1);
         } else if (toServerEntity instanceof SuplaSetActivityTimeout) {
             val setTimout = (SuplaSetActivityTimeout) toServerEntity;
-            result = new SuplaSetActivityTimeoutResult(setTimout.activityTimeout, (short) (setTimout.activityTimeout - 2), (short) (setTimout.activityTimeout + 2));
+            result =
+                    new SuplaSetActivityTimeoutResult(
+                            setTimout.activityTimeout,
+                            (short) (setTimout.activityTimeout - 2),
+                            (short) (setTimout.activityTimeout + 2));
         } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
             result = null;
         } else if (toServerEntity instanceof SuplaPingServer) {
@@ -125,9 +142,7 @@ public class Server {
 
     private ServerFactory buildServerFactory() {
         return new NettyServerFactory(
-            CallTypeParser.INSTANCE,
-            DecoderFactoryImpl.INSTANCE,
-            EncoderFactoryImpl.INSTANCE);
+                CallTypeParser.INSTANCE, DecoderFactoryImpl.INSTANCE, EncoderFactoryImpl.INSTANCE);
     }
 
     private ServerProperties buildServerProperties() throws CertificateException, SSLException {
@@ -137,7 +152,7 @@ public class Server {
     private SslContext buildSslContext() throws CertificateException, SSLException {
         SelfSignedCertificate ssc = new SelfSignedCertificate();
         return SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
-            .protocols("TLSv1.3", "TLSv1.2", "TLSv1")
-            .build();
+                .protocols("TLSv1.3", "TLSv1.2", "TLSv1")
+                .build();
     }
 }
