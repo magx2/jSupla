@@ -184,26 +184,6 @@ prodProjects { p->
 	signing {
 		sign publishing.publications.mavenJava
 	}
-
-	apply plugin: 'com.diffplug.spotless'
-	spotless {
-		java {
-			// don't need to set target, it is inferred from java
-
-			// apply a specific flavor of google-java-format
-			googleJavaFormat('1.27.0').aosp().reflowLongStrings().skipJavadocFormatting()
-			// fix formatting of type annotations
-			formatAnnotations()
-		}
-	}
-
-	def formatTask = "${p.name.toLowerCase()}Format"
-	tasks.register(formatTask) {
-		group = "formatting"
-		description = "Formats ${p.name.toLowerCase()} the code."
-		dependsOn tasks.named("spotlessApply")
-	}
-	tasks.compileJava.dependsOn formatTask
 }
 
 spotless {

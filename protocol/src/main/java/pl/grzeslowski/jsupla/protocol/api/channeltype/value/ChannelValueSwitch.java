@@ -12,15 +12,17 @@ public final class ChannelValueSwitch<T> {
     public T doSwitch(ChannelValue channelValue) {
         return switch (channelValue) {
             case DecimalValue decimalValue -> callback.onDecimalValue(decimalValue);
-            case ElectricityMeterValue electricityMeterValue -> callback.onElectricityMeter(electricityMeterValue);
+            case ElectricityMeterValue electricityMeterValue ->
+                    callback.onElectricityMeter(electricityMeterValue);
             case HvacValue hvacValue -> callback.onHvacValue(hvacValue);
             case OnOff onOff -> callback.onOnOff(onOff);
             case OpenClose openClose -> callback.onOpenClose(openClose);
             case PercentValue percentValue -> callback.onPercentValue(percentValue);
             case RgbValue rgbValue -> callback.onRgbValue(rgbValue);
-            case StoppableOpenClose stoppableOpenClose -> callback.onStoppableOpenClose(stoppableOpenClose);
+            case StoppableOpenClose stoppableOpenClose ->
+                    callback.onStoppableOpenClose(stoppableOpenClose);
             case TemperatureAndHumidityValue temperatureAndHumidityValue ->
-                callback.onTemperatureAndHumidityValue(temperatureAndHumidityValue);
+                    callback.onTemperatureAndHumidityValue(temperatureAndHumidityValue);
             case TemperatureValue temperatureValue -> callback.onTemperatureValue(temperatureValue);
             case TimerValue timerValue -> callback.onTimerValue(timerValue);
             case UnknownValue unknownValue -> callback.onUnknownValue(unknownValue);

@@ -6,7 +6,8 @@ import java.math.BigDecimal;
  * @param temperature
  * @param humidity
  */
-public record TemperatureAndHumidityValue(BigDecimal temperature, BigDecimal humidity) implements ChannelValue {
+public record TemperatureAndHumidityValue(BigDecimal temperature, BigDecimal humidity)
+        implements ChannelValue {
     public TemperatureAndHumidityValue(final int temperature, final int humidity) {
         this(new BigDecimal(temperature), new BigDecimal(humidity));
     }

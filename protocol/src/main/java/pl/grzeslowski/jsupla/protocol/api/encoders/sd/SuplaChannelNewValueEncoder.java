@@ -24,7 +24,8 @@ public class SuplaChannelNewValueEncoder
         if (proto.durationMS() != null) {
             offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationMS(), bytes, offset);
         } else {
-            offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationSec(), bytes, offset);
+            offset +=
+                    PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationSec(), bytes, offset);
         }
 
         offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.value(), bytes, offset);

@@ -1,3 +1,7 @@
+plugins {
+	id("com.diffplug.spotless") version "7.0.4"
+}
+
 ext.staticArraySize = [
 	'TimerStateExtendedValue'
 ]
@@ -9,6 +13,18 @@ apply from: 'decoders.gradle'
 apply from: 'encoders.gradle'
 apply from: 'download.gradle'
 
+spotless {
+	//noinspection GroovyAssignabilityCheck
+	lineEndings 'UNIX' // This means LF line endings
+	java {
+		// apply a specific flavor of google-java-format
+		googleJavaFormat('1.27.0').aosp().reflowLongStrings().skipJavadocFormatting()
+		// fix formatting of type annotations
+		formatAnnotations()
+	}
+}
+
+tasks.compileJava.dependsOn 'spotlessApply'
 tasks.spotlessJava.dependsOn 'encodersGenerator'
 tasks.spotlessJava.dependsOn 'decodersGenerator'
 tasks.spotlessJava.dependsOn 'callTypesGenerator'
