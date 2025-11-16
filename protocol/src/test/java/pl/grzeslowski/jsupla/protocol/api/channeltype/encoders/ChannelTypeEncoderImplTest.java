@@ -1,0 +1,159 @@
+package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.math.BigDecimal;
+import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.DecimalValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.StoppableOpenClose;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
+
+public class ChannelTypeEncoderImplTest {
+    private final RecordingColorEncoder colorEncoder = new RecordingColorEncoder();
+    private final RecordingRelayEncoder relayEncoder = new RecordingRelayEncoder();
+    private final RecordingThermometerEncoder thermometerEncoder =
+            new RecordingThermometerEncoder();
+    private final RecordingStoppableEncoder stoppableEncoder = new RecordingStoppableEncoder();
+    private final RecordingElectricityEncoder electricityMeterEncoder =
+            new RecordingElectricityEncoder();
+    private final RecordingHvacEncoder hvacEncoder = new RecordingHvacEncoder();
+
+    private final ChannelTypeEncoderImpl encoder =
+            new ChannelTypeEncoderImpl(
+                    colorEncoder,
+                    relayEncoder,
+                    thermometerEncoder,
+                    stoppableEncoder,
+                    electricityMeterEncoder,
+                    hvacEncoder);
+
+    @Test
+    public void shouldEncodeOnOffUsingRelayEncoder() {
+        byte[] result = encoder.encode(OnOff.ON);
+
+        assertThat(result).isEqualTo(RecordingRelayEncoder.RESPONSE);
+        assertThat(relayEncoder.captured).isEqualTo(OnOff.ON);
+    }
+
+    @Test
+    public void shouldEncodeRgbUsingColorEncoder() {
+        RgbValue value = new RgbValue((short) 1, (short) 2, (short) 3, (short) 4, (short) 5);
+
+        assertThat(encoder.encode(value)).isEqualTo(RecordingColorEncoder.RESPONSE);
+        assertThat(colorEncoder.captured).isEqualTo(value);
+    }
+
+    @Test
+    public void shouldEncodeTemperatureUsingThermometerEncoder() {
+        TemperatureValue value = new TemperatureValue(BigDecimal.ONE);
+
+        assertThat(encoder.encode(value)).isEqualTo(RecordingThermometerEncoder.RESPONSE);
+        assertThat(thermometerEncoder.temperature).isEqualTo(value);
+    }
+
+    @Test
+    public void shouldEncodeStoppableOpenClose() {
+        assertThat(encoder.encode(StoppableOpenClose.CLOSE))
+                .isEqualTo(RecordingStoppableEncoder.RESPONSE);
+        assertThat(stoppableEncoder.captured).isEqualTo(StoppableOpenClose.CLOSE);
+    }
+
+    @Test
+    public void shouldEncodeElectricityMeterValues() {
+        ElectricityMeterValue value = ElectricityMeterValue.builder().build();
+
+        assertThat(encoder.encode(value)).isEqualTo(RecordingElectricityEncoder.RESPONSE);
+        assertThat(electricityMeterEncoder.captured).isEqualTo(value);
+    }
+
+    @Test
+    public void shouldEncodeHvacValue() {
+        HvacValue value =
+                new HvacValue(
+                        true,
+                        HvacValue.Mode.HEAT,
+                        20.0,
+                        25.0,
+                        HvacValue.Flags.builder().setPointTempHeatSet(true).build());
+
+        assertThat(encoder.encode(value)).isEqualTo(RecordingHvacEncoder.RESPONSE);
+        assertThat(hvacEncoder.captured).isEqualTo(value);
+    }
+
+    @Test
+    public void shouldFailWhenDecimalValueIsProvided() {
+        assertThatThrownBy(() -> encoder.encode(new DecimalValue(BigDecimal.ONE)))
+                .isInstanceOf(UnsupportedOperationException.class);
+    }
+
+    private static class RecordingColorEncoder extends ColorTypeChannelEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {7};
+        RgbValue captured;
+
+        @Override
+        public byte[] encode(RgbValue rgbValue) {
+            captured = rgbValue;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingRelayEncoder extends RelayTypeChannelEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {1, 2};
+        OnOff captured;
+
+        @Override
+        public byte[] encode(OnOff onOff) {
+            captured = onOff;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingThermometerEncoder extends ThermometerTypeChannelEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {3};
+        TemperatureValue temperature;
+
+        @Override
+        public byte[] encode(TemperatureValue temperatureValue) {
+            this.temperature = temperatureValue;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingStoppableEncoder extends StoppableOpenCloseEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {5};
+        StoppableOpenClose captured;
+
+        @Override
+        public byte[] encode(StoppableOpenClose stoppableOpenClose) {
+            captured = stoppableOpenClose;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingElectricityEncoder extends ElectricityMeterEncoder {
+        static final byte[] RESPONSE = new byte[] {8};
+        ElectricityMeterValue captured;
+
+        @Override
+        public byte[] encode(ElectricityMeterValue proto) {
+            captured = proto;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingHvacEncoder extends HvacChannelEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {9};
+        HvacValue captured;
+
+        @Override
+        public byte[] encode(HvacValue value) {
+            captured = value;
+            return RESPONSE;
+        }
+    }
+}

@@ -39,4 +39,18 @@ public class HVACValueDecoderImplTest {
         assertThat(flags.isWeeklyScheduleTemporalOverride()).isFalse();
         assertThat(flags.isBatteryCoverOpen()).isFalse();
     }
+
+    @Test
+    public void shouldReturnNullSetPointsWhenFlagsNotSet() {
+        // given
+        val data = new byte[] {1, 3, 0, 0, 0, 0, 0, 0};
+
+        // when
+        val decode = decoder.decode(data);
+
+        // then
+        assertThat(decode.isOn()).isTrue();
+        assertThat(decode.getSetPointTemperatureHeat()).isNull();
+        assertThat(decode.getSetPointTemperatureCool()).isNull();
+    }
 }

@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.LONG_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import lombok.val;
@@ -35,10 +36,10 @@ public class SuplaDeviceChannelDDecoder implements DeviceServerDecoder<SuplaDevi
         offset += INT_SIZE;
 
         val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
-        offset += INT_SIZE;
+        offset += LONG_SIZE;
 
         val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += INT_SIZE;
+        offset += BYTE_SIZE;
 
         val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
@@ -53,7 +54,7 @@ public class SuplaDeviceChannelDDecoder implements DeviceServerDecoder<SuplaDevi
         // end union 2
 
         val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += INT_SIZE;
+        offset += BYTE_SIZE;
 
         return new SuplaDeviceChannelD(
                 number,
