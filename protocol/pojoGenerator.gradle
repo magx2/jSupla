@@ -27,6 +27,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		"import pl.grzeslowski.jsupla.protocol.api.structs.*",
 	])
 	def javaDoc = buildJavaDoc(struct)
+	def constructorAssignments = buildConstructorAssignments(struct)
 	def properties = buildProperties(struct)
 	def implementClass = findImplementClass(struct)
 	def callType = findCallType(struct)
@@ -48,6 +49,9 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		|public record ${javaName}($properties) implements ${implementClass} {
 		|	${staticSize}
 		|	
+		|	public ${javaName} {
+		|		${constructorAssignments}
+		|	}
 		|	$callType	
 		|
 		|	@Override
@@ -141,6 +145,48 @@ static String buildJavaDoc(struct) {
 		}
 		.collect(Collectors.joining("\n * ", "\n * ", "\n"))
 	return javaDoc + "*/"
+}
+
+static String buildConstructorAssignments(struct) {
+	struct.fields
+		.stream()
+		.flatMap { field ->
+			if (field.originalClassName == "SimpleField") {
+				return Stream.of(buildConstructorAssignment(field))
+			} else if (field.originalClassName == "UnionField") {
+				def assignments = field.fields.stream().map { buildConstructorAssignment(it) }
+				def union = field.fields
+					.stream()
+					.map { it.name }
+					.collect(Collectors.joining(", "))
+				//noinspection GroovyAssignabilityCheck
+				return Stream.concat(
+					assignments,
+					Stream.of("unionCheck($union);")
+				)
+			}
+		}
+		.filter { it !=null }
+		.collect(Collectors.joining("\n\t\t|\t\t"))
+}
+
+static String buildConstructorAssignment(field) {
+	def empty = true
+	def value = field.name
+	if (field.array) {
+		def size = "(int) ${field.arraySize}"
+		value = "checkArrayLength(${value}, $size)"
+		empty=false
+	}
+	if (field.unsigned) {
+		value = "unsigned(${value})"
+		empty=false
+	}
+	if (field.extraCheck) {
+		value = String.format(field.extraCheck, value)
+		empty=false
+	}
+	empty? null: 	"$value;"
 }
 
 static String mapSuplaTypeToJava(field) {
