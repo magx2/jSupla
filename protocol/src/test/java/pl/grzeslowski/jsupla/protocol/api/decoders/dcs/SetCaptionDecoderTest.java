@@ -25,9 +25,9 @@ public class SetCaptionDecoderTest {
 
         SetCaption result = decoder.decode(payload, 0);
 
-        assertThat(result.id).isEqualTo(id);
-        assertThat(result.channelNumber).isNull();
-        assertThat(result.captionSize).isEqualTo(caption.length);
-        assertThat(result.caption).containsExactly(caption);
+        assertThat(result.id()).isEqualTo(id);
+        assertThat(result.channelNumber()).isNull();
+        assertThat(result.captionSize()).isEqualTo(caption.length);
+        assertThat(result.caption()).containsExactly(caption);
     }
 }

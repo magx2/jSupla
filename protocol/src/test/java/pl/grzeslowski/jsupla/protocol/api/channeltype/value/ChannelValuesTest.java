@@ -14,12 +14,12 @@ import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 public class ChannelValuesTest {
     @Test
     public void decimalValueShouldExposeBigDecimal() {
-        assertThat(new DecimalValue("3.14").getValue()).isEqualTo(new BigDecimal("3.14"));
+        assertThat(new DecimalValue("3.14").value()).isEqualTo(new BigDecimal("3.14"));
     }
 
     @Test
     public void percentValueShouldValidateRange() {
-        assertThat(new PercentValue(25).getValue()).isEqualTo(25);
+        assertThat(new PercentValue(25).value()).isEqualTo(25);
         assertThatThrownBy(() -> new PercentValue(101))
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new PercentValue(-1)).isInstanceOf(IllegalArgumentException.class);
@@ -29,11 +29,11 @@ public class ChannelValuesTest {
     public void rgbValueShouldStoreUnsignedBytes() {
         RgbValue value = new RgbValue(255, 10, 20, 30, 40);
 
-        assertThat(value.getBrightness()).isEqualTo(255);
-        assertThat(value.getColorBrightness()).isEqualTo(10);
-        assertThat(value.getRed()).isEqualTo(20);
-        assertThat(value.getGreen()).isEqualTo(30);
-        assertThat(value.getBlue()).isEqualTo(40);
+        assertThat(value.brightness()).isEqualTo(255);
+        assertThat(value.colorBrightness()).isEqualTo(10);
+        assertThat(value.red()).isEqualTo(20);
+        assertThat(value.green()).isEqualTo(30);
+        assertThat(value.blue()).isEqualTo(40);
     }
 
     @Test
@@ -46,15 +46,15 @@ public class ChannelValuesTest {
 
     @Test
     public void temperatureValueShouldStoreBigDecimal() {
-        assertThat(new TemperatureValue("20.5").getTemperature()).isEqualTo(new BigDecimal("20.5"));
+        assertThat(new TemperatureValue("20.5").temperature()).isEqualTo(new BigDecimal("20.5"));
     }
 
     @Test
     public void temperatureAndHumidityValueShouldStoreTwoBigDecimals() {
         TemperatureAndHumidityValue value = new TemperatureAndHumidityValue("18.5", "61.2");
 
-        assertThat(value.getTemperature()).isEqualTo(new BigDecimal("18.5"));
-        assertThat(value.getHumidity()).isEqualTo(new BigDecimal("61.2"));
+        assertThat(value.temperature()).isEqualTo(new BigDecimal("18.5"));
+        assertThat(value.humidity()).isEqualTo(new BigDecimal("61.2"));
     }
 
     @Test
@@ -63,16 +63,16 @@ public class ChannelValuesTest {
         byte[] target = new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE];
         TimerValue timerValue = new TimerValue(remaining, target, 42, "sender");
 
-        assertThat(timerValue.getRemaining()).isEqualTo(remaining);
-        assertThat(timerValue.getTargetValue()).isEqualTo(target);
-        assertThat(timerValue.getSenderId()).isEqualTo(42);
-        assertThat(timerValue.getSenderName()).isEqualTo("sender");
+        assertThat(timerValue.remaining()).isEqualTo(remaining);
+        assertThat(timerValue.targetValue()).isEqualTo(target);
+        assertThat(timerValue.senderId()).isEqualTo(42);
+        assertThat(timerValue.senderName()).isEqualTo("sender");
     }
 
     @Test
     public void unknownValueConstantShouldBeEmpty() {
-        assertThat(UnknownValue.UNKNOWN_VALUE.getBytes()).isEmpty();
-        assertThat(UnknownValue.UNKNOWN_VALUE.getMessage()).isEqualTo("UNKNOWN_VALUE");
+        assertThat(UnknownValue.UNKNOWN_VALUE.bytes()).isEmpty();
+        assertThat(UnknownValue.UNKNOWN_VALUE.message()).isEqualTo("UNKNOWN_VALUE");
     }
 
     @Test
@@ -87,36 +87,34 @@ public class ChannelValuesTest {
     @Test
     public void electricityMeterValueBuilderShouldCaptureFields() {
         ElectricityMeterValue.Phase phase =
-                ElectricityMeterValue.Phase.builder()
-                        .totalForwardActiveEnergy(BigInteger.ONE)
-                        .totalReverseActiveEnergy(BigInteger.TWO)
-                        .totalForwardReactiveEnergy(BigInteger.TEN)
-                        .totalReverseReactiveEnergy(BigInteger.ZERO)
-                        .voltage(230.0)
-                        .current(5.5)
-                        .powerActive(100.0)
-                        .powerReactive(3.5)
-                        .powerApparent(110.0)
-                        .powerFactor(0.9)
-                        .phaseAngle(45.0)
-                        .frequency(50)
-                        .build();
+                new ElectricityMeterValue.Phase(
+                        BigInteger.ONE,
+                        BigInteger.TWO,
+                        BigInteger.TEN,
+                        BigInteger.ZERO,
+                        230.0,
+                        5.5,
+                        100.0,
+                        3.5,
+                        110.0,
+                        0.9,
+                        45.0,
+                        50);
 
         ElectricityMeterValue value =
-                ElectricityMeterValue.builder()
-                        .totalForwardActiveEnergyBalanced(BigInteger.valueOf(123))
-                        .totalReverseActiveEnergyBalanced(BigInteger.valueOf(321))
-                        .totalCost(new BigDecimal("12.34"))
-                        .pricePerUnit(BigDecimal.ONE)
-                        .currency(Currency.getInstance("USD"))
-                        .measuredValues(5)
-                        .period(60)
-                        .phases(Collections.singletonList(phase))
-                        .build();
+                new ElectricityMeterValue(
+                        BigInteger.valueOf(123),
+                        BigInteger.valueOf(321),
+                        new BigDecimal("12.34"),
+                        BigDecimal.ONE,
+                        Currency.getInstance("USD"),
+                        5,
+                        60,
+                        Collections.singletonList(phase));
 
-        assertThat(value.getTotalForwardActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(123));
-        assertThat(value.getPhases()).containsExactly(phase);
-        assertThat(value.getCurrency()).isEqualTo(Currency.getInstance("USD"));
+        assertThat(value.totalForwardActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(123));
+        assertThat(value.phases()).containsExactly(phase);
+        assertThat(value.currency()).isEqualTo(Currency.getInstance("USD"));
     }
 
     @Test
@@ -128,9 +126,9 @@ public class ChannelValuesTest {
 
         HvacValue.Flags flags = new HvacValue.Flags(mask);
 
-        assertThat(flags.isSetPointTempHeatSet()).isTrue();
-        assertThat(flags.isCooling()).isTrue();
-        assertThat(flags.isFanEnabled()).isTrue();
+        assertThat(flags.setPointTempHeatSet()).isTrue();
+        assertThat(flags.cooling()).isTrue();
+        assertThat(flags.fanEnabled()).isTrue();
         assertThat(flags.toInt()).isEqualTo(mask);
     }
 

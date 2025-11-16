@@ -49,8 +49,8 @@ public class HVACValueDecoderImplTest {
         val decode = decoder.decode(data);
 
         // then
-        assertThat(decode.isOn()).isTrue();
-        assertThat(decode.getSetPointTemperatureHeat()).isNull();
-        assertThat(decode.getSetPointTemperatureCool()).isNull();
+        assertThat(decode.on()).isTrue();
+        assertThat(decode.setPointTemperatureHeat()).isNull();
+        assertThat(decode.setPointTemperatureCool()).isNull();
     }
 }

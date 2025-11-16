@@ -26,7 +26,7 @@ public class ThermometerTypeChannelDecoderImplTest {
         // then
         assertThat(value).isInstanceOf(TemperatureValue.class);
         TemperatureValue temperature = (TemperatureValue) value;
-        assertThat(temperature.getTemperature()).isEqualByComparingTo(new BigDecimal("25.000"));
+        assertThat(temperature.temperature()).isEqualByComparingTo(new BigDecimal("25.000"));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class ThermometerTypeChannelDecoderImplTest {
         // then
         assertThat(value).isInstanceOf(TemperatureAndHumidityValue.class);
         TemperatureAndHumidityValue temperature = (TemperatureAndHumidityValue) value;
-        assertThat(temperature.getTemperature()).isEqualByComparingTo(new BigDecimal("-5.500"));
-        assertThat(temperature.getHumidity()).isEqualByComparingTo(new BigDecimal("55.000"));
+        assertThat(temperature.temperature()).isEqualByComparingTo(new BigDecimal("-5.500"));
+        assertThat(temperature.humidity()).isEqualByComparingTo(new BigDecimal("55.000"));
     }
 }

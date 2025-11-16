@@ -17,10 +17,10 @@ public class ColorTypeChannelDecoderImplTest {
         RgbValue value = decoder.decode(payload);
 
         // then
-        assertThat(value.getBrightness()).isEqualTo((short) 10);
-        assertThat(value.getColorBrightness()).isEqualTo((short) 20);
-        assertThat(value.getRed()).isEqualTo((short) 30);
-        assertThat(value.getGreen()).isEqualTo((short) 40);
-        assertThat(value.getBlue()).isEqualTo((short) 50);
+        assertThat(value.brightness()).isEqualTo((short) 10);
+        assertThat(value.colorBrightness()).isEqualTo((short) 20);
+        assertThat(value.red()).isEqualTo((short) 30);
+        assertThat(value.green()).isEqualTo((short) 40);
+        assertThat(value.blue()).isEqualTo((short) 50);
     }
 }

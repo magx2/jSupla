@@ -4,6 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.DecimalValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
@@ -65,7 +69,16 @@ public class ChannelTypeEncoderImplTest {
 
     @Test
     public void shouldEncodeElectricityMeterValues() {
-        ElectricityMeterValue value = ElectricityMeterValue.builder().build();
+        ElectricityMeterValue value =
+                new ElectricityMeterValue(
+                        BigInteger.valueOf(1),
+                        BigInteger.valueOf(2),
+                        BigDecimal.valueOf(3),
+                        BigDecimal.valueOf(4),
+                        Currency.getInstance(Locale.CANADA),
+                        5,
+                        6,
+                        List.of());
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingElectricityEncoder.RESPONSE);
         assertThat(electricityMeterEncoder.captured).isEqualTo(value);
@@ -79,7 +92,9 @@ public class ChannelTypeEncoderImplTest {
                         HvacValue.Mode.HEAT,
                         20.0,
                         25.0,
-                        HvacValue.Flags.builder().setPointTempHeatSet(true).build());
+                        new HvacValue.Flags(
+                                true, false, false, false, false, false, false, false, false, false,
+                                false, false, false));
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingHvacEncoder.RESPONSE);
         assertThat(hvacEncoder.captured).isEqualTo(value);

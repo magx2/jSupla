@@ -18,6 +18,6 @@ public class TimerSecChannelDecoderTest {
         TimerValue value = decoder.decode(payload);
 
         // then
-        assertThat(value.getRemaining()).isEqualTo(Duration.ofSeconds(12));
+        assertThat(value.remaining()).isEqualTo(Duration.ofSeconds(12));
     }
 }

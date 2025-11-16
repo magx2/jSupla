@@ -40,7 +40,7 @@ public class ChannelTypeDecoderTest {
         // then
         assertThat(value).isInstanceOf(TemperatureValue.class);
         TemperatureValue temperatureValue = (TemperatureValue) value;
-        assertThat(temperatureValue.getTemperature()).isEqualTo(BigDecimal.valueOf(-12.5));
+        assertThat(temperatureValue.temperature()).isEqualTo(BigDecimal.valueOf(-12.5));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ChannelTypeDecoderTest {
 
         // then
         assertThat(value).isInstanceOf(UnknownValue.class);
-        assertThat(((UnknownValue) value).getBytes()).isEmpty();
+        assertThat(((UnknownValue) value).bytes()).isEmpty();
     }
 
     @Test

@@ -47,15 +47,15 @@ public class SuplaDeviceChannelEDecoderTest {
 
         SuplaDeviceChannelE result = decoder.decode(payload, 0);
 
-        assertThat(result.number).isEqualTo(number);
-        assertThat(result.type).isEqualTo(type);
-        assertThat(result.funcList).isEqualTo(funcList);
-        assertThat(result.flags).isEqualTo(flags);
-        assertThat(result.hvacValue)
+        assertThat(result.number()).isEqualTo(number);
+        assertThat(result.type()).isEqualTo(type);
+        assertThat(result.funcList()).isEqualTo(funcList);
+        assertThat(result.flags()).isEqualTo(flags);
+        assertThat(result.hvacValue())
                 .isEqualTo(new HVACValue((short) 1, (short) 2, (short) 300, (short) 400, 3));
-        assertThat(result.value).isNull();
-        assertThat(result.defaultIcon).isEqualTo(defaultIcon);
-        assertThat(result.subDeviceId).isEqualTo(subDeviceId);
+        assertThat(result.value()).isNull();
+        assertThat(result.defaultIcon()).isEqualTo(defaultIcon);
+        assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 
     @Test
@@ -81,10 +81,10 @@ public class SuplaDeviceChannelEDecoderTest {
 
         SuplaDeviceChannelE result = decoder.decode(payload, 0);
 
-        assertThat(result.value).containsExactly(value);
-        assertThat(result.hvacValue).isNull();
-        assertThat(result.defaultIcon).isEqualTo(defaultIcon);
-        assertThat(result.subDeviceId).isEqualTo(subDeviceId);
+        assertThat(result.value()).containsExactly(value);
+        assertThat(result.hvacValue()).isNull();
+        assertThat(result.defaultIcon()).isEqualTo(defaultIcon);
+        assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 
     @Test
@@ -110,16 +110,7 @@ public class SuplaDeviceChannelEDecoderTest {
             short offline,
             long validity) {
         return ByteBuffer.allocate(
-                        1
-                                + 4
-                                + 4
-                                + 4
-                                + 8
-                                + 1
-                                + 4
-                                + (int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE
-                                + 1
-                                + 1)
+                        1 + 4 + 4 + 4 + 8 + 1 + 4 + ProtoConsts.SUPLA_CHANNELVALUE_SIZE + 1 + 1)
                 .order(ByteOrder.LITTLE_ENDIAN)
                 .put((byte) number)
                 .putInt(type)
