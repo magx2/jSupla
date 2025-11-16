@@ -22,7 +22,6 @@ public class ElectricityMeterV2DecoderImpl implements Decoder<ElectricityMeterVa
     public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     public static final BigDecimal ONE_THOUSAND = new BigDecimal(1_000);
     public static final int NUMBER_OF_PHASES = 3;
-    private static final BigInteger DIVIDER = new BigInteger("100" + "000");
 
     @Override
     public ElectricityMeterValue decode(byte[] bytes, int offset) {
@@ -49,10 +48,10 @@ public class ElectricityMeterV2DecoderImpl implements Decoder<ElectricityMeterVa
         log.debug("Mapping phase {} from parent {} and value {}", idx, parent, value);
         return new ElectricityMeterValue.Phase(
                 // from parent
-                parent.totalForwardActiveEnergy()[idx].divide(DIVIDER),
-                parent.totalReverseActiveEnergy()[idx].divide(DIVIDER),
-                parent.totalForwardReactiveEnergy()[idx].divide(DIVIDER),
-                parent.totalReverseReactiveEnergy()[idx].divide(DIVIDER),
+                parent.totalForwardActiveEnergy()[idx],
+                parent.totalReverseActiveEnergy()[idx],
+                parent.totalForwardReactiveEnergy()[idx],
+                parent.totalReverseReactiveEnergy()[idx],
                 // from value
                 value.voltage()[idx] * 0.01,
                 value.current()[idx] * 0.001,
