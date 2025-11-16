@@ -9,5 +9,6 @@ import pl.grzeslowski.jsupla.protocol.api.types.ToDeviceProto;
  * Structs send from server to device/client.
  */
 public interface ServerDeviceClient extends FromServerProto, ToDeviceProto, ToClientProto {
+    @Override
     ServerDeviceClientCallType callType();
 }
