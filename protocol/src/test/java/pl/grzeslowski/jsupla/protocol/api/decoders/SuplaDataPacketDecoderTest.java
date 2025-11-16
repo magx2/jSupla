@@ -29,10 +29,10 @@ public class SuplaDataPacketDecoderTest {
 
         SuplaDataPacket packet = decoder.decode(payload, 0);
 
-        assertThat(packet.version).isEqualTo(version);
-        assertThat(packet.rrId).isEqualTo(rrId);
-        assertThat(packet.callId).isEqualTo(callId);
-        assertThat(packet.dataSize).isEqualTo(data.length);
-        assertThat(packet.data).containsExactly(data);
+        assertThat(packet.version()).isEqualTo(version);
+        assertThat(packet.rrId()).isEqualTo(rrId);
+        assertThat(packet.callId()).isEqualTo(callId);
+        assertThat(packet.dataSize()).isEqualTo(data.length);
+        assertThat(packet.data()).containsExactly(data);
     }
 }

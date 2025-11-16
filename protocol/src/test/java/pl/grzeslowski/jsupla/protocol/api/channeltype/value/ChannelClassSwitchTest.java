@@ -1,7 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 
@@ -23,13 +22,6 @@ public class ChannelClassSwitchTest {
         assertDispatch(HvacValue.class, "hvac");
         assertDispatch(TimerValue.class, "timer");
         assertDispatch(UnknownValue.class, "unknown");
-    }
-
-    @Test
-    public void shouldFailForUnsupportedChannelValueClass() {
-        assertThatThrownBy(() -> channelSwitch.doSwitch(TestChannelValue.class))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining(TestChannelValue.class.getSimpleName());
     }
 
     private void assertDispatch(Class<? extends ChannelValue> valueClass, String expected) {
@@ -105,6 +97,4 @@ public class ChannelClassSwitchTest {
             return method;
         }
     }
-
-    private static final class TestChannelValue implements ChannelValue {}
 }

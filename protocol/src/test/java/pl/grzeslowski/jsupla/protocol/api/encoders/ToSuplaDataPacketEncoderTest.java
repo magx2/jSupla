@@ -19,12 +19,12 @@ public class ToSuplaDataPacketEncoderTest {
 
         SuplaDataPacket packet = encoder.encode(proto, version, rrId);
 
-        assertThat(packet.version).isEqualTo(version);
-        assertThat(packet.rrId).isEqualTo(rrId);
-        assertThat(packet.callId)
+        assertThat(packet.version()).isEqualTo(version);
+        assertThat(packet.rrId()).isEqualTo(rrId);
+        assertThat(packet.callId())
                 .isEqualTo(ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue());
-        assertThat(packet.dataSize).isEqualTo(proto.size());
-        assertThat(packet.data).containsExactly(proto.payload);
+        assertThat(packet.dataSize()).isEqualTo(proto.protoSize());
+        assertThat(packet.data()).containsExactly(proto.payload);
     }
 
     private static final class TestEncoder implements ToSuplaDataPacketEncoder<TestProto> {
@@ -47,7 +47,7 @@ public class ToSuplaDataPacketEncoderTest {
         }
 
         @Override
-        public int size() {
+        public int protoSize() {
             return payload.length;
         }
     }

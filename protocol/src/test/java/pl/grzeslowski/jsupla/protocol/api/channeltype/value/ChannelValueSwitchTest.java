@@ -1,10 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Duration;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
@@ -22,14 +25,26 @@ public class ChannelValueSwitchTest {
         assertDispatch(StoppableOpenClose.STOP, "stoppable");
         assertDispatch(new TemperatureValue(21.5), "temperature");
         assertDispatch(new TemperatureAndHumidityValue(22.0, 55.5), "temperatureAndHumidity");
-        assertDispatch(ElectricityMeterValue.builder().build(), "electricity");
+        assertDispatch(
+                new ElectricityMeterValue(
+                        BigInteger.valueOf(1),
+                        BigInteger.valueOf(2),
+                        BigDecimal.valueOf(3),
+                        BigDecimal.valueOf(4),
+                        Currency.getInstance(Locale.CANADA),
+                        5,
+                        6,
+                        List.of()),
+                "electricity");
         assertDispatch(
                 new HvacValue(
                         true,
                         HvacValue.Mode.HEAT,
                         21.0,
                         25.0,
-                        HvacValue.Flags.builder().heating(true).build()),
+                        new HvacValue.Flags(
+                                false, false, true, false, false, false, false, false, false, false,
+                                false, false, false)),
                 "hvac");
         assertDispatch(
                 new TimerValue(
@@ -39,12 +54,6 @@ public class ChannelValueSwitchTest {
                         "sender"),
                 "timer");
         assertDispatch(UnknownValue.UNKNOWN_VALUE, "unknown");
-    }
-
-    @Test
-    public void shouldFailForUnsupportedInstance() {
-        assertThatThrownBy(() -> channelSwitch.doSwitch(new ChannelValue() {}))
-                .isInstanceOf(IllegalArgumentException.class);
     }
 
     private void assertDispatch(ChannelValue channelValue, String expected) {

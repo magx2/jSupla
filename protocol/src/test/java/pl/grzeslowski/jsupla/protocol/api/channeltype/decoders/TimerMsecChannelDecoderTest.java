@@ -18,6 +18,6 @@ public class TimerMsecChannelDecoderTest {
         TimerValue value = decoder.decode(payload);
 
         // then
-        assertThat(value.getRemaining()).isEqualTo(Duration.ofMillis(4321));
+        assertThat(value.remaining()).isEqualTo(Duration.ofMillis(4321));
     }
 }

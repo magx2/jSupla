@@ -19,25 +19,25 @@ public class ElectricityMeterDecoderImplTest {
         ElectricityMeterValue value = decoder.decode(builder.buildV1());
 
         // then
-        assertThat(value.getTotalCost()).isEqualByComparingTo(new BigDecimal("123.45"));
-        assertThat(value.getPricePerUnit()).isEqualByComparingTo(new BigDecimal("45.678"));
-        assertThat(value.getCurrency().getCurrencyCode()).isEqualTo("PLN");
-        assertThat(value.getMeasuredValues()).isEqualTo(3);
-        assertThat(value.getPeriod()).isEqualTo(60);
-        assertThat(value.getTotalForwardActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(3));
-        assertThat(value.getTotalReverseActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(4));
+        assertThat(value.totalCost()).isEqualByComparingTo(new BigDecimal("123.45"));
+        assertThat(value.pricePerUnit()).isEqualByComparingTo(new BigDecimal("45.678"));
+        assertThat(value.currency().getCurrencyCode()).isEqualTo("PLN");
+        assertThat(value.measuredValues()).isEqualTo(3);
+        assertThat(value.period()).isEqualTo(60);
+        assertThat(value.totalForwardActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(3));
+        assertThat(value.totalReverseActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(4));
 
-        assertThat(value.getPhases()).hasSize(3);
-        ElectricityMeterValue.Phase phase = value.getPhases().get(0);
-        assertThat(phase.getTotalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(2));
-        assertThat(phase.getTotalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(4));
-        assertThat(phase.getVoltage()).isCloseTo(230.00, within(1e-9));
-        assertThat(phase.getCurrent()).isCloseTo(1.0, within(1e-9));
-        assertThat(phase.getPowerActive()).isCloseTo(1.0, within(1e-9));
-        assertThat(phase.getPowerReactive()).isCloseTo(4.0, within(1e-9));
-        assertThat(phase.getPowerApparent()).isCloseTo(7.0, within(1e-9));
-        assertThat(phase.getPowerFactor()).isCloseTo(0.9, within(1e-9));
-        assertThat(phase.getPhaseAngle()).isCloseTo(10.0, within(1e-9));
-        assertThat(phase.getFrequency()).isEqualTo(5_000);
+        assertThat(value.phases()).hasSize(3);
+        ElectricityMeterValue.Phase phase = value.phases().get(0);
+        assertThat(phase.totalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(2));
+        assertThat(phase.totalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(4));
+        assertThat(phase.voltage()).isCloseTo(230.00, within(1e-9));
+        assertThat(phase.current()).isCloseTo(1.0, within(1e-9));
+        assertThat(phase.powerActive()).isCloseTo(1.0, within(1e-9));
+        assertThat(phase.powerReactive()).isCloseTo(4.0, within(1e-9));
+        assertThat(phase.powerApparent()).isCloseTo(7.0, within(1e-9));
+        assertThat(phase.powerFactor()).isCloseTo(0.9, within(1e-9));
+        assertThat(phase.phaseAngle()).isCloseTo(10.0, within(1e-9));
+        assertThat(phase.frequency()).isEqualTo(5_000);
     }
 }

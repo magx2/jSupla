@@ -35,13 +35,13 @@ public class SuplaDeviceChannelCDecoderTest {
 
         SuplaDeviceChannelC result = decoder.decode(payload, 0);
 
-        assertThat(result.number).isEqualTo(number);
-        assertThat(result.type).isEqualTo(type);
-        assertThat(result.funcList).isEqualTo(funcList);
-        assertThat(result.defaultValue).isEqualTo(defaultValue);
-        assertThat(result.flags).isEqualTo(flags);
-        assertThat(result.value).containsExactly(value);
-        assertThat(result.actionTriggerProperties).isNull();
-        assertThat(result.hvacValue).isNull();
+        assertThat(result.number()).isEqualTo(number);
+        assertThat(result.type()).isEqualTo(type);
+        assertThat(result.funcList()).isEqualTo(funcList);
+        assertThat(result.defaultValue()).isEqualTo(defaultValue);
+        assertThat(result.flags()).isEqualTo(flags);
+        assertThat(result.value()).containsExactly(value);
+        assertThat(result.actionTriggerProperties()).isNull();
+        assertThat(result.hvacValue()).isNull();
     }
 }

@@ -26,9 +26,9 @@ public class ElectricityMeterV2DecoderImplTest {
                 decoder.decode(builder.buildV2(expectedForward, expectedReverse));
 
         // then
-        assertThat(value.getTotalForwardActiveEnergyBalanced()).isEqualTo(expectedForward);
-        assertThat(value.getTotalReverseActiveEnergyBalanced()).isEqualTo(expectedReverse);
-        assertThat(value.getPhases()).hasSize(3);
+        assertThat(value.totalForwardActiveEnergyBalanced()).isEqualTo(expectedForward);
+        assertThat(value.totalReverseActiveEnergyBalanced()).isEqualTo(expectedReverse);
+        assertThat(value.phases()).hasSize(3);
     }
 
     @Test
@@ -41,11 +41,11 @@ public class ElectricityMeterV2DecoderImplTest {
         ElectricityMeterValue value = decoder.decode(builder.buildV2(forward, reverse));
 
         // then
-        assertThat(value.getTotalCost()).isEqualByComparingTo(new BigDecimal("123.45"));
-        assertThat(value.getPricePerUnit()).isEqualByComparingTo(new BigDecimal("45.678"));
-        assertThat(value.getCurrency()).isEqualTo(Currency.getInstance("PLN"));
-        assertThat(value.getMeasuredValues()).isEqualTo(3);
-        assertThat(value.getPeriod()).isEqualTo(60);
+        assertThat(value.totalCost()).isEqualByComparingTo(new BigDecimal("123.45"));
+        assertThat(value.pricePerUnit()).isEqualByComparingTo(new BigDecimal("45.678"));
+        assertThat(value.currency()).isEqualTo(Currency.getInstance("PLN"));
+        assertThat(value.measuredValues()).isEqualTo(3);
+        assertThat(value.period()).isEqualTo(60);
     }
 
     @Test
@@ -55,47 +55,47 @@ public class ElectricityMeterV2DecoderImplTest {
                 decoder.decode(builder.buildV2(BigInteger.ONE, BigInteger.TEN));
 
         // then
-        assertThat(value.getPhases()).hasSize(3);
-        ElectricityMeterValue.Phase phase0 = value.getPhases().get(0);
-        assertThat(phase0.getTotalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
-        assertThat(phase0.getTotalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(400_000));
-        assertThat(phase0.getTotalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
-        assertThat(phase0.getTotalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
-        assertThat(phase0.getVoltage()).isCloseTo(230.0, within(EPSILON));
-        assertThat(phase0.getCurrent()).isCloseTo(1.0, within(EPSILON));
-        assertThat(phase0.getPowerActive()).isCloseTo(1.0, within(EPSILON));
-        assertThat(phase0.getPowerReactive()).isCloseTo(4.0, within(EPSILON));
-        assertThat(phase0.getPowerApparent()).isCloseTo(7.0, within(EPSILON));
-        assertThat(phase0.getPowerFactor()).isCloseTo(0.9, within(EPSILON));
-        assertThat(phase0.getPhaseAngle()).isCloseTo(10.0, within(EPSILON));
-        assertThat(phase0.getFrequency()).isEqualTo(5_000);
+        assertThat(value.phases()).hasSize(3);
+        ElectricityMeterValue.Phase phase0 = value.phases().get(0);
+        assertThat(phase0.totalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
+        assertThat(phase0.totalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(400_000));
+        assertThat(phase0.totalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
+        assertThat(phase0.totalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
+        assertThat(phase0.voltage()).isCloseTo(230.0, within(EPSILON));
+        assertThat(phase0.current()).isCloseTo(1.0, within(EPSILON));
+        assertThat(phase0.powerActive()).isCloseTo(1.0, within(EPSILON));
+        assertThat(phase0.powerReactive()).isCloseTo(4.0, within(EPSILON));
+        assertThat(phase0.powerApparent()).isCloseTo(7.0, within(EPSILON));
+        assertThat(phase0.powerFactor()).isCloseTo(0.9, within(EPSILON));
+        assertThat(phase0.phaseAngle()).isCloseTo(10.0, within(EPSILON));
+        assertThat(phase0.frequency()).isEqualTo(5_000);
 
-        ElectricityMeterValue.Phase phase1 = value.getPhases().get(1);
-        assertThat(phase1.getTotalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(300_000));
-        assertThat(phase1.getTotalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
-        assertThat(phase1.getTotalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
-        assertThat(phase1.getTotalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
-        assertThat(phase1.getVoltage()).isCloseTo(231.0, within(EPSILON));
-        assertThat(phase1.getCurrent()).isCloseTo(2.0, within(EPSILON));
-        assertThat(phase1.getPowerActive()).isCloseTo(2.0, within(EPSILON));
-        assertThat(phase1.getPowerReactive()).isCloseTo(5.0, within(EPSILON));
-        assertThat(phase1.getPowerApparent()).isCloseTo(8.0, within(EPSILON));
-        assertThat(phase1.getPowerFactor()).isCloseTo(0.95, within(EPSILON));
-        assertThat(phase1.getPhaseAngle()).isCloseTo(20.0, within(EPSILON));
-        assertThat(phase1.getFrequency()).isEqualTo(5_000);
+        ElectricityMeterValue.Phase phase1 = value.phases().get(1);
+        assertThat(phase1.totalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(300_000));
+        assertThat(phase1.totalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
+        assertThat(phase1.totalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(200_000));
+        assertThat(phase1.totalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
+        assertThat(phase1.voltage()).isCloseTo(231.0, within(EPSILON));
+        assertThat(phase1.current()).isCloseTo(2.0, within(EPSILON));
+        assertThat(phase1.powerActive()).isCloseTo(2.0, within(EPSILON));
+        assertThat(phase1.powerReactive()).isCloseTo(5.0, within(EPSILON));
+        assertThat(phase1.powerApparent()).isCloseTo(8.0, within(EPSILON));
+        assertThat(phase1.powerFactor()).isCloseTo(0.95, within(EPSILON));
+        assertThat(phase1.phaseAngle()).isCloseTo(20.0, within(EPSILON));
+        assertThat(phase1.frequency()).isEqualTo(5_000);
 
-        ElectricityMeterValue.Phase phase2 = value.getPhases().get(2);
-        assertThat(phase2.getTotalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(400_000));
-        assertThat(phase2.getTotalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
-        assertThat(phase2.getTotalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(300_000));
-        assertThat(phase2.getTotalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
-        assertThat(phase2.getVoltage()).isCloseTo(232.0, within(EPSILON));
-        assertThat(phase2.getCurrent()).isCloseTo(3.0, within(EPSILON));
-        assertThat(phase2.getPowerActive()).isCloseTo(3.0, within(EPSILON));
-        assertThat(phase2.getPowerReactive()).isCloseTo(6.0, within(EPSILON));
-        assertThat(phase2.getPowerApparent()).isCloseTo(9.0, within(EPSILON));
-        assertThat(phase2.getPowerFactor()).isCloseTo(0.99, within(EPSILON));
-        assertThat(phase2.getPhaseAngle()).isCloseTo(30.0, within(EPSILON));
-        assertThat(phase2.getFrequency()).isEqualTo(5_000);
+        ElectricityMeterValue.Phase phase2 = value.phases().get(2);
+        assertThat(phase2.totalForwardActiveEnergy()).isEqualTo(BigInteger.valueOf(400_000));
+        assertThat(phase2.totalReverseActiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
+        assertThat(phase2.totalForwardReactiveEnergy()).isEqualTo(BigInteger.valueOf(300_000));
+        assertThat(phase2.totalReverseReactiveEnergy()).isEqualTo(BigInteger.valueOf(100_000));
+        assertThat(phase2.voltage()).isCloseTo(232.0, within(EPSILON));
+        assertThat(phase2.current()).isCloseTo(3.0, within(EPSILON));
+        assertThat(phase2.powerActive()).isCloseTo(3.0, within(EPSILON));
+        assertThat(phase2.powerReactive()).isCloseTo(6.0, within(EPSILON));
+        assertThat(phase2.powerApparent()).isCloseTo(9.0, within(EPSILON));
+        assertThat(phase2.powerFactor()).isCloseTo(0.99, within(EPSILON));
+        assertThat(phase2.phaseAngle()).isCloseTo(30.0, within(EPSILON));
+        assertThat(phase2.frequency()).isEqualTo(5_000);
     }
 }

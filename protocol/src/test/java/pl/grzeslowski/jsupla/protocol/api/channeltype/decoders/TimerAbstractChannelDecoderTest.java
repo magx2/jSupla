@@ -25,7 +25,7 @@ public class TimerAbstractChannelDecoderTest {
         TimerValue result = decoder.decode(payload);
 
         // then
-        assertThat(result.getTargetValue()).containsExactly(0, 1, 2, 3, 4, 5, 6, 7);
+        assertThat(result.targetValue()).containsExactly(0, 1, 2, 3, 4, 5, 6, 7);
     }
 
     private byte[] toBytes(short[] shorts) {
