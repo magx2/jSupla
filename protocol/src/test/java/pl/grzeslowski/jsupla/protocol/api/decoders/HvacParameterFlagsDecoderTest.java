@@ -27,47 +27,47 @@ public class HvacParameterFlagsDecoderTest {
         HvacParameterFlags flags = decoder.decode(raw, 0);
 
         // then
-        assertThat(flags.mainThermometerChannelNoReadonly).isTrue();
-        assertThat(flags.mainThermometerChannelNoHidden).isFalse();
-        assertThat(flags.auxThermometerChannelNoReadonly).isTrue();
-        assertThat(flags.auxThermometerChannelNoHidden).isFalse();
-        assertThat(flags.binarySensorChannelNoReadonly).isTrue();
-        assertThat(flags.binarySensorChannelNoHidden).isFalse();
-        assertThat(flags.auxThermometerTypeReadonly).isTrue();
-        assertThat(flags.auxThermometerTypeHidden).isFalse();
+        assertThat(flags.mainThermometerChannelNoReadonly()).isTrue();
+        assertThat(flags.mainThermometerChannelNoHidden()).isFalse();
+        assertThat(flags.auxThermometerChannelNoReadonly()).isTrue();
+        assertThat(flags.auxThermometerChannelNoHidden()).isFalse();
+        assertThat(flags.binarySensorChannelNoReadonly()).isTrue();
+        assertThat(flags.binarySensorChannelNoHidden()).isFalse();
+        assertThat(flags.auxThermometerTypeReadonly()).isTrue();
+        assertThat(flags.auxThermometerTypeHidden()).isFalse();
 
-        assertThat(flags.antiFreezeAndOverheatProtectionEnabledReadonly).isFalse();
-        assertThat(flags.antiFreezeAndOverheatProtectionEnabledHidden).isTrue();
-        assertThat(flags.usedAlgorithmHidden).isTrue();
-        assertThat(flags.minOnTimeSHidden).isTrue();
-        assertThat(flags.minOffTimeSHidden).isTrue();
+        assertThat(flags.antiFreezeAndOverheatProtectionEnabledReadonly()).isFalse();
+        assertThat(flags.antiFreezeAndOverheatProtectionEnabledHidden()).isTrue();
+        assertThat(flags.usedAlgorithmHidden()).isTrue();
+        assertThat(flags.minOnTimeSHidden()).isTrue();
+        assertThat(flags.minOffTimeSHidden()).isTrue();
 
-        assertThat(flags.outputValueOnErrorReadonly).isTrue();
-        assertThat(flags.outputValueOnErrorHidden).isTrue();
-        assertThat(flags.auxMinMaxSetpointEnabledReadonly).isTrue();
-        assertThat(flags.auxMinMaxSetpointEnabledHidden).isTrue();
+        assertThat(flags.outputValueOnErrorReadonly()).isTrue();
+        assertThat(flags.outputValueOnErrorHidden()).isTrue();
+        assertThat(flags.auxMinMaxSetpointEnabledReadonly()).isTrue();
+        assertThat(flags.auxMinMaxSetpointEnabledHidden()).isTrue();
 
-        assertThat(flags.useSeparateHeatCoolOutputsReadonly).isTrue();
-        assertThat(flags.useSeparateHeatCoolOutputsHidden).isTrue();
-        assertThat(flags.temperaturesFreezeProtectionReadonly).isTrue();
-        assertThat(flags.temperaturesFreezeProtectionHidden).isTrue();
-        assertThat(flags.temperaturesComfortHidden).isFalse();
+        assertThat(flags.useSeparateHeatCoolOutputsReadonly()).isTrue();
+        assertThat(flags.useSeparateHeatCoolOutputsHidden()).isTrue();
+        assertThat(flags.temperaturesFreezeProtectionReadonly()).isTrue();
+        assertThat(flags.temperaturesFreezeProtectionHidden()).isTrue();
+        assertThat(flags.temperaturesComfortHidden()).isFalse();
 
-        assertThat(flags.temperaturesHisteresisReadonly).isTrue();
-        assertThat(flags.temperaturesHisteresisHidden).isTrue();
-        assertThat(flags.temperaturesBelowAlarmReadonly).isTrue();
-        assertThat(flags.temperaturesBelowAlarmHidden).isTrue();
+        assertThat(flags.temperaturesHisteresisReadonly()).isTrue();
+        assertThat(flags.temperaturesHisteresisHidden()).isTrue();
+        assertThat(flags.temperaturesBelowAlarmReadonly()).isTrue();
+        assertThat(flags.temperaturesBelowAlarmHidden()).isTrue();
 
-        assertThat(flags.temperaturesAboveAlarmReadonly).isTrue();
-        assertThat(flags.temperaturesAboveAlarmHidden).isTrue();
-        assertThat(flags.temperaturesAuxMaxSetpointReadonly).isTrue();
-        assertThat(flags.temperaturesAuxMaxSetpointHidden).isTrue();
-        assertThat(flags.masterThermostatChannelNoReadonly).isTrue();
-        assertThat(flags.masterThermostatChannelNoHidden).isTrue();
+        assertThat(flags.temperaturesAboveAlarmReadonly()).isTrue();
+        assertThat(flags.temperaturesAboveAlarmHidden()).isTrue();
+        assertThat(flags.temperaturesAuxMaxSetpointReadonly()).isTrue();
+        assertThat(flags.temperaturesAuxMaxSetpointHidden()).isTrue();
+        assertThat(flags.masterThermostatChannelNoReadonly()).isTrue();
+        assertThat(flags.masterThermostatChannelNoHidden()).isTrue();
 
-        assertThat(flags.heatOrColdSourceSwitchReadonly).isTrue();
-        assertThat(flags.heatOrColdSourceSwitchHidden).isTrue();
-        assertThat(flags.pumpSwitchReadonly).isTrue();
-        assertThat(flags.pumpSwitchHidden).isTrue();
+        assertThat(flags.heatOrColdSourceSwitchReadonly()).isTrue();
+        assertThat(flags.heatOrColdSourceSwitchHidden()).isTrue();
+        assertThat(flags.pumpSwitchReadonly()).isTrue();
+        assertThat(flags.pumpSwitchHidden()).isTrue();
     }
 }

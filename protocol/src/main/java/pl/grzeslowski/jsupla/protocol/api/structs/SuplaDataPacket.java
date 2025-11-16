@@ -19,45 +19,17 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
  * } TSuplaDataPacket;
  * </pre>
  */
-@lombok.EqualsAndHashCode
-@lombok.ToString
-public class SuplaDataPacket implements ProtoWithSize {
+public record SuplaDataPacket(short version, long rrId, long callId, long dataSize, byte[] data)
+        implements ProtoWithSize {
     @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
     public static final int MIN_SIZE = BYTE_SIZE + INT_SIZE * 3;
 
-    /**
-     * unsigned char
-     */
-    public final short version;
-
-    /**
-     * Request/Response ID
-     * <p>
-     * unsigned _supla_int_t
-     */
-    public final long rrId;
-
-    /**
-     * unsigned _supla_int_t
-     */
-    public final long callId;
-
-    /**
-     * unsigned _supla_int_t
-     */
-    public final long dataSize;
-
-    /**
-     * Last variable in struct!
-     */
-    public final byte[] data;
-
-    public SuplaDataPacket(short version, long rrId, long callId, long dataSize, byte[] data) {
-        this.version = unsigned(version);
-        this.rrId = unsigned(rrId);
-        this.callId = unsigned(callId);
-        this.dataSize = unsigned(dataSize);
-        this.data = checkArrayLength(data, (int) dataSize);
+    public SuplaDataPacket {
+        version = unsigned(version);
+        rrId = unsigned(rrId);
+        callId = unsigned(callId);
+        dataSize = unsigned(dataSize);
+        data = checkArrayLength(data, (int) dataSize);
     }
 
     /* no call type */

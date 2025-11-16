@@ -11,39 +11,125 @@ public class HvacParameterFlagsEncoderTest {
     @Test
     public void shouldEncodeBooleanFlagsIntoBytes() {
         // given
-        HvacParameterFlags flags =
-                HvacParameterFlags.builder()
-                        .mainThermometerChannelNoReadonly(true)
-                        .auxThermometerChannelNoReadonly(true)
-                        .binarySensorChannelNoReadonly(true)
-                        .auxThermometerTypeReadonly(true)
-                        .antiFreezeAndOverheatProtectionEnabledHidden(true)
-                        .usedAlgorithmHidden(true)
-                        .minOnTimeSHidden(true)
-                        .minOffTimeSHidden(true)
-                        .outputValueOnErrorReadonly(true)
-                        .outputValueOnErrorHidden(true)
-                        .auxMinMaxSetpointEnabledReadonly(true)
-                        .auxMinMaxSetpointEnabledHidden(true)
-                        .useSeparateHeatCoolOutputsReadonly(true)
-                        .useSeparateHeatCoolOutputsHidden(true)
-                        .temperaturesFreezeProtectionReadonly(true)
-                        .temperaturesFreezeProtectionHidden(true)
-                        .temperaturesHisteresisReadonly(true)
-                        .temperaturesHisteresisHidden(true)
-                        .temperaturesBelowAlarmReadonly(true)
-                        .temperaturesBelowAlarmHidden(true)
-                        .temperaturesAboveAlarmReadonly(true)
-                        .temperaturesAboveAlarmHidden(true)
-                        .temperaturesAuxMaxSetpointReadonly(true)
-                        .temperaturesAuxMaxSetpointHidden(true)
-                        .masterThermostatChannelNoReadonly(true)
-                        .masterThermostatChannelNoHidden(true)
-                        .heatOrColdSourceSwitchReadonly(true)
-                        .heatOrColdSourceSwitchHidden(true)
-                        .pumpSwitchReadonly(true)
-                        .pumpSwitchHidden(true)
-                        .build();
+        var mainThermometerChannelNoReadonly = true;
+        var mainThermometerChannelNoHidden = false;
+        var auxThermometerChannelNoReadonly = true;
+        var auxThermometerChannelNoHidden = false;
+        var binarySensorChannelNoReadonly = true;
+        var binarySensorChannelNoHidden = false;
+        var auxThermometerTypeReadonly = true;
+        var auxThermometerTypeHidden = false;
+        // 1
+        var antiFreezeAndOverheatProtectionEnabledReadonly = false;
+        var antiFreezeAndOverheatProtectionEnabledHidden = true;
+        var usedAlgorithmReadonly = false;
+        var usedAlgorithmHidden = true;
+        var minOnTimeSReadonly = false;
+        var minOnTimeSHidden = true;
+        var minOffTimeSReadonly = false;
+        var minOffTimeSHidden = true;
+        // 2
+        var outputValueOnErrorReadonly = true;
+        var outputValueOnErrorHidden = true;
+        var subfunctionReadonly = false;
+        var subfunctionHidden = false;
+        var temperatureSetpointChangeSwitchesToManualModeReadonly = false;
+        var temperatureSetpointChangeSwitchesToManualModeHidden = false;
+        var auxMinMaxSetpointEnabledReadonly = true;
+        var auxMinMaxSetpointEnabledHidden = true;
+        // 3
+        var useSeparateHeatCoolOutputsReadonly = true;
+        var useSeparateHeatCoolOutputsHidden = true;
+        var temperaturesFreezeProtectionReadonly = true;
+        var temperaturesFreezeProtectionHidden = true;
+        var temperaturesEcoReadonly = false;
+        var temperaturesEcoHidden = false;
+        var temperaturesComfortReadonly = false;
+        var temperaturesComfortHidden = false;
+        // 4
+        var temperaturesBoostReadonly = false;
+        var temperaturesBoostHidden = false;
+        var temperaturesHeatProtectionReadonly = false;
+        var temperaturesHeatProtectionHidden = false;
+        var temperaturesHisteresisReadonly = true;
+        var temperaturesHisteresisHidden = true;
+        var temperaturesBelowAlarmReadonly = true;
+        var temperaturesBelowAlarmHidden = true;
+        // 5
+        var temperaturesAboveAlarmReadonly = true;
+        var temperaturesAboveAlarmHidden = true;
+        var temperaturesAuxMinSetpointReadonly = false;
+        var temperaturesAuxMinSetpointHidden = false;
+        var temperaturesAuxMaxSetpointReadonly = true;
+        var temperaturesAuxMaxSetpointHidden = true;
+        var masterThermostatChannelNoReadonly = true;
+        var masterThermostatChannelNoHidden = true;
+        // 6
+        var heatOrColdSourceSwitchReadonly = true;
+        var heatOrColdSourceSwitchHidden = true;
+        var pumpSwitchReadonly = true;
+        var pumpSwitchHidden = true;
+
+        var flags =
+                new HvacParameterFlags(
+                        mainThermometerChannelNoReadonly,
+                        mainThermometerChannelNoHidden,
+                        auxThermometerChannelNoReadonly,
+                        auxThermometerChannelNoHidden,
+                        binarySensorChannelNoReadonly,
+                        binarySensorChannelNoHidden,
+                        auxThermometerTypeReadonly,
+                        auxThermometerTypeHidden,
+                        // 1
+                        antiFreezeAndOverheatProtectionEnabledReadonly,
+                        antiFreezeAndOverheatProtectionEnabledHidden,
+                        usedAlgorithmReadonly,
+                        usedAlgorithmHidden,
+                        minOnTimeSReadonly,
+                        minOnTimeSHidden,
+                        minOffTimeSReadonly,
+                        minOffTimeSHidden,
+                        // 2
+                        outputValueOnErrorReadonly,
+                        outputValueOnErrorHidden,
+                        subfunctionReadonly,
+                        subfunctionHidden,
+                        temperatureSetpointChangeSwitchesToManualModeReadonly,
+                        temperatureSetpointChangeSwitchesToManualModeHidden,
+                        auxMinMaxSetpointEnabledReadonly,
+                        auxMinMaxSetpointEnabledHidden,
+                        // 3
+                        useSeparateHeatCoolOutputsReadonly,
+                        useSeparateHeatCoolOutputsHidden,
+                        temperaturesFreezeProtectionReadonly,
+                        temperaturesFreezeProtectionHidden,
+                        temperaturesEcoReadonly,
+                        temperaturesEcoHidden,
+                        temperaturesComfortReadonly,
+                        temperaturesComfortHidden,
+                        // 4
+                        temperaturesBoostReadonly,
+                        temperaturesBoostHidden,
+                        temperaturesHeatProtectionReadonly,
+                        temperaturesHeatProtectionHidden,
+                        temperaturesHisteresisReadonly,
+                        temperaturesHisteresisHidden,
+                        temperaturesBelowAlarmReadonly,
+                        temperaturesBelowAlarmHidden,
+                        // 5
+                        temperaturesAboveAlarmReadonly,
+                        temperaturesAboveAlarmHidden,
+                        temperaturesAuxMinSetpointReadonly,
+                        temperaturesAuxMinSetpointHidden,
+                        temperaturesAuxMaxSetpointReadonly,
+                        temperaturesAuxMaxSetpointHidden,
+                        masterThermostatChannelNoReadonly,
+                        masterThermostatChannelNoHidden,
+                        // 6
+                        heatOrColdSourceSwitchReadonly,
+                        heatOrColdSourceSwitchHidden,
+                        pumpSwitchReadonly,
+                        pumpSwitchHidden);
 
         // when
         byte[] encoded = encoder.encode(flags);
