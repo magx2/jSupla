@@ -11,7 +11,7 @@ public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelCon
     @SuppressWarnings("UnusedAssignment")
     @Override
     public byte[] encode(ChannelConfigHVAC proto) {
-        val bytes = new byte[proto.size()];
+        val bytes = new byte[proto.protoSize()];
         int offset = 0;
 
         if (proto.mainThermometerChannelId != null) {

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class ChannelConfigHVACTest {
     @Test
-    public void size() {
+    public void protoSize() {
         // given
         val proto =
                 new ChannelConfigHVAC(
@@ -42,7 +42,7 @@ public class ChannelConfigHVACTest {
                         new HVACTemperatureCfg(1, new short[24]));
 
         // when
-        int size = proto.size();
+        int size = proto.protoSize();
 
         // then
         assertThat(size).isEqualTo(126);

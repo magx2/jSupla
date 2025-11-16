@@ -14,20 +14,20 @@ public class SuplaChannelNewValueEncoder
 
     @Override
     public byte[] encode(SuplaChannelNewValue proto) {
-        final byte[] bytes = new byte[proto.size()];
+        final byte[] bytes = new byte[proto.protoSize()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.senderId, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.channelNumber, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeInt(proto.senderId(), bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.channelNumber(), bytes, offset);
 
         // union
-        if (proto.durationMS != null) {
-            offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationMS, bytes, offset);
+        if (proto.durationMS() != null) {
+            offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationMS(), bytes, offset);
         } else {
-            offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationSec, bytes, offset);
+            offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.durationSec(), bytes, offset);
         }
 
-        offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.value, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.value(), bytes, offset);
 
         return bytes;
     }

@@ -7,6 +7,6 @@ public class TimerMsecChannelDecoder extends TimerAbstractChannelDecoder {
 
     @Override
     protected Duration findRemaining(TimerStateExtendedValue timer) {
-        return Duration.ofMillis(timer.remainingTimeMs);
+        return Duration.ofMillis(timer.remainingTimeMs());
     }
 }

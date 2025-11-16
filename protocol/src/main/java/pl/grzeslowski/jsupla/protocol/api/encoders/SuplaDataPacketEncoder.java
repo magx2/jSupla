@@ -8,7 +8,7 @@ public class SuplaDataPacketEncoder implements ProtoWithSizeEncoder<SuplaDataPac
 
     @Override
     public byte[] encode(SuplaDataPacket proto) {
-        final byte[] bytes = new byte[proto.size()];
+        final byte[] bytes = new byte[proto.protoSize()];
         int offset = 0;
 
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.version, bytes, offset);

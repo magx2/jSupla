@@ -9,7 +9,7 @@ public class HvacParameterFlagsEncoder
 
     @Override
     public byte[] encode(HvacParameterFlags proto) {
-        final byte[] flags = new byte[proto.size()];
+        final byte[] flags = new byte[proto.protoSize()];
         int idx = 0;
         {
             int subIdx = 0;

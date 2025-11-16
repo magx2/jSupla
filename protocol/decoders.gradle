@@ -211,7 +211,7 @@ static String parseField(field) {
 				|new ${findStructImportForType(field.rawPrefix)}${field.type}[${field.arraySize}];
 				|		for (int i = 0; i < ${field.arraySize}; i++) {
 				|			${field.name}[i] = ${findDecoderImportForType(field.rawPrefix)}${field.type}Decoder.INSTANCE.decode(bytes, offset);
-				|			offset += ${field.name}[i].size();
+				|			offset += ${field.name}[i].protoSize();
 				|		}\
 				""".stripMargin()
 		}
@@ -220,7 +220,7 @@ static String parseField(field) {
 
 static String findSize(field) {
 	if (!field.array) {
-		return findSizeByType(field.type) ?: "${field.name}.size()"
+		return findSizeByType(field.type) ?: "${field.name}.protoSize()"
 	} else {
 		if (isPrimitiveType(field.type)) {
 			return "${field.arraySize} * ${findSizeByType(field.type)}"

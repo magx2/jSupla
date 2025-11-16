@@ -69,7 +69,7 @@ public class HvacParameterFlags implements pl.grzeslowski.jsupla.protocol.api.ty
     public final boolean pumpSwitchHidden;
 
     @Override
-    public int size() {
+    public int protoSize() {
         return SIZE;
     }
 }

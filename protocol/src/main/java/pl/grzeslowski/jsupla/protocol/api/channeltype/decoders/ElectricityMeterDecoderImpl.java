@@ -32,11 +32,11 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
         return new ElectricityMeterValue(
             computeTotalForwardActiveEnergyBalanced(phases),// only V2 need to compute manually
             computeTotalReverseActiveEnergyBalanced(phases),// only V2 need to compute manually
-            new BigDecimal(value.totalCost).divide(ONE_HUNDRED, UNLIMITED),
-            new BigDecimal(value.pricePerUnit).divide(ONE_THOUSAND, UNLIMITED),
-            parseCurrency(value.currency),
-            value.measuredValues,
-            value.period,
+            new BigDecimal(value.totalCost()).divide(ONE_HUNDRED, UNLIMITED),
+            new BigDecimal(value.pricePerUnit()).divide(ONE_THOUSAND, UNLIMITED),
+            parseCurrency(value.currency()),
+            value.measuredValues(),
+            value.period(),
             phases
         );
     }
@@ -55,7 +55,7 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
 
     private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValue value) {
         return IntStream.range(0, NUMBER_OF_PHASES)
-            .mapToObj(idx -> mapPhase(idx, value, value.m[0]))
+            .mapToObj(idx -> mapPhase(idx, value, value.m()[0]))
             .collect(toList());
     }
 
@@ -64,19 +64,19 @@ public class ElectricityMeterDecoderImpl implements Decoder<ElectricityMeterValu
         val multiplier = 0.00001;
         return new ElectricityMeterValue.Phase(
             // from parent
-            parent.totalForwardActiveEnergy[idx].divide(DIVIDER),
-            parent.totalReverseActiveEnergy[idx].divide(DIVIDER),
-            parent.totalForwardReactiveEnergy[idx].divide(DIVIDER),
-            parent.totalReverseReactiveEnergy[idx].divide(DIVIDER),
+            parent.totalForwardActiveEnergy()[idx].divide(DIVIDER),
+            parent.totalReverseActiveEnergy()[idx].divide(DIVIDER),
+            parent.totalForwardReactiveEnergy()[idx].divide(DIVIDER),
+            parent.totalReverseReactiveEnergy()[idx].divide(DIVIDER),
             // from value
-            value.voltage[idx] * 0.01,
-            value.current[idx] * 0.001,
-            value.powerActive[idx] * multiplier,
-            value.powerReactive[idx] * multiplier,
-            value.powerApparent[idx] * multiplier,
-            value.powerFactor[idx] * 0.001,
-            value.phaseAngle[idx] * 0.1,
-            value.freq
+            value.voltage()[idx] * 0.01,
+            value.current()[idx] * 0.001,
+            value.powerActive()[idx] * multiplier,
+            value.powerReactive()[idx] * multiplier,
+            value.powerApparent()[idx] * multiplier,
+            value.powerFactor()[idx] * 0.001,
+            value.phaseAngle()[idx] * 0.1,
+            value.freq()
         );
     }
 

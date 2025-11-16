@@ -88,7 +88,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val data = suplaDataPacket.data;
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
-        if (suplaDataPacket.dataSize != entity.size()
+        if (suplaDataPacket.dataSize != entity.protoSize()
                 && !callType.equals(
                         SUPLA_DCS_CALL_PING_SERVER) // because the size of SuplaTimeval varies, we
         // are not checking this
@@ -98,7 +98,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
                         + " `suplaDataPacket.dataSize`. Looks like a bug in the Supla decoder"
                         + " implementation. entity.size={}, suplaDataPacket.dataSize={}, entity={},"
                         + " suplaDataPacket={}",
-                    entity.size(),
+                    entity.protoSize(),
                     suplaDataPacket.dataSize,
                     entity,
                     suplaDataPacket);
