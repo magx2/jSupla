@@ -31,7 +31,7 @@ public interface JavaConsts {
     public static <T extends ProtoWithSize> int arraySize(T[] array) {
         int size = 0;
         for (T proto : array) {
-            size += proto.size();
+            size += proto.protoSize();
         }
         return size;
     }

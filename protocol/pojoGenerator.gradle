@@ -27,8 +27,6 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		"import pl.grzeslowski.jsupla.protocol.api.structs.*",
 	])
 	def javaDoc = buildJavaDoc(struct)
-	def constructorProperties = buildConstructorProperties(struct)
-	def constructorAssignments = buildConstructorAssignments(struct)
 	def properties = buildProperties(struct)
 	def implementClass = findImplementClass(struct)
 	def callType = findCallType(struct)
@@ -46,20 +44,14 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		|${String.join(";\n|", imports)};
 		|
 		|$javaDoc
-		|@lombok.EqualsAndHashCode @lombok.ToString
 		|@javax.annotation.Generated(value="Struct original name: ${struct.rawName}", date = "${ZonedDateTime.now()}")
-		|public class ${javaName} implements ${implementClass} {
+		|public record ${javaName}($properties) implements ${implementClass} {
 		|	${staticSize}
-		|	$properties
-		|
-		|	public ${javaName}(${constructorProperties}) {
-		|		${constructorAssignments}
-		|	}
 		|	
 		|	$callType	
 		|
 		|	@Override
-		|	public int size() {
+		|	public int protoSize() {
 		|		return ${size}
 		|			;
 		|	}
@@ -109,73 +101,46 @@ static String buildJavaDoc(struct) {
 					.replaceAll("@", "&#64;")
 			}
 			.map { " * $it" }
-			.collect(Collectors.joining("\n")) + "\n\n<p>\n\n"
+			.collect(Collectors.joining("\n")) + "\n * <p>\n"
 	}
 	if (struct.raw) {
-		javaDoc += "Original code:\n<pre>\n"
+		javaDoc += " * Original code:\n * <pre>\n * "
 		javaDoc += struct.raw.toString()
 			.replaceAll("&", "&amp;")
 			.replaceAll("<", "&#60;")
 			.replaceAll(">", "&#62;")
 			.replaceAll("@", "&#64;")
-		javaDoc += "\n</pre>"
+		.replaceAll('\n', '\n * ')
+		javaDoc += "\n * </pre>"
 	}
-	return javaDoc + "\n*/"
-}
-
-static String buildConstructorProperties(struct) {
-	struct.fields.stream()
+	// parameters
+	javaDoc += struct.fields
+		.stream()
 		.flatMap { field ->
 			if (field.originalClassName == "SimpleField") {
-				Stream.of(buildConstructorProperty(field))
+				Stream.of(field)
 			} else if (field.originalClassName == "UnionField") {
-				field.fields.stream().map { buildConstructorProperty(it) }
+				field.fields.stream()
 			} else {
 				throw new IllegalArgumentException("Unknown type: " + field.originalClassName.toString())
 			}
 		}
-		.collect(Collectors.joining(",\n\t\t\t"))
-}
-
-static String buildConstructorProperty(field) {
-	"${mapSuplaTypeToJava(field)} ${field.name}"
-}
-
-static String buildConstructorAssignments(struct) {
-	struct.fields
-		.stream()
-		.flatMap { field ->
-			if (field.originalClassName == "SimpleField") {
-				return Stream.of(buildConstructorAssignment(field))
-			} else if (field.originalClassName == "UnionField") {
-				def assignments = field.fields.stream().map { buildConstructorAssignment(it) }
-				def union = field.fields
-					.stream()
-					.map { it.name }
-					.collect(Collectors.joining(", "))
-				//noinspection GroovyAssignabilityCheck
-				return Stream.concat(
-					assignments,
-					Stream.of("unionCheck($union);")
-				)
+		.map { field ->
+			def comment = (field.javaDoc ?: "")
+				.replaceAll("&", "&amp;")
+				.replaceAll("<", "&#60;")
+				.replaceAll(">", "&#62;")
+				.replaceAll("@", "&#64;")
+			if (field.unsigned) {
+				if (field.javaDoc) {
+					comment += ". "
+				}
+				comment += 'unsigned {@code '+field.type+'}'
 			}
+			"@param ${field.name} $comment"
 		}
-		.collect(Collectors.joining("\n\t\t|\t\t"))
-}
-
-static String buildConstructorAssignment(field) {
-	def value = field.name
-	if (field.array) {
-		def size = "(int) ${field.arraySize}"
-		value = "checkArrayLength(${value}, $size)"
-	}
-	if (field.unsigned) {
-		value = "unsigned(${value})"
-	}
-	if (field.extraCheck) {
-		value = String.format(field.extraCheck, value)
-	}
-	"this.${field.name} = $value;"
+		.collect(Collectors.joining("\n * ", "\n * ", "\n"))
+	return javaDoc + "*/"
 }
 
 static String mapSuplaTypeToJava(field) {
@@ -232,30 +197,12 @@ static String buildProperties(struct) {
 				throw new IllegalArgumentException("Unknown type: " + field.originalClassName.toString())
 			}
 		}
-		.collect(Collectors.joining("\n\t|\t"))
+		.collect(Collectors.joining(",\n\t|\t"))
 }
 
 static String buildSimpleProperty(field) {
 	def type = mapSuplaTypeToJava(field)
-	def comment = ""
-	if (field.javaDoc || field.unsigned) {
-		comment += "/**\n"
-		if (field.javaDoc) {
-			comment += "\t * ${field.javaDoc}\n"
-				.replaceAll("&", "&amp;")
-				.replaceAll("<", "&#60;")
-				.replaceAll(">", "&#62;")
-				.replaceAll("@", "&#64;")
-		}
-		if (field.unsigned) {
-			if (field.javaDoc) {
-				comment += "\t * <p>\n"
-			}
-			comment += "\t * unsigned ${field.type}\n"
-		}
-		comment += "\t */\n\t"
-	}
-	"${comment}public final ${type} ${field.name};"
+	"${type} ${field.name}"
 }
 
 static String findImplementClass(struct) {
@@ -330,7 +277,7 @@ static String findSizeForClass(struct) {
 				throw new IllegalArgumentException("Unknown type: " + field.originalClassName.toString())
 			}
 		}
-		.collect(Collectors.joining("\n\t\t + "))
+		.collect(Collectors.joining(" + "))
 }
 
 boolean hasDynamicSize(struct) {
@@ -338,13 +285,13 @@ boolean hasDynamicSize(struct) {
 }
 
 static String findSizeForField(field) {
-	findSize(field, false) + " // ${field.name}"
+	findSize(field, false)
 }
 
 // might be a problem cause not set union fields still have size...
 // probably should introduce MIN_SIZE
 static String findSizeForUnionField(field) {
-	"${findSize(field, true)}  // ${field.name}"
+	"${findSize(field, true)}"
 }
 
 static String findSize(field, union) {
@@ -378,9 +325,9 @@ static String findSize(field, union) {
 		def finalType = mapSimpleType(mapSuplaTypeToJava(field))
 		if (finalType.startsWith("UNKNOWN")) {
 			if (union) {
-				finalType = "(${field.name}!= null ? ${field.name}.size() : ${mapSuplaTypeToJava(field)}.SIZE)"
+				finalType = "(${field.name}!= null ? ${field.name}.protoSize() : ${mapSuplaTypeToJava(field)}.SIZE)"
 			} else {
-				finalType = field.name + ".size()"
+				finalType = field.name + ".protoSize()"
 			}
 		}
 		return finalType

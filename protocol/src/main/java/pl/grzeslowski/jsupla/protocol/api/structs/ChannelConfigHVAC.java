@@ -304,7 +304,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
     /* no call type */
 
     @Override
-    public int size() {
+    public int protoSize() {
         return pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize(
             INT_SIZE  // mainThermometerChannelId
             , CHAR_SIZE  // mainThermometerChannelNo
@@ -328,7 +328,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
                + CHAR_SIZE // temperatureSetpointChangeSwitchesToManualMode
                + CHAR_SIZE // auxMinMaxSetpointEnabled
                + CHAR_SIZE // useSeparateHeatCoolOutputs
-               + parameterFlags.size() // parameterFlags
+               + parameterFlags.protoSize() // parameterFlags
                + pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize(
             INT_SIZE  // masterThermostatChannelId
         )
@@ -339,7 +339,7 @@ public class ChannelConfigHVAC implements ProtoWithSize {
             INT_SIZE  // pumpSwitchChannelId
         )
                + (int) RESERVED_SIZE * BYTE_SIZE // reserved
-               + temperatures.size() // temperatures
+               + temperatures.protoSize() // temperatures
                + CHAR_SIZE// localUILockingCapabilities;
                + CHAR_SIZE// localUILock;
                + SHORT_SIZE// minAllowedTemperatureSetpointFromLocalUI;

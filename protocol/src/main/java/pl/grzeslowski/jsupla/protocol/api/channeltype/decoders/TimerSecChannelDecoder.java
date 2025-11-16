@@ -9,6 +9,6 @@ public class TimerSecChannelDecoder extends TimerAbstractChannelDecoder {
         // using `remainingTimeMs` is correct!
         // TimerStateExtendedValueDecoder puts always value to `remainingTimeMs`,
         // because at the time of parsing it does not know if it's seconds or milliseconds
-        return Duration.ofSeconds(timer.remainingTimeMs);
+        return Duration.ofSeconds(timer.remainingTimeMs());
     }
 }

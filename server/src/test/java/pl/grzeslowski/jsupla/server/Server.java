@@ -124,14 +124,14 @@ public class Server {
             val setTimout = (SuplaSetActivityTimeout) toServerEntity;
             result =
                     new SuplaSetActivityTimeoutResult(
-                            setTimout.activityTimeout,
-                            (short) (setTimout.activityTimeout - 2),
-                            (short) (setTimout.activityTimeout + 2));
+                            setTimout.activityTimeout(),
+                            (short) (setTimout.activityTimeout() - 2),
+                            (short) (setTimout.activityTimeout() + 2));
         } else if (toServerEntity instanceof SuplaDeviceChannelValue) {
             result = null;
         } else if (toServerEntity instanceof SuplaPingServer) {
             val ping = (SuplaPingServer) toServerEntity;
-            result = new SuplaPingServerResult(ping.now);
+            result = new SuplaPingServerResult(ping.now());
         } else {
             throw new RuntimeException("Unsupported message " + toServerEntity);
         }

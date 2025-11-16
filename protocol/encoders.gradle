@@ -111,7 +111,7 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 			.map { field -> "\t\t${parseField(field)}" }
 			.collect(joining("\n"))
 		parse = """\
-			|final byte[] bytes = new byte[proto.size()];
+			|final byte[] bytes = new byte[proto.protoSize()];
         	|int offset = 0;
         	|
         	|$fields""".stripMargin()
@@ -170,10 +170,10 @@ static String parseField(field) {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}, bytes, offset);"
+			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}(), bytes, offset);"
 		} else {
 			return """\
-				|byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(proto.${field.name});
+				|byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(proto.${field.name}());
 				|		offset += ${field.name}Bytes.length;\
 			""".stripMargin()
 		}
@@ -181,10 +181,10 @@ static String parseField(field) {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}Array(proto.${field.name}, bytes, offset);"
+			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}Array(proto.${field.name}(), bytes, offset);"
 		} else {
 			return """\
-				|for (val element : proto.${field.name}) {
+				|for (val element : proto.${field.name}()) {
 				|			byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element);
 				|			offset += ${field.name}Bytes.length;
 				|		}\

@@ -62,7 +62,7 @@ public class SuplaDataPacket implements ProtoWithSize {
     /* no call type */
 
     @Override
-    public int size() {
+    public int protoSize() {
         return CHAR_SIZE // version
                + INT_SIZE // rrId
                + INT_SIZE // callId

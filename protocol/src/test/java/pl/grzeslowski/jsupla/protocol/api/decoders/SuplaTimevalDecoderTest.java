@@ -21,8 +21,8 @@ public class SuplaTimevalDecoderTest {
         var timeval = SuplaTimevalDecoder.INSTANCE.decode(bytes);
 
         // then
-        assertThat(timeval.tvSec).isEqualTo(tvSec);
-        assertThat(timeval.tvUsec).isEqualTo(tvUsec);
+        assertThat(timeval.tvSec()).isEqualTo(tvSec);
+        assertThat(timeval.tvUsec()).isEqualTo(tvUsec);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class SuplaTimevalDecoderTest {
         var timeval = SuplaTimevalDecoder.INSTANCE.decode(bytes);
 
         // then
-        assertThat(timeval.tvSec).isEqualTo(tvSec);
-        assertThat(timeval.tvUsec).isEqualTo(tvUsec);
+        assertThat(timeval.tvSec()).isEqualTo(tvSec);
+        assertThat(timeval.tvUsec()).isEqualTo(tvUsec);
     }
 }
