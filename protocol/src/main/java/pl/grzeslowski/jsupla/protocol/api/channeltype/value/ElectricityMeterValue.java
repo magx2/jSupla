@@ -16,15 +16,15 @@ import java.util.List;
  * @param phases
  */
 public record ElectricityMeterValue(
-    BigInteger totalForwardActiveEnergyBalanced,
-    BigInteger totalReverseActiveEnergyBalanced,
-    BigDecimal totalCost,
-    BigDecimal pricePerUnit,
-    Currency currency,
-    int measuredValues,
-    int period,
-    List<Phase> phases
-) implements ChannelValue {
+        BigInteger totalForwardActiveEnergyBalanced,
+        BigInteger totalReverseActiveEnergyBalanced,
+        BigDecimal totalCost,
+        BigDecimal pricePerUnit,
+        Currency currency,
+        int measuredValues,
+        int period,
+        List<Phase> phases)
+        implements ChannelValue {
 
     /**
      * @param totalForwardActiveEnergy
@@ -41,18 +41,16 @@ public record ElectricityMeterValue(
      * @param frequency                  Hz
      */
     public record Phase(
-        BigInteger totalForwardActiveEnergy,
-        BigInteger totalReverseActiveEnergy,
-        BigInteger totalForwardReactiveEnergy,
-        BigInteger totalReverseReactiveEnergy,
-        double voltage,
-        double current,
-        double powerActive,
-        double powerReactive,
-        double powerApparent,
-        double powerFactor,
-        double phaseAngle,
-        int frequency
-    ) {
-    }
+            BigInteger totalForwardActiveEnergy,
+            BigInteger totalReverseActiveEnergy,
+            BigInteger totalForwardReactiveEnergy,
+            BigInteger totalReverseReactiveEnergy,
+            double voltage,
+            double current,
+            double powerActive,
+            double powerReactive,
+            double powerApparent,
+            double powerFactor,
+            double phaseAngle,
+            int frequency) {}
 }

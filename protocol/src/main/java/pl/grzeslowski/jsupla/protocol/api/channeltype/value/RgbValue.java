@@ -9,7 +9,8 @@ import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsignedByteSize;
  * @param green
  * @param blue
  */
-public record RgbValue(int brightness, int colorBrightness, int red, int green, int blue) implements ChannelValue {
+public record RgbValue(int brightness, int colorBrightness, int red, int green, int blue)
+        implements ChannelValue {
     public RgbValue {
         unsignedByteSize(brightness);
         unsignedByteSize(colorBrightness);
