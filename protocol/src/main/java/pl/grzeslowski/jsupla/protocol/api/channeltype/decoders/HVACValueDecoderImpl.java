@@ -35,14 +35,14 @@ public class HVACValueDecoderImpl implements Decoder<HvacValue> {
     }
 
     private static Double findHeatSetPoint(HVACValue decode, HvacValue.Flags flags) {
-        if (!flags.isSetPointTempHeatSet()) {
+        if (!flags.setPointTempHeatSet()) {
             return null;
         }
         return decode.setpointTemperatureHeat * 0.01;
     }
 
     private static Double findCoolSetPoint(HVACValue decode, HvacValue.Flags flags) {
-        if (!flags.isSetPointTempCoolSet()) {
+        if (!flags.setPointTempCoolSet()) {
             return null;
         }
         return decode.setpointTemperatureCool * 0.01;

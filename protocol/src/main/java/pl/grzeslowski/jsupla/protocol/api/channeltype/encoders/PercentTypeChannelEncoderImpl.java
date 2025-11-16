@@ -7,7 +7,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.PercentValue;
 class PercentTypeChannelEncoderImpl {
     public byte[] encode(final PercentValue percentValue) {
         final byte[] bytes = new byte[SUPLA_CHANNELVALUE_SIZE];
-        bytes[0] = (byte) (10 + percentValue.getValue());
+        bytes[0] = (byte) (10 + percentValue.value());
         return bytes;
     }
 }
