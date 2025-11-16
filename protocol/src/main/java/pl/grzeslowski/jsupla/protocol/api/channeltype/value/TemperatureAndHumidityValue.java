@@ -1,15 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import java.math.BigDecimal;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
 
-@Value
-@RequiredArgsConstructor
-public class TemperatureAndHumidityValue implements ChannelValue {
-    BigDecimal temperature;
-    BigDecimal humidity;
-
+/**
+ * @param temperature
+ * @param humidity
+ */
+public record TemperatureAndHumidityValue(BigDecimal temperature, BigDecimal humidity) implements ChannelValue {
     public TemperatureAndHumidityValue(final int temperature, final int humidity) {
         this(new BigDecimal(temperature), new BigDecimal(humidity));
     }

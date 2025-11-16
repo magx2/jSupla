@@ -18,26 +18,26 @@ public class HVACValueDecoderImplTest {
         val decode = decoder.decode(data);
 
         // then
-        assertThat(decode.isOn()).isFalse();
-        assertThat(decode.getMode()).isEqualTo(HEAT);
-        assertThat(decode.getSetPointTemperatureHeat()).isEqualTo(18.1);
-        assertThat(decode.getSetPointTemperatureCool()).isNull();
+        assertThat(decode.on()).isFalse();
+        assertThat(decode.mode()).isEqualTo(HEAT);
+        assertThat(decode.setPointTemperatureHeat()).isEqualTo(18.1);
+        assertThat(decode.setPointTemperatureCool()).isNull();
 
-        val flags = decode.getFlags();
+        val flags = decode.flags();
         assertThat(flags).isNotNull();
-        assertThat(flags.isSetPointTempHeatSet()).isTrue();
-        assertThat(flags.isSetPointTempCoolSet()).isFalse();
-        assertThat(flags.isHeating()).isFalse();
-        assertThat(flags.isCooling()).isFalse();
-        assertThat(flags.isWeeklySchedule()).isFalse();
-        assertThat(flags.isCountdownTimer()).isFalse();
-        assertThat(flags.isFanEnabled()).isFalse();
-        assertThat(flags.isThermometerError()).isFalse();
-        assertThat(flags.isClockError()).isFalse();
-        assertThat(flags.isForcedOffBySensor()).isFalse();
-        assertThat(flags.isCool()).isFalse();
-        assertThat(flags.isWeeklyScheduleTemporalOverride()).isFalse();
-        assertThat(flags.isBatteryCoverOpen()).isFalse();
+        assertThat(flags.setPointTempHeatSet()).isTrue();
+        assertThat(flags.setPointTempCoolSet()).isFalse();
+        assertThat(flags.heating()).isFalse();
+        assertThat(flags.cooling()).isFalse();
+        assertThat(flags.weeklySchedule()).isFalse();
+        assertThat(flags.countdownTimer()).isFalse();
+        assertThat(flags.fanEnabled()).isFalse();
+        assertThat(flags.thermometerError()).isFalse();
+        assertThat(flags.clockError()).isFalse();
+        assertThat(flags.forcedOffBySensor()).isFalse();
+        assertThat(flags.cool()).isFalse();
+        assertThat(flags.weeklyScheduleTemporalOverride()).isFalse();
+        assertThat(flags.batteryCoverOpen()).isFalse();
     }
 
     @Test

@@ -1,16 +1,17 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
+
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
 public class ColorTypeChannelEncoderImpl {
     public byte[] encode(final RgbValue rgbValue) {
-        return new byte[] {
-            toByte(rgbValue.getBrightness()),
-            toByte(rgbValue.getColorBrightness()),
-            toByte(rgbValue.getRed()),
-            toByte(rgbValue.getGreen()),
-            toByte(rgbValue.getBlue()),
+        return new byte[]{
+            toByte(rgbValue.brightness()),
+            toByte(rgbValue.colorBrightness()),
+            toByte(rgbValue.red()),
+            toByte(rgbValue.green()),
+            toByte(rgbValue.blue()),
             0,
             0,
             0
