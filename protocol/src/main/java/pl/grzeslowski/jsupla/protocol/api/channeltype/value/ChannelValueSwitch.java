@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
-import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 
 public final class ChannelValueSwitch<T> {
@@ -11,52 +10,23 @@ public final class ChannelValueSwitch<T> {
     }
 
     public T doSwitch(ChannelValue channelValue) {
-        if (channelValue instanceof DecimalValue) {
-            return callback.onDecimalValue((DecimalValue) channelValue);
-        }
-        if (channelValue instanceof OnOff) {
-            return callback.onOnOff((OnOff) channelValue);
-        }
-        if (channelValue instanceof OpenClose) {
-            return callback.onOpenClose((OpenClose) channelValue);
-        }
-        if (channelValue instanceof PercentValue) {
-            return callback.onPercentValue((PercentValue) channelValue);
-        }
-        if (channelValue instanceof RgbValue) {
-            return callback.onRgbValue((RgbValue) channelValue);
-        }
-        if (channelValue instanceof StoppableOpenClose) {
-            return callback.onStoppableOpenClose((StoppableOpenClose) channelValue);
-        }
-        if (channelValue instanceof TemperatureAndHumidityValue) {
-            return callback.onTemperatureAndHumidityValue(
-                    (TemperatureAndHumidityValue) channelValue);
-        }
-        if (channelValue instanceof TemperatureValue) {
-            return callback.onTemperatureValue((TemperatureValue) channelValue);
-        }
-        if (channelValue instanceof ElectricityMeterValue) {
-            return callback.onElectricityMeter((ElectricityMeterValue) channelValue);
-        }
-        if (channelValue instanceof HvacValue) {
-            return callback.onHvacValue((HvacValue) channelValue);
-        }
-        if (channelValue instanceof TimerValue) {
-            return callback.onTimerValue((TimerValue) channelValue);
-        }
-        if (channelValue instanceof UnknownValue) {
-            return callback.onUnknownValue((UnknownValue) channelValue);
-        }
-
-        throw new IllegalArgumentException(
-                format(
-                        "Don't know where to dispatch channels value with class %s! "
-                                + "This should NEVER occur on production!",
-                        channelValue.getClass().getSimpleName()));
+        return switch (channelValue) {
+            case DecimalValue decimalValue -> callback.onDecimalValue(decimalValue);
+            case ElectricityMeterValue electricityMeterValue -> callback.onElectricityMeter(electricityMeterValue);
+            case HvacValue hvacValue -> callback.onHvacValue(hvacValue);
+            case OnOff onOff -> callback.onOnOff(onOff);
+            case OpenClose openClose -> callback.onOpenClose(openClose);
+            case PercentValue percentValue -> callback.onPercentValue(percentValue);
+            case RgbValue rgbValue -> callback.onRgbValue(rgbValue);
+            case StoppableOpenClose stoppableOpenClose -> callback.onStoppableOpenClose(stoppableOpenClose);
+            case TemperatureAndHumidityValue temperatureAndHumidityValue ->
+                callback.onTemperatureAndHumidityValue(temperatureAndHumidityValue);
+            case TemperatureValue temperatureValue -> callback.onTemperatureValue(temperatureValue);
+            case TimerValue timerValue -> callback.onTimerValue(timerValue);
+            case UnknownValue unknownValue -> callback.onUnknownValue(unknownValue);
+        };
     }
 
-    @SuppressWarnings("UnusedReturnValue")
     public interface Callback<T> {
         T onDecimalValue(DecimalValue decimalValue);
 
