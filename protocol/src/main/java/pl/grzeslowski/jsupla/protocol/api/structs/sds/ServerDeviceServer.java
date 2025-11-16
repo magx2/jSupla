@@ -1,9 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.structs.sds;
 
+import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType;
 import pl.grzeslowski.jsupla.protocol.api.types.FromDeviceProto;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToDeviceProto;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 
-public interface ServerDeviceServer
-        extends FromServerProto, ToDeviceProto, FromDeviceProto, ToServerProto {}
+public interface ServerDeviceServer extends FromServerProto, ToDeviceProto, FromDeviceProto, ToServerProto {
+    @Override
+    ServerDeviceCallType callType();
+}
