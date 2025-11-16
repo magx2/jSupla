@@ -48,9 +48,11 @@ public final class ChannelClassSwitch<T> {
             return callback.onUnknownValue();
         }
 
-        throw new IllegalArgumentException(format("Don't know where to dispatch channels value with class %s! " +
-                "This should NEVER occur on production!",
-            channelClass.getSimpleName()));
+        throw new IllegalArgumentException(
+                format(
+                        "Don't know where to dispatch channels value with class %s! "
+                                + "This should NEVER occur on production!",
+                        channelClass.getSimpleName()));
     }
 
     @SuppressWarnings("UnusedReturnValue")

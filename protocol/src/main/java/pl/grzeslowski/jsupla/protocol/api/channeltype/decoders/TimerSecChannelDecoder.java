@@ -1,8 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import pl.grzeslowski.jsupla.protocol.api.structs.TimerStateExtendedValue;
-
 import java.time.Duration;
+import pl.grzeslowski.jsupla.protocol.api.structs.TimerStateExtendedValue;
 
 public class TimerSecChannelDecoder extends TimerAbstractChannelDecoder {
     @Override

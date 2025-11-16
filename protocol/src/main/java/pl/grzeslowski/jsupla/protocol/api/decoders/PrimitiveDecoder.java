@@ -1,16 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-
-import lombok.val;
-
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
-
 import static java.lang.String.format;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.sizeMin;
+
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+import lombok.val;
 
 public class PrimitiveDecoder {
     public static final PrimitiveDecoder INSTANCE = new PrimitiveDecoder();
@@ -77,18 +75,15 @@ public class PrimitiveDecoder {
         return byteBuffer.getLong();
     }
 
-
     public short parseUnsignedByte(byte[] bytes, int offset) {
         sizeMin(bytes, BYTE_SIZE + offset);
         return (short) (bytes[offset] & 0xFF);
     }
 
-
     public byte parseByte(byte[] bytes, int offset) {
         sizeMin(bytes, BYTE_SIZE + offset);
         return bytes[offset];
     }
-
 
     public char parseChar(byte[] bytes, int offset) {
         sizeMin(bytes, BYTE_SIZE + offset);
@@ -105,7 +100,9 @@ public class PrimitiveDecoder {
     public byte[] copyOfRangeByte(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         return Arrays.copyOfRange(original, from, to);
     }
@@ -113,7 +110,9 @@ public class PrimitiveDecoder {
     public short[] copyOfRangeByteUnsigned(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new short[(to - from) / BYTE_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += BYTE_SIZE) {
@@ -125,7 +124,9 @@ public class PrimitiveDecoder {
     public short[] copyOfRangeShort(byte[] original, int from, int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new short[(to - from) / SHORT_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += SHORT_SIZE) {
@@ -137,7 +138,9 @@ public class PrimitiveDecoder {
     public int[] copyOfRangeShortUnsigned(byte[] original, int from, int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new int[(to - from) / SHORT_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += SHORT_SIZE) {
@@ -149,7 +152,9 @@ public class PrimitiveDecoder {
     public long[] copyOfRangeIntUnsigned(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new long[(to - from) / INT_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += INT_SIZE) {
@@ -161,7 +166,9 @@ public class PrimitiveDecoder {
     public int[] copyOfRangeInt(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new int[(to - from) / INT_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += INT_SIZE) {
@@ -173,7 +180,9 @@ public class PrimitiveDecoder {
     public long[] copyOfRangeLong(final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new long[(to - from) / LONG_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += LONG_SIZE) {
@@ -182,10 +191,13 @@ public class PrimitiveDecoder {
         return result;
     }
 
-    public BigInteger[] copyOfRangeLongUnsigned(final byte[] original, final int from, final int to) {
+    public BigInteger[] copyOfRangeLongUnsigned(
+            final byte[] original, final int from, final int to) {
         if (to > original.length) {
             throw new IllegalArgumentException(
-                format("Index 'to' (%s) is too big for array with size %s", to, original.length));
+                    format(
+                            "Index 'to' (%s) is too big for array with size %s",
+                            to, original.length));
         }
         val result = new BigInteger[(to - from) / LONG_SIZE];
         for (int idx = 0, offset = from; idx < result.length; idx++, offset += LONG_SIZE) {

@@ -1,9 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.PercentValue;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 class PercentTypeChannelEncoderImpl {
     public byte[] encode(final PercentValue percentValue) {

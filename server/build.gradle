@@ -1,3 +1,20 @@
+plugins {
+	id("com.diffplug.spotless") version "7.0.4"
+}
+
+spotless {
+	//noinspection GroovyAssignabilityCheck
+	lineEndings 'UNIX' // This means LF line endings
+	java {
+		// apply a specific flavor of google-java-format
+		googleJavaFormat('1.27.0').aosp().reflowLongStrings().skipJavadocFormatting()
+		// fix formatting of type annotations
+		formatAnnotations()
+	}
+}
+
+tasks.compileJava.dependsOn 'spotlessApply'
+
 repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 	mavenCentral()

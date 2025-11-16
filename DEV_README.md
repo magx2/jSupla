@@ -1,8 +1,11 @@
 # Deploying to Maven Central
 
-The release process is automated via the [Release with Gradle](https://github.com/magx2/jSupla/actions/workflows/release.yml) GitHub Action. Once the workflow completes successfully, the artifacts will be automatically released to Maven Central.
+The release process is automated via
+the [Release with Gradle](https://github.com/magx2/jSupla/actions/workflows/release.yml) GitHub Action. Once the
+workflow completes successfully, the artifacts will be automatically released to Maven Central.
 
-You can verify the release status and find the artifacts on [Maven Central](https://search.maven.org/search?q=g:pl.grzeslowski.jSupla).
+You can verify the release status and find the artifacts
+on [Maven Central](https://search.maven.org/search?q=g:pl.grzeslowski.jSupla).
 
 ## Prerequisites
 

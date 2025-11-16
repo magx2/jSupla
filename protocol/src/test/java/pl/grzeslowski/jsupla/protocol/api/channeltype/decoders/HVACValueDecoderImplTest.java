@@ -1,10 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import lombok.val;
-import org.junit.Test;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.HEAT;
+
+import lombok.val;
+import org.junit.Test;
 
 public class HVACValueDecoderImplTest {
     HVACValueDecoderImpl decoder = HVACValueDecoderImpl.INSTANCE;
@@ -12,7 +12,7 @@ public class HVACValueDecoderImplTest {
     @Test
     public void auratonTestCase() {
         // given
-        val data = new byte[]{0, 2, 18, 7, 0, 0, 1, 0};
+        val data = new byte[] {0, 2, 18, 7, 0, 0, 1, 0};
 
         // when
         val decode = decoder.decode(data);

@@ -1,4 +1,3 @@
 package pl.grzeslowski.jsupla.protocol.api.types;
 
-public interface FromClientProto extends ProtoToSend {
-}
+public interface FromClientProto extends ProtoToSend {}

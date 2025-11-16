@@ -1,15 +1,15 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
 
 public class PreconditionsTestArrayLength {
     @Test
     public void shouldReturnArrayIfLengthIsCorrect() throws Exception {
 
         // given
-        final String[] expectedStrings = new String[]{"1", "2", "3"};
+        final String[] expectedStrings = new String[] {"1", "2", "3"};
 
         // when
         final String[] strings = Preconditions.checkArrayLength(expectedStrings, 3);
@@ -22,7 +22,7 @@ public class PreconditionsTestArrayLength {
     public void shouldReturnByteArrayIfLengthIsCorrect() throws Exception {
 
         // given
-        final byte[] expectedBytes = new byte[]{1, 2, 3};
+        final byte[] expectedBytes = new byte[] {1, 2, 3};
 
         // when
         final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 3);
@@ -35,7 +35,7 @@ public class PreconditionsTestArrayLength {
     public void shouldReturnCharArrayIfLengthIsCorrect() throws Exception {
 
         // given
-        final char[] expectedChars = new char[]{1, 2, 3};
+        final char[] expectedChars = new char[] {1, 2, 3};
 
         // when
         final char[] chars = Preconditions.checkArrayLength(expectedChars, 3);
@@ -48,7 +48,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerArray() throws Exception {
 
         // given
-        final String[] expectedStrings = new String[]{"1", "2", "3"};
+        final String[] expectedStrings = new String[] {"1", "2", "3"};
 
         // when
         final String[] strings = Preconditions.checkArrayLength(expectedStrings, 2);
@@ -61,7 +61,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerBytes() throws Exception {
 
         // given
-        final byte[] expectedBytes = new byte[]{1, 2, 3};
+        final byte[] expectedBytes = new byte[] {1, 2, 3};
 
         // when
         final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 2);
@@ -74,7 +74,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerChars() throws Exception {
 
         // given
-        final char[] expectedChars = new char[]{1, 2, 3};
+        final char[] expectedChars = new char[] {1, 2, 3};
 
         // when
         final char[] chars = Preconditions.checkArrayLength(expectedChars, 2);
@@ -87,7 +87,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerArray() throws Exception {
 
         // given
-        final String[] expectedStrings = new String[]{"1", "2", "3"};
+        final String[] expectedStrings = new String[] {"1", "2", "3"};
 
         // when
         final String[] strings = Preconditions.checkArrayLength(expectedStrings, 4);
@@ -100,7 +100,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerBytes() throws Exception {
 
         // given
-        final byte[] expectedBytes = new byte[]{1, 2, 3};
+        final byte[] expectedBytes = new byte[] {1, 2, 3};
 
         // when
         final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 4);
@@ -113,7 +113,7 @@ public class PreconditionsTestArrayLength {
     public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerChars() throws Exception {
 
         // given
-        final char[] expectedChars = new char[]{1, 2, 3};
+        final char[] expectedChars = new char[] {1, 2, 3};
 
         // when
         final char[] chars = Preconditions.checkArrayLength(expectedChars, 4);

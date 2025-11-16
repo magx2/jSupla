@@ -1,11 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 public class PreconditionsTestSizeMax {
     @Test
@@ -25,7 +24,7 @@ public class PreconditionsTestSizeMax {
     public void shouldReturnArrayWhenSizeIsInBounds() throws Exception {
 
         // given
-        final String[] expectedArray = new String[]{"1", "2"};
+        final String[] expectedArray = new String[] {"1", "2"};
 
         // when
         final String[] array = Preconditions.sizeMax(expectedArray, 2);
@@ -51,7 +50,7 @@ public class PreconditionsTestSizeMax {
     public void shouldReturnByteArrayWhenSizeIsInBounds() throws Exception {
 
         // given
-        final byte[] expectedByteArray = new byte[]{1};
+        final byte[] expectedByteArray = new byte[] {1};
 
         // when
         final byte[] bytes = Preconditions.sizeMax(expectedByteArray, 2);
@@ -64,7 +63,7 @@ public class PreconditionsTestSizeMax {
     public void shouldReturnByteArrayWhenSizeIsInLongBounds() throws Exception {
 
         // given
-        final byte[] expectedByteArray = new byte[]{1};
+        final byte[] expectedByteArray = new byte[] {1};
 
         // when
         final byte[] bytes = Preconditions.sizeMax(expectedByteArray, 2L);
@@ -87,14 +86,15 @@ public class PreconditionsTestSizeMax {
     public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsArray() throws Exception {
 
         // given
-        final String[] expectedArray = new String[]{"1", "2", "3"};
+        final String[] expectedArray = new String[] {"1", "2", "3"};
 
         // when
         Preconditions.sizeMax(expectedArray, 2);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCharSequence() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCharSequence()
+            throws Exception {
 
         // given
         final CharSequence expectedCharSequence = "123";
@@ -107,17 +107,18 @@ public class PreconditionsTestSizeMax {
     public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsByteArray() throws Exception {
 
         // given
-        final byte[] expectedByteArray = new byte[]{1, 2, 3};
+        final byte[] expectedByteArray = new byte[] {1, 2, 3};
 
         // when
         Preconditions.sizeMax(expectedByteArray, 2);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInLongBoundsByteArray() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInLongBoundsByteArray()
+            throws Exception {
 
         // given
-        final byte[] expectedByteArray = new byte[]{1, 2, 3};
+        final byte[] expectedByteArray = new byte[] {1, 2, 3};
 
         // when
         Preconditions.sizeMax(expectedByteArray, 2L);

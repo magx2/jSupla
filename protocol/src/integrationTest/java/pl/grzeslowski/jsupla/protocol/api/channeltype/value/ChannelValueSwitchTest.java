@@ -1,15 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import com.google.common.reflect.ClassPath;
+import java.math.BigInteger;
+import java.time.Duration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
-
-import java.math.BigInteger;
-import java.time.Duration;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(Parameterized.class)
 public class ChannelValueSwitchTest {
@@ -19,14 +18,14 @@ public class ChannelValueSwitchTest {
     @Parameterized.Parameters(name = "class = {0}")
     public static ChannelValue[][] data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
-            .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
-            .stream()
-            .map(ClassPath.ClassInfo::load)
-            .filter(clazz -> !clazz.isInterface())
-            .filter(ChannelValue.class::isAssignableFrom)
-            .map(clazz -> mock((Class<? extends ChannelValue>) clazz))
-            .map(channelValue -> new ChannelValue[]{channelValue})
-            .toArray(ChannelValue[][]::new);
+                .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
+                .stream()
+                .map(ClassPath.ClassInfo::load)
+                .filter(clazz -> !clazz.isInterface())
+                .filter(ChannelValue.class::isAssignableFrom)
+                .map(clazz -> mock((Class<? extends ChannelValue>) clazz))
+                .map(channelValue -> new ChannelValue[] {channelValue})
+                .toArray(ChannelValue[][]::new);
     }
 
     public ChannelValueSwitchTest(ChannelValue channelValue) {
@@ -84,7 +83,8 @@ public class ChannelValueSwitchTest {
         }
 
         @Override
-        public ChannelValue onTemperatureAndHumidityValue(TemperatureAndHumidityValue temperatureAndHumidityValue) {
+        public ChannelValue onTemperatureAndHumidityValue(
+                TemperatureAndHumidityValue temperatureAndHumidityValue) {
             return temperatureAndHumidityValue;
         }
 
@@ -110,75 +110,74 @@ public class ChannelValueSwitchTest {
     }
 
     private static ChannelValue mock(Class<? extends ChannelValue> aClass) {
-        ChannelClassSwitch.Callback<ChannelValue> callback = new ChannelClassSwitch.Callback<ChannelValue>() {
-            @Override
-            public ChannelValue onDecimalValue() {
-                return new DecimalValue(1);
-            }
+        ChannelClassSwitch.Callback<ChannelValue> callback =
+                new ChannelClassSwitch.Callback<ChannelValue>() {
+                    @Override
+                    public ChannelValue onDecimalValue() {
+                        return new DecimalValue(1);
+                    }
 
-            @Override
-            public ChannelValue onOnOff() {
-                return OnOff.OFF;
-            }
+                    @Override
+                    public ChannelValue onOnOff() {
+                        return OnOff.OFF;
+                    }
 
-            @Override
-            public ChannelValue onOpenClose() {
-                return OpenClose.CLOSE;
-            }
+                    @Override
+                    public ChannelValue onOpenClose() {
+                        return OpenClose.CLOSE;
+                    }
 
-            @Override
-            public ChannelValue onPercentValue() {
-                return new PercentValue(1);
-            }
+                    @Override
+                    public ChannelValue onPercentValue() {
+                        return new PercentValue(1);
+                    }
 
-            @Override
-            public ChannelValue onRgbValue() {
-                return new RgbValue(1, 2, 3, 4, 5);
-            }
+                    @Override
+                    public ChannelValue onRgbValue() {
+                        return new RgbValue(1, 2, 3, 4, 5);
+                    }
 
-            @Override
-            public ChannelValue onStoppableOpenClose() {
-                return StoppableOpenClose.CLOSE;
-            }
+                    @Override
+                    public ChannelValue onStoppableOpenClose() {
+                        return StoppableOpenClose.CLOSE;
+                    }
 
-            @Override
-            public ChannelValue onTemperatureValue() {
-                return new TemperatureValue(1);
-            }
+                    @Override
+                    public ChannelValue onTemperatureValue() {
+                        return new TemperatureValue(1);
+                    }
 
-            @Override
-            public ChannelValue onTemperatureAndHumidityValue() {
-                return new TemperatureAndHumidityValue(1, 2);
-            }
+                    @Override
+                    public ChannelValue onTemperatureAndHumidityValue() {
+                        return new TemperatureAndHumidityValue(1, 2);
+                    }
 
-            @Override
-            public ChannelValue onElectricityMeter() {
-                return new ElectricityMeterValue(
-                    BigInteger.ONE,
-                    BigInteger.ONE,
-                    null,
-                    null,
-                    null,
-                    1,
-                    1,
-                    null);
-            }
+                    @Override
+                    public ChannelValue onElectricityMeter() {
+                        return new ElectricityMeterValue(
+                                BigInteger.ONE, BigInteger.ONE, null, null, null, 1, 1, null);
+                    }
 
-            @Override
-            public ChannelValue onHvacValue() {
-                return new HvacValue(true, HvacValue.Mode.DRY, 1.1, 2.2, new HvacValue.Flags(0));
-            }
+                    @Override
+                    public ChannelValue onHvacValue() {
+                        return new HvacValue(
+                                true, HvacValue.Mode.DRY, 1.1, 2.2, new HvacValue.Flags(0));
+                    }
 
-            @Override
-            public ChannelValue onTimerValue() {
-                return new TimerValue(Duration.ofSeconds(1), new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE], 1, "test");
-            }
+                    @Override
+                    public ChannelValue onTimerValue() {
+                        return new TimerValue(
+                                Duration.ofSeconds(1),
+                                new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE],
+                                1,
+                                "test");
+                    }
 
-            @Override
-            public ChannelValue onUnknownValue() {
-                return UnknownValue.UNKNOWN_VALUE;
-            }
-        };
+                    @Override
+                    public ChannelValue onUnknownValue() {
+                        return UnknownValue.UNKNOWN_VALUE;
+                    }
+                };
         return new ChannelClassSwitch<>(callback).doSwitch(aClass);
     }
 }

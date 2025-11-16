@@ -1,10 +1,13 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import static java.util.Objects.requireNonNull;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import java.util.concurrent.ExecutionException;
 import lombok.ToString;
 import lombok.val;
 import org.slf4j.Logger;
@@ -14,26 +17,22 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.server.api.Server;
 
-import java.util.concurrent.ExecutionException;
-
-import static java.util.Objects.requireNonNull;
-
 @SuppressWarnings("WeakerAccess")
 @ToString(onlyExplicitlyIncluded = true)
 public final class NettyServer implements Server {
     private final Logger logger;
 
-    @ToString.Include
-    private final NettyConfig nettyConfig;
+    @ToString.Include private final NettyConfig nettyConfig;
     private final NioEventLoopGroup bossGroup;
     private final NioEventLoopGroup workerGroup;
     private final ChannelFuture channelFuture;
 
-    public NettyServer(NettyConfig nettyConfig,
-                       CallTypeParser callTypeParser,
-                       DecoderFactory decoderFactory,
-                       EncoderFactory encoderFactory,
-                       MessageHandlerFactory messageHandlerFactory) {
+    public NettyServer(
+            NettyConfig nettyConfig,
+            CallTypeParser callTypeParser,
+            DecoderFactory decoderFactory,
+            EncoderFactory encoderFactory,
+            MessageHandlerFactory messageHandlerFactory) {
         logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + hashCode());
         logger.debug("New instance");
         this.nettyConfig = requireNonNull(nettyConfig);
@@ -41,19 +40,21 @@ public final class NettyServer implements Server {
         bossGroup = new NioEventLoopGroup();
         workerGroup = new NioEventLoopGroup();
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
-        val nettyServerInitializer = new NettyServerInitializer(
-            nettyConfig.getSslCtx(),
-            callTypeParser,
-            decoderFactory,
-            encoderFactory,
-            messageHandlerFactory);
+        val nettyServerInitializer =
+                new NettyServerInitializer(
+                        nettyConfig.getSslCtx(),
+                        callTypeParser,
+                        decoderFactory,
+                        encoderFactory,
+                        messageHandlerFactory);
 
         logger.trace("Configuring server bootstrap");
-        serverBootstrap.group(bossGroup, workerGroup)
-            .channel(NioServerSocketChannel.class)
-            .childHandler(nettyServerInitializer)
-            .option(ChannelOption.SO_BACKLOG, 128)
-            .childOption(ChannelOption.SO_KEEPALIVE, true);
+        serverBootstrap
+                .group(bossGroup, workerGroup)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(nettyServerInitializer)
+                .option(ChannelOption.SO_BACKLOG, 128)
+                .childOption(ChannelOption.SO_KEEPALIVE, true);
 
         // Bind and start to accept incoming connections.
         logger.debug("Binding to port {}", nettyConfig.getPort());

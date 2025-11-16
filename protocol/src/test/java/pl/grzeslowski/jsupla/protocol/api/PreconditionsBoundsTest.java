@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
 
 public class PreconditionsBoundsTest {
     @Test

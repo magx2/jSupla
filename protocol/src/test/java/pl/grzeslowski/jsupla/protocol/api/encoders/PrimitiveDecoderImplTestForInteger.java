@@ -1,10 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
-import org.junit.Test;
-
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;
 
+import org.junit.Test;
 
 public class PrimitiveDecoderImplTestForInteger {
 

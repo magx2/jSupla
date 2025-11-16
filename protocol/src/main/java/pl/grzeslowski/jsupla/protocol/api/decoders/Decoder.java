@@ -6,5 +6,4 @@ public interface Decoder<T> {
     default T decode(byte[] bytes) {
         return decode(bytes, 0);
     }
-
 }

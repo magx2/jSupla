@@ -9,6 +9,5 @@ import lombok.Value;
 public class NettyConfig {
     private static final int MAX_PORT_VALUE = 65_535;
     int port;
-    @Nullable
-    SslContext sslCtx;
+    @Nullable SslContext sslCtx;
 }

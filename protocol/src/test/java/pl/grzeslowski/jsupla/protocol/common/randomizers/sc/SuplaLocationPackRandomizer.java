@@ -15,11 +15,8 @@ public class SuplaLocationPackRandomizer implements Randomizer<SuplaLocationPack
     @Override
     public SuplaLocationPack getRandomValue() {
         final int count = randomSupla.nextPositiveInt(20);
-        final SuplaLocation[] locations = randomSupla.objects(SuplaLocation.class, count).toArray(SuplaLocation[]::new);
-        return new SuplaLocationPack(
-            count,
-            randomSupla.nextPositiveInt(),
-            locations
-        );
+        final SuplaLocation[] locations =
+                randomSupla.objects(SuplaLocation.class, count).toArray(SuplaLocation[]::new);
+        return new SuplaLocationPack(count, randomSupla.nextPositiveInt(), locations);
     }
 }

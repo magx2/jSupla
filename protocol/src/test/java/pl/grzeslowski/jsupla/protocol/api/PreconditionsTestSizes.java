@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import org.junit.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
 
 public class PreconditionsTestSizes {
 
@@ -53,7 +53,8 @@ public class PreconditionsTestSizes {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanUnsignedByte() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanUnsignedByte()
+            throws Exception {
 
         // given
         int value = -1;
@@ -63,7 +64,8 @@ public class PreconditionsTestSizes {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanUnsignedByte() throws Exception {
+    public void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanUnsignedByte()
+            throws Exception {
 
         // given
         int value = 256;

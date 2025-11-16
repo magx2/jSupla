@@ -15,8 +15,6 @@ public class FirmwareUpdateUrlResultRandomizer implements Randomizer<FirmwareUpd
     @Override
     public FirmwareUpdateUrlResult getRandomValue() {
         return new FirmwareUpdateUrlResult(
-            randomSupla.nextByte((byte) 1),
-            randomSupla.nextObject(FirmwareUpdateUrl.class)
-        );
+                randomSupla.nextByte((byte) 1), randomSupla.nextObject(FirmwareUpdateUrl.class));
     }
 }

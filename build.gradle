@@ -2,6 +2,7 @@ plugins {
 	id "maven-publish"
 	id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 	id 'signing'
+	id("com.diffplug.spotless") version "7.0.4"
 }
 
 nexusPublishing {
@@ -62,7 +63,7 @@ allProjects {
 	group = 'pl.grzeslowski.jSupla'
 	java {
 		toolchain {
-			languageVersion = JavaLanguageVersion.of(17)
+			languageVersion = JavaLanguageVersion.of(21)
 		}
 	}
 }
@@ -125,7 +126,7 @@ allProjects {
 }
 
 // Maven Central release
-prodProjects {
+prodProjects { p->
 	tasks.register('javadocJar', Jar) {
 		archiveClassifier.set('javadoc')
 		from javadoc
@@ -184,6 +185,26 @@ prodProjects {
 		sign publishing.publications.mavenJava
 	}
 }
+
+spotless {
+	//noinspection GroovyAssignabilityCheck
+	lineEndings 'UNIX' // This means LF line endings
+	format 'misc', {
+		// define the files to apply `misc` to
+		target '*.gradle', '.gitattributes', '.gitignore', '**.md', '**.yml', '**.xml', '**.properties', '**.json'
+
+		// define the steps to apply to those files
+		trimTrailingWhitespace()
+		leadingSpacesToTabs()
+		endWithNewline()
+	}
+}
+tasks.register("format") {
+	group = "formatting"
+	description = "Formats the code."
+	dependsOn tasks.named("spotlessApply")
+}
+tasks.check.dependsOn "format"
 
 allProjects {
 	dependencies {

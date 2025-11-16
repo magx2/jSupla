@@ -1,83 +1,92 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
-import lombok.val;
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
-
-import static java.lang.String.format;
-import static java.util.Objects.requireNonNull;
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+import lombok.val;
 
 public final class Preconditions {
 
     public static int min(int value, int min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static short min(short value, int min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static long min(long value, long min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static BigInteger min(BigInteger value, BigInteger min) {
         if (value.compareTo(min) < 0) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static short min(short value, short min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static byte min(byte value, byte min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is smaller than minimal value %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
         }
         return value;
     }
 
     public static short max(short value, short max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is bigger than maximal value %s!", value, max));
         }
         return value;
     }
 
     public static int max(int value, int max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is bigger than maximal value %s!", value, max));
         }
         return value;
     }
 
     public static long max(long value, long max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is bigger than maximal value %s!", value, max));
         }
         return value;
     }
 
     public static BigInteger max(BigInteger value, BigInteger max) {
         if (value.compareTo(max) > 0) {
-            throw new IllegalArgumentException(format("Given value %s is bigger than maximal value %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is bigger than maximal value %s!", value, max));
         }
         return value;
     }
@@ -124,14 +133,16 @@ public final class Preconditions {
 
     public static int size(int value, int equalTo) {
         if (value != equalTo) {
-            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+            throw new IllegalArgumentException(
+                    format("Given value %s is not equal to %s!", value, equalTo));
         }
         return value;
     }
 
     public static short size(short value, short equalTo) {
         if (value != equalTo) {
-            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+            throw new IllegalArgumentException(
+                    format("Given value %s is not equal to %s!", value, equalTo));
         }
         return value;
     }
@@ -139,7 +150,8 @@ public final class Preconditions {
     public static <T> Collection<T> sizeMax(Collection<T> collection, int max) {
         final int size = collection.size();
         if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
@@ -147,7 +159,8 @@ public final class Preconditions {
     public static <T extends CharSequence> T sizeMax(T collection, int max) {
         final int size = collection.length();
         if (size > max) {
-            throw new IllegalArgumentException(format("CharSequence size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("CharSequence size %s is too big, max %s!", size, max));
         }
         return collection;
     }
@@ -155,7 +168,8 @@ public final class Preconditions {
     public static <T> T[] sizeMax(T[] collection, int max) {
         final int size = collection.length;
         if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
@@ -163,7 +177,8 @@ public final class Preconditions {
     public static byte[] sizeMax(byte[] collection, int max) {
         final int size = collection.length;
         if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
@@ -171,7 +186,8 @@ public final class Preconditions {
     public static byte[] sizeMax(byte[] collection, long max) {
         final int size = collection.length;
         if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
@@ -179,35 +195,40 @@ public final class Preconditions {
     public static char[] sizeMax(char[] collection, long max) {
         final int size = collection.length;
         if (size > max) {
-            throw new IllegalArgumentException(format("Collection size %s is too big, max %s!", size, max));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too big, max %s!", size, max));
         }
         return collection;
     }
 
     public static int sizeMax(int value, long max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is too big, max %s!", value, max));
         }
         return value;
     }
 
     public static short sizeMax(short value, long max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is too big, max %s!", value, max));
         }
         return value;
     }
 
     public static byte sizeMax(byte value, long max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is too big, max %s!", value, max));
         }
         return value;
     }
 
     public static long sizeMax(long value, long max) {
         if (value > max) {
-            throw new IllegalArgumentException(format("Given value %s is too big, max %s!", value, max));
+            throw new IllegalArgumentException(
+                    format("Given value %s is too big, max %s!", value, max));
         }
         return value;
     }
@@ -215,7 +236,8 @@ public final class Preconditions {
     public static <T> Collection<T> sizeMin(Collection<T> collection, int min) {
         final int size = collection.size();
         if (size < min) {
-            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -223,7 +245,8 @@ public final class Preconditions {
     public static <T> List<T> sizeMin(List<T> collection, int min) {
         final int size = collection.size();
         if (size < min) {
-            throw new IllegalArgumentException(format("List size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("List size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -231,7 +254,8 @@ public final class Preconditions {
     public static <T extends CharSequence> T sizeMin(T collection, int min) {
         final int size = collection.length();
         if (size < min) {
-            throw new IllegalArgumentException(format("CharSequence size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("CharSequence size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -239,7 +263,8 @@ public final class Preconditions {
     public static <T> T[] sizeMin(T[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
-            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -247,7 +272,8 @@ public final class Preconditions {
     public static byte[] sizeMin(byte[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
-            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -255,7 +281,8 @@ public final class Preconditions {
     public static byte[] sizeMin(byte[] collection, long min) {
         final int size = collection.length;
         if (size < min) {
-            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too small, min %s!", size, min));
         }
         return collection;
     }
@@ -263,14 +290,16 @@ public final class Preconditions {
     public static char[] sizeMin(char[] collection, int min) {
         final int size = collection.length;
         if (size < min) {
-            throw new IllegalArgumentException(format("Collection size %s is too small, min %s!", size, min));
+            throw new IllegalArgumentException(
+                    format("Collection size %s is too small, min %s!", size, min));
         }
         return collection;
     }
 
     public static int sizeMin(int value, int min) {
         if (value < min) {
-            throw new IllegalArgumentException(format("Given value %s is too small, min %s!", value, min));
+            throw new IllegalArgumentException(
+                    format("Given value %s is too small, min %s!", value, min));
         }
         return value;
     }
@@ -278,7 +307,7 @@ public final class Preconditions {
     public static long[] checkArrayLength(long[] longs, int length) {
         if (longs.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, longs.length));
+                    format("Length of array should be %s but was %s!", length, longs.length));
         }
         return longs;
     }
@@ -289,7 +318,7 @@ public final class Preconditions {
         }
         if (bytes.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, bytes.length));
+                    format("Length of array should be %s but was %s!", length, bytes.length));
         }
         return bytes;
     }
@@ -297,7 +326,7 @@ public final class Preconditions {
     public static short[] checkArrayLength(short[] shorts, int length) {
         if (shorts.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, shorts.length));
+                    format("Length of array should be %s but was %s!", length, shorts.length));
         }
         return shorts;
     }
@@ -305,7 +334,7 @@ public final class Preconditions {
     public static int[] checkArrayLength(int[] ints, int length) {
         if (ints.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, ints.length));
+                    format("Length of array should be %s but was %s!", length, ints.length));
         }
         return ints;
     }
@@ -313,7 +342,7 @@ public final class Preconditions {
     public static char[] checkArrayLength(char[] bytes, int length) {
         if (bytes.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, bytes.length));
+                    format("Length of array should be %s but was %s!", length, bytes.length));
         }
         return bytes;
     }
@@ -321,7 +350,7 @@ public final class Preconditions {
     public static <T> T[] checkArrayLength(T[] array, int length) {
         if (array.length != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, array.length));
+                    format("Length of array should be %s but was %s!", length, array.length));
         }
         return array;
     }
@@ -329,7 +358,7 @@ public final class Preconditions {
     public static <T> Collection<T> checkArrayLength(Collection<T> collection, int length) {
         if (collection.size() != length) {
             throw new IllegalArgumentException(
-                format("Length of array should be %s but was %s!", length, collection.size()));
+                    format("Length of array should be %s but was %s!", length, collection.size()));
         }
         return collection;
     }
@@ -393,6 +422,7 @@ public final class Preconditions {
 
     /**
      * same as unsignedByteSize
+     *
      * @param unsignedByteValue value to check
      * @return given value
      */
@@ -413,6 +443,7 @@ public final class Preconditions {
 
     /**
      * same as unsignedShortSize
+     *
      * @param unsignedByteValue value to check
      * @return given value
      */
@@ -433,6 +464,7 @@ public final class Preconditions {
 
     /**
      * same as unsignedIntSize
+     *
      * @param value value to check
      * @return given value
      */
@@ -447,14 +479,16 @@ public final class Preconditions {
 
     public static int equalsTo(int value, int equalTo) {
         if (value != equalTo) {
-            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+            throw new IllegalArgumentException(
+                    format("Given value %s is not equal to %s!", value, equalTo));
         }
         return value;
     }
 
     public static long equalsTo(long value, long equalTo) {
         if (value != equalTo) {
-            throw new IllegalArgumentException(format("Given value %s is not equal to %s!", value, equalTo));
+            throw new IllegalArgumentException(
+                    format("Given value %s is not equal to %s!", value, equalTo));
         }
         return value;
     }
@@ -500,7 +534,8 @@ public final class Preconditions {
         for (Object object : objects) {
             if (object != null) {
                 if (!allNull) {
-                    throw new IllegalArgumentException("More that one objects in union was not null!");
+                    throw new IllegalArgumentException(
+                            "More that one objects in union was not null!");
                 }
                 allNull = false;
             }
@@ -510,7 +545,5 @@ public final class Preconditions {
         }
     }
 
-    private Preconditions() {
-
-    }
+    private Preconditions() {}
 }

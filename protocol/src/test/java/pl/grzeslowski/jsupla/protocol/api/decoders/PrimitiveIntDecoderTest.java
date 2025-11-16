@@ -1,18 +1,16 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
-
-import lombok.val;
-import org.junit.Test;
-import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
-import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
-
-import java.math.BigInteger;
-import java.util.Random;
-
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
+
+import java.math.BigInteger;
+import java.util.Random;
+import lombok.val;
+import org.junit.Test;
+import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
+import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
 public class PrimitiveIntDecoderTest {
     Random random = new Random();
@@ -21,7 +19,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseIntFromOneByte() {
 
         // given
-        byte[] bytes = new byte[]{(byte) 5, 0, 0, 0};
+        byte[] bytes = new byte[] {(byte) 5, 0, 0, 0};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
@@ -34,7 +32,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseIntFromOneByteWithOffset() {
 
         // given
-        byte[] bytes = new byte[]{1, 2, 3, (byte) 5, 0, 0, 0};
+        byte[] bytes = new byte[] {1, 2, 3, (byte) 5, 0, 0, 0};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 3);
@@ -47,7 +45,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseIntFromOneByteWithBiggerArray() {
 
         // given
-        byte[] bytes = new byte[]{1, 2, 3, (byte) 5, 0, 0, 0, 5, 6, 7, 8};
+        byte[] bytes = new byte[] {1, 2, 3, (byte) 5, 0, 0, 0, 5, 6, 7, 8};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 3);
@@ -60,7 +58,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseIntFromTwoByte() {
 
         // given
-        byte[] bytes = new byte[]{(byte) 5, 0, 0, 21};
+        byte[] bytes = new byte[] {(byte) 5, 0, 0, 21};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
@@ -73,7 +71,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseMaxIntFromFullInt() {
 
         // given
-        byte[] bytes = new byte[]{(byte) -1, (byte) -1, (byte) -1, (byte) -1};
+        byte[] bytes = new byte[] {(byte) -1, (byte) -1, (byte) -1, (byte) -1};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
@@ -86,7 +84,7 @@ public class PrimitiveIntDecoderTest {
     public void shouldParseMinIntFromFullInt() {
 
         // given
-        byte[] bytes = new byte[]{(byte) 0, (byte) 0, (byte) 0, (byte) 0};
+        byte[] bytes = new byte[] {(byte) 0, (byte) 0, (byte) 0, (byte) 0};
 
         // when
         final long parseInt = INSTANCE.parseUnsignedInt(bytes, 0);
@@ -274,6 +272,6 @@ public class PrimitiveIntDecoderTest {
         // Fill the byte array with random values
         random.nextBytes(randomBytes);
         // Convert to BigInteger as an unsigned number (positive)
-        return new BigInteger(1, randomBytes);  // '1' to indicate positive
+        return new BigInteger(1, randomBytes); // '1' to indicate positive
     }
 }

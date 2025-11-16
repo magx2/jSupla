@@ -1,8 +1,12 @@
 package pl.grzeslowski.jsupla.server.netty;
 
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import jakarta.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +20,6 @@ import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 import pl.grzeslowski.jsupla.server.api.MessageHandler;
 import pl.grzeslowski.jsupla.server.api.Writer;
 
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
-
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger;
     private final AtomicLong msgId = new AtomicLong(1);
@@ -32,10 +31,11 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final AtomicReference<ChannelHandlerContext> context = new AtomicReference<>();
     private final AtomicReference<Writer> writer = new AtomicReference<>();
 
-    SuplaHandler(CallTypeParser callTypeParser,
-                 DecoderFactory decoderFactory,
-                 EncoderFactory encoderFactory,
-                 MessageHandler messageHandler) {
+    SuplaHandler(
+            CallTypeParser callTypeParser,
+            DecoderFactory decoderFactory,
+            EncoderFactory encoderFactory,
+            MessageHandler messageHandler) {
         this.messageHandler = messageHandler;
         logger = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + hashCode());
         logger.debug("New instance");
@@ -88,19 +88,29 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         val data = suplaDataPacket.data;
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
-        if (suplaDataPacket.dataSize != entity.size() &&
-            !callType.equals(SUPLA_DCS_CALL_PING_SERVER) // because the size of SuplaTimeval varies, we are not checking this
+        if (suplaDataPacket.dataSize != entity.size()
+                && !callType.equals(
+                        SUPLA_DCS_CALL_PING_SERVER) // because the size of SuplaTimeval varies, we
+        // are not checking this
         ) {
-            logger.warn("WTF?! The size of the entity is different than `dataSize` from `suplaDataPacket.dataSize`. " +
-                    "Looks like a bug in the Supla decoder implementation. " +
-                    "entity.size={}, suplaDataPacket.dataSize={}, entity={}, suplaDataPacket={}",
-                entity.size(), suplaDataPacket.dataSize, entity, suplaDataPacket);
+            logger.warn(
+                    "WTF?! The size of the entity is different than `dataSize` from"
+                        + " `suplaDataPacket.dataSize`. Looks like a bug in the Supla decoder"
+                        + " implementation. entity.size={}, suplaDataPacket.dataSize={}, entity={},"
+                        + " suplaDataPacket={}",
+                    entity.size(),
+                    suplaDataPacket.dataSize,
+                    entity,
+                    suplaDataPacket);
         }
         if (!ToServerProto.class.isAssignableFrom(entity.getClass())) {
-            logger.warn("Why device/client has send a proto that do not extends {}? " +
-                    "Looks like a bug... " +
-                    "entity.class={}, entity={}",
-                ToServerProto.class.getName(), entity.getClass(), entity);
+            logger.warn(
+                    "Why device/client has send a proto that do not extends {}? "
+                            + "Looks like a bug... "
+                            + "entity.class={}, entity={}",
+                    ToServerProto.class.getName(),
+                    entity.getClass(),
+                    entity);
             return;
         }
 

@@ -1,9 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
-
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 public class RelayTypeChannelEncoderImpl {
     public byte[] encode(final OnOff onOff) {
@@ -16,7 +15,8 @@ public class RelayTypeChannelEncoderImpl {
                 bytes[0] = 0;
                 break;
             default:
-                throw new UnsupportedOperationException("Don't know this OnOff type " + onOff + "!");
+                throw new UnsupportedOperationException(
+                        "Don't know this OnOff type " + onOff + "!");
         }
         return bytes;
     }

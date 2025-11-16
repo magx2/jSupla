@@ -14,6 +14,7 @@ public class SuplaSetActivityTimeoutRandomizer implements Randomizer<SuplaSetAct
 
     @Override
     public SuplaSetActivityTimeout getRandomValue() {
-        return new SuplaSetActivityTimeout((short) (randomSupla.nextInt(JavaConsts.UNSIGNED_BYTE_MAX - 1) + 1));
+        return new SuplaSetActivityTimeout(
+                (short) (randomSupla.nextInt(JavaConsts.UNSIGNED_BYTE_MAX - 1) + 1));
     }
 }

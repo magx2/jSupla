@@ -1,3 +1,7 @@
+plugins {
+	id("com.diffplug.spotless") version "7.0.4"
+}
+
 ext.staticArraySize = [
 	'TimerStateExtendedValue'
 ]
@@ -8,6 +12,29 @@ apply from: 'consts.gradle'
 apply from: 'decoders.gradle'
 apply from: 'encoders.gradle'
 apply from: 'download.gradle'
+
+spotless {
+	//noinspection GroovyAssignabilityCheck
+	lineEndings 'UNIX' // This means LF line endings
+	java {
+		// apply a specific flavor of google-java-format
+		googleJavaFormat('1.27.0').aosp().reflowLongStrings().skipJavadocFormatting()
+		// fix formatting of type annotations
+		formatAnnotations()
+	}
+}
+
+tasks.compileJava.dependsOn 'spotlessApply'
+tasks.spotlessJava.dependsOn 'encodersGenerator'
+tasks.spotlessJava.dependsOn 'decodersGenerator'
+tasks.spotlessJava.dependsOn 'callTypesGenerator'
+tasks.spotlessJava.dependsOn 'pojoGenerator'
+tasks.spotlessJava.dependsOn 'channelFunctionGenerator'
+tasks.spotlessJava.dependsOn 'channelTypeGenerator'
+tasks.spotlessJava.dependsOn 'constsGenerator'
+tasks.spotlessJava.dependsOn 'decoderFactoryGenerator'
+tasks.spotlessJava.dependsOn 'encoderFactoryGenerator'
+tasks.spotlessJava.dependsOn 'resultCodeGenerator'
 
 dependencies {
 	implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'

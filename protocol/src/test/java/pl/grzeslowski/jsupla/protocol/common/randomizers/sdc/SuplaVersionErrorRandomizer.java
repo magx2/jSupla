@@ -15,10 +15,6 @@ public class SuplaVersionErrorRandomizer implements Randomizer<SuplaVersionError
     public SuplaVersionError getRandomValue() {
         final short serverVersion = randomSupla.nextPositiveUnsignedByte();
         final short serverVersionMin = randomSupla.nextUnsignedByte(serverVersion);
-        return new SuplaVersionError(
-            serverVersionMin,
-            serverVersion
-
-        );
+        return new SuplaVersionError(serverVersionMin, serverVersion);
     }
 }

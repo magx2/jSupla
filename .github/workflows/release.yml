@@ -8,10 +8,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
@@ -55,7 +55,7 @@ jobs:
             log "Processing artifacts for $module_name..."
 
             local target_dir="build/pl/grzeslowski/jSupla/$module_name/$J_SUPLA_VERSION"
-            
+          
             # Create target directory
             log "Creating target directory for $module_name..."
             mkdir -p "$target_dir"
@@ -111,24 +111,24 @@ jobs:
               STATUS_RESPONSE=$(curl -s --request POST \
                 --header "Authorization: Bearer $TOKEN" \
                 "https://central.sonatype.com/api/v1/publisher/status?id=$ID")
-              
+          
               log "Status response: $STATUS_RESPONSE"
 
               if echo "$STATUS_RESPONSE" | grep -q '"deploymentState":"FAILED"'; then
                 log "Deployment failed."
                 exit 1
               fi
-              
+          
               if echo "$STATUS_RESPONSE" | grep -q '"deploymentState":"VALIDATED"'; then
                 log "Deployment is validated."
                 break
               fi
-              
+          
               if [ "$i" -eq 50 ]; then
                 log "Deployment did not validate after 50 attempts."
                 exit 1
               fi
-              
+          
               log "Sleeping for 1 minute..."
               sleep 60
           done

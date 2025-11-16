@@ -1,9 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OpenClose;
-
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
+
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OpenClose;
 
 public class OpenCloseTypeEncoderImpl {
     public byte[] encode(final OpenClose openClose) {

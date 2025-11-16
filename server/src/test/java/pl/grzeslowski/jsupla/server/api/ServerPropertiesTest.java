@@ -1,16 +1,15 @@
 package pl.grzeslowski.jsupla.server.api;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.fail;
+
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.benas.randombeans.api.EnhancedRandom;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyCastException;
 import pl.grzeslowski.jsupla.server.api.exceptions.PropertyNotExistsException;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.fail;
 
 public class ServerPropertiesTest {
     EnhancedRandom random = new EnhancedRandomBuilder().build();

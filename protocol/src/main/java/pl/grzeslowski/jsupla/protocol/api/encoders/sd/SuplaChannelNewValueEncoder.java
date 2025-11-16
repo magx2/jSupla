@@ -3,9 +3,13 @@ package pl.grzeslowski.jsupla.protocol.api.encoders.sd;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaChannelNewValue;
 
-@javax.annotation.Generated(value = "Struct original name: TSD_SuplaChannelNewValue", date = "2024-05-12T13:22:23.935+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(
+        value = "Struct original name: TSD_SuplaChannelNewValue",
+        date = "2024-05-12T13:22:23.935+02:00[Europe/Belgrade]")
 @lombok.NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class SuplaChannelNewValueEncoder implements pl.grzeslowski.jsupla.protocol.api.encoders.sd.ServerDeviceEncoder<SuplaChannelNewValue> {
+public class SuplaChannelNewValueEncoder
+        implements pl.grzeslowski.jsupla.protocol.api.encoders.sd.ServerDeviceEncoder<
+                SuplaChannelNewValue> {
     public static final SuplaChannelNewValueEncoder INSTANCE = new SuplaChannelNewValueEncoder();
 
     @Override

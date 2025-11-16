@@ -1,8 +1,8 @@
 ***
 
 <div align="center">
-    <b><em>jSupla</em></b><br>
-    Java ❤️ <a href="https://supla.org">Supla</a>
+	<b><em>jSupla</em></b><br>
+	Java ❤️ <a href="https://supla.org">Supla</a>
 </div>
 
 <div align="center">
@@ -124,7 +124,8 @@ demonstrates how to initialize and run a server that communicates with Supla dev
 ### Basic Server Setup
 
 Check example code
-in  [`Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
+in  [
+`Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
 class:
 
 # Support ❤️

@@ -3,13 +3,17 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
 
-public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder<HvacParameterFlags> {
+public class HvacParameterFlagsDecoder
+        implements pl.grzeslowski.jsupla.protocol.api.decoders.ProtoWithSizeDecoder<
+                HvacParameterFlags> {
     public static final HvacParameterFlagsDecoder INSTANCE = new HvacParameterFlagsDecoder();
 
     @SuppressWarnings("UnusedAssignment")
     @Override
     public HvacParameterFlags decode(byte[] bytes, int offset) {
-        val flags = PrimitiveDecoder.INSTANCE.copyOfRangeByte(bytes, offset, offset + HvacParameterFlags.SIZE);
+        val flags =
+                PrimitiveDecoder.INSTANCE.copyOfRangeByte(
+                        bytes, offset, offset + HvacParameterFlags.SIZE);
 
         val builder = HvacParameterFlags.builder();
         int idx = 0;
@@ -25,11 +29,12 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.auxThermometerTypeReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.auxThermometerTypeHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 0
+        } // 0
         {
             int subIdx = 0;
             val flagByte = flags[idx];
-            builder.antiFreezeAndOverheatProtectionEnabledReadonly((flagByte & (1 << subIdx++)) != 0);
+            builder.antiFreezeAndOverheatProtectionEnabledReadonly(
+                    (flagByte & (1 << subIdx++)) != 0);
             builder.antiFreezeAndOverheatProtectionEnabledHidden((flagByte & (1 << subIdx++)) != 0);
             builder.usedAlgorithmReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.usedAlgorithmHidden((flagByte & (1 << subIdx++)) != 0);
@@ -38,7 +43,7 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.minOffTimeSReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.minOffTimeSHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 1
+        } // 1
         {
             int subIdx = 0;
             val flagByte = flags[idx];
@@ -46,12 +51,14 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.outputValueOnErrorHidden((flagByte & (1 << subIdx++)) != 0);
             builder.subfunctionReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.subfunctionHidden((flagByte & (1 << subIdx++)) != 0);
-            builder.temperatureSetpointChangeSwitchesToManualModeReadonly((flagByte & (1 << subIdx++)) != 0);
-            builder.temperatureSetpointChangeSwitchesToManualModeHidden((flagByte & (1 << subIdx++)) != 0);
+            builder.temperatureSetpointChangeSwitchesToManualModeReadonly(
+                    (flagByte & (1 << subIdx++)) != 0);
+            builder.temperatureSetpointChangeSwitchesToManualModeHidden(
+                    (flagByte & (1 << subIdx++)) != 0);
             builder.auxMinMaxSetpointEnabledReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.auxMinMaxSetpointEnabledHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 2
+        } // 2
         {
             int subIdx = 0;
             val flagByte = flags[idx];
@@ -64,7 +71,7 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.temperaturesComfortReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.temperaturesComfortHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 3
+        } // 3
         {
             int subIdx = 0;
             val flagByte = flags[idx];
@@ -77,7 +84,7 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.temperaturesBelowAlarmReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.temperaturesBelowAlarmHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 4
+        } // 4
         {
             int subIdx = 0;
             val flagByte = flags[idx];
@@ -90,7 +97,7 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.masterThermostatChannelNoReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.masterThermostatChannelNoHidden((flagByte & (1 << subIdx++)) != 0);
             idx++;
-        }// 5
+        } // 5
         {
             int subIdx = 0;
             val flagByte = flags[idx];
@@ -98,25 +105,25 @@ public class HvacParameterFlagsDecoder implements pl.grzeslowski.jsupla.protocol
             builder.heatOrColdSourceSwitchHidden((flagByte & (1 << subIdx++)) != 0);
             builder.pumpSwitchReadonly((flagByte & (1 << subIdx++)) != 0);
             builder.pumpSwitchHidden((flagByte & (1 << subIdx++)) != 0);
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
             idx++;
-        }// 6
+        } // 6
         {
-//            int subIdx = 0;
-//            val flagByte = flags[idx];
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            val  = (flagByte & (1 << subIdx++)) != 0;
-//            idx++;
-        }// 7
+            //            int subIdx = 0;
+            //            val flagByte = flags[idx];
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            val  = (flagByte & (1 << subIdx++)) != 0;
+            //            idx++;
+        } // 7
         return builder.build();
     }
 }
