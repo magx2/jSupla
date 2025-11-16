@@ -633,7 +633,7 @@ public class AuratonTest {
                         });
 
         // when
-        byte[] data = packet.data;
+        byte[] data = packet.data();
         SuplaRegisterDeviceG entity = SuplaRegisterDeviceGDecoder.INSTANCE.decode(data);
 
         // then
@@ -765,7 +765,7 @@ public class AuratonTest {
                         });
 
         // when
-        byte[] data = packet.data;
+        byte[] data = packet.data();
         SuplaRegisterDeviceG entity = SuplaRegisterDeviceGDecoder.INSTANCE.decode(data);
 
         // then
@@ -1075,9 +1075,9 @@ public class AuratonTest {
                         });
 
         // when
-        CallType callType = callTypeParser.parse(packet.callId).get();
+        CallType callType = callTypeParser.parse(packet.callId()).get();
         Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-        ProtoWithSize decode = decoder.decode(packet.data);
+        ProtoWithSize decode = decoder.decode(packet.data());
 
         // then
         assertThat(decode).isInstanceOf(SubdeviceDetails.class);
@@ -1137,9 +1137,9 @@ public class AuratonTest {
                         });
 
         // when
-        CallType callType = callTypeParser.parse(packet.callId).get();
+        CallType callType = callTypeParser.parse(packet.callId()).get();
         Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-        ProtoWithSize decode = decoder.decode(packet.data);
+        ProtoWithSize decode = decoder.decode(packet.data());
 
         // then
         assertThat(decode).isInstanceOf(SetCaption.class);
@@ -1179,9 +1179,9 @@ public class AuratonTest {
                         });
 
         // when
-        CallType callType = callTypeParser.parse(packet.callId).get();
+        CallType callType = callTypeParser.parse(packet.callId()).get();
         Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-        ProtoWithSize decode = decoder.decode(packet.data);
+        ProtoWithSize decode = decoder.decode(packet.data());
 
         // then
         assertThat(decode).isInstanceOf(SuplaDeviceChannelExtendedValue.class);

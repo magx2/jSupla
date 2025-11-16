@@ -22,7 +22,7 @@ public class SuplaDataPacketEncoderTest {
         byte[] encoded = encoder.encode(packet);
 
         // then
-        assertThat(encoded).hasSize(packet.size());
+        assertThat(encoded).hasSize(packet.protoSize());
         assertThat(PrimitiveDecoder.INSTANCE.parseUnsignedByte(encoded, 0)).isEqualTo((short) 0xAB);
         assertThat(PrimitiveDecoder.INSTANCE.parseUnsignedInt(encoded, 1)).isEqualTo(0x01020304L);
         assertThat(PrimitiveDecoder.INSTANCE.parseUnsignedInt(encoded, 5)).isEqualTo(0x05060708L);

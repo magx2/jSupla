@@ -72,7 +72,12 @@ public class ChannelConfigHVACEncoderTest {
                 (short) 10,
                 (short) 11,
                 (short) 12,
-                HvacParameterFlags.builder().build(),
+                new HvacParameterFlags(
+                        false, false, false, false, false, false, false, false, false, false, false,
+                        false, false, false, false, false, false, false, false, false, false, false,
+                        false, false, false, false, false, false, false, false, false, false, false,
+                        false, false, false, false, false, false, false, false, false, false, false,
+                        false, false, false, false, false, false, false, false),
                 masterThermostatChannelId,
                 masterThermostatIsSet,
                 masterThermostatChannelNo,

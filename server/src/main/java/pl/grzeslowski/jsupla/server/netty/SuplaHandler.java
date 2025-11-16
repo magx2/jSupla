@@ -68,27 +68,27 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
         {
             var writer = this.writer.get();
             if (writer != null) {
-                writer.setVersion(suplaDataPacket.version);
+                writer.setVersion(suplaDataPacket.version());
             }
         }
         val msg = "SuplaHandler.channelRead0(ctx, {})";
-        if (suplaDataPacket.callId == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
+        if (suplaDataPacket.callId() == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
             // log pings in trace
             logger.trace(msg, suplaDataPacket);
         } else {
             logger.debug(msg, suplaDataPacket);
         }
-        val callTypeOptional = callTypeParser.parse(suplaDataPacket.callId);
+        val callTypeOptional = callTypeParser.parse(suplaDataPacket.callId());
         if (!callTypeOptional.isPresent()) {
             // warning message was already logged
             return;
         }
         val callType = callTypeOptional.get();
         Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-        val data = suplaDataPacket.data;
+        val data = suplaDataPacket.data();
         logger.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
         val entity = decoder.decode(data);
-        if (suplaDataPacket.dataSize != entity.protoSize()
+        if (suplaDataPacket.dataSize() != entity.protoSize()
                 && !callType.equals(
                         SUPLA_DCS_CALL_PING_SERVER) // because the size of SuplaTimeval varies, we
         // are not checking this
@@ -99,7 +99,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
                         + " implementation. entity.size={}, suplaDataPacket.dataSize={}, entity={},"
                         + " suplaDataPacket={}",
                     entity.protoSize(),
-                    suplaDataPacket.dataSize,
+                    suplaDataPacket.dataSize(),
                     entity,
                     suplaDataPacket);
         }

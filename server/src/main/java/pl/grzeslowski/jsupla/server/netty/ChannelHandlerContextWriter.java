@@ -40,7 +40,7 @@ class ChannelHandlerContextWriter implements Writer {
                         proto.callType().getValue(),
                         encode.length,
                         encode);
-        if (packet.callId == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+        if (packet.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
             // log pings in trace
             log.trace("ctx.writeAndFlush({})", packet);
         } else {

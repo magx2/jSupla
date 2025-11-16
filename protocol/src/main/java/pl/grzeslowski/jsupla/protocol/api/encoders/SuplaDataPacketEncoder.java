@@ -11,11 +11,11 @@ public class SuplaDataPacketEncoder implements ProtoWithSizeEncoder<SuplaDataPac
         final byte[] bytes = new byte[proto.protoSize()];
         int offset = 0;
 
-        offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.version, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.rrId, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.callId, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.dataSize, bytes, offset);
-        offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.data, bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.version(), bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.rrId(), bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.callId(), bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.dataSize(), bytes, offset);
+        offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.data(), bytes, offset);
 
         return bytes;
     }
