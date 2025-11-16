@@ -8,10 +8,8 @@ public final class PropertyCastException extends IllegalArgumentException {
     private final Class<?> classToCast;
 
     public PropertyCastException(final Object objectToCast, final Class<?> classToCast) {
-        super(
-                format(
-                        "Can't cast object \"%s\" to class \"%s\"!",
-                        objectToCast, classToCast.getName()));
+        super(format("Can't cast object \"%s\" to class \"%s\"!",
+            objectToCast, classToCast.getName()));
         this.objectToCast = requireNonNull(objectToCast);
         this.classToCast = requireNonNull(classToCast);
     }
@@ -26,12 +24,9 @@ public final class PropertyCastException extends IllegalArgumentException {
 
     @Override
     public String toString() {
-        return "PropertyCastException{"
-                + "objectToCast="
-                + objectToCast
-                + ", classToCast="
-                + classToCast
-                + "} "
-                + super.toString();
+        return "PropertyCastException{" +
+               "objectToCast=" + objectToCast +
+               ", classToCast=" + classToCast +
+               "} " + super.toString();
     }
 }

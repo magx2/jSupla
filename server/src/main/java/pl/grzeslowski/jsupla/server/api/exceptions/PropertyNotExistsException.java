@@ -17,11 +17,8 @@ public final class PropertyNotExistsException extends IllegalArgumentException {
 
     @Override
     public String toString() {
-        return "PropertyNotExistsException{"
-                + "propertyName='"
-                + propertyName
-                + '\''
-                + "} "
-                + super.toString();
+        return "PropertyNotExistsException{" +
+               "propertyName='" + propertyName + '\'' +
+               "} " + super.toString();
     }
 }

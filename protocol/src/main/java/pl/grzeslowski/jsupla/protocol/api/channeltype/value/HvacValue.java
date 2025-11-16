@@ -26,7 +26,9 @@ public record HvacValue(
     @Getter
     @RequiredArgsConstructor
     public enum Mode {
-        /** Use SUPLA_HVAC_MODE_NOT_SET if you don't want to modify current mode, but only to alter temperature set points */
+        /**
+         * Use SUPLA_HVAC_MODE_NOT_SET if you don't want to modify current mode, but only to alter temperature set points
+         */
         NOT_SET(SUPLA_HVAC_MODE_NOT_SET),
         OFF(SUPLA_HVAC_MODE_OFF),
         HEAT(SUPLA_HVAC_MODE_HEAT),
