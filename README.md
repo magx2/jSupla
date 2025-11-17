@@ -126,7 +126,7 @@ demonstrates how to initialize and run a server that communicates with Supla dev
 Check example code
 in  [
 `Server`](https://github.com/magx2/jSupla/blob/master/server/src/test/java/pl/grzeslowski/jsupla/server/Server.java)
-class:
+class.
 
 # Support ❤️
 
