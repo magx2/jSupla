@@ -14,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
 
 @SuppressWarnings("WeakerAccess")
 @ToString(onlyExplicitlyIncluded = true)
@@ -59,6 +61,15 @@ public final class NettyServer implements AutoCloseable {
         // Bind and start to accept incoming connections.
         logger.debug("Binding to port {}", nettyConfig.port());
         channelFuture = serverBootstrap.bind(nettyConfig.port());
+    }
+
+    public NettyServer(NettyConfig nettyConfig, MessageHandlerFactory messageHandlerFactory) {
+        this(
+                nettyConfig,
+                CallTypeParser.INSTANCE,
+                DecoderFactoryImpl.INSTANCE,
+                EncoderFactoryImpl.INSTANCE,
+                messageHandlerFactory);
     }
 
     @Override
