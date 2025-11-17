@@ -37,19 +37,12 @@ public class Server {
                     PROPER_AES_KEY_SIZE);
         }
 
-        val factory = buildServerFactory();
-        val server =
-                factory.createNewServer(buildServerProperties(), new TestMessageHandlerFactory());
+        val server = new NettyServer(buildServerProperties(),   CallTypeParser.INSTANCE, DecoderFactoryImpl.INSTANCE, EncoderFactoryImpl.INSTANCE, new TestMessageHandlerFactory());
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
         logger.warn("End of sleep; closing server");
         server.close();
-    }
-
-    private NettyServerFactory buildServerFactory() {
-        return new NettyServerFactory(
-                CallTypeParser.INSTANCE, DecoderFactoryImpl.INSTANCE, EncoderFactoryImpl.INSTANCE);
     }
 
     private NettyConfig buildServerProperties() throws CertificateException, SSLException {
