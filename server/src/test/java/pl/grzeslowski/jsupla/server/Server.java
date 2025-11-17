@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.server;
 
-import static pl.grzeslowski.jsupla.server.NettyConfig.DEFAULT_TIMEOUT;
 import static pl.grzeslowski.jsupla.server.NettyConfig.SUPLA_HTTPS_PORT;
 
 import io.netty.handler.ssl.SslContext;
@@ -37,16 +36,18 @@ public class Server {
                     PROPER_AES_KEY_SIZE);
         }
 
-        val server = new NettyServer(buildServerProperties(),   CallTypeParser.INSTANCE, DecoderFactoryImpl.INSTANCE, EncoderFactoryImpl.INSTANCE, new TestMessageHandlerFactory());
+        val server =
+                new NettyServer(
+                        new NettyConfig(SUPLA_HTTPS_PORT, buildSslContext()),
+                        CallTypeParser.INSTANCE,
+                        DecoderFactoryImpl.INSTANCE,
+                        EncoderFactoryImpl.INSTANCE,
+                        new TestMessageHandlerFactory());
 
         logger.info("Started");
         TimeUnit.MINUTES.sleep(10);
         logger.warn("End of sleep; closing server");
         server.close();
-    }
-
-    private NettyConfig buildServerProperties() throws CertificateException, SSLException {
-        return new NettyConfig(SUPLA_HTTPS_PORT, DEFAULT_TIMEOUT, buildSslContext());
     }
 
     private SslContext buildSslContext() throws CertificateException, SSLException {

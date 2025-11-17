@@ -4,7 +4,7 @@ import io.netty.handler.ssl.SslContext;
 import jakarta.annotation.Nullable;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "StaticMethodOnlyUsedInOneClass"})
 public record NettyConfig(int port, long readTimeoutSeconds, @Nullable SslContext sslCtx) {
     public static final int RANDOM_PORT = 0;
     public static final int SUPLA_HTTP_PORT = 2015;
@@ -15,6 +15,10 @@ public record NettyConfig(int port, long readTimeoutSeconds, @Nullable SslContex
 
     public NettyConfig(int port) {
         this(port, DEFAULT_TIMEOUT, null);
+    }
+
+    public NettyConfig(int port, @Nullable SslContext sslCtx) {
+        this(port, DEFAULT_TIMEOUT, sslCtx);
     }
 
     public NettyConfig {
