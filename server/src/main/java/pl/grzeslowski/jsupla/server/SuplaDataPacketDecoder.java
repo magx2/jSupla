@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.netty;
+package pl.grzeslowski.jsupla.server;
 
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
@@ -17,8 +17,7 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
-            throws Exception {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         if (in.readableBytes() < SUPLA_DATA_PACKET_MIN_SIZE + SUPLA_TAG.length * 2) {
             return;
         }

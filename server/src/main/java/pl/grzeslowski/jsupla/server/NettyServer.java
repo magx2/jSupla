@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.netty;
+package pl.grzeslowski.jsupla.server;
 
 import static java.util.Objects.requireNonNull;
 
@@ -15,11 +15,10 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
-import pl.grzeslowski.jsupla.server.api.Server;
 
 @SuppressWarnings("WeakerAccess")
 @ToString(onlyExplicitlyIncluded = true)
-public final class NettyServer implements Server {
+public final class NettyServer implements AutoCloseable {
     private final Logger logger;
 
     @ToString.Include private final NettyConfig nettyConfig;
@@ -42,7 +41,8 @@ public final class NettyServer implements Server {
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
         val nettyServerInitializer =
                 new NettyServerInitializer(
-                        nettyConfig.getSslCtx(),
+                        nettyConfig.sslCtx(),
+                        nettyConfig.readTimeoutSeconds(),
                         callTypeParser,
                         decoderFactory,
                         encoderFactory,
@@ -57,8 +57,8 @@ public final class NettyServer implements Server {
                 .childOption(ChannelOption.SO_KEEPALIVE, true);
 
         // Bind and start to accept incoming connections.
-        logger.debug("Binding to port {}", nettyConfig.getPort());
-        channelFuture = serverBootstrap.bind(nettyConfig.getPort());
+        logger.debug("Binding to port {}", nettyConfig.port());
+        channelFuture = serverBootstrap.bind(nettyConfig.port());
     }
 
     @Override

@@ -1,6 +1,6 @@
-package pl.grzeslowski.jsupla.server.netty;
+package pl.grzeslowski.jsupla.server;
 
-import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
@@ -23,6 +23,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     private final Logger logger;
 
     @Nullable private final SslContext sslCtx;
+    private final long readTimeoutSeconds;
 
     // For SuplaHandler
     private final CallTypeParser callTypeParser;
@@ -32,6 +33,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
 
     NettyServerInitializer(
             @Nullable SslContext sslCtx,
+            long readTimeoutSeconds,
             CallTypeParser callTypeParser,
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
@@ -39,6 +41,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
         logger.debug("New instance");
         this.sslCtx = sslCtx;
+        this.readTimeoutSeconds = readTimeoutSeconds;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
@@ -56,9 +59,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         if (sslCtx != null) {
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
-        // todo 1 min can be parametrized
-        // 1 min was used because this is the time between 1 Register event send by the device
-        pipeline.addLast(new ReadTimeoutHandler(1, MINUTES));
+        pipeline.addLast(new ReadTimeoutHandler(readTimeoutSeconds, SECONDS));
         pipeline.addLast(
                 new DelimiterBasedFrameDecoder(
                         SUPLA_MAX_DATA_SIZE, false, true, Unpooled.copiedBuffer(SUPLA_TAG)));

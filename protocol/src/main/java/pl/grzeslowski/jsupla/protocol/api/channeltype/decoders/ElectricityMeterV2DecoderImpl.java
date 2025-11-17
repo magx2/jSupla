@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
 import java.util.stream.IntStream;

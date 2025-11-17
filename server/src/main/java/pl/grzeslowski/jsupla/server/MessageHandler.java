@@ -1,11 +1,11 @@
-package pl.grzeslowski.jsupla.server.api;
+package pl.grzeslowski.jsupla.server;
 
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 
 public interface MessageHandler {
     void handle(ToServerProto toServerProto);
 
-    void active(Writer writer);
+    void active(SuplaWriter writer);
 
     void inactive();
 

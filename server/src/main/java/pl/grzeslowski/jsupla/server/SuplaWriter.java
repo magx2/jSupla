@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.netty;
+package pl.grzeslowski.jsupla.server;
 
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
@@ -17,17 +17,15 @@ import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
-import pl.grzeslowski.jsupla.server.api.Writer;
 
 @Slf4j
 @RequiredArgsConstructor
-class ChannelHandlerContextWriter implements Writer {
+public class SuplaWriter {
     private final AtomicLong msgId;
     private final EncoderFactory encoderFactory;
     private final AtomicReference<ChannelHandlerContext> context;
     @Setter @Getter private short version = SUPLA_PROTO_VERSION;
 
-    @Override
     public ChannelFuture write(@Nonnull FromServerProto proto) {
         val ctx = requireNonNull(context.get(), "Context is null");
 
