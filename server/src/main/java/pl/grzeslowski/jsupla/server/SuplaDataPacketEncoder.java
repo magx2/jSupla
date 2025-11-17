@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.server.netty;
+package pl.grzeslowski.jsupla.server;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
@@ -13,8 +13,7 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
     private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketEncoder.class);
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out)
-            throws Exception {
+    protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) {
         logger.trace("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
         out.writeBytes(SUPLA_TAG)
                 .writeByte((byte) msg.version())
