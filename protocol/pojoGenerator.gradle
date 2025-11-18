@@ -30,6 +30,10 @@ void generatePojo(struct, Path generatedSourceRoot) {
 	def constructorAssignments = buildConstructorAssignments(struct)
 	def properties = buildProperties(struct)
 	def implementClass = findImplementClass(struct)
+	def traitInterface = ""
+	if (struct.traitInterface) {
+		traitInterface += ", " + struct.traitInterface
+	}
 	def callType = findCallType(struct)
 	def hasDynamicSize = hasDynamicSize(struct)
 	def size = findSizeForClass(struct)
@@ -46,7 +50,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		|
 		|$javaDoc
 		|@javax.annotation.Generated(value="Struct original name: ${struct.rawName}", date = "${ZonedDateTime.now()}")
-		|public record ${javaName}($properties) implements ${implementClass} {
+		|public record ${javaName}($properties) implements ${implementClass}$traitInterface {
 		|	${staticSize}
 		|	
 		|	public ${javaName} {
@@ -94,6 +98,70 @@ pojoGenerator.dependsOn "parseProtoh"
 compileJava.dependsOn "pojoGenerator"
 sourcesJar.dependsOn "pojoGenerator"
 
+
+void generateTrait(traitInterface, Path generatedSourceRoot) {
+	def javaName = traitInterface.name
+	def path = "api/structs"
+	def sourcesPath = project.file("src/main/java/pl/grzeslowski/jsupla/protocol/").toPath().resolve(path).resolve(javaName + ".java")
+	if (Files.exists(sourcesPath)) {
+		logger.warn("Struct {} already exists, ignoring...", sourcesPath.toFile().path)
+		return
+	}
+	def prefix = traitInterface.structs[0].prefix
+	if (prefix != "T") {
+		path += "/" + prefix.toLowerCase().substring(1)
+	}
+	def permitClasses = traitInterface.structs
+		.stream()
+		.map { it.name }
+		.collect(Collectors.joining(", "))
+	def javaDoc =  traitInterface.structs
+		.stream()
+		.map { it.name }
+		.map { "<li>{@link $it}</li>"}
+		.collect(Collectors.joining("\n * \t", "<ul>\n * \t", "\n * </ul>"))
+	def content = """\
+		|package pl.grzeslowski.jsupla.protocol.${path.replaceAll("/", ".")};
+		|
+		|/**
+		| * Allowed classes:
+		| * $javaDoc
+		| */
+		|@javax.annotation.Generated(value="Mark up trait", date = "${ZonedDateTime.now()}")
+		|public sealed interface ${javaName} permits $permitClasses {
+		|}
+		|""".stripMargin()
+	def toWrite = generatedSourceRoot.resolve(path).resolve(javaName + ".java")
+	Files.createDirectories(toWrite.parent)
+	toWrite.write(content)
+}
+
+task traitGenerator {
+	group = 'jSupla'
+	inputs.file new File(project.file("build/parser"), "proto.h.json")
+	outputs.dir project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol")
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "traits.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def traits = jsonSlurper.parse(jsonFile) as List
+
+		def generatedSourceRoot = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol").toPath()
+		Files.createDirectories(generatedSourceRoot)
+
+		traits
+			.stream()
+			.sorted { a, b -> a.name.compareTo(b.name) }
+			.forEach { generateTrait(it, generatedSourceRoot) }
+	}
+}
+traitGenerator.dependsOn "parseProtoh"
+pojoGenerator.dependsOn "traitGenerator"
+pojoGenerator.dependsOn "traitGenerator"
+
 static String buildJavaDoc(struct) {
 	def javaDoc = "/**\n"
 	if (struct.javaDoc) {
@@ -114,7 +182,7 @@ static String buildJavaDoc(struct) {
 			.replaceAll("<", "&#60;")
 			.replaceAll(">", "&#62;")
 			.replaceAll("@", "&#64;")
-		.replaceAll('\n', '\n * ')
+			.replaceAll('\n', '\n * ')
 		javaDoc += "\n * </pre>"
 	}
 	// parameters
@@ -139,7 +207,7 @@ static String buildJavaDoc(struct) {
 				if (field.javaDoc) {
 					comment += ". "
 				}
-				comment += 'unsigned {@code '+field.type+'}'
+				comment += 'unsigned {@code ' + field.type + '}'
 			}
 			"@param ${field.name} $comment"
 		}
@@ -166,7 +234,7 @@ static String buildConstructorAssignments(struct) {
 				)
 			}
 		}
-		.filter { it !=null }
+		.filter { it != null }
 		.collect(Collectors.joining("\n\t\t|\t\t"))
 }
 
@@ -176,17 +244,17 @@ static String buildConstructorAssignment(field) {
 	if (field.array) {
 		def size = "(int) ${field.arraySize}"
 		value = "checkArrayLength(${value}, $size)"
-		empty=false
+		empty = false
 	}
 	if (field.unsigned) {
 		value = "unsigned(${value})"
-		empty=false
+		empty = false
 	}
 	if (field.extraCheck) {
 		value = String.format(field.extraCheck, value)
-		empty=false
+		empty = false
 	}
-	empty? null: 	"$value;"
+	empty ? null : "$value;"
 }
 
 static String mapSuplaTypeToJava(field) {
