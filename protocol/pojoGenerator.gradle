@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 import java.util.stream.Stream
 
 void generatePojo(struct, Path generatedSourceRoot) {
-	def javaName = struct.name
+	def javaName =struct.overrideName ?: struct.name
 	def path = "api/structs"
 	def sourcesPath = project.file("src/main/java/pl/grzeslowski/jsupla/protocol/").toPath().resolve(path).resolve(javaName + ".java")
 	if (Files.exists(sourcesPath)) {
@@ -113,11 +113,11 @@ void generateTrait(traitInterface, Path generatedSourceRoot) {
 	}
 	def permitClasses = traitInterface.structs
 		.stream()
-		.map { it.name }
+		.map { it.overrideName ?: it.name }
 		.collect(Collectors.joining(", "))
 	def javaDoc =  traitInterface.structs
 		.stream()
-		.map { it.name }
+		.map { it.overrideName ?: it.name }
 		.map { "<li>{@link $it}</li>"}
 		.collect(Collectors.joining("\n * \t", "<ul>\n * \t", "\n * </ul>"))
 	def content = """\

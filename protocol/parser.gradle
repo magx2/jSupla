@@ -4,6 +4,7 @@ import groovy.transform.ToString
 
 import java.nio.file.Files
 import java.util.stream.Collectors
+import java.util.stream.Stream
 
 import static java.util.stream.Collectors.groupingBy
 
@@ -70,6 +71,7 @@ class UnionField implements Field {
 @ToString(includeNames = true, ignoreNulls = true, excludes = ["raw"])
 class Struct {
 	String name
+	String overrideName
 	String rawName
 	String prefix
 	List<Field> fields
@@ -805,12 +807,33 @@ task parseProtoh {
 						.min({ a, b -> (a <=> b) })
 						.orElseThrow()
 					new Trait([
-						name   : name + 'Trait',
+						name   : name,
 						structs: list
 					])
 				}
 				.toList()
+			// add trait for structs 
 			traits.forEach {t -> t.structs.forEach {struct -> struct.traitInterface = t.name }}
+			// add `A` suffix to first proto that was created
+			traits.forEach {t ->
+				def shortProto = t.structs.stream()
+					.min({ a, b -> (a.name <=> b.name) })
+					.orElseThrow()
+				shortProto.overrideName =shortProto.name+ 'A'
+				structs.stream()
+				.flatMap {it.fields.stream()}
+				.flatMap { field ->
+					if(field instanceof SimpleField) {
+						return Stream.of((SimpleField) field)
+					}
+					UnionField uf = (UnionField) field
+					return uf.fields.stream()
+				}
+				.filter { it.type == shortProto.name }
+				.forEach {field ->
+					field.type = shortProto.overrideName
+				}
+			}
 			def structsJson = new JsonBuilder(traits).toPrettyString()
 			def structsOutputFile = rootDir.resolve("traits.json")
 			structsOutputFile.write(structsJson)

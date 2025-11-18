@@ -106,7 +106,7 @@ compileJava.dependsOn "decoderFactoryGenerator"
 
 void generateDecoder(struct, Path generatedSourceRoot) {
 	def path = "api/decoders"
-	def javaName = struct.name + "Decoder"
+	def javaName = (struct.overrideName ?: struct.name) + "Decoder"
 	def prefix = struct.prefix
 	if (prefix != "T") {
 		path += "/" + prefix.toLowerCase().substring(1)
@@ -123,11 +123,11 @@ void generateDecoder(struct, Path generatedSourceRoot) {
 		"import lombok.val",
 		"import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder",
 		"import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*",
-		"import " + classPackage.replaceAll("decoders", "structs") + "." + struct.name,
+		"import " + classPackage.replaceAll("decoders", "structs") + "." + (struct.overrideName ?: struct.name),
 		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
 	])
 	def implementClass = findImplementClass(struct)
-	def structName = struct.name
+	def structName = (struct.overrideName ?: struct.name)
 	def hasUnionFields = struct.fields.stream().filter { it.originalClassName == "UnionField" }.findAny().isPresent()
 	def parse
 	if (!hasUnionFields) {
@@ -296,8 +296,8 @@ static String findDecoderImportForType(rawPrefix) {
 
 static String findDecoder(struct) {
 	def decoderImport = findDecoderImportForType(struct.prefix)
-	def protoClass = decoderImport.replaceAll(".decoders.", ".structs.") + struct.name
-	def decoderClass = decoderImport + struct.name + "Decoder"
+	def protoClass = decoderImport.replaceAll(".decoders.", ".structs.") + (struct.overrideName ?: struct.name)
+	def decoderClass = decoderImport + (struct.overrideName ?: struct.name) + "Decoder"
 	return """\
 		|		if (${protoClass}.class.isAssignableFrom(proto)) {
         |    		return (Decoder<T>) ${decoderClass}.INSTANCE; 
@@ -313,7 +313,7 @@ String findDecoderForCallType(struct) {
 		.map {
 			"""\
 			|		if (callType == ${it}) {
-			|			return (Decoder<T>) getDecoder(${findStructImportForType(struct.prefix)}${struct.name}.class);
+			|			return (Decoder<T>) getDecoder(${findStructImportForType(struct.prefix)}${(struct.overrideName ?: struct.name)}.class);
 			|		}""".stripMargin()
 		}
 		.findAny()

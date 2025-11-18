@@ -81,7 +81,7 @@ compileJava.dependsOn "encoderFactoryGenerator"
 
 void generateEncoder(struct, Path generatedSourceRoot) {
 	def path = "api/encoders"
-	def javaName = struct.name + "Encoder"
+	def javaName = (struct.overrideName ?: struct.name) + "Encoder"
 	def prefix = struct.prefix
 	if (prefix != "T") {
 		path += "/" + prefix.toLowerCase().substring(1)
@@ -98,11 +98,11 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 		"import lombok.val",
 		"import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder",
 		"import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*",
-		"import " + classPackage.replaceAll("encoders", "structs") + "." + struct.name,
+		"import " + classPackage.replaceAll("encoders", "structs") + "." + (struct.overrideName ?: struct.name),
 		"import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*",
 	])
 	def implementClass = findImplementClass(struct)
-	def structName = struct.name
+	def structName = (struct.overrideName ?: struct.name)
 	def hasUnionFields = struct.fields.stream().filter { it.originalClassName == "UnionField" }.findAny().isPresent()
 	def parse
 	if (!hasUnionFields) {
@@ -232,8 +232,8 @@ static String findEncoderImportForType(rawPrefix) {
 
 static String findEncoder(struct) {
 	def encoderImport = findEncoderImportForType(struct.prefix)
-	def protoClass = encoderImport.replaceAll(".encoders.", ".structs.") + struct.name
-	def encoderClass = encoderImport + struct.name + "Encoder"
+	def protoClass = encoderImport.replaceAll(".encoders.", ".structs.") + (struct.overrideName ?: struct.name)
+	def encoderClass = encoderImport + (struct.overrideName ?: struct.name) + "Encoder"
 	return """\
 		|		if (${protoClass}.class.isAssignableFrom(proto)) {
         |    		return (Encoder<T>) ${encoderClass}.INSTANCE; 
