@@ -70,15 +70,16 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             }
         }
         val msg = "SuplaHandler.channelRead0(ctx, {})";
-        if (suplaDataPacket.callId() == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
+        var rawCallId = suplaDataPacket.callId();
+        if (rawCallId == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
             // log pings in trace
             logger.trace(msg, suplaDataPacket);
         } else {
             logger.debug(msg, suplaDataPacket);
         }
-        val callTypeOptional = callTypeParser.parse(suplaDataPacket.callId());
+        val callTypeOptional = callTypeParser.parse(rawCallId);
         if (callTypeOptional.isEmpty()) {
-            // warning message was already logged
+            logger.debug("Cannot find call type for {}", rawCallId);
             return;
         }
         val callType = callTypeOptional.get();
