@@ -15,6 +15,7 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 
 final class SuplaDefaultWriter implements SuplaWriter {
+    private static final AtomicLong ID = new AtomicLong();
     private final Logger log;
     private final AtomicLong msgId = new AtomicLong(1);
     private final EncoderFactory encoderFactory;
@@ -23,7 +24,13 @@ final class SuplaDefaultWriter implements SuplaWriter {
 
     public SuplaDefaultWriter(
             String uuid, EncoderFactory encoderFactory, ChannelHandlerContext context) {
-        log = LoggerFactory.getLogger(SuplaDefaultWriter.class.getName() + "#" + uuid);
+        log =
+                LoggerFactory.getLogger(
+                        SuplaDefaultWriter.class.getName()
+                                + "#"
+                                + uuid
+                                + ":"
+                                + ID.incrementAndGet());
         this.encoderFactory = encoderFactory;
         this.context = context;
     }
