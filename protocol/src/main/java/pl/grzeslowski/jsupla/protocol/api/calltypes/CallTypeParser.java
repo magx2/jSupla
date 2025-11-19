@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.protocol.api.calltypes;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,14 +25,10 @@ public class CallTypeParser {
                                 ServerDeviceClientCallType.values())
                         .flatMap(Stream::of)
                         .map(v -> (CallType) v)
-                        .collect(Collectors.toList());
+                        .toList();
     }
 
     public Optional<CallType> parse(final long callType) {
-        Optional<CallType> any = callTypes.stream().filter(v -> v.getValue() == callType).findAny();
-        if (!any.isPresent()) {
-            log.debug("Cannot find call type for {}", callType);
-        }
-        return any;
+        return callTypes.stream().filter(v -> v.getValue() == callType).findAny();
     }
 }
