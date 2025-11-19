@@ -100,7 +100,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
                     entity,
                     suplaDataPacket);
         }
-        if (!ToServerProto.class.isAssignableFrom(entity.getClass())) {
+        if (!(entity instanceof ToServerProto toServerProto)) {
             logger.warn(
                     "Why device/client has send a proto that do not extends {}? "
                             + "Looks like a bug... "
@@ -111,7 +111,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             return;
         }
 
-        messageHandler.handle((ToServerProto) entity);
+        messageHandler.handle(toServerProto);
     }
 
     @Override
