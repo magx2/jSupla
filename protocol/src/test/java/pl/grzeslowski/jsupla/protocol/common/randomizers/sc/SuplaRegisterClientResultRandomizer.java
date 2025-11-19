@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.common.randomizers.sc;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaRegisterClientResultA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaRegisterClientResultRandomizer implements Randomizer<SuplaRegisterClientResult> {
@@ -14,7 +15,7 @@ public class SuplaRegisterClientResultRandomizer implements Randomizer<SuplaRegi
     @Override
     public SuplaRegisterClientResult getRandomValue() {
         final short version = (short) (randomSupla.nextUnsignedByte((short) (250 - 3)) + 2);
-        return new SuplaRegisterClientResult(
+        return new SuplaRegisterClientResultA(
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextPositiveInt(),

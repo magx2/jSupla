@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 import io.github.benas.randombeans.api.Randomizer;
 import java.util.concurrent.atomic.AtomicInteger;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaDeviceChannelRandomizer implements Randomizer<SuplaDeviceChannel> {
@@ -19,7 +20,7 @@ public class SuplaDeviceChannelRandomizer implements Randomizer<SuplaDeviceChann
     public SuplaDeviceChannel getRandomValue() {
         byte[] value = new byte[SUPLA_CHANNELVALUE_SIZE];
         value[0] = randomSupla.nextBoolByte();
-        return new SuplaDeviceChannel(
+        return new SuplaDeviceChannelA(
                 getNumber(),
                 2900, // ChannelType.SUPLA_CHANNELTYPE_RELAY(2900)
                 value);

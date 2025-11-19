@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelValueA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaDeviceChannelValueRandomizer implements Randomizer<SuplaDeviceChannelValue> {
@@ -17,6 +18,6 @@ public class SuplaDeviceChannelValueRandomizer implements Randomizer<SuplaDevice
     public SuplaDeviceChannelValue getRandomValue() {
         byte[] value = new byte[SUPLA_CHANNELVALUE_SIZE];
         value[0] = randomSupla.nextBoolByte();
-        return new SuplaDeviceChannelValue(randomSupla.nextUnsignedByte(), value);
+        return new SuplaDeviceChannelValueA(randomSupla.nextUnsignedByte(), value);
     }
 }

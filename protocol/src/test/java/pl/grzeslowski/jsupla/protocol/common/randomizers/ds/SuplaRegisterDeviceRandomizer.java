@@ -4,7 +4,9 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelA;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDevice;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaRegisterDeviceRandomizer implements Randomizer<SuplaRegisterDevice> {
@@ -17,11 +19,12 @@ public class SuplaRegisterDeviceRandomizer implements Randomizer<SuplaRegisterDe
     @Override
     public SuplaRegisterDevice getRandomValue() {
         final short channelCount = randomSupla.nextUnsignedByte((short) SUPLA_CHANNELMAXCOUNT);
-        final SuplaDeviceChannel[] channels =
+        final SuplaDeviceChannelA[] channels =
                 randomSupla
                         .objects(SuplaDeviceChannel.class, channelCount)
-                        .toArray(SuplaDeviceChannel[]::new);
-        return new SuplaRegisterDevice(
+                        .map(c -> (SuplaDeviceChannelA) c)
+                        .toArray(SuplaDeviceChannelA[]::new);
+        return new SuplaRegisterDeviceA(
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextByteArrayFromString(SUPLA_LOCATION_PWD_MAXSIZE),
                 randomSupla.nextByteArrayFromString(SUPLA_GUID_SIZE),

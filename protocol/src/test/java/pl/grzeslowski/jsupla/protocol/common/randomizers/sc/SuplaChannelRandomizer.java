@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannel;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaChannelRandomizer implements Randomizer<SuplaChannel> {
@@ -16,14 +17,13 @@ public class SuplaChannelRandomizer implements Randomizer<SuplaChannel> {
     @Override
     public SuplaChannel getRandomValue() {
         final long captionSize = randomSupla.nextUnsignedInt(SUPLA_CHANNEL_CAPTION_MAXSIZE);
-        return new SuplaChannel(
+        return new SuplaChannelA(
                 randomSupla.nextByte(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextByte(),
-                randomSupla.nextObject(
-                        pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
+                null,
                 captionSize,
                 randomSupla.nextByteArray((int) captionSize));
     }
