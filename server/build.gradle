@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
 	api rootProject.project("protocol")
-	api group: 'io.netty', name: 'netty-all', version: '4.1.115.Final'
+	api group: 'io.netty', name: 'netty-all', version: '4.2.7.Final'
 	implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
 	implementation 'org.javatuples:javatuples:1.2'
 
