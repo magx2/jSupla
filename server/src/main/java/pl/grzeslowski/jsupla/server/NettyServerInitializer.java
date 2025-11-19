@@ -12,6 +12,7 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import jakarta.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
@@ -20,7 +21,9 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 
 @SuppressWarnings("WeakerAccess")
 public final class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
+    private static final AtomicLong ID = new AtomicLong();
     private final Logger logger;
+    private final String uuid;
 
     @Nullable private final SslContext sslCtx;
     private final long readTimeoutSeconds;
@@ -32,13 +35,15 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     private final MessageHandlerFactory messageHandlerFactory;
 
     NettyServerInitializer(
+            String uuid,
             @Nullable SslContext sslCtx,
             long readTimeoutSeconds,
             CallTypeParser callTypeParser,
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
-        logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + hashCode());
+        this.uuid = uuid + ":" + ID.incrementAndGet();
+        logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + this.uuid);
         logger.debug("New instance");
         this.sslCtx = sslCtx;
         this.readTimeoutSeconds = readTimeoutSeconds;
@@ -63,10 +68,11 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         pipeline.addLast(
                 new DelimiterBasedFrameDecoder(
                         SUPLA_MAX_DATA_SIZE, false, true, Unpooled.copiedBuffer(SUPLA_TAG)));
-        pipeline.addLast(new SuplaDataPacketDecoder());
-        pipeline.addLast(new SuplaDataPacketEncoder());
+        pipeline.addLast(new SuplaDataPacketDecoder(uuid));
+        pipeline.addLast(new SuplaDataPacketEncoder(uuid));
         pipeline.addLast(
                 new SuplaHandler(
+                        uuid,
                         callTypeParser,
                         decoderFactory,
                         encoderFactory,

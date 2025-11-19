@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 import io.netty.buffer.ByteBuf;
@@ -14,7 +15,11 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     public static final int SUPLA_DATA_PACKET_MIN_SIZE = SuplaDataPacket.MIN_SIZE;
-    private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
+    private final Logger log;
+
+    public SuplaDataPacketDecoder(String uuid) {
+        log = LoggerFactory.getLogger(SuplaDataPacketDecoder.class.getName() + "#" + uuid);
+    }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
@@ -27,7 +32,14 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         var suplaDataPacket = readTSuplaDataPacket(in);
         moveThoughtSuplaTag(in);
 
-        logger.trace("Decoded {}", suplaDataPacket);
+        if (suplaDataPacket.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+            // log pings in trace
+            log.trace(
+                    "SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
+                    suplaDataPacket);
+        } else {
+            log.debug("SuplaDataPacketDecoder.decode {}", suplaDataPacket);
+        }
         out.add(suplaDataPacket);
     }
 
