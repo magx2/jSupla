@@ -40,7 +40,7 @@ public class SuplaWriter {
                         encode);
         if (packet.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
             // log pings in trace
-            log.trace("ctx.writeAndFlush({})", packet);
+            log.trace("ctx.writeAndFlush({}) (ping result)", packet);
         } else {
             log.debug("ctx.writeAndFlush({})", packet);
         }
