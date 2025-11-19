@@ -8,18 +8,25 @@ import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 
-@Slf4j
-@RequiredArgsConstructor
 final class SuplaDefaultWriter implements SuplaWriter {
+    private final Logger log;
     private final AtomicLong msgId = new AtomicLong(1);
     private final EncoderFactory encoderFactory;
     @NonNull private final ChannelHandlerContext context;
     @Getter private short version = SUPLA_PROTO_VERSION;
+
+    public SuplaDefaultWriter(
+            String uuid, EncoderFactory encoderFactory, ChannelHandlerContext context) {
+        log = LoggerFactory.getLogger(SuplaDefaultWriter.class.getName() + "#" + uuid);
+        this.encoderFactory = encoderFactory;
+        this.context = context;
+    }
 
     void setVersion(short version) {
         if (version > SUPLA_PROTO_VERSION) {
@@ -44,9 +51,9 @@ final class SuplaDefaultWriter implements SuplaWriter {
                         encode);
         if (packet.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
             // log pings in trace
-            log.trace("ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT)", packet);
+            log.trace("ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT)", proto);
         } else {
-            log.debug("ctx.writeAndFlush({})", packet);
+            log.debug("ctx.writeAndFlush({})", proto);
         }
         return context.writeAndFlush(packet);
     }

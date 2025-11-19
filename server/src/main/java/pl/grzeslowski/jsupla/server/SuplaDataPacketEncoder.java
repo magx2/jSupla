@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.server;
 
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
 import io.netty.buffer.ByteBuf;
@@ -10,11 +11,23 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket> {
-    private final Logger logger = LoggerFactory.getLogger(SuplaDataPacketEncoder.class);
+    private final Logger log;
+
+    public SuplaDataPacketEncoder(String uuid) {
+        log = LoggerFactory.getLogger(SuplaDataPacketEncoder.class.getName() + "#" + uuid);
+    }
 
     @Override
     protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) {
-        logger.trace("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
+        if (msg.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+            // log pings in trace
+            log.trace(
+                    "SuplaDataPacketEncoder.encode(ctx, {}, out)"
+                            + " (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
+                    msg);
+        } else {
+            log.debug("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
+        }
         out.writeBytes(SUPLA_TAG)
                 .writeByte((byte) msg.version())
                 .writeIntLE((int) msg.rrId())

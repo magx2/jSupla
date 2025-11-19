@@ -8,6 +8,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 import lombok.val;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
 @SuppressWarnings("WeakerAccess")
 @ToString(onlyExplicitlyIncluded = true)
 public final class NettyServer implements AutoCloseable {
+    private static final AtomicLong ID = new AtomicLong();
     private final Logger logger;
 
     @ToString.Include private final NettyConfig nettyConfig;
@@ -34,7 +36,8 @@ public final class NettyServer implements AutoCloseable {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
-        logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + hashCode());
+        var uuid = ID.incrementAndGet() + "";
+        logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + uuid);
         logger.debug("New instance");
         this.nettyConfig = requireNonNull(nettyConfig);
 
@@ -43,6 +46,7 @@ public final class NettyServer implements AutoCloseable {
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
         val nettyServerInitializer =
                 new NettyServerInitializer(
+                        uuid,
                         nettyConfig.sslCtx(),
                         nettyConfig.readTimeoutSeconds(),
                         callTypeParser,
