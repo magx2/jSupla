@@ -9,11 +9,9 @@ import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
@@ -23,12 +21,10 @@ import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 public class SuplaWriter {
     private final AtomicLong msgId;
     private final EncoderFactory encoderFactory;
-    private final AtomicReference<ChannelHandlerContext> context;
+    @NonNull private final ChannelHandlerContext context;
     @Setter @Getter private short version = SUPLA_PROTO_VERSION;
 
     public ChannelFuture write(@Nonnull FromServerProto proto) {
-        val ctx = requireNonNull(context.get(), "Context is null");
-
         val encoder = encoderFactory.getEncoder(proto);
         val encode = encoder.encode(proto);
         val packet =
@@ -44,6 +40,6 @@ public class SuplaWriter {
         } else {
             log.debug("ctx.writeAndFlush({})", packet);
         }
-        return ctx.writeAndFlush(packet);
+        return context.writeAndFlush(packet);
     }
 }
