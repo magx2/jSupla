@@ -9,16 +9,24 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     public static final int SUPLA_DATA_PACKET_MIN_SIZE = SuplaDataPacket.MIN_SIZE;
+    private static final AtomicLong ID = new AtomicLong();
     private final Logger log;
 
     public SuplaDataPacketDecoder(String uuid) {
-        log = LoggerFactory.getLogger(SuplaDataPacketDecoder.class.getName() + "#" + uuid);
+        log =
+                LoggerFactory.getLogger(
+                        SuplaDataPacketDecoder.class.getName()
+                                + "#"
+                                + uuid
+                                + ":"
+                                + ID.incrementAndGet());
     }
 
     @Override

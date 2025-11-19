@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCal
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import jakarta.annotation.Nonnull;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.val;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
+    private static final AtomicLong ID = new AtomicLong();
     private final Logger log;
     private final String uuid;
     private final CallTypeParser callTypeParser;
@@ -33,9 +35,9 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandler messageHandler) {
+        this.uuid = uuid + ":" + ID.incrementAndGet();
         log = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + uuid);
         log.debug("New instance {}", getClass().getSimpleName());
-        this.uuid = uuid;
         this.messageHandler = messageHandler;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
