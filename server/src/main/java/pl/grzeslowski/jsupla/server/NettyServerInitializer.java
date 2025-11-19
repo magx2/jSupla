@@ -44,7 +44,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
             MessageHandlerFactory messageHandlerFactory) {
         this.uuid = uuid + ":" + ID.incrementAndGet();
         logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + this.uuid);
-        logger.debug("New instance");
+        logger.debug("New instance {}", getClass().getSimpleName());
         this.sslCtx = sslCtx;
         this.readTimeoutSeconds = readTimeoutSeconds;
         this.callTypeParser = callTypeParser;

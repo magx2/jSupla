@@ -34,7 +34,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             EncoderFactory encoderFactory,
             MessageHandler messageHandler) {
         log = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + uuid);
-        log.debug("New instance");
+        log.debug("New instance {}", getClass().getSimpleName());
         this.uuid = uuid;
         this.messageHandler = messageHandler;
         this.callTypeParser = callTypeParser;

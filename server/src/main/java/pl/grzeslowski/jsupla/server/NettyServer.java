@@ -38,7 +38,7 @@ public final class NettyServer implements AutoCloseable {
             MessageHandlerFactory messageHandlerFactory) {
         var uuid = ID.incrementAndGet() + "";
         logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + uuid);
-        logger.debug("New instance");
+        logger.debug("New instance {}", getClass().getSimpleName());
         this.nettyConfig = requireNonNull(nettyConfig);
 
         bossGroup = new NioEventLoopGroup();
