@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_PROTO_VERSION;
+import static pl.grzeslowski.jsupla.server.NettyServer.NOISY_CALL_TYPE_IDS;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -56,7 +56,7 @@ final class SuplaDefaultWriter implements SuplaWriter {
                         proto.callType().getValue(),
                         encode.length,
                         encode);
-        if (packet.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+        if (NOISY_CALL_TYPE_IDS.contains(packet.callId())) {
             // log pings in trace
             log.trace("ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT)", proto);
         } else {
