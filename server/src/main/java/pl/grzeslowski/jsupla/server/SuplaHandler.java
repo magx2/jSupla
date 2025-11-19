@@ -19,7 +19,8 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
-    private final Logger logger;
+    private final Logger logger =
+            LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + hashCode());
     private final AtomicLong msgId = new AtomicLong(1);
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
@@ -34,9 +35,8 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandler messageHandler) {
-        this.messageHandler = messageHandler;
-        logger = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + hashCode());
         logger.debug("New instance");
+        this.messageHandler = messageHandler;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
