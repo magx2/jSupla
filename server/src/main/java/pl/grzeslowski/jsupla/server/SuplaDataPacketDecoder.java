@@ -1,8 +1,8 @@
 package pl.grzeslowski.jsupla.server;
 
 import static java.lang.String.format;
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
+import static pl.grzeslowski.jsupla.server.NettyServer.NOISY_CALL_TYPE_IDS;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,7 +40,7 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         var suplaDataPacket = readTSuplaDataPacket(in);
         moveThoughtSuplaTag(in);
 
-        if (suplaDataPacket.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+        if (NOISY_CALL_TYPE_IDS.contains(suplaDataPacket.callId())) {
             // log pings in trace
             log.trace(
                     "SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT)",

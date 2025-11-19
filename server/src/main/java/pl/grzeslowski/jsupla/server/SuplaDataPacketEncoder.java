@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.server;
 
-import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
+import static pl.grzeslowski.jsupla.server.NettyServer.NOISY_CALL_TYPE_IDS;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -27,7 +27,7 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
 
     @Override
     protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) {
-        if (msg.callId() == SUPLA_SDC_CALL_PING_SERVER_RESULT.getValue()) {
+        if (NOISY_CALL_TYPE_IDS.contains(msg.callId())) {
             // log pings in trace
             log.trace(
                     "SuplaDataPacketEncoder.encode(ctx, {}, out)"

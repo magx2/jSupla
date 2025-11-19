@@ -1,18 +1,23 @@
 package pl.grzeslowski.jsupla.server;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toSet;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCallType.SUPLA_DCS_CALL_PING_SERVER;
+import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType.SUPLA_SDC_CALL_PING_SERVER_RESULT;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.ToString;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactoryImpl;
@@ -24,6 +29,11 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
 public final class NettyServer implements AutoCloseable {
     private static final AtomicLong ID = new AtomicLong();
     private final Logger logger;
+
+    public static final Set<CallType> NOISY_CALL_TYPES =
+            Set.of(SUPLA_DCS_CALL_PING_SERVER, SUPLA_SDC_CALL_PING_SERVER_RESULT);
+    public static final Set<Long> NOISY_CALL_TYPE_IDS =
+            NOISY_CALL_TYPES.stream().map(CallType::getValue).map(i -> (long) i).collect(toSet());
 
     @ToString.Include private final NettyConfig nettyConfig;
     private final NioEventLoopGroup bossGroup;
