@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.common.randomizers.sc;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValue;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelValueA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaChannelValueRandomizer implements Randomizer<SuplaChannelValue> {
@@ -13,11 +14,10 @@ public class SuplaChannelValueRandomizer implements Randomizer<SuplaChannelValue
 
     @Override
     public SuplaChannelValue getRandomValue() {
-        return new SuplaChannelValue(
+        return new SuplaChannelValueA(
                 randomSupla.nextByte(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextByte(),
-                randomSupla.nextObject(
-                        pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class));
+                null);
     }
 }

@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaPingServer;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SuplaSetActivityTimeout;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.*;
-import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResult;
+import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceA;
+import pl.grzeslowski.jsupla.protocol.api.structs.sd.SuplaRegisterDeviceResultA;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaPingServerResult;
 import pl.grzeslowski.jsupla.protocol.api.structs.sdc.SuplaSetActivityTimeoutResult;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
@@ -41,38 +42,38 @@ public class TestMessageHandler implements MessageHandler {
     private Optional<FromServerProto> newMessage(ToServerProto toServerEntity) {
         FromServerProto result =
                 switch (toServerEntity) {
-                    case SuplaRegisterDevice register ->
-                            new SuplaRegisterDeviceResult(
+                    case SuplaRegisterDeviceA register ->
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,
                                     (byte) 1);
                     case SuplaRegisterDeviceB register ->
-                            new SuplaRegisterDeviceResult(
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,
                                     (byte) 1);
                     case SuplaRegisterDeviceC register ->
-                            new SuplaRegisterDeviceResult(
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,
                                     (byte) 1);
                     case SuplaRegisterDeviceD register ->
-                            new SuplaRegisterDeviceResult(
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,
                                     (byte) 1);
                     case SuplaRegisterDeviceE register ->
-                            new SuplaRegisterDeviceResult(
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,
                                     (byte) 1);
                     case SuplaRegisterDeviceF register ->
-                            new SuplaRegisterDeviceResult(
+                            new SuplaRegisterDeviceResultA(
                                     SUPLA_RESULTCODE_TRUE.getValue(),
                                     (byte) 100,
                                     (byte) 5,

@@ -25,8 +25,7 @@ public class SuplaChannelBRandomizer implements Randomizer<SuplaChannelB> {
                 randomSupla.nextUnsignedInt(),
                 randomSupla.nextUnsignedByte(),
                 randomSupla.nextByte(),
-                randomSupla.nextObject(
-                        pl.grzeslowski.jsupla.protocol.api.structs.SuplaChannelValue.class),
+                null,
                 captionSize,
                 randomSupla.nextByteArray((int) captionSize));
     }

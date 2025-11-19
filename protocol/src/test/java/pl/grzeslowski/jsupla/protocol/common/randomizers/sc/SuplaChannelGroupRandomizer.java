@@ -4,6 +4,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import io.github.benas.randombeans.api.Randomizer;
 import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroup;
+import pl.grzeslowski.jsupla.protocol.api.structs.sc.SuplaChannelGroupA;
 import pl.grzeslowski.jsupla.protocol.common.RandomSupla;
 
 public class SuplaChannelGroupRandomizer implements Randomizer<SuplaChannelGroup> {
@@ -16,7 +17,7 @@ public class SuplaChannelGroupRandomizer implements Randomizer<SuplaChannelGroup
     @Override
     public SuplaChannelGroup getRandomValue() {
         byte[] caption = randomSupla.nextString(5).getBytes(UTF_8);
-        return new SuplaChannelGroup(
+        return new SuplaChannelGroupA(
                 randomSupla.nextByte(),
                 randomSupla.nextPositiveInt(),
                 randomSupla.nextPositiveInt(),
