@@ -5,7 +5,6 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCal
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import jakarta.annotation.Nonnull;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.val;
 import org.slf4j.Logger;
@@ -21,14 +20,12 @@ import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final Logger logger =
             LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + hashCode());
-    private final AtomicLong msgId = new AtomicLong(1);
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
     private final MessageHandler messageHandler;
 
-    private final AtomicReference<ChannelHandlerContext> context = new AtomicReference<>();
-    private final AtomicReference<SuplaWriter> writer = new AtomicReference<>();
+    private final AtomicReference<SuplaDefaultWriter> writer = new AtomicReference<>();
 
     SuplaHandler(
             CallTypeParser callTypeParser,
@@ -46,8 +43,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     public void channelActive(@Nonnull ChannelHandlerContext ctx) throws Exception {
         logger.debug("SuplaHandler.channelActive(ctx)");
         super.channelActive(ctx);
-        context.set(ctx);
-        val writer = new SuplaWriter(msgId, encoderFactory, context);
+        val writer = new SuplaDefaultWriter(encoderFactory, ctx);
         this.writer.set(writer);
         messageHandler.active(writer);
     }
@@ -56,7 +52,6 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     public void channelInactive(@Nonnull ChannelHandlerContext ctx) throws Exception {
         logger.debug("SuplaHandler.channelInactive(ctx)");
         messageHandler.inactive();
-        context.set(null);
         writer.set(null);
         super.channelInactive(ctx);
     }
@@ -116,6 +111,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        logger.debug("SuplaHandler.exceptionCaught(ctx, {})", cause.getLocalizedMessage(), cause);
         messageHandler.socketException(cause);
         ctx.close();
     }
