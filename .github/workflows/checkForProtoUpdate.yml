@@ -4,6 +4,7 @@ on:
     branches: [ "master" ]
     paths:
       - "protocol/gradle.properties"
+      - ".github/workflows/checkForProtoUpdate.yml"
   schedule:
     - cron: '0 0 * * 5' # every Friday at midnight
 jobs:
