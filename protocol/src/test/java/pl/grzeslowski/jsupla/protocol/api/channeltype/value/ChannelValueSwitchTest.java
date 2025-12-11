@@ -121,6 +121,11 @@ public class ChannelValueSwitchTest {
         }
 
         @Override
+        public String onActionTrigger(ActionTrigger actionTriggerValue) {
+            return "actionTrigger";
+        }
+
+        @Override
         public String onUnknownValue(UnknownValue unknownValue) {
             return record("unknown");
         }

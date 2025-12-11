@@ -44,6 +44,9 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(TimerValue.class)) {
             return callback.onTimerValue();
         }
+        if (channelClass.isAssignableFrom(ActionTrigger.class)) {
+            return callback.onActionTrigger();
+        }
         if (channelClass.isAssignableFrom(UnknownValue.class)) {
             return callback.onUnknownValue();
         }
@@ -78,6 +81,8 @@ public final class ChannelClassSwitch<T> {
         T onHvacValue();
 
         T onTimerValue();
+
+        T onActionTrigger();
 
         T onUnknownValue();
     }

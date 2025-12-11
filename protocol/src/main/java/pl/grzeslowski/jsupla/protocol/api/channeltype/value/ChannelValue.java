@@ -1,7 +1,8 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 public sealed interface ChannelValue
-        permits DecimalValue,
+        permits ActionTrigger,
+                DecimalValue,
                 ElectricityMeterValue,
                 HvacValue,
                 OnOff,

@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.stream.Collectors.joining;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.checkArrayLength;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -59,5 +60,10 @@ public interface ProtocolHelpers {
         return IntStream.range(0, mac.length)
                 .mapToObj(i -> String.format("%02X", mac[i] & 0xFF)) // & 0xFF ensures unsigned byte
                 .collect(joining(":")); // Join with ":"
+    }
+
+    public static int toSignedInt(long unsigned32bit) {
+        unsigned(unsigned32bit);
+        return (int) (unsigned32bit & 0xFFFF_FFFFL);
     }
 }

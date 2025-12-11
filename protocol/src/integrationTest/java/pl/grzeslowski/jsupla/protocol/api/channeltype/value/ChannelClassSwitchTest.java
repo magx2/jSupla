@@ -98,6 +98,11 @@ public class ChannelClassSwitchTest {
         }
 
         @Override
+        public String onActionTrigger() {
+            return "ActionTrigger";
+        }
+
+        @Override
         public String onUnknownValue() {
             return "UnknownValue";
         }

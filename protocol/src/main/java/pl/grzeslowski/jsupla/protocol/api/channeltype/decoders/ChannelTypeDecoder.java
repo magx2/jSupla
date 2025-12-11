@@ -51,41 +51,41 @@ public final class ChannelTypeDecoder {
     }
 
     public ChannelValue decode(final ChannelType channelType, final byte[] value) {
-        switch (channelType) {
-            case SUPLA_CHANNELTYPE_SENSORNO:
-            case SUPLA_CHANNELTYPE_SENSORNC:
-            case SUPLA_CHANNELTYPE_RELAYHFD4:
-            case SUPLA_CHANNELTYPE_RELAYG5LA1A:
-            case SUPLA_CHANNELTYPE_2XRELAYG5LA1A:
-            case SUPLA_CHANNELTYPE_RELAY:
-                return relayTypeChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_THERMOMETERDS18B20:
-            case SUPLA_CHANNELTYPE_DHT11:
-            case SUPLA_CHANNELTYPE_DHT22:
-            case SUPLA_CHANNELTYPE_DHT21:
-            case SUPLA_CHANNELTYPE_AM2302:
-            case SUPLA_CHANNELTYPE_AM2301:
-                return thermometerTypeChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_THERMOMETER:
-                return thermometerTypeDoubleChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_DIMMER:
-            case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER:
-            case SUPLA_CHANNELTYPE_DIMMERANDRGBLED:
-            case SUPLA_CHANNELTYPE_DISTANCESENSOR:
-                return colorTypeChannelDecoder.decode(value);
-            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1:
-                return electricityMeterDecoder.decode(value);
-            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2:
-                return electricityMeterV2Decoder.decode(value);
-            case SUPLA_CHANNELTYPE_HVAC:
-                return hvacValueDecoder.decode(value);
-            case EV_TYPE_TIMER_STATE_V1:
-                return timerMsecChannelDecoder.decode(value);
-            case EV_TYPE_TIMER_STATE_V1_SEC:
-                return timerSecChannelDecoder.decode(value);
-            case UNKNOWN:
-                return UnknownValue.UNKNOWN_VALUE;
-            default:
+        return switch (channelType) {
+            case SUPLA_CHANNELTYPE_SENSORNO,
+                    SUPLA_CHANNELTYPE_SENSORNC,
+                    SUPLA_CHANNELTYPE_RELAYHFD4,
+                    SUPLA_CHANNELTYPE_RELAYG5LA1A,
+                    SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
+                    SUPLA_CHANNELTYPE_RELAY ->
+                    relayTypeChannelDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_THERMOMETERDS18B20,
+                    SUPLA_CHANNELTYPE_DHT11,
+                    SUPLA_CHANNELTYPE_DHT22,
+                    SUPLA_CHANNELTYPE_DHT21,
+                    SUPLA_CHANNELTYPE_AM2302,
+                    SUPLA_CHANNELTYPE_AM2301 ->
+                    thermometerTypeChannelDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_THERMOMETER -> thermometerTypeDoubleChannelDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_DIMMER,
+                    SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
+                    SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
+                    SUPLA_CHANNELTYPE_DISTANCESENSOR ->
+                    colorTypeChannelDecoder.decode(value);
+            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1 -> electricityMeterDecoder.decode(value);
+            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2 ->
+                    electricityMeterV2Decoder.decode(value);
+            case SUPLA_CHANNELTYPE_HVAC -> hvacValueDecoder.decode(value);
+            case EV_TYPE_TIMER_STATE_V1 -> timerMsecChannelDecoder.decode(value);
+            case EV_TYPE_TIMER_STATE_V1_SEC -> timerSecChannelDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_ACTIONTRIGGER -> {
+                log.error(
+                        "Can not decode SUPLA_CHANNELTYPE_ACTIONTRIGGER, value={}",
+                        Arrays.toString(value));
+                yield new UnknownValue(value, "Can not decode SUPLA_CHANNELTYPE_ACTIONTRIGGER");
+            }
+            case UNKNOWN -> UnknownValue.UNKNOWN_VALUE;
+            default -> {
                 val message =
                         format(
                                 "Don't know how to map channel type %s to channel value!",
@@ -93,54 +93,52 @@ public final class ChannelTypeDecoder {
                 if (log.isDebugEnabled()) {
                     log.debug(message + " value={}", Arrays.toString(value));
                 }
-                return new UnknownValue(value, message);
-        }
+                yield new UnknownValue(value, message);
+            }
+        };
     }
 
     public Class<? extends ChannelValue> findClass(int type) {
         val optional = ChannelType.findByValue(type).map(this::findClass);
-        if (!optional.isPresent()) {
+        if (optional.isEmpty()) {
             return UnknownValue.class;
         }
         return optional.get();
     }
 
     public Class<? extends ChannelValue> findClass(final ChannelType channelType) {
-        switch (channelType) {
-            case SUPLA_CHANNELTYPE_SENSORNO:
-            case SUPLA_CHANNELTYPE_SENSORNC:
-            case SUPLA_CHANNELTYPE_RELAYHFD4:
-            case SUPLA_CHANNELTYPE_RELAYG5LA1A:
-            case SUPLA_CHANNELTYPE_2XRELAYG5LA1A:
-            case SUPLA_CHANNELTYPE_RELAY:
-                return OnOff.class;
-            case SUPLA_CHANNELTYPE_THERMOMETERDS18B20:
-            case SUPLA_CHANNELTYPE_DHT11:
-            case SUPLA_CHANNELTYPE_DHT22:
-            case SUPLA_CHANNELTYPE_DHT21:
-            case SUPLA_CHANNELTYPE_AM2302:
-            case SUPLA_CHANNELTYPE_AM2301:
-                return TemperatureAndHumidityValue.class;
-            case SUPLA_CHANNELTYPE_THERMOMETER:
-                return TemperatureValue.class;
-            case SUPLA_CHANNELTYPE_DIMMER:
-            case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER:
-            case SUPLA_CHANNELTYPE_DIMMERANDRGBLED:
-            case SUPLA_CHANNELTYPE_DISTANCESENSOR:
-                return RgbValue.class;
-            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1:
-            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2:
-            case SUPLA_CHANNELTYPE_ELECTRICITY_METER:
-                return ElectricityMeterValue.class;
-            case SUPLA_CHANNELTYPE_HVAC:
-                return HvacValue.class;
-            case UNKNOWN:
-            case EV_TYPE_TIMER_STATE_V1:
-            case EV_TYPE_TIMER_STATE_V1_SEC:
-                return TimerValue.class;
-            default:
+        return switch (channelType) {
+            case SUPLA_CHANNELTYPE_SENSORNO,
+                    SUPLA_CHANNELTYPE_SENSORNC,
+                    SUPLA_CHANNELTYPE_RELAYHFD4,
+                    SUPLA_CHANNELTYPE_RELAYG5LA1A,
+                    SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
+                    SUPLA_CHANNELTYPE_RELAY ->
+                    OnOff.class;
+            case SUPLA_CHANNELTYPE_THERMOMETERDS18B20,
+                    SUPLA_CHANNELTYPE_DHT11,
+                    SUPLA_CHANNELTYPE_DHT22,
+                    SUPLA_CHANNELTYPE_DHT21,
+                    SUPLA_CHANNELTYPE_AM2302,
+                    SUPLA_CHANNELTYPE_AM2301 ->
+                    TemperatureAndHumidityValue.class;
+            case SUPLA_CHANNELTYPE_THERMOMETER -> TemperatureValue.class;
+            case SUPLA_CHANNELTYPE_DIMMER,
+                    SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
+                    SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
+                    SUPLA_CHANNELTYPE_DISTANCESENSOR ->
+                    RgbValue.class;
+            case EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1,
+                    EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2,
+                    SUPLA_CHANNELTYPE_ELECTRICITY_METER ->
+                    ElectricityMeterValue.class;
+            case SUPLA_CHANNELTYPE_HVAC -> HvacValue.class;
+            case SUPLA_CHANNELTYPE_ACTIONTRIGGER -> ActionTrigger.class;
+            case UNKNOWN, EV_TYPE_TIMER_STATE_V1, EV_TYPE_TIMER_STATE_V1_SEC -> TimerValue.class;
+            default -> {
                 log.warn("Don't know how to map channel type {} to channel value!", channelType);
-                return UnknownValue.class;
-        }
+                yield UnknownValue.class;
+            }
+        };
     }
 }

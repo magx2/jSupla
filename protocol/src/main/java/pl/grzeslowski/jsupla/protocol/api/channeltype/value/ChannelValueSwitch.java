@@ -25,6 +25,7 @@ public final class ChannelValueSwitch<T> {
                     callback.onTemperatureAndHumidityValue(temperatureAndHumidityValue);
             case TemperatureValue temperatureValue -> callback.onTemperatureValue(temperatureValue);
             case TimerValue timerValue -> callback.onTimerValue(timerValue);
+            case ActionTrigger actionTrigger -> callback.onActionTrigger(actionTrigger);
             case UnknownValue unknownValue -> callback.onUnknownValue(unknownValue);
         };
     }
@@ -51,6 +52,8 @@ public final class ChannelValueSwitch<T> {
         T onHvacValue(HvacValue channelValue);
 
         T onTimerValue(TimerValue channelValue);
+
+        T onActionTrigger(ActionTrigger actionTriggerValue);
 
         T onUnknownValue(UnknownValue unknownValue);
     }
