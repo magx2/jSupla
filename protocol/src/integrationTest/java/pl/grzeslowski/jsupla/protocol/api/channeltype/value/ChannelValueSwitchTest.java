@@ -1,10 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.ActionTrigger.Capabilities.*;
 
 import com.google.common.reflect.ClassPath;
 import java.math.BigInteger;
 import java.time.Duration;
+import java.util.Set;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -104,6 +106,11 @@ public class ChannelValueSwitchTest {
         }
 
         @Override
+        public ChannelValue onActionTrigger(ActionTrigger channelValue) {
+            return channelValue;
+        }
+
+        @Override
         public ChannelValue onUnknownValue(UnknownValue unknownValue) {
             return unknownValue;
         }
@@ -111,7 +118,7 @@ public class ChannelValueSwitchTest {
 
     private static ChannelValue mock(Class<? extends ChannelValue> aClass) {
         ChannelClassSwitch.Callback<ChannelValue> callback =
-                new ChannelClassSwitch.Callback<ChannelValue>() {
+                new ChannelClassSwitch.Callback<>() {
                     @Override
                     public ChannelValue onDecimalValue() {
                         return new DecimalValue(1);
@@ -171,6 +178,11 @@ public class ChannelValueSwitchTest {
                                 new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE],
                                 1,
                                 "test");
+                    }
+
+                    @Override
+                    public ChannelValue onActionTrigger() {
+                        return new ActionTrigger(Set.of(TOGGLE_x1, HOLD, TURN_ON));
                     }
 
                     @Override

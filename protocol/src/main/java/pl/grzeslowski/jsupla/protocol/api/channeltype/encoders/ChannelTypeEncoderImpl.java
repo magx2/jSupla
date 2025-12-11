@@ -21,7 +21,7 @@ public class ChannelTypeEncoderImpl {
     private final HvacChannelEncoderImpl hvacChannelEncoderImpl;
 
     private final ChannelValueSwitch.Callback<byte[]> callback =
-            new ChannelValueSwitch.Callback<byte[]>() {
+            new ChannelValueSwitch.Callback<>() {
                 @Override
                 public byte[] onDecimalValue(final DecimalValue decimalValue) {
                     throw new UnsupportedOperationException(
@@ -80,6 +80,12 @@ public class ChannelTypeEncoderImpl {
                 public byte[] onTimerValue(TimerValue channelValue) {
                     throw new UnsupportedOperationException(
                             "ChannelTypeEncoderImpl.onTimerValue(channelValue)");
+                }
+
+                @Override
+                public byte[] onActionTrigger(ActionTrigger channelValue) {
+                    throw new UnsupportedOperationException(
+                            "ChannelTypeEncoderImpl.onActionTrigger(channelValue)");
                 }
 
                 @Override

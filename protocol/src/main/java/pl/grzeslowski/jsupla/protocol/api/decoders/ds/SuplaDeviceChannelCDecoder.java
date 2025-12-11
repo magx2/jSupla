@@ -1,10 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_ACTIONTRIGGER;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ActionTriggerPropertiesDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
@@ -25,12 +27,20 @@ public class SuplaDeviceChannelCDecoder
         offset += BYTE_SIZE;
 
         val type = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+        val isActionTrigger = type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue();
         offset += INT_SIZE;
 
         // start union 1
-        val funcList = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+        Integer funcList;
+        Long actionTriggerCaps;
+        if (!isActionTrigger) {
+            funcList = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+            actionTriggerCaps = null;
+        } else {
+            funcList = null;
+            actionTriggerCaps = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
+        }
         offset += INT_SIZE;
-        Long actionTriggerCaps = null;
         // end union 1
 
         val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
@@ -40,12 +50,19 @@ public class SuplaDeviceChannelCDecoder
         offset += INT_SIZE;
 
         // start union 2
-        val value =
-                PrimitiveDecoder.INSTANCE.copyOfRangeByte(
-                        bytes, offset, offset + (int) SUPLA_CHANNELVALUE_SIZE);
-        offset += SUPLA_CHANNELVALUE_SIZE * BYTE_SIZE;
-        ActionTriggerProperties actionTriggerProperties = null;
+        byte[] value;
+        ActionTriggerProperties actionTriggerProperties;
+        if (!isActionTrigger) {
+            value =
+                    PrimitiveDecoder.INSTANCE.copyOfRangeByte(
+                            bytes, offset, offset + (int) SUPLA_CHANNELVALUE_SIZE);
+            actionTriggerProperties = null;
+        } else {
+            value = null;
+            actionTriggerProperties = ActionTriggerPropertiesDecoder.INSTANCE.decode(bytes, offset);
+        }
         HVACValue hvacValue = null;
+        offset += SUPLA_CHANNELVALUE_SIZE * BYTE_SIZE;
         // end union 2
 
         return new SuplaDeviceChannelC(

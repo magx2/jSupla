@@ -21,6 +21,7 @@ public class ChannelClassSwitchTest {
         assertDispatch(ElectricityMeterValue.class, "electricity");
         assertDispatch(HvacValue.class, "hvac");
         assertDispatch(TimerValue.class, "timer");
+        assertDispatch(ActionTrigger.class, "actionTrigger");
         assertDispatch(UnknownValue.class, "unknown");
     }
 
@@ -85,6 +86,11 @@ public class ChannelClassSwitchTest {
         @Override
         public String onTimerValue() {
             return record("timer");
+        }
+
+        @Override
+        public String onActionTrigger() {
+            return record("actionTrigger");
         }
 
         @Override
