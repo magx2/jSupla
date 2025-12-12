@@ -4,6 +4,8 @@ import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.checkArrayLength;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 
+import java.util.Arrays;
+import lombok.NonNull;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 /**
@@ -42,5 +44,21 @@ public record SuplaDataPacket(short version, long rrId, long callId, long dataSi
                 + INT_SIZE // dataSize
                 + (int) dataSize * BYTE_SIZE // data
         ;
+    }
+
+    @Override
+    @NonNull public String toString() {
+        return "SuplaDataPacket{"
+                + "version="
+                + version
+                + ", rrId="
+                + rrId
+                + ", callId="
+                + callId
+                + ", dataSize="
+                + dataSize
+                + ", data="
+                + Arrays.toString(data)
+                + '}';
     }
 }
