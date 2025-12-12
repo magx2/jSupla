@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 import java.util.stream.Stream
 
 void generatePojo(struct, Path generatedSourceRoot) {
-	def javaName =struct.overrideName ?: struct.name
+	def javaName = struct.overrideName ?: struct.name
 	def path = "api/structs"
 	def sourcesPath = project.file("src/main/java/pl/grzeslowski/jsupla/protocol/").toPath().resolve(path).resolve(javaName + ".java")
 	if (Files.exists(sourcesPath)) {
@@ -43,6 +43,25 @@ void generatePojo(struct, Path generatedSourceRoot) {
 			"\t\t;"
 		size = "SIZE"
 	}
+	def toString = ""
+	if (shouldOverrideToString(struct)) {
+		def fields = struct.fields
+			.stream()
+			.map { field ->
+				def value =field.name
+				if(field.array && field.type == 'byte'){
+					value = "java.util.Arrays.toString($value)"
+				}
+				
+				"${field.name}=\"+$value"
+			}
+			.collect(Collectors.joining("+\", ", "", "+\""))
+		toString = """\
+			|@Override public String toString() {
+			|  return "${struct.name}[${fields}]";
+			|}
+			""".stripMargin()
+	}
 	def content = """\
 		|package pl.grzeslowski.jsupla.protocol.${path.replaceAll("/", ".")};
 		|
@@ -63,6 +82,8 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		|		return ${size}
 		|			;
 		|	}
+		|
+		|	$toString
 		|}
 		|""".stripMargin()
 
@@ -115,10 +136,10 @@ void generateTrait(traitInterface, Path generatedSourceRoot) {
 		.stream()
 		.map { it.overrideName ?: it.name }
 		.collect(Collectors.joining(", "))
-	def javaDoc =  traitInterface.structs
+	def javaDoc = traitInterface.structs
 		.stream()
 		.map { it.overrideName ?: it.name }
-		.map { "<li>{@link $it}</li>"}
+		.map { "<li>{@link $it}</li>" }
 		.collect(Collectors.joining("\n * \t", "<ul>\n * \t", "\n * </ul>"))
 	def content = """\
 		|package pl.grzeslowski.jsupla.protocol.${path.replaceAll("/", ".")};
@@ -481,4 +502,10 @@ static String matchType(String newType, String originalType, String array) {
 	} else {
 		return newType.capitalize() + array
 	}
+}
+
+static boolean shouldOverrideToString(struct) {
+	return struct.fields
+		.stream()
+		.anyMatch { field -> field.array && field.type == 'byte' }
 }
