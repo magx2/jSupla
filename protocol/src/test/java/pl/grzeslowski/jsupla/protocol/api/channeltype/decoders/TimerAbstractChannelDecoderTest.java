@@ -3,15 +3,15 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
-public class TimerAbstractChannelDecoderTest {
+class TimerAbstractChannelDecoderTest {
     private final TimerTestPayloadBuilder builder = new TimerTestPayloadBuilder();
 
     @Test
-    public void shouldConvertTargetValuesBySubtractingOffset() {
+    void shouldConvertTargetValuesBySubtractingOffset() {
         // given
         short[] target = new short[ProtoConsts.SUPLA_CHANNELVALUE_SIZE];
         for (int i = 0; i < target.length; i++) {

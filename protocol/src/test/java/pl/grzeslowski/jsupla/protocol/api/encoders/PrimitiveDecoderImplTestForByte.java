@@ -1,31 +1,33 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({"PointlessArithmeticExpression", "ResultOfMethodCallIgnored"})
-public class PrimitiveDecoderImplTestForByte {
+class PrimitiveDecoderImplTestForByte {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfArrayIsTooShort() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfArrayIsTooShort() {
 
         // given
         final byte[] bytes = new byte[BYTE_SIZE - 1];
 
-        // when
-        INSTANCE.writeByte((byte) 1, bytes, 0);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> INSTANCE.writeByte((byte) 1, bytes, 0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfArrayIsTooShortWithOffset() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfArrayIsTooShortWithOffset() {
 
         // given
         final int offset = 100;
         final byte[] bytes = new byte[BYTE_SIZE - 1 + offset];
 
-        // when
-        INSTANCE.writeByte((byte) 1, bytes, offset);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class, () -> INSTANCE.writeByte((byte) 1, bytes, offset));
     }
 }

@@ -2,48 +2,48 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import static java.lang.Integer.MAX_VALUE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.LONG_SIZE;
 
 import java.math.BigInteger;
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
 
-public class PrimitiveIntEncoderTest {
+class PrimitiveIntEncoderTest {
     private static final int VALUE_THAT_I_DO_NOT_CARE = 5;
     private final PrimitiveEncoder primitiveEncoder = PrimitiveEncoder.INSTANCE;
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenArrayIsToSmall() {
-
+    @Test
+    void shouldThrowExceptionWhenArrayIsToSmall() {
         // given
         byte[] bytes = new byte[INT_SIZE - 1];
 
-        // when
-        primitiveEncoder.writeUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
-
-        // then
-        fail("Should throw IllegalArgumentException");
+        // when / then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    primitiveEncoder.writeUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, 0);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenArrayIsToSmallBecauseOfOffset() {
-
+    @Test
+    void shouldThrowExceptionWhenArrayIsToSmallBecauseOfOffset() {
         // given
         int offset = 3;
         byte[] bytes = new byte[offset + INT_SIZE - 1];
 
-        // when
-        primitiveEncoder.writeUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
-
-        // then
-        fail("Should throw IllegalArgumentException");
+        // when / then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    primitiveEncoder.writeUnsignedInt(VALUE_THAT_I_DO_NOT_CARE, bytes, offset);
+                });
     }
 
     @Test
-    public void shouldPutSmallUnsignedIntIntoBuffer() {
+    void shouldPutSmallUnsignedIntIntoBuffer() {
 
         // given
         long value = 5; // 5(10) is 00000101(2)
@@ -60,7 +60,7 @@ public class PrimitiveIntEncoderTest {
     }
 
     @Test
-    public void shouldPutFullUnsignedIntIntoBuffer() {
+    void shouldPutFullUnsignedIntIntoBuffer() {
 
         // given
         /*
@@ -80,7 +80,7 @@ public class PrimitiveIntEncoderTest {
     }
 
     @Test
-    public void shouldPutFullUnsignedIntIntoBufferWithOffset() {
+    void shouldPutFullUnsignedIntIntoBufferWithOffset() {
 
         // given
         /*
@@ -103,7 +103,7 @@ public class PrimitiveIntEncoderTest {
 
     @SuppressWarnings("UnnecessaryLocalVariable")
     @Test
-    public void shouldPutMinimalUnsignedIntIntoBuffer() {
+    void shouldPutMinimalUnsignedIntIntoBuffer() {
 
         // given
         long value = 0L;
@@ -120,7 +120,7 @@ public class PrimitiveIntEncoderTest {
     }
 
     @Test
-    public void shouldPutMaxUnsignedIntIntoBuffer() {
+    void shouldPutMaxUnsignedIntIntoBuffer() {
 
         // given
         long value = (long) MAX_VALUE * 2L + 1L;
@@ -137,7 +137,7 @@ public class PrimitiveIntEncoderTest {
     }
 
     @Test
-    public void shouldPutMinimalUnsignedLongIntoBuffer() {
+    void shouldPutMinimalUnsignedLongIntoBuffer() {
 
         // given
         val value = BigInteger.ZERO;
@@ -158,7 +158,7 @@ public class PrimitiveIntEncoderTest {
     }
 
     @Test
-    public void shouldPutMaxUnsignedLongIntoBuffer() {
+    void shouldPutMaxUnsignedLongIntoBuffer() {
 
         // given
         val value = JavaConsts.UNSIGNED_LONG_MAX;

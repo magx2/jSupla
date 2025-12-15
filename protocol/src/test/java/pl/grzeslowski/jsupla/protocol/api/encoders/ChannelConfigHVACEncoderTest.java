@@ -2,13 +2,13 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ChannelConfigHVAC;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACTemperatureCfg;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
 
-public class ChannelConfigHVACEncoderTest {
+class ChannelConfigHVACEncoderTest {
     private static final int AUX_THERMOMETER_CHANNEL_ID = 0x11223344;
     private static final int BINARY_SENSOR_CHANNEL_ID = 0x55667788;
     private static final int HEAT_OR_COLD_SWITCH_CHANNEL_ID = 0x0A0B0C0D;
@@ -17,7 +17,7 @@ public class ChannelConfigHVACEncoderTest {
     private final ChannelConfigHVACEncoder encoder = ChannelConfigHVACEncoder.INSTANCE;
 
     @Test
-    public void shouldEncodeThermometerChannelIdsInLittleEndianOrder() {
+    void shouldEncodeThermometerChannelIdsInLittleEndianOrder() {
         // given
         ChannelConfigHVAC config = createConfig(0x01020304, null, 0x0F0E0D0C, null, null);
 
@@ -33,7 +33,7 @@ public class ChannelConfigHVACEncoderTest {
     }
 
     @Test
-    public void shouldEncodeThermometerChannelNumberWhenIdMissing() {
+    void shouldEncodeThermometerChannelNumberWhenIdMissing() {
         // given
         ChannelConfigHVAC config = createConfig(null, (short) 7, null, (short) 1, (short) 5);
 

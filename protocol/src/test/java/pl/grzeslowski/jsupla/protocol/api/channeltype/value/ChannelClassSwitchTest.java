@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChannelClassSwitchTest {
+class ChannelClassSwitchTest {
     private final RecordingCallback callback = new RecordingCallback();
     private final ChannelClassSwitch<String> channelSwitch = new ChannelClassSwitch<>(callback);
 
     @Test
-    public void shouldDispatchAllSupportedClasses() {
+    void shouldDispatchAllSupportedClasses() {
         assertDispatch(DecimalValue.class, "decimal");
         assertDispatch(OnOff.class, "onOff");
         assertDispatch(OpenClose.class, "openClose");

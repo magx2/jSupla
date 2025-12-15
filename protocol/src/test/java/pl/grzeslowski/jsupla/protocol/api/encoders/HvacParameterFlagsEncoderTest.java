@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
 
-public class HvacParameterFlagsEncoderTest {
+class HvacParameterFlagsEncoderTest {
     private final HvacParameterFlagsEncoder encoder = HvacParameterFlagsEncoder.INSTANCE;
 
     @Test
-    public void shouldEncodeBooleanFlagsIntoBytes() {
+    void shouldEncodeBooleanFlagsIntoBytes() {
         // given
         var mainThermometerChannelNoReadonly = true;
         var mainThermometerChannelNoHidden = false;

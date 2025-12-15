@@ -2,12 +2,12 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class SuplaTimevalDecoderTest {
+class SuplaTimevalDecoderTest {
 
     @Test
-    public void zamel() {
+    void zamel() {
         // given
         var bytes = new byte[] {1, 2, 3, 4, 5, 6, 7, 8};
         var tvSec =
@@ -26,7 +26,7 @@ public class SuplaTimevalDecoderTest {
     }
 
     @Test
-    public void auraton() {
+    void auraton() {
         // given
         var bytes = new byte[] {110, 50, 46, 103, 0, 0, 0, 0, -119, -51, 13, 0, 0, 0, 0, 0};
         var tvSec = 1731080814L; // PrimitiveDecoder.INSTANCE.parseLong(new

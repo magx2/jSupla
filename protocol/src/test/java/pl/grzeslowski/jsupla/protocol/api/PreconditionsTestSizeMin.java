@@ -1,14 +1,15 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PreconditionsTestSizeMin {
+class PreconditionsTestSizeMin {
     @Test
-    public void shouldReturnCollectionWhenSizeIsInBounds() throws Exception {
+    void shouldReturnCollectionWhenSizeIsInBounds() {
 
         // given
         final Collection<String> expectedCollection = Arrays.asList("1", "2");
@@ -21,7 +22,7 @@ public class PreconditionsTestSizeMin {
     }
 
     @Test
-    public void shouldReturnArrayWhenSizeIsInBounds() throws Exception {
+    void shouldReturnArrayWhenSizeIsInBounds() {
 
         // given
         final String[] expectedArray = new String[] {"1", "2"};
@@ -34,7 +35,7 @@ public class PreconditionsTestSizeMin {
     }
 
     @Test
-    public void shouldReturnCharSequenceWhenSizeIsInBounds() throws Exception {
+    void shouldReturnCharSequenceWhenSizeIsInBounds() {
 
         // given
         final CharSequence expectedCharSequence = " ";
@@ -47,7 +48,7 @@ public class PreconditionsTestSizeMin {
     }
 
     @Test
-    public void shouldReturnByteArrayWhenSizeIsInBounds() throws Exception {
+    void shouldReturnByteArrayWhenSizeIsInBounds() {
 
         // given
         final byte[] expectedByteArray = new byte[] {1};
@@ -60,7 +61,7 @@ public class PreconditionsTestSizeMin {
     }
 
     @Test
-    public void shouldReturnByteArrayWhenSizeIsInLongBounds() throws Exception {
+    void shouldReturnByteArrayWhenSizeIsInLongBounds() {
 
         // given
         final byte[] expectedByteArray = new byte[] {1};
@@ -72,55 +73,58 @@ public class PreconditionsTestSizeMin {
         assertThat(bytes).isEqualTo(expectedByteArray);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCollection() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCollection() {
 
         // given
         final Collection<String> expectedCollection = Arrays.asList("1", "2", "3");
 
-        // when
-        Preconditions.sizeMin(expectedCollection, 5);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class, () -> Preconditions.sizeMin(expectedCollection, 5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsArray() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsArray() {
 
         // given
         final String[] expectedArray = new String[] {"1", "2", "3"};
 
-        // when
-        Preconditions.sizeMin(expectedArray, 5);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.sizeMin(expectedArray, 5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCharSequence()
-            throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsCharSequence() {
 
         // given
         final CharSequence expectedCharSequence = "123";
 
-        // when
-        Preconditions.sizeMin(expectedCharSequence, 5);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> Preconditions.sizeMin(expectedCharSequence, 5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsByteArray() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSizeIsInBoundsByteArray() {
 
         // given
         final byte[] expectedByteArray = new byte[] {1, 2, 3};
 
-        // when
-        Preconditions.sizeMin(expectedByteArray, 5);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class, () -> Preconditions.sizeMin(expectedByteArray, 5));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenSizeIsInLongBoundsByteArray()
-            throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSizeIsInLongBoundsByteArray() {
 
         // given
         final byte[] expectedByteArray = new byte[] {1, 2, 3};
 
-        // when
-        Preconditions.sizeMin(expectedByteArray, 5L);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class, () -> Preconditions.sizeMin(expectedByteArray, 5L));
     }
 }

@@ -3,11 +3,11 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChannelConfigHVACTest {
+class ChannelConfigHVACTest {
     @Test
-    public void protoSize() {
+    void protoSize() {
         // given
         val proto =
                 new ChannelConfigHVAC(

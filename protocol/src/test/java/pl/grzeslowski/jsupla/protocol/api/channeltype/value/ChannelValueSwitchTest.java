@@ -8,15 +8,15 @@ import java.time.Duration;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
-public class ChannelValueSwitchTest {
+class ChannelValueSwitchTest {
     private final RecordingCallback callback = new RecordingCallback();
     private final ChannelValueSwitch<String> channelSwitch = new ChannelValueSwitch<>(callback);
 
     @Test
-    public void shouldDispatchEachChannelValueImplementation() {
+    void shouldDispatchEachChannelValueImplementation() {
         assertDispatch(new DecimalValue(BigDecimal.ONE), "decimal");
         assertDispatch(OnOff.ON, "onOff");
         assertDispatch(OpenClose.OPEN, "openClose");

@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValue;
 
-public class ElectricityMeterExtendedValueDecoderTest {
+class ElectricityMeterExtendedValueDecoderTest {
     ElectricityMeterExtendedValueDecoder decoder = ElectricityMeterExtendedValueDecoder.INSTANCE;
 
     @Test
-    public void testDecode() {
+    void testDecode() {
         // given
         byte[] bytes =
                 new byte[] {

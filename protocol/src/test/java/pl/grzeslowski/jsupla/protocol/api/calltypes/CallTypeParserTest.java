@@ -3,13 +3,13 @@ package pl.grzeslowski.jsupla.protocol.api.calltypes;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.stream.Stream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class CallTypeParserTest {
+class CallTypeParserTest {
     private final CallTypeParser parser = CallTypeParser.INSTANCE;
 
     @Test
-    public void shouldParseEveryKnownCallTypeValue() {
+    void shouldParseEveryKnownCallTypeValue() {
         Stream.of(
                         ServerDeviceClientCallType.values(),
                         ServerDeviceCallType.values(),
@@ -27,7 +27,7 @@ public class CallTypeParserTest {
     }
 
     @Test
-    public void shouldReturnEmptyOptionalForUnknownValue() {
+    void shouldReturnEmptyOptionalForUnknownValue() {
         assertThat(parser.parse(-1)).isEmpty();
     }
 }

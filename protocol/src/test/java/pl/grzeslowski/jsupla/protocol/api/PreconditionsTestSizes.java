@@ -1,13 +1,14 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PreconditionsTestSizes {
+class PreconditionsTestSizes {
 
     @Test
-    public void shouldReturnByteIfInRange() throws Exception {
+    void shouldReturnByteIfInRange() {
 
         // given
         int value = 1;
@@ -20,7 +21,7 @@ public class PreconditionsTestSizes {
     }
 
     @Test
-    public void shouldReturnUnsignedByteIfInRange() throws Exception {
+    void shouldReturnUnsignedByteIfInRange() {
 
         // given
         int value = 1;
@@ -32,45 +33,43 @@ public class PreconditionsTestSizes {
         assertThat(byteValue).isEqualTo(value);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanByte() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanByte() {
 
         // given
         int value = Byte.MAX_VALUE + 1;
 
-        // when
-        Preconditions.byteSize(value);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.byteSize(value));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanByte() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanByte() {
 
         // given
         int value = Byte.MIN_VALUE - 1;
 
-        // when
-        Preconditions.byteSize(value);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.byteSize(value));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanUnsignedByte()
-            throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfValueIsBiggerThanUnsignedByte() {
 
         // given
         int value = -1;
 
-        // when
-        Preconditions.unsignedByteSize(value);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.unsignedByteSize(value));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanUnsignedByte()
-            throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfValueIsSmallerThanUnsignedByte() {
 
         // given
         int value = 256;
 
-        // when
-        Preconditions.unsignedByteSize(value);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.unsignedByteSize(value));
     }
 }

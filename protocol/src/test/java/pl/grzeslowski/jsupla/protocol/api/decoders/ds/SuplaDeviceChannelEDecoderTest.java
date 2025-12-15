@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ActionTriggerPropertiesDecoder;
@@ -14,13 +14,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelE;
 
-public class SuplaDeviceChannelEDecoderTest {
+class SuplaDeviceChannelEDecoderTest {
     private final SuplaDeviceChannelEDecoder decoder =
             new SuplaDeviceChannelEDecoder(
                     HVACValueDecoder.INSTANCE, ActionTriggerPropertiesDecoder.INSTANCE);
 
     @Test
-    public void shouldDecodeHvacChannelsUsingHvacDecoder() {
+    void shouldDecodeHvacChannelsUsingHvacDecoder() {
         short number = 9;
         int type = ChannelType.SUPLA_CHANNELTYPE_HVAC.getValue();
         int funcList = 123;
@@ -62,7 +62,7 @@ public class SuplaDeviceChannelEDecoderTest {
     }
 
     @Test
-    public void shouldDecodeThermometerOrRelayChannelsUsingRawValue() {
+    void shouldDecodeThermometerOrRelayChannelsUsingRawValue() {
         short number = 2;
         int type = ChannelType.SUPLA_CHANNELTYPE_THERMOMETER.getValue();
         int funcList = 10;
@@ -91,7 +91,7 @@ public class SuplaDeviceChannelEDecoderTest {
     }
 
     @Test
-    public void shouldFailWhenTypeIsNotSupported() {
+    void shouldFailWhenTypeIsNotSupported() {
         byte[] payload =
                 baseHeader((short) 1, 999, 0, 0, 0L, (short) 0, 0L)
                         .put(new byte[(int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE])
@@ -105,7 +105,7 @@ public class SuplaDeviceChannelEDecoderTest {
     }
 
     @Test
-    public void shouldDecodeActionTriggerChannel() {
+    void shouldDecodeActionTriggerChannel() {
         // given
         short number = 3;
         int type = 11000; // SUPLA_CHANNELTYPE_ACTIONTRIGGER

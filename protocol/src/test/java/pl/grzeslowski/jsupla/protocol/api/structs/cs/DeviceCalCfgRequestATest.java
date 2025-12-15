@@ -2,12 +2,12 @@ package pl.grzeslowski.jsupla.protocol.api.structs.cs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DeviceCalCfgRequestATest {
+class DeviceCalCfgRequestATest {
 
     @Test
-    public void shouldReturnCorrectToString() {
+    void shouldReturnCorrectToString() {
         // given
         final int channelId = 1;
         final int command = 2023;
@@ -29,7 +29,7 @@ public class DeviceCalCfgRequestATest {
     }
 
     @Test
-    public void shouldReturnCorrectToStringForEmptyData() {
+    void shouldReturnCorrectToStringForEmptyData() {
         // given
         final int channelId = 1;
         final int command = 2023;

@@ -4,13 +4,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.HEAT;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class HVACValueDecoderImplTest {
+class HVACValueDecoderImplTest {
     HVACValueDecoderImpl decoder = HVACValueDecoderImpl.INSTANCE;
 
     @Test
-    public void auratonTestCase() {
+    void auratonTestCase() {
         // given
         val data = new byte[] {0, 2, 18, 7, 0, 0, 1, 0};
 
@@ -41,7 +41,7 @@ public class HVACValueDecoderImplTest {
     }
 
     @Test
-    public void shouldReturnNullSetPointsWhenFlagsNotSet() {
+    void shouldReturnNullSetPointsWhenFlagsNotSet() {
         // given
         val data = new byte[] {1, 3, 0, 0, 0, 0, 0, 0};
 

@@ -6,11 +6,11 @@ import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.ActionTrigger
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 import java.util.EnumSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ActionTriggerTest {
+class ActionTriggerTest {
     @Test
-    public void shouldParseMaskInConstructor() {
+    void shouldParseMaskInConstructor() {
         // given
         final int mask = SUPLA_ACTION_CAP_TURN_ON | SUPLA_ACTION_CAP_HOLD;
 
@@ -22,23 +22,23 @@ public class ActionTriggerTest {
     }
 
     @Test
-    public void shouldReturnEmptySetFor0FromInt() {
+    void shouldReturnEmptySetFor0FromInt() {
         assertThat(ActionTrigger.Capabilities.from(0)).isEmpty();
     }
 
     @Test
-    public void shouldReturnOneElementSetFromInt() {
+    void shouldReturnOneElementSetFromInt() {
         assertThat(ActionTrigger.Capabilities.from(SUPLA_ACTION_CAP_TURN_ON)).containsOnly(TURN_ON);
     }
 
     @Test
-    public void shouldReturnTwoElementSetFromInt() {
+    void shouldReturnTwoElementSetFromInt() {
         final int mask = SUPLA_ACTION_CAP_TURN_ON | SUPLA_ACTION_CAP_HOLD;
         assertThat(ActionTrigger.Capabilities.from(mask)).containsOnly(TURN_ON, HOLD);
     }
 
     @Test
-    public void shouldReturnAllElementSetFromInt() {
+    void shouldReturnAllElementSetFromInt() {
         final int mask =
                 SUPLA_ACTION_CAP_TURN_ON
                         | SUPLA_ACTION_CAP_TURN_OFF
@@ -71,26 +71,26 @@ public class ActionTriggerTest {
     }
 
     @Test
-    public void shouldThrowExceptionFor0FromSingleInt() {
+    void shouldThrowExceptionFor0FromSingleInt() {
         assertThatThrownBy(() -> ActionTrigger.Capabilities.fromSingle(0))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void shouldReturnOneElementFromSingleInt() {
+    void shouldReturnOneElementFromSingleInt() {
         assertThat(ActionTrigger.Capabilities.fromSingle(SUPLA_ACTION_CAP_TURN_ON))
                 .isEqualTo(TURN_ON);
     }
 
     @Test
-    public void shouldThrowExceptionForTwoElementsFromSingleInt() {
+    void shouldThrowExceptionForTwoElementsFromSingleInt() {
         final int mask = SUPLA_ACTION_CAP_TURN_ON | SUPLA_ACTION_CAP_HOLD;
         assertThatThrownBy(() -> ActionTrigger.Capabilities.fromSingle(mask))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
-    public void shouldReturn0ForEmptySetToMaskSet() {
+    void shouldReturn0ForEmptySetToMaskSet() {
         assertThat(
                         ActionTrigger.Capabilities.toMask(
                                 EnumSet.noneOf(ActionTrigger.Capabilities.class)))
@@ -98,13 +98,13 @@ public class ActionTriggerTest {
     }
 
     @Test
-    public void shouldReturnMaskForOneElementToMaskSet() {
+    void shouldReturnMaskForOneElementToMaskSet() {
         assertThat(ActionTrigger.Capabilities.toMask(EnumSet.of(TURN_ON)))
                 .isEqualTo(SUPLA_ACTION_CAP_TURN_ON);
     }
 
     @Test
-    public void shouldReturnMaskForTwoElementsToMaskSet() {
+    void shouldReturnMaskForTwoElementsToMaskSet() {
         final int expectedMask = SUPLA_ACTION_CAP_TURN_ON | SUPLA_ACTION_CAP_HOLD;
         assertThat(ActionTrigger.Capabilities.toMask(EnumSet.of(TURN_ON, HOLD)))
                 .isEqualTo(expectedMask);

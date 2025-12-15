@@ -2,17 +2,17 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCallType;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoToSend;
 
-public class ToSuplaDataPacketEncoderTest {
+class ToSuplaDataPacketEncoderTest {
     private final TestEncoder encoder = new TestEncoder();
 
     @Test
-    public void shouldWrapEncodedBytesIntoDataPacket() {
+    void shouldWrapEncodedBytesIntoDataPacket() {
         TestProto proto = new TestProto(new byte[] {7, 8, 9});
         short version = 3;
         long rrId = 44L;

@@ -5,17 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureAndHumidityValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 
-public class ThermometerTypeChannelDecoderImplTest {
+class ThermometerTypeChannelDecoderImplTest {
     private final ThermometerTypeChannelDecoderImpl decoder =
             new ThermometerTypeChannelDecoderImpl();
 
     @Test
-    public void shouldDecodeTemperatureOnly() {
+    void shouldDecodeTemperatureOnly() {
         // given
         ByteBuffer buffer = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
         buffer.putInt(25_000);
@@ -30,7 +30,7 @@ public class ThermometerTypeChannelDecoderImplTest {
     }
 
     @Test
-    public void shouldDecodeTemperatureAndHumidity() {
+    void shouldDecodeTemperatureAndHumidity() {
         // given
         ByteBuffer buffer = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
         buffer.putInt(-5_500);

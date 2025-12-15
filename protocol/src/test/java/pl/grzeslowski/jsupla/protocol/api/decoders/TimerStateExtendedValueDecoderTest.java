@@ -3,11 +3,11 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class TimerStateExtendedValueDecoderTest {
+class TimerStateExtendedValueDecoderTest {
     @Test
-    public void auratonTestCase() {
+    void auratonTestCase() {
         // given
         byte[] data =
                 new byte[] {

@@ -7,18 +7,15 @@ import com.google.common.reflect.ClassPath;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.util.Set;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
-@RunWith(Parameterized.class)
-public class ChannelValueSwitchTest {
-    final ChannelValue channelValue;
-
+class ChannelValueSwitchTest {
     @SuppressWarnings({"UnstableApiUsage", "unchecked"})
-    @Parameterized.Parameters(name = "class = {0}")
-    public static ChannelValue[][] data() throws Exception {
+    static Stream<Arguments> data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
                 .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
                 .stream()
@@ -26,16 +23,12 @@ public class ChannelValueSwitchTest {
                 .filter(clazz -> !clazz.isInterface())
                 .filter(ChannelValue.class::isAssignableFrom)
                 .map(clazz -> mock((Class<? extends ChannelValue>) clazz))
-                .map(channelValue -> new ChannelValue[] {channelValue})
-                .toArray(ChannelValue[][]::new);
+                .map(Arguments::of);
     }
 
-    public ChannelValueSwitchTest(ChannelValue channelValue) {
-        this.channelValue = channelValue;
-    }
-
-    @Test
-    public void shouldDoClassSwitch() {
+    @ParameterizedTest(name = "class = {0}")
+    @MethodSource("data")
+    void shouldDoClassSwitch(ChannelValue channelValue) {
         // given
         Callback callback = new Callback();
         ChannelValueSwitch<ChannelValue> channelClassSwitch = new ChannelValueSwitch<>(callback);

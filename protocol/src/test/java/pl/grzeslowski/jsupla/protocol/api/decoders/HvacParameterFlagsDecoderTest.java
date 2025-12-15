@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.HvacParameterFlags;
 
-public class HvacParameterFlagsDecoderTest {
+class HvacParameterFlagsDecoderTest {
     private final HvacParameterFlagsDecoder decoder = HvacParameterFlagsDecoder.INSTANCE;
 
     @Test
-    public void shouldDecodeFlagsFromBytes() {
+    void shouldDecodeFlagsFromBytes() {
         // given
         byte[] raw =
                 new byte[] {

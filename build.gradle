@@ -90,6 +90,12 @@ allProjects {
 		integrationTestImplementation.extendsFrom testImplementation
 		integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
 	}
+
+	// Enable JUnit 5 (Jupiter) for all test tasks
+	tasks.withType(Test) {
+		useJUnitPlatform()
+	}
+
 	task integrationTest(type: Test) {
 		group = 'verification'
 		description = 'Runs integration tests.'
@@ -210,9 +216,13 @@ allProjects {
 	dependencies {
 		implementation group: 'org.slf4j', name: 'slf4j-api', version: slf4j_version
 
-		testImplementation 'junit:junit:4.12'
+		// JUnit 5 (Jupiter)
+		testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
 		testImplementation 'org.assertj:assertj-core:3.8.0'
-		testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+		testImplementation 'org.mockito:mockito-core:5.8.0'
+		testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
 		testImplementation group: 'io.github.benas', name: 'random-beans', version: random_beans_version
 		testImplementation group: 'io.github.benas', name: 'random-beans-validation', version: random_beans_version
 		testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: slf4j_version

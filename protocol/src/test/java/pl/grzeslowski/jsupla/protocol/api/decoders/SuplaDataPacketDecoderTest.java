@@ -4,14 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
-public class SuplaDataPacketDecoderTest {
+class SuplaDataPacketDecoderTest {
     private final SuplaDataPacketDecoder decoder = SuplaDataPacketDecoder.INSTANCE;
 
     @Test
-    public void shouldDecodePacketPayload() {
+    void shouldDecodePacketPayload() {
         short version = 12;
         long rrId = 345L;
         long callId = 678L;

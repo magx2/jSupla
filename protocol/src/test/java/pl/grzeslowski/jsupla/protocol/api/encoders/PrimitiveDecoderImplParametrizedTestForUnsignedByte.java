@@ -5,44 +5,30 @@ import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder.INSTANCE;
 import static pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoderTestUtil.removeOffset;
 
-import java.util.Arrays;
-import java.util.Collection;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
-public class PrimitiveDecoderImplParametrizedTestForUnsignedByte {
-    private final byte[] intBytes;
-    private final int offset;
-    private final short byteValue;
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(
-                new Object[][] {
-                    {new byte[] {0}, 0, (short) 0}, // 00000000
-                    {new byte[] {-1}, 0, (short) 255}, // 11111111
-                    {new byte[] {-86}, 0, (short) 170}, // 10101010
-                    {new byte[] {-16}, 0, (short) 240}, // 11110000
-                    {new byte[] {85}, 0, (short) 85}, // 01010101
-                    {new byte[] {15}, 0, (short) 15} // 00001111
-                });
+class PrimitiveDecoderImplParametrizedTestForUnsignedByte {
+    static Stream<Arguments> data() {
+        return Stream.of(
+                Arguments.of(new byte[] {0}, 0, (short) 0), // 00000000
+                Arguments.of(new byte[] {-1}, 0, (short) 255), // 11111111
+                Arguments.of(new byte[] {-86}, 0, (short) 170), // 10101010
+                Arguments.of(new byte[] {-16}, 0, (short) 240), // 11110000
+                Arguments.of(new byte[] {85}, 0, (short) 85), // 01010101
+                Arguments.of(new byte[] {15}, 0, (short) 15) // 00001111
+                );
     }
 
-    public PrimitiveDecoderImplParametrizedTestForUnsignedByte(
-            final byte[] byteBytes, final int offset, final short byteValue) {
-        this.intBytes = byteBytes;
-        this.offset = offset;
-        this.byteValue = byteValue;
-    }
-
-    @Test
-    public void shouldReturnProperValueForArrayOfBytes() throws Exception {
+    @ParameterizedTest
+    @MethodSource("data")
+    void shouldReturnProperValueForArrayOfBytes(byte[] intBytes, int offset, short byteValue) {
 
         // when
         final byte[] bytes = new byte[BYTE_SIZE + offset];
-        final int wroteBytes = INSTANCE.writeUnsignedByte(this.byteValue, bytes, offset);
+        final int wroteBytes = INSTANCE.writeUnsignedByte(byteValue, bytes, offset);
 
         // then
         assertThat(wroteBytes).isEqualTo(BYTE_SIZE);

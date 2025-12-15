@@ -4,14 +4,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.structs.dcs.SetCaption;
 
-public class SetCaptionDecoderTest {
+class SetCaptionDecoderTest {
     private final SetCaptionDecoder decoder = SetCaptionDecoder.INSTANCE;
 
     @Test
-    public void shouldDecodeCaptionBytes() {
+    void shouldDecodeCaptionBytes() {
         int id = 1234;
         byte[] caption = "name\0".getBytes();
 
