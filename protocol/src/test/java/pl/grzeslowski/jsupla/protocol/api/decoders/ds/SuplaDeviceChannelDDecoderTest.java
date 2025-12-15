@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ActionTriggerPropertiesDecoder;
@@ -13,13 +13,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelD;
 
-public class SuplaDeviceChannelDDecoderTest {
+class SuplaDeviceChannelDDecoderTest {
     private final SuplaDeviceChannelDDecoder decoder =
             new SuplaDeviceChannelDDecoder(
                     HVACValueDecoder.INSTANCE, ActionTriggerPropertiesDecoder.INSTANCE);
 
     @Test
-    public void shouldDecodeDeviceChannelWithValueUnion() {
+    void shouldDecodeDeviceChannelWithValueUnion() {
         short number = 3;
         int type = 77;
         int funcList = 1;
@@ -63,7 +63,7 @@ public class SuplaDeviceChannelDDecoderTest {
     }
 
     @Test
-    public void shouldDecodeDeviceChannelWithActionTriggerUnion() {
+    void shouldDecodeDeviceChannelWithActionTriggerUnion() {
         // given
         short number = 3;
         int type = 11000; // SUPLA_CHANNELTYPE_ACTIONTRIGGER
@@ -129,7 +129,7 @@ public class SuplaDeviceChannelDDecoderTest {
     }
 
     @Test
-    public void shouldDecodeHvacChannel() {
+    void shouldDecodeHvacChannel() {
         // given
         short number = 9;
         int type = ChannelType.SUPLA_CHANNELTYPE_HVAC.getValue();

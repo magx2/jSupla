@@ -1,12 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PreconditionsTestArrayLength {
+class PreconditionsTestArrayLength {
     @Test
-    public void shouldReturnArrayIfLengthIsCorrect() throws Exception {
+    void shouldReturnArrayIfLengthIsCorrect() {
 
         // given
         final String[] expectedStrings = new String[] {"1", "2", "3"};
@@ -19,7 +20,7 @@ public class PreconditionsTestArrayLength {
     }
 
     @Test
-    public void shouldReturnByteArrayIfLengthIsCorrect() throws Exception {
+    void shouldReturnByteArrayIfLengthIsCorrect() {
 
         // given
         final byte[] expectedBytes = new byte[] {1, 2, 3};
@@ -32,7 +33,7 @@ public class PreconditionsTestArrayLength {
     }
 
     @Test
-    public void shouldReturnCharArrayIfLengthIsCorrect() throws Exception {
+    void shouldReturnCharArrayIfLengthIsCorrect() {
 
         // given
         final char[] expectedChars = new char[] {1, 2, 3};
@@ -44,81 +45,93 @@ public class PreconditionsTestArrayLength {
         assertThat(chars).isEqualTo(expectedChars);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerArray() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerArray() {
 
         // given
         final String[] expectedStrings = new String[] {"1", "2", "3"};
 
-        // when
-        final String[] strings = Preconditions.checkArrayLength(expectedStrings, 2);
-
-        // then
-        assertThat(strings).isEqualTo(expectedStrings);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final String[] strings = Preconditions.checkArrayLength(expectedStrings, 2);
+                    assertThat(strings).isEqualTo(expectedStrings);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerBytes() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerBytes() {
 
         // given
         final byte[] expectedBytes = new byte[] {1, 2, 3};
 
-        // when
-        final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 2);
-
-        // then
-        assertThat(bytes).isEqualTo(expectedBytes);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 2);
+                    assertThat(bytes).isEqualTo(expectedBytes);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerChars() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsBiggerChars() {
 
         // given
         final char[] expectedChars = new char[] {1, 2, 3};
 
-        // when
-        final char[] chars = Preconditions.checkArrayLength(expectedChars, 2);
-
-        // then
-        assertThat(chars).isEqualTo(expectedChars);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final char[] chars = Preconditions.checkArrayLength(expectedChars, 2);
+                    assertThat(chars).isEqualTo(expectedChars);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerArray() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerArray() {
 
         // given
         final String[] expectedStrings = new String[] {"1", "2", "3"};
 
-        // when
-        final String[] strings = Preconditions.checkArrayLength(expectedStrings, 4);
-
-        // then
-        assertThat(strings).isEqualTo(expectedStrings);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final String[] strings = Preconditions.checkArrayLength(expectedStrings, 4);
+                    assertThat(strings).isEqualTo(expectedStrings);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerBytes() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerBytes() {
 
         // given
         final byte[] expectedBytes = new byte[] {1, 2, 3};
 
-        // when
-        final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 4);
-
-        // then
-        assertThat(bytes).isEqualTo(expectedBytes);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final byte[] bytes = Preconditions.checkArrayLength(expectedBytes, 4);
+                    assertThat(bytes).isEqualTo(expectedBytes);
+                });
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerChars() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfLengthIsSmallerChars() {
 
         // given
         final char[] expectedChars = new char[] {1, 2, 3};
 
-        // when
-        final char[] chars = Preconditions.checkArrayLength(expectedChars, 4);
-
-        // then
-        assertThat(chars).isEqualTo(expectedChars);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    final char[] chars = Preconditions.checkArrayLength(expectedChars, 4);
+                    assertThat(chars).isEqualTo(expectedChars);
+                });
     }
 }

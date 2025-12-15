@@ -6,17 +6,17 @@ import static org.assertj.core.api.Assertions.within;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
-public class ElectricityMeterV2DecoderImplTest {
+class ElectricityMeterV2DecoderImplTest {
     private static final double EPSILON = 0.000001;
     private final ElectricityMeterV2DecoderImpl decoder = new ElectricityMeterV2DecoderImpl();
     private final ElectricityMeterTestPayloadBuilder builder =
             new ElectricityMeterTestPayloadBuilder();
 
     @Test
-    public void shouldRespectBalancedValuesProvidedByV2Payload() {
+    void shouldRespectBalancedValuesProvidedByV2Payload() {
         // given
         BigInteger expectedForward = new BigInteger("987654321");
         BigInteger expectedReverse = new BigInteger("123456789");
@@ -32,7 +32,7 @@ public class ElectricityMeterV2DecoderImplTest {
     }
 
     @Test
-    public void shouldDecodeCurrencyCostsAndMetaData() {
+    void shouldDecodeCurrencyCostsAndMetaData() {
         // given
         BigInteger forward = BigInteger.valueOf(123);
         BigInteger reverse = BigInteger.valueOf(456);
@@ -49,7 +49,7 @@ public class ElectricityMeterV2DecoderImplTest {
     }
 
     @Test
-    public void shouldMapPhaseMeasurementsFromV2Payload() {
+    void shouldMapPhaseMeasurementsFromV2Payload() {
         // when
         ElectricityMeterValue value =
                 decoder.decode(builder.buildV2(BigInteger.ONE, BigInteger.TEN));

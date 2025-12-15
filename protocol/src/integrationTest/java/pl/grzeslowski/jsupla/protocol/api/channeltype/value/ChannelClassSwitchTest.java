@@ -3,33 +3,26 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.google.common.reflect.ClassPath;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-@RunWith(Parameterized.class)
-public class ChannelClassSwitchTest {
-    final Class<? extends ChannelValue> clazz;
-
+class ChannelClassSwitchTest {
     @SuppressWarnings("UnstableApiUsage")
-    @Parameterized.Parameters(name = "class = {0}")
-    public static Object[][] data() throws Exception {
+    static Stream<Arguments> data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
                 .getTopLevelClassesRecursive(ChannelValue.class.getPackage().getName())
                 .stream()
                 .map(ClassPath.ClassInfo::load)
                 .filter(clazz -> !clazz.isInterface())
                 .filter(ChannelValue.class::isAssignableFrom)
-                .map(clazz -> new Object[] {clazz})
-                .toArray(Object[][]::new);
+                .map(Arguments::of);
     }
 
-    public ChannelClassSwitchTest(Class<? extends ChannelValue> clazz) {
-        this.clazz = clazz;
-    }
-
-    @Test
-    public void shouldDoClassSwitch() {
+    @ParameterizedTest(name = "class = {0}")
+    @MethodSource("data")
+    void shouldDoClassSwitch(Class<? extends ChannelValue> clazz) {
         // given
         ChannelClassSwitch.Callback<String> callback = new Callback();
         ChannelClassSwitch<String> channelClassSwitch = new ChannelClassSwitch<>(callback);

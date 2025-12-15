@@ -1,6 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.calltypes;
 
-public class CallTypeParserImplExceptionTest {
+class CallTypeParserImplExceptionTest {
     //    private final CallTypeParserImpl callTypeParser = new CallTypeParserImpl();
     //
     //    @Test

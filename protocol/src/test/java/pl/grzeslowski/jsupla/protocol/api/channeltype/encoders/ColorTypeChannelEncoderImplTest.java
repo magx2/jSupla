@@ -2,14 +2,14 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 
-public class ColorTypeChannelEncoderImplTest {
+class ColorTypeChannelEncoderImplTest {
     private final ColorTypeChannelEncoderImpl encoder = new ColorTypeChannelEncoderImpl();
 
     @Test
-    public void shouldWriteColorComponents() {
+    void shouldWriteColorComponents() {
         RgbValue value = new RgbValue((short) 5, (short) 10, (short) 15, (short) 20, (short) 25);
 
         byte[] bytes = encoder.encode(value);

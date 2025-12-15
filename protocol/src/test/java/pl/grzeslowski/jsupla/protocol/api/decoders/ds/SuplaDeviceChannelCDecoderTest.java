@@ -4,16 +4,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.structs.ActionTriggerProperties;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelC;
 
-public class SuplaDeviceChannelCDecoderTest {
+class SuplaDeviceChannelCDecoderTest {
     private final SuplaDeviceChannelCDecoder decoder = SuplaDeviceChannelCDecoder.INSTANCE;
 
     @Test
-    public void shouldDecodeChannelWithValueUnion() {
+    void shouldDecodeChannelWithValueUnion() {
         short number = 5;
         int type = 120;
         int funcList = 7;
@@ -47,7 +47,7 @@ public class SuplaDeviceChannelCDecoderTest {
     }
 
     @Test
-    public void shouldDecodeChannelWithActionTriggerUnion() {
+    void shouldDecodeChannelWithActionTriggerUnion() {
         // given
         short number = 5;
         int type = 11000; // SUPLA_CHANNELTYPE_ACTIONTRIGGER

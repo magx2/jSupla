@@ -2,16 +2,16 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
-public class HvacChannelEncoderImplTest {
+class HvacChannelEncoderImplTest {
     private final HvacChannelEncoderImpl encoder = new HvacChannelEncoderImpl();
 
     @Test
-    public void shouldEncodeFullPayload() {
+    void shouldEncodeFullPayload() {
         HvacValue.Flags flags =
                 new HvacValue.Flags(
                         true, true, false, false, false, false, false, false, false, false, false,

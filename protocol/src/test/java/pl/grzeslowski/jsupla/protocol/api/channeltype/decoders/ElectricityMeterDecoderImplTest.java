@@ -5,16 +5,16 @@ import static org.assertj.core.api.Assertions.within;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
-public class ElectricityMeterDecoderImplTest {
+class ElectricityMeterDecoderImplTest {
     private final ElectricityMeterDecoderImpl decoder = new ElectricityMeterDecoderImpl();
     private final ElectricityMeterTestPayloadBuilder builder =
             new ElectricityMeterTestPayloadBuilder();
 
     @Test
-    public void shouldDecodeElectricityMeterExtendedValue() {
+    void shouldDecodeElectricityMeterExtendedValue() {
         // when
         ElectricityMeterValue value = decoder.decode(builder.buildV1());
 

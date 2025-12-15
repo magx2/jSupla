@@ -3,14 +3,14 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 
-public class TimerSecChannelDecoderTest {
+class TimerSecChannelDecoderTest {
     private final TimerSecChannelDecoder decoder = new TimerSecChannelDecoder();
 
     @Test
-    public void shouldInterpretRemainingTimeInSeconds() {
+    void shouldInterpretRemainingTimeInSeconds() {
         // given
         byte[] payload = new TimerTestPayloadBuilder().withRemainingMilliseconds(12).build();
 

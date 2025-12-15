@@ -1,29 +1,34 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PrimitiveDecoderImplTestForUnsignedInteger {
+class PrimitiveDecoderImplTestForUnsignedInteger {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfArrayIsTooShort() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfArrayIsTooShort() {
 
         // given
         final byte[] bytes = new byte[INT_SIZE - 1];
 
-        // when
-        PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, 0);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, 0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionIfArrayIsTooShortWithOffset() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionIfArrayIsTooShortWithOffset() {
 
         // given
         final int offset = 100;
         final byte[] bytes = new byte[INT_SIZE - 1 + offset];
 
-        // when
-        PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
+        // when & then
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset));
     }
 }

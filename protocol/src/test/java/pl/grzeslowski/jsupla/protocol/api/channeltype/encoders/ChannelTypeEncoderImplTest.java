@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.DecimalValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
@@ -17,7 +17,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.StoppableOpenClose;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 
-public class ChannelTypeEncoderImplTest {
+class ChannelTypeEncoderImplTest {
     private final RecordingColorEncoder colorEncoder = new RecordingColorEncoder();
     private final RecordingRelayEncoder relayEncoder = new RecordingRelayEncoder();
     private final RecordingThermometerEncoder thermometerEncoder =
@@ -37,7 +37,7 @@ public class ChannelTypeEncoderImplTest {
                     hvacEncoder);
 
     @Test
-    public void shouldEncodeOnOffUsingRelayEncoder() {
+    void shouldEncodeOnOffUsingRelayEncoder() {
         byte[] result = encoder.encode(OnOff.ON);
 
         assertThat(result).isEqualTo(RecordingRelayEncoder.RESPONSE);
@@ -45,7 +45,7 @@ public class ChannelTypeEncoderImplTest {
     }
 
     @Test
-    public void shouldEncodeRgbUsingColorEncoder() {
+    void shouldEncodeRgbUsingColorEncoder() {
         RgbValue value = new RgbValue((short) 1, (short) 2, (short) 3, (short) 4, (short) 5);
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingColorEncoder.RESPONSE);
@@ -53,7 +53,7 @@ public class ChannelTypeEncoderImplTest {
     }
 
     @Test
-    public void shouldEncodeTemperatureUsingThermometerEncoder() {
+    void shouldEncodeTemperatureUsingThermometerEncoder() {
         TemperatureValue value = new TemperatureValue(BigDecimal.ONE);
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingThermometerEncoder.RESPONSE);
@@ -61,14 +61,14 @@ public class ChannelTypeEncoderImplTest {
     }
 
     @Test
-    public void shouldEncodeStoppableOpenClose() {
+    void shouldEncodeStoppableOpenClose() {
         assertThat(encoder.encode(StoppableOpenClose.CLOSE))
                 .isEqualTo(RecordingStoppableEncoder.RESPONSE);
         assertThat(stoppableEncoder.captured).isEqualTo(StoppableOpenClose.CLOSE);
     }
 
     @Test
-    public void shouldEncodeElectricityMeterValues() {
+    void shouldEncodeElectricityMeterValues() {
         ElectricityMeterValue value =
                 new ElectricityMeterValue(
                         BigInteger.valueOf(1),
@@ -85,7 +85,7 @@ public class ChannelTypeEncoderImplTest {
     }
 
     @Test
-    public void shouldEncodeHvacValue() {
+    void shouldEncodeHvacValue() {
         HvacValue value =
                 new HvacValue(
                         true,
@@ -101,7 +101,7 @@ public class ChannelTypeEncoderImplTest {
     }
 
     @Test
-    public void shouldFailWhenDecimalValueIsProvided() {
+    void shouldFailWhenDecimalValueIsProvided() {
         assertThatThrownBy(() -> encoder.encode(new DecimalValue(BigDecimal.ONE)))
                 .isInstanceOf(UnsupportedOperationException.class);
     }

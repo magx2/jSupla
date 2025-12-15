@@ -1,12 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PreconditionsBoundsTest {
+class PreconditionsBoundsTest {
     @Test
-    public void shouldReturnGivenNumberMin() throws Exception {
+    void shouldReturnGivenNumberMin() {
 
         // given
         int value = 3;
@@ -24,7 +25,7 @@ public class PreconditionsBoundsTest {
     }
 
     @Test
-    public void shouldReturnGivenNumberMax() throws Exception {
+    void shouldReturnGivenNumberMax() {
 
         // given
         int value = 3;
@@ -41,69 +42,69 @@ public class PreconditionsBoundsTest {
         assertThat(shortMin).isEqualTo((short) value);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooSmallInt() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooSmallInt() {
 
         // given
         int value = 3;
         int minBound = 4;
 
-        // when
-        Preconditions.min(value, minBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.min(value, minBound));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooSmallLong() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooSmallLong() {
 
         // given
         long value = 3;
         long minBound = 4;
 
-        // when
-        Preconditions.min(value, minBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.min(value, minBound));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooSmallShort() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooSmallShort() {
 
         // given
         short value = 3;
         short minBound = 4;
 
-        // when
-        Preconditions.min(value, minBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.min(value, minBound));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooBigInt() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooBigInt() {
 
         // given
         int value = 3;
         int maxBound = 2;
 
-        // when
-        Preconditions.max(value, maxBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.max(value, maxBound));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooBigLong() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooBigLong() {
 
         // given
         long value = 3;
         long maxBound = 2;
 
-        // when
-        Preconditions.max(value, maxBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.max(value, maxBound));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowErrorWhenValueIsTooBigShort() throws Exception {
+    @Test
+    void shouldThrowErrorWhenValueIsTooBigShort() {
 
         // given
         short value = 3;
         short maxBound = 2;
 
-        // when
-        Preconditions.max(value, maxBound);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> Preconditions.max(value, maxBound));
     }
 }

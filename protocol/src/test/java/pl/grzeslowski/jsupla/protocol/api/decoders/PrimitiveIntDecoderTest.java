@@ -8,15 +8,15 @@ import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTA
 import java.math.BigInteger;
 import java.util.Random;
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.JavaConsts;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
-public class PrimitiveIntDecoderTest {
+class PrimitiveIntDecoderTest {
     Random random = new Random();
 
     @Test
-    public void shouldParseIntFromOneByte() {
+    void shouldParseIntFromOneByte() {
 
         // given
         byte[] bytes = new byte[] {(byte) 5, 0, 0, 0};
@@ -29,7 +29,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseIntFromOneByteWithOffset() {
+    void shouldParseIntFromOneByteWithOffset() {
 
         // given
         byte[] bytes = new byte[] {1, 2, 3, (byte) 5, 0, 0, 0};
@@ -42,7 +42,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseIntFromOneByteWithBiggerArray() {
+    void shouldParseIntFromOneByteWithBiggerArray() {
 
         // given
         byte[] bytes = new byte[] {1, 2, 3, (byte) 5, 0, 0, 0, 5, 6, 7, 8};
@@ -55,7 +55,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseIntFromTwoByte() {
+    void shouldParseIntFromTwoByte() {
 
         // given
         byte[] bytes = new byte[] {(byte) 5, 0, 0, 21};
@@ -68,7 +68,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseMaxIntFromFullInt() {
+    void shouldParseMaxIntFromFullInt() {
 
         // given
         byte[] bytes = new byte[] {(byte) -1, (byte) -1, (byte) -1, (byte) -1};
@@ -81,7 +81,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseMinIntFromFullInt() {
+    void shouldParseMinIntFromFullInt() {
 
         // given
         byte[] bytes = new byte[] {(byte) 0, (byte) 0, (byte) 0, (byte) 0};
@@ -94,7 +94,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfBytes() {
+    void shouldParseRangeOfBytes() {
         // given
         val expected = new byte[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -112,7 +112,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfUnsignedBytes() {
+    void shouldParseRangeOfUnsignedBytes() {
         // given
         val expected = new short[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -130,7 +130,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfShorts() {
+    void shouldParseRangeOfShorts() {
         // given
         val expected = new short[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -148,7 +148,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfUnsignedShorts() {
+    void shouldParseRangeOfUnsignedShorts() {
         // given
         val expected = new int[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -166,7 +166,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfInts() {
+    void shouldParseRangeOfInts() {
         // given
         val expected = new int[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -184,7 +184,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfUnsignedInts() {
+    void shouldParseRangeOfUnsignedInts() {
         // given
         val expected = new long[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -202,7 +202,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfLongs() {
+    void shouldParseRangeOfLongs() {
         // given
         val expected = new long[5];
         for (int idx = 0; idx < expected.length; idx++) {
@@ -220,7 +220,7 @@ public class PrimitiveIntDecoderTest {
     }
 
     @Test
-    public void shouldParseRangeOfUnsignedLongs() {
+    void shouldParseRangeOfUnsignedLongs() {
         // given
         val expected = new BigInteger[5];
         for (int idx = 0; idx < expected.length; idx++) {

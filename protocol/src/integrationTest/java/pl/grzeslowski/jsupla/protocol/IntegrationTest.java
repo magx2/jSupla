@@ -1,43 +1,38 @@
 package pl.grzeslowski.jsupla.protocol;
 
 import com.google.common.reflect.ClassPath;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactoryImpl;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaTimeval;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 @SuppressWarnings("WeakerAccess")
-@RunWith(Parameterized.class)
-public class IntegrationTest {
-    Class<ProtoWithSize> structClass;
+class IntegrationTest {
 
     @SuppressWarnings("UnstableApiUsage")
-    @Parameterized.Parameters(name = "class = {0}")
-    public static Object[][] data() throws Exception {
+    static Stream<Arguments> data() throws Exception {
         return ClassPath.from(Thread.currentThread().getContextClassLoader())
                 .getTopLevelClassesRecursive(SuplaTimeval.class.getPackage().getName())
                 .stream()
                 .map(ClassPath.ClassInfo::load)
                 .filter(clazz -> !clazz.isInterface())
                 .filter(ProtoWithSize.class::isAssignableFrom)
-                .map(clazz -> new Object[] {clazz})
-                .toArray(Object[][]::new);
+                .map(Arguments::of);
     }
 
-    public IntegrationTest(Class<ProtoWithSize> structClass) {
-        this.structClass = structClass;
-    }
-
-    @Test
-    public void shouldFindEncoderFor() {
+    @ParameterizedTest(name = "class = {0}")
+    @MethodSource("data")
+    void shouldFindEncoderFor(Class<ProtoWithSize> structClass) {
         EncoderFactoryImpl.INSTANCE.getEncoder(structClass);
     }
 
-    @Test
-    public void shouldFindDecoderFor() {
+    @ParameterizedTest(name = "class = {0}")
+    @MethodSource("data")
+    void shouldFindDecoderFor(Class<ProtoWithSize> structClass) {
         DecoderFactoryImpl.INSTANCE.getDecoder(structClass);
     }
 }

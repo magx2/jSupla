@@ -1,18 +1,19 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders;
 
 import static java.util.Arrays.copyOfRange;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static pl.grzeslowski.jsupla.protocol.common.RandomSupla.RANDOM_SUPLA;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
-public abstract class ProperDecoderTest<T extends ProtoWithSize> {
-    public abstract ProtoWithSizeDecoder<T> getDecoder();
+abstract class ProperDecoderTest<T extends ProtoWithSize> {
+    abstract ProtoWithSizeDecoder<T> getDecoder();
 
-    public abstract int entitySize();
+    abstract int entitySize();
 
     @Test
-    public void shouldParseEntity() throws Exception {
+    void shouldParseEntity() {
 
         // given
         int offset = RANDOM_SUPLA.nextInt(100);
@@ -29,26 +30,25 @@ public abstract class ProperDecoderTest<T extends ProtoWithSize> {
 
     protected abstract void verifyParseEntity(final T entity);
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmall() {
 
         // given
         final byte[] original = givenParseEntity(0);
         final byte[] bytes = copyOfRange(original, 0, original.length - 1);
 
-        // when
-        getDecoder().decode(bytes, 0);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> getDecoder().decode(bytes, 0));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset()
-            throws Exception {
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenBytesAreTooSmallAfterAddingOffset() {
 
         // given
         final byte[] original = givenParseEntity(1);
         final byte[] bytes = copyOfRange(original, 0, original.length - 1);
 
-        // when
-        getDecoder().decode(bytes, 1);
+        // when & then
+        assertThrows(IllegalArgumentException.class, () -> getDecoder().decode(bytes, 1));
     }
 }

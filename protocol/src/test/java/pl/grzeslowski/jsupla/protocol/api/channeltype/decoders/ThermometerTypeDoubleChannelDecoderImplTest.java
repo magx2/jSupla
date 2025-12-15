@@ -4,15 +4,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.math.BigDecimal;
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 
-public class ThermometerTypeDoubleChannelDecoderImplTest {
+class ThermometerTypeDoubleChannelDecoderImplTest {
     ThermometerTypeDoubleChannelDecoderImpl decoder = new ThermometerTypeDoubleChannelDecoderImpl();
 
     @Test
-    public void auratonTestCase() {
+    void auratonTestCase() {
         // given
         byte[] data = new byte[] {0, 0, 0, 0, 0, 48, 113, -64};
 
@@ -26,7 +26,7 @@ public class ThermometerTypeDoubleChannelDecoderImplTest {
     }
 
     @Test
-    public void auratonTestCase2() {
+    void auratonTestCase2() {
         // given
         byte[] data = new byte[] {102, 102, 102, 102, 102, 102, 57, 64};
 

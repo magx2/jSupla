@@ -8,17 +8,17 @@ import java.math.BigInteger;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Currency;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
-public class ChannelValuesTest {
+class ChannelValuesTest {
     @Test
-    public void decimalValueShouldExposeBigDecimal() {
+    void decimalValueShouldExposeBigDecimal() {
         assertThat(new DecimalValue("3.14").value()).isEqualTo(new BigDecimal("3.14"));
     }
 
     @Test
-    public void percentValueShouldValidateRange() {
+    void percentValueShouldValidateRange() {
         assertThat(new PercentValue(25).value()).isEqualTo(25);
         assertThatThrownBy(() -> new PercentValue(101))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -26,7 +26,7 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void rgbValueShouldStoreUnsignedBytes() {
+    void rgbValueShouldStoreUnsignedBytes() {
         RgbValue value = new RgbValue(255, 10, 20, 30, 40);
 
         assertThat(value.brightness()).isEqualTo(255);
@@ -37,7 +37,7 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void rgbValueShouldRejectValuesOutsideUnsignedByteRange() {
+    void rgbValueShouldRejectValuesOutsideUnsignedByteRange() {
         assertThatThrownBy(() -> new RgbValue(256, 0, 0, 0, 0))
                 .isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new RgbValue(0, -1, 0, 0, 0))
@@ -45,12 +45,12 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void temperatureValueShouldStoreBigDecimal() {
+    void temperatureValueShouldStoreBigDecimal() {
         assertThat(new TemperatureValue("20.5").temperature()).isEqualTo(new BigDecimal("20.5"));
     }
 
     @Test
-    public void temperatureAndHumidityValueShouldStoreTwoBigDecimals() {
+    void temperatureAndHumidityValueShouldStoreTwoBigDecimals() {
         TemperatureAndHumidityValue value = new TemperatureAndHumidityValue("18.5", "61.2");
 
         assertThat(value.temperature()).isEqualTo(new BigDecimal("18.5"));
@@ -58,7 +58,7 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void timerValueShouldExposeAllFields() {
+    void timerValueShouldExposeAllFields() {
         Duration remaining = Duration.ofSeconds(30);
         byte[] target = new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE];
         TimerValue timerValue = new TimerValue(remaining, target, 42, "sender");
@@ -70,13 +70,13 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void unknownValueConstantShouldBeEmpty() {
+    void unknownValueConstantShouldBeEmpty() {
         assertThat(UnknownValue.UNKNOWN_VALUE.bytes()).isEmpty();
         assertThat(UnknownValue.UNKNOWN_VALUE.message()).isEqualTo("UNKNOWN_VALUE");
     }
 
     @Test
-    public void onOffOpenCloseAndStoppableEnumsShouldListAllStates() {
+    void onOffOpenCloseAndStoppableEnumsShouldListAllStates() {
         assertThat(OnOff.values()).containsExactly(OnOff.ON, OnOff.OFF);
         assertThat(OpenClose.values()).containsExactly(OpenClose.OPEN, OpenClose.CLOSE);
         assertThat(StoppableOpenClose.values())
@@ -85,7 +85,7 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void electricityMeterValueBuilderShouldCaptureFields() {
+    void electricityMeterValueBuilderShouldCaptureFields() {
         ElectricityMeterValue.Phase phase =
                 new ElectricityMeterValue.Phase(
                         BigInteger.ONE,
@@ -118,7 +118,7 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void hvacFlagsShouldRoundTripBetweenBitmaskAndBooleans() {
+    void hvacFlagsShouldRoundTripBetweenBitmaskAndBooleans() {
         int mask =
                 (int) ProtoConsts.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET
                         | (int) ProtoConsts.SUPLA_HVAC_VALUE_FLAG_COOLING
@@ -133,13 +133,13 @@ public class ChannelValuesTest {
     }
 
     @Test
-    public void hvacModeShouldBeFoundByMask() {
+    void hvacModeShouldBeFoundByMask() {
         assertThat(HvacValue.Mode.findMode(ProtoConsts.SUPLA_HVAC_MODE_COOL))
                 .contains(HvacValue.Mode.COOL);
     }
 
     @Test
-    public void channelValueShouldBeMarkerInterface() {
+    void channelValueShouldBeMarkerInterface() {
         assertThat(ChannelValue.class.isInterface()).isTrue();
         assertThat(ChannelValue.class.getDeclaredMethods()).isEmpty();
     }

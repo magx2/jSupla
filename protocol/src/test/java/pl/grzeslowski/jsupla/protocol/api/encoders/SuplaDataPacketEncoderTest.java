@@ -3,15 +3,15 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
-public class SuplaDataPacketEncoderTest {
+class SuplaDataPacketEncoderTest {
     private final SuplaDataPacketEncoder encoder = SuplaDataPacketEncoder.INSTANCE;
 
     @Test
-    public void shouldEncodePacketFieldsInOrder() {
+    void shouldEncodePacketFieldsInOrder() {
         // given
         byte[] payload = new byte[] {0x12, 0x34, 0x56};
         SuplaDataPacket packet =

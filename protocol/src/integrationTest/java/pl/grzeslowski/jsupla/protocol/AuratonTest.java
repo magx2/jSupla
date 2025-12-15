@@ -3,7 +3,7 @@ package pl.grzeslowski.jsupla.protocol;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
@@ -22,13 +22,13 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelExtendedV
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaRegisterDeviceG;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
-public class AuratonTest {
+class AuratonTest {
     private final CallTypeParser callTypeParser = CallTypeParser.INSTANCE;
     private final DecoderFactory decoderFactory = DecoderFactoryImpl.INSTANCE;
     private final EncoderFactory encoderFactory = EncoderFactoryImpl.INSTANCE;
 
     @Test
-    public void shouldAcceptSuplaRegisterDeviceG() {
+    void shouldAcceptSuplaRegisterDeviceG() {
         // given
         SuplaDataPacket packet =
                 new SuplaDataPacket(
@@ -709,7 +709,7 @@ public class AuratonTest {
     }
 
     @Test
-    public void shouldAcceptSuplaRegisterDeviceG1() {
+    void shouldAcceptSuplaRegisterDeviceG1() {
         // given
         SuplaDataPacket packet =
                 new SuplaDataPacket(
@@ -1041,7 +1041,7 @@ public class AuratonTest {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
-    public void shouldParseSubDeviceDetails() {
+    void shouldParseSubDeviceDetails() {
         // given
         SuplaDataPacket packet =
                 new SuplaDataPacket(
@@ -1121,7 +1121,7 @@ public class AuratonTest {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
-    public void shouldParseCaption() {
+    void shouldParseCaption() {
         // given
         SuplaDataPacket packet =
                 new SuplaDataPacket(
@@ -1157,7 +1157,7 @@ public class AuratonTest {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @Test
-    public void shouldParseExtendedValue() {
+    void shouldParseExtendedValue() {
         // given
         SuplaDataPacket packet =
                 new SuplaDataPacket(
@@ -1208,7 +1208,7 @@ public class AuratonTest {
 
     @SuppressWarnings("ConstantValue")
     @Test
-    public void shouldParseFlags() {
+    void shouldParseFlags() {
         // given
         int flags = 15056;
 

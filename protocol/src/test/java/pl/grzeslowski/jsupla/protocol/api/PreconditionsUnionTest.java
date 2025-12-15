@@ -3,11 +3,11 @@ package pl.grzeslowski.jsupla.protocol.api;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class PreconditionsUnionTest {
+class PreconditionsUnionTest {
     @Test
-    public void properUnion() {
+    void properUnion() {
         // given
         String obj1 = null;
         String obj2 = "obj2";
@@ -21,7 +21,7 @@ public class PreconditionsUnionTest {
     }
 
     @Test
-    public void shouldThrowExWhenMoreThan1ObjectsAreNotNull() {
+    void shouldThrowExWhenMoreThan1ObjectsAreNotNull() {
         // given
         String obj1 = null;
         String obj2 = "obj2";
@@ -35,7 +35,7 @@ public class PreconditionsUnionTest {
     }
 
     @Test
-    public void shouldThrowExWhenAllObjectsAreNull() {
+    void shouldThrowExWhenAllObjectsAreNull() {
         // given
         String obj1 = null;
         String obj2 = null;

@@ -7,14 +7,14 @@ import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
-public class ElectricityMeterEncoderTest {
+class ElectricityMeterEncoderTest {
     private final ElectricityMeterEncoder encoder = new ElectricityMeterEncoder();
 
     @Test
-    public void shouldFailBecauseImplementationIsNotProvided() {
+    void shouldFailBecauseImplementationIsNotProvided() {
         ElectricityMeterValue value =
                 new ElectricityMeterValue(
                         BigInteger.valueOf(1),

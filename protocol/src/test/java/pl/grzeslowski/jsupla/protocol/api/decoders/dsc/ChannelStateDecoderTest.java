@@ -3,13 +3,13 @@ package pl.grzeslowski.jsupla.protocol.api.decoders.dsc;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class ChannelStateDecoderTest {
+class ChannelStateDecoderTest {
     ChannelStateDecoder decoder = ChannelStateDecoder.INSTANCE;
 
     @Test
-    public void decodeExampleFromAuraton() {
+    void decodeExampleFromAuraton() {
         // given
         byte[] data =
                 new byte[] {
