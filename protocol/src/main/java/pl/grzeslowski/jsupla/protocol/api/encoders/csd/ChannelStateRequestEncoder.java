@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.protocol.api.encoders.csd;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
-import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.csd.ChannelStateRequest;
 
@@ -13,10 +12,7 @@ public class ChannelStateRequestEncoder
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(ChannelStateRequest proto) {
-        val bytes = new byte[proto.protoSize()];
-        int offset = 0;
-
+    public byte[] encode(ChannelStateRequest proto, byte[] bytes, int offset) {
         offset += PrimitiveEncoder.INSTANCE.writeInt(proto.senderId(), bytes, offset);
         if (proto.channelId() != null) {
             PrimitiveEncoder.INSTANCE.writeInt(proto.channelId(), bytes, offset);

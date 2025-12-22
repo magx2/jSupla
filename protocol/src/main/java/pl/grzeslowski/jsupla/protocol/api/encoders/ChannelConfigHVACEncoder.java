@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.protocol.api.encoders;
 
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
-import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.structs.ChannelConfigHVAC;
 
 public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelConfigHVAC> {
@@ -10,10 +9,7 @@ public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelCon
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(ChannelConfigHVAC proto) {
-        val bytes = new byte[proto.protoSize()];
-        int offset = 0;
-
+    public byte[] encode(ChannelConfigHVAC proto, byte[] bytes, int offset) {
         if (proto.mainThermometerChannelId() != null) {
             PrimitiveEncoder.INSTANCE.writeInt(proto.mainThermometerChannelId(), bytes, offset);
         } else if (proto.mainThermometerChannelNo() != null) {

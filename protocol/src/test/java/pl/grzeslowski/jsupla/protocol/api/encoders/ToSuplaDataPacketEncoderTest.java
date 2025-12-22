@@ -29,7 +29,7 @@ class ToSuplaDataPacketEncoderTest {
 
     private static final class TestEncoder implements ToSuplaDataPacketEncoder<TestProto> {
         @Override
-        public byte[] encode(TestProto proto) {
+        public byte[] encode(TestProto proto, byte[] bytes, int offset) {
             return proto.payload.clone();
         }
     }

@@ -111,9 +111,6 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 			.map { field -> "\t\t${parseField(field)}" }
 			.collect(joining("\n"))
 		parse = """\
-			|final byte[] bytes = new byte[proto.protoSize()];
-        	|int offset = 0;
-        	|
         	|$fields""".stripMargin()
 	} else {
 		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support encoding structs with unions!\");"
@@ -130,7 +127,7 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 		|	public static final ${javaName} INSTANCE = new ${javaName}();
 		|
 		|   @Override
-    	|	public byte[] encode($structName proto) {
+    	|	public byte[] encode($structName proto, byte[] bytes, int offset) {
 		|$parse
 		|		
     	|	    ${hasUnionFields ? "//" : ""}return bytes;
@@ -185,8 +182,8 @@ static String parseField(field) {
 		} else {
 			return """\
 				|for (val element : proto.${field.name}()) {
-				|			byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element);
-				|			offset += ${field.name}Bytes.length;
+				|			byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element, bytes, offset);
+				|			offset += element.protoSize();
 				|		}\
 				""".stripMargin()
 		}
