@@ -8,108 +8,113 @@ public class HvacParameterFlagsEncoder
     public static final HvacParameterFlagsEncoder INSTANCE = new HvacParameterFlagsEncoder();
 
     @Override
-    public byte[] encode(HvacParameterFlags proto) {
-        final byte[] flags = new byte[proto.protoSize()];
-        int idx = 0;
+    public byte[] encode(HvacParameterFlags proto, byte[] bytes, int offset) {
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.mainThermometerChannelNoReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.mainThermometerChannelNoHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxThermometerChannelNoReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxThermometerChannelNoHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.binarySensorChannelNoReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.binarySensorChannelNoHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxThermometerTypeReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxThermometerTypeHidden(), subIdx++);
-            idx++;
+            bytes[offset] = flag(bytes[offset], proto.mainThermometerChannelNoReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.mainThermometerChannelNoHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.auxThermometerChannelNoReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.auxThermometerChannelNoHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.binarySensorChannelNoReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.binarySensorChannelNoHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.auxThermometerTypeReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.auxThermometerTypeHidden(), subIdx++);
+            offset++;
         } // 0
         {
             int subIdx = 0;
-            flags[idx] =
+            bytes[offset] =
                     flag(
-                            flags[idx],
+                            bytes[offset],
                             proto.antiFreezeAndOverheatProtectionEnabledReadonly(),
                             subIdx++);
-            flags[idx] =
+            bytes[offset] =
                     flag(
-                            flags[idx],
+                            bytes[offset],
                             proto.antiFreezeAndOverheatProtectionEnabledHidden(),
                             subIdx++);
-            flags[idx] = flag(flags[idx], proto.usedAlgorithmReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.usedAlgorithmHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.minOnTimeSReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.minOnTimeSHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.minOffTimeSReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.minOffTimeSHidden(), subIdx++);
-            idx++;
+            bytes[offset] = flag(bytes[offset], proto.usedAlgorithmReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.usedAlgorithmHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.minOnTimeSReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.minOnTimeSHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.minOffTimeSReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.minOffTimeSHidden(), subIdx++);
+            offset++;
         } // 1
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.outputValueOnErrorReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.outputValueOnErrorHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.subfunctionReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.subfunctionHidden(), subIdx++);
-            flags[idx] =
+            bytes[offset] = flag(bytes[offset], proto.outputValueOnErrorReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.outputValueOnErrorHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.subfunctionReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.subfunctionHidden(), subIdx++);
+            bytes[offset] =
                     flag(
-                            flags[idx],
+                            bytes[offset],
                             proto.temperatureSetpointChangeSwitchesToManualModeReadonly(),
                             subIdx++);
-            flags[idx] =
+            bytes[offset] =
                     flag(
-                            flags[idx],
+                            bytes[offset],
                             proto.temperatureSetpointChangeSwitchesToManualModeHidden(),
                             subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxMinMaxSetpointEnabledReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.auxMinMaxSetpointEnabledHidden(), subIdx++);
-            idx++;
+            bytes[offset] = flag(bytes[offset], proto.auxMinMaxSetpointEnabledReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.auxMinMaxSetpointEnabledHidden(), subIdx++);
+            offset++;
         } // 2
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.useSeparateHeatCoolOutputsReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.useSeparateHeatCoolOutputsHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesFreezeProtectionReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesFreezeProtectionHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesEcoReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesEcoHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesComfortReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesComfortHidden(), subIdx++);
-            idx++;
+            bytes[offset] =
+                    flag(bytes[offset], proto.useSeparateHeatCoolOutputsReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.useSeparateHeatCoolOutputsHidden(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.temperaturesFreezeProtectionReadonly(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.temperaturesFreezeProtectionHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesEcoReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesEcoHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesComfortReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesComfortHidden(), subIdx++);
+            offset++;
         } // 3
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.temperaturesBoostReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesBoostHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesHeatProtectionReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesHeatProtectionHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesHisteresisReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesHisteresisHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesBelowAlarmReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesBelowAlarmHidden(), subIdx++);
-            idx++;
+            bytes[offset] = flag(bytes[offset], proto.temperaturesBoostReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesBoostHidden(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.temperaturesHeatProtectionReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesHeatProtectionHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesHisteresisReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesHisteresisHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesBelowAlarmReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesBelowAlarmHidden(), subIdx++);
+            offset++;
         } // 4
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.temperaturesAboveAlarmReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesAboveAlarmHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesAuxMinSetpointReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesAuxMinSetpointHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesAuxMaxSetpointReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.temperaturesAuxMaxSetpointHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.masterThermostatChannelNoReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.masterThermostatChannelNoHidden(), subIdx++);
-            idx++;
+            bytes[offset] = flag(bytes[offset], proto.temperaturesAboveAlarmReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesAboveAlarmHidden(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.temperaturesAuxMinSetpointReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesAuxMinSetpointHidden(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.temperaturesAuxMaxSetpointReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.temperaturesAuxMaxSetpointHidden(), subIdx++);
+            bytes[offset] =
+                    flag(bytes[offset], proto.masterThermostatChannelNoReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.masterThermostatChannelNoHidden(), subIdx++);
+            offset++;
         } // 5
         {
             int subIdx = 0;
-            flags[idx] = flag(flags[idx], proto.heatOrColdSourceSwitchReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.heatOrColdSourceSwitchHidden(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.pumpSwitchReadonly(), subIdx++);
-            flags[idx] = flag(flags[idx], proto.pumpSwitchHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.heatOrColdSourceSwitchReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.heatOrColdSourceSwitchHidden(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.pumpSwitchReadonly(), subIdx++);
+            bytes[offset] = flag(bytes[offset], proto.pumpSwitchHidden(), subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
-            idx++;
+            offset++;
         } // 6
         {
             int subIdx = 0;
@@ -121,10 +126,10 @@ public class HvacParameterFlagsEncoder
             //            flags[idx] = flag(flags[idx], , subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
             //            flags[idx] = flag(flags[idx], , subIdx++);
-            idx++;
+            offset++;
         } // 7
 
-        return flags;
+        return bytes;
     }
 
     private byte flag(byte flag, boolean b, int subIdx) {

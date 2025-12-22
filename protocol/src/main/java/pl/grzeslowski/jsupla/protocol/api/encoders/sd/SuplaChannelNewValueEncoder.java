@@ -13,10 +13,7 @@ public class SuplaChannelNewValueEncoder
     public static final SuplaChannelNewValueEncoder INSTANCE = new SuplaChannelNewValueEncoder();
 
     @Override
-    public byte[] encode(SuplaChannelNewValue proto) {
-        final byte[] bytes = new byte[proto.protoSize()];
-        int offset = 0;
-
+    public byte[] encode(SuplaChannelNewValue proto, byte[] bytes, int offset) {
         offset += PrimitiveEncoder.INSTANCE.writeInt(proto.senderId(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.channelNumber(), bytes, offset);
 

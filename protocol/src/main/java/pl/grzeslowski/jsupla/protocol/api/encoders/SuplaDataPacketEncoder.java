@@ -6,11 +6,9 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 public class SuplaDataPacketEncoder implements ProtoWithSizeEncoder<SuplaDataPacket> {
     public static final SuplaDataPacketEncoder INSTANCE = new SuplaDataPacketEncoder();
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(SuplaDataPacket proto) {
-        final byte[] bytes = new byte[proto.protoSize()];
-        int offset = 0;
-
+    public byte[] encode(SuplaDataPacket proto, byte[] bytes, int offset) {
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.version(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.rrId(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.callId(), bytes, offset);
