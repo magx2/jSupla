@@ -48,8 +48,8 @@ void generatePojo(struct, Path generatedSourceRoot) {
 		def fields = struct.fields
 			.stream()
 			.map { field ->
-				def value =field.name
-				if(field.array && field.type == 'byte'){
+				def value = field.name
+				if (overrideString(field)) {
 					value = "java.util.Arrays.toString($value)"
 				}
 				
@@ -479,10 +479,6 @@ static String mapSimpleType(String type) {
 		return "SHORT_SIZE"
 	} else if (type == "long") {
 		return "LONG_SIZE"
-	} else if (type == "short") {
-		return "SHORT_SIZE"
-	} else if (type == "int") {
-		return "INT_SIZE"
 	}
 	return "UNKNOWN_" + type
 }
@@ -507,5 +503,9 @@ static String matchType(String newType, String originalType, String array) {
 static boolean shouldOverrideToString(struct) {
 	return struct.fields
 		.stream()
-		.anyMatch { field -> field.array && field.type == 'byte' }
+		.anyMatch { field -> overrideString(field) }
+}
+
+static boolean overrideString(field) {
+	return field.array
 }
