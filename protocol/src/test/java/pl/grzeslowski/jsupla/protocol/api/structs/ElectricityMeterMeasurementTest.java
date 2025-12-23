@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class ElectricityMeterMeasurementTest {
@@ -38,19 +39,19 @@ class ElectricityMeterMeasurementTest {
                         "ElectricityMeterMeasurement[freq="
                                 + freq
                                 + ", voltage="
-                                + voltage
+                                + Arrays.toString(voltage)
                                 + ", current="
-                                + current
+                                + Arrays.toString(current)
                                 + ", powerActive="
-                                + powerActive
+                                + Arrays.toString(powerActive)
                                 + ", powerReactive="
-                                + powerReactive
+                                + Arrays.toString(powerReactive)
                                 + ", powerApparent="
-                                + powerApparent
+                                + Arrays.toString(powerApparent)
                                 + ", powerFactor="
-                                + powerFactor
+                                + Arrays.toString(powerFactor)
                                 + ", phaseAngle="
-                                + phaseAngle
+                                + Arrays.toString(phaseAngle)
                                 + "]");
     }
 }

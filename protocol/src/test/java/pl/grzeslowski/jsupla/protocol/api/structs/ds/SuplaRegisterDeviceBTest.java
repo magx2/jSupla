@@ -49,7 +49,7 @@ class SuplaRegisterDeviceBTest {
                                 + ", channelCount="
                                 + channelCount
                                 + ", channels="
-                                + channels
+                                + Arrays.toString(channels)
                                 + "]");
     }
 }
