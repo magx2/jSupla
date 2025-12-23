@@ -19,8 +19,12 @@ class SuplaRegisterDeviceBTest {
         final byte[] guid = new byte[(int) SUPLA_GUID_SIZE];
         final byte[] name = new byte[(int) SUPLA_DEVICE_NAME_MAXSIZE];
         final byte[] softVer = new byte[(int) SUPLA_SOFTVER_MAXSIZE];
-        final short channelCount = 0;
-        final SuplaDeviceChannelB[] channels = new SuplaDeviceChannelB[0];
+        final short channelCount = 2;
+        final SuplaDeviceChannelB[] channels =
+                new SuplaDeviceChannelB[] {
+                    new SuplaDeviceChannelB((short) 1, 100, 200, 300, new byte[8]),
+                    new SuplaDeviceChannelB((short) 2, 101, 201, 301, new byte[8])
+                };
 
         final SuplaRegisterDeviceB device =
                 new SuplaRegisterDeviceB(
