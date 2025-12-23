@@ -2,7 +2,6 @@ package pl.grzeslowski.jsupla.protocol.api.structs;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class ElectricityMeterMeasurementTest {
@@ -36,22 +35,15 @@ class ElectricityMeterMeasurementTest {
         // then
         assertThat(toString)
                 .isEqualTo(
-                        "ElectricityMeterMeasurement[freq="
-                                + freq
-                                + ", voltage="
-                                + Arrays.toString(voltage)
-                                + ", current="
-                                + Arrays.toString(current)
-                                + ", powerActive="
-                                + Arrays.toString(powerActive)
-                                + ", powerReactive="
-                                + Arrays.toString(powerReactive)
-                                + ", powerApparent="
-                                + Arrays.toString(powerApparent)
-                                + ", powerFactor="
-                                + Arrays.toString(powerFactor)
-                                + ", phaseAngle="
-                                + Arrays.toString(phaseAngle)
+                        "ElectricityMeterMeasurement["
+                                + "freq=50, "
+                                + "voltage=[230, 231, 229], "
+                                + "current=[10, 11, 12], "
+                                + "powerActive=[100, 101, 102], "
+                                + "powerReactive=[200, 201, 202], "
+                                + "powerApparent=[300, 301, 302], "
+                                + "powerFactor=[1, 2, 3], "
+                                + "phaseAngle=[4, 5, 6]"
                                 + "]");
     }
 }
