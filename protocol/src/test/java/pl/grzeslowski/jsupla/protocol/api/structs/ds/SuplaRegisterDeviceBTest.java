@@ -6,7 +6,6 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_GUID_S
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_LOCATION_PWD_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 class SuplaRegisterDeviceBTest {
@@ -36,20 +35,23 @@ class SuplaRegisterDeviceBTest {
         // then
         assertThat(toString)
                 .isEqualTo(
-                        "SuplaRegisterDeviceB[locationId="
-                                + locationId
-                                + ", locationPwd="
-                                + Arrays.toString(locationPwd)
-                                + ", guid="
-                                + Arrays.toString(guid)
-                                + ", name="
-                                + Arrays.toString(name)
-                                + ", softVer="
-                                + Arrays.toString(softVer)
-                                + ", channelCount="
-                                + channelCount
-                                + ", channels="
-                                + Arrays.toString(channels)
-                                + "]");
+                        "SuplaRegisterDeviceB[locationId=12, locationPwd=[0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0], guid=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],"
+                            + " name=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0], softVer=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,"
+                            + " 0, 0, 0, 0, 0, 0, 0], channelCount=2,"
+                            + " channels=[SuplaDeviceChannelB[number=1, type=100, funcList=200,"
+                            + " defaultValue=300, value=[0, 0, 0, 0, 0, 0, 0, 0]],"
+                            + " SuplaDeviceChannelB[number=2, type=101, funcList=201,"
+                            + " defaultValue=301, value=[0, 0, 0, 0, 0, 0, 0, 0]]]]");
     }
 }
