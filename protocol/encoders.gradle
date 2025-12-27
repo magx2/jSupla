@@ -3,6 +3,7 @@ import groovy.json.JsonSlurper
 import java.nio.file.Files
 import java.nio.file.Path
 import java.time.ZonedDateTime
+import java.util.stream.Collectors
 
 import static java.util.stream.Collectors.joining
 
@@ -103,18 +104,13 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 	])
 	def implementClass = findImplementClass(struct)
 	def structName = (struct.overrideName ?: struct.name)
-	def hasUnionFields = struct.fields.stream().filter { it.originalClassName == "UnionField" }.findAny().isPresent()
 	def parse
-	if (!hasUnionFields) {
-		String fields = struct.fields
-			.stream()
-			.map { field -> "\t\t${parseField(field)}" }
-			.collect(joining("\n"))
-		parse = """\
+	String fields = struct.fields
+		.stream()
+		.map { field -> "\t\t${parseField(field)}" }
+		.collect(joining("\n"))
+	parse = """\
         	|$fields""".stripMargin()
-	} else {
-		parse = "throw new java.lang.UnsupportedOperationException(\"Do not support encoding structs with unions!\");"
-	}
 
 	def content = """\
 		|package $classPackage;
@@ -127,10 +123,11 @@ void generateEncoder(struct, Path generatedSourceRoot) {
 		|	public static final ${javaName} INSTANCE = new ${javaName}();
 		|
 		|   @Override
-    	|	public byte[] encode($structName proto, byte[] bytes, int offset) {
+    	|	public int encode($structName proto, byte[] bytes, int offset) {
+		|	var startingOffset = offset;
 		|$parse
 		|		
-    	|	    ${hasUnionFields ? "//" : ""}return bytes;
+    	|	    return offset - startingOffset;
     	|	}
 		|}
 		|""".stripMargin()
@@ -162,32 +159,170 @@ static String findImplementClass(struct) {
 	return implementClass + "Encoder"
 }
 
-static String parseField(field) {
-	if (!field.array) {
+static String parseField(field, boolean addOffset = true) {
+	if (field.originalClassName == "UnionField") {
+		def parsing = field.fields.stream()
+			.map { "if(proto.${it.name}() != null) { ${parseField(it, false)} }" }
+			.collect(joining(" else "))
+		def offset = field.fields
+			.stream()
+			.map { pojoGeneratorFindSize(it, true) }
+			.collect(Collectors.joining("\n\t\t\t,"))
+		return "// UNION START\n" +
+			parsing +
+			"\noffset += pl.grzeslowski.jsupla.protocol.api.JavaConsts.unionSize($offset);" +
+			"\n// UNION END"
+	} else if (!field.array) {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}(), bytes, offset);"
+			def encode = ""
+			if(addOffset) {
+				encode += "offset += "
+			}
+			encode+="PrimitiveEncoder.INSTANCE.write${sign}${type}(proto.${field.name}(), bytes, offset);"
+			return encode
 		} else {
-			return """\
-				|byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(proto.${field.name}());
-				|		offset += ${field.name}Bytes.length;\
-			""".stripMargin()
+			def encode = ""
+			if (addOffset) {
+				encode += "offset += "
+			}
+			 encode += "${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(proto.${field.name}(), bytes, offset);"
+			return encode
 		}
 	} else {
 		if (isPrimitiveType(field.type)) {
 			def sign = field.unsigned ? "Unsigned" : ""
 			def type = mapSuplaTypeToJava(field.type).capitalize()
-			return "offset += PrimitiveEncoder.INSTANCE.write${sign}${type}Array(proto.${field.name}(), bytes, offset);"
+			def encode = "PrimitiveEncoder.INSTANCE.write${sign}${type}Array(proto.${field.name}(), bytes, offset);"
+			if (addOffset) {
+				encode = "offset += " + encode
+			}
+			return encode
 		} else {
-			return """\
-				|for (val element : proto.${field.name}()) {
-				|			byte[] ${field.name}Bytes = ${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element, bytes, offset);
-				|			offset += element.protoSize();
-				|		}\
-				""".stripMargin()
+			def encode = "for (val element : proto.${field.name}()) {\n"
+			if (addOffset) {
+				encode += "offset += "
+			}
+			encode += "${findEncoderImportForType(field.rawPrefix)}${field.type}Encoder.INSTANCE.encode(element, bytes, offset);"
+			encode += "}"
+			return encode
 		}
 	}
+}
+
+// copied from pojoGenerator
+static String pojoGeneratorFindSize(field, union) {
+	def type = field.type.toLowerCase()
+	if (field.array) {
+		def xSize = pojoGeneratorMapSimpleType(type)
+		if (xSize.startsWith("UNKNOWN")) {
+			return "arraySize(" + field.name + ")"
+		} else {
+			if (field.arraySize) {
+				return "(int) ${field.arraySize} * ${xSize}"
+			} else {
+				return "${field.name}.length * ${xSize}"
+			}
+		}
+	} else if (field.unsigned) {
+		if (type == "byte") {
+			return "CHAR_SIZE"
+		} else if (type == "short") {
+			return "SHORT_SIZE"
+		} else if (type == "int" || type == "integer") {
+			return "INT_SIZE"
+		} else if (type == "char") {
+			return "CHAR_SIZE"
+		} else if (field.type == "long") {
+			return "LONG_SIZE"
+		} else {
+			throw new IllegalArgumentException("Unknown unsigned type: " + type)
+		}
+	} else {
+		def finalType = pojoGeneratorMapSimpleType(pojoGeneratorMapSuplaTypeToJava(field))
+		if (finalType.startsWith("UNKNOWN")) {
+			if (union) {
+				finalType = "(proto.${field.name}()!= null ? proto.${field.name}().protoSize() : ${pojoGeneratorMapSuplaTypeToJava(field)}.SIZE)"
+			} else {
+				finalType = field.name + ".protoSize()"
+			}
+		}
+		return finalType
+	}
+}
+// copied from pojoGenerator
+static String pojoGeneratorMapSuplaTypeToJava(field) {
+	def array = field.array ? "[]" : ""
+	def lowerType = field.type.toLowerCase()
+	if (field.unsigned) {
+		if (lowerType == "int" || lowerType == "integer") {
+			return pojoGeneratorMatchType("long", field.type, array)
+		}
+		if (lowerType == "char" || lowerType == "byte") {
+			return pojoGeneratorMatchType("short", field.type, array)
+		}
+		if (lowerType == "short") {
+			return pojoGeneratorMatchType("int", field.type, array)
+		}
+		if (lowerType == "long") {
+			return pojoGeneratorMatchType("java.math.BigInteger", field.type, array)
+		}
+	} else {
+		if (lowerType == "int" || lowerType == "integer") {
+			return pojoGeneratorMatchType("int", field.type, array)
+		}
+		if (lowerType == "short") {
+			return pojoGeneratorMatchType("short", field.type, array)
+		}
+		if (lowerType == "long") {
+			return pojoGeneratorMatchType("long", field.type, array)
+		}
+		if (lowerType == "char" || lowerType == "byte") {
+			return pojoGeneratorMatchType("byte", field.type, array)
+		}
+	}
+	return pojoGeneratorFindImportClass(field) + field.type + array
+}
+
+static String pojoGeneratorMatchType(String newType, String originalType, String array) {
+	if (originalType == originalType.toLowerCase()) {
+		return newType + array
+	}
+	if (newType == "int" && originalType == "Short") {
+		return "Integer" + array
+	}
+	if (newType == "int" && originalType == "Int") {
+		return "Integer" + array
+	}
+	if (array) {
+		return newType + array
+	} else {
+		return newType.capitalize() + array
+	}
+}
+
+static String pojoGeneratorMapSimpleType(String type) {
+	type = type.toLowerCase()
+	if (type == "int" || type == "integer") {
+		return "INT_SIZE"
+	} else if (type == "char" || type == "byte") {
+		return "BYTE_SIZE"
+	} else if (type == "short") {
+		return "SHORT_SIZE"
+	} else if (type == "long") {
+		return "LONG_SIZE"
+	}
+	return "UNKNOWN_" + type
+}
+
+static String pojoGeneratorFindImportClass(field) {
+	if (field.rawPrefix == "T") {
+		return "pl.grzeslowski.jsupla.protocol.api.structs."
+	}
+
+	def prefix = field.rawPrefix.toString().substring(1).toLowerCase()
+	return "pl.grzeslowski.jsupla.protocol.api.structs.${prefix}."
 }
 
 static String mapSuplaTypeToJava(type) {

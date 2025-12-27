@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.encoders;
 
+import static java.lang.System.arraycopy;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
@@ -29,8 +30,9 @@ class ToSuplaDataPacketEncoderTest {
 
     private static final class TestEncoder implements ToSuplaDataPacketEncoder<TestProto> {
         @Override
-        public byte[] encode(TestProto proto, byte[] bytes, int offset) {
-            return proto.payload.clone();
+        public int encode(TestProto proto, byte[] bytes, int offset) {
+            arraycopy(proto.payload, 0, bytes, offset, proto.payload.length);
+            return proto.payload.length;
         }
     }
 

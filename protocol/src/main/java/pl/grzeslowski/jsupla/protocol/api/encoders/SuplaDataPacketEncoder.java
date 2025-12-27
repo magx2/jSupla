@@ -8,13 +8,15 @@ public class SuplaDataPacketEncoder implements ProtoWithSizeEncoder<SuplaDataPac
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(SuplaDataPacket proto, byte[] bytes, int offset) {
+    public int encode(SuplaDataPacket proto, byte[] bytes, int offset) {
+        var startingOffset = offset;
+
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedByte(proto.version(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.rrId(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.callId(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeUnsignedInt(proto.dataSize(), bytes, offset);
         offset += PrimitiveEncoder.INSTANCE.writeByteArray(proto.data(), bytes, offset);
 
-        return bytes;
+        return offset - startingOffset;
     }
 }

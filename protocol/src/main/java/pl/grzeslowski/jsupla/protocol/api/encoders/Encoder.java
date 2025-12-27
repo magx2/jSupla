@@ -4,8 +4,10 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 
 public interface Encoder<T extends ProtoWithSize> {
     default byte[] encode(T proto) {
-        return encode(proto, new byte[proto.protoSize()], 0);
+        var bytes = new byte[proto.protoSize()];
+        encode(proto, bytes, 0);
+        return bytes;
     }
 
-    byte[] encode(T proto, byte[] bytes, int offset);
+    int encode(T proto, byte[] bytes, int offset);
 }
