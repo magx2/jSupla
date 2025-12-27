@@ -8,7 +8,8 @@ public class HvacParameterFlagsEncoder
     public static final HvacParameterFlagsEncoder INSTANCE = new HvacParameterFlagsEncoder();
 
     @Override
-    public byte[] encode(HvacParameterFlags proto, byte[] bytes, int offset) {
+    public int encode(HvacParameterFlags proto, byte[] bytes, int offset) {
+        var startingOffset = offset;
         {
             int subIdx = 0;
             bytes[offset] = flag(bytes[offset], proto.mainThermometerChannelNoReadonly(), subIdx++);
@@ -129,7 +130,7 @@ public class HvacParameterFlagsEncoder
             offset++;
         } // 7
 
-        return bytes;
+        return offset - startingOffset;
     }
 
     private byte flag(byte flag, boolean b, int subIdx) {

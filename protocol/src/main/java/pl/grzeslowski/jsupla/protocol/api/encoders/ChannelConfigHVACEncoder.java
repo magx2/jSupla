@@ -9,7 +9,8 @@ public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelCon
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(ChannelConfigHVAC proto, byte[] bytes, int offset) {
+    public int encode(ChannelConfigHVAC proto, byte[] bytes, int offset) {
+        var startingOffset = offset;
         if (proto.mainThermometerChannelId() != null) {
             PrimitiveEncoder.INSTANCE.writeInt(proto.mainThermometerChannelId(), bytes, offset);
         } else if (proto.mainThermometerChannelNo() != null) {
@@ -117,6 +118,6 @@ public class ChannelConfigHVACEncoder implements ProtoWithSizeEncoder<ChannelCon
                         bytes,
                         offset);
 
-        return bytes;
+        return offset - startingOffset;
     }
 }

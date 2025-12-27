@@ -12,7 +12,8 @@ public class ChannelStateRequestEncoder
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public byte[] encode(ChannelStateRequest proto, byte[] bytes, int offset) {
+    public int encode(ChannelStateRequest proto, byte[] bytes, int offset) {
+        var startingOffset = offset;
         offset += PrimitiveEncoder.INSTANCE.writeInt(proto.senderId(), bytes, offset);
         if (proto.channelId() != null) {
             PrimitiveEncoder.INSTANCE.writeInt(proto.channelId(), bytes, offset);
@@ -23,6 +24,6 @@ public class ChannelStateRequestEncoder
         }
         offset += INT_SIZE;
 
-        return bytes;
+        return offset - startingOffset;
     }
 }
