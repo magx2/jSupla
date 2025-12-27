@@ -22,7 +22,7 @@ class ThermometerTypeDoubleChannelDecoderImplTest {
         // then
         assertThat(decode).isInstanceOf(TemperatureValue.class);
         val temperature = (TemperatureValue) decode;
-        assertThat(temperature.temperature()).isEqualTo(BigDecimal.valueOf(-275));
+        assertThat(temperature.temperature()).isEqualTo(BigDecimal.valueOf(-275.0));
     }
 
     @Test
