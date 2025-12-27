@@ -1,27 +1,51 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureAndHumidityValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
-import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
+import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 
 class ThermometerTypeChannelEncoderImplTest {
     private final ThermometerTypeChannelEncoderImpl encoder =
             new ThermometerTypeChannelEncoderImpl();
 
     @Test
-    void shouldReturnPlaceholderBytesForTemperature() {
-        byte[] bytes = encoder.encode(new TemperatureValue(BigDecimal.TEN));
-        assertThat(bytes).hasSize(ProtoConsts.SUPLA_CHANNELVALUE_SIZE);
+    void shouldEncodeTemperature() {
+        // given
+        final BigDecimal temp = BigDecimal.valueOf(23.45);
+        final TemperatureValue value = new TemperatureValue(temp);
+
+        // when
+        byte[] bytes = encoder.encode(value);
+
+        // then
+        assertThat(bytes).hasSize(SUPLA_CHANNELVALUE_SIZE);
+        final int actualTemp = PrimitiveDecoder.INSTANCE.parseInt(bytes, 0);
+        assertThat(actualTemp).isEqualTo(23450);
+        final int actualHumidity = PrimitiveDecoder.INSTANCE.parseInt(bytes, INT_SIZE);
+        assertThat(actualHumidity).isZero();
     }
 
     @Test
-    void shouldReturnPlaceholderBytesForTemperatureAndHumidity() {
-        byte[] bytes =
-                encoder.encode(new TemperatureAndHumidityValue(BigDecimal.ONE, BigDecimal.TEN));
-        assertThat(bytes).hasSize(ProtoConsts.SUPLA_CHANNELVALUE_SIZE);
+    void shouldEncodeTemperatureAndHumidity() {
+        // given
+        final BigDecimal temp = BigDecimal.valueOf(23.45);
+        final BigDecimal humidity = BigDecimal.valueOf(54.32);
+        final TemperatureAndHumidityValue value = new TemperatureAndHumidityValue(temp, humidity);
+
+        // when
+        byte[] bytes = encoder.encode(value);
+
+        // then
+        assertThat(bytes).hasSize(SUPLA_CHANNELVALUE_SIZE);
+        final int actualTemp = PrimitiveDecoder.INSTANCE.parseInt(bytes, 0);
+        assertThat(actualTemp).isEqualTo(23450);
+        final int actualHumidity = PrimitiveDecoder.INSTANCE.parseInt(bytes, INT_SIZE);
+        assertThat(actualHumidity).isEqualTo(54320);
     }
 }
