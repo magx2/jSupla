@@ -9,27 +9,27 @@ import java.math.BigDecimal;
 public record TemperatureAndHumidityValue(BigDecimal temperature, BigDecimal humidity)
         implements ChannelValue {
     public TemperatureAndHumidityValue(final int temperature, final int humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final long temperature, final long humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final double temperature, final double humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final float temperature, final float humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final byte temperature, final byte humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final short temperature, final short humidity) {
-        this(new BigDecimal(temperature), new BigDecimal(humidity));
+        this(BigDecimal.valueOf(temperature), BigDecimal.valueOf(humidity));
     }
 
     public TemperatureAndHumidityValue(final String temperature, final String humidity) {
