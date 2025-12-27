@@ -52,5 +52,9 @@ public record ActionTrigger(Set<Capabilities> capabilities) implements ChannelVa
         public static int toMask(Set<Capabilities> set) {
             return set.stream().mapToInt(c -> c.value).reduce(0, (a, b) -> a | b);
         }
+
+        public int toMask() {
+            return toMask(Set.of(this));
+        }
     }
 }
