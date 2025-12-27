@@ -47,6 +47,7 @@ void generatePojo(struct, Path generatedSourceRoot) {
 	if (shouldOverrideToString(struct)) {
 		def fields = struct.fields
 			.stream()
+			.flatMap { it -> (it.originalClassName == "UnionField") ? it.fields.stream() : Stream.of(it) }
 			.map { field ->
 				def value = field.name
 				if (overrideString(field)) {
@@ -507,5 +508,8 @@ static boolean shouldOverrideToString(struct) {
 }
 
 static boolean overrideString(field) {
+	if (field.originalClassName == "UnionField") {
+		return field.fields.stream().map { overrideString(it) }.reduce(false, { a, b -> a || b })
+	}
 	return field.array
 }
