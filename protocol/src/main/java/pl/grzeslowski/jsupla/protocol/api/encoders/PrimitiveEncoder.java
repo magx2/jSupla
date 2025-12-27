@@ -60,6 +60,22 @@ public class PrimitiveEncoder {
         return LONG_SIZE;
     }
 
+    public int writeDouble(double value, byte[] bytes, int offset) {
+        if (bytes.length < DOUBLE_SIZE + offset) {
+            throw new IllegalArgumentException(
+                    format(
+                            "bytes length %s is too small to have double with offset %s",
+                            bytes.length, offset));
+        }
+        // TODO ca be done faster...
+        byte[] doubleBytes = ByteBuffer.allocate(DOUBLE_SIZE).putDouble(value).array();
+        for (int i = 0; i < DOUBLE_SIZE; i++) {
+            int j = DOUBLE_SIZE - i - 1;
+            bytes[offset + i] = doubleBytes[j];
+        }
+        return DOUBLE_SIZE;
+    }
+
     public int writeUnsignedLong(BigInteger value, byte[] bytes, int offset) {
         if (value.bitLength() > 64) {
             throw new IllegalArgumentException(
