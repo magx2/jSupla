@@ -13,6 +13,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.DecimalValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.PercentValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.StoppableOpenClose;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
@@ -26,6 +27,8 @@ class ChannelTypeEncoderImplTest {
     private final RecordingElectricityEncoder electricityMeterEncoder =
             new RecordingElectricityEncoder();
     private final RecordingHvacEncoder hvacEncoder = new RecordingHvacEncoder();
+    private final RecordingPercentageTypeEncoder percentageTypeEncoder =
+            new RecordingPercentageTypeEncoder();
 
     private final ChannelTypeEncoderImpl encoder =
             new ChannelTypeEncoderImpl(
@@ -34,7 +37,8 @@ class ChannelTypeEncoderImplTest {
                     thermometerEncoder,
                     stoppableEncoder,
                     electricityMeterEncoder,
-                    hvacEncoder);
+                    hvacEncoder,
+                    percentageTypeEncoder);
 
     @Test
     void shouldEncodeOnOffUsingRelayEncoder() {
@@ -98,6 +102,14 @@ class ChannelTypeEncoderImplTest {
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingHvacEncoder.RESPONSE);
         assertThat(hvacEncoder.captured).isEqualTo(value);
+    }
+
+    @Test
+    void shouldEncodePercentValueUsingPercentageEncoder() {
+        PercentValue value = new PercentValue(10);
+
+        assertThat(encoder.encode(value)).isEqualTo(RecordingPercentageTypeEncoder.RESPONSE);
+        assertThat(percentageTypeEncoder.captured).isEqualTo(value);
     }
 
     @Test
@@ -168,6 +180,17 @@ class ChannelTypeEncoderImplTest {
         @Override
         public byte[] encode(HvacValue value) {
             captured = value;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingPercentageTypeEncoder extends PercentageTypeEncoder {
+        static final byte[] RESPONSE = new byte[] {10};
+        PercentValue captured;
+
+        @Override
+        public byte[] encode(PercentValue percentValue) {
+            captured = percentValue;
             return RESPONSE;
         }
     }

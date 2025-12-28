@@ -12,13 +12,15 @@ public class ChannelTypeEncoderImpl {
                     new ThermometerTypeChannelEncoderImpl(),
                     new StoppableOpenCloseEncoderImpl(),
                     new ElectricityMeterEncoder(),
-                    new HvacChannelEncoderImpl());
+                    new HvacChannelEncoderImpl(),
+                    new PercentageTypeEncoder());
     private final ColorTypeChannelEncoderImpl colorTypeChannelEncoder;
     private final RelayTypeChannelEncoderImpl relayTypeChannelEncoder;
     private final ThermometerTypeChannelEncoderImpl thermometerTypeChannelEncoder;
     private final StoppableOpenCloseEncoderImpl stoppableOpenCloseEncoder;
     private final ElectricityMeterEncoder electricityMeterEncoder;
     private final HvacChannelEncoderImpl hvacChannelEncoderImpl;
+    private final PercentageTypeEncoder percentageTypeEncoder;
 
     private final ChannelValueSwitch.Callback<byte[]> callback =
             new ChannelValueSwitch.Callback<>() {
@@ -41,8 +43,7 @@ public class ChannelTypeEncoderImpl {
 
                 @Override
                 public byte[] onPercentValue(final PercentValue percentValue) {
-                    throw new UnsupportedOperationException(
-                            "ChannelTypeEncoderImpl.onPercentValue(percentValue)");
+                    return percentageTypeEncoder.encode(percentValue);
                 }
 
                 @Override
