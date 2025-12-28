@@ -23,6 +23,7 @@ public final class ChannelTypeDecoder {
     private final HVACValueDecoderImpl hvacValueDecoder;
     private final TimerSecChannelDecoder timerSecChannelDecoder;
     private final TimerMsecChannelDecoder timerMsecChannelDecoder;
+    private final PercentageTypeDecoder percentageTypeDecoder;
 
     private ChannelTypeDecoder() {
         this(
@@ -34,7 +35,8 @@ public final class ChannelTypeDecoder {
                 new ElectricityMeterV2DecoderImpl(),
                 HVACValueDecoderImpl.INSTANCE,
                 new TimerSecChannelDecoder(),
-                new TimerMsecChannelDecoder());
+                new TimerMsecChannelDecoder(),
+                new PercentageTypeDecoder());
     }
 
     public ChannelValue decode(int type, byte[] value) {
@@ -67,8 +69,8 @@ public final class ChannelTypeDecoder {
                     SUPLA_CHANNELTYPE_AM2301 ->
                     thermometerTypeChannelDecoder.decode(value);
             case SUPLA_CHANNELTYPE_THERMOMETER -> thermometerTypeDoubleChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_DIMMER,
-                    SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
+            case SUPLA_CHANNELTYPE_DIMMER -> percentageTypeDecoder.decode(value);
+            case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
                     SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
                     SUPLA_CHANNELTYPE_DISTANCESENSOR ->
                     colorTypeChannelDecoder.decode(value);
@@ -123,8 +125,8 @@ public final class ChannelTypeDecoder {
                     SUPLA_CHANNELTYPE_AM2301 ->
                     TemperatureAndHumidityValue.class;
             case SUPLA_CHANNELTYPE_THERMOMETER -> TemperatureValue.class;
-            case SUPLA_CHANNELTYPE_DIMMER,
-                    SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
+            case SUPLA_CHANNELTYPE_DIMMER -> PercentValue.class;
+            case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
                     SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
                     SUPLA_CHANNELTYPE_DISTANCESENSOR ->
                     RgbValue.class;
