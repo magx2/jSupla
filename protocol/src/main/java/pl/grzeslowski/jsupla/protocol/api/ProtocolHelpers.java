@@ -66,4 +66,8 @@ public interface ProtocolHelpers {
         unsigned(unsigned32bit);
         return (int) (unsigned32bit & 0xFFFF_FFFFL);
     }
+
+    public static short toUnsignedByte(byte signedByte) {
+        return (short) (signedByte & 0xFF);
+    }
 }
