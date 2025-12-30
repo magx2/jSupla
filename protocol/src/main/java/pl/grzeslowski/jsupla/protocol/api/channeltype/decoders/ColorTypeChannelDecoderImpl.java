@@ -1,35 +1,30 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.BYTE_SIZE;
-import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
+import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.toUnsignedByte;
 
-import pl.grzeslowski.jsupla.protocol.api.Preconditions;
+import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue.Command;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue.Subject;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
+import pl.grzeslowski.jsupla.protocol.api.decoders.RGBWValueDecoder;
 
+@Slf4j
 class ColorTypeChannelDecoderImpl implements Decoder<RgbValue> {
-    private static final int BYTES_MIN = 5;
-
-    @SuppressWarnings("UnusedAssignment")
+    @SuppressWarnings("UnqualifiedInnerClassAccess")
     @Override
     public RgbValue decode(final byte[] bytes, int offset) {
-        Preconditions.sizeMin(bytes, BYTES_MIN + offset);
-
-        final short brightness = INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        final short colorBrightness = INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        final short red = INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        final short green = INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        final short blue = INSTANCE.parseUnsignedByte(bytes, offset);
-        offset += BYTE_SIZE;
-
-        return new RgbValue(brightness, colorBrightness, red, green, blue);
+        var rgbw = RGBWValueDecoder.INSTANCE.decode(bytes, offset);
+        var rgbValue =
+                new RgbValue(
+                        toUnsignedByte(rgbw.brightness()),
+                        toUnsignedByte(rgbw.colorBrightness()),
+                        toUnsignedByte(rgbw.r()),
+                        toUnsignedByte(rgbw.g()),
+                        toUnsignedByte(rgbw.b()),
+                        Command.parse(rgbw.command()),
+                        Subject.parse(rgbw.onOff()));
+        log.debug("Decoded {} from {}", rgbValue, rgbw);
+        return rgbValue;
     }
 }
