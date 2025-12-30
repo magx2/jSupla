@@ -27,9 +27,9 @@ class ChannelValuesTest {
 
     @Test
     void rgbValueShouldStoreUnsignedBytes() {
-        RgbValue value = new RgbValue(255, 10, 20, 30, 40);
+        RgbValue value = new RgbValue(100, 10, 20, 30, 40);
 
-        assertThat(value.brightness()).isEqualTo(255);
+        assertThat(value.brightness()).isEqualTo(100);
         assertThat(value.colorBrightness()).isEqualTo(10);
         assertThat(value.red()).isEqualTo(20);
         assertThat(value.green()).isEqualTo(30);
