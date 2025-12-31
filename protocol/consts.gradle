@@ -249,7 +249,7 @@ task channelFlagGenerator {
 			|	;
 			|	private final int value;
 			|
-			|   public static java.util.Set<ChannelFlag> findByValue(int value) {
+			|   public static java.util.Set<ChannelFlag> findByValue(long value) {
 			|   	return Arrays.stream(ChannelFlag.values())
 			|   			.filter(flag -> (value & flag.value) != 0)
 			|   			.collect(Collectors.toCollection(() -> EnumSet.noneOf(ChannelFlag.class)));
