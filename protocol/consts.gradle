@@ -166,7 +166,8 @@ task channelTypeGenerator {
 						.replaceAll(">", "&#62;")
 						.replaceAll("@", "&#64;")
 				}
-				"$javaDoc${it.name}(${it.value})"
+				def deprecated = it?.javaDoc?.contains("DEPRECATED") ? "\n\t@Deprecated" : ""
+				"$javaDoc$deprecated ${it.name}(${it.value})"
 			}
 			.collect(Collectors.joining(",\n\t"))
 
