@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
  * @param red {@code [0-255]}
  * @param green {@code [0-255]}
  * @param blue {@code [0-255]}
- * @param dimmerCct {@code [0-100]}
+ * @param dimmerCct {@code [0-100]} Correlated Color Temperature
  * @param command requires {@code SUPLA_CHANNEL_FLAG_RGBW_COMMANDS_SUPPORTED}
  * @param subject
  */
