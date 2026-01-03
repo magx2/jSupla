@@ -77,7 +77,12 @@ def consts = [
 	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
-		filter: { isChannelType(it) }] as Const,
+		filter: { name ->
+			name.startsWith("SUPLA_CHANNELTYPE_") ||
+				name.startsWith("EV_TYPE") ||
+				name.startsWith("SUBV_TYPE_") ||
+				name.startsWith("CALCFG_TYPE_")
+		}] as Const,
 	[
 		name         : "ChannelFlag",
 		prefix       : "SUPLA_CHANNEL_FLAG_",
@@ -199,16 +204,6 @@ static boolean isCallType(String name) {
 		name.startsWith("SUPLA_SD_") ||
 		name.startsWith("SUPLA_SDC_") ||
 		name.startsWith("SUPLA_SDS_")
-}
-
-static boolean isChannelType(String name) {
-	if (name == "UNKNOWN") {
-		return true
-	}
-	return name.startsWith("SUPLA_CHANNELTYPE_") ||
-		name.startsWith("EV_TYPE") ||
-		name.startsWith("SUBV_TYPE_") ||
-		name.startsWith("CALCFG_TYPE_")
 }
 
 static void buildCallType(String callTypeName, String callTypePrefix, Path callTypesFolder, consts) {
