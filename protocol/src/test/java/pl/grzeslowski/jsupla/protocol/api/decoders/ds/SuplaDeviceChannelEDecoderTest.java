@@ -7,6 +7,8 @@ import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,6 +23,16 @@ import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.SuplaDeviceChannelE;
 
 class SuplaDeviceChannelEDecoderTest {
+    private static final Set<ChannelType> SUPPORTED_CHANNEL_TYPES =
+            Set.of(
+                    SUPLA_CHANNELTYPE_HVAC,
+                    SUPLA_CHANNELTYPE_THERMOMETER,
+                    SUPLA_CHANNELTYPE_RELAY,
+                    SUPLA_CHANNELTYPE_ACTIONTRIGGER,
+                    SUPLA_CHANNELTYPE_DIMMER,
+                    SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
+                    SUPLA_CHANNELTYPE_DIMMERANDRGBLED);
+
     private final SuplaDeviceChannelEDecoder decoder =
             new SuplaDeviceChannelEDecoder(
                     HVACValueDecoder.INSTANCE, ActionTriggerPropertiesDecoder.INSTANCE);
@@ -109,6 +121,27 @@ class SuplaDeviceChannelEDecoderTest {
                 Arguments.of(SUPLA_CHANNELTYPE_DIMMER),
                 Arguments.of(SUPLA_CHANNELTYPE_RGBLEDCONTROLLER),
                 Arguments.of(SUPLA_CHANNELTYPE_DIMMERANDRGBLED));
+    }
+
+    @ParameterizedTest(name = "{index}: should fail for unsupported channel type {0}")
+    @MethodSource
+    void shouldFailForUnsupportedChannelTypes(ChannelType unsupportedChannelType) {
+        byte[] payload =
+                baseHeader((short) 1, unsupportedChannelType.getValue(), 0, 0, 0L, (short) 0, 0L)
+                        .put(new byte[(int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE])
+                        .put((byte) 0)
+                        .put((byte) 0)
+                        .array();
+
+        assertThatThrownBy(() -> decoder.decode(payload, 0))
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessageContaining(String.valueOf(unsupportedChannelType.getValue()));
+    }
+
+    static Stream<Arguments> shouldFailForUnsupportedChannelTypes() {
+        return Arrays.stream(ChannelType.values())
+                .filter(channelType -> !SUPPORTED_CHANNEL_TYPES.contains(channelType))
+                .map(Arguments::of);
     }
 
     @Test
