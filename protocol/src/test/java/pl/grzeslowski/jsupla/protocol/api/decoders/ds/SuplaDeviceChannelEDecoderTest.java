@@ -25,10 +25,11 @@ class SuplaDeviceChannelEDecoderTest {
             new SuplaDeviceChannelEDecoder(
                     HVACValueDecoder.INSTANCE, ActionTriggerPropertiesDecoder.INSTANCE);
 
-    @Test
-    void shouldDecodeHvacChannelsUsingHvacDecoder() {
+    @ParameterizedTest(name = "{index}: should decode HVAC with {0} type")
+    @MethodSource
+    void shouldDecodeHvacChannelsUsingHvacDecoder(ChannelType channelType) {
         short number = 9;
-        int type = ChannelType.SUPLA_CHANNELTYPE_HVAC.getValue();
+        int type = channelType.getValue();
         int funcList = 123;
         int defaultValue = 77;
         long flags = 0x0203040506070809L;
@@ -67,10 +68,15 @@ class SuplaDeviceChannelEDecoderTest {
         assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 
-    @Test
-    void shouldDecodeThermometerOrRelayChannelsUsingRawValue() {
+    static Stream<Arguments> shouldDecodeHvacChannelsUsingHvacDecoder() {
+        return Stream.of(Arguments.of(SUPLA_CHANNELTYPE_HVAC));
+    }
+
+    @ParameterizedTest(name = "{index}: should decode raw value with {0} type")
+    @MethodSource
+    void shouldDecodeThermometerOrRelayChannelsUsingRawValue(ChannelType channelType) {
         short number = 2;
-        int type = ChannelType.SUPLA_CHANNELTYPE_THERMOMETER.getValue();
+        int type = channelType.getValue();
         int funcList = 10;
         int defaultValue = 11;
         long flags = 100L;
@@ -96,6 +102,15 @@ class SuplaDeviceChannelEDecoderTest {
         assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 
+    static Stream<Arguments> shouldDecodeThermometerOrRelayChannelsUsingRawValue() {
+        return Stream.of(
+                Arguments.of(SUPLA_CHANNELTYPE_THERMOMETER),
+                Arguments.of(SUPLA_CHANNELTYPE_RELAY),
+                Arguments.of(SUPLA_CHANNELTYPE_DIMMER),
+                Arguments.of(SUPLA_CHANNELTYPE_RGBLEDCONTROLLER),
+                Arguments.of(SUPLA_CHANNELTYPE_DIMMERANDRGBLED));
+    }
+
     @Test
     void shouldFailWhenTypeIsNotSupported() {
         byte[] payload =
@@ -110,11 +125,12 @@ class SuplaDeviceChannelEDecoderTest {
                 .hasMessageContaining("999");
     }
 
-    @Test
-    void shouldDecodeActionTriggerChannel() {
+    @ParameterizedTest(name = "{index}: should decode action trigger with {0} type")
+    @MethodSource
+    void shouldDecodeActionTriggerChannel(ChannelType channelType) {
         // given
         short number = 3;
-        int type = 11000; // SUPLA_CHANNELTYPE_ACTIONTRIGGER
+        int type = channelType.getValue();
         long actionTriggerCaps = 55L;
         int defaultValue = 2;
         long flags = 0x0102030405060708L;
@@ -176,6 +192,10 @@ class SuplaDeviceChannelEDecoderTest {
         assertThat(actionTriggerProperties.relatedChannelNumber()).isEqualTo(relatedChannelNumber);
         assertThat(actionTriggerProperties.disablesLocalOperation())
                 .isEqualTo(disablesLocalOperation);
+    }
+
+    static Stream<Arguments> shouldDecodeActionTriggerChannel() {
+        return Stream.of(Arguments.of(SUPLA_CHANNELTYPE_ACTIONTRIGGER));
     }
 
     private static ByteBuffer baseHeader(
