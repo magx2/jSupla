@@ -71,7 +71,9 @@ def consts = [
 	[
 		name  : "ResultCode",
 		prefix: "SUPLA_RESULTCODE_",
-		filter: { isResultCode(it) }] as Const,
+		filter: { name ->
+			name != "SUPLA_RESULTCODE_DENY_CHANNEL_IS_ASSOCIETED_WITH_ACTION_TRIGGER" && name.startsWith("SUPLA_RESULTCODE_")
+		}] as Const,
 	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
@@ -197,13 +199,6 @@ static boolean isCallType(String name) {
 		name.startsWith("SUPLA_SD_") ||
 		name.startsWith("SUPLA_SDC_") ||
 		name.startsWith("SUPLA_SDS_")
-}
-
-static boolean isResultCode(String name) {
-	if (name == "SUPLA_RESULTCODE_DENY_CHANNEL_IS_ASSOCIETED_WITH_ACTION_TRIGGER") {
-		return false
-	}
-	name.startsWith("SUPLA_RESULTCODE_")
 }
 
 static boolean isChannelType(String name) {
