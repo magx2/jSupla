@@ -3,9 +3,10 @@ package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unionCheck;
+import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unsigned;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNELVALUE_SIZE;
 
-import java.util.Arrays;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ActionTriggerPropertiesDecoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
@@ -35,10 +36,6 @@ public class SuplaDeviceChannelEDecoder
         this.actionTriggerPropertiesDecoder = actionTriggerPropertiesDecoder;
     }
 
-    private int unionSize(int... sizes) {
-        return Arrays.stream(sizes).max().orElse(0);
-    }
-
     @SuppressWarnings("UnusedAssignment")
     @Override
     public SuplaDeviceChannelE decode(byte[] bytes, int offset) {
@@ -48,183 +45,148 @@ public class SuplaDeviceChannelEDecoder
         val type = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
         offset += INT_SIZE;
 
-        if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
-            val actionTriggerCaps = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
-            offset += INT_SIZE;
+        val firstUnion = parseFirstUnion(type, bytes, offset);
+        offset += FirstUnion.SIZE;
 
-            val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
+        val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+        offset += INT_SIZE;
 
-            val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
-            offset += LONG_SIZE;
+        val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
+        offset += LONG_SIZE;
 
-            val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
+        val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        offset += BYTE_SIZE;
 
-            val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
+        val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+        offset += INT_SIZE;
 
-            ActionTriggerProperties actionTriggerProperties =
-                    actionTriggerPropertiesDecoder.decode(bytes, offset);
-            offset += secondUnionSize;
+        val secondUnion =
+                parseSecondUnion(
+                        type, bytes, offset, actionTriggerPropertiesDecoder, hvacValueDecoder);
+        offset += SecondUnion.SIZE;
 
-            val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
+        val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        offset += BYTE_SIZE;
 
-            val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
+        val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        offset += BYTE_SIZE;
 
-            return new SuplaDeviceChannelE(
-                    number,
-                    type,
-                    null,
-                    actionTriggerCaps,
-                    null,
-                    defaultValue,
-                    flags,
-                    offline,
-                    valueValidityTimeSec,
-                    null,
-                    actionTriggerProperties,
-                    null,
-                    defaultIcon,
-                    subDeviceId);
-        }
+        return new SuplaDeviceChannelE(
+                number,
+                type,
+                firstUnion.funcList,
+                firstUnion.actionTriggerCaps,
+                firstUnion.rgbwFuncList,
+                defaultValue,
+                flags,
+                offline,
+                valueValidityTimeSec,
+                secondUnion.value,
+                secondUnion.actionTriggerProperties,
+                secondUnion.hvacValue,
+                defaultIcon,
+                subDeviceId);
+    }
 
-        if (type == SUPLA_CHANNELTYPE_HVAC.getValue()) {
-            val funcList = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
-            offset += LONG_SIZE;
-
-            val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            HVACValue hvacValue = hvacValueDecoder.decode(bytes, offset);
-            offset += secondUnionSize;
-
-            val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            return new SuplaDeviceChannelE(
-                    number,
-                    type,
-                    funcList,
-                    null,
-                    null,
-                    defaultValue,
-                    flags,
-                    offline,
-                    valueValidityTimeSec,
-                    null,
-                    null,
-                    hvacValue,
-                    defaultIcon,
-                    subDeviceId);
-        }
-
-        if (type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
+    private FirstUnion parseFirstUnion(int type, byte[] bytes, int offset) {
+        if (type == SUPLA_CHANNELTYPE_HVAC.getValue()
+                || type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
                 || type == SUPLA_CHANNELTYPE_RELAY.getValue()) {
-            val funcList = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
-            offset += LONG_SIZE;
-
-            val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val value =
-                    PrimitiveDecoder.INSTANCE.copyOfRangeByte(
-                            bytes, offset, offset + (int) SUPLA_CHANNELVALUE_SIZE);
-            offset += secondUnionSize;
-
-            val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            return new SuplaDeviceChannelE(
-                    number,
-                    type,
-                    funcList,
-                    null,
-                    null,
-                    defaultValue,
-                    flags,
-                    offline,
-                    valueValidityTimeSec,
-                    value,
-                    null,
-                    null,
-                    defaultIcon,
-                    subDeviceId);
+            return FirstUnion.funcList(bytes, offset);
         }
-
+        if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
+            return FirstUnion.actionTriggerCaps(bytes, offset);
+        }
         if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()) {
-            val rgbwFuncList = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
-            offset += LONG_SIZE;
-
-            val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
-            offset += INT_SIZE;
-
-            val value =
-                    PrimitiveDecoder.INSTANCE.copyOfRangeByte(
-                            bytes, offset, offset + (int) SUPLA_CHANNELVALUE_SIZE);
-            offset += secondUnionSize;
-
-            val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
-            offset += BYTE_SIZE;
-
-            return new SuplaDeviceChannelE(
-                    number,
-                    type,
-                    null,
-                    null,
-                    rgbwFuncList,
-                    defaultValue,
-                    flags,
-                    offline,
-                    valueValidityTimeSec,
-                    value,
-                    null,
-                    null,
-                    defaultIcon,
-                    subDeviceId);
+            return FirstUnion.rgbwFuncList(bytes, offset);
         }
 
         throw new UnsupportedOperationException(
                 format(
-                        "Type %s is not supported for %s",
+                        "Type %s is not supported for %s when parsing first union",
                         type, SuplaDeviceChannelE.class.getSimpleName()));
+    }
+
+    private record FirstUnion(Integer funcList, Long actionTriggerCaps, Long rgbwFuncList) {
+        @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
+        static int SIZE = INT_SIZE;
+
+        private FirstUnion {
+            unsigned(actionTriggerCaps);
+            unsigned(rgbwFuncList);
+            unionCheck(funcList, actionTriggerCaps, rgbwFuncList);
+        }
+
+        static FirstUnion funcList(byte[] bytes, int offset) {
+            return new FirstUnion(PrimitiveDecoder.INSTANCE.parseInt(bytes, offset), null, null);
+        }
+
+        static FirstUnion actionTriggerCaps(byte[] bytes, int offset) {
+            return new FirstUnion(
+                    null, PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset), null);
+        }
+
+        static FirstUnion rgbwFuncList(byte[] bytes, int offset) {
+            return new FirstUnion(
+                    null, null, PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset));
+        }
+    }
+
+    private SecondUnion parseSecondUnion(
+            int type,
+            byte[] bytes,
+            int offset,
+            ActionTriggerPropertiesDecoder actionTriggerPropertiesDecoder,
+            HVACValueDecoder hvacValueDecoder) {
+        if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()
+                || type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
+                || type == SUPLA_CHANNELTYPE_RELAY.getValue()) {
+            return SecondUnion.value(bytes, offset);
+        }
+        if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
+            return SecondUnion.actionTriggerProperties(
+                    actionTriggerPropertiesDecoder, bytes, offset);
+        }
+        if (type == SUPLA_CHANNELTYPE_HVAC.getValue()) {
+            return SecondUnion.hvacValue(hvacValueDecoder, bytes, offset);
+        }
+
+        throw new UnsupportedOperationException(
+                format(
+                        "Type %s is not supported for %s when parsing second union",
+                        type, SuplaDeviceChannelE.class.getSimpleName()));
+    }
+
+    private record SecondUnion(
+            byte[] value, ActionTriggerProperties actionTriggerProperties, HVACValue hvacValue) {
+        /// Union size:
+        /// * SUPLA_CHANNELVALUE_SIZE * BYTE_SIZE == 8
+        /// * ActionTriggerProperties.SIZE == 5
+        /// * HVACValue.SIZE == 8
+        ///
+        /// Therefore, the maximum is 8
+        @SuppressWarnings("StaticMethodOnlyUsedInOneClass")
+        static int SIZE = 8;
+
+        private SecondUnion {
+            unionCheck(value, actionTriggerProperties, hvacValue);
+        }
+
+        static SecondUnion value(byte[] bytes, int offset) {
+            return new SecondUnion(
+                    PrimitiveDecoder.INSTANCE.copyOfRangeByte(
+                            bytes, offset, offset + SUPLA_CHANNELVALUE_SIZE),
+                    null,
+                    null);
+        }
+
+        static SecondUnion actionTriggerProperties(
+                ActionTriggerPropertiesDecoder decoder, byte[] bytes, int offset) {
+            return new SecondUnion(null, decoder.decode(bytes, offset), null);
+        }
+
+        static SecondUnion hvacValue(HVACValueDecoder decoder, byte[] bytes, int offset) {
+            return new SecondUnion(null, null, decoder.decode(bytes, offset));
+        }
     }
 }
