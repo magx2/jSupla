@@ -86,7 +86,6 @@ public final class ChannelTypeDecoder {
                         Arrays.toString(value));
                 yield new UnknownValue(value, "Can not decode SUPLA_CHANNELTYPE_ACTIONTRIGGER");
             }
-            case UNKNOWN -> UnknownValue.UNKNOWN_VALUE;
             default -> {
                 val message =
                         format(
@@ -136,7 +135,7 @@ public final class ChannelTypeDecoder {
                     ElectricityMeterValue.class;
             case SUPLA_CHANNELTYPE_HVAC -> HvacValue.class;
             case SUPLA_CHANNELTYPE_ACTIONTRIGGER -> ActionTrigger.class;
-            case UNKNOWN, EV_TYPE_TIMER_STATE_V1, EV_TYPE_TIMER_STATE_V1_SEC -> TimerValue.class;
+            case EV_TYPE_TIMER_STATE_V1, EV_TYPE_TIMER_STATE_V1_SEC -> TimerValue.class;
             default -> {
                 log.warn("Don't know how to map channel type {} to channel value!", channelType);
                 yield UnknownValue.class;
