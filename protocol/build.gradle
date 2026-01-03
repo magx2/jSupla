@@ -8,7 +8,6 @@ ext.staticArraySize = [
 
 apply from: 'parser.gradle'
 apply from: 'pojoGenerator.gradle'
-apply from: 'consts.gradle'
 apply from: 'decoders.gradle'
 apply from: 'encoders.gradle'
 apply from: 'download.gradle'
@@ -35,7 +34,7 @@ tasks.spotlessJava.dependsOn 'channelFlagGenerator'
 tasks.spotlessJava.dependsOn 'constsGenerator'
 tasks.spotlessJava.dependsOn 'decoderFactoryGenerator'
 tasks.spotlessJava.dependsOn 'encoderFactoryGenerator'
-tasks.spotlessJava.dependsOn 'resultCodeGenerator'
+apply from: 'consts.gradle'
 
 dependencies {
 	implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
