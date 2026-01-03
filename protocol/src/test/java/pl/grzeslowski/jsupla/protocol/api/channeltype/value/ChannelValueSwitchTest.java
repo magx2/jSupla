@@ -21,7 +21,7 @@ class ChannelValueSwitchTest {
         assertDispatch(OnOff.ON, "onOff");
         assertDispatch(OpenClose.OPEN, "openClose");
         assertDispatch(new PercentValue(40), "percent");
-        assertDispatch(new RgbValue(1, 2, 3, 4, 5), "rgb");
+        assertDispatch(new RgbValue(1, 2, 3, 4, 5, 6), "rgb");
         assertDispatch(StoppableOpenClose.STOP, "stoppable");
         assertDispatch(new TemperatureValue(21.5), "temperature");
         assertDispatch(new TemperatureAndHumidityValue(22.0, 55.5), "temperatureAndHumidity");

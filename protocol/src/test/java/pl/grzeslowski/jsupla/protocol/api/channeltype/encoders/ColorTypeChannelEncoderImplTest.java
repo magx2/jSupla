@@ -18,6 +18,7 @@ class ColorTypeChannelEncoderImplTest {
                         10,
                         20,
                         30,
+                        40,
                         RgbValue.Command.TOGGLE_RGB,
                         RgbValue.Subject.COLOR_ONOFF);
 
@@ -33,6 +34,6 @@ class ColorTypeChannelEncoderImplTest {
                         (byte) 10,
                         (byte) 0x2,
                         (byte) 6,
-                        (byte) 0);
+                        (byte) 40);
     }
 }

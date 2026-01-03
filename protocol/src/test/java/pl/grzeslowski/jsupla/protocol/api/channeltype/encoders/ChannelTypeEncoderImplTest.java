@@ -50,7 +50,8 @@ class ChannelTypeEncoderImplTest {
 
     @Test
     void shouldEncodeRgbUsingColorEncoder() {
-        RgbValue value = new RgbValue((short) 1, (short) 2, (short) 3, (short) 4, (short) 5);
+        RgbValue value =
+                new RgbValue((short) 1, (short) 2, (short) 3, (short) 4, (short) 5, (short) 6);
 
         assertThat(encoder.encode(value)).isEqualTo(RecordingColorEncoder.RESPONSE);
         assertThat(colorEncoder.captured).isEqualTo(value);
