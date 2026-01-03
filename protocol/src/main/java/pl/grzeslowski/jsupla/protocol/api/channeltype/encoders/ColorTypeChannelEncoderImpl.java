@@ -14,11 +14,12 @@ public class ColorTypeChannelEncoderImpl {
                 new RGBWValue(
                         (byte) rgbValue.brightness(),
                         (byte) rgbValue.colorBrightness(),
-                        (byte) rgbValue.blue(),
-                        (byte) rgbValue.green(),
-                        (byte) rgbValue.red(),
+                        (short) rgbValue.blue(),
+                        (short) rgbValue.green(),
+                        (short) rgbValue.red(),
                         (byte) rgbValue.subject().getValue(),
-                        (byte) rgbValue.command().ordinal());
+                        (byte) rgbValue.command().ordinal(),
+                        (byte) rgbValue.dimmerCct());
         log.debug("Encoding {} into {}", rgbValue, proto);
         // The size of a channel value is fixed, so we use SUPLA_CHANNELVALUE_SIZE constant
         var bytes = new byte[SUPLA_CHANNELVALUE_SIZE];

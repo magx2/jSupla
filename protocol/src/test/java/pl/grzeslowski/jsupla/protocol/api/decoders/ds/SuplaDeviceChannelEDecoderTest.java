@@ -1,10 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 
+import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_DIMMER;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
@@ -190,5 +193,57 @@ class SuplaDeviceChannelEDecoderTest {
                 .putLong(flags)
                 .put((byte) offline)
                 .putInt((int) validity);
+    }
+
+    @Test
+    @DisplayName("should decode SuplaDeviceChannelE with dimmer type")
+    void decodeDimmer() {
+        // given
+        final byte number = 1;
+        final int type = SUPLA_CHANNELTYPE_DIMMER.getValue();
+        final long rgbwFuncList = 123L;
+        final int defaultValue = 456;
+        final long flags = 789L;
+        final byte offline = 0;
+        final int valueValidityTimeSec = 10;
+        final byte[] value = new byte[ProtoConsts.SUPLA_CHANNELVALUE_SIZE];
+        value[0] = 11;
+        value[1] = 22;
+        final byte defaultIcon = 5;
+        final byte subDeviceId = 6;
+
+        final byte[] bytes =
+                ByteBuffer.allocate(36)
+                        .order(LITTLE_ENDIAN)
+                        .put(number)
+                        .putInt(type)
+                        .putInt((int) rgbwFuncList)
+                        .putInt(defaultValue)
+                        .putLong(flags)
+                        .put(offline)
+                        .putInt(valueValidityTimeSec)
+                        .put(value)
+                        .put(defaultIcon)
+                        .put(subDeviceId)
+                        .array();
+
+        // when
+        final SuplaDeviceChannelE result = decoder.decode(bytes);
+
+        // then
+        assertThat(result.number()).isEqualTo(number);
+        assertThat(result.type()).isEqualTo(type);
+        assertThat(result.rGBWFuncList()).isEqualTo(rgbwFuncList);
+        assertThat(result.funcList()).isNull();
+        assertThat(result.actionTriggerCaps()).isNull();
+        assertThat(result.defaultValue()).isEqualTo(defaultValue);
+        assertThat(result.flags()).isEqualTo(flags);
+        assertThat(result.offline()).isEqualTo(offline);
+        assertThat(result.valueValidityTimeSec()).isEqualTo(valueValidityTimeSec);
+        assertThat(result.value()).isEqualTo(value);
+        assertThat(result.actionTriggerProperties()).isNull();
+        assertThat(result.hvacValue()).isNull();
+        assertThat(result.defaultIcon()).isEqualTo(defaultIcon);
+        assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 }

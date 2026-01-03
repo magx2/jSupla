@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
  * @param red {@code [0-255]}
  * @param green {@code [0-255]}
  * @param blue {@code [0-255]}
+ * @param dimmerCct {@code [0-100]}
  * @param command requires {@code SUPLA_CHANNEL_FLAG_RGBW_COMMANDS_SUPPORTED}
  * @param subject
  */
@@ -25,21 +26,30 @@ public record RgbValue(
         int red,
         int green,
         int blue,
+        int dimmerCct,
         Command command,
         Subject subject)
         implements ChannelValue {
-    public RgbValue(int brightness, int colorBrightness, int red, int green, int blue) {
-        this(brightness, colorBrightness, red, green, blue, NOT_SET, UNKNOWN);
+    public RgbValue(
+            int brightness, int colorBrightness, int red, int green, int blue, int dimmerCct) {
+        this(brightness, colorBrightness, red, green, blue, dimmerCct, NOT_SET, UNKNOWN);
     }
 
     public RgbValue(
-            int brightness, int colorBrightness, int red, int green, int blue, Command command) {
-        this(brightness, colorBrightness, red, green, blue, command, UNKNOWN);
+            int brightness,
+            int colorBrightness,
+            int red,
+            int green,
+            int blue,
+            int dimmerCct,
+            Command command) {
+        this(brightness, colorBrightness, red, green, blue, dimmerCct, command, UNKNOWN);
     }
 
     public RgbValue {
         size(brightness, 0, 100);
         size(colorBrightness, 0, 100);
+        size(dimmerCct, 0, 100);
         unsignedByteSize(red);
         unsignedByteSize(green);
         unsignedByteSize(blue);

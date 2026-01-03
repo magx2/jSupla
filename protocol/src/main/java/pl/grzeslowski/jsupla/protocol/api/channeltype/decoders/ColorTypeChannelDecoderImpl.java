@@ -19,9 +19,10 @@ class ColorTypeChannelDecoderImpl implements Decoder<RgbValue> {
                 new RgbValue(
                         toUnsignedByte(rgbw.brightness()),
                         toUnsignedByte(rgbw.colorBrightness()),
-                        toUnsignedByte(rgbw.r()),
-                        toUnsignedByte(rgbw.g()),
-                        toUnsignedByte(rgbw.b()),
+                        rgbw.r(),
+                        rgbw.g(),
+                        rgbw.b(),
+                        rgbw.dimmerCct(),
                         Command.parse(rgbw.command()),
                         Subject.parse(rgbw.onOff()));
         log.debug("Decoded {} from {}", rgbValue, rgbw);

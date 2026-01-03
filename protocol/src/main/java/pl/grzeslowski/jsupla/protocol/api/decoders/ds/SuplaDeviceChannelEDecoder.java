@@ -79,6 +79,7 @@ public class SuplaDeviceChannelEDecoder
                     type,
                     null,
                     actionTriggerCaps,
+                    null,
                     defaultValue,
                     flags,
                     offline,
@@ -119,6 +120,7 @@ public class SuplaDeviceChannelEDecoder
                     number,
                     type,
                     funcList,
+                    null,
                     null,
                     defaultValue,
                     flags,
@@ -164,6 +166,51 @@ public class SuplaDeviceChannelEDecoder
                     type,
                     funcList,
                     null,
+                    null,
+                    defaultValue,
+                    flags,
+                    offline,
+                    valueValidityTimeSec,
+                    value,
+                    null,
+                    null,
+                    defaultIcon,
+                    subDeviceId);
+        }
+
+        if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()) {
+            val rgbwFuncList = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
+            offset += INT_SIZE;
+
+            val defaultValue = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+            offset += INT_SIZE;
+
+            val flags = PrimitiveDecoder.INSTANCE.parseLong(bytes, offset);
+            offset += LONG_SIZE;
+
+            val offline = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+            offset += BYTE_SIZE;
+
+            val valueValidityTimeSec = PrimitiveDecoder.INSTANCE.parseInt(bytes, offset);
+            offset += INT_SIZE;
+
+            val value =
+                    PrimitiveDecoder.INSTANCE.copyOfRangeByte(
+                            bytes, offset, offset + (int) SUPLA_CHANNELVALUE_SIZE);
+            offset += secondUnionSize;
+
+            val defaultIcon = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+            offset += BYTE_SIZE;
+
+            val subDeviceId = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+            offset += BYTE_SIZE;
+
+            return new SuplaDeviceChannelE(
+                    number,
+                    type,
+                    null,
+                    null,
+                    rgbwFuncList,
                     defaultValue,
                     flags,
                     offline,

@@ -27,20 +27,23 @@ class ChannelValuesTest {
 
     @Test
     void rgbValueShouldStoreUnsignedBytes() {
-        RgbValue value = new RgbValue(100, 10, 20, 30, 40);
+        RgbValue value = new RgbValue(100, 10, 20, 30, 40, 50);
 
         assertThat(value.brightness()).isEqualTo(100);
         assertThat(value.colorBrightness()).isEqualTo(10);
         assertThat(value.red()).isEqualTo(20);
         assertThat(value.green()).isEqualTo(30);
         assertThat(value.blue()).isEqualTo(40);
+        assertThat(value.dimmerCct()).isEqualTo(50);
     }
 
     @Test
     void rgbValueShouldRejectValuesOutsideUnsignedByteRange() {
-        assertThatThrownBy(() -> new RgbValue(256, 0, 0, 0, 0))
+        assertThatThrownBy(() -> new RgbValue(256, 0, 0, 0, 0, 0))
                 .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> new RgbValue(0, -1, 0, 0, 0))
+        assertThatThrownBy(() -> new RgbValue(0, -1, 0, 0, 0, 0))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> new RgbValue(0, 0, 0, 0, 0, -1))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

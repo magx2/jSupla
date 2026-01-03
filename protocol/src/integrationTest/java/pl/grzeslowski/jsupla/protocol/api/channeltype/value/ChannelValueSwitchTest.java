@@ -134,7 +134,7 @@ class ChannelValueSwitchTest {
 
                     @Override
                     public ChannelValue onRgbValue() {
-                        return new RgbValue(1, 2, 3, 4, 5);
+                        return new RgbValue(1, 2, 3, 4, 5, 6);
                     }
 
                     @Override
