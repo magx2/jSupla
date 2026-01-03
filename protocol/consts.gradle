@@ -27,6 +27,15 @@ def consts = [
 		name  : "ResultCode",
 		prefix: "SUPLA_RESULTCODE_",] as Const,
 	[
+		name  : "RgbwBitFunction",
+		prefix: "SUPLA_RGBW_BIT_FUNC_",
+		extraJavaCode: """\
+		|   public static java.util.Set<RgbwBitFunction> findByMask(long value) {
+		|   return java.util.Arrays.stream(RgbwBitFunction.values())
+		|   	.filter(flag -> (value & flag.value) != 0)
+		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(RgbwBitFunction.class)));
+		|   }""".stripMargin()] as Const,
+	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
 		filter: { name ->
