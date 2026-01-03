@@ -3,12 +3,15 @@ package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_DIMMER;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import org.junit.jupiter.api.DisplayName;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ActionTriggerPropertiesDecoder;
@@ -195,9 +198,9 @@ class SuplaDeviceChannelEDecoderTest {
                 .putInt((int) validity);
     }
 
-    @Test
-    @DisplayName("should decode SuplaDeviceChannelE with dimmer type")
-    void decodeDimmer() {
+    @ParameterizedTest(name = "{index}: should decode SuplaDeviceChannelE with {0} type")
+    @MethodSource
+    void decodeLed(ChannelType rgbwChannelType) {
         // given
         final byte number = 1;
         final int type = SUPLA_CHANNELTYPE_DIMMER.getValue();
@@ -245,5 +248,12 @@ class SuplaDeviceChannelEDecoderTest {
         assertThat(result.hvacValue()).isNull();
         assertThat(result.defaultIcon()).isEqualTo(defaultIcon);
         assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
+    }
+
+    static Stream<Arguments> decodeLed() {
+        return Stream.of(
+                Arguments.of(SUPLA_CHANNELTYPE_DIMMER),
+                Arguments.of(SUPLA_CHANNELTYPE_RGBLEDCONTROLLER),
+                Arguments.of(SUPLA_CHANNELTYPE_DIMMERANDRGBLED));
     }
 }
