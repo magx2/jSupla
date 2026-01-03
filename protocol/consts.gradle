@@ -22,51 +22,6 @@ class Const {
 	String extraJavaCode
 }
 
-task constsGenerator {
-	group = 'jSupla'
-	inputs.file new File(project.file("build/parser"), "consts.json")
-	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java")
-	doLast {
-		def jsonFile = new File(project.file("build/parser"), "consts.json")
-		if (!jsonFile.exists()) {
-			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
-		}
-
-		def jsonSlurper = new JsonSlurper()
-		def consts = (jsonSlurper.parse(jsonFile) as List)
-			.stream()
-			.filter { !predefined(it, overrides) }
-			.toList()
-
-		def protoConsts = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java").toPath()
-		Files.createDirectories(protoConsts.parent)
-
-		def java = """\
-			|package pl.grzeslowski.jsupla.protocol.api.consts;
-			|
-			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
-			|public interface ProtoConsts {
-			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
-			|""".stripMargin()
-		java += Stream.concat(consts.stream(), overrides.stream())
-			.filter { !it.name.startsWith("_") }
-			.filter { it.name != "timeval" }
-			.filter { it.name != "SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE" }
-//			.filter { !isCallType(it.name) } // todo
-//			.filter { !isChannelFlag(it.name) } // todo
-//			.filter { !isChannelFunction(it.name) } // todo
-			.map { generateConst(it, consts) }
-			.collect(Collectors.joining("\n\t"))
-		java += """
-			|	public static final int SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE = SUPLA_MAX_DATA_SIZE - 50;
-			|}""".stripMargin()
-
-		protoConsts.write(java)
-	}
-}
-constsGenerator.dependsOn "parseProtoh"
-compileJava.dependsOn "constsGenerator"
-
 def consts = [
 	[
 		name  : "ResultCode",
@@ -156,6 +111,49 @@ consts.each { constDef ->
 		}
 	}
 }
+
+task constsGenerator {
+	group = 'jSupla'
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	outputs.file project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java")
+	doLast {
+		def jsonFile = new File(project.file("build/parser"), "consts.json")
+		if (!jsonFile.exists()) {
+			throw new IOException("File ${jsonFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def genericConsts = (jsonSlurper.parse(jsonFile) as List)
+			.stream()
+			.filter { !predefined(it, overrides) }
+			.toList()
+
+		def protoConsts = project.file("build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/consts/ProtoConsts.java").toPath()
+		Files.createDirectories(protoConsts.parent)
+
+		def java = """\
+			|package pl.grzeslowski.jsupla.protocol.api.consts;
+			|
+			|@javax.annotation.Generated(value="Const from proto.h", date = "${ZonedDateTime.now()}", comments = "generated from ProtoConsts.h")
+			|public interface ProtoConsts {
+			|	public static final byte[] SUPLA_TAG = new byte[]{83, 85, 80, 76, 65};
+			|""".stripMargin()
+		java += Stream.concat(genericConsts.stream(), overrides.stream())
+			.filter { !it.name.startsWith("_") }
+			.filter { it.name != "timeval" }
+			.filter { it.name != "SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE" }
+			.filter { consts.stream().noneMatch { constDef -> constDef.filter(it.name) } }
+			.map { generateConst(it, genericConsts) }
+			.collect(Collectors.joining("\n\t"))
+		java += """
+			|	public static final int SUPLA_CHANNELEXTENDEDVALUE_PACK_MAXDATASIZE = SUPLA_MAX_DATA_SIZE - 50;
+			|}""".stripMargin()
+
+		protoConsts.write(java)
+	}
+}
+constsGenerator.dependsOn "parseProtoh"
+compileJava.dependsOn "constsGenerator"
 
 task callTypesGenerator {
 	group = 'jSupla'
