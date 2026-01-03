@@ -97,7 +97,9 @@ public class SuplaDeviceChannelEDecoder
         if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
             return FirstUnion.actionTriggerCaps(bytes, offset);
         }
-        if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()) {
+        if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()
+                || type == SUPLA_CHANNELTYPE_RGBLEDCONTROLLER.getValue()
+                || type == SUPLA_CHANNELTYPE_DIMMERANDRGBLED.getValue()) {
             return FirstUnion.rgbwFuncList(bytes, offset);
         }
 
@@ -141,7 +143,9 @@ public class SuplaDeviceChannelEDecoder
             HVACValueDecoder hvacValueDecoder) {
         if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()
                 || type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
-                || type == SUPLA_CHANNELTYPE_RELAY.getValue()) {
+                || type == SUPLA_CHANNELTYPE_RELAY.getValue()
+                || type == SUPLA_CHANNELTYPE_RGBLEDCONTROLLER.getValue()
+                || type == SUPLA_CHANNELTYPE_DIMMERANDRGBLED.getValue()) {
             return SecondUnion.value(bytes, offset);
         }
         if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
