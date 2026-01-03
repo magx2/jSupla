@@ -25,10 +25,7 @@ class Const {
 def consts = [
 	[
 		name  : "ResultCode",
-		prefix: "SUPLA_RESULTCODE_",
-		filter: { name ->
-			name != "SUPLA_RESULTCODE_DENY_CHANNEL_IS_ASSOCIETED_WITH_ACTION_TRIGGER" && name.startsWith("SUPLA_RESULTCODE_")
-		}] as Const,
+		prefix: "SUPLA_RESULTCODE_",] as Const,
 	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
