@@ -53,6 +53,9 @@ public final class ChannelTypeDecoder {
     }
 
     public ChannelValue decode(final ChannelType channelType, final byte[] value) {
+        if (channelType == null) {
+            return new UnknownValue(value, "Channel type is null");
+        }
         return switch (channelType) {
             case SUPLA_CHANNELTYPE_SENSORNO,
                     SUPLA_CHANNELTYPE_SENSORNC,
@@ -108,6 +111,9 @@ public final class ChannelTypeDecoder {
     }
 
     public Class<? extends ChannelValue> findClass(final ChannelType channelType) {
+        if (channelType == null) {
+            return UnknownValue.class;
+        }
         return switch (channelType) {
             case SUPLA_CHANNELTYPE_SENSORNO,
                     SUPLA_CHANNELTYPE_SENSORNC,
