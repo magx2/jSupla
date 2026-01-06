@@ -14,7 +14,6 @@ class ChannelClassSwitchTest {
         assertDispatch(PercentValue.class, "percent");
         assertDispatch(RgbValue.class, "rgb");
         assertDispatch(TemperatureAndHumidityValue.class, "temperatureAndHumidity");
-        assertDispatch(TemperatureValue.class, "temperature");
         assertDispatch(ElectricityMeterValue.class, "electricity");
         assertDispatch(HvacValue.class, "hvac");
         assertDispatch(TimerValue.class, "timer");
@@ -42,11 +41,6 @@ class ChannelClassSwitchTest {
         @Override
         public String onRgbValue() {
             return record("rgb");
-        }
-
-        @Override
-        public String onTemperatureValue() {
-            return record("temperature");
         }
 
         @Override

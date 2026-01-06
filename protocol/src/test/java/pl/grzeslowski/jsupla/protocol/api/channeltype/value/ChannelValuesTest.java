@@ -43,16 +43,11 @@ class ChannelValuesTest {
     }
 
     @Test
-    void temperatureValueShouldStoreBigDecimal() {
-        assertThat(new TemperatureValue("20.5").temperature()).isEqualTo(new BigDecimal("20.5"));
-    }
-
-    @Test
     void temperatureAndHumidityValueShouldStoreTwoBigDecimals() {
         TemperatureAndHumidityValue value =
                 new TemperatureAndHumidityValue(new BigDecimal("18.5"), new BigDecimal("61.2"));
 
-        assertThat(value.temperature().temperature()).isEqualTo(new BigDecimal("18.5"));
+        assertThat(value.temperature()).isEqualTo(new BigDecimal("18.5"));
         assertThat(value.humidity().humidity()).isEqualTo(new BigDecimal("61.2"));
     }
 

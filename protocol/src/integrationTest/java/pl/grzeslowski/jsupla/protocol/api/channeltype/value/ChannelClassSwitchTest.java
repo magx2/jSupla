@@ -51,11 +51,6 @@ class ChannelClassSwitchTest {
         }
 
         @Override
-        public Class<? extends ChannelValue> onTemperatureValue() {
-            return TemperatureValue.class;
-        }
-
-        @Override
         public Class<? extends ChannelValue> onTemperatureDoubleValue() {
             return TemperatureDoubleValue.class;
         }

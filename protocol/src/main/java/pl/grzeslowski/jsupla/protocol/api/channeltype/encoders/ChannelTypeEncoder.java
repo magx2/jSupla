@@ -16,7 +16,6 @@ public class ChannelTypeEncoder {
     private final PercentTypeEncoder percentTypeEncoder;
     private final ThermometerDoubleTypeEncoder thermometerDoubleTypeEncoder;
     private final ThermometerTypeEncoder thermometerTypeEncoder;
-    private final TemperatureTypeEncoder temperatureTypeEncoder;
 
     private ChannelTypeEncoder() {
         this(
@@ -26,11 +25,9 @@ public class ChannelTypeEncoder {
                 new OnOffTypeEncoder(),
                 new PercentTypeEncoder(),
                 new ThermometerDoubleTypeEncoder(),
-                new ThermometerTypeEncoder(),
-                new TemperatureTypeEncoder());
+                new ThermometerTypeEncoder());
     }
 
-    // TODO test all types
     public byte[] encode(final ChannelValue channelValue) {
         return switch (channelValue) {
             case HumidityValue humidityValue -> humidityTypeEncoder.encode(humidityValue);
@@ -40,8 +37,6 @@ public class ChannelTypeEncoder {
             case RgbValue rgbValue -> rgbTypeEncoder.encode(rgbValue);
             case TemperatureAndHumidityValue temperatureAndHumidityValue ->
                     thermometerTypeEncoder.encode(temperatureAndHumidityValue);
-            case TemperatureValue temperatureValue ->
-                    temperatureTypeEncoder.encode(temperatureValue);
             case TemperatureDoubleValue temperatureDoubleValue ->
                     thermometerDoubleTypeEncoder.encode(temperatureDoubleValue);
             // unsupported types

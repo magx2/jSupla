@@ -9,6 +9,5 @@ public sealed interface ChannelValue
                 RgbValue,
                 TemperatureAndHumidityValue,
                 TemperatureDoubleValue,
-                TemperatureValue,
                 TimerValue,
                 UnknownValue {}

@@ -12,7 +12,7 @@ public class ThermometerTypeEncoder implements ChannelValueEncoder<TemperatureAn
 
     @Override
     public void encode(TemperatureAndHumidityValue value, byte[] bytes) {
-        var temp = encodeDouble(value.temperature().temperature());
+        var temp = encodeDouble(value.temperature());
         PrimitiveEncoder.INSTANCE.writeInt(temp, bytes, 0);
 
         var humidity = encodeDouble(value.humidity().humidity());
