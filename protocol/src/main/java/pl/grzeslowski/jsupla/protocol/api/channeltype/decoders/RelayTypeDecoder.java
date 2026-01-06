@@ -19,7 +19,8 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
                 SUPLA_CHANNELTYPE_RELAYHFD4,
                 SUPLA_CHANNELTYPE_RELAYG5LA1A,
                 SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
-                SUPLA_CHANNELTYPE_RELAY);
+                SUPLA_CHANNELTYPE_RELAY,
+                SUPLA_CHANNELTYPE_BINARYSENSOR);
     }
 
     @Override
