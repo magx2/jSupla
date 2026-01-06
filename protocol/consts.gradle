@@ -80,8 +80,8 @@ def consts = [
 		name  : "ThermostatCommand",
 		prefix: "SUPLA_THERMOSTAT_CMD_"] as Const,
 	[
-		name  : "ThermostatValueFlag",
-		prefix: "SUPLA_THERMOSTAT_VALUE_FLAG_",
+		name         : "ThermostatValueFlag",
+		prefix       : "SUPLA_THERMOSTAT_VALUE_FLAG_",
 		extraJavaCode: """\
 		|   public static java.util.Set<ThermostatValueFlag> findByMask(int value) {
 		|   return java.util.Arrays.stream(ThermostatValueFlag.values())
@@ -97,6 +97,46 @@ def consts = [
 	[
 		name  : "ThermostatField",
 		prefix: "THERMOSTAT_FIELD_"] as Const,
+	[
+		name  : "MeterCounterType",
+		prefix: "SUPLA_GENERAL_PURPOSE_METER_COUNTER_TYPE_"] as Const,
+	[
+		name  : "MeterChartType",
+		prefix: "SUPLA_GENERAL_PURPOSE_METER_CHART_TYPE_"] as Const,
+	[
+		name  : "EvType",
+		prefix: "EV_TYPE_"] as Const,
+	[
+		name  : "SubvType",
+		prefix: "SUBV_TYPE_"] as Const,
+	[
+		name  : "Mfr",
+		prefix: "SUPLA_MFR_"] as Const,
+	[
+		name  : "SuplaEvent",
+		prefix: "SUPLA_EVENT_"] as Const,
+	[
+		name  : "SuplaResult",
+		prefix: "SUPLA_RESULT_"] as Const,
+	[
+		name  : "SuplaBit",
+		prefix: "SUPLA_BIT_"] as Const,
+	[
+		name  : "ModbusRole",
+		prefix: "MODBUS_ROLE_"] as Const,
+	[
+		name  : "ModbusSerialMode",
+		prefix: "MODBUS_SERIAL_MODE_"] as Const,
+	[
+		name         : "DeviceConfigField",
+		prefix       : "SUPLA_DEVICE_CONFIG_FIELD_",
+		options      : [valueType: "long"],
+		extraJavaCode: """\
+		|   public static java.util.Set<DeviceConfigField> findByMask(long value) {
+		|   return java.util.Arrays.stream(DeviceConfigField.values())
+		|   	.filter(flag -> (value & flag.value) != 0)
+		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(DeviceConfigField.class)));
+		|   }""".stripMargin()] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"
