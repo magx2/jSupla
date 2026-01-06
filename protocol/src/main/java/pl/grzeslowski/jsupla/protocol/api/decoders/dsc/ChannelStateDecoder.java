@@ -1,5 +1,6 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.dsc;
 
+import static pl.grzeslowski.jsupla.protocol.api.ChannelStateField.*;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
@@ -79,10 +80,10 @@ public class ChannelStateDecoder
 
         // union
         val lightSourceLifespanLeftFlag =
-                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCELIFESPAN) != 0;
+                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCELIFESPAN.getValue()) != 0;
         val lightSourceOperatingTimeFlag =
-                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCEOPERATINGTIME) != 0;
-        val operatingTimeFlag = (fields & SUPLA_CHANNELSTATE_FIELD_OPERATINGTIME) != 0;
+                (fields & SUPLA_CHANNELSTATE_FIELD_LIGHTSOURCEOPERATINGTIME.getValue()) != 0;
+        val operatingTimeFlag = (fields & SUPLA_CHANNELSTATE_FIELD_OPERATINGTIME.getValue()) != 0;
 
         Short lightSourceLifespanLeft = null;
         Integer lightSourceOperatingTime = null;
