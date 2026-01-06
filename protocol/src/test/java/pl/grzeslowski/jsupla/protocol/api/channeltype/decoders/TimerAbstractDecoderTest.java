@@ -3,11 +3,13 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Duration;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
-class TimerAbstractChannelDecoderTest {
+class TimerAbstractDecoderTest {
     private final TimerTestPayloadBuilder builder = new TimerTestPayloadBuilder();
 
     @Test
@@ -36,11 +38,16 @@ class TimerAbstractChannelDecoderTest {
         return bytes;
     }
 
-    private static class TestTimerDecoder extends TimerAbstractChannelDecoder {
+    private static class TestTimerDecoder extends TimerAbstractDecoder {
         @Override
         protected Duration findRemaining(
                 pl.grzeslowski.jsupla.protocol.api.structs.TimerStateExtendedValue timer) {
             return Duration.ZERO;
+        }
+
+        @Override
+        public Set<ChannelType> supportedChannelValueTypes() {
+            return Set.of();
         }
     }
 }

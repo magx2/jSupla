@@ -10,6 +10,7 @@ public class ChannelTypeEncoderImpl {
                     new ColorTypeChannelEncoderImpl(),
                     new RelayTypeChannelEncoderImpl(),
                     new ThermometerTypeChannelEncoderImpl(),
+                    new HumidityTypeChannelEncoderImpl(),
                     new StoppableOpenCloseEncoderImpl(),
                     new ElectricityMeterEncoder(),
                     new HvacChannelEncoderImpl(),
@@ -17,6 +18,7 @@ public class ChannelTypeEncoderImpl {
     private final ColorTypeChannelEncoderImpl colorTypeChannelEncoder;
     private final RelayTypeChannelEncoderImpl relayTypeChannelEncoder;
     private final ThermometerTypeChannelEncoderImpl thermometerTypeChannelEncoder;
+    private final HumidityTypeChannelEncoderImpl humidityTypeChannelEncoder;
     private final StoppableOpenCloseEncoderImpl stoppableOpenCloseEncoder;
     private final ElectricityMeterEncoder electricityMeterEncoder;
     private final HvacChannelEncoderImpl hvacChannelEncoderImpl;
@@ -59,6 +61,11 @@ public class ChannelTypeEncoderImpl {
                 @Override
                 public byte[] onTemperatureValue(final TemperatureValue temperatureValue) {
                     return thermometerTypeChannelEncoder.encode(temperatureValue);
+                }
+
+                @Override
+                public byte[] onHumidityValue(HumidityValue humidityValue) {
+                    return humidityTypeChannelEncoder.encode(humidityValue);
                 }
 
                 @Override

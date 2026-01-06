@@ -8,8 +8,8 @@ import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
-class ElectricityMeterDecoderImplTest {
-    private final ElectricityMeterDecoderImpl decoder = new ElectricityMeterDecoderImpl();
+class ElectricityMeterDecoderTest {
+    private final ElectricityMeterDecoder decoder = new ElectricityMeterDecoder();
     private final ElectricityMeterTestPayloadBuilder builder =
             new ElectricityMeterTestPayloadBuilder();
 

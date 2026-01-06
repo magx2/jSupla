@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 
-class ThermometerTypeDoubleChannelDecoderImplTest {
-    ThermometerTypeDoubleChannelDecoderImpl decoder = new ThermometerTypeDoubleChannelDecoderImpl();
+class ThermometerDoubleTypeDecoderTest {
+    ThermometerDoubleTypeDecoder decoder = new ThermometerDoubleTypeDecoder();
 
     @Test
     void auratonTestCase() {

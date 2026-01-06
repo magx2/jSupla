@@ -24,7 +24,9 @@ class ChannelValueSwitchTest {
         assertDispatch(new RgbValue(1, 2, 3, 4, 5, 6), "rgb");
         assertDispatch(StoppableOpenClose.STOP, "stoppable");
         assertDispatch(new TemperatureValue(21.5), "temperature");
-        assertDispatch(new TemperatureAndHumidityValue(22.0, 55.5), "temperatureAndHumidity");
+        assertDispatch(
+                new TemperatureAndHumidityValue(new BigDecimal("22.0"), new BigDecimal("55.5")),
+                "temperatureAndHumidity");
         assertDispatch(
                 new ElectricityMeterValue(
                         BigInteger.valueOf(1),
@@ -97,6 +99,11 @@ class ChannelValueSwitchTest {
         @Override
         public String onTemperatureValue(TemperatureValue temperatureValue) {
             return record("temperature");
+        }
+
+        @Override
+        public String onHumidityValue(HumidityValue humidityValue) {
+            return record("humidity");
         }
 
         @Override

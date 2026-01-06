@@ -69,6 +69,11 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public String onHumidityValue() {
+            return record("humidity");
+        }
+
+        @Override
         public String onTemperatureAndHumidityValue() {
             return record("temperatureAndHumidity");
         }

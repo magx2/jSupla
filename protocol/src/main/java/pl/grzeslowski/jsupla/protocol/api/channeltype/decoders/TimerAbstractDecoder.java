@@ -5,11 +5,10 @@ import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 import java.time.Duration;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.TimerStateExtendedValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.TimerStateExtendedValue;
 
-abstract class TimerAbstractChannelDecoder implements Decoder<TimerValue> {
+abstract class TimerAbstractDecoder implements ChannelValueDecoder<TimerValue> {
     @Override
     public TimerValue decode(byte[] bytes, int offset) {
         val timer = TimerStateExtendedValueDecoder.INSTANCE.decode(bytes, offset);
@@ -27,4 +26,9 @@ abstract class TimerAbstractChannelDecoder implements Decoder<TimerValue> {
     }
 
     protected abstract Duration findRemaining(TimerStateExtendedValue timer);
+
+    @Override
+    public Class<TimerValue> getChannelValueType() {
+        return TimerValue.class;
+    }
 }

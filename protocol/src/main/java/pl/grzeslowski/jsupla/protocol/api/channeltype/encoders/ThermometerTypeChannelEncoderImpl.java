@@ -20,8 +20,14 @@ public class ThermometerTypeChannelEncoderImpl {
 
     public byte[] encode(final TemperatureAndHumidityValue temperatureAndHumidityValue) {
         final byte[] bytes = new byte[SUPLA_CHANNELVALUE_SIZE];
-        final int temp = temperatureAndHumidityValue.temperature().temperature().multiply(MULTIPLIER).intValue();
-        final int humidity = temperatureAndHumidityValue.humidity().humidity().multiply(MULTIPLIER).intValue();
+        final int temp =
+                temperatureAndHumidityValue
+                        .temperature()
+                        .temperature()
+                        .multiply(MULTIPLIER)
+                        .intValue();
+        final int humidity =
+                temperatureAndHumidityValue.humidity().humidity().multiply(MULTIPLIER).intValue();
         PrimitiveEncoder.INSTANCE.writeInt(temp, bytes, 0);
         PrimitiveEncoder.INSTANCE.writeInt(humidity, bytes, INT_SIZE);
         return bytes;
