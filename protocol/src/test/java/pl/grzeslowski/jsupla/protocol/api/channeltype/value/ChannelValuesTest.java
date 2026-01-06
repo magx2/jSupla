@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -104,23 +105,19 @@ class ChannelValuesTest {
 
     @Test
     void hvacFlagsShouldRoundTripBetweenBitmaskAndBooleans() {
-        int mask =
-                (int) ProtoConsts.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET
-                        | (int) ProtoConsts.SUPLA_HVAC_VALUE_FLAG_COOLING
-                        | (int) ProtoConsts.SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED;
+        var mask =
+                SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET.getValue()
+                        | SUPLA_HVAC_VALUE_FLAG_COOLING.getValue()
+                        | SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED.getValue();
 
-        HvacValue.Flags flags = new HvacValue.Flags(mask);
+        var flags = findByMask(mask);
 
-        assertThat(flags.setPointTempHeatSet()).isTrue();
-        assertThat(flags.cooling()).isTrue();
-        assertThat(flags.fanEnabled()).isTrue();
-        assertThat(flags.toInt()).isEqualTo(mask);
-    }
-
-    @Test
-    void hvacModeShouldBeFoundByMask() {
-        assertThat(HvacValue.Mode.findMode(ProtoConsts.SUPLA_HVAC_MODE_COOL))
-                .contains(HvacValue.Mode.COOL);
+        assertThat(flags)
+                .contains(
+                        SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET,
+                        SUPLA_HVAC_VALUE_FLAG_COOLING,
+                        SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED);
+        assertThat(toMask(flags)).isEqualTo(mask);
     }
 
     @Test
