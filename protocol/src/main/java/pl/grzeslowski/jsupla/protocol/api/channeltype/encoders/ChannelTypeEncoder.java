@@ -65,6 +65,9 @@ public class ChannelTypeEncoder {
             case UnknownValue unknownValue ->
                     throw new UnsupportedOperationException(
                             "ChannelTypeEncoderImpl.encode(UnknownValue)");
+            case ActionTrigger actionTrigger ->
+                    throw new UnsupportedOperationException(
+                            "ChannelTypeEncoderImpl.encode(ActionTrigger)");
         };
     }
 }

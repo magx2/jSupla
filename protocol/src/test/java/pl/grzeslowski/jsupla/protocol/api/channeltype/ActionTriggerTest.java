@@ -2,11 +2,12 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static pl.grzeslowski.jsupla.protocol.api.channeltype.ActionTrigger.Capabilities.*;
+import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.ActionTrigger.Capabilities.*;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ActionTrigger;
 
 class ActionTriggerTest {
     @Test

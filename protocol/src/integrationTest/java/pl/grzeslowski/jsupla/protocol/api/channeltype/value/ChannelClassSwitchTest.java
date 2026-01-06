@@ -106,6 +106,11 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onActionTrigger() {
+            return ActionTrigger.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onUnknownValue() {
             return UnknownValue.class;
         }
