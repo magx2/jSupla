@@ -1,10 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.HEAT;
+import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_HEAT;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
 
 class HvacTypeDecoderTest {
     HvacTypeDecoder decoder = new HvacTypeDecoder();
@@ -19,25 +20,25 @@ class HvacTypeDecoderTest {
 
         // then
         assertThat(decode.on()).isFalse();
-        assertThat(decode.mode()).isEqualTo(HEAT);
+        assertThat(decode.mode()).isEqualTo(SUPLA_HVAC_MODE_HEAT);
         assertThat(decode.setPointTemperatureHeat()).isEqualTo(18.1);
         assertThat(decode.setPointTemperatureCool()).isNull();
 
         val flags = decode.flags();
-        assertThat(flags).isNotNull();
-        assertThat(flags.setPointTempHeatSet()).isTrue();
-        assertThat(flags.setPointTempCoolSet()).isFalse();
-        assertThat(flags.heating()).isFalse();
-        assertThat(flags.cooling()).isFalse();
-        assertThat(flags.weeklySchedule()).isFalse();
-        assertThat(flags.countdownTimer()).isFalse();
-        assertThat(flags.fanEnabled()).isFalse();
-        assertThat(flags.thermometerError()).isFalse();
-        assertThat(flags.clockError()).isFalse();
-        assertThat(flags.forcedOffBySensor()).isFalse();
-        assertThat(flags.cool()).isFalse();
-        assertThat(flags.weeklyScheduleTemporalOverride()).isFalse();
-        assertThat(flags.batteryCoverOpen()).isFalse();
+        assertThat(flags).contains(HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_HEATING);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_COOLING);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_COUNTDOWN_TIMER);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_FAN_ENABLED);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_THERMOMETER_ERROR);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_CLOCK_ERROR);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_FORCED_OFF_BY_SENSOR);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_COOL);
+        assertThat(flags)
+                .doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_WEEKLY_SCHEDULE_TEMPORAL_OVERRIDE);
+        assertThat(flags).doesNotContain(HvacFlag.SUPLA_HVAC_VALUE_FLAG_BATTERY_COVER_OPEN);
     }
 
     @Test

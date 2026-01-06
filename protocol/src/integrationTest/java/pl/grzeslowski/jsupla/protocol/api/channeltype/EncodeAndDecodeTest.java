@@ -4,7 +4,7 @@ import static java.math.RoundingMode.HALF_UP;
 import static java.util.function.Predicate.not;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_HVAC_VALUE_FLAG_ANTIFREEZE_OVERHEAT_ACTIVE;
+import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.*;
 
 import com.google.common.reflect.ClassPath;
 import java.math.BigDecimal;
@@ -17,6 +17,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
+import pl.grzeslowski.jsupla.protocol.api.ChannelType;
+import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
+import pl.grzeslowski.jsupla.protocol.api.HvacMode;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.decoders.ChannelTypeDecoder;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
@@ -54,7 +57,7 @@ class EncodeAndDecodeTest {
         // given
         var value = new ChannelClassSwitch<>(new ClassToObject()).doSwitch(channelValueClass);
         var channelType =
-                Arrays.stream(values())
+                Arrays.stream(ChannelType.values())
                         .parallel()
                         .filter(type -> decoder.findClass(type) == channelValueClass)
                         .findAny()
@@ -164,15 +167,27 @@ class EncodeAndDecodeTest {
 
         @Override
         public ChannelValue onHvacValue() {
-            var flags =
-                    new HvacValue.Flags(
-                            random.nextInt((int) SUPLA_HVAC_VALUE_FLAG_ANTIFREEZE_OVERHEAT_ACTIVE));
+            var flags = randomSet(HvacFlag.values());
             return new HvacValue(
                     random.nextBoolean(),
-                    HvacValue.Mode.values()[random.nextInt(HvacValue.Mode.values().length)],
-                    flags.setPointTempHeatSet() ? randomTemperatureDouble() : null,
-                    flags.setPointTempCoolSet() ? randomTemperatureDouble() : null,
+                    HvacMode.values()[random.nextInt(HvacMode.values().length)],
+                    flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET)
+                            ? randomTemperatureDouble()
+                            : null,
+                    flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET)
+                            ? randomTemperatureDouble()
+                            : null,
                     flags);
+        }
+
+        private Set<HvacFlag> randomSet(HvacFlag[] values) {
+            var set = new HashSet<HvacFlag>();
+            for (HvacFlag value : values) {
+                if (random.nextBoolean()) {
+                    set.add(value);
+                }
+            }
+            return EnumSet.copyOf(set);
         }
 
         @Override

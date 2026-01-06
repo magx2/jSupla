@@ -1,11 +1,15 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_HVAC;
-import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.NOT_SET;
+import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET;
+import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET;
+import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_NOT_SET;
 
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
+import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
+import pl.grzeslowski.jsupla.protocol.api.HvacMode;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
@@ -28,29 +32,29 @@ class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
     }
 
     public HvacValue decode(HVACValue decode) {
-        HvacValue.Flags flags = new HvacValue.Flags(decode.flags());
+        var flags = HvacFlag.findByMask(decode.flags());
         return new HvacValue(
                 decode.isOn() != 0,
-                HvacValue.Mode.findMode(decode.mode())
+                HvacMode.findByValue(decode.mode())
                         .orElseGet(
                                 () -> {
                                     log.warn("Cannot find mode for value={}", decode.mode());
-                                    return NOT_SET;
+                                    return SUPLA_HVAC_MODE_NOT_SET;
                                 }),
                 findHeatSetPoint(decode, flags),
                 findCoolSetPoint(decode, flags),
                 flags);
     }
 
-    private static Double findHeatSetPoint(HVACValue decode, HvacValue.Flags flags) {
-        if (!flags.setPointTempHeatSet()) {
+    private static Double findHeatSetPoint(HVACValue decode, Set<HvacFlag> flags) {
+        if (!flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET)) {
             return null;
         }
         return decode.setpointTemperatureHeat() * 0.01;
     }
 
-    private static Double findCoolSetPoint(HVACValue decode, HvacValue.Flags flags) {
-        if (!flags.setPointTempCoolSet()) {
+    private static Double findCoolSetPoint(HVACValue decode, Set<HvacFlag> flags) {
+        if (!flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET)) {
             return null;
         }
         return decode.setpointTemperatureCool() * 0.01;
