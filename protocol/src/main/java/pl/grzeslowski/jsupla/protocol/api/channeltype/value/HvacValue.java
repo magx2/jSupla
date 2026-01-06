@@ -77,6 +77,8 @@ public record HvacValue(
             boolean cool,
             boolean weeklyScheduleTemporalOverride,
             boolean batteryCoverOpen) {
+
+        // todo generate Flag enum from proto.h
         public Flags(int flags) {
             this(
                     (flags & SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET) != 0,

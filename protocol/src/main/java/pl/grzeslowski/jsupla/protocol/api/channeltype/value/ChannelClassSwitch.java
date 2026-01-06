@@ -23,9 +23,6 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(TemperatureAndHumidityValue.class)) {
             return callback.onTemperatureAndHumidityValue();
         }
-        if (channelClass.isAssignableFrom(TemperatureValue.class)) {
-            return callback.onTemperatureValue();
-        }
         if (channelClass.isAssignableFrom(TemperatureDoubleValue.class)) {
             return callback.onTemperatureDoubleValue();
         }
@@ -59,8 +56,6 @@ public final class ChannelClassSwitch<T> {
         T onPercentValue();
 
         T onRgbValue();
-
-        T onTemperatureValue();
 
         T onTemperatureDoubleValue();
 

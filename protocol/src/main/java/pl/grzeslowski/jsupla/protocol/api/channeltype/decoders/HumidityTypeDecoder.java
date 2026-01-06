@@ -11,10 +11,9 @@ import java.util.Set;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.Preconditions;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HumidityValue;
 
-class HumidityTypeDecoder implements ChannelValueDecoder<ChannelValue> {
+class HumidityTypeDecoder implements ChannelValueDecoder<HumidityValue> {
     private static final int MINIMAL_SIZE = INT_SIZE * 2;
     private static final int PRECISION = 6;
     private static final MathContext DIVIDE_MATH_CONTEXT = new MathContext(PRECISION, HALF_UP);
@@ -26,12 +25,12 @@ class HumidityTypeDecoder implements ChannelValueDecoder<ChannelValue> {
     }
 
     @Override
-    public Class<ChannelValue> getChannelValueType() {
-        return ChannelValue.class;
+    public Class<HumidityValue> getChannelValueType() {
+        return HumidityValue.class;
     }
 
     @Override
-    public ChannelValue decode(final byte[] bytes, final int offset) {
+    public HumidityValue decode(final byte[] bytes, final int offset) {
         Preconditions.sizeMin(bytes, offset + MINIMAL_SIZE);
         // that's not error; humidity is always as second int
         val humidityInt = INSTANCE.parseInt(bytes, offset + INT_SIZE);

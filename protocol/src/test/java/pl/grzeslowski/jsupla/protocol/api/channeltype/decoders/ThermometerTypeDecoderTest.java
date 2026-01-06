@@ -21,8 +21,7 @@ class ThermometerTypeDecoderTest {
         var temperature = decoder.decode(buffer.array());
 
         // then
-        assertThat(temperature.temperature().temperature())
-                .isEqualByComparingTo(new BigDecimal("-5.500"));
+        assertThat(temperature.temperature()).isEqualByComparingTo(new BigDecimal("-5.500"));
         assertThat(temperature.humidity().humidity())
                 .isEqualByComparingTo(new BigDecimal("55.000"));
     }
