@@ -49,7 +49,7 @@ class ChannelValuesTest {
                 new TemperatureAndHumidityValue(new BigDecimal("18.5"), new BigDecimal("61.2"));
 
         assertThat(value.temperature()).isEqualTo(new BigDecimal("18.5"));
-        assertThat(value.humidity().humidity()).isEqualTo(new BigDecimal("61.2"));
+        assertThat(value.humidity()).contains(new HumidityValue(new BigDecimal("61.2")));
     }
 
     @Test
