@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 public sealed interface ChannelValue
         permits ElectricityMeterValue,
+                HeatpolThermostatValue,
                 HumidityValue,
                 HvacValue,
                 OnOffValue,

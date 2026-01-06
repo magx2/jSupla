@@ -2,6 +2,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import lombok.NonNull;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
@@ -17,7 +18,7 @@ import pl.grzeslowski.jsupla.protocol.api.HvacMode;
 public record HvacValue(
         boolean on,
         @NonNull HvacMode mode,
-        Double setPointTemperatureHeat,
-        Double setPointTemperatureCool,
+        BigDecimal setPointTemperatureHeat,
+        BigDecimal setPointTemperatureCool,
         @NonNull Set<HvacFlag> flags)
         implements ChannelValue {}
