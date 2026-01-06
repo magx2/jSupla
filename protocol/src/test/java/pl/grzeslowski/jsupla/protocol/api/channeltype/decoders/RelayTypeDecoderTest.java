@@ -4,19 +4,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOffValue;
 
 class RelayTypeDecoderTest {
     private final RelayTypeDecoder decoder = new RelayTypeDecoder();
 
     @Test
     void shouldDecodeOnValue() {
-        assertThat(decoder.decode(new byte[] {1})).isEqualTo(OnOff.ON);
+        assertThat(decoder.decode(new byte[] {1})).isEqualTo(OnOffValue.ON);
     }
 
     @Test
     void shouldDecodeOffValue() {
-        assertThat(decoder.decode(new byte[] {0})).isEqualTo(OnOff.OFF);
+        assertThat(decoder.decode(new byte[] {0})).isEqualTo(OnOffValue.OFF);
     }
 
     @Test

@@ -9,8 +9,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 
-class ColorTypeChannelEncoderImplTest {
-    private final ColorTypeChannelEncoderImpl encoder = new ColorTypeChannelEncoderImpl();
+class RgbTypeEncoderTest {
+    private final RgbTypeEncoder encoder = new RgbTypeEncoder();
 
     @ParameterizedTest
     @MethodSource("subjects")

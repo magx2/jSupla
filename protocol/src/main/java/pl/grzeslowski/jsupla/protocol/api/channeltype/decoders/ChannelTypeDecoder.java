@@ -22,7 +22,7 @@ public final class ChannelTypeDecoder {
     private ChannelTypeDecoder() {
         this(
                 Set.of(
-                        new ColorTypeDecoder(),
+                        new RgbTypeDecoder(),
                         new RelayTypeDecoder(),
                         new ThermometerTypeDecoder(),
                         new ThermometerDoubleTypeDecoder(),
@@ -32,8 +32,7 @@ public final class ChannelTypeDecoder {
                         new TimerSecDecoder(),
                         new TimerMsecDecoder(),
                         new PercentageTypeDecoder(),
-                        new HumidityTypeDecoder(),
-                        new ActionTriggerDecoder()));
+                        new HumidityTypeDecoder()));
     }
 
     public ChannelValue decode(int type, byte[] value) {

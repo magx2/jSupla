@@ -7,14 +7,14 @@ import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTA
 import java.util.Set;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureDoubleValue;
 
-class ThermometerDoubleTypeDecoder implements ChannelValueDecoder<TemperatureValue> {
+class ThermometerDoubleTypeDecoder implements ChannelValueDecoder<TemperatureDoubleValue> {
 
     @Override
-    public TemperatureValue decode(final byte[] bytes, final int offset) {
+    public TemperatureDoubleValue decode(final byte[] bytes, final int offset) {
         val temperature = INSTANCE.parseDouble(bytes, offset);
-        return new TemperatureValue(temperature);
+        return new TemperatureDoubleValue(temperature);
     }
 
     @SuppressWarnings("deprecation")
@@ -24,7 +24,7 @@ class ThermometerDoubleTypeDecoder implements ChannelValueDecoder<TemperatureVal
     }
 
     @Override
-    public Class<TemperatureValue> getChannelValueType() {
-        return TemperatureValue.class;
+    public Class<TemperatureDoubleValue> getChannelValueType() {
+        return TemperatureDoubleValue.class;
     }
 }

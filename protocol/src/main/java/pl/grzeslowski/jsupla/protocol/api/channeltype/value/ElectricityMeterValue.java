@@ -1,11 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
-import lombok.NonNull;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
+import lombok.NonNull;
 
 /**
  * @param totalForwardActiveEnergyBalanced kWh Vector phase-to-phase balancing
@@ -18,14 +17,14 @@ import java.util.List;
  * @param phases
  */
 public record ElectricityMeterValue(
-      @NonNull   BigInteger totalForwardActiveEnergyBalanced,
-      @NonNull   BigInteger totalReverseActiveEnergyBalanced,
-      @NonNull   BigDecimal totalCost,
-      @NonNull   BigDecimal pricePerUnit,
-      @NonNull   Currency currency,
+        @NonNull BigInteger totalForwardActiveEnergyBalanced,
+        @NonNull BigInteger totalReverseActiveEnergyBalanced,
+        @NonNull BigDecimal totalCost,
+        @NonNull BigDecimal pricePerUnit,
+        @NonNull Currency currency,
         int measuredValues,
         int period,
-      @NonNull List<Phase> phases)
+        @NonNull List<Phase> phases)
         implements ChannelValue {
 
     /**

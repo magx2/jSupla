@@ -11,14 +11,8 @@ public final class ChannelClassSwitch<T> {
     }
 
     public T doSwitch(Class<? extends ChannelValue> channelClass) {
-        if (channelClass.isAssignableFrom(DecimalValue.class)) {
-            return callback.onDecimalValue();
-        }
-        if (channelClass.isAssignableFrom(OnOff.class)) {
+        if (channelClass.isAssignableFrom(OnOffValue.class)) {
             return callback.onOnOff();
-        }
-        if (channelClass.isAssignableFrom(OpenClose.class)) {
-            return callback.onOpenClose();
         }
         if (channelClass.isAssignableFrom(PercentValue.class)) {
             return callback.onPercentValue();
@@ -26,14 +20,14 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(RgbValue.class)) {
             return callback.onRgbValue();
         }
-        if (channelClass.isAssignableFrom(StoppableOpenClose.class)) {
-            return callback.onStoppableOpenClose();
-        }
         if (channelClass.isAssignableFrom(TemperatureAndHumidityValue.class)) {
             return callback.onTemperatureAndHumidityValue();
         }
         if (channelClass.isAssignableFrom(TemperatureValue.class)) {
             return callback.onTemperatureValue();
+        }
+        if (channelClass.isAssignableFrom(TemperatureDoubleValue.class)) {
+            return callback.onTemperatureDoubleValue();
         }
         if (channelClass.isAssignableFrom(HumidityValue.class)) {
             return callback.onHumidityValue();
@@ -46,9 +40,6 @@ public final class ChannelClassSwitch<T> {
         }
         if (channelClass.isAssignableFrom(TimerValue.class)) {
             return callback.onTimerValue();
-        }
-        if (channelClass.isAssignableFrom(ActionTrigger.class)) {
-            return callback.onActionTrigger();
         }
         if (channelClass.isAssignableFrom(UnknownValue.class)) {
             return callback.onUnknownValue();
@@ -63,19 +54,15 @@ public final class ChannelClassSwitch<T> {
 
     @SuppressWarnings("UnusedReturnValue")
     public interface Callback<T> {
-        T onDecimalValue();
-
         T onOnOff();
-
-        T onOpenClose();
 
         T onPercentValue();
 
         T onRgbValue();
 
-        T onStoppableOpenClose();
-
         T onTemperatureValue();
+
+        T onTemperatureDoubleValue();
 
         T onHumidityValue();
 
@@ -86,8 +73,6 @@ public final class ChannelClassSwitch<T> {
         T onHvacValue();
 
         T onTimerValue();
-
-        T onActionTrigger();
 
         T onUnknownValue();
     }

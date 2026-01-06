@@ -13,11 +13,6 @@ import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
 class ChannelValuesTest {
     @Test
-    void decimalValueShouldExposeBigDecimal() {
-        assertThat(new DecimalValue("3.14").value()).isEqualTo(new BigDecimal("3.14"));
-    }
-
-    @Test
     void percentValueShouldValidateRange() {
         assertThat(new PercentValue(25).value()).isEqualTo(25);
         assertThatThrownBy(() -> new PercentValue(101))
@@ -77,15 +72,6 @@ class ChannelValuesTest {
     void unknownValueConstantShouldBeEmpty() {
         assertThat(UnknownValue.UNKNOWN_VALUE.bytes()).isEmpty();
         assertThat(UnknownValue.UNKNOWN_VALUE.message()).isEqualTo("UNKNOWN_VALUE");
-    }
-
-    @Test
-    void onOffOpenCloseAndStoppableEnumsShouldListAllStates() {
-        assertThat(OnOff.values()).containsExactly(OnOff.ON, OnOff.OFF);
-        assertThat(OpenClose.values()).containsExactly(OpenClose.OPEN, OpenClose.CLOSE);
-        assertThat(StoppableOpenClose.values())
-                .containsExactly(
-                        StoppableOpenClose.OPEN, StoppableOpenClose.CLOSE, StoppableOpenClose.STOP);
     }
 
     @Test

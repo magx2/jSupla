@@ -5,19 +5,18 @@ import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.DOUBLE_SIZE;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureDoubleValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 
-class ThermometerTypeDoubleChannelEncoderImplTest {
-    private final ThermometerTypeDoubleChannelEncoderImpl encoder =
-            new ThermometerTypeDoubleChannelEncoderImpl();
+class ThermometerDoubleTypeEncoderTest {
+    private final ThermometerDoubleTypeEncoder encoder = new ThermometerDoubleTypeEncoder();
 
     @Test
     void shouldEncodeTemperature() {
         // given
         final double expectedTemperature = 23.45;
-        final TemperatureValue value =
-                new TemperatureValue(BigDecimal.valueOf(expectedTemperature));
+        final TemperatureDoubleValue value =
+                new TemperatureDoubleValue(BigDecimal.valueOf(expectedTemperature));
 
         // when
         byte[] bytes = encoder.encode(value);

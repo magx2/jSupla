@@ -10,18 +10,14 @@ class ChannelClassSwitchTest {
 
     @Test
     void shouldDispatchAllSupportedClasses() {
-        assertDispatch(DecimalValue.class, "decimal");
-        assertDispatch(OnOff.class, "onOff");
-        assertDispatch(OpenClose.class, "openClose");
+        assertDispatch(OnOffValue.class, "onOff");
         assertDispatch(PercentValue.class, "percent");
         assertDispatch(RgbValue.class, "rgb");
-        assertDispatch(StoppableOpenClose.class, "stoppable");
         assertDispatch(TemperatureAndHumidityValue.class, "temperatureAndHumidity");
         assertDispatch(TemperatureValue.class, "temperature");
         assertDispatch(ElectricityMeterValue.class, "electricity");
         assertDispatch(HvacValue.class, "hvac");
         assertDispatch(TimerValue.class, "timer");
-        assertDispatch(ActionTrigger.class, "actionTrigger");
         assertDispatch(UnknownValue.class, "unknown");
     }
 
@@ -34,18 +30,8 @@ class ChannelClassSwitchTest {
         private String lastMethod;
 
         @Override
-        public String onDecimalValue() {
-            return record("decimal");
-        }
-
-        @Override
         public String onOnOff() {
             return record("onOff");
-        }
-
-        @Override
-        public String onOpenClose() {
-            return record("openClose");
         }
 
         @Override
@@ -59,13 +45,13 @@ class ChannelClassSwitchTest {
         }
 
         @Override
-        public String onStoppableOpenClose() {
-            return record("stoppable");
+        public String onTemperatureValue() {
+            return record("temperature");
         }
 
         @Override
-        public String onTemperatureValue() {
-            return record("temperature");
+        public String onTemperatureDoubleValue() {
+            return "temperatureDouble";
         }
 
         @Override
@@ -91,11 +77,6 @@ class ChannelClassSwitchTest {
         @Override
         public String onTimerValue() {
             return record("timer");
-        }
-
-        @Override
-        public String onActionTrigger() {
-            return record("actionTrigger");
         }
 
         @Override

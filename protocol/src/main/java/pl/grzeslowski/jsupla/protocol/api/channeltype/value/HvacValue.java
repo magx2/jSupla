@@ -20,7 +20,7 @@ public record HvacValue(
         @NonNull Mode mode,
         Double setPointTemperatureHeat,
         Double setPointTemperatureCool,
-        @NonNull  Flags flags)
+        @NonNull Flags flags)
         implements ChannelValue {
 
     @Getter
