@@ -1,13 +1,32 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
+import java.util.Set;
+import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 
-class RelayTypeChannelDecoderImpl implements Decoder<OnOff> {
+class RelayTypeDecoder implements ChannelValueDecoder<OnOff> {
+    @SuppressWarnings("deprecation")
+    @Override
+    public Set<ChannelType> supportedChannelValueTypes() {
+        return Set.of(
+                SUPLA_CHANNELTYPE_SENSORNO,
+                SUPLA_CHANNELTYPE_SENSORNC,
+                SUPLA_CHANNELTYPE_RELAYHFD4,
+                SUPLA_CHANNELTYPE_RELAYG5LA1A,
+                SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
+                SUPLA_CHANNELTYPE_RELAY);
+    }
+
+    @Override
+    public Class<OnOff> getChannelValueType() {
+        return OnOff.class;
+    }
+
     @Override
     public OnOff decode(final byte[] bytes, final int offset) {
         Preconditions.sizeMin(bytes, offset);

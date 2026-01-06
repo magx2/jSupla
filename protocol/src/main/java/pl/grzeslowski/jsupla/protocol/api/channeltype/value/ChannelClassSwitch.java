@@ -76,7 +76,7 @@ public final class ChannelClassSwitch<T> {
         T onStoppableOpenClose();
 
         T onTemperatureValue();
-        
+
         T onHumidityValue();
 
         T onTemperatureAndHumidityValue();

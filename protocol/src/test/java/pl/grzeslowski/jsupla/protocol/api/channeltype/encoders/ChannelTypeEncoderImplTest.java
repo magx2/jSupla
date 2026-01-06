@@ -9,20 +9,14 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.DecimalValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.PercentValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.StoppableOpenClose;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
 class ChannelTypeEncoderImplTest {
     private final RecordingColorEncoder colorEncoder = new RecordingColorEncoder();
     private final RecordingRelayEncoder relayEncoder = new RecordingRelayEncoder();
     private final RecordingThermometerEncoder thermometerEncoder =
             new RecordingThermometerEncoder();
+    private final RecordingHumidityEncoder humidityEncoder = new RecordingHumidityEncoder();
     private final RecordingStoppableEncoder stoppableEncoder = new RecordingStoppableEncoder();
     private final RecordingElectricityEncoder electricityMeterEncoder =
             new RecordingElectricityEncoder();
@@ -35,6 +29,7 @@ class ChannelTypeEncoderImplTest {
                     colorEncoder,
                     relayEncoder,
                     thermometerEncoder,
+                    humidityEncoder,
                     stoppableEncoder,
                     electricityMeterEncoder,
                     hvacEncoder,
@@ -148,6 +143,17 @@ class ChannelTypeEncoderImplTest {
         @Override
         public byte[] encode(TemperatureValue temperatureValue) {
             this.temperature = temperatureValue;
+            return RESPONSE;
+        }
+    }
+
+    private static class RecordingHumidityEncoder extends HumidityTypeChannelEncoderImpl {
+        static final byte[] RESPONSE = new byte[] {3};
+        HumidityValue humidityValue;
+
+        @Override
+        public byte[] encode(HumidityValue humidityValue) {
+            this.humidityValue = humidityValue;
             return RESPONSE;
         }
     }

@@ -45,7 +45,7 @@ public final class ChannelValueSwitch<T> {
         T onStoppableOpenClose(StoppableOpenClose stoppableOpenClose);
 
         T onTemperatureValue(TemperatureValue temperatureValue);
-        
+
         T onHumidityValue(HumidityValue humidityValue);
 
         T onTemperatureAndHumidityValue(TemperatureAndHumidityValue temperatureAndHumidityValue);

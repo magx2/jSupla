@@ -6,8 +6,8 @@ import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mod
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-class HVACValueDecoderImplTest {
-    HVACValueDecoderImpl decoder = HVACValueDecoderImpl.INSTANCE;
+class HvacTypeDecoderTest {
+    HvacTypeDecoder decoder = new HvacTypeDecoder();
 
     @Test
     void auratonTestCase() {

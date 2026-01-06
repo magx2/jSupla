@@ -9,9 +9,9 @@ import java.util.Currency;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
-class ElectricityMeterV2DecoderImplTest {
+class ElectricityMeterV2DecoderTest {
     private static final double EPSILON = 0.000001;
-    private final ElectricityMeterV2DecoderImpl decoder = new ElectricityMeterV2DecoderImpl();
+    private final ElectricityMeterV2Decoder decoder = new ElectricityMeterV2Decoder();
     private final ElectricityMeterTestPayloadBuilder builder =
             new ElectricityMeterTestPayloadBuilder();
 

@@ -2,25 +2,37 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static java.math.MathContext.UNLIMITED;
 import static java.util.stream.Collectors.toList;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2;
 import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ElectricityMeterExtendedValueV2Decoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValueV2;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterMeasurement;
 
 @Slf4j
-public class ElectricityMeterV2DecoderImpl implements Decoder<ElectricityMeterValue> {
+class ElectricityMeterV2Decoder implements ChannelValueDecoder<ElectricityMeterValue> {
     public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
     public static final BigDecimal ONE_THOUSAND = new BigDecimal(1_000);
     public static final int NUMBER_OF_PHASES = 3;
+
+    @Override
+    public Set<ChannelType> supportedChannelValueTypes() {
+        return Set.of(EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2);
+    }
+
+    @Override
+    public Class<ElectricityMeterValue> getChannelValueType() {
+        return ElectricityMeterValue.class;
+    }
 
     @Override
     public ElectricityMeterValue decode(byte[] bytes, int offset) {

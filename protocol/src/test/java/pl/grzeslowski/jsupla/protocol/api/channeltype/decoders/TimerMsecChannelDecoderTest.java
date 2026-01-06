@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 
 class TimerMsecChannelDecoderTest {
-    private final TimerMsecChannelDecoder decoder = new TimerMsecChannelDecoder();
+    private final TimerMsecDecoder decoder = new TimerMsecDecoder();
 
     @Test
     void shouldInterpretRemainingTimeInMilliseconds() {

@@ -5,8 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 
-class ColorTypeChannelDecoderImplTest {
-    private final ColorTypeChannelDecoderImpl decoder = new ColorTypeChannelDecoderImpl();
+class ColorTypeDecoderTest {
+    private final ColorTypeDecoder decoder = new ColorTypeDecoder();
 
     @Test
     void shouldDecodeAllComponents() {

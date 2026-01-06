@@ -6,8 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
 
-class RelayTypeChannelDecoderImplTest {
-    private final RelayTypeChannelDecoderImpl decoder = new RelayTypeChannelDecoderImpl();
+class RelayTypeDecoderTest {
+    private final RelayTypeDecoder decoder = new RelayTypeDecoder();
 
     @Test
     void shouldDecodeOnValue() {

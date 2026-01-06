@@ -1,18 +1,26 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_HVAC;
 import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue.Mode.NOT_SET;
 
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
+import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
-import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
 @Slf4j
-public class HVACValueDecoderImpl implements Decoder<HvacValue> {
-    public static final HVACValueDecoderImpl INSTANCE = new HVACValueDecoderImpl();
+class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
+    @Override
+    public Set<ChannelType> supportedChannelValueTypes() {
+        return Set.of(SUPLA_CHANNELTYPE_HVAC);
+    }
 
-    private HVACValueDecoderImpl() {}
+    @Override
+    public Class<HvacValue> getChannelValueType() {
+        return HvacValue.class;
+    }
 
     @Override
     public HvacValue decode(byte[] bytes, int offset) {

@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
@@ -14,7 +16,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.UnknownValue;
 
 class ChannelTypeDecoderTest {
-    private final ChannelTypeDecoder decoder = ChannelTypeDecoder.INSTANCE;
+    private static final ChannelTypeDecoder decoder = ChannelTypeDecoder.INSTANCE;
 
     @Test
     void shouldDecodeRelayType() {
