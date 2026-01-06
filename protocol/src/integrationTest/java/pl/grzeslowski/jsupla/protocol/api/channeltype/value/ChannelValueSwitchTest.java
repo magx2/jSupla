@@ -4,6 +4,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static pl.grzeslowski.jsupla.protocol.api.channeltype.value.ActionTrigger.Capabilities.*;
 
 import com.google.common.reflect.ClassPath;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.util.Set;
@@ -78,6 +80,11 @@ class ChannelValueSwitchTest {
         }
 
         @Override
+        public ChannelValue onHumidityValue(HumidityValue humidityValue) {
+            return humidityValue;
+        }
+
+        @Override
         public ChannelValue onTemperatureAndHumidityValue(
                 TemperatureAndHumidityValue temperatureAndHumidityValue) {
             return temperatureAndHumidityValue;
@@ -148,8 +155,13 @@ class ChannelValueSwitchTest {
                     }
 
                     @Override
+                    public ChannelValue onHumidityValue() {
+                        return new HumidityValue(1);
+                    }
+
+                    @Override
                     public ChannelValue onTemperatureAndHumidityValue() {
-                        return new TemperatureAndHumidityValue(1, 2);
+                        return new TemperatureAndHumidityValue(BigDecimal.valueOf(1),BigDecimal.valueOf(2));
                     }
 
                     @Override

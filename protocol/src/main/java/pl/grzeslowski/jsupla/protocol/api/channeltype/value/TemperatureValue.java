@@ -1,11 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.NonNull;
+
 import java.math.BigDecimal;
 
 /**
  * @param temperature
  */
-public record TemperatureValue(BigDecimal temperature) implements ChannelValue {
+public record TemperatureValue(@NonNull BigDecimal temperature) implements ChannelValue {
     public TemperatureValue(final int value) {
         this(BigDecimal.valueOf(value));
     }

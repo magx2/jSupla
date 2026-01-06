@@ -1,8 +1,10 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.NonNull;
+
 import java.math.BigDecimal;
 
-public record HumidityValue(BigDecimal humidity) implements ChannelValue {
+public record HumidityValue(@NonNull BigDecimal humidity) implements ChannelValue {
     public HumidityValue(final int humidity) {
         this(BigDecimal.valueOf(humidity));
     }
