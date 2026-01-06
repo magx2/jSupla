@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.INT_SIZE;
 
 import java.math.BigDecimal;
 import lombok.NonNull;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HumidityValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureAndHumidityValue;
 import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
@@ -15,8 +16,11 @@ public class ThermometerTypeEncoder implements ChannelValueEncoder<TemperatureAn
         var temp = encodeDouble(value.temperature());
         PrimitiveEncoder.INSTANCE.writeInt(temp, bytes, 0);
 
-        var humidity = encodeDouble(value.humidity().humidity());
-        PrimitiveEncoder.INSTANCE.writeInt(humidity, bytes, INT_SIZE);
+        value.humidity()
+                .map(HumidityValue::humidity)
+                .map(ThermometerTypeEncoder::encodeDouble)
+                .ifPresent(
+                        humidity -> PrimitiveEncoder.INSTANCE.writeInt(humidity, bytes, INT_SIZE));
     }
 
     private static int encodeDouble(@NonNull BigDecimal value) {

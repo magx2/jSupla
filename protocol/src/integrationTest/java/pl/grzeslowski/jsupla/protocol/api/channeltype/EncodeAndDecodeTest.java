@@ -134,7 +134,8 @@ class EncodeAndDecodeTest {
         @Override
         public ChannelValue onTemperatureAndHumidityValue() {
             return new TemperatureAndHumidityValue(
-                    BigDecimal.valueOf(randomTemperature()), (HumidityValue) onHumidityValue());
+                    BigDecimal.valueOf(randomTemperature()),
+                    Optional.of((HumidityValue) onHumidityValue()));
         }
 
         @Override

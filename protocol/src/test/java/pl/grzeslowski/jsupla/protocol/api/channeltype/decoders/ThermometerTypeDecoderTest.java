@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HumidityValue;
 
 class ThermometerTypeDecoderTest {
     private final ThermometerTypeDecoder decoder = new ThermometerTypeDecoder();
@@ -22,7 +23,6 @@ class ThermometerTypeDecoderTest {
 
         // then
         assertThat(temperature.temperature()).isEqualByComparingTo(new BigDecimal("-5.500"));
-        assertThat(temperature.humidity().humidity())
-                .isEqualByComparingTo(new BigDecimal("55.000"));
+        assertThat(temperature.humidity()).contains(new HumidityValue(new BigDecimal("55")));
     }
 }
