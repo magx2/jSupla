@@ -4,9 +4,11 @@ import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import lombok.NonNull;
 import lombok.val;
 
 public final class Preconditions {
@@ -36,6 +38,14 @@ public final class Preconditions {
     }
 
     public static BigInteger min(BigInteger value, BigInteger min) {
+        if (value.compareTo(min) < 0) {
+            throw new IllegalArgumentException(
+                    format("Given value %s is smaller than minimal value %s!", value, min));
+        }
+        return value;
+    }
+
+    private static BigDecimal min(@NonNull BigDecimal value, BigDecimal min) {
         if (value.compareTo(min) < 0) {
             throw new IllegalArgumentException(
                     format("Given value %s is smaller than minimal value %s!", value, min));
@@ -91,6 +101,14 @@ public final class Preconditions {
         return value;
     }
 
+    private static BigDecimal max(BigDecimal value, BigDecimal max) {
+        if (value.compareTo(max) > 0) {
+            throw new IllegalArgumentException(
+                    format("Given value %s is bigger than maximal value %s!", value, max));
+        }
+        return value;
+    }
+
     public static short size(short value, short min, short max) {
         return max(min(value, min), max);
     }
@@ -100,6 +118,10 @@ public final class Preconditions {
     }
 
     public static long size(long value, long min, long max) {
+        return max(min(value, min), max);
+    }
+
+    public static BigDecimal size(@NonNull BigDecimal value, BigDecimal min, BigDecimal max) {
         return max(min(value, min), max);
     }
 
