@@ -7,8 +7,8 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HvacValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
-class HvacChannelEncoderImplTest {
-    private final HvacChannelEncoderImpl encoder = new HvacChannelEncoderImpl();
+class HvacTypeEncoderTest {
+    private final HvacTypeEncoder encoder = new HvacTypeEncoder();
 
     @Test
     void shouldEncodeFullPayload() {

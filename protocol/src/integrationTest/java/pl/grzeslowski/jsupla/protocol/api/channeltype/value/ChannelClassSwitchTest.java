@@ -24,85 +24,70 @@ class ChannelClassSwitchTest {
     @MethodSource("data")
     void shouldDoClassSwitch(Class<? extends ChannelValue> clazz) {
         // given
-        ChannelClassSwitch.Callback<String> callback = new Callback();
-        ChannelClassSwitch<String> channelClassSwitch = new ChannelClassSwitch<>(callback);
+        var callback = new Callback();
+        var channelClassSwitch = new ChannelClassSwitch<>(callback);
 
         // when
-        String result = channelClassSwitch.doSwitch(clazz);
+        var result = channelClassSwitch.doSwitch(clazz);
 
         // then
-        assertThat(result).isEqualTo(clazz.getSimpleName());
+        assertThat(result).isEqualTo(clazz);
     }
 
-    static class Callback implements ChannelClassSwitch.Callback<String> {
+    static class Callback implements ChannelClassSwitch.Callback<Class<? extends ChannelValue>> {
         @Override
-        public String onDecimalValue() {
-            return "DecimalValue";
+        public Class<? extends ChannelValue> onOnOff() {
+            return OnOffValue.class;
         }
 
         @Override
-        public String onOnOff() {
-            return "OnOff";
+        public Class<? extends ChannelValue> onPercentValue() {
+            return PercentValue.class;
         }
 
         @Override
-        public String onOpenClose() {
-            return "OpenClose";
+        public Class<? extends ChannelValue> onRgbValue() {
+            return RgbValue.class;
         }
 
         @Override
-        public String onPercentValue() {
-            return "PercentValue";
+        public Class<? extends ChannelValue> onTemperatureValue() {
+            return TemperatureValue.class;
         }
 
         @Override
-        public String onRgbValue() {
-            return "RgbValue";
+        public Class<? extends ChannelValue> onTemperatureDoubleValue() {
+            return TemperatureDoubleValue.class;
         }
 
         @Override
-        public String onStoppableOpenClose() {
-            return "StoppableOpenClose";
+        public Class<? extends ChannelValue> onHumidityValue() {
+            return HumidityValue.class;
         }
 
         @Override
-        public String onTemperatureValue() {
-            return "TemperatureValue";
+        public Class<? extends ChannelValue> onTemperatureAndHumidityValue() {
+            return TemperatureAndHumidityValue.class;
         }
 
         @Override
-        public String onHumidityValue() {
-            return "HumidityValue";
+        public Class<? extends ChannelValue> onElectricityMeter() {
+            return ElectricityMeterValue.class;
         }
 
         @Override
-        public String onTemperatureAndHumidityValue() {
-            return "TemperatureAndHumidityValue";
+        public Class<? extends ChannelValue> onHvacValue() {
+            return HvacValue.class;
         }
 
         @Override
-        public String onElectricityMeter() {
-            return "ElectricityMeterValue";
+        public Class<? extends ChannelValue> onTimerValue() {
+            return TimerValue.class;
         }
 
         @Override
-        public String onHvacValue() {
-            return "HvacValue";
-        }
-
-        @Override
-        public String onTimerValue() {
-            return "TimerValue";
-        }
-
-        @Override
-        public String onActionTrigger() {
-            return "ActionTrigger";
-        }
-
-        @Override
-        public String onUnknownValue() {
-            return "UnknownValue";
+        public Class<? extends ChannelValue> onUnknownValue() {
+            return UnknownValue.class;
         }
     }
 }

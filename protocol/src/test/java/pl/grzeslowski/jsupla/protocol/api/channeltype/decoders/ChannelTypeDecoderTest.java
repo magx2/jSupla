@@ -5,15 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ChannelValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.OnOff;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.UnknownValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
 class ChannelTypeDecoderTest {
     private static final ChannelTypeDecoder decoder = ChannelTypeDecoder.INSTANCE;
@@ -27,7 +21,7 @@ class ChannelTypeDecoderTest {
         ChannelValue value = decoder.decode(ChannelType.SUPLA_CHANNELTYPE_RELAY, payload);
 
         // then
-        assertThat(value).isEqualTo(OnOff.ON);
+        assertThat(value).isEqualTo(OnOffValue.ON);
     }
 
     @Test
@@ -40,8 +34,8 @@ class ChannelTypeDecoderTest {
         ChannelValue value = decoder.decode(ChannelType.SUPLA_CHANNELTYPE_THERMOMETER, payload);
 
         // then
-        assertThat(value).isInstanceOf(TemperatureValue.class);
-        TemperatureValue temperatureValue = (TemperatureValue) value;
+        assertThat(value).isInstanceOf(TemperatureDoubleValue.class);
+        TemperatureDoubleValue temperatureValue = (TemperatureDoubleValue) value;
         assertThat(temperatureValue.temperature()).isEqualTo(BigDecimal.valueOf(-12.5));
     }
 

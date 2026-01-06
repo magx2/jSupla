@@ -1,8 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
-import lombok.NonNull;
-
 import java.math.BigDecimal;
+import lombok.NonNull;
 
 /**
  * @param temperature

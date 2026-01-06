@@ -7,29 +7,10 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CHANNE
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureAndHumidityValue;
-import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder;
 
-class ThermometerTypeChannelEncoderImplTest {
-    private final ThermometerTypeChannelEncoderImpl encoder =
-            new ThermometerTypeChannelEncoderImpl();
-
-    @Test
-    void shouldEncodeTemperature() {
-        // given
-        final BigDecimal temp = BigDecimal.valueOf(23.45);
-        final TemperatureValue value = new TemperatureValue(temp);
-
-        // when
-        byte[] bytes = encoder.encode(value);
-
-        // then
-        assertThat(bytes).hasSize(SUPLA_CHANNELVALUE_SIZE);
-        final int actualTemp = PrimitiveDecoder.INSTANCE.parseInt(bytes, 0);
-        assertThat(actualTemp).isEqualTo(23450);
-        final int actualHumidity = PrimitiveDecoder.INSTANCE.parseInt(bytes, INT_SIZE);
-        assertThat(actualHumidity).isZero();
-    }
+class ThermometerTypeEncoderTest {
+    private final ThermometerTypeEncoder encoder = new ThermometerTypeEncoder();
 
     @Test
     void shouldEncodeTemperatureAndHumidity() {

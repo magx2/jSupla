@@ -12,7 +12,7 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue.Subject;
 import pl.grzeslowski.jsupla.protocol.api.decoders.RGBWValueDecoder;
 
 @Slf4j
-class ColorTypeDecoder implements ChannelValueDecoder<RgbValue> {
+class RgbTypeDecoder implements ChannelValueDecoder<RgbValue> {
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(
