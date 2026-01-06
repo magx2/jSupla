@@ -202,6 +202,26 @@ class EncodeAndDecodeTest {
         }
 
         @Override
+        public ChannelValue onPressureValue() {
+            return new PressureValue(BigDecimal.valueOf(random.nextDouble() * 100));
+        }
+
+        @Override
+        public ChannelValue onRainValue() {
+            return new RainValue(BigDecimal.valueOf(random.nextDouble() * 100));
+        }
+
+        @Override
+        public ChannelValue onWeightValue() {
+            return new WeightValue(BigDecimal.valueOf(random.nextDouble() * 100));
+        }
+
+        @Override
+        public ChannelValue onWindValue() {
+            return new WindValue(BigDecimal.valueOf(random.nextDouble() * 100));
+        }
+
+        @Override
         public ChannelValue onUnknownValue() {
             byte[] bytes = new byte[8];
             random.nextBytes(bytes);

@@ -16,6 +16,10 @@ public class ChannelTypeEncoder {
     private final PercentTypeEncoder percentTypeEncoder;
     private final ThermometerDoubleTypeEncoder thermometerDoubleTypeEncoder;
     private final ThermometerTypeEncoder thermometerTypeEncoder;
+    private final PressureTypeEncoder pressureTypeEncoder;
+    private final RainTypeEncoder rainTypeEncoder;
+    private final WeightTypeEncoder weightTypeEncoder;
+    private final WindTypeEncoder windTypeEncoder;
 
     private ChannelTypeEncoder() {
         this(
@@ -25,7 +29,11 @@ public class ChannelTypeEncoder {
                 new OnOffTypeEncoder(),
                 new PercentTypeEncoder(),
                 new ThermometerDoubleTypeEncoder(),
-                new ThermometerTypeEncoder());
+                new ThermometerTypeEncoder(),
+                new PressureTypeEncoder(),
+                new RainTypeEncoder(),
+                new WeightTypeEncoder(),
+                new WindTypeEncoder());
     }
 
     public byte[] encode(final ChannelValue channelValue) {
@@ -39,6 +47,10 @@ public class ChannelTypeEncoder {
                     thermometerTypeEncoder.encode(temperatureAndHumidityValue);
             case TemperatureDoubleValue temperatureDoubleValue ->
                     thermometerDoubleTypeEncoder.encode(temperatureDoubleValue);
+            case PressureValue pressureValue -> pressureTypeEncoder.encode(pressureValue);
+            case RainValue rainValue -> rainTypeEncoder.encode(rainValue);
+            case WeightValue weightValue -> weightTypeEncoder.encode(weightValue);
+            case WindValue windValue -> windTypeEncoder.encode(windValue);
             // unsupported types
             case ElectricityMeterValue electricityMeterValue ->
                     throw new UnsupportedOperationException(

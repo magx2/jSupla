@@ -38,6 +38,18 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(TimerValue.class)) {
             return callback.onTimerValue();
         }
+        if (channelClass.isAssignableFrom(PressureValue.class)) {
+            return callback.onPressureValue();
+        }
+        if (channelClass.isAssignableFrom(RainValue.class)) {
+            return callback.onRainValue();
+        }
+        if (channelClass.isAssignableFrom(WeightValue.class)) {
+            return callback.onWeightValue();
+        }
+        if (channelClass.isAssignableFrom(WindValue.class)) {
+            return callback.onWindValue();
+        }
         if (channelClass.isAssignableFrom(UnknownValue.class)) {
             return callback.onUnknownValue();
         }
@@ -68,6 +80,14 @@ public final class ChannelClassSwitch<T> {
         T onHvacValue();
 
         T onTimerValue();
+
+        T onPressureValue();
+
+        T onRainValue();
+
+        T onWeightValue();
+
+        T onWindValue();
 
         T onUnknownValue();
     }
