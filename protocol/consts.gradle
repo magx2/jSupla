@@ -134,6 +134,9 @@ def consts = [
 		name  : "FirmwareUpdatePolicy",
 		prefix: "SUPLA_FIRMWARE_UPDATE_POLICY_"] as Const,
 	[
+		name  : "StatusLed",
+		prefix: "SUPLA_DEVCFG_STATUS_LED_"] as Const,
+	[
 		name         : "DeviceConfigField",
 		prefix       : "SUPLA_DEVICE_CONFIG_FIELD_",
 		options      : [valueType: "long"],
