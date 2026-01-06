@@ -6,6 +6,7 @@ import static lombok.AccessLevel.PRIVATE;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -97,8 +98,12 @@ public final class ChannelTypeDecoder {
     }
 
     private Optional<ChannelValueDecoder<?>> findChannelTypeDecoder(ChannelType channelType) {
+        return streamOfDecoders(channelType).findAny();
+    }
+
+    /**VisibleForTesting*/
+    Stream<ChannelValueDecoder<?>> streamOfDecoders(ChannelType channelType) {
         return decoders.stream()
-                .filter(decoder -> decoder.supportedChannelValueTypes().contains(channelType))
-                .findAny();
+                .filter(decoder -> decoder.supportedChannelValueTypes().contains(channelType));
     }
 }
