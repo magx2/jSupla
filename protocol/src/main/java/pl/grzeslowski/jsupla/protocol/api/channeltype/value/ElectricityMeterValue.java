@@ -21,7 +21,7 @@ public record ElectricityMeterValue(
         @NonNull BigInteger totalReverseActiveEnergyBalanced,
         @NonNull BigDecimal totalCost,
         @NonNull BigDecimal pricePerUnit,
-        @NonNull Currency currency,
+        Currency currency,
         int measuredValues,
         int period,
         @NonNull List<Phase> phases)
