@@ -24,6 +24,7 @@ public final class ChannelValueSwitch<T> {
             case TemperatureAndHumidityValue temperatureAndHumidityValue ->
                     callback.onTemperatureAndHumidityValue(temperatureAndHumidityValue);
             case TemperatureValue temperatureValue -> callback.onTemperatureValue(temperatureValue);
+            case HumidityValue humidityValue -> callback.onHumidityValue(humidityValue);
             case TimerValue timerValue -> callback.onTimerValue(timerValue);
             case ActionTrigger actionTrigger -> callback.onActionTrigger(actionTrigger);
             case UnknownValue unknownValue -> callback.onUnknownValue(unknownValue);
@@ -44,6 +45,8 @@ public final class ChannelValueSwitch<T> {
         T onStoppableOpenClose(StoppableOpenClose stoppableOpenClose);
 
         T onTemperatureValue(TemperatureValue temperatureValue);
+        
+        T onHumidityValue(HumidityValue humidityValue);
 
         T onTemperatureAndHumidityValue(TemperatureAndHumidityValue temperatureAndHumidityValue);
 
