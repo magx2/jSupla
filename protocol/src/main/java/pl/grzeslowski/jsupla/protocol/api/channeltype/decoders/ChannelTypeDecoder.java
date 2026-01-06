@@ -24,6 +24,7 @@ public final class ChannelTypeDecoder {
     private final TimerSecChannelDecoder timerSecChannelDecoder;
     private final TimerMsecChannelDecoder timerMsecChannelDecoder;
     private final PercentageTypeDecoder percentageTypeDecoder;
+    private final HumidityTypeChannelDecoderImpl humidityTypeChannelDecoder;
 
     private ChannelTypeDecoder() {
         this(
@@ -36,7 +37,8 @@ public final class ChannelTypeDecoder {
                 HVACValueDecoderImpl.INSTANCE,
                 new TimerSecChannelDecoder(),
                 new TimerMsecChannelDecoder(),
-                new PercentageTypeDecoder());
+                new PercentageTypeDecoder(),
+            new HumidityTypeChannelDecoderImpl());
     }
 
     public ChannelValue decode(int type, byte[] value) {
@@ -57,6 +59,7 @@ public final class ChannelTypeDecoder {
             return new UnknownValue(value, "Channel type is null");
         }
         return switch (channelType) {
+            //noinspection deprecation
             case SUPLA_CHANNELTYPE_SENSORNO,
                     SUPLA_CHANNELTYPE_SENSORNC,
                     SUPLA_CHANNELTYPE_RELAYHFD4,
@@ -64,14 +67,19 @@ public final class ChannelTypeDecoder {
                     SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
                     SUPLA_CHANNELTYPE_RELAY ->
                     relayTypeChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_THERMOMETERDS18B20,
-                    SUPLA_CHANNELTYPE_DHT11,
+            case SUPLA_CHANNELTYPE_HUMIDITYSENSOR -> humidityTypeChannelDecoder.decode(value);
+            //noinspection deprecation
+            case                     SUPLA_CHANNELTYPE_DHT11,
                     SUPLA_CHANNELTYPE_DHT22,
                     SUPLA_CHANNELTYPE_DHT21,
                     SUPLA_CHANNELTYPE_AM2302,
-                    SUPLA_CHANNELTYPE_AM2301 ->
+                    SUPLA_CHANNELTYPE_AM2301,
+                    SUPLA_CHANNELTYPE_HUMIDITYANDTEMPSENSOR ->
                     thermometerTypeChannelDecoder.decode(value);
-            case SUPLA_CHANNELTYPE_THERMOMETER -> thermometerTypeDoubleChannelDecoder.decode(value);
+            //noinspection deprecation
+            case SUPLA_CHANNELTYPE_THERMOMETER,
+                 SUPLA_CHANNELTYPE_THERMOMETERDS18B20-> 
+                thermometerTypeDoubleChannelDecoder.decode(value);
             case SUPLA_CHANNELTYPE_DIMMER -> percentageTypeDecoder.decode(value);
             case SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
                     SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
@@ -94,8 +102,8 @@ public final class ChannelTypeDecoder {
                         format(
                                 "Don't know how to map channel type %s to channel value!",
                                 channelType);
-                if (log.isDebugEnabled()) {
-                    log.debug(message + " value={}", Arrays.toString(value));
+                if (log.isWarnEnabled()) {
+                    log.warn(message + " value={}", Arrays.toString(value));
                 }
                 yield new UnknownValue(value, message);
             }

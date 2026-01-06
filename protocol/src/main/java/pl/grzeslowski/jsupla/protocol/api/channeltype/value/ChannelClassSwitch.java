@@ -35,6 +35,9 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(TemperatureValue.class)) {
             return callback.onTemperatureValue();
         }
+        if (channelClass.isAssignableFrom(HumidityValue.class)) {
+            return callback.onHumidityValue();
+        }
         if (channelClass.isAssignableFrom(ElectricityMeterValue.class)) {
             return callback.onElectricityMeter();
         }
@@ -73,6 +76,8 @@ public final class ChannelClassSwitch<T> {
         T onStoppableOpenClose();
 
         T onTemperatureValue();
+        
+        T onHumidityValue();
 
         T onTemperatureAndHumidityValue();
 
