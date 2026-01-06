@@ -140,6 +140,21 @@ def consts = [
 		name  : "LastConnectionResetCause",
 		prefix: "SUPLA_LASTCONNECTIONRESETCAUSE_"] as Const,
 	[
+		name  : "DeviceFlag",
+		prefix: "SUPLA_DEVICE_FLAG_",
+		extraJavaCode: """\
+		|   public static java.util.Set<DeviceFlag> findByMask(int value) {
+		|   return java.util.Arrays.stream(DeviceFlag.values())
+		|   	.filter(flag -> (value & flag.value) != 0)
+		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(DeviceFlag.class)));
+		|   }
+		|
+		|   public static int toMask(java.util.Set<DeviceFlag> flags) {
+		|   	return flags.stream()
+		|   		.mapToInt(flag -> flag.value)
+		|   		.reduce(0, (a, b) -> a | b);
+		|   }""".stripMargin()] as Const,
+	[
 		name  : "ChannelStateField",
 		prefix: "SUPLA_CHANNELSTATE_FIELD_",
 		extraJavaCode: """\
