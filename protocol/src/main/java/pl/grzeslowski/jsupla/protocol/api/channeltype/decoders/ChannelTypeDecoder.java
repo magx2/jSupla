@@ -29,7 +29,7 @@ public final class ChannelTypeDecoder {
                         new ThermometerDoubleTypeDecoder(),
                         new ElectricityMeterDecoder(),
                         new ElectricityMeterV2Decoder(),
-                        new HvacTypeDecoder(),
+                        HvacTypeDecoder.INSTANCE,
                         new TimerSecDecoder(),
                         new TimerMsecDecoder(),
                         new PercentageTypeDecoder(),

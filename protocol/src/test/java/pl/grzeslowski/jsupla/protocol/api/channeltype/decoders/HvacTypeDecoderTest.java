@@ -10,7 +10,7 @@ import lombok.val;
 import org.junit.jupiter.api.Test;
 
 class HvacTypeDecoderTest {
-    HvacTypeDecoder decoder = new HvacTypeDecoder();
+    HvacTypeDecoder decoder = HvacTypeDecoder.INSTANCE;
 
     @Test
     void auratonTestCase() {
