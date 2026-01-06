@@ -1,10 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
+import static java.math.RoundingMode.HALF_EVEN;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_HVAC;
 import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET;
 import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET;
 import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_NOT_SET;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
@@ -16,6 +18,9 @@ import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
 @Slf4j
 class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
+
+    private static final BigDecimal ONE_HUNDRED = BigDecimal.valueOf(100);
+
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_HVAC);
@@ -46,17 +51,23 @@ class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
                 flags);
     }
 
-    private static Double findHeatSetPoint(HVACValue decode, Set<HvacFlag> flags) {
-        if (!flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET)) {
-            return null;
-        }
-        return decode.setpointTemperatureHeat() * 0.01;
+    private static BigDecimal findHeatSetPoint(HVACValue decode, Set<HvacFlag> flags) {
+        return findSetPoint(
+                decode.setpointTemperatureHeat(),
+                SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET,
+                flags);
     }
 
-    private static Double findCoolSetPoint(HVACValue decode, Set<HvacFlag> flags) {
-        if (!flags.contains(SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET)) {
-            return null;
-        }
-        return decode.setpointTemperatureCool() * 0.01;
+    private static BigDecimal findCoolSetPoint(HVACValue decode, Set<HvacFlag> flags) {
+        return findSetPoint(
+                decode.setpointTemperatureCool(),
+                SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET,
+                flags);
+    }
+
+    private static BigDecimal findSetPoint(short value, HvacFlag flag, Set<HvacFlag> flags) {
+        return flags.contains(flag)
+                ? BigDecimal.valueOf(value).setScale(2, HALF_EVEN).divide(ONE_HUNDRED, HALF_EVEN)
+                : null;
     }
 }

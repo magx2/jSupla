@@ -101,6 +101,11 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onHeatpolThermostatValue() {
+            return HeatpolThermostatValue.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onUnknownValue() {
             return UnknownValue.class;
         }

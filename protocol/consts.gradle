@@ -76,6 +76,27 @@ def consts = [
 	[
 		name  : "HvacMode",
 		prefix: "SUPLA_HVAC_MODE_"] as Const,
+	[
+		name  : "ThermostatCommand",
+		prefix: "SUPLA_THERMOSTAT_CMD_"] as Const,
+	[
+		name  : "ThermostatValueFlag",
+		prefix: "SUPLA_THERMOSTAT_VALUE_FLAG_",
+		extraJavaCode: """\
+		|   public static java.util.Set<ThermostatValueFlag> findByMask(int value) {
+		|   return java.util.Arrays.stream(ThermostatValueFlag.values())
+		|   	.filter(flag -> (value & flag.value) != 0)
+		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(ThermostatValueFlag.class)));
+		|   }
+		|
+		|   public static int toMask(java.util.Set<ThermostatValueFlag> flags) {
+		|   	return flags.stream()
+		|   		.mapToInt(flag -> flag.value)
+		|   		.reduce(0, (a, b) -> a | b);
+		|   }""".stripMargin()] as Const,
+	[
+		name  : "ThermostatField",
+		prefix: "THERMOSTAT_FIELD_"] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"

@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_
 import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET;
 import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_COOL;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
@@ -21,7 +22,13 @@ class HvacTypeEncoderTest {
                 Set.of(
                         SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_HEAT_SET,
                         SUPLA_HVAC_VALUE_FLAG_SETPOINT_TEMP_COOL_SET);
-        var value = new HvacValue(true, SUPLA_HVAC_MODE_COOL, 20.5, 18.0, flags);
+        var value =
+                new HvacValue(
+                        true,
+                        SUPLA_HVAC_MODE_COOL,
+                        BigDecimal.valueOf(20.5),
+                        BigDecimal.valueOf(18.0),
+                        flags);
 
         byte[] bytes = encoder.encode(value);
         HVACValue decoded = HVACValueDecoder.INSTANCE.decode(bytes);

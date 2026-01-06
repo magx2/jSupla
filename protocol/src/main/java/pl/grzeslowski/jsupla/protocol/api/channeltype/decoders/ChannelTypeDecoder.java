@@ -36,7 +36,8 @@ public final class ChannelTypeDecoder {
                         new PressureTypeDecoder(),
                         new RainTypeDecoder(),
                         new WeightTypeDecoder(),
-                        new WindTypeDecoder()));
+                        new WindTypeDecoder(),
+                        new HeatpolThermostatTypeDecoder()));
     }
 
     public ChannelValue decode(int type, byte[] value) {

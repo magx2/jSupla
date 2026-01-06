@@ -20,6 +20,7 @@ public class ChannelTypeEncoder {
     private final RainTypeEncoder rainTypeEncoder;
     private final WeightTypeEncoder weightTypeEncoder;
     private final WindTypeEncoder windTypeEncoder;
+    private final HeatpolThermostatTypeEncoder heatpolThermostatTypeEncoder;
 
     private ChannelTypeEncoder() {
         this(
@@ -33,7 +34,8 @@ public class ChannelTypeEncoder {
                 new PressureTypeEncoder(),
                 new RainTypeEncoder(),
                 new WeightTypeEncoder(),
-                new WindTypeEncoder());
+                new WindTypeEncoder(),
+                new HeatpolThermostatTypeEncoder());
     }
 
     public byte[] encode(final ChannelValue channelValue) {
@@ -51,6 +53,8 @@ public class ChannelTypeEncoder {
             case RainValue rainValue -> rainTypeEncoder.encode(rainValue);
             case WeightValue weightValue -> weightTypeEncoder.encode(weightValue);
             case WindValue windValue -> windTypeEncoder.encode(windValue);
+            case HeatpolThermostatValue heatpolThermostatValue ->
+                    heatpolThermostatTypeEncoder.encode(heatpolThermostatValue);
             // unsupported types
             case ElectricityMeterValue electricityMeterValue ->
                     throw new UnsupportedOperationException(

@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
 import pl.grzeslowski.jsupla.protocol.api.HvacMode;
+import pl.grzeslowski.jsupla.protocol.api.ThermostatValueFlag;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.decoders.ChannelTypeDecoder;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.encoders.ChannelTypeEncoder;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
@@ -117,12 +118,11 @@ class EncodeAndDecodeTest {
             return new TemperatureDoubleValue(randomTemperatureDouble());
         }
 
-        private double randomTemperatureDouble() {
+        private BigDecimal randomTemperatureDouble() {
             return BigDecimal.valueOf(random.nextDouble())
                     .multiply(BigDecimal.valueOf(100))
                     .subtract(BigDecimal.valueOf(30))
-                    .setScale(2, HALF_UP)
-                    .doubleValue();
+                    .setScale(2, HALF_UP);
         }
 
         @Override
@@ -180,14 +180,18 @@ class EncodeAndDecodeTest {
                     flags);
         }
 
-        private Set<HvacFlag> randomSet(HvacFlag[] values) {
-            var set = new HashSet<HvacFlag>();
-            for (HvacFlag value : values) {
+        private <T> Set<T> randomSet(T[] values) {
+            return randomSet(List.of(values));
+        }
+
+        private <T> Set<T> randomSet(Collection<T> values) {
+            var set = new HashSet<T>();
+            for (var value : values) {
                 if (random.nextBoolean()) {
                     set.add(value);
                 }
             }
-            return EnumSet.copyOf(set);
+            return Set.copyOf(set);
         }
 
         @Override
@@ -219,6 +223,15 @@ class EncodeAndDecodeTest {
         @Override
         public ChannelValue onWindValue() {
             return new WindValue(BigDecimal.valueOf(random.nextDouble() * 100));
+        }
+
+        @Override
+        public ChannelValue onHeatpolThermostatValue() {
+            return new HeatpolThermostatValue(
+                    random.nextBoolean(),
+                    randomSet(ThermostatValueFlag.values()),
+                    randomTemperatureDouble(),
+                    randomTemperatureDouble());
         }
 
         @Override
