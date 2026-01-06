@@ -8,6 +8,8 @@ import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_NOT_SE
 
 import java.math.BigDecimal;
 import java.util.Set;
+
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
@@ -17,8 +19,9 @@ import pl.grzeslowski.jsupla.protocol.api.decoders.HVACValueDecoder;
 import pl.grzeslowski.jsupla.protocol.api.structs.HVACValue;
 
 @Slf4j
-class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
-
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
+public class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
+    public static final HvacTypeDecoder INSTANCE = new HvacTypeDecoder();
     private static final BigDecimal ONE_HUNDRED = BigDecimal.valueOf(100);
 
     @Override
