@@ -137,6 +137,9 @@ def consts = [
 		name  : "StatusLed",
 		prefix: "SUPLA_DEVCFG_STATUS_LED_"] as Const,
 	[
+		name  : "LastConnectionResetCause",
+		prefix: "SUPLA_LASTCONNECTIONRESETCAUSE_"] as Const,
+	[
 		name         : "DeviceConfigField",
 		prefix       : "SUPLA_DEVICE_CONFIG_FIELD_",
 		options      : [valueType: "long"],
