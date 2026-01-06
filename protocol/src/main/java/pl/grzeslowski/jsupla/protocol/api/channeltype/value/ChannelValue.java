@@ -5,6 +5,7 @@ public sealed interface ChannelValue
                 HeatpolThermostatValue,
                 HumidityValue,
                 HvacValue,
+                MeterValue,
                 OnOffValue,
                 PercentValue,
                 PressureValue,
