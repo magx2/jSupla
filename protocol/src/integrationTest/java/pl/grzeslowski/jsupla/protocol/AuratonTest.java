@@ -1,7 +1,7 @@
 package pl.grzeslowski.jsupla.protocol;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.DeviceFlag.*;
 
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallType;
@@ -1206,20 +1206,23 @@ class AuratonTest {
                         });
     }
 
-    @SuppressWarnings("ConstantValue")
     @Test
     void shouldParseFlags() {
         // given
         int flags = 15056;
 
-        assertThat(flags & SUPLA_DEVICE_FLAG_CALCFG_ENTER_CFG_MODE).isNotZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_SLEEP_MODE_ENABLED).isZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_CALCFG_SET_TIME).isNotZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_DEVICE_CONFIG_SUPPORTED).isNotZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_DEVICE_LOCKED).isZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_CALCFG_SUBDEVICE_PAIRING).isNotZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_CALCFG_IDENTIFY_DEVICE).isZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_CALCFG_RESTART_DEVICE).isNotZero();
-        assertThat(flags & SUPLA_DEVICE_FLAG_ALWAYS_ALLOW_CHANNEL_DELETION).isNotZero();
+        // when
+        var deviceFlags = findByMask(flags);
+
+        // then
+        assertThat(deviceFlags)
+                .containsExactlyInAnyOrder(
+                        SUPLA_DEVICE_FLAG_CALCFG_ENTER_CFG_MODE,
+                        SUPLA_DEVICE_FLAG_CALCFG_SET_TIME,
+                        SUPLA_DEVICE_FLAG_DEVICE_CONFIG_SUPPORTED,
+                        SUPLA_DEVICE_FLAG_CALCFG_SUBDEVICE_PAIRING,
+                        SUPLA_DEVICE_FLAG_CALCFG_RESTART_DEVICE,
+                        SUPLA_DEVICE_FLAG_ALWAYS_ALLOW_CHANNEL_DELETION,
+                        SUPLA_DEVICE_FLAG_BLOCK_ADDING_CHANNELS_AFTER_DELETION);
     }
 }
