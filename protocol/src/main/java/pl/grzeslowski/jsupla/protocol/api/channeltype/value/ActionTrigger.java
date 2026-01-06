@@ -1,4 +1,4 @@
-package pl.grzeslowski.jsupla.protocol.api.channeltype;
+package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
 import static java.util.Arrays.stream;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
@@ -8,7 +8,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-public record ActionTrigger(Set<Capabilities> capabilities) {
+public record ActionTrigger(Set<Capabilities> capabilities) implements ChannelValue {
     public ActionTrigger(int bitmask) {
         this(Capabilities.from(bitmask));
     }

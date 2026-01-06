@@ -8,7 +8,6 @@ import static pl.grzeslowski.jsupla.protocol.api.HvacMode.SUPLA_HVAC_MODE_NOT_SE
 
 import java.math.BigDecimal;
 import java.util.Set;
-
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;

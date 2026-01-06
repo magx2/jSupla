@@ -53,6 +53,9 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(HeatpolThermostatValue.class)) {
             return callback.onHeatpolThermostatValue();
         }
+        if (channelClass.isAssignableFrom(ActionTrigger.class)) {
+            return callback.onActionTrigger();
+        }
         if (channelClass.isAssignableFrom(UnknownValue.class)) {
             return callback.onUnknownValue();
         }
@@ -93,6 +96,8 @@ public final class ChannelClassSwitch<T> {
         T onWindValue();
 
         T onHeatpolThermostatValue();
+
+        T onActionTrigger();
 
         T onUnknownValue();
     }

@@ -49,6 +49,7 @@ class EncodeAndDecodeTest {
                 .filter(not(UnknownValue.class::equals))
                 .filter(not(ElectricityMeterValue.class::equals))
                 .filter(not(TimerValue.class::equals))
+                .filter(not(ActionTrigger.class::equals))
                 .map(Arguments::of);
     }
 
@@ -232,6 +233,11 @@ class EncodeAndDecodeTest {
                     randomSet(ThermostatValueFlag.values()),
                     randomTemperatureDouble(),
                     randomTemperatureDouble());
+        }
+
+        @Override
+        public ChannelValue onActionTrigger() {
+            throw new UnsupportedOperationException("ClassToObject.onActionTrigger()");
         }
 
         @Override
