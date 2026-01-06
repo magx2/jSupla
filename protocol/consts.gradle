@@ -128,6 +128,9 @@ def consts = [
 		name  : "ModbusSerialMode",
 		prefix: "MODBUS_SERIAL_MODE_"] as Const,
 	[
+		name  : "ModbusNetworkMode",
+		prefix: "MODBUS_NETWORK_MODE_"] as Const,
+	[
 		name         : "DeviceConfigField",
 		prefix       : "SUPLA_DEVICE_CONFIG_FIELD_",
 		options      : [valueType: "long"],
