@@ -97,6 +97,34 @@ def consts = [
 	[
 		name  : "ThermostatField",
 		prefix: "THERMOSTAT_FIELD_"] as Const,
+	[
+		name  : "MeterCounterType",
+		prefix: "SUPLA_GENERAL_PURPOSE_METER_COUNTER_TYPE_"] as Const,
+	[
+		name  : "MeterChartType",
+		prefix: "SUPLA_GENERAL_PURPOSE_METER_CHART_TYPE_"] as Const,
+	[
+		name  : "EvType",
+		prefix: "EV_TYPE_"] as Const,
+	[
+		name  : "SubvType",
+		prefix: "SUBV_TYPE_"] as Const,
+	[
+		name  : "Mfr",
+		prefix: "SUPLA_MFR_"] as Const,
+	[
+		name  : "SuplaEvent",
+		prefix: "SUPLA_EVENT_"] as Const,
+	[
+		name  : "SuplaResult",
+		prefix: "SUPLA_RESULT_"] as Const,
+	[
+		name  : "SuplaBit",
+		prefix: "SUPLA_BIT_"] as Const,
+	[
+		name  : "DeviceConfigField",
+		prefix: "SUPLA_DEVICE_CONFIG_FIELD_",
+		options      : [valueType: "long"]] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"
