@@ -32,7 +32,11 @@ public final class ChannelTypeDecoder {
                         new TimerSecDecoder(),
                         new TimerMsecDecoder(),
                         new PercentageTypeDecoder(),
-                        new HumidityTypeDecoder()));
+                        new HumidityTypeDecoder(),
+                        new PressureTypeDecoder(),
+                        new RainTypeDecoder(),
+                        new WeightTypeDecoder(),
+                        new WindTypeDecoder()));
     }
 
     public ChannelValue decode(int type, byte[] value) {

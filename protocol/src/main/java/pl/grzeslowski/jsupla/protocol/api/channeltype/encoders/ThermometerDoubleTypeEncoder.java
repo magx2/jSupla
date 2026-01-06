@@ -1,13 +1,12 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.encoders;
 
+import java.math.BigDecimal;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureDoubleValue;
-import pl.grzeslowski.jsupla.protocol.api.encoders.PrimitiveEncoder;
 
-public class ThermometerDoubleTypeEncoder implements ChannelValueEncoder<TemperatureDoubleValue> {
+class ThermometerDoubleTypeEncoder extends DoubleTypeEncoder<TemperatureDoubleValue> {
 
     @Override
-    public void encode(TemperatureDoubleValue value, byte[] bytes) {
-        final double temp = value.temperature().doubleValue();
-        PrimitiveEncoder.INSTANCE.writeDouble(temp, bytes, 0);
+    protected BigDecimal mapToBigDecimal(TemperatureDoubleValue value) {
+        return value.temperature();
     }
 }

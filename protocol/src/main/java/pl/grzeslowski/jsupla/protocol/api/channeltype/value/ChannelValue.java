@@ -6,8 +6,12 @@ public sealed interface ChannelValue
                 HvacValue,
                 OnOffValue,
                 PercentValue,
+                PressureValue,
+                RainValue,
                 RgbValue,
                 TemperatureAndHumidityValue,
                 TemperatureDoubleValue,
                 TimerValue,
-                UnknownValue {}
+                UnknownValue,
+                WeightValue,
+                WindValue {}

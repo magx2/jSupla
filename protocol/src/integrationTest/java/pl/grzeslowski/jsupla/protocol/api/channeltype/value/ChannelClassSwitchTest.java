@@ -81,6 +81,26 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onPressureValue() {
+            return PressureValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onRainValue() {
+            return RainValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onWeightValue() {
+            return WeightValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onWindValue() {
+            return WindValue.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onUnknownValue() {
             return UnknownValue.class;
         }
