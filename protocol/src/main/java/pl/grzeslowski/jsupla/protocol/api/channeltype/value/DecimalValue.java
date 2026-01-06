@@ -1,11 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.NonNull;
+
 import java.math.BigDecimal;
 
 /**
  * @param value
  */
-public record DecimalValue(BigDecimal value) implements ChannelValue {
+public record DecimalValue(@NonNull BigDecimal value) implements ChannelValue {
     public DecimalValue(final int value) {
         this(new BigDecimal(value));
     }

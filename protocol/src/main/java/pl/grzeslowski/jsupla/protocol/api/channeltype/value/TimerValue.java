@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.NonNull;
+
 import java.time.Duration;
 
 /**
@@ -8,5 +10,5 @@ import java.time.Duration;
  * @param senderId
  * @param senderName
  */
-public record TimerValue(Duration remaining, byte[] targetValue, int senderId, String senderName)
+public record TimerValue(@NonNull Duration remaining, byte[] targetValue, int senderId, @NonNull String senderName)
         implements ChannelValue {}

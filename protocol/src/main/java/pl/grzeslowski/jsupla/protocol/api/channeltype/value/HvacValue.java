@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.*;
 import java.util.Arrays;
 import java.util.Optional;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -16,10 +17,10 @@ import lombok.RequiredArgsConstructor;
  */
 public record HvacValue(
         boolean on,
-        Mode mode,
+        @NonNull Mode mode,
         Double setPointTemperatureHeat,
         Double setPointTemperatureCool,
-        Flags flags)
+        @NonNull  Flags flags)
         implements ChannelValue {
 
     @Getter

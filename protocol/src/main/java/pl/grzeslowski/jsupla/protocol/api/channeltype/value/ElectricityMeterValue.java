@@ -1,5 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import lombok.NonNull;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
@@ -16,14 +18,14 @@ import java.util.List;
  * @param phases
  */
 public record ElectricityMeterValue(
-        BigInteger totalForwardActiveEnergyBalanced,
-        BigInteger totalReverseActiveEnergyBalanced,
-        BigDecimal totalCost,
-        BigDecimal pricePerUnit,
-        Currency currency,
+      @NonNull   BigInteger totalForwardActiveEnergyBalanced,
+      @NonNull   BigInteger totalReverseActiveEnergyBalanced,
+      @NonNull   BigDecimal totalCost,
+      @NonNull   BigDecimal pricePerUnit,
+      @NonNull   Currency currency,
         int measuredValues,
         int period,
-        List<Phase> phases)
+      @NonNull List<Phase> phases)
         implements ChannelValue {
 
     /**
