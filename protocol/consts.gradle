@@ -140,6 +140,15 @@ def consts = [
 		name  : "LastConnectionResetCause",
 		prefix: "SUPLA_LASTCONNECTIONRESETCAUSE_"] as Const,
 	[
+		name  : "BitFunction",
+		prefix: "SUPLA_BIT_FUNC_",
+		extraJavaCode: """\
+		|   public static java.util.Set<BitFunction> findByMask(int value) {
+		|   return java.util.Arrays.stream(BitFunction.values())
+		|   	.filter(flag -> (value & flag.value) != 0)
+		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(BitFunction.class)));
+		|   }""".stripMargin()] as Const,
+	[
 		name  : "DeviceFlag",
 		prefix: "SUPLA_DEVICE_FLAG_",
 		extraJavaCode: """\
