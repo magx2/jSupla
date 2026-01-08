@@ -30,7 +30,8 @@ def consts = [
 	[
 		name   : "RgbwBitFunction",
 		prefix : "SUPLA_RGBW_BIT_FUNC_",
-		options: [findByMask: true]] as Const,
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
 	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
