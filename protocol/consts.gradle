@@ -43,7 +43,8 @@ def consts = [
 	[
 		name   : "ChannelFlag",
 		prefix : "SUPLA_CHANNEL_FLAG_",
-		options: [findByMask: true]] as Const,
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
 	[
 		name  : "ChannelFunction",
 		prefix: "SUPLA_CHANNELFNC_"] as Const,
