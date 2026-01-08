@@ -28,14 +28,9 @@ def consts = [
 		name  : "ResultCode",
 		prefix: "SUPLA_RESULTCODE_",] as Const,
 	[
-		name         : "RgbwBitFunction",
-		prefix       : "SUPLA_RGBW_BIT_FUNC_",
-		extraJavaCode: """\
-		|   public static java.util.Set<RgbwBitFunction> findByMask(long value) {
-		|   return java.util.Arrays.stream(RgbwBitFunction.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(RgbwBitFunction.class)));
-		|   }""".stripMargin()] as Const,
+		name   : "RgbwBitFunction",
+		prefix : "SUPLA_RGBW_BIT_FUNC_",
+		options: [findByMask: true]] as Const,
 	[
 		name  : "ChannelType",
 		prefix: "SUPLA_CHANNELTYPE_",
@@ -46,33 +41,18 @@ def consts = [
 				name.startsWith("CALCFG_TYPE_")
 		}] as Const,
 	[
-		name         : "ChannelFlag",
-		prefix       : "SUPLA_CHANNEL_FLAG_",
-		extraJavaCode: """\
-		|   public static java.util.Set<ChannelFlag> findByMask(long value) {
-		|   return java.util.Arrays.stream(ChannelFlag.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(ChannelFlag.class)));
-		|   }""".stripMargin()] as Const,
+		name   : "ChannelFlag",
+		prefix : "SUPLA_CHANNEL_FLAG_",
+		options: [findByMask: true]] as Const,
 	[
 		name  : "ChannelFunction",
 		prefix: "SUPLA_CHANNELFNC_"] as Const,
 	[
-		name         : "HvacFlag",
-		prefix       : "SUPLA_HVAC_VALUE_FLAG_",
-		extraJavaCode: """\
-		|   public static java.util.Set<HvacFlag> findByMask(long value) {
-		|   	return java.util.Arrays.stream(HvacFlag.values())
-		|   		.filter(flag -> (value & flag.value) != 0)
-		|   		.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(HvacFlag.class)));
-		|   }
-		|
-		|   public static long toMask(java.util.Set<HvacFlag> flags) {
-		|   	return flags.stream()
-		|   		.mapToLong(flag -> flag.value)
-		|   		.reduce(0, (a, b) -> a | b);
-		|   }""".stripMargin(),
-		options      : [valueType: "long"]] as Const,
+		name   : "HvacFlag",
+		prefix : "SUPLA_HVAC_VALUE_FLAG_",
+		options: [valueType : "long",
+				  findByMask: true,
+				  toMask    : true]] as Const,
 	[
 		name  : "HvacMode",
 		prefix: "SUPLA_HVAC_MODE_"] as Const,
@@ -80,20 +60,10 @@ def consts = [
 		name  : "ThermostatCommand",
 		prefix: "SUPLA_THERMOSTAT_CMD_"] as Const,
 	[
-		name         : "ThermostatValueFlag",
-		prefix       : "SUPLA_THERMOSTAT_VALUE_FLAG_",
-		extraJavaCode: """\
-		|   public static java.util.Set<ThermostatValueFlag> findByMask(int value) {
-		|   return java.util.Arrays.stream(ThermostatValueFlag.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(ThermostatValueFlag.class)));
-		|   }
-		|
-		|   public static int toMask(java.util.Set<ThermostatValueFlag> flags) {
-		|   	return flags.stream()
-		|   		.mapToInt(flag -> flag.value)
-		|   		.reduce(0, (a, b) -> a | b);
-		|   }""".stripMargin()] as Const,
+		name   : "ThermostatValueFlag",
+		prefix : "SUPLA_THERMOSTAT_VALUE_FLAG_",
+		options: [findByMask: true,
+				  toMask    : true]] as Const,
 	[
 		name  : "ThermostatField",
 		prefix: "THERMOSTAT_FIELD_"] as Const,
@@ -140,48 +110,23 @@ def consts = [
 		name  : "LastConnectionResetCause",
 		prefix: "SUPLA_LASTCONNECTIONRESETCAUSE_"] as Const,
 	[
-		name  : "BitFunction",
-		prefix: "SUPLA_BIT_FUNC_",
-		extraJavaCode: """\
-		|   public static java.util.Set<BitFunction> findByMask(int value) {
-		|   return java.util.Arrays.stream(BitFunction.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(BitFunction.class)));
-		|   }""".stripMargin()] as Const,
+		name   : "BitFunction",
+		prefix : "SUPLA_BIT_FUNC_",
+		options: [findByMask: true]] as Const,
 	[
-		name  : "DeviceFlag",
-		prefix: "SUPLA_DEVICE_FLAG_",
-		extraJavaCode: """\
-		|   public static java.util.Set<DeviceFlag> findByMask(int value) {
-		|   return java.util.Arrays.stream(DeviceFlag.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(DeviceFlag.class)));
-		|   }
-		|
-		|   public static int toMask(java.util.Set<DeviceFlag> flags) {
-		|   	return flags.stream()
-		|   		.mapToInt(flag -> flag.value)
-		|   		.reduce(0, (a, b) -> a | b);
-		|   }""".stripMargin()] as Const,
+		name   : "DeviceFlag",
+		prefix : "SUPLA_DEVICE_FLAG_",
+		options: [findByMask: true,
+				  toMask    : true]] as Const,
 	[
-		name  : "ChannelStateField",
-		prefix: "SUPLA_CHANNELSTATE_FIELD_",
-		extraJavaCode: """\
-		|   public static java.util.Set<ChannelStateField> findByMask(int value) {
-		|   return java.util.Arrays.stream(ChannelStateField.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(ChannelStateField.class)));
-		|   }""".stripMargin()] as Const,
+		name   : "ChannelStateField",
+		prefix : "SUPLA_CHANNELSTATE_FIELD_",
+		options: [findByMask: true]] as Const,
 	[
-		name         : "DeviceConfigField",
-		prefix       : "SUPLA_DEVICE_CONFIG_FIELD_",
-		options      : [valueType: "long"],
-		extraJavaCode: """\
-		|   public static java.util.Set<DeviceConfigField> findByMask(long value) {
-		|   return java.util.Arrays.stream(DeviceConfigField.values())
-		|   	.filter(flag -> (value & flag.value) != 0)
-		|   	.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(DeviceConfigField.class)));
-		|   }""".stripMargin()] as Const,
+		name   : "DeviceConfigField",
+		prefix : "SUPLA_DEVICE_CONFIG_FIELD_",
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"
@@ -219,6 +164,27 @@ consts.each { constDef ->
 
 			def type = constDef.options.valueType ?: "int"
 
+			def findByMask = ""
+			if (constDef.options.findByMask) {
+				findByMask = """
+					|		public static java.util.Set<${constDef.name}> findByMask($type value) {
+					|		return java.util.Arrays.stream(${constDef.name}.values())
+					|			.filter(flag -> (value & flag.value) != 0)
+					|			.collect(java.util.stream.Collectors.toCollection(() -> java.util.EnumSet.noneOf(${constDef.name}.class)));
+					|}""".stripMargin()
+			}
+
+			def toMask = ""
+			if (constDef.options.toMask) {
+				def upperCaseType = type.capitalize()
+				toMask = """\
+					|   public static $type toMask(java.util.Set<${constDef.name}> flags) {
+					|   	return flags.stream()
+					|   		.mapTo${upperCaseType}(flag -> flag.value)
+					|   		.reduce(0, (a, b) -> a | b);
+					|   }""".stripMargin()
+			}
+
 			codePath.write("""\
 			|package pl.grzeslowski.jsupla.protocol.api;
 			|
@@ -234,6 +200,8 @@ consts.each { constDef ->
     		|        .filter(type -> type.value == value)
     		|        .findAny();
     		|	}
+    		|	$findByMask
+    		|	$toMask
 			|	${constDef.extraJavaCode ?: ''}
 			|}""".stripMargin())
 		}
