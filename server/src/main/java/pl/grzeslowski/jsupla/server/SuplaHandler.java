@@ -5,7 +5,6 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceClientServerCal
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import jakarta.annotation.Nonnull;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.val;
 import org.slf4j.Logger;
@@ -19,8 +18,7 @@ import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
 
 final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger log;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SuplaHandler.class);
     private final String uuid;
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
@@ -35,9 +33,8 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandler messageHandler) {
-        this.uuid = uuid + ":" + ID.incrementAndGet();
-        log = LoggerFactory.getLogger(SuplaHandler.class.getName() + "#" + uuid);
-        log.debug("New instance {}", getClass().getSimpleName());
+        this.uuid = uuid;
+        LOGGER.debug("New instance {}, instanceId={}", getClass().getSimpleName(), this.uuid);
         this.messageHandler = messageHandler;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
@@ -46,7 +43,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     @Override
     public void channelActive(@Nonnull ChannelHandlerContext ctx) throws Exception {
-        log.debug("SuplaHandler.channelActive(ctx)");
+        LOGGER.debug("SuplaHandler.channelActive(ctx), instanceId={}", uuid);
         super.channelActive(ctx);
         val writer = new SuplaDefaultWriter(uuid, encoderFactory, ctx);
         this.writer.set(writer);
@@ -55,7 +52,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     @Override
     public void channelInactive(@Nonnull ChannelHandlerContext ctx) throws Exception {
-        log.debug("SuplaHandler.channelInactive(ctx)");
+        LOGGER.debug("SuplaHandler.channelInactive(ctx), instanceId={}", uuid);
         messageHandler.inactive();
         writer.set(null);
         super.channelInactive(ctx);
@@ -69,45 +66,51 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
                 writer.setVersion(suplaDataPacket.version());
             }
         }
-        val msg = "SuplaHandler.channelRead0(ctx, {})";
+        val msg = "SuplaHandler.channelRead0(ctx, {}), instanceId={}";
         var rawCallId = suplaDataPacket.callId();
         if (rawCallId == SUPLA_DCS_CALL_PING_SERVER.getValue()) {
             // log pings in trace
-            log.trace(msg, suplaDataPacket);
+            LOGGER.trace(msg, suplaDataPacket, uuid);
         } else {
-            log.debug(msg, suplaDataPacket);
+            LOGGER.debug(msg, suplaDataPacket, uuid);
         }
         val callTypeOptional = callTypeParser.parse(rawCallId);
         if (callTypeOptional.isEmpty()) {
-            log.debug("Cannot find call type for {}", rawCallId);
+            LOGGER.debug("Cannot find call type for {}, instanceId={}", rawCallId, uuid);
             return;
         }
         val callType = callTypeOptional.get();
         Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
         val data = suplaDataPacket.data();
-        log.trace("Decoding data with decoder {}:\n{}", decoder.getClass().getName(), data);
+        LOGGER.trace(
+                "Decoding data with decoder {}:\n{}, instanceId={}",
+                decoder.getClass().getName(),
+                data,
+                uuid);
         val entity = decoder.decode(data);
         if (suplaDataPacket.dataSize() != entity.protoSize()
                 // because the size of SuplaTimeval varies, we are not checking this
                 && !callType.equals(SUPLA_DCS_CALL_PING_SERVER)) {
-            log.warn(
+            LOGGER.warn(
                     "WTF?! The size of the entity is different than `dataSize` from"
                         + " `suplaDataPacket.dataSize`. Looks like a bug in the Supla decoder"
                         + " implementation. entity.size={}, suplaDataPacket.dataSize={}, entity={},"
-                        + " suplaDataPacket={}",
+                        + " suplaDataPacket={}, instanceId={}",
                     entity.protoSize(),
                     suplaDataPacket.dataSize(),
                     entity,
-                    suplaDataPacket);
+                    suplaDataPacket,
+                    uuid);
         }
         if (!(entity instanceof ToServerProto toServerProto)) {
-            log.warn(
+            LOGGER.warn(
                     "Why device/client has send a proto that do not extends {}? "
                             + "Looks like a bug... "
-                            + "entity.class={}, entity={}",
+                            + "entity.class={}, entity={}, instanceId={}",
                     ToServerProto.class.getName(),
                     entity.getClass(),
-                    entity);
+                    entity,
+                    uuid);
             return;
         }
 
@@ -116,7 +119,11 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        log.debug("SuplaHandler.exceptionCaught(ctx, {})", cause.getLocalizedMessage(), cause);
+        LOGGER.debug(
+                "SuplaHandler.exceptionCaught(ctx, {}, instanceId={})",
+                cause.getLocalizedMessage(),
+                uuid,
+                cause);
         messageHandler.socketException(cause);
         ctx.close();
     }

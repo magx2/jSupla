@@ -6,35 +6,29 @@ import static pl.grzeslowski.jsupla.server.NettyServer.NOISY_CALL_TYPE_IDS;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket> {
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger log;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SuplaDataPacketEncoder.class);
+    private final String uuid;
 
     public SuplaDataPacketEncoder(String uuid) {
-        log =
-                LoggerFactory.getLogger(
-                        SuplaDataPacketEncoder.class.getName()
-                                + "#"
-                                + uuid
-                                + ":"
-                                + ID.incrementAndGet());
+        this.uuid = uuid;
     }
 
     @Override
     protected void encode(ChannelHandlerContext ctx, SuplaDataPacket msg, ByteBuf out) {
         if (NOISY_CALL_TYPE_IDS.contains(msg.callId())) {
             // log pings in trace
-            log.trace(
+            LOGGER.trace(
                     "SuplaDataPacketEncoder.encode(ctx, {}, out)"
-                            + " (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
-                    msg);
+                            + " (SUPLA_SDC_CALL_PING_SERVER_RESULT), instanceId={}",
+                    msg,
+                    uuid);
         } else {
-            log.debug("SuplaDataPacketEncoder.encode(ctx, {}, out)", msg);
+            LOGGER.debug("SuplaDataPacketEncoder.encode(ctx, {}, out), instanceId={}", msg, uuid);
         }
         out.writeBytes(SUPLA_TAG)
                 .writeByte((byte) msg.version())
