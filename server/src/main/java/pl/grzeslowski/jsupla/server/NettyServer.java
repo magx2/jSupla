@@ -45,6 +45,7 @@ public final class NettyServer implements AutoCloseable {
     private final ChannelFuture channelFuture;
     private final String instanceId;
     private final AtomicBoolean closed = new AtomicBoolean(false);
+    private final AtomicBoolean closing = new AtomicBoolean(false);
 
     public NettyServer(
             NettyConfig nettyConfig,
@@ -91,15 +92,33 @@ public final class NettyServer implements AutoCloseable {
 
     @Override
     public void close() throws ExecutionException, InterruptedException {
-        if (!closed.compareAndSet(false, true)) {
+        if (closed.get()) {
             LOGGER.debug("[{}] Close already invoked", instanceId);
             return;
         }
+        if (!closing.compareAndSet(false, true)) {
+            LOGGER.debug("[{}] Close is already in progress", instanceId);
+            return;
+        }
 
-        LOGGER.debug("[{}] Closing NettyServer", instanceId);
-        closeServerChannel();
-        shutdownGroup("workerGroup", workerGroup);
-        shutdownGroup("bossGroup", bossGroup);
+        try {
+            LOGGER.debug("[{}] Closing NettyServer", instanceId);
+            boolean serverChannelClosed = closeServerChannel();
+            boolean workerClosed = shutdownGroup("workerGroup", workerGroup);
+            boolean bossClosed = shutdownGroup("bossGroup", bossGroup);
+            boolean fullyClosed = serverChannelClosed && workerClosed && bossClosed;
+            if (fullyClosed) {
+                closed.set(true);
+                LOGGER.debug("[{}] Closed NettyServer", instanceId);
+            } else {
+                LOGGER.warn(
+                        "[{}] Close did not finish cleanly; close() can be retried to finish"
+                                + " cleanup",
+                        instanceId);
+            }
+        } finally {
+            closing.set(false);
+        }
     }
 
     private ChannelFuture bindAndValidate(ServerBootstrap serverBootstrap) {
@@ -124,20 +143,29 @@ public final class NettyServer implements AutoCloseable {
         return bindFuture;
     }
 
-    private void closeServerChannel() {
+    private boolean closeServerChannel() {
         val channel = channelFuture.channel();
+        if (!channel.isOpen()) {
+            LOGGER.debug("[{}] Server channel already closed", instanceId);
+            return true;
+        }
         LOGGER.debug("[{}] Closing server channel", instanceId);
         if (!channel.close().awaitUninterruptibly(CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
             LOGGER.warn(
                     "[{}] Timed out while closing server channel, timeoutSeconds={}",
                     instanceId,
                     CLOSE_TIMEOUT_SECONDS);
-            return;
+            return false;
         }
         LOGGER.debug("[{}] Closed server channel", instanceId);
+        return true;
     }
 
-    private void shutdownGroup(String name, EventLoopGroup group) {
+    private boolean shutdownGroup(String name, EventLoopGroup group) {
+        if (group.isTerminated()) {
+            LOGGER.debug("[{}] {} already terminated", instanceId, name);
+            return true;
+        }
         LOGGER.debug("[{}] Closing {}", instanceId, name);
         group.shutdownGracefully(0, CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
         if (!group.terminationFuture()
@@ -147,8 +175,9 @@ public final class NettyServer implements AutoCloseable {
                     instanceId,
                     name,
                     CLOSE_TIMEOUT_SECONDS);
-            return;
+            return false;
         }
         LOGGER.debug("[{}] Closed {}", instanceId, name);
+        return true;
     }
 }
