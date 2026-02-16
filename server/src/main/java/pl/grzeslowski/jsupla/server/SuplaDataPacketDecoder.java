@@ -36,12 +36,11 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
         if (NOISY_CALL_TYPE_IDS.contains(suplaDataPacket.callId())) {
             // log pings in trace
             LOGGER.trace(
-                    "SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT),"
-                            + " instanceId={}",
-                    suplaDataPacket,
-                    uuid);
+                    "[{}] SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
+                    uuid,
+                    suplaDataPacket);
         } else {
-            LOGGER.debug("SuplaDataPacketDecoder.decode {}, instanceId={}", suplaDataPacket, uuid);
+            LOGGER.debug("[{}] SuplaDataPacketDecoder.decode {}", uuid, suplaDataPacket);
         }
         out.add(suplaDataPacket);
     }

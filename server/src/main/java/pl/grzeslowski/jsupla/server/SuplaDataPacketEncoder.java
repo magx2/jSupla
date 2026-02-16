@@ -23,12 +23,12 @@ final class SuplaDataPacketEncoder extends MessageToByteEncoder<SuplaDataPacket>
         if (NOISY_CALL_TYPE_IDS.contains(msg.callId())) {
             // log pings in trace
             LOGGER.trace(
-                    "SuplaDataPacketEncoder.encode(ctx, {}, out)"
-                            + " (SUPLA_SDC_CALL_PING_SERVER_RESULT), instanceId={}",
-                    msg,
-                    uuid);
+                    "[{}] SuplaDataPacketEncoder.encode(ctx, {}, out)"
+                            + " (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
+                    uuid,
+                    msg);
         } else {
-            LOGGER.debug("SuplaDataPacketEncoder.encode(ctx, {}, out), instanceId={}", msg, uuid);
+            LOGGER.debug("[{}] SuplaDataPacketEncoder.encode(ctx, {}, out)", uuid, msg);
         }
         out.writeBytes(SUPLA_TAG)
                 .writeByte((byte) msg.version())
