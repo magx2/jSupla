@@ -4,6 +4,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -12,7 +13,6 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import jakarta.annotation.Nullable;
-import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
@@ -21,8 +21,9 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 
 @SuppressWarnings("WeakerAccess")
 public final class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger logger;
+    private static final Logger LOGGER = LoggerFactory.getLogger(NettyServerInitializer.class);
+    private static final ByteBuf SUPLA_TAG_DELIMITER =
+            Unpooled.unreleasableBuffer(Unpooled.copiedBuffer(SUPLA_TAG)).asReadOnly();
     private final String uuid;
 
     @Nullable private final SslContext sslCtx;
@@ -42,9 +43,8 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
-        this.uuid = uuid + ":" + ID.incrementAndGet();
-        logger = LoggerFactory.getLogger(this.getClass().getName() + "#" + this.uuid);
-        logger.debug("New instance {}", getClass().getSimpleName());
+        this.uuid = uuid;
+        LOGGER.debug("New instance {}, instanceId={}", getClass().getSimpleName(), this.uuid);
         this.sslCtx = sslCtx;
         this.readTimeoutSeconds = readTimeoutSeconds;
         this.callTypeParser = callTypeParser;
@@ -55,10 +55,11 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
 
     @Override
     public void initChannel(SocketChannel ch) {
-        logger.debug(
-                "Initializing new channel, localAddress={}, remoteAddress={}",
+        LOGGER.debug(
+                "Initializing new channel, localAddress={}, remoteAddress={}, instanceId={}",
                 ch.localAddress(),
-                ch.remoteAddress());
+                ch.remoteAddress(),
+                uuid);
         ChannelPipeline pipeline = ch.pipeline();
 
         if (sslCtx != null) {
@@ -67,7 +68,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
         pipeline.addLast(new ReadTimeoutHandler(readTimeoutSeconds, SECONDS));
         pipeline.addLast(
                 new DelimiterBasedFrameDecoder(
-                        SUPLA_MAX_DATA_SIZE, false, true, Unpooled.copiedBuffer(SUPLA_TAG)));
+                        SUPLA_MAX_DATA_SIZE, false, true, SUPLA_TAG_DELIMITER.duplicate()));
         pipeline.addLast(new SuplaDataPacketDecoder(uuid));
         pipeline.addLast(new SuplaDataPacketEncoder(uuid));
         pipeline.addLast(

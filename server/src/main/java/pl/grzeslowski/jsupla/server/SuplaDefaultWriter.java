@@ -15,32 +15,27 @@ import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 
 final class SuplaDefaultWriter implements SuplaWriter {
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger log;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SuplaDefaultWriter.class);
     private final AtomicLong msgId = new AtomicLong(1);
     private final EncoderFactory encoderFactory;
+    private final String uuid;
     @NonNull private final ChannelHandlerContext context;
     @Getter private short version = SUPLA_PROTO_VERSION;
 
     public SuplaDefaultWriter(
             String uuid, EncoderFactory encoderFactory, ChannelHandlerContext context) {
-        log =
-                LoggerFactory.getLogger(
-                        SuplaDefaultWriter.class.getName()
-                                + "#"
-                                + uuid
-                                + ":"
-                                + ID.incrementAndGet());
+        this.uuid = uuid;
         this.encoderFactory = encoderFactory;
         this.context = context;
     }
 
     void setVersion(short version) {
         if (version > SUPLA_PROTO_VERSION) {
-            log.warn(
-                    "Supla version {} is higher than SUPLA_PROTO_VERSION ({})!",
+            LOGGER.warn(
+                    "Supla version {} is higher than SUPLA_PROTO_VERSION ({})!, instanceId={}",
                     version,
-                    SUPLA_PROTO_VERSION);
+                    SUPLA_PROTO_VERSION,
+                    uuid);
         }
         this.version = version < SUPLA_PROTO_VERSION ? version : SUPLA_PROTO_VERSION;
     }
@@ -58,9 +53,12 @@ final class SuplaDefaultWriter implements SuplaWriter {
                         encode);
         if (NOISY_CALL_TYPE_IDS.contains(packet.callId())) {
             // log pings in trace
-            log.trace("ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT)", proto);
+            LOGGER.trace(
+                    "ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT), instanceId={}",
+                    proto,
+                    uuid);
         } else {
-            log.debug("ctx.writeAndFlush({})", proto);
+            LOGGER.debug("ctx.writeAndFlush({}), instanceId={}", proto, uuid);
         }
         return context.writeAndFlush(packet);
     }

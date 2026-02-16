@@ -8,11 +8,13 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceClientCal
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.ToString;
 import lombok.val;
 import org.slf4j.Logger;
@@ -27,8 +29,10 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactoryImpl;
 @SuppressWarnings("WeakerAccess")
 @ToString(onlyExplicitlyIncluded = true)
 public final class NettyServer implements AutoCloseable {
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger logger;
+    private static final Logger LOGGER = LoggerFactory.getLogger(NettyServer.class);
+    private static final int BOSS_THREADS = 1;
+    private static final long STARTUP_TIMEOUT_SECONDS = 10;
+    private static final long CLOSE_TIMEOUT_SECONDS = 10;
 
     public static final Set<CallType> NOISY_CALL_TYPES =
             Set.of(SUPLA_DCS_CALL_PING_SERVER, SUPLA_SDC_CALL_PING_SERVER_RESULT);
@@ -39,6 +43,8 @@ public final class NettyServer implements AutoCloseable {
     private final NioEventLoopGroup bossGroup;
     private final NioEventLoopGroup workerGroup;
     private final ChannelFuture channelFuture;
+    private final String instanceId;
+    private final AtomicBoolean closed = new AtomicBoolean(false);
 
     public NettyServer(
             NettyConfig nettyConfig,
@@ -46,17 +52,16 @@ public final class NettyServer implements AutoCloseable {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
-        var uuid = ID.incrementAndGet() + "";
-        logger = LoggerFactory.getLogger(NettyServer.class.getName() + "#" + uuid);
-        logger.debug("New instance {}", getClass().getSimpleName());
+        instanceId = Integer.toHexString(System.identityHashCode(this));
+        LOGGER.debug("New instance {}, instanceId={}", getClass().getSimpleName(), instanceId);
         this.nettyConfig = requireNonNull(nettyConfig);
 
-        bossGroup = new NioEventLoopGroup();
+        bossGroup = new NioEventLoopGroup(BOSS_THREADS);
         workerGroup = new NioEventLoopGroup();
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
         val nettyServerInitializer =
                 new NettyServerInitializer(
-                        uuid,
+                        instanceId,
                         nettyConfig.sslCtx(),
                         nettyConfig.readTimeoutSeconds(),
                         callTypeParser,
@@ -64,7 +69,7 @@ public final class NettyServer implements AutoCloseable {
                         encoderFactory,
                         messageHandlerFactory);
 
-        logger.trace("Configuring server bootstrap");
+        LOGGER.trace("Configuring server bootstrap, instanceId={}", instanceId);
         serverBootstrap
                 .group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
@@ -72,9 +77,7 @@ public final class NettyServer implements AutoCloseable {
                 .option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-        // Bind and start to accept incoming connections.
-        logger.debug("Binding to port {}", nettyConfig.port());
-        channelFuture = serverBootstrap.bind(nettyConfig.port());
+        channelFuture = bindAndValidate(serverBootstrap);
     }
 
     public NettyServer(NettyConfig nettyConfig, MessageHandlerFactory messageHandlerFactory) {
@@ -88,22 +91,64 @@ public final class NettyServer implements AutoCloseable {
 
     @Override
     public void close() throws ExecutionException, InterruptedException {
-        logger.debug("Closing NettyServer");
-        {
-            logger.debug("Closing workerGroup");
-            workerGroup.shutdownGracefully().get();
-            logger.debug("Closed workerGroup");
+        if (!closed.compareAndSet(false, true)) {
+            LOGGER.debug("Close already invoked, instanceId={}", instanceId);
+            return;
         }
-        {
-            logger.debug("Closing bossGroup");
-            bossGroup.shutdownGracefully().get();
-            logger.debug("Closed bossGroup");
+
+        LOGGER.debug("Closing NettyServer, instanceId={}", instanceId);
+        closeServerChannel();
+        shutdownGroup("workerGroup", workerGroup);
+        shutdownGroup("bossGroup", bossGroup);
+    }
+
+    private ChannelFuture bindAndValidate(ServerBootstrap serverBootstrap) {
+        LOGGER.debug("Binding to port {}, instanceId={}", nettyConfig.port(), instanceId);
+        ChannelFuture bindFuture = serverBootstrap.bind(nettyConfig.port());
+        if (!bindFuture.awaitUninterruptibly(STARTUP_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            shutdownGroup("workerGroup", workerGroup);
+            shutdownGroup("bossGroup", bossGroup);
+            throw new IllegalStateException(
+                    "Cannot bind server to port "
+                            + nettyConfig.port()
+                            + " within "
+                            + STARTUP_TIMEOUT_SECONDS
+                            + " seconds");
         }
+        if (!bindFuture.isSuccess()) {
+            shutdownGroup("workerGroup", workerGroup);
+            shutdownGroup("bossGroup", bossGroup);
+            throw new IllegalStateException(
+                    "Cannot bind server to port " + nettyConfig.port(), bindFuture.cause());
+        }
+        return bindFuture;
+    }
+
+    private void closeServerChannel() {
         val channel = channelFuture.channel();
-        channel.closeFuture().sync();
-        val parent = channel.parent();
-        if (parent != null) {
-            parent.closeFuture().sync();
+        LOGGER.debug("Closing server channel, instanceId={}", instanceId);
+        if (!channel.close().awaitUninterruptibly(CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            LOGGER.warn(
+                    "Timed out while closing server channel, timeoutSeconds={}, instanceId={}",
+                    CLOSE_TIMEOUT_SECONDS,
+                    instanceId);
+            return;
         }
+        LOGGER.debug("Closed server channel, instanceId={}", instanceId);
+    }
+
+    private void shutdownGroup(String name, EventLoopGroup group) {
+        LOGGER.debug("Closing {}, instanceId={}", name, instanceId);
+        group.shutdownGracefully(0, CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        if (!group.terminationFuture()
+                .awaitUninterruptibly(CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
+            LOGGER.warn(
+                    "Timed out while closing {}, timeoutSeconds={}, instanceId={}",
+                    name,
+                    CLOSE_TIMEOUT_SECONDS,
+                    instanceId);
+            return;
+        }
+        LOGGER.debug("Closed {}, instanceId={}", name, instanceId);
     }
 }

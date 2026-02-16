@@ -9,24 +9,17 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.CorruptedFrameException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 
 final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
     public static final int SUPLA_DATA_PACKET_MIN_SIZE = SuplaDataPacket.MIN_SIZE;
-    private static final AtomicLong ID = new AtomicLong();
-    private final Logger log;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SuplaDataPacketDecoder.class);
+    private final String uuid;
 
     public SuplaDataPacketDecoder(String uuid) {
-        log =
-                LoggerFactory.getLogger(
-                        SuplaDataPacketDecoder.class.getName()
-                                + "#"
-                                + uuid
-                                + ":"
-                                + ID.incrementAndGet());
+        this.uuid = uuid;
     }
 
     @Override
@@ -42,11 +35,13 @@ final class SuplaDataPacketDecoder extends ByteToMessageDecoder {
 
         if (NOISY_CALL_TYPE_IDS.contains(suplaDataPacket.callId())) {
             // log pings in trace
-            log.trace(
-                    "SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT)",
-                    suplaDataPacket);
+            LOGGER.trace(
+                    "SuplaDataPacketDecoder.decode {} (SUPLA_SDC_CALL_PING_SERVER_RESULT),"
+                            + " instanceId={}",
+                    suplaDataPacket,
+                    uuid);
         } else {
-            log.debug("SuplaDataPacketDecoder.decode {}", suplaDataPacket);
+            LOGGER.debug("SuplaDataPacketDecoder.decode {}, instanceId={}", suplaDataPacket, uuid);
         }
         out.add(suplaDataPacket);
     }
