@@ -53,7 +53,7 @@ public final class NettyServer implements AutoCloseable {
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
         instanceId = Integer.toHexString(System.identityHashCode(this));
-        LOGGER.debug("New instance {}, instanceId={}", getClass().getSimpleName(), instanceId);
+        LOGGER.debug("[{}] New instance {}", instanceId, getClass().getSimpleName());
         this.nettyConfig = requireNonNull(nettyConfig);
 
         bossGroup = new NioEventLoopGroup(BOSS_THREADS);
@@ -69,7 +69,7 @@ public final class NettyServer implements AutoCloseable {
                         encoderFactory,
                         messageHandlerFactory);
 
-        LOGGER.trace("Configuring server bootstrap, instanceId={}", instanceId);
+        LOGGER.trace("[{}] Configuring server bootstrap", instanceId);
         serverBootstrap
                 .group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
@@ -92,18 +92,18 @@ public final class NettyServer implements AutoCloseable {
     @Override
     public void close() throws ExecutionException, InterruptedException {
         if (!closed.compareAndSet(false, true)) {
-            LOGGER.debug("Close already invoked, instanceId={}", instanceId);
+            LOGGER.debug("[{}] Close already invoked", instanceId);
             return;
         }
 
-        LOGGER.debug("Closing NettyServer, instanceId={}", instanceId);
+        LOGGER.debug("[{}] Closing NettyServer", instanceId);
         closeServerChannel();
         shutdownGroup("workerGroup", workerGroup);
         shutdownGroup("bossGroup", bossGroup);
     }
 
     private ChannelFuture bindAndValidate(ServerBootstrap serverBootstrap) {
-        LOGGER.debug("Binding to port {}, instanceId={}", nettyConfig.port(), instanceId);
+        LOGGER.debug("[{}] Binding to port {}", instanceId, nettyConfig.port());
         ChannelFuture bindFuture = serverBootstrap.bind(nettyConfig.port());
         if (!bindFuture.awaitUninterruptibly(STARTUP_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
             shutdownGroup("workerGroup", workerGroup);
@@ -126,29 +126,29 @@ public final class NettyServer implements AutoCloseable {
 
     private void closeServerChannel() {
         val channel = channelFuture.channel();
-        LOGGER.debug("Closing server channel, instanceId={}", instanceId);
+        LOGGER.debug("[{}] Closing server channel", instanceId);
         if (!channel.close().awaitUninterruptibly(CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
             LOGGER.warn(
-                    "Timed out while closing server channel, timeoutSeconds={}, instanceId={}",
-                    CLOSE_TIMEOUT_SECONDS,
-                    instanceId);
+                    "[{}] Timed out while closing server channel, timeoutSeconds={}",
+                    instanceId,
+                    CLOSE_TIMEOUT_SECONDS);
             return;
         }
-        LOGGER.debug("Closed server channel, instanceId={}", instanceId);
+        LOGGER.debug("[{}] Closed server channel", instanceId);
     }
 
     private void shutdownGroup(String name, EventLoopGroup group) {
-        LOGGER.debug("Closing {}, instanceId={}", name, instanceId);
+        LOGGER.debug("[{}] Closing {}", instanceId, name);
         group.shutdownGracefully(0, CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
         if (!group.terminationFuture()
                 .awaitUninterruptibly(CLOSE_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
             LOGGER.warn(
-                    "Timed out while closing {}, timeoutSeconds={}, instanceId={}",
+                    "[{}] Timed out while closing {}, timeoutSeconds={}",
+                    instanceId,
                     name,
-                    CLOSE_TIMEOUT_SECONDS,
-                    instanceId);
+                    CLOSE_TIMEOUT_SECONDS);
             return;
         }
-        LOGGER.debug("Closed {}, instanceId={}", name, instanceId);
+        LOGGER.debug("[{}] Closed {}", instanceId, name);
     }
 }

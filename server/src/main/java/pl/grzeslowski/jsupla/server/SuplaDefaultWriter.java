@@ -32,10 +32,10 @@ final class SuplaDefaultWriter implements SuplaWriter {
     void setVersion(short version) {
         if (version > SUPLA_PROTO_VERSION) {
             LOGGER.warn(
-                    "Supla version {} is higher than SUPLA_PROTO_VERSION ({})!, instanceId={}",
+                    "[{}] Supla version {} is higher than SUPLA_PROTO_VERSION ({})!",
+                    uuid,
                     version,
-                    SUPLA_PROTO_VERSION,
-                    uuid);
+                    SUPLA_PROTO_VERSION);
         }
         this.version = version < SUPLA_PROTO_VERSION ? version : SUPLA_PROTO_VERSION;
     }
@@ -54,11 +54,9 @@ final class SuplaDefaultWriter implements SuplaWriter {
         if (NOISY_CALL_TYPE_IDS.contains(packet.callId())) {
             // log pings in trace
             LOGGER.trace(
-                    "ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT), instanceId={}",
-                    proto,
-                    uuid);
+                    "[{}] ctx.writeAndFlush({}) (SUPLA_SDC_CALL_PING_SERVER_RESULT)", uuid, proto);
         } else {
-            LOGGER.debug("ctx.writeAndFlush({}), instanceId={}", proto, uuid);
+            LOGGER.debug("[{}] ctx.writeAndFlush({})", uuid, proto);
         }
         return context.writeAndFlush(packet);
     }

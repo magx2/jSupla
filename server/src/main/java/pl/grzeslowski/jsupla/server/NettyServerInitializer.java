@@ -44,7 +44,7 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
             EncoderFactory encoderFactory,
             MessageHandlerFactory messageHandlerFactory) {
         this.uuid = uuid;
-        LOGGER.debug("New instance {}, instanceId={}", getClass().getSimpleName(), this.uuid);
+        LOGGER.debug("[{}] New instance {}", this.uuid, getClass().getSimpleName());
         this.sslCtx = sslCtx;
         this.readTimeoutSeconds = readTimeoutSeconds;
         this.callTypeParser = callTypeParser;
@@ -56,10 +56,10 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
     @Override
     public void initChannel(SocketChannel ch) {
         LOGGER.debug(
-                "Initializing new channel, localAddress={}, remoteAddress={}, instanceId={}",
+                "[{}] Initializing new channel, localAddress={}, remoteAddress={}",
+                uuid,
                 ch.localAddress(),
-                ch.remoteAddress(),
-                uuid);
+                ch.remoteAddress());
         ChannelPipeline pipeline = ch.pipeline();
 
         if (sslCtx != null) {
