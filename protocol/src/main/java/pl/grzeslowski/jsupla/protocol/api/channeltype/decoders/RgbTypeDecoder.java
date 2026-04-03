@@ -37,7 +37,7 @@ class RgbTypeDecoder implements ChannelValueDecoder<RgbValue> {
                         rgbw.r(),
                         rgbw.g(),
                         rgbw.b(),
-                        rgbw.dimmerCct(),
+                        rgbw.whiteTemperature(),
                         Command.parse(rgbw.command()),
                         Subject.parse(rgbw.onOff()));
         log.debug("Decoded {} from {}", rgbValue, rgbw);
