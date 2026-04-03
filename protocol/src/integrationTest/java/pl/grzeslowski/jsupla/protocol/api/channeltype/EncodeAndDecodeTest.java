@@ -144,7 +144,7 @@ class EncodeAndDecodeTest {
                     BigInteger.valueOf(random.nextInt(1_000_000)),
                     BigInteger.valueOf(random.nextInt(1_000_000)),
                     BigDecimal.valueOf(random.nextInt(1_000_000)),
-                    BigDecimal.valueOf(random.nextInt(100_0000)),
+                    BigDecimal.valueOf(random.nextInt(1_000_000)),
                     Currency.getInstance("USD"),
                     random.nextInt(1_000_000),
                     random.nextInt(1_000_000),
