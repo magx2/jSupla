@@ -8,7 +8,6 @@ import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.*;
 
 import com.google.common.reflect.ClassPath;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
@@ -141,30 +140,39 @@ class EncodeAndDecodeTest {
         @Override
         public ChannelValue onElectricityMeter() {
             return new ElectricityMeterValue(
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    BigDecimal.valueOf(random.nextInt(1_000_000)),
-                    BigDecimal.valueOf(random.nextInt(1_000_000)),
-                    Currency.getInstance("USD"),
+                    Optional.of(randomElectricityMeterValue()),
+                    Optional.of(randomElectricityMeterValue()),
+                    Optional.of(randomElectricityMeterValue()),
+                    Optional.of(randomElectricityMeterValue()),
+                    Optional.of(Currency.getInstance("USD")),
                     random.nextInt(1_000_000),
-                    random.nextInt(1_000_000),
-                    List.of(randomPhase(), randomPhase(), randomPhase()));
+                    Optional.of(random.nextInt(1_000_000)),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.of(randomPhase()),
+                    Optional.of(randomPhase()),
+                    Optional.of(randomPhase()));
         }
 
         private ElectricityMeterValue.Phase randomPhase() {
             return new ElectricityMeterValue.Phase(
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    BigInteger.valueOf(random.nextInt(1_000_000)),
-                    random.nextDouble() * 25 + 230,
-                    random.nextDouble(),
-                    random.nextDouble() * 100,
-                    random.nextDouble() * 100,
-                    random.nextDouble() * 1000,
-                    random.nextDouble() * 1000,
-                    random.nextDouble() * 1000,
-                    random.nextInt(50));
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    BigDecimal.valueOf(random.nextDouble() * 25 + 230),
+                    BigDecimal.valueOf(random.nextDouble()),
+                    BigDecimal.valueOf(random.nextDouble() * 100),
+                    BigDecimal.valueOf(random.nextDouble() * 100),
+                    BigDecimal.valueOf(random.nextDouble() * 1000),
+                    BigDecimal.valueOf(random.nextDouble() * 1000),
+                    BigDecimal.valueOf(random.nextDouble() * 1000),
+                    BigDecimal.valueOf(random.nextInt(50)));
+        }
+
+        private BigDecimal randomElectricityMeterValue() {
+            return BigDecimal.valueOf(random.nextInt(1_000_000));
         }
 
         @Override

@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValue;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValueV2;
+import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValueV3;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterMeasurement;
 
 class ElectricityMeterTestPayloadBuilder {
@@ -62,6 +63,33 @@ class ElectricityMeterTestPayloadBuilder {
         return encode(value);
     }
 
+    byte[] buildV3(BigInteger forwardBalanced, BigInteger reverseBalanced) {
+        return buildV3(forwardBalanced, reverseBalanced, (short) 3);
+    }
+
+    byte[] buildV3(BigInteger forwardBalanced, BigInteger reverseBalanced, short phaseSequence) {
+        ElectricityMeterExtendedValueV3 value =
+                new ElectricityMeterExtendedValueV3(
+                        FORWARD_ACTIVE,
+                        REVERSE_ACTIVE,
+                        FORWARD_REACTIVE,
+                        REVERSE_REACTIVE,
+                        forwardBalanced,
+                        reverseBalanced,
+                        1_200,
+                        2_400,
+                        phaseSequence,
+                        12_345,
+                        54_321,
+                        45_678,
+                        CURRENCY,
+                        3,
+                        60,
+                        1,
+                        new ElectricityMeterMeasurement[] {MEASUREMENT});
+        return encode(value);
+    }
+
     ElectricityMeterMeasurement measurement() {
         return MEASUREMENT;
     }
@@ -100,6 +128,30 @@ class ElectricityMeterTestPayloadBuilder {
         writeUnsignedLongArray(buffer, value.totalReverseReactiveEnergy());
         buffer.putLong(value.totalForwardActiveEnergyBalanced().longValue());
         buffer.putLong(value.totalReverseActiveEnergyBalanced().longValue());
+        buffer.putInt(value.totalCost());
+        buffer.putInt(value.totalCostBalanced());
+        buffer.putInt(value.pricePerUnit());
+        buffer.put(value.currency());
+        buffer.putInt(value.measuredValues());
+        buffer.putInt(value.period());
+        buffer.putInt(value.mCount());
+        for (ElectricityMeterMeasurement measurement : value.m()) {
+            writeMeasurement(buffer, measurement);
+        }
+        return buffer.array();
+    }
+
+    private byte[] encode(ElectricityMeterExtendedValueV3 value) {
+        ByteBuffer buffer = ByteBuffer.allocate(value.protoSize()).order(ByteOrder.LITTLE_ENDIAN);
+        writeUnsignedLongArray(buffer, value.totalForwardActiveEnergy());
+        writeUnsignedLongArray(buffer, value.totalReverseActiveEnergy());
+        writeUnsignedLongArray(buffer, value.totalForwardReactiveEnergy());
+        writeUnsignedLongArray(buffer, value.totalReverseReactiveEnergy());
+        buffer.putLong(value.totalForwardActiveEnergyBalanced().longValue());
+        buffer.putLong(value.totalReverseActiveEnergyBalanced().longValue());
+        buffer.putShort((short) value.voltagePhaseAngle12());
+        buffer.putShort((short) value.voltagePhaseAngle13());
+        buffer.put((byte) value.phaseSequence());
         buffer.putInt(value.totalCost());
         buffer.putInt(value.totalCostBalanced());
         buffer.putInt(value.pricePerUnit());

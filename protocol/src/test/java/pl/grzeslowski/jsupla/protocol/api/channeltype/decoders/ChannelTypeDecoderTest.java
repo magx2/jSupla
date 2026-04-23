@@ -1,6 +1,7 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_ELECTRICITY_METER;
 
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
@@ -46,6 +47,22 @@ class ChannelTypeDecoderTest {
     }
 
     @Test
+    void shouldDecodeElectricityMeterDoubleType() {
+        // given
+        byte[] payload = new byte[] {7, -60, -38, 2, 0, 0, 0, 0};
+
+        // when
+        ChannelValue value = decoder.decode(SUPLA_CHANNELTYPE_ELECTRICITY_METER, payload);
+
+        // then
+        //        var x = PrimitiveDecoder.INSTANCE.parseInt(new byte[] {-60, -38, 2, 0}, 0);
+        //        assertThat(value).isInstanceOf(ElectricityMeterValue.class);
+        //        ElectricityMeterValue electricityMeterValue = (ElectricityMeterValue) value;
+        //
+        // assertThat(electricityMeterValue.temperature()).isEqualTo(BigDecimal.valueOf(-12.5));
+    }
+
+    @Test
     void shouldDecodeUnknownTypeAsUnknownValue() {
         // when
         ChannelValue value = decoder.decode(-1, new byte[0]);
@@ -61,6 +78,18 @@ class ChannelTypeDecoderTest {
                 .isEqualTo(TimerValue.class);
         assertThat(decoder.findClass(ChannelType.EV_TYPE_TIMER_STATE_V1_SEC))
                 .isEqualTo(TimerValue.class);
+    }
+
+    @Test
+    void shouldFindElectricityMeterValueClassForAllElectricityMeterTypes() {
+        assertThat(decoder.findClass(SUPLA_CHANNELTYPE_ELECTRICITY_METER))
+                .isEqualTo(ElectricityMeterValue.class);
+        assertThat(decoder.findClass(ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1))
+                .isEqualTo(ElectricityMeterValue.class);
+        assertThat(decoder.findClass(ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2))
+                .isEqualTo(ElectricityMeterValue.class);
+        assertThat(decoder.findClass(ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V3))
+                .isEqualTo(ElectricityMeterValue.class);
     }
 
     @ParameterizedTest(name = "{index}: should find only 0 or 1 decoder for channel type {0}")

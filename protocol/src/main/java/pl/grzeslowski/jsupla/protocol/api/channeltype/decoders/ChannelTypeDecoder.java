@@ -28,7 +28,9 @@ public final class ChannelTypeDecoder {
                         new ThermometerTypeDecoder(),
                         new ThermometerDoubleTypeDecoder(),
                         new ElectricityMeterDecoder(),
+                        new ElectricityMeterSimpleDecoder(),
                         new ElectricityMeterV2Decoder(),
+                        new ElectricityMeterV3Decoder(),
                         HvacTypeDecoder.INSTANCE,
                         new TimerSecDecoder(),
                         new TimerMsecDecoder(),
@@ -101,7 +103,7 @@ public final class ChannelTypeDecoder {
         return streamOfDecoders(channelType).findAny();
     }
 
-    /**VisibleForTesting*/
+    /** VisibleForTesting */
     Stream<ChannelValueDecoder<?>> streamOfDecoders(ChannelType channelType) {
         return decoders.stream()
                 .filter(decoder -> decoder.supportedChannelValueTypes().contains(channelType));

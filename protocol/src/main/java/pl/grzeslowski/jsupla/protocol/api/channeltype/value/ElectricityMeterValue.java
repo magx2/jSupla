@@ -1,57 +1,120 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
 
+import static java.util.Optional.empty;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.EM_PHASE_SEQUENCE_CURRENT;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.EM_PHASE_SEQUENCE_VOLTAGE;
+
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Currency;
-import java.util.List;
+import java.util.Optional;
 import lombok.NonNull;
 
 /**
  * @param totalForwardActiveEnergyBalanced kWh Vector phase-to-phase balancing
- * @param totalReverseActiveEnergyBalanced kWh Vector phase-to-phase balancing The price per unit, total cost and currency is overwritten by the server
- * @param totalCost                        total_cost == SUM(total_forward_active_energy[n] * price_per_unit
+ * @param totalReverseActiveEnergyBalanced kWh Vector phase-to-phase balancing The price per unit,
+ *     total cost and currency is overwritten by the server
+ * @param totalCost total_cost == SUM(total_forward_active_energy[n] * price_per_unit
  * @param pricePerUnit
  * @param currency
  * @param measuredValues
- * @param period                           Approximate period between measurements in seconds
- * @param phases
+ * @param period Approximate period between measurements in seconds
+ * @param voltagePhaseAngle12 Voltage phase angle between phase 1 and 2, in degrees
+ * @param voltagePhaseAngle13 Voltage phase angle between phase 1 and 3, in degrees
+ * @param phaseSequence voltage and current phase sequence
+ * @param phase1
+ * @param phase2
+ * @param phase3
  */
 public record ElectricityMeterValue(
-        @NonNull BigInteger totalForwardActiveEnergyBalanced,
-        @NonNull BigInteger totalReverseActiveEnergyBalanced,
-        @NonNull BigDecimal totalCost,
-        @NonNull BigDecimal pricePerUnit,
-        Currency currency,
+        @NonNull Optional<BigDecimal> totalForwardActiveEnergyBalanced,
+        @NonNull Optional<BigDecimal> totalReverseActiveEnergyBalanced,
+        @NonNull Optional<BigDecimal> totalCost,
+        @NonNull Optional<BigDecimal> pricePerUnit,
+        @NonNull Optional<Currency> currency,
         int measuredValues,
-        int period,
-        @NonNull List<Phase> phases)
+        Optional<Integer> period,
+        @NonNull Optional<BigDecimal> voltagePhaseAngle12,
+        @NonNull Optional<BigDecimal> voltagePhaseAngle13,
+        @NonNull Optional<PhaseSequence> phaseSequence,
+        @NonNull Optional<Phase> phase1,
+        @NonNull Optional<Phase> phase2,
+        @NonNull Optional<Phase> phase3)
         implements ChannelValue {
+    public record PhaseSequence(Sequence voltage, Sequence current) {
+        public static PhaseSequence fromBitmask(short bitmask) {
+            return new PhaseSequence(
+                    parse(bitmask, EM_PHASE_SEQUENCE_VOLTAGE),
+                    parse(bitmask, EM_PHASE_SEQUENCE_CURRENT));
+        }
+
+        private static Sequence parse(short bitmask, int flag) {
+            return (bitmask & flag) == 0 ? Sequence.CLOCKWISE_123 : Sequence.COUNTER_CLOCKWISE_132;
+        }
+    }
+
+    public enum Sequence {
+        CLOCKWISE_123,
+        COUNTER_CLOCKWISE_132
+    }
 
     /**
-     * @param totalForwardActiveEnergy
-     * @param totalReverseActiveEnergy
-     * @param totalForwardReactiveEnergy
-     * @param totalReverseReactiveEnergy
-     * @param voltage                    V
-     * @param current                    A (0.01A WHEN EM_VAR_CURRENT_OVER_65A) <p> unsigned short
-     * @param powerActive                W (0.01kW WHEN EM_VAR_POWER_ACTIVE_KW)
-     * @param powerReactive              var (0.01kvar WHEN EM_VAR_POWER_REACTIVE_KVAR)
-     * @param powerApparent              VA (0.01kVA WHEN EM_VAR_POWER_APPARENT_KVA)
+     * @param totalForwardActiveEnergy kWh
+     * @param totalReverseActiveEnergy kWh
+     * @param totalForwardReactiveEnergy kvarh
+     * @param totalReverseReactiveEnergy kvarh
+     * @param voltage V
+     * @param current A
+     * @param powerActive W
+     * @param powerReactive var
+     * @param powerApparent VA
      * @param powerFactor
-     * @param phaseAngle                 degree
-     * @param frequency                  Hz
+     * @param phaseAngle degree
+     * @param frequency Hz
      */
     public record Phase(
-            BigInteger totalForwardActiveEnergy,
-            BigInteger totalReverseActiveEnergy,
-            BigInteger totalForwardReactiveEnergy,
-            BigInteger totalReverseReactiveEnergy,
-            double voltage,
-            double current,
-            double powerActive,
-            double powerReactive,
-            double powerApparent,
-            double powerFactor,
-            double phaseAngle,
-            int frequency) {}
+            Optional<BigDecimal> totalForwardActiveEnergy,
+            Optional<BigDecimal> totalReverseActiveEnergy,
+            Optional<BigDecimal> totalForwardReactiveEnergy,
+            Optional<BigDecimal> totalReverseReactiveEnergy,
+            Optional<BigDecimal> voltage,
+            Optional<BigDecimal> current,
+            Optional<BigDecimal> powerActive,
+            Optional<BigDecimal> powerReactive,
+            Optional<BigDecimal> powerApparent,
+            Optional<BigDecimal> powerFactor,
+            Optional<BigDecimal> phaseAngle,
+            Optional<BigDecimal> frequency) {
+        public static final Phase EMPTY =
+                new Phase(
+                        empty(), empty(), empty(), empty(), empty(), empty(), empty(), empty(),
+                        empty(), empty(), empty(), empty());
+
+        public Phase(
+                BigDecimal totalForwardActiveEnergy,
+                BigDecimal totalReverseActiveEnergy,
+                BigDecimal totalForwardReactiveEnergy,
+                BigDecimal totalReverseReactiveEnergy,
+                BigDecimal voltage,
+                BigDecimal current,
+                BigDecimal powerActive,
+                BigDecimal powerReactive,
+                BigDecimal powerApparent,
+                BigDecimal powerFactor,
+                BigDecimal phaseAngle,
+                BigDecimal frequency) {
+            this(
+                    Optional.of(totalForwardActiveEnergy),
+                    Optional.of(totalReverseActiveEnergy),
+                    Optional.of(totalForwardReactiveEnergy),
+                    Optional.of(totalReverseReactiveEnergy),
+                    Optional.of(voltage),
+                    Optional.of(current),
+                    Optional.of(powerActive),
+                    Optional.of(powerReactive),
+                    Optional.of(powerApparent),
+                    Optional.of(powerFactor),
+                    Optional.of(phaseAngle),
+                    Optional.of(frequency));
+        }
+    }
 }

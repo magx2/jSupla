@@ -5,10 +5,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.*;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Currency;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
 
@@ -74,33 +73,40 @@ class ChannelValuesTest {
     void electricityMeterValueBuilderShouldCaptureFields() {
         ElectricityMeterValue.Phase phase =
                 new ElectricityMeterValue.Phase(
-                        BigInteger.ONE,
-                        BigInteger.TWO,
-                        BigInteger.TEN,
-                        BigInteger.ZERO,
-                        230.0,
-                        5.5,
-                        100.0,
-                        3.5,
-                        110.0,
-                        0.9,
-                        45.0,
-                        50);
+                        BigDecimal.ONE,
+                        new BigDecimal("2"),
+                        BigDecimal.TEN,
+                        BigDecimal.ZERO,
+                        new BigDecimal("230.0"),
+                        new BigDecimal("5.5"),
+                        new BigDecimal("100.0"),
+                        new BigDecimal("3.5"),
+                        new BigDecimal("110.0"),
+                        new BigDecimal("0.9"),
+                        new BigDecimal("45.0"),
+                        new BigDecimal("50"));
 
         ElectricityMeterValue value =
                 new ElectricityMeterValue(
-                        BigInteger.valueOf(123),
-                        BigInteger.valueOf(321),
-                        new BigDecimal("12.34"),
-                        BigDecimal.ONE,
-                        Currency.getInstance("USD"),
+                        Optional.of(new BigDecimal("123")),
+                        Optional.of(new BigDecimal("321")),
+                        Optional.of(new BigDecimal("12.34")),
+                        Optional.of(BigDecimal.ONE),
+                        Optional.of(Currency.getInstance("USD")),
                         5,
-                        60,
-                        Collections.singletonList(phase));
+                        Optional.of(60),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.of(phase),
+                        Optional.empty(),
+                        Optional.empty());
 
-        assertThat(value.totalForwardActiveEnergyBalanced()).isEqualTo(BigInteger.valueOf(123));
-        assertThat(value.phases()).containsExactly(phase);
-        assertThat(value.currency()).isEqualTo(Currency.getInstance("USD"));
+        assertThat(value.totalForwardActiveEnergyBalanced())
+                .hasValueSatisfying(
+                        actual -> assertThat(actual).isEqualByComparingTo(new BigDecimal("123")));
+        assertThat(value.phase1()).contains(phase);
+        assertThat(value.currency()).contains(Currency.getInstance("USD"));
     }
 
     @Test

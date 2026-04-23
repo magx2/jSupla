@@ -1,10 +1,9 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static java.util.stream.Collectors.toList;
-import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V3;
 import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
@@ -16,12 +15,13 @@ import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.BigDecimalDivider;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
-import pl.grzeslowski.jsupla.protocol.api.decoders.ElectricityMeterExtendedValueDecoder;
-import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValue;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue.PhaseSequence;
+import pl.grzeslowski.jsupla.protocol.api.decoders.ElectricityMeterExtendedValueV3Decoder;
+import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterExtendedValueV3;
 import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterMeasurement;
 
 @Slf4j
-class ElectricityMeterDecoder implements ChannelValueDecoder<ElectricityMeterValue> {
+class ElectricityMeterV3Decoder implements ChannelValueDecoder<ElectricityMeterValue> {
     public static final int NUMBER_OF_PHASES = 3;
     private static final int DIVIDER_PRECISION = 64;
     private static final BigDecimalDivider ENERGY_DIVIDER =
@@ -42,10 +42,12 @@ class ElectricityMeterDecoder implements ChannelValueDecoder<ElectricityMeterVal
             new BigDecimalDivider(1_000, DIVIDER_PRECISION);
     private static final BigDecimalDivider PHASE_ANGLE_DIVIDER =
             new BigDecimalDivider(10, DIVIDER_PRECISION);
+    private static final BigDecimalDivider VOLTAGE_PHASE_ANGLE_DIVIDER =
+            new BigDecimalDivider(10, DIVIDER_PRECISION);
 
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
-        return Set.of(EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1);
+        return Set.of(EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V3);
     }
 
     @Override
@@ -55,59 +57,37 @@ class ElectricityMeterDecoder implements ChannelValueDecoder<ElectricityMeterVal
 
     @Override
     public ElectricityMeterValue decode(byte[] bytes, int offset) {
-        val value = ElectricityMeterExtendedValueDecoder.INSTANCE.decode(bytes, offset);
-        val phases = buildPhases(value);
+        val value = ElectricityMeterExtendedValueV3Decoder.INSTANCE.decode(bytes, offset);
+        var phases = buildPhases(value);
         return new ElectricityMeterValue(
-                Optional.of(computeTotalForwardActiveEnergyBalanced(phases)),
-                Optional.of(computeTotalReverseActiveEnergyBalanced(phases)),
+                Optional.of(ENERGY_DIVIDER.divide(value.totalForwardActiveEnergyBalanced())),
+                Optional.of(ENERGY_DIVIDER.divide(value.totalReverseActiveEnergyBalanced())),
                 Optional.of(TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost()))),
                 Optional.of(
                         PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit()))),
                 parseCurrency(value.currency()),
                 value.measuredValues(),
                 Optional.of(value.period()),
-                Optional.empty(),
-                Optional.empty(),
-                Optional.empty(),
+                Optional.of(
+                        VOLTAGE_PHASE_ANGLE_DIVIDER.divide(
+                                BigInteger.valueOf(value.voltagePhaseAngle12()))),
+                Optional.of(
+                        VOLTAGE_PHASE_ANGLE_DIVIDER.divide(
+                                BigInteger.valueOf(value.voltagePhaseAngle13()))),
+                Optional.of(PhaseSequence.fromBitmask(value.phaseSequence())),
                 Optional.of(phases.get(0)),
                 Optional.of(phases.get(1)),
                 Optional.of(phases.get(2)));
     }
 
-    private BigDecimal computeTotalForwardActiveEnergyBalanced(
-            List<ElectricityMeterValue.Phase> phases) {
-        return phases.stream()
-                .map(
-                        phase ->
-                                phase.totalForwardActiveEnergy()
-                                        .orElse(BigDecimal.ZERO)
-                                        .subtract(
-                                                phase.totalForwardReactiveEnergy()
-                                                        .orElse(BigDecimal.ZERO)))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private BigDecimal computeTotalReverseActiveEnergyBalanced(
-            List<ElectricityMeterValue.Phase> phases) {
-        return phases.stream()
-                .map(
-                        phase ->
-                                phase.totalReverseActiveEnergy()
-                                        .orElse(BigDecimal.ZERO)
-                                        .subtract(
-                                                phase.totalReverseReactiveEnergy()
-                                                        .orElse(BigDecimal.ZERO)))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValue value) {
+    private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValueV3 value) {
         return IntStream.range(0, NUMBER_OF_PHASES)
                 .mapToObj(idx -> mapPhase(idx, value, value.m()[0]))
                 .collect(toList());
     }
 
     private ElectricityMeterValue.Phase mapPhase(
-            int idx, ElectricityMeterExtendedValue parent, ElectricityMeterMeasurement value) {
+            int idx, ElectricityMeterExtendedValueV3 parent, ElectricityMeterMeasurement value) {
         log.debug("Mapping phase {} from parent {} and value {}", idx, parent, value);
         return new ElectricityMeterValue.Phase(
                 // from parent
