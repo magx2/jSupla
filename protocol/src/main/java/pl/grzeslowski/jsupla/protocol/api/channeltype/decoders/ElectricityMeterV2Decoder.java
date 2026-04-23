@@ -1,17 +1,18 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
-import static java.math.MathContext.UNLIMITED;
 import static java.util.stream.Collectors.toList;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2;
 import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Currency;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.BigDecimalDivider;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ElectricityMeterExtendedValueV2Decoder;
@@ -20,9 +21,26 @@ import pl.grzeslowski.jsupla.protocol.api.structs.ElectricityMeterMeasurement;
 
 @Slf4j
 class ElectricityMeterV2Decoder implements ChannelValueDecoder<ElectricityMeterValue> {
-    public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
-    public static final BigDecimal ONE_THOUSAND = new BigDecimal(1_000);
     public static final int NUMBER_OF_PHASES = 3;
+    private static final int DIVIDER_PRECISION = 64;
+    private static final BigDecimalDivider ENERGY_DIVIDER =
+            new BigDecimalDivider(100_000, DIVIDER_PRECISION);
+    private static final BigDecimalDivider TOTAL_COST_DIVIDER =
+            new BigDecimalDivider(100, DIVIDER_PRECISION);
+    private static final BigDecimalDivider PRICE_PER_UNIT_DIVIDER =
+            new BigDecimalDivider(10_000, DIVIDER_PRECISION);
+    private static final BigDecimalDivider FREQUENCY_DIVIDER =
+            new BigDecimalDivider(100, DIVIDER_PRECISION);
+    private static final BigDecimalDivider VOLTAGE_DIVIDER =
+            new BigDecimalDivider(100, DIVIDER_PRECISION);
+    private static final BigDecimalDivider CURRENT_DIVIDER =
+            new BigDecimalDivider(1_000, DIVIDER_PRECISION);
+    private static final BigDecimalDivider POWER_DIVIDER =
+            new BigDecimalDivider(100_000, DIVIDER_PRECISION);
+    private static final BigDecimalDivider POWER_FACTOR_DIVIDER =
+            new BigDecimalDivider(1_000, DIVIDER_PRECISION);
+    private static final BigDecimalDivider PHASE_ANGLE_DIVIDER =
+            new BigDecimalDivider(10, DIVIDER_PRECISION);
 
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
@@ -37,15 +55,22 @@ class ElectricityMeterV2Decoder implements ChannelValueDecoder<ElectricityMeterV
     @Override
     public ElectricityMeterValue decode(byte[] bytes, int offset) {
         val value = ElectricityMeterExtendedValueV2Decoder.INSTANCE.decode(bytes, offset);
+        var phases = buildPhases(value);
         return new ElectricityMeterValue(
-                value.totalForwardActiveEnergyBalanced(),
-                value.totalReverseActiveEnergyBalanced(),
-                new BigDecimal(value.totalCost()).divide(ONE_HUNDRED, UNLIMITED),
-                new BigDecimal(value.pricePerUnit()).divide(ONE_THOUSAND, UNLIMITED),
+                Optional.of(ENERGY_DIVIDER.divide(value.totalForwardActiveEnergyBalanced())),
+                Optional.of(ENERGY_DIVIDER.divide(value.totalReverseActiveEnergyBalanced())),
+                Optional.of(TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost()))),
+                Optional.of(
+                        PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit()))),
                 parseCurrency(value.currency()),
                 value.measuredValues(),
-                value.period(),
-                buildPhases(value));
+                Optional.of(value.period()),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.empty(),
+                Optional.of(phases.get(0)),
+                Optional.of(phases.get(1)),
+                Optional.of(phases.get(2)));
     }
 
     private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValueV2 value) {
@@ -59,28 +84,28 @@ class ElectricityMeterV2Decoder implements ChannelValueDecoder<ElectricityMeterV
         log.debug("Mapping phase {} from parent {} and value {}", idx, parent, value);
         return new ElectricityMeterValue.Phase(
                 // from parent
-                parent.totalForwardActiveEnergy()[idx],
-                parent.totalReverseActiveEnergy()[idx],
-                parent.totalForwardReactiveEnergy()[idx],
-                parent.totalReverseReactiveEnergy()[idx],
+                ENERGY_DIVIDER.divide(parent.totalForwardActiveEnergy()[idx]),
+                ENERGY_DIVIDER.divide(parent.totalReverseActiveEnergy()[idx]),
+                ENERGY_DIVIDER.divide(parent.totalForwardReactiveEnergy()[idx]),
+                ENERGY_DIVIDER.divide(parent.totalReverseReactiveEnergy()[idx]),
                 // from value
-                value.voltage()[idx] * 0.01,
-                value.current()[idx] * 0.001,
-                value.powerActive()[idx] * 0.00001,
-                value.powerReactive()[idx] * 0.00001,
-                value.powerApparent()[idx] * 0.00001,
-                value.powerFactor()[idx] * 0.001,
-                value.phaseAngle()[idx] * 0.1,
-                value.freq());
+                VOLTAGE_DIVIDER.divide(BigInteger.valueOf(value.voltage()[idx])),
+                CURRENT_DIVIDER.divide(BigInteger.valueOf(value.current()[idx])),
+                POWER_DIVIDER.divide(BigInteger.valueOf(value.powerActive()[idx])),
+                POWER_DIVIDER.divide(BigInteger.valueOf(value.powerReactive()[idx])),
+                POWER_DIVIDER.divide(BigInteger.valueOf(value.powerApparent()[idx])),
+                POWER_FACTOR_DIVIDER.divide(BigInteger.valueOf(value.powerFactor()[idx])),
+                PHASE_ANGLE_DIVIDER.divide(BigInteger.valueOf(value.phaseAngle()[idx])),
+                FREQUENCY_DIVIDER.divide(BigInteger.valueOf(value.freq())));
     }
 
-    private Currency parseCurrency(byte[] currency) {
+    private Optional<Currency> parseCurrency(byte[] currency) {
         try {
             val currencyCode = parseString(currency);
-            return Currency.getInstance(currencyCode);
+            return Optional.of(Currency.getInstance(currencyCode));
         } catch (IllegalArgumentException e) {
             log.debug("Can't parse currency: {}", currency);
-            return null;
+            return Optional.empty();
         }
     }
 }
