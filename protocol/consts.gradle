@@ -129,7 +129,11 @@ def consts = [
 		name   : "DeviceConfigField",
 		prefix : "SUPLA_DEVICE_CONFIG_FIELD_",
 		options: [valueType : "long",
-				  findByMask: true]] as Const,
+		          findByMask: true]] as Const,
+	[
+		name   : "ElectricMeterPhaseFlag",
+		prefix : "EM_VALUE_FLAG_PHASE",
+		options: [findByMask: true]] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"

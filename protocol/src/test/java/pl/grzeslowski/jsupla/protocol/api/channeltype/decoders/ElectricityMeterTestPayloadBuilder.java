@@ -13,6 +13,7 @@ class ElectricityMeterTestPayloadBuilder {
     private static final BigInteger[] REVERSE_ACTIVE = arrayOf(400_000L, 200_000L, 100_000L);
     private static final BigInteger[] FORWARD_REACTIVE = arrayOf(100_000L, 200_000L, 300_000L);
     private static final BigInteger[] REVERSE_REACTIVE = arrayOf(100_000L, 100_000L, 100_000L);
+    private static final BigInteger[] ZERO_ENERGY = arrayOf(0L, 0L, 0L);
     private static final byte[] CURRENCY = new byte[] {'P', 'L', 'N'};
 
     private static final ElectricityMeterMeasurement MEASUREMENT =
@@ -27,12 +28,24 @@ class ElectricityMeterTestPayloadBuilder {
                     new short[] {100, 200, 300});
 
     byte[] buildV1() {
+        return buildV1(FORWARD_ACTIVE, REVERSE_ACTIVE, FORWARD_REACTIVE, REVERSE_REACTIVE);
+    }
+
+    byte[] buildV1(BigInteger[] forwardActive) {
+        return buildV1(forwardActive, ZERO_ENERGY, ZERO_ENERGY, ZERO_ENERGY);
+    }
+
+    byte[] buildV1(
+            BigInteger[] forwardActive,
+            BigInteger[] reverseActive,
+            BigInteger[] forwardReactive,
+            BigInteger[] reverseReactive) {
         ElectricityMeterExtendedValue value =
                 new ElectricityMeterExtendedValue(
-                        FORWARD_ACTIVE,
-                        REVERSE_ACTIVE,
-                        FORWARD_REACTIVE,
-                        REVERSE_REACTIVE,
+                        forwardActive,
+                        reverseActive,
+                        forwardReactive,
+                        reverseReactive,
                         12_345,
                         45_678,
                         CURRENCY,

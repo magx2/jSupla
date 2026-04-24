@@ -66,6 +66,11 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onElectricityMeterSimple() {
+            return ElectricityMeterSimpleValue.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onElectricityMeter() {
             return ElectricityMeterValue.class;
         }

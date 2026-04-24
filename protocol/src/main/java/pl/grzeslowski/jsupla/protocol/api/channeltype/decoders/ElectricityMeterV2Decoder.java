@@ -4,7 +4,9 @@ import static java.util.stream.Collectors.toList;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2;
 import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
@@ -57,20 +59,29 @@ class ElectricityMeterV2Decoder implements ChannelValueDecoder<ElectricityMeterV
         val value = ElectricityMeterExtendedValueV2Decoder.INSTANCE.decode(bytes, offset);
         var phases = buildPhases(value);
         return new ElectricityMeterValue(
-                Optional.of(ENERGY_DIVIDER.divide(value.totalForwardActiveEnergyBalanced())),
-                Optional.of(ENERGY_DIVIDER.divide(value.totalReverseActiveEnergyBalanced())),
-                Optional.of(TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost()))),
-                Optional.of(
-                        PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit()))),
+                sumEnergy(value.totalForwardActiveEnergy()),
+                sumEnergy(value.totalReverseActiveEnergy()),
+                sumEnergy(value.totalForwardReactiveEnergy()),
+                sumEnergy(value.totalReverseReactiveEnergy()),
+                ENERGY_DIVIDER.divide(value.totalForwardActiveEnergyBalanced()),
+                ENERGY_DIVIDER.divide(value.totalReverseActiveEnergyBalanced()),
+                TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost())),
+                PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit())),
                 parseCurrency(value.currency()),
                 value.measuredValues(),
-                Optional.of(value.period()),
-                Optional.empty(),
-                Optional.empty(),
+                value.period(),
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
                 Optional.empty(),
                 Optional.of(phases.get(0)),
                 Optional.of(phases.get(1)),
                 Optional.of(phases.get(2)));
+    }
+
+    private BigDecimal sumEnergy(BigInteger[] energies) {
+        return Arrays.stream(energies)
+                .map(ENERGY_DIVIDER::divide)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private List<ElectricityMeterValue.Phase> buildPhases(ElectricityMeterExtendedValueV2 value) {

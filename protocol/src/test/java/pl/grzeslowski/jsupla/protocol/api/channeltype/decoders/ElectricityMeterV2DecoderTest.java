@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Currency;
-import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 
@@ -25,13 +24,24 @@ class ElectricityMeterV2DecoderTest {
                 decoder.decode(builder.buildV2(expectedForward, expectedReverse));
 
         // then
-        assertOptionalBigDecimal(
-                value.totalForwardActiveEnergyBalanced(), new BigDecimal("9876.54321"));
-        assertOptionalBigDecimal(
-                value.totalReverseActiveEnergyBalanced(), new BigDecimal("1234.56789"));
+        assertBigDecimal(value.totalForwardActiveEnergyBalanced(), new BigDecimal("9876.54321"));
+        assertBigDecimal(value.totalReverseActiveEnergyBalanced(), new BigDecimal("1234.56789"));
         assertThat(value.phase1()).isPresent();
         assertThat(value.phase2()).isPresent();
         assertThat(value.phase3()).isPresent();
+    }
+
+    @Test
+    void shouldDecodeTopLevelEnergiesFromV2Payload() {
+        // when
+        ElectricityMeterValue value =
+                decoder.decode(builder.buildV2(BigInteger.ONE, BigInteger.TEN));
+
+        // then
+        assertBigDecimal(value.totalForwardActiveEnergy(), new BigDecimal("9"));
+        assertBigDecimal(value.totalReverseActiveEnergy(), new BigDecimal("7"));
+        assertBigDecimal(value.totalForwardReactiveEnergy(), new BigDecimal("6"));
+        assertBigDecimal(value.totalReverseReactiveEnergy(), new BigDecimal("3"));
     }
 
     @Test
@@ -44,13 +54,13 @@ class ElectricityMeterV2DecoderTest {
         ElectricityMeterValue value = decoder.decode(builder.buildV2(forward, reverse));
 
         // then
-        assertOptionalBigDecimal(value.totalCost(), new BigDecimal("123.45"));
-        assertOptionalBigDecimal(value.pricePerUnit(), new BigDecimal("4.5678"));
+        assertBigDecimal(value.totalCost(), new BigDecimal("123.45"));
+        assertBigDecimal(value.pricePerUnit(), new BigDecimal("4.5678"));
         assertThat(value.currency()).contains(Currency.getInstance("PLN"));
         assertThat(value.measuredValues()).isEqualTo(3);
-        assertThat(value.period()).contains(60);
-        assertThat(value.voltagePhaseAngle12()).isEmpty();
-        assertThat(value.voltagePhaseAngle13()).isEmpty();
+        assertThat(value.period()).isEqualTo(60);
+        assertBigDecimal(value.voltagePhaseAngle12(), BigDecimal.ZERO);
+        assertBigDecimal(value.voltagePhaseAngle13(), BigDecimal.ZERO);
         assertThat(value.phaseSequence()).isEmpty();
     }
 
@@ -66,50 +76,49 @@ class ElectricityMeterV2DecoderTest {
         assertThat(value.phase2()).isPresent();
         assertThat(value.phase3()).isPresent();
         ElectricityMeterValue.Phase phase0 = value.phase1().get();
-        assertOptionalBigDecimal(phase0.totalForwardActiveEnergy(), new BigDecimal("2"));
-        assertOptionalBigDecimal(phase0.totalReverseActiveEnergy(), new BigDecimal("4"));
-        assertOptionalBigDecimal(phase0.totalForwardReactiveEnergy(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase0.totalReverseReactiveEnergy(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase0.voltage(), new BigDecimal("230"));
-        assertOptionalBigDecimal(phase0.current(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase0.powerActive(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase0.powerReactive(), new BigDecimal("4"));
-        assertOptionalBigDecimal(phase0.powerApparent(), new BigDecimal("7"));
-        assertOptionalBigDecimal(phase0.powerFactor(), new BigDecimal("0.9"));
-        assertOptionalBigDecimal(phase0.phaseAngle(), BigDecimal.TEN);
-        assertOptionalBigDecimal(phase0.frequency(), new BigDecimal("50"));
+        assertBigDecimal(phase0.totalForwardActiveEnergy(), new BigDecimal("2"));
+        assertBigDecimal(phase0.totalReverseActiveEnergy(), new BigDecimal("4"));
+        assertBigDecimal(phase0.totalForwardReactiveEnergy(), BigDecimal.ONE);
+        assertBigDecimal(phase0.totalReverseReactiveEnergy(), BigDecimal.ONE);
+        assertBigDecimal(phase0.voltage(), new BigDecimal("230"));
+        assertBigDecimal(phase0.current(), BigDecimal.ONE);
+        assertBigDecimal(phase0.powerActive(), BigDecimal.ONE);
+        assertBigDecimal(phase0.powerReactive(), new BigDecimal("4"));
+        assertBigDecimal(phase0.powerApparent(), new BigDecimal("7"));
+        assertBigDecimal(phase0.powerFactor(), new BigDecimal("0.9"));
+        assertBigDecimal(phase0.phaseAngle(), BigDecimal.TEN);
+        assertBigDecimal(phase0.frequency(), new BigDecimal("50"));
 
         ElectricityMeterValue.Phase phase1 = value.phase2().get();
-        assertOptionalBigDecimal(phase1.totalForwardActiveEnergy(), new BigDecimal("3"));
-        assertOptionalBigDecimal(phase1.totalReverseActiveEnergy(), new BigDecimal("2"));
-        assertOptionalBigDecimal(phase1.totalForwardReactiveEnergy(), new BigDecimal("2"));
-        assertOptionalBigDecimal(phase1.totalReverseReactiveEnergy(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase1.voltage(), new BigDecimal("231"));
-        assertOptionalBigDecimal(phase1.current(), new BigDecimal("2"));
-        assertOptionalBigDecimal(phase1.powerActive(), new BigDecimal("2"));
-        assertOptionalBigDecimal(phase1.powerReactive(), new BigDecimal("5"));
-        assertOptionalBigDecimal(phase1.powerApparent(), new BigDecimal("8"));
-        assertOptionalBigDecimal(phase1.powerFactor(), new BigDecimal("0.95"));
-        assertOptionalBigDecimal(phase1.phaseAngle(), new BigDecimal("20"));
-        assertOptionalBigDecimal(phase1.frequency(), new BigDecimal("50"));
+        assertBigDecimal(phase1.totalForwardActiveEnergy(), new BigDecimal("3"));
+        assertBigDecimal(phase1.totalReverseActiveEnergy(), new BigDecimal("2"));
+        assertBigDecimal(phase1.totalForwardReactiveEnergy(), new BigDecimal("2"));
+        assertBigDecimal(phase1.totalReverseReactiveEnergy(), BigDecimal.ONE);
+        assertBigDecimal(phase1.voltage(), new BigDecimal("231"));
+        assertBigDecimal(phase1.current(), new BigDecimal("2"));
+        assertBigDecimal(phase1.powerActive(), new BigDecimal("2"));
+        assertBigDecimal(phase1.powerReactive(), new BigDecimal("5"));
+        assertBigDecimal(phase1.powerApparent(), new BigDecimal("8"));
+        assertBigDecimal(phase1.powerFactor(), new BigDecimal("0.95"));
+        assertBigDecimal(phase1.phaseAngle(), new BigDecimal("20"));
+        assertBigDecimal(phase1.frequency(), new BigDecimal("50"));
 
         ElectricityMeterValue.Phase phase2 = value.phase3().get();
-        assertOptionalBigDecimal(phase2.totalForwardActiveEnergy(), new BigDecimal("4"));
-        assertOptionalBigDecimal(phase2.totalReverseActiveEnergy(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase2.totalForwardReactiveEnergy(), new BigDecimal("3"));
-        assertOptionalBigDecimal(phase2.totalReverseReactiveEnergy(), BigDecimal.ONE);
-        assertOptionalBigDecimal(phase2.voltage(), new BigDecimal("232"));
-        assertOptionalBigDecimal(phase2.current(), new BigDecimal("3"));
-        assertOptionalBigDecimal(phase2.powerActive(), new BigDecimal("3"));
-        assertOptionalBigDecimal(phase2.powerReactive(), new BigDecimal("6"));
-        assertOptionalBigDecimal(phase2.powerApparent(), new BigDecimal("9"));
-        assertOptionalBigDecimal(phase2.powerFactor(), new BigDecimal("0.99"));
-        assertOptionalBigDecimal(phase2.phaseAngle(), new BigDecimal("30"));
-        assertOptionalBigDecimal(phase2.frequency(), new BigDecimal("50"));
+        assertBigDecimal(phase2.totalForwardActiveEnergy(), new BigDecimal("4"));
+        assertBigDecimal(phase2.totalReverseActiveEnergy(), BigDecimal.ONE);
+        assertBigDecimal(phase2.totalForwardReactiveEnergy(), new BigDecimal("3"));
+        assertBigDecimal(phase2.totalReverseReactiveEnergy(), BigDecimal.ONE);
+        assertBigDecimal(phase2.voltage(), new BigDecimal("232"));
+        assertBigDecimal(phase2.current(), new BigDecimal("3"));
+        assertBigDecimal(phase2.powerActive(), new BigDecimal("3"));
+        assertBigDecimal(phase2.powerReactive(), new BigDecimal("6"));
+        assertBigDecimal(phase2.powerApparent(), new BigDecimal("9"));
+        assertBigDecimal(phase2.powerFactor(), new BigDecimal("0.99"));
+        assertBigDecimal(phase2.phaseAngle(), new BigDecimal("30"));
+        assertBigDecimal(phase2.frequency(), new BigDecimal("50"));
     }
 
-    private static void assertOptionalBigDecimal(Optional<BigDecimal> actual, BigDecimal expected) {
-        assertThat(actual)
-                .hasValueSatisfying(value -> assertThat(value).isEqualByComparingTo(expected));
+    private static void assertBigDecimal(BigDecimal actual, BigDecimal expected) {
+        assertThat(actual).isEqualByComparingTo(expected);
     }
 }

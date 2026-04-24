@@ -88,23 +88,27 @@ class ChannelValuesTest {
 
         ElectricityMeterValue value =
                 new ElectricityMeterValue(
-                        Optional.of(new BigDecimal("123")),
-                        Optional.of(new BigDecimal("321")),
-                        Optional.of(new BigDecimal("12.34")),
-                        Optional.of(BigDecimal.ONE),
+                        new BigDecimal("111"),
+                        new BigDecimal("222"),
+                        new BigDecimal("333"),
+                        new BigDecimal("444"),
+                        new BigDecimal("123"),
+                        new BigDecimal("321"),
+                        BigDecimal.ONE,
+                        new BigDecimal("12.34"),
                         Optional.of(Currency.getInstance("USD")),
                         5,
-                        Optional.of(60),
-                        Optional.empty(),
-                        Optional.empty(),
+                        60,
+                        BigDecimal.ZERO,
+                        BigDecimal.ZERO,
                         Optional.empty(),
                         Optional.of(phase),
                         Optional.empty(),
                         Optional.empty());
 
         assertThat(value.totalForwardActiveEnergyBalanced())
-                .hasValueSatisfying(
-                        actual -> assertThat(actual).isEqualByComparingTo(new BigDecimal("123")));
+                .isEqualByComparingTo(new BigDecimal("123"));
+        assertThat(value.totalForwardActiveEnergy()).isEqualByComparingTo(new BigDecimal("111"));
         assertThat(value.phase1()).contains(phase);
         assertThat(value.currency()).contains(Currency.getInstance("USD"));
     }

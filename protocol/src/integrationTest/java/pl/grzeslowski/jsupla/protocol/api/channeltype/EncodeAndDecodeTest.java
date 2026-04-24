@@ -46,6 +46,7 @@ class EncodeAndDecodeTest {
                 .filter(ChannelValue.class::isAssignableFrom)
                 // non encodable values
                 .filter(not(UnknownValue.class::equals))
+                .filter(not(ElectricityMeterSimpleValue.class::equals))
                 .filter(not(ElectricityMeterValue.class::equals))
                 .filter(not(TimerValue.class::equals))
                 .filter(not(ActionTrigger.class::equals))
@@ -138,17 +139,30 @@ class EncodeAndDecodeTest {
         }
 
         @Override
+        public ChannelValue onElectricityMeterSimple() {
+            return new ElectricityMeterSimpleValue(
+                    randomElectricityMeterValue(),
+                    random.nextBoolean(),
+                    random.nextBoolean(),
+                    random.nextBoolean());
+        }
+
+        @Override
         public ChannelValue onElectricityMeter() {
             return new ElectricityMeterValue(
-                    Optional.of(randomElectricityMeterValue()),
-                    Optional.of(randomElectricityMeterValue()),
-                    Optional.of(randomElectricityMeterValue()),
-                    Optional.of(randomElectricityMeterValue()),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
                     Optional.of(Currency.getInstance("USD")),
                     random.nextInt(1_000_000),
-                    Optional.of(random.nextInt(1_000_000)),
-                    Optional.empty(),
-                    Optional.empty(),
+                    random.nextInt(1_000_000),
+                    randomElectricityMeterValue(),
+                    randomElectricityMeterValue(),
                     Optional.empty(),
                     Optional.of(randomPhase()),
                     Optional.of(randomPhase()),
