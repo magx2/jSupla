@@ -18,7 +18,9 @@ import lombok.NonNull;
  * @param measuredValues
  * @param period                           Approximate period between measurements in seconds
  * @param voltagePhaseAngle12              Voltage phase angle between phase 1 and 2, in degrees
+ *                                         when transmitted by the protocol
  * @param voltagePhaseAngle13              Voltage phase angle between phase 1 and 3, in degrees
+ *                                         when transmitted by the protocol
  * @param phaseSequence                    voltage and current phase sequence
  * @param phase1
  * @param phase2
@@ -40,8 +42,8 @@ public record ElectricityMeterValue(
         @NonNull Optional<Currency> currency,
         int measuredValues,
         int period,
-        @NonNull BigDecimal voltagePhaseAngle12,
-        @NonNull BigDecimal voltagePhaseAngle13,
+        @NonNull Optional<BigDecimal> voltagePhaseAngle12,
+        @NonNull Optional<BigDecimal> voltagePhaseAngle13,
         @NonNull Optional<PhaseSequence> phaseSequence,
         @NonNull Optional<Phase> phase1,
         @NonNull Optional<Phase> phase2,

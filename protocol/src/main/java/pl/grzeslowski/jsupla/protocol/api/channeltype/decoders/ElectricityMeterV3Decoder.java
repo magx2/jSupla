@@ -73,8 +73,12 @@ class ElectricityMeterV3Decoder implements ChannelValueDecoder<ElectricityMeterV
                 parseCurrency(value.currency()),
                 value.measuredValues(),
                 value.period(),
-                VOLTAGE_PHASE_ANGLE_DIVIDER.divide(BigInteger.valueOf(value.voltagePhaseAngle12())),
-                VOLTAGE_PHASE_ANGLE_DIVIDER.divide(BigInteger.valueOf(value.voltagePhaseAngle13())),
+                Optional.of(
+                        VOLTAGE_PHASE_ANGLE_DIVIDER.divide(
+                                BigInteger.valueOf(value.voltagePhaseAngle12()))),
+                Optional.of(
+                        VOLTAGE_PHASE_ANGLE_DIVIDER.divide(
+                                BigInteger.valueOf(value.voltagePhaseAngle13()))),
                 Optional.of(PhaseSequence.fromBitmask(value.phaseSequence())),
                 Optional.of(phases.get(0)),
                 Optional.of(phases.get(1)),
