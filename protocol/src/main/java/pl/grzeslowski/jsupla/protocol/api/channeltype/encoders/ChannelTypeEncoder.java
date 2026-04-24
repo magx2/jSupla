@@ -56,6 +56,9 @@ public class ChannelTypeEncoder {
             case HeatpolThermostatValue heatpolThermostatValue ->
                     heatpolThermostatTypeEncoder.encode(heatpolThermostatValue);
             // unsupported types
+            case ElectricityMeterSimpleValue electricityMeterSimpleValue ->
+                    throw new UnsupportedOperationException(
+                            "ChannelTypeEncoderImpl.encode(ElectricityMeterSimpleValue)");
             case ElectricityMeterValue electricityMeterValue ->
                     throw new UnsupportedOperationException(
                             "ChannelTypeEncoderImpl.encode(ElectricityMeterValue)");

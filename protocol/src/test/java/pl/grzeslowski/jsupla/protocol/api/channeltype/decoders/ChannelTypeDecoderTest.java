@@ -55,11 +55,10 @@ class ChannelTypeDecoderTest {
         ChannelValue value = decoder.decode(SUPLA_CHANNELTYPE_ELECTRICITY_METER, payload);
 
         // then
-        //        var x = PrimitiveDecoder.INSTANCE.parseInt(new byte[] {-60, -38, 2, 0}, 0);
-        //        assertThat(value).isInstanceOf(ElectricityMeterValue.class);
-        //        ElectricityMeterValue electricityMeterValue = (ElectricityMeterValue) value;
-        //
-        // assertThat(electricityMeterValue.temperature()).isEqualTo(BigDecimal.valueOf(-12.5));
+        assertThat(value).isInstanceOf(ElectricityMeterSimpleValue.class);
+        ElectricityMeterSimpleValue electricityMeterValue = (ElectricityMeterSimpleValue) value;
+        assertThat(electricityMeterValue.totalForwardActiveEnergy())
+                .isEqualByComparingTo(new BigDecimal("1870.76"));
     }
 
     @Test
@@ -83,7 +82,7 @@ class ChannelTypeDecoderTest {
     @Test
     void shouldFindElectricityMeterValueClassForAllElectricityMeterTypes() {
         assertThat(decoder.findClass(SUPLA_CHANNELTYPE_ELECTRICITY_METER))
-                .isEqualTo(ElectricityMeterValue.class);
+                .isEqualTo(ElectricityMeterSimpleValue.class);
         assertThat(decoder.findClass(ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V1))
                 .isEqualTo(ElectricityMeterValue.class);
         assertThat(decoder.findClass(ChannelType.EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V2))

@@ -6,6 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.parseString;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
@@ -58,45 +59,54 @@ class ElectricityMeterDecoder implements ChannelValueDecoder<ElectricityMeterVal
         val value = ElectricityMeterExtendedValueDecoder.INSTANCE.decode(bytes, offset);
         val phases = buildPhases(value);
         return new ElectricityMeterValue(
-                Optional.of(computeTotalForwardActiveEnergyBalanced(phases)),
-                Optional.of(computeTotalReverseActiveEnergyBalanced(phases)),
-                Optional.of(TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost()))),
-                Optional.of(
-                        PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit()))),
+                sumEnergy(value.totalForwardActiveEnergy()),
+                sumEnergy(value.totalReverseActiveEnergy()),
+                sumEnergy(value.totalForwardReactiveEnergy()),
+                sumEnergy(value.totalReverseReactiveEnergy()),
+                computeTotalForwardActiveEnergyBalanced(phases),
+                computeTotalReverseActiveEnergyBalanced(phases),
+                TOTAL_COST_DIVIDER.divide(BigInteger.valueOf(value.totalCost())),
+                PRICE_PER_UNIT_DIVIDER.divide(BigInteger.valueOf(value.pricePerUnit())),
                 parseCurrency(value.currency()),
                 value.measuredValues(),
-                Optional.of(value.period()),
-                Optional.empty(),
-                Optional.empty(),
+                value.period(),
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
                 Optional.empty(),
                 Optional.of(phases.get(0)),
                 Optional.of(phases.get(1)),
                 Optional.of(phases.get(2)));
     }
 
+    private BigDecimal sumEnergy(BigInteger[] energies) {
+        return Arrays.stream(energies)
+                .map(ENERGY_DIVIDER::divide)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     private BigDecimal computeTotalForwardActiveEnergyBalanced(
             List<ElectricityMeterValue.Phase> phases) {
-        return phases.stream()
-                .map(
-                        phase ->
-                                phase.totalForwardActiveEnergy()
-                                        .orElse(BigDecimal.ZERO)
-                                        .subtract(
-                                                phase.totalForwardReactiveEnergy()
-                                                        .orElse(BigDecimal.ZERO)))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        val totalForwardActiveEnergy = sumTotalForwardActiveEnergy(phases);
+        val totalReverseActiveEnergy = sumTotalReverseActiveEnergy(phases);
+        return totalForwardActiveEnergy.subtract(totalReverseActiveEnergy).max(BigDecimal.ZERO);
     }
 
     private BigDecimal computeTotalReverseActiveEnergyBalanced(
             List<ElectricityMeterValue.Phase> phases) {
+        val totalForwardActiveEnergy = sumTotalForwardActiveEnergy(phases);
+        val totalReverseActiveEnergy = sumTotalReverseActiveEnergy(phases);
+        return totalReverseActiveEnergy.subtract(totalForwardActiveEnergy).max(BigDecimal.ZERO);
+    }
+
+    private BigDecimal sumTotalForwardActiveEnergy(List<ElectricityMeterValue.Phase> phases) {
         return phases.stream()
-                .map(
-                        phase ->
-                                phase.totalReverseActiveEnergy()
-                                        .orElse(BigDecimal.ZERO)
-                                        .subtract(
-                                                phase.totalReverseReactiveEnergy()
-                                                        .orElse(BigDecimal.ZERO)))
+                .map(ElectricityMeterValue.Phase::totalForwardActiveEnergy)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private BigDecimal sumTotalReverseActiveEnergy(List<ElectricityMeterValue.Phase> phases) {
+        return phases.stream()
+                .map(ElectricityMeterValue.Phase::totalReverseActiveEnergy)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

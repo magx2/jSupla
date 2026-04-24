@@ -29,6 +29,9 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(HumidityValue.class)) {
             return callback.onHumidityValue();
         }
+        if (channelClass.isAssignableFrom(ElectricityMeterSimpleValue.class)) {
+            return callback.onElectricityMeterSimple();
+        }
         if (channelClass.isAssignableFrom(ElectricityMeterValue.class)) {
             return callback.onElectricityMeter();
         }
@@ -80,6 +83,8 @@ public final class ChannelClassSwitch<T> {
         T onHumidityValue();
 
         T onTemperatureAndHumidityValue();
+
+        T onElectricityMeterSimple();
 
         T onElectricityMeter();
 
