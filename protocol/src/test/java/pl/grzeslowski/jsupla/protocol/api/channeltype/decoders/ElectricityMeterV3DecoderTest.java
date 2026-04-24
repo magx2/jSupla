@@ -60,8 +60,10 @@ class ElectricityMeterV3DecoderTest {
         assertThat(value.currency()).contains(Currency.getInstance("PLN"));
         assertThat(value.measuredValues()).isEqualTo(3);
         assertThat(value.period()).isEqualTo(60);
-        assertBigDecimal(value.voltagePhaseAngle12(), new BigDecimal("120"));
-        assertBigDecimal(value.voltagePhaseAngle13(), new BigDecimal("240"));
+        assertThat(value.voltagePhaseAngle12())
+                .hasValueSatisfying(angle -> assertThat(angle).isEqualByComparingTo("120"));
+        assertThat(value.voltagePhaseAngle13())
+                .hasValueSatisfying(angle -> assertThat(angle).isEqualByComparingTo("240"));
         assertThat(value.phaseSequence())
                 .contains(
                         new PhaseSequence(

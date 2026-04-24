@@ -25,8 +25,8 @@ class ElectricityMeterDecoderTest {
                         currency -> assertThat(currency.getCurrencyCode()).isEqualTo("PLN"));
         assertThat(value.measuredValues()).isEqualTo(3);
         assertThat(value.period()).isEqualTo(60);
-        assertBigDecimal(value.voltagePhaseAngle12(), BigDecimal.ZERO);
-        assertBigDecimal(value.voltagePhaseAngle13(), BigDecimal.ZERO);
+        assertThat(value.voltagePhaseAngle12()).isEmpty();
+        assertThat(value.voltagePhaseAngle13()).isEmpty();
         assertThat(value.phaseSequence()).isEmpty();
         assertBigDecimal(value.totalForwardActiveEnergy(), new BigDecimal("9"));
         assertBigDecimal(value.totalReverseActiveEnergy(), new BigDecimal("7"));
