@@ -134,6 +134,61 @@ def consts = [
 		name   : "ElectricMeterPhaseFlag",
 		prefix : "EM_VALUE_FLAG_PHASE",
 		options: [findByMask: true]] as Const,
+	[
+		name   : "SspFlag",
+		prefix : "SSP_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ElectricMeterVariable",
+		prefix : "EM_VAR_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "RsValueFlag",
+		prefix : "RS_VALUE_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ZwaveNodeFlag",
+		prefix : "ZWAVE_NODE_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "RelayFlag",
+		prefix : "SUPLA_RELAY_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ContainerFlag",
+		prefix : "CONTAINER_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ThermostatScheduleDay",
+		prefix : "THERMOSTAT_SCHEDULE_DAY_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "TemperatureIndex",
+		prefix : "TEMPERATURE_INDEX",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "LocalUiLock",
+		prefix : "LOCAL_UI_LOCK_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ValveFlag",
+		prefix : "SUPLA_VALVE_FLAG_",
+		options: [findByMask: true]] as Const,
+	[
+		name   : "ElectricMeterCtType",
+		prefix : "EM_CT_TYPE_",
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
+	[
+		name   : "ElectricMeterPhaseLedType",
+		prefix : "EM_PHASE_LED_TYPE_",
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
+	[
+		name   : "OcrLightingMode",
+		prefix : "OCR_LIGHTING_MODE_",
+		options: [valueType : "long",
+				  findByMask: true]] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"
