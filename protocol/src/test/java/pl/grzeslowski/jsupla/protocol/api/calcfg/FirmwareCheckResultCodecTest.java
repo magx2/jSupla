@@ -3,11 +3,14 @@ package pl.grzeslowski.jsupla.protocol.api.calcfg;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static pl.grzeslowski.jsupla.protocol.api.FirmwareCheckResultCode.SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE;
+import static pl.grzeslowski.jsupla.protocol.api.FirmwareCheckResultCode.SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_NOT_AVAILABLE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVER_MAXSIZE;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.FirmwareCheckResultCode;
 import pl.grzeslowski.jsupla.protocol.api.serialization.BinaryWriter;
 import pl.grzeslowski.jsupla.protocol.api.serialization.ProtocolCodecException;
 
@@ -18,11 +21,13 @@ class FirmwareCheckResultCodecTest {
     void firmwareCheckResultShouldRoundTrip() {
         CalCfgFirmwareCheckResult result =
                 CalCfgFirmwareCheckResult.of(
-                        FirmwareCheckResultCode.UPDATE_AVAILABLE, "4.8.1", "/firmware/changelog");
+                        SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE,
+                        "4.8.1",
+                        "/firmware/changelog");
 
         CalCfgFirmwareCheckResult decoded = codec.decode(codec.encode(result));
 
-        assertThat(decoded.resultCode()).isEqualTo(FirmwareCheckResultCode.UPDATE_AVAILABLE);
+        assertThat(decoded.resultCode()).isEqualTo(SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE);
         assertThat(decoded.softVer()).containsExactly(result.softVer());
         assertThat(decoded.changelogUrl()).containsExactly(result.changelogUrl());
         assertThat(decoded.softVerString()).isEqualTo("4.8.1");
@@ -50,8 +55,9 @@ class FirmwareCheckResultCodecTest {
                 codec.decode(
                         codec.encode(
                                 new CalCfgFirmwareCheckResult(
-                                        FirmwareCheckResultCode.UPDATE_AVAILABLE
-                                                .unsignedByteValue(),
+                                        (short)
+                                                SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE
+                                                        .getValue(),
                                         softVer,
                                         changelogUrl)));
 
@@ -68,8 +74,9 @@ class FirmwareCheckResultCodecTest {
                 codec.decode(
                         codec.encode(
                                 new CalCfgFirmwareCheckResult(
-                                        FirmwareCheckResultCode.UPDATE_NOT_AVAILABLE
-                                                .unsignedByteValue(),
+                                        (short)
+                                                SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_NOT_AVAILABLE
+                                                        .getValue(),
                                         softVer,
                                         changelogUrl)));
 
@@ -82,7 +89,7 @@ class FirmwareCheckResultCodecTest {
         byte[] encoded =
                 codec.encode(
                         CalCfgFirmwareCheckResult.of(
-                                FirmwareCheckResultCode.UPDATE_AVAILABLE, "1", "/"));
+                                SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE, "1", "/"));
         encoded[0] = 99;
 
         assertThatThrownBy(() -> codec.decode(encoded))

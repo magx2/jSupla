@@ -1,10 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.calcfg;
 
+import static pl.grzeslowski.jsupla.protocol.api.CalCfgCommand.SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CALCFG_RESULT;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CALCFG_DATA_MAXSIZE;
 
 import java.util.Arrays;
 import java.util.Optional;
+import pl.grzeslowski.jsupla.protocol.api.CalCfgCommand;
+import pl.grzeslowski.jsupla.protocol.api.CalCfgResult;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType;
 import pl.grzeslowski.jsupla.protocol.api.serialization.ProtocolCodecException;
 import pl.grzeslowski.jsupla.protocol.api.structs.ds.DeviceServer;
@@ -21,8 +24,8 @@ public record TdsDeviceCalCfgResult(
     public static final int HEADER_SIZE = Integer.BYTES * 6;
 
     public TdsDeviceCalCfgResult {
-        CalCfgCommand.fromValue(command);
-        CalCfgResult.fromValue(result);
+        CalCfgCommand.findByValue(command);
+        CalCfgResult.findByValue(result);
         validateData(dataSize, data);
         data = data.clone();
     }
@@ -38,15 +41,17 @@ public record TdsDeviceCalCfgResult(
     }
 
     public CalCfgCommand commandCode() {
-        return CalCfgCommand.fromValue(command);
+        return CalCfgCommand.findByValue(command)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown command"));
     }
 
     public CalCfgResult resultCode() {
-        return CalCfgResult.fromValue(result);
+        return CalCfgResult.findByValue(result)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown result"));
     }
 
     public Optional<CalCfgFirmwareCheckResult> firmwareCheckResult() {
-        if (commandCode() != CalCfgCommand.CHECK_FIRMWARE_UPDATE) {
+        if (commandCode() != SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE) {
             return Optional.empty();
         }
         return Optional.of(FirmwareCheckResultCodec.INSTANCE.decode(data));

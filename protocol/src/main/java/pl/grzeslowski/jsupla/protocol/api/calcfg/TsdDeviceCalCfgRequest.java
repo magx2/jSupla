@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType.
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CALCFG_DATA_MAXSIZE;
 
 import java.util.Arrays;
+import pl.grzeslowski.jsupla.protocol.api.CalCfgCommand;
 import pl.grzeslowski.jsupla.protocol.api.calltypes.ServerDeviceCallType;
 import pl.grzeslowski.jsupla.protocol.api.serialization.ProtocolCodecException;
 import pl.grzeslowski.jsupla.protocol.api.structs.sd.ServerDevice;
@@ -21,7 +22,7 @@ public record TsdDeviceCalCfgRequest(
     public static final int HEADER_SIZE = Integer.BYTES * 5 + Byte.BYTES;
 
     public TsdDeviceCalCfgRequest {
-        CalCfgCommand.fromValue(command);
+        CalCfgCommand.findByValue(command);
         validateSuperUserAuthorized(superUserAuthorized);
         validateData(dataSize, data);
         data = data.clone();
@@ -32,7 +33,7 @@ public record TsdDeviceCalCfgRequest(
         return new TsdDeviceCalCfgRequest(
                 senderId,
                 DEVICE_CHANNEL_NUMBER,
-                command.value(),
+                command.getValue(),
                 (byte) (superUserAuthorized ? 1 : 0),
                 0,
                 0,
@@ -50,7 +51,8 @@ public record TsdDeviceCalCfgRequest(
     }
 
     public CalCfgCommand commandCode() {
-        return CalCfgCommand.fromValue(command);
+        return CalCfgCommand.findByValue(command)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown command"));
     }
 
     @Override

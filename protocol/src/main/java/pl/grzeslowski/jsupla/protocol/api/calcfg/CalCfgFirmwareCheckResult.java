@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_SOFTVE
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_URL_PATH_MAXSIZE;
 
 import java.util.Arrays;
+import pl.grzeslowski.jsupla.protocol.api.FirmwareCheckResultCode;
 import pl.grzeslowski.jsupla.protocol.api.serialization.BinaryReader;
 import pl.grzeslowski.jsupla.protocol.api.serialization.BinaryWriter;
 import pl.grzeslowski.jsupla.protocol.api.serialization.ProtocolCodecException;
@@ -14,7 +15,7 @@ public record CalCfgFirmwareCheckResult(short result, byte[] softVer, byte[] cha
     public static final int SIZE = Byte.BYTES + SUPLA_SOFTVER_MAXSIZE + SUPLA_URL_PATH_MAXSIZE;
 
     public CalCfgFirmwareCheckResult {
-        FirmwareCheckResultCode.fromValue(result);
+        FirmwareCheckResultCode.findByValue(result);
         validateFixedLength("SoftVer", softVer, SUPLA_SOFTVER_MAXSIZE);
         validateFixedLength("ChangelogUrl", changelogUrl, SUPLA_URL_PATH_MAXSIZE);
         softVer = softVer.clone();
@@ -24,7 +25,7 @@ public record CalCfgFirmwareCheckResult(short result, byte[] softVer, byte[] cha
     public static CalCfgFirmwareCheckResult of(
             FirmwareCheckResultCode result, String softVer, String changelogUrl) {
         return new CalCfgFirmwareCheckResult(
-                result.unsignedByteValue(),
+                (short) result.getValue(),
                 BinaryWriter.encodeFixedString(softVer, SUPLA_SOFTVER_MAXSIZE),
                 BinaryWriter.encodeFixedString(changelogUrl, SUPLA_URL_PATH_MAXSIZE));
     }
@@ -35,7 +36,8 @@ public record CalCfgFirmwareCheckResult(short result, byte[] softVer, byte[] cha
     }
 
     public FirmwareCheckResultCode resultCode() {
-        return FirmwareCheckResultCode.fromValue(result);
+        return FirmwareCheckResultCode.findByValue(result)
+                .orElseThrow(() -> new IllegalStateException("FirmwareCheckResultCode not found"));
     }
 
     public String softVerString() {
