@@ -1,10 +1,15 @@
 package pl.grzeslowski.jsupla.server;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_MAX_DATA_SIZE;
+import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_TAG;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import jakarta.annotation.Nullable;
@@ -17,6 +22,8 @@ import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
 @SuppressWarnings("WeakerAccess")
 public final class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private static final Logger LOGGER = LoggerFactory.getLogger(NettyServerInitializer.class);
+    private static final ByteBuf SUPLA_TAG_DELIMITER =
+            Unpooled.unreleasableBuffer(Unpooled.copiedBuffer(SUPLA_TAG)).asReadOnly();
     private final String uuid;
 
     @Nullable private final SslContext sslCtx;
@@ -59,6 +66,9 @@ public final class NettyServerInitializer extends ChannelInitializer<SocketChann
             pipeline.addLast(sslCtx.newHandler(ch.alloc()));
         }
         pipeline.addLast(new ReadTimeoutHandler(readTimeoutSeconds, SECONDS));
+        pipeline.addLast(
+                new DelimiterBasedFrameDecoder(
+                        SUPLA_MAX_DATA_SIZE, false, true, SUPLA_TAG_DELIMITER.duplicate()));
         pipeline.addLast(new SuplaDataPacketDecoder(uuid));
         pipeline.addLast(new SuplaDataPacketEncoder(uuid));
         pipeline.addLast(
