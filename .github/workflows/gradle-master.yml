@@ -28,7 +28,7 @@ jobs:
       - name: Publish snapshot to GitHub Packages
         env:
           GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT: ${{ secrets.PAT }}
         run: |
           if grep -q '^jSuplaVersion=.*-SNAPSHOT$' gradle.properties; then
             ./gradlew publishAllPublicationsToGitHubPackagesRepository
