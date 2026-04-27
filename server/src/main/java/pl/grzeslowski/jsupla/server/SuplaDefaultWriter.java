@@ -11,6 +11,7 @@ import lombok.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.serialization.PayloadCodecRegistry;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.FromServerProto;
 
@@ -18,14 +19,24 @@ final class SuplaDefaultWriter implements SuplaWriter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SuplaDefaultWriter.class);
     private final AtomicLong msgId = new AtomicLong(1);
     private final EncoderFactory encoderFactory;
+    private final PayloadCodecRegistry payloadCodecRegistry;
     private final String uuid;
     @NonNull private final ChannelHandlerContext context;
     @Getter private short version = SUPLA_PROTO_VERSION;
 
     public SuplaDefaultWriter(
             String uuid, EncoderFactory encoderFactory, ChannelHandlerContext context) {
+        this(uuid, encoderFactory, PayloadCodecRegistry.INSTANCE, context);
+    }
+
+    SuplaDefaultWriter(
+            String uuid,
+            EncoderFactory encoderFactory,
+            PayloadCodecRegistry payloadCodecRegistry,
+            ChannelHandlerContext context) {
         this.uuid = uuid;
         this.encoderFactory = encoderFactory;
+        this.payloadCodecRegistry = payloadCodecRegistry;
         this.context = context;
     }
 
@@ -42,8 +53,14 @@ final class SuplaDefaultWriter implements SuplaWriter {
 
     @Override
     public ChannelFuture write(@Nonnull FromServerProto proto) {
-        val encoder = encoderFactory.getEncoder(proto);
-        val encode = encoder.encode(proto);
+        val encode =
+                payloadCodecRegistry
+                        .encode(proto)
+                        .orElseGet(
+                                () -> {
+                                    val encoder = encoderFactory.getEncoder(proto);
+                                    return encoder.encode(proto);
+                                });
         val packet =
                 new SuplaDataPacket(
                         version,
