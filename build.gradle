@@ -149,6 +149,17 @@ prodProjects { p->
 
 	def final githubRepo = "magx2/jSupla"
 	publishing {
+		repositories {
+			maven {
+				name = "GitHubPackages"
+				url = uri("https://maven.pkg.github.com/${githubRepo}")
+				credentials {
+					username = findProperty("githubPackagesUsername") ?: System.getenv("GITHUB_ACTOR")
+					password = findProperty("githubPackagesToken") ?: System.getenv("GITHUB_TOKEN")
+				}
+			}
+		}
+
 		publications {
 			mavenJava(MavenPublication) {
 				artifactId = project.name
@@ -188,6 +199,7 @@ prodProjects { p->
 	}
 
 	signing {
+		required { !version.toString().endsWith("-SNAPSHOT") }
 		sign publishing.publications.mavenJava
 	}
 }
