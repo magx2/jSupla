@@ -189,6 +189,15 @@ def consts = [
 		prefix : "OCR_LIGHTING_MODE_",
 		options: [valueType : "long",
 				  findByMask: true]] as Const,
+	[
+		name   : "CalCfgCommand",
+		prefix : "SUPLA_CALCFG_CMD_"] as Const,
+	[
+		name   : "CalCfgResult",
+		prefix : "SUPLA_CALCFG_RESULT_"] as Const,
+	[
+		name   : "FirmwareCheckResultCode",
+		prefix : "SUPLA_FIRMWARE_CHECK_RESULT_"] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"

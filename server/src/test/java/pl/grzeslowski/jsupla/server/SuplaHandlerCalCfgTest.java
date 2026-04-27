@@ -1,16 +1,16 @@
 package pl.grzeslowski.jsupla.server;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.CalCfgCommand.SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE;
+import static pl.grzeslowski.jsupla.protocol.api.CalCfgResult.SUPLA_CALCFG_RESULT_TRUE;
+import static pl.grzeslowski.jsupla.protocol.api.FirmwareCheckResultCode.SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE;
 import static pl.grzeslowski.jsupla.protocol.api.calltypes.DeviceServerCallType.SUPLA_DS_CALL_DEVICE_CALCFG_RESULT;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE;
-import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_CALCFG_RESULT_TRUE;
 
 import io.netty.channel.embedded.EmbeddedChannel;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.jupiter.api.Test;
 import pl.grzeslowski.jsupla.protocol.api.calcfg.CalCfgFirmwareCheckResult;
 import pl.grzeslowski.jsupla.protocol.api.calcfg.DeviceCalCfgResultCodec;
-import pl.grzeslowski.jsupla.protocol.api.calcfg.FirmwareCheckResultCode;
 import pl.grzeslowski.jsupla.protocol.api.calcfg.FirmwareCheckResultCodec;
 import pl.grzeslowski.jsupla.protocol.api.calcfg.TdsDeviceCalCfgResult;
 import pl.grzeslowski.jsupla.protocol.api.calcfg.TsdDeviceCalCfgRequest;
@@ -35,14 +35,14 @@ class SuplaHandlerCalCfgTest {
         byte[] firmwarePayload =
                 FirmwareCheckResultCodec.INSTANCE.encode(
                         CalCfgFirmwareCheckResult.of(
-                                FirmwareCheckResultCode.UPDATE_AVAILABLE, "4.8.1", "/changes"));
+                                SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE, "4.8.1", "/changes"));
         byte[] calCfgPayload =
                 DeviceCalCfgResultCodec.INSTANCE.encode(
                         new TdsDeviceCalCfgResult(
                                 3,
                                 TsdDeviceCalCfgRequest.DEVICE_CHANNEL_NUMBER,
-                                SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE,
-                                SUPLA_CALCFG_RESULT_TRUE,
+                                SUPLA_CALCFG_CMD_CHECK_FIRMWARE_UPDATE.getValue(),
+                                SUPLA_CALCFG_RESULT_TRUE.getValue(),
                                 0,
                                 firmwarePayload.length,
                                 firmwarePayload));
@@ -59,7 +59,7 @@ class SuplaHandlerCalCfgTest {
         TdsDeviceCalCfgResult result = (TdsDeviceCalCfgResult) messageHandler.handled.get();
         assertThat(result.firmwareCheckResult()).isPresent();
         assertThat(result.firmwareCheckResult().get().resultCode())
-                .isEqualTo(FirmwareCheckResultCode.UPDATE_AVAILABLE);
+                .isEqualTo(SUPLA_FIRMWARE_CHECK_RESULT_UPDATE_AVAILABLE);
     }
 
     private static final class CapturingMessageHandler implements MessageHandler {
