@@ -24,3 +24,4 @@ Dockerfile text eol=lf
 *.proto text eol=lf
 *.puml text eol=lf
 *.bat text eol=lf
+*.gradle text eol=lf
