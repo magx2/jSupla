@@ -155,7 +155,7 @@ prodProjects { p->
 				url = uri("https://maven.pkg.github.com/${githubRepo}")
 				credentials {
 					username = findProperty("githubPackagesUsername") ?: System.getenv("GITHUB_ACTOR")
-					password = findProperty("githubPackagesToken") ?: System.getenv("GITHUB_TOKEN")
+					password = findProperty("githubPackagesToken") ?: System.getenv("PAT")
 				}
 			}
 		}
