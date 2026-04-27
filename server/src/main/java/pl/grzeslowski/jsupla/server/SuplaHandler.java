@@ -13,6 +13,7 @@ import pl.grzeslowski.jsupla.protocol.api.calltypes.CallTypeParser;
 import pl.grzeslowski.jsupla.protocol.api.decoders.Decoder;
 import pl.grzeslowski.jsupla.protocol.api.decoders.DecoderFactory;
 import pl.grzeslowski.jsupla.protocol.api.encoders.EncoderFactory;
+import pl.grzeslowski.jsupla.protocol.api.serialization.PayloadCodecRegistry;
 import pl.grzeslowski.jsupla.protocol.api.structs.SuplaDataPacket;
 import pl.grzeslowski.jsupla.protocol.api.types.ProtoWithSize;
 import pl.grzeslowski.jsupla.protocol.api.types.ToServerProto;
@@ -23,6 +24,7 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
     private final CallTypeParser callTypeParser;
     private final DecoderFactory decoderFactory;
     private final EncoderFactory encoderFactory;
+    private final PayloadCodecRegistry payloadCodecRegistry;
     private final MessageHandler messageHandler;
 
     private final AtomicReference<SuplaDefaultWriter> writer = new AtomicReference<>();
@@ -33,12 +35,29 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             DecoderFactory decoderFactory,
             EncoderFactory encoderFactory,
             MessageHandler messageHandler) {
+        this(
+                uuid,
+                callTypeParser,
+                decoderFactory,
+                encoderFactory,
+                PayloadCodecRegistry.INSTANCE,
+                messageHandler);
+    }
+
+    SuplaHandler(
+            String uuid,
+            CallTypeParser callTypeParser,
+            DecoderFactory decoderFactory,
+            EncoderFactory encoderFactory,
+            PayloadCodecRegistry payloadCodecRegistry,
+            MessageHandler messageHandler) {
         this.uuid = uuid;
         LOGGER.debug("[{}] New instance {}", this.uuid, getClass().getSimpleName());
         this.messageHandler = messageHandler;
         this.callTypeParser = callTypeParser;
         this.decoderFactory = decoderFactory;
         this.encoderFactory = encoderFactory;
+        this.payloadCodecRegistry = payloadCodecRegistry;
     }
 
     @Override
@@ -80,14 +99,21 @@ final class SuplaHandler extends SimpleChannelInboundHandler<SuplaDataPacket> {
             return;
         }
         val callType = callTypeOptional.get();
-        Decoder<? extends ProtoWithSize> decoder = decoderFactory.getDecoder(callType);
-        val data = suplaDataPacket.data();
-        LOGGER.trace(
-                "[{}] Decoding data with decoder {}:\n{}",
-                uuid,
-                decoder.getClass().getName(),
-                data);
-        val entity = decoder.decode(data);
+        val entity =
+                payloadCodecRegistry
+                        .decode(suplaDataPacket)
+                        .orElseGet(
+                                () -> {
+                                    Decoder<? extends ProtoWithSize> decoder =
+                                            decoderFactory.getDecoder(callType);
+                                    val data = suplaDataPacket.data();
+                                    LOGGER.trace(
+                                            "[{}] Decoding data with decoder {}:\n{}",
+                                            uuid,
+                                            decoder.getClass().getName(),
+                                            data);
+                                    return decoder.decode(data);
+                                });
         if (suplaDataPacket.dataSize() != entity.protoSize()
                 // because the size of SuplaTimeval varies, we are not checking this
                 && !callType.equals(SUPLA_DCS_CALL_PING_SERVER)) {
