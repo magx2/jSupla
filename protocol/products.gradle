@@ -58,7 +58,13 @@ task productsCatalogGenerator {
 		def productEntries = products
 			.collect { entry ->
 				"entry(new ProductKey(${entry.manufacturerId}, ${entry.productId}), " +
-					"new ProductInfo(${javaString(entry.manufacturer)}, ${javaString(entry.productName)}))"
+					"new ProductInfo(${javaString(entry.manufacturer)}, " +
+					"${javaString(entry.productName)}, " +
+					"${entry.updatesCount}, " +
+					"${javaNullableString(entry.latestReleaseAt)}, " +
+					"${javaNullableString(entry.latestVersion)}, " +
+					"${javaNullableString(entry.latestDescription)}, " +
+					"${javaNullableString(entry.productUrl)}))"
 			}
 			.join(",\n\t\t\t")
 
@@ -109,10 +115,21 @@ task productsCatalogGenerator {
 			|
 			|    public record ProductKey(int manufacturerId, int productId) {}
 			|
-			|    public record ProductInfo(String manufacturer, String name) {
+			|    public record ProductInfo(
+			|            String manufacturer,
+			|            String name,
+			|            int updatesCount,
+			|            String latestReleaseAt,
+			|            String latestVersion,
+			|            String latestDescription,
+			|            String productUrl) {
 			|        public ProductInfo {
 			|            requireNonNull(manufacturer);
 			|            requireNonNull(name);
+			|        }
+			|
+			|        public ProductInfo(String manufacturer, String name) {
+			|            this(manufacturer, name, 0, null, null, null, null);
 			|        }
 			|
 			|        public String description() {
@@ -177,6 +194,11 @@ static Object toProductCatalogEntry(Object product, Map<Integer, String> manufac
 		productId     : productId,
 		manufacturer  : findManufacturerName(manufacturerId, productName, manufacturerNames),
 		productName   : productName,
+		updatesCount  : product.updatesCount as int,
+		latestReleaseAt  : product.latestReleaseAt?.toString(),
+		latestVersion    : product.latestVersion?.toString(),
+		latestDescription: product.latestDescription?.toString(),
+		productUrl        : product.productUrl?.toString(),
 	]
 }
 
@@ -207,4 +229,8 @@ static String javaString(String value) {
 		.replace("\r", "\\r")
 		.replace("\n", "\\n")
 		.replace("\t", "\\t") + '"'
+}
+
+static String javaNullableString(String value) {
+	value == null ? "null" : javaString(value)
 }
