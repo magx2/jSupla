@@ -194,7 +194,7 @@ static Object toProductCatalogEntry(Object product, Map<Integer, String> manufac
 		productId     : productId,
 		manufacturer  : findManufacturerName(manufacturerId, productName, manufacturerNames),
 		productName   : productName,
-		updatesCount  : product.updatesCount as int,
+		updatesCount     : intOrDefault(product.updatesCount, 0),
 		latestReleaseAt  : product.latestReleaseAt?.toString(),
 		latestVersion    : product.latestVersion?.toString(),
 		latestDescription: product.latestDescription?.toString(),
@@ -211,6 +211,10 @@ static String findManufacturerName(int manufacturerId, String productName, Map<I
 
 static String toManufacturerName(String constName) {
 	constName.replaceFirst(/^SUPLA_MFR_/, "").replace("_", " ")
+}
+
+static int intOrDefault(Object value, int defaultValue) {
+	value == null ? defaultValue : value as int
 }
 
 static void failOnDuplicatedProductKeys(List products) {
