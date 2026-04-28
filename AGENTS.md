@@ -76,6 +76,9 @@ jSupla/
 
 **CRITICAL:** Always run `./gradlew spotlessApply` before committing. This formats code AND runs code generators in the protocol module.
 
+**WSL Spotless troubleshooting:** If `spotlessApply` fails because of a WSL path problem, manually remove all
+`build` folders in the repository, then run `./gradlew spotlessApply` again.
+
 ## 4. Testing Instructions
 
 **Test Types:**
