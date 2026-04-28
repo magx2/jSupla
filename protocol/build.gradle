@@ -11,6 +11,7 @@ apply from: 'pojoGenerator.gradle'
 apply from: 'decoders.gradle'
 apply from: 'encoders.gradle'
 apply from: 'download.gradle'
+apply from: 'products.gradle'
 
 spotless {
 	//noinspection GroovyAssignabilityCheck
