@@ -1,0 +1,210 @@
+import groovy.json.JsonSlurper
+
+import java.nio.file.Files
+import java.time.ZonedDateTime
+
+ext.productsCatalogUrl = "https://updates.supla.org/products"
+
+task downloadProductsCatalog {
+	group = 'jSupla'
+	inputs.property("productsCatalogUrl", project.productsCatalogUrl)
+	outputs.file project.file("build/products/products.json")
+	doLast {
+		def products = project.file("build/products/products.json").toPath()
+		Files.createDirectories(products.parent)
+
+		if (Files.exists(products)) {
+			logger.warn("Path [${products.fileName}] already exists! Not downloading...")
+			return
+		}
+
+		downloadProductsCatalogWithRedirects(project.productsCatalogUrl as String, products.toFile())
+	}
+}
+
+task productsCatalogGenerator {
+	group = 'jSupla'
+	inputs.file new File(project.file("build/parser"), "consts.json")
+	inputs.file project.file("build/products/products.json")
+	outputs.file project.file(
+		"build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/SuplaProducts.java")
+	doLast {
+		def constsFile = new File(project.file("build/parser"), "consts.json")
+		if (!constsFile.exists()) {
+			throw new IOException("File ${constsFile.absolutePath} does not exists!")
+		}
+
+		def productsFile = project.file("build/products/products.json")
+		if (!productsFile.exists()) {
+			throw new IOException("File ${productsFile.absolutePath} does not exists!")
+		}
+
+		def jsonSlurper = new JsonSlurper()
+		def manufacturerNames = readManufacturerNames(jsonSlurper.parse(constsFile) as List)
+		def products = (jsonSlurper.parse(productsFile) as List)
+			.collect { product -> toProductCatalogEntry(product, manufacturerNames) }
+			.findAll { entry -> entry != null }
+			.sort { a, b ->
+				def manufacturerCompare = a.manufacturer <=> b.manufacturer
+				if (manufacturerCompare != 0) {
+					return manufacturerCompare
+				}
+				def manufacturerIdCompare = a.manufacturerId <=> b.manufacturerId
+				manufacturerIdCompare != 0 ? manufacturerIdCompare : a.productId <=> b.productId
+			}
+
+		failOnDuplicatedProductKeys(products)
+
+		def productEntries = products
+			.collect { entry ->
+				"entry(new ProductKey(${entry.manufacturerId}, ${entry.productId}), " +
+					"new ProductInfo(${javaString(entry.manufacturer)}, ${javaString(entry.productName)}))"
+			}
+			.join(",\n\t\t\t")
+
+		def productsJava = project.file(
+			"build/generated/sources/jsupla/main/java/pl/grzeslowski/jsupla/protocol/api/SuplaProducts.java").toPath()
+		Files.createDirectories(productsJava.parent)
+		productsJava.write("""\
+			|package pl.grzeslowski.jsupla.protocol.api;
+			|
+			|import static java.util.Map.entry;
+			|import static java.util.Objects.requireNonNull;
+			|
+			|import java.util.Locale;
+			|import java.util.Map;
+			|import java.util.Optional;
+			|
+			|/**
+			| * SUPLA product catalog generated from {@code ${project.productsCatalogUrl}}.
+			| *
+			| * <p>Product IDs are resolved only with their manufacturer ID. Legacy entries with
+			| * {@code manufacturerId=0} and {@code productId=0} are skipped because they cannot be resolved by ID alone.
+			| */
+			|@javax.annotation.Generated(
+			|        value = "SUPLA firmware product catalog",
+			|        date = "${ZonedDateTime.now()}",
+			|        comments = "generated from ${project.productsCatalogUrl}")
+			|public final class SuplaProducts {
+			|    public static final Map<ProductKey, ProductInfo> SUPLA_PRODUCTS =
+			|            Map.ofEntries(
+			|                    ${productEntries});
+			|
+			|    private SuplaProducts() {}
+			|
+			|    public static Optional<ProductInfo> findByIds(int manufacturerId, int productId) {
+			|        return Optional.ofNullable(SUPLA_PRODUCTS.get(new ProductKey(manufacturerId, productId)));
+			|    }
+			|
+			|    public static String describe(int manufacturerId, int productId) {
+			|        return findByIds(manufacturerId, productId)
+			|                .map(ProductInfo::description)
+			|                .orElse(
+			|                        "Unknown product (manufacturerId="
+			|                                + manufacturerId
+			|                                + ", productId="
+			|                                + productId
+			|                                + ")");
+			|    }
+			|
+			|    public record ProductKey(int manufacturerId, int productId) {}
+			|
+			|    public record ProductInfo(String manufacturer, String name) {
+			|        public ProductInfo {
+			|            requireNonNull(manufacturer);
+			|            requireNonNull(name);
+			|        }
+			|
+			|        public String description() {
+			|            if (name.toUpperCase(Locale.ROOT).startsWith(manufacturer.toUpperCase(Locale.ROOT))) {
+			|                return name;
+			|            }
+			|            return name + " (" + manufacturer + ")";
+			|        }
+			|    }
+			|}
+			|""".stripMargin())
+	}
+}
+
+productsCatalogGenerator.dependsOn "parseProtoh"
+productsCatalogGenerator.dependsOn "downloadProductsCatalog"
+compileJava.dependsOn "productsCatalogGenerator"
+tasks.matching { task -> task.name == "spotlessJava" }.configureEach {
+	dependsOn "productsCatalogGenerator"
+}
+tasks.named('sourcesJar') {
+	dependsOn tasks.named('productsCatalogGenerator')
+}
+
+void downloadProductsCatalogWithRedirects(String url, File file) {
+	logger.debug("Downloading file from: {} to {}", url, file.absolutePath)
+	while (url) {
+		new URL(url).openConnection().with { conn ->
+			conn.instanceFollowRedirects = false
+			url = conn.getHeaderField("Location")
+			if (!url) {
+				file.withOutputStream { out ->
+					conn.inputStream.with { inp ->
+						out << inp
+					}
+				}
+			}
+		}
+	}
+}
+
+static Map<Integer, String> readManufacturerNames(List consts) {
+	def result = [:]
+	consts
+		.findAll { constDef -> constDef.name.toString().startsWith("SUPLA_MFR_") }
+		.each { constDef ->
+			result[Integer.parseInt(constDef.value.toString())] = toManufacturerName(constDef.name.toString())
+		}
+	result
+}
+
+static Object toProductCatalogEntry(Object product, Map<Integer, String> manufacturerNames) {
+	def manufacturerId = product.manufacturerId as int
+	def productId = product.productId as int
+	if (manufacturerId == 0 && productId == 0) {
+		return null
+	}
+
+	def productName = product.productName.toString()
+	return [
+		manufacturerId: manufacturerId,
+		productId     : productId,
+		manufacturer  : findManufacturerName(manufacturerId, productName, manufacturerNames),
+		productName   : productName,
+	]
+}
+
+static String findManufacturerName(int manufacturerId, String productName, Map<Integer, String> manufacturerNames) {
+	if (manufacturerId == 7 && productName.toUpperCase(Locale.ROOT).startsWith("VARILIGHT")) {
+		return "VARILIGHT"
+	}
+	return manufacturerNames.getOrDefault(manufacturerId, "UNKNOWN")
+}
+
+static String toManufacturerName(String constName) {
+	constName.replaceFirst(/^SUPLA_MFR_/, "").replace("_", " ")
+}
+
+static void failOnDuplicatedProductKeys(List products) {
+	def duplicatedKeys = products
+		.groupBy { product -> "${product.manufacturerId}:${product.productId}" }
+		.findAll { key, entries -> entries.size() > 1 }
+	if (!duplicatedKeys.isEmpty()) {
+		throw new IllegalStateException("Duplicated SUPLA product keys: " + duplicatedKeys.keySet())
+	}
+}
+
+static String javaString(String value) {
+	'"' + value
+		.replace("\\", "\\\\")
+		.replace("\"", "\\\"")
+		.replace("\r", "\\r")
+		.replace("\n", "\\n")
+		.replace("\t", "\\t") + '"'
+}
