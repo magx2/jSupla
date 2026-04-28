@@ -3,7 +3,6 @@ package pl.grzeslowski.jsupla.server;
 import static pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts.SUPLA_PROTO_VERSION;
 import static pl.grzeslowski.jsupla.server.NettyServer.NOISY_CALL_TYPE_IDS;
 
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Nonnull;
 import java.util.concurrent.atomic.AtomicLong;
@@ -41,16 +40,13 @@ final class SuplaDefaultWriter implements SuplaWriter {
     }
 
     @Override
-    public ChannelFuture write(@Nonnull FromServerProto proto) {
+    public SuplaWriteFuture write(@Nonnull FromServerProto proto) {
         val encoder = encoderFactory.getEncoder(proto);
         val encode = encoder.encode(proto);
+        val packetMsgId = msgId.getAndIncrement();
         val packet =
                 new SuplaDataPacket(
-                        version,
-                        msgId.getAndIncrement(),
-                        proto.callType().getValue(),
-                        encode.length,
-                        encode);
+                        version, packetMsgId, proto.callType().getValue(), encode.length, encode);
         if (NOISY_CALL_TYPE_IDS.contains(packet.callId())) {
             // log pings in trace
             LOGGER.trace(
@@ -58,6 +54,6 @@ final class SuplaDefaultWriter implements SuplaWriter {
         } else {
             LOGGER.debug("[{}] ctx.writeAndFlush({})", uuid, proto);
         }
-        return context.writeAndFlush(packet);
+        return new DefaultSuplaWriteFuture(packetMsgId, context.writeAndFlush(packet));
     }
 }
