@@ -92,8 +92,12 @@ allProjects {
 	}
 
 	// Enable JUnit 5 (Jupiter) for all test tasks
-	tasks.withType(Test) {
+	def maxParallelTestForks =
+		(findProperty('maxParallelTestForks') ?: Math.max(1, Runtime.runtime.availableProcessors().intdiv(2))) as int
+
+	tasks.withType(Test).configureEach {
 		useJUnitPlatform()
+		maxParallelForks = maxParallelTestForks
 	}
 
 	task integrationTest(type: Test) {
@@ -103,7 +107,6 @@ allProjects {
 
 		testClassesDirs = sourceSets.integrationTest.output.classesDirs
 		classpath = sourceSets.integrationTest.runtimeClasspath
-		shouldRunAfter test
 		outputs.upToDateWhen { false }
 	}
 	check.dependsOn integrationTest
