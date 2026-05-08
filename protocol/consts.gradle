@@ -198,6 +198,12 @@ def consts = [
 	[
 		name   : "FirmwareCheckResultCode",
 		prefix : "SUPLA_FIRMWARE_CHECK_RESULT_"] as Const,
+	[
+		name   : "ButtonMode",
+		prefix : "SUPLA_BUTTON_MODE_"] as Const,
+	[
+		name   : "RelayMode",
+		prefix : "SUPLA_RELAY_MODE_"] as Const,
 ]
 consts.each { constDef ->
 	def taskName = "${constDef.name}CodeGenerator"
@@ -226,7 +232,8 @@ consts.each { constDef ->
 							.replaceAll(">", "&#62;")
 					}
 					def deprecated = it?.javaDoc?.contains("DEPRECATED") ? "\n\t@Deprecated" : ""
-					"$javaDoc$deprecated ${it.name}(${mapValue(it.value)})"
+					def suffix = constDef.options.valueType == 'long' && !it.value.contains("<") ? "L" : "" 
+					"$javaDoc$deprecated ${it.name}(${mapValue(it.value)}$suffix)"
 				}
 				.collect(Collectors.joining(",\n\t"))
 
