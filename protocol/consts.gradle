@@ -232,8 +232,9 @@ consts.each { constDef ->
 							.replaceAll(">", "&#62;")
 					}
 					def deprecated = it?.javaDoc?.contains("DEPRECATED") ? "\n\t@Deprecated" : ""
-					def suffix = constDef.options.valueType == 'long' && !it.value.contains("<") ? "L" : "" 
-					"$javaDoc$deprecated ${it.name}(${mapValue(it.value)}$suffix)"
+					def mappedValue = mapValue(it.value)
+					def suffix = constDef.options.valueType == 'long' && !it.value.contains("<") && !mappedValue.endsWith("L") ? "L" : ""
+					"$javaDoc$deprecated ${it.name}(${mappedValue}$suffix)"
 				}
 				.collect(Collectors.joining(",\n\t"))
 
@@ -460,7 +461,7 @@ static String mapValue(String value) {
 		return value.replaceAll(/(1) << (\d+)/, '1 << $2')
 	}
 	if (value.startsWith("0x")) {
-		return value
+		return needsLongHexLiteral(value) ? "${value}L" : value
 	}
 	try {
 		Eval.me(value)
@@ -486,7 +487,7 @@ static String findType(String value) {
 		return "int"
 	}
 	if (value.startsWith("0x")) {
-		return "int"
+		return needsLongHexLiteral(value) ? "long" : "int"
 	}
 	try {
 		def eval = Eval.me(value)
@@ -509,6 +510,14 @@ static String findType(String value) {
 	} catch (NumberFormatException ignored) {
 		return "String"
 	}
+}
+
+static boolean needsLongHexLiteral(String value) {
+	if (!value.startsWith("0x") && !value.startsWith("0X")) {
+		return false
+	}
+	def parsed = new BigInteger(value.substring(2), 16)
+	return parsed > BigInteger.valueOf(Integer.MAX_VALUE)
 }
 
 static boolean predefined(constObj, List overrides) {
