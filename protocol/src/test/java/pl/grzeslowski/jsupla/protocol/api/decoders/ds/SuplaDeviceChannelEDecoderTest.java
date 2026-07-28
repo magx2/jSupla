@@ -2,12 +2,10 @@ package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -123,29 +121,41 @@ class SuplaDeviceChannelEDecoderTest {
                 Arguments.of(SUPLA_CHANNELTYPE_DIMMERANDRGBLED));
     }
 
-    @ParameterizedTest(name = "{index}: should fail for unsupported channel type {0}")
-    @MethodSource
-    void shouldFailForUnsupportedChannelTypes(ChannelType unsupportedChannelType) {
+    @Test
+    void shouldDecodeBinarySensorUsingRawValue() {
+        short number = 1;
+        int type = SUPLA_CHANNELTYPE_BINARYSENSOR.getValue();
+        int funcList = 42;
+        int defaultValue = 1;
+        long flags = 3L;
+        short offline = 0;
+        long validity = 10L;
+        short defaultIcon = 4;
+        short subDeviceId = 5;
+        byte[] value = new byte[(int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE];
+        value[0] = 1;
+
         byte[] payload =
-                baseHeader((short) 1, unsupportedChannelType.getValue(), 0, 0, 0L, (short) 0, 0L)
-                        .put(new byte[(int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE])
-                        .put((byte) 0)
-                        .put((byte) 0)
+                baseHeader(number, type, funcList, defaultValue, flags, offline, validity)
+                        .put(value)
+                        .put((byte) defaultIcon)
+                        .put((byte) subDeviceId)
                         .array();
 
-        assertThatThrownBy(() -> decoder.decode(payload, 0))
-                .isInstanceOf(UnsupportedOperationException.class)
-                .hasMessageContaining(String.valueOf(unsupportedChannelType.getValue()));
-    }
+        SuplaDeviceChannelE result = decoder.decode(payload, 0);
 
-    static Stream<Arguments> shouldFailForUnsupportedChannelTypes() {
-        return Arrays.stream(ChannelType.values())
-                .filter(channelType -> !SUPPORTED_CHANNEL_TYPES.contains(channelType))
-                .map(Arguments::of);
+        assertThat(result.type()).isEqualTo(type);
+        assertThat(result.funcList()).isEqualTo(funcList);
+        assertThat(result.actionTriggerCaps()).isNull();
+        assertThat(result.value()).containsExactly(value);
+        assertThat(result.actionTriggerProperties()).isNull();
+        assertThat(result.hvacValue()).isNull();
+        assertThat(result.defaultIcon()).isEqualTo(defaultIcon);
+        assertThat(result.subDeviceId()).isEqualTo(subDeviceId);
     }
 
     @Test
-    void shouldFailWhenTypeIsNotSupported() {
+    void shouldDecodeUnknownTypeUsingOrdinaryChannelUnions() {
         byte[] payload =
                 baseHeader((short) 1, 999, 0, 0, 0L, (short) 0, 0L)
                         .put(new byte[(int) ProtoConsts.SUPLA_CHANNELVALUE_SIZE])
@@ -153,9 +163,7 @@ class SuplaDeviceChannelEDecoderTest {
                         .put((byte) 0)
                         .array();
 
-        assertThatThrownBy(() -> decoder.decode(payload, 0))
-                .isInstanceOf(UnsupportedOperationException.class)
-                .hasMessageContaining("999");
+        assertThat(decoder.decode(payload, 0).type()).isEqualTo(999);
     }
 
     @ParameterizedTest(name = "{index}: should decode action trigger with {0} type")

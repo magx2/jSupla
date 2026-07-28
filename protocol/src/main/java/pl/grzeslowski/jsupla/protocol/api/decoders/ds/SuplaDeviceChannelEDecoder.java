@@ -1,6 +1,5 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.ds;
 
-import static java.lang.String.format;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 import static pl.grzeslowski.jsupla.protocol.api.JavaConsts.*;
 import static pl.grzeslowski.jsupla.protocol.api.Preconditions.unionCheck;
@@ -89,11 +88,6 @@ public class SuplaDeviceChannelEDecoder
     }
 
     private FirstUnion parseFirstUnion(int type, byte[] bytes, int offset) {
-        if (type == SUPLA_CHANNELTYPE_HVAC.getValue()
-                || type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
-                || type == SUPLA_CHANNELTYPE_RELAY.getValue()) {
-            return FirstUnion.funcList(bytes, offset);
-        }
         if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
             return FirstUnion.actionTriggerCaps(bytes, offset);
         }
@@ -102,11 +96,7 @@ public class SuplaDeviceChannelEDecoder
                 || type == SUPLA_CHANNELTYPE_DIMMERANDRGBLED.getValue()) {
             return FirstUnion.rgbwFuncList(bytes, offset);
         }
-
-        throw new UnsupportedOperationException(
-                format(
-                        "Type %s is not supported for %s when parsing first union",
-                        type, SuplaDeviceChannelE.class.getSimpleName()));
+        return FirstUnion.funcList(bytes, offset);
     }
 
     private record FirstUnion(Integer funcList, Long actionTriggerCaps, Long rgbwFuncList) {
@@ -140,13 +130,6 @@ public class SuplaDeviceChannelEDecoder
             int offset,
             ActionTriggerPropertiesDecoder actionTriggerPropertiesDecoder,
             HVACValueDecoder hvacValueDecoder) {
-        if (type == SUPLA_CHANNELTYPE_DIMMER.getValue()
-                || type == SUPLA_CHANNELTYPE_THERMOMETER.getValue()
-                || type == SUPLA_CHANNELTYPE_RELAY.getValue()
-                || type == SUPLA_CHANNELTYPE_RGBLEDCONTROLLER.getValue()
-                || type == SUPLA_CHANNELTYPE_DIMMERANDRGBLED.getValue()) {
-            return SecondUnion.value(bytes, offset);
-        }
         if (type == SUPLA_CHANNELTYPE_ACTIONTRIGGER.getValue()) {
             return SecondUnion.actionTriggerProperties(
                     actionTriggerPropertiesDecoder, bytes, offset);
@@ -154,11 +137,7 @@ public class SuplaDeviceChannelEDecoder
         if (type == SUPLA_CHANNELTYPE_HVAC.getValue()) {
             return SecondUnion.hvacValue(hvacValueDecoder, bytes, offset);
         }
-
-        throw new UnsupportedOperationException(
-                format(
-                        "Type %s is not supported for %s when parsing second union",
-                        type, SuplaDeviceChannelE.class.getSimpleName()));
+        return SecondUnion.value(bytes, offset);
     }
 
     private record SecondUnion(
