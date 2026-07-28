@@ -64,6 +64,17 @@ class ChannelValuesTest {
     }
 
     @Test
+    void timerValueShouldRenderTargetValueAsArray() {
+        TimerValue timerValue =
+                new TimerValue(Duration.ofSeconds(30), new byte[] {1, 2, 3}, 42, "sender");
+
+        assertThat(timerValue.toString())
+                .isEqualTo(
+                        "TimerValue[remaining=PT30S, targetValue=[1, 2, 3], senderId=42,"
+                                + " senderName=sender]");
+    }
+
+    @Test
     void unknownValueConstantShouldBeEmpty() {
         assertThat(UnknownValue.UNKNOWN_VALUE.bytes()).isEmpty();
         assertThat(UnknownValue.UNKNOWN_VALUE.message()).isEqualTo("UNKNOWN_VALUE");
