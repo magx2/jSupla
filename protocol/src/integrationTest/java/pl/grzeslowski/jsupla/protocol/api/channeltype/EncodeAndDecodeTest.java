@@ -26,6 +26,43 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.encoders.ChannelTypeEncode
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
 class EncodeAndDecodeTest {
+    private static final Map<Class<? extends ChannelValue>, BitFunction> SEMANTIC_RELAY_FUNCTIONS =
+            Map.ofEntries(
+                    Map.entry(
+                            GatewayLockValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATEWAYLOCK),
+                    Map.entry(GateValue.class, BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE),
+                    Map.entry(
+                            GarageDoorValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGARAGEDOOR),
+                    Map.entry(
+                            DoorLockValue.class, BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEDOORLOCK),
+                    Map.entry(
+                            RollerShutterValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROLLERSHUTTER),
+                    Map.entry(PowerSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_POWERSWITCH),
+                    Map.entry(LightSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_LIGHTSWITCH),
+                    Map.entry(StaircaseTimerValue.class, BitFunction.SUPLA_BIT_FUNC_STAIRCASETIMER),
+                    Map.entry(
+                            RoofWindowValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROOFWINDOW),
+                    Map.entry(
+                            FacadeBlindValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEFACADEBLIND),
+                    Map.entry(TerraceAwningValue.class, BitFunction.SUPLA_BIT_FUNC_TERRACE_AWNING),
+                    Map.entry(
+                            ProjectorScreenValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_PROJECTOR_SCREEN),
+                    Map.entry(CurtainValue.class, BitFunction.SUPLA_BIT_FUNC_CURTAIN),
+                    Map.entry(VerticalBlindValue.class, BitFunction.SUPLA_BIT_FUNC_VERTICAL_BLIND),
+                    Map.entry(
+                            RollerGarageDoorValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_ROLLER_GARAGE_DOOR),
+                    Map.entry(PumpSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_PUMPSWITCH),
+                    Map.entry(
+                            HeatOrColdSourceSwitchValue.class,
+                            BitFunction.SUPLA_BIT_FUNC_HEATORCOLDSOURCESWITCH));
+
     final Random random;
     final Logger log = org.slf4j.LoggerFactory.getLogger(EncodeAndDecodeTest.class);
     final ChannelTypeEncoder encoder = ChannelTypeEncoder.INSTANCE;
@@ -91,9 +128,9 @@ class EncodeAndDecodeTest {
     private static ChannelDescription description(
             ChannelType type, Class<? extends ChannelValue> channelValueClass) {
         var functions =
-                channelValueClass == GateValue.class
-                        ? Set.of(BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE)
-                        : Set.<BitFunction>of();
+                Optional.ofNullable(SEMANTIC_RELAY_FUNCTIONS.get(channelValueClass))
+                        .map(Set::of)
+                        .orElseGet(Set::of);
         return new ChannelDescription(type, Set.of(), functions);
     }
 
@@ -107,6 +144,88 @@ class EncodeAndDecodeTest {
         @Override
         public ChannelValue onGateValue() {
             return random.nextBoolean() ? GateValue.OPEN : GateValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onGatewayLockValue() {
+            return random.nextBoolean() ? GatewayLockValue.UNLOCKED : GatewayLockValue.LOCKED;
+        }
+
+        @Override
+        public ChannelValue onGarageDoorValue() {
+            return random.nextBoolean() ? GarageDoorValue.OPEN : GarageDoorValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onDoorLockValue() {
+            return random.nextBoolean() ? DoorLockValue.UNLOCKED : DoorLockValue.LOCKED;
+        }
+
+        @Override
+        public ChannelValue onRollerShutterValue() {
+            return random.nextBoolean() ? RollerShutterValue.OPEN : RollerShutterValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onPowerSwitchValue() {
+            return random.nextBoolean() ? PowerSwitchValue.ON : PowerSwitchValue.OFF;
+        }
+
+        @Override
+        public ChannelValue onLightSwitchValue() {
+            return random.nextBoolean() ? LightSwitchValue.ON : LightSwitchValue.OFF;
+        }
+
+        @Override
+        public ChannelValue onStaircaseTimerValue() {
+            return random.nextBoolean() ? StaircaseTimerValue.ON : StaircaseTimerValue.OFF;
+        }
+
+        @Override
+        public ChannelValue onRoofWindowValue() {
+            return random.nextBoolean() ? RoofWindowValue.OPEN : RoofWindowValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onFacadeBlindValue() {
+            return random.nextBoolean() ? FacadeBlindValue.OPEN : FacadeBlindValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onTerraceAwningValue() {
+            return random.nextBoolean() ? TerraceAwningValue.OPEN : TerraceAwningValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onProjectorScreenValue() {
+            return random.nextBoolean() ? ProjectorScreenValue.OPEN : ProjectorScreenValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onCurtainValue() {
+            return random.nextBoolean() ? CurtainValue.OPEN : CurtainValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onVerticalBlindValue() {
+            return random.nextBoolean() ? VerticalBlindValue.OPEN : VerticalBlindValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onRollerGarageDoorValue() {
+            return random.nextBoolean() ? RollerGarageDoorValue.OPEN : RollerGarageDoorValue.CLOSE;
+        }
+
+        @Override
+        public ChannelValue onPumpSwitchValue() {
+            return random.nextBoolean() ? PumpSwitchValue.ON : PumpSwitchValue.OFF;
+        }
+
+        @Override
+        public ChannelValue onHeatOrColdSourceSwitchValue() {
+            return random.nextBoolean()
+                    ? HeatOrColdSourceSwitchValue.ON
+                    : HeatOrColdSourceSwitchValue.OFF;
         }
 
         @Override

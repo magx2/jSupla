@@ -17,6 +17,54 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(GateValue.class)) {
             return callback.onGateValue();
         }
+        if (channelClass.isAssignableFrom(GatewayLockValue.class)) {
+            return callback.onGatewayLockValue();
+        }
+        if (channelClass.isAssignableFrom(GarageDoorValue.class)) {
+            return callback.onGarageDoorValue();
+        }
+        if (channelClass.isAssignableFrom(DoorLockValue.class)) {
+            return callback.onDoorLockValue();
+        }
+        if (channelClass.isAssignableFrom(RollerShutterValue.class)) {
+            return callback.onRollerShutterValue();
+        }
+        if (channelClass.isAssignableFrom(PowerSwitchValue.class)) {
+            return callback.onPowerSwitchValue();
+        }
+        if (channelClass.isAssignableFrom(LightSwitchValue.class)) {
+            return callback.onLightSwitchValue();
+        }
+        if (channelClass.isAssignableFrom(StaircaseTimerValue.class)) {
+            return callback.onStaircaseTimerValue();
+        }
+        if (channelClass.isAssignableFrom(RoofWindowValue.class)) {
+            return callback.onRoofWindowValue();
+        }
+        if (channelClass.isAssignableFrom(FacadeBlindValue.class)) {
+            return callback.onFacadeBlindValue();
+        }
+        if (channelClass.isAssignableFrom(TerraceAwningValue.class)) {
+            return callback.onTerraceAwningValue();
+        }
+        if (channelClass.isAssignableFrom(ProjectorScreenValue.class)) {
+            return callback.onProjectorScreenValue();
+        }
+        if (channelClass.isAssignableFrom(CurtainValue.class)) {
+            return callback.onCurtainValue();
+        }
+        if (channelClass.isAssignableFrom(VerticalBlindValue.class)) {
+            return callback.onVerticalBlindValue();
+        }
+        if (channelClass.isAssignableFrom(RollerGarageDoorValue.class)) {
+            return callback.onRollerGarageDoorValue();
+        }
+        if (channelClass.isAssignableFrom(PumpSwitchValue.class)) {
+            return callback.onPumpSwitchValue();
+        }
+        if (channelClass.isAssignableFrom(HeatOrColdSourceSwitchValue.class)) {
+            return callback.onHeatOrColdSourceSwitchValue();
+        }
         if (channelClass.isAssignableFrom(PercentValue.class)) {
             return callback.onPercentValue();
         }
@@ -78,6 +126,38 @@ public final class ChannelClassSwitch<T> {
         T onOnOff();
 
         T onGateValue();
+
+        T onGatewayLockValue();
+
+        T onGarageDoorValue();
+
+        T onDoorLockValue();
+
+        T onRollerShutterValue();
+
+        T onPowerSwitchValue();
+
+        T onLightSwitchValue();
+
+        T onStaircaseTimerValue();
+
+        T onRoofWindowValue();
+
+        T onFacadeBlindValue();
+
+        T onTerraceAwningValue();
+
+        T onProjectorScreenValue();
+
+        T onCurtainValue();
+
+        T onVerticalBlindValue();
+
+        T onRollerGarageDoorValue();
+
+        T onPumpSwitchValue();
+
+        T onHeatOrColdSourceSwitchValue();
 
         T onPercentValue();
 

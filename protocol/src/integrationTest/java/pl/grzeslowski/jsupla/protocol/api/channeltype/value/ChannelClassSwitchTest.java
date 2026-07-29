@@ -46,6 +46,86 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onGatewayLockValue() {
+            return GatewayLockValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onGarageDoorValue() {
+            return GarageDoorValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onDoorLockValue() {
+            return DoorLockValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onRollerShutterValue() {
+            return RollerShutterValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onPowerSwitchValue() {
+            return PowerSwitchValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onLightSwitchValue() {
+            return LightSwitchValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onStaircaseTimerValue() {
+            return StaircaseTimerValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onRoofWindowValue() {
+            return RoofWindowValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onFacadeBlindValue() {
+            return FacadeBlindValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onTerraceAwningValue() {
+            return TerraceAwningValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onProjectorScreenValue() {
+            return ProjectorScreenValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onCurtainValue() {
+            return CurtainValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onVerticalBlindValue() {
+            return VerticalBlindValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onRollerGarageDoorValue() {
+            return RollerGarageDoorValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onPumpSwitchValue() {
+            return PumpSwitchValue.class;
+        }
+
+        @Override
+        public Class<? extends ChannelValue> onHeatOrColdSourceSwitchValue() {
+            return HeatOrColdSourceSwitchValue.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onPercentValue() {
             return PercentValue.class;
         }
