@@ -14,6 +14,7 @@ public class ChannelTypeEncoder {
     private final HvacTypeEncoder hvacTypeEncoder;
     private final OnOffTypeEncoder onOffTypeEncoder;
     private final GateTypeEncoder gateTypeEncoder;
+    private final SemanticRelayValueTypeEncoder semanticRelayValueTypeEncoder;
     private final PercentTypeEncoder percentTypeEncoder;
     private final ThermometerDoubleTypeEncoder thermometerDoubleTypeEncoder;
     private final ThermometerTypeEncoder thermometerTypeEncoder;
@@ -30,6 +31,7 @@ public class ChannelTypeEncoder {
                 new HvacTypeEncoder(),
                 new OnOffTypeEncoder(),
                 new GateTypeEncoder(),
+                new SemanticRelayValueTypeEncoder(),
                 new PercentTypeEncoder(),
                 new ThermometerDoubleTypeEncoder(),
                 new ThermometerTypeEncoder(),
@@ -46,6 +48,36 @@ public class ChannelTypeEncoder {
             case HvacValue hvacValue -> hvacTypeEncoder.encode(hvacValue);
             case OnOffValue onOffValue -> onOffTypeEncoder.encode(onOffValue);
             case GateValue gateValue -> gateTypeEncoder.encode(gateValue);
+            case CurtainValue curtainValue -> semanticRelayValueTypeEncoder.encode(curtainValue);
+            case DoorLockValue doorLockValue -> semanticRelayValueTypeEncoder.encode(doorLockValue);
+            case FacadeBlindValue facadeBlindValue ->
+                    semanticRelayValueTypeEncoder.encode(facadeBlindValue);
+            case GarageDoorValue garageDoorValue ->
+                    semanticRelayValueTypeEncoder.encode(garageDoorValue);
+            case GatewayLockValue gatewayLockValue ->
+                    semanticRelayValueTypeEncoder.encode(gatewayLockValue);
+            case HeatOrColdSourceSwitchValue heatOrColdSourceSwitchValue ->
+                    semanticRelayValueTypeEncoder.encode(heatOrColdSourceSwitchValue);
+            case LightSwitchValue lightSwitchValue ->
+                    semanticRelayValueTypeEncoder.encode(lightSwitchValue);
+            case PowerSwitchValue powerSwitchValue ->
+                    semanticRelayValueTypeEncoder.encode(powerSwitchValue);
+            case ProjectorScreenValue projectorScreenValue ->
+                    semanticRelayValueTypeEncoder.encode(projectorScreenValue);
+            case PumpSwitchValue pumpSwitchValue ->
+                    semanticRelayValueTypeEncoder.encode(pumpSwitchValue);
+            case RollerGarageDoorValue rollerGarageDoorValue ->
+                    semanticRelayValueTypeEncoder.encode(rollerGarageDoorValue);
+            case RollerShutterValue rollerShutterValue ->
+                    semanticRelayValueTypeEncoder.encode(rollerShutterValue);
+            case RoofWindowValue roofWindowValue ->
+                    semanticRelayValueTypeEncoder.encode(roofWindowValue);
+            case StaircaseTimerValue staircaseTimerValue ->
+                    semanticRelayValueTypeEncoder.encode(staircaseTimerValue);
+            case TerraceAwningValue terraceAwningValue ->
+                    semanticRelayValueTypeEncoder.encode(terraceAwningValue);
+            case VerticalBlindValue verticalBlindValue ->
+                    semanticRelayValueTypeEncoder.encode(verticalBlindValue);
             case PercentValue percentValue -> percentTypeEncoder.encode(percentValue);
             case RgbValue rgbValue -> rgbTypeEncoder.encode(rgbValue);
             case TemperatureAndHumidityValue temperatureAndHumidityValue ->
