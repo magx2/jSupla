@@ -14,6 +14,9 @@ public final class ChannelClassSwitch<T> {
         if (channelClass.isAssignableFrom(OnOffValue.class)) {
             return callback.onOnOff();
         }
+        if (channelClass.isAssignableFrom(GateValue.class)) {
+            return callback.onGateValue();
+        }
         if (channelClass.isAssignableFrom(PercentValue.class)) {
             return callback.onPercentValue();
         }
@@ -73,6 +76,8 @@ public final class ChannelClassSwitch<T> {
     @SuppressWarnings("UnusedReturnValue")
     public interface Callback<T> {
         T onOnOff();
+
+        T onGateValue();
 
         T onPercentValue();
 
