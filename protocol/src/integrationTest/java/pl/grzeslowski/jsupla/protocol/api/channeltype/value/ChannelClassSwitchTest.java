@@ -41,6 +41,11 @@ class ChannelClassSwitchTest {
         }
 
         @Override
+        public Class<? extends ChannelValue> onGateValue() {
+            return GateValue.class;
+        }
+
+        @Override
         public Class<? extends ChannelValue> onPercentValue() {
             return PercentValue.class;
         }

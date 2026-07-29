@@ -16,6 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
+import pl.grzeslowski.jsupla.protocol.api.BitFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
 import pl.grzeslowski.jsupla.protocol.api.HvacMode;
@@ -61,7 +62,10 @@ class EncodeAndDecodeTest {
         var channelType =
                 Arrays.stream(ChannelType.values())
                         .parallel()
-                        .filter(type -> decoder.findClass(type) == channelValueClass)
+                        .filter(
+                                type ->
+                                        decoder.findClass(description(type, channelValueClass))
+                                                == channelValueClass)
                         .findAny()
                         .orElseThrow(
                                 () ->
@@ -70,8 +74,9 @@ class EncodeAndDecodeTest {
                                                         + channelValueClass.getSimpleName()));
 
         // when
+        var description = description(channelType, channelValueClass);
         var encode = encoder.encode(value);
-        var decode = decoder.decode(channelType, encode);
+        var decode = decoder.decode(description, encode);
 
         // then
         assertThat(decode)
@@ -83,11 +88,25 @@ class EncodeAndDecodeTest {
                 .isEqualTo(value);
     }
 
+    private static ChannelDescription description(
+            ChannelType type, Class<? extends ChannelValue> channelValueClass) {
+        var functions =
+                channelValueClass == GateValue.class
+                        ? Set.of(BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE)
+                        : Set.<BitFunction>of();
+        return new ChannelDescription(type, Set.of(), functions);
+    }
+
     class ClassToObject implements ChannelClassSwitch.Callback<ChannelValue> {
 
         @Override
         public ChannelValue onOnOff() {
             return random.nextBoolean() ? OnOffValue.ON : OnOffValue.OFF;
+        }
+
+        @Override
+        public ChannelValue onGateValue() {
+            return random.nextBoolean() ? GateValue.OPEN : GateValue.CLOSE;
         }
 
         @Override

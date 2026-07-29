@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
+import pl.grzeslowski.jsupla.protocol.api.channeltype.ChannelDescription;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
 @Slf4j
@@ -43,25 +44,12 @@ public final class ChannelTypeDecoder {
                         new HeatpolThermostatTypeDecoder()));
     }
 
-    public ChannelValue decode(int type, byte[] value) {
-        return ChannelType.findByValue(type)
-                .map(t -> decode(t, value))
-                .orElseGet(
-                        () ->
-                                new UnknownValue(
-                                        new byte[0],
-                                        format(
-                                                "Don't know how to map device channel type %s to"
-                                                        + " channel value",
-                                                type)));
-    }
-
-    public ChannelValue decode(final ChannelType channelType, final byte[] value) {
-        if (channelType == null) {
-            return new UnknownValue(value, "Channel type is null");
+    public ChannelValue decode(final ChannelDescription description, final byte[] value) {
+        if (description == null || description.type() == null) {
+            return new UnknownValue(value, "Channel description or channel type is null");
         }
-        return findChannelTypeDecoder(channelType)
-                .map(decoder -> decoder.decode(value))
+        return findChannelTypeDecoder(description.type())
+                .map(decoder -> decoder.decode(value, description))
                 .map(ChannelValue.class::cast)
                 .orElseGet(
                         () -> {
@@ -69,7 +57,7 @@ public final class ChannelTypeDecoder {
                                     format(
                                             "Don't know how to map channel type %s to channel"
                                                     + " value!",
-                                            channelType);
+                                            description.type());
                             if (log.isWarnEnabled()) {
                                 log.warn(message + " value={}", Arrays.toString(value));
                             }
@@ -77,23 +65,15 @@ public final class ChannelTypeDecoder {
                         });
     }
 
-    public Class<? extends ChannelValue> findClass(int type) {
-        var maybe = ChannelType.findByValue(type).map(this::findClass);
-        if (maybe.isEmpty()) {
-            log.warn("Don't know how to map device channel type {} to channel value!", type);
-            return UnknownValue.class;
-        }
-        return maybe.get();
-    }
-
-    public Class<? extends ChannelValue> findClass(final ChannelType channelType) {
-        if (channelType == null) {
+    public Class<? extends ChannelValue> findClass(final ChannelDescription description) {
+        if (description == null || description.type() == null) {
             return UnknownValue.class;
         }
         var maybe =
-                findChannelTypeDecoder(channelType).map(ChannelValueDecoder::getChannelValueType);
+                findChannelTypeDecoder(description.type())
+                        .map(decoder -> decoder.getChannelValueType(description));
         if (maybe.isEmpty()) {
-            log.warn("Don't know how to map channel type {} to channel value!", channelType);
+            log.warn("Don't know how to map channel type {} to channel value!", description.type());
             return UnknownValue.class;
         }
         return maybe.get();
