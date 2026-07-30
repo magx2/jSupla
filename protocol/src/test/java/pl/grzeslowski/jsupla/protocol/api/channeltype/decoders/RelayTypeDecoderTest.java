@@ -69,7 +69,7 @@ class RelayTypeDecoderTest {
     }
 
     @Test
-    void shouldUseBitFunctionDeclarationOrderWhenMultipleSemanticFunctionsArePresent() {
+    void shouldDecodeMultipleSemanticFunctionsAsOnOffValue() {
         var description =
                 new ChannelDescription(
                         ChannelType.SUPLA_CHANNELTYPE_RELAY,
@@ -80,8 +80,8 @@ class RelayTypeDecoderTest {
 
         ChannelValue value = decoder.decode(new byte[] {1}, description);
 
-        assertThat(value).isEqualTo(GateValue.OPEN);
-        assertThat(decoder.getChannelValueType(description)).isEqualTo(GateValue.class);
+        assertThat(value).isEqualTo(OnOffValue.ON);
+        assertThat(decoder.getChannelValueType(description)).isEqualTo(OnOffValue.class);
     }
 
     @Test

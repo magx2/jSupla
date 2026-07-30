@@ -168,10 +168,14 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
         if (description == null || description.functions() == null) {
             return null;
         }
-        return SEMANTIC_RELAY_VALUES.stream()
-                .filter(value -> description.functions().contains(value.function()))
-                .findFirst()
-                .orElse(null);
+        var values =
+                SEMANTIC_RELAY_VALUES.stream()
+                        .filter(value -> description.functions().contains(value.function()))
+                        .toList();
+        if (values.size() == 1) {
+            return values.getFirst();
+        }
+        return null;
     }
 
     private record SemanticRelayValue(
