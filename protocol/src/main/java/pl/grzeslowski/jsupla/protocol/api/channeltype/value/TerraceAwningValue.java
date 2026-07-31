@@ -5,7 +5,15 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype.value;
  *
  * <p>The relay payload maps {@link #OPEN} to byte {@code 1} and {@link #CLOSE} to byte {@code 0}.
  */
-public enum TerraceAwningValue implements ChannelValue {
+public enum TerraceAwningValue implements AbstractOnOffValue {
     OPEN,
-    CLOSE
+    CLOSE;
+
+    @Override
+    public OnOffValue toCommonBase() {
+        return switch (this) {
+            case OPEN -> OnOffValue.ON;
+            case CLOSE -> OnOffValue.OFF;
+        };
+    }
 }
