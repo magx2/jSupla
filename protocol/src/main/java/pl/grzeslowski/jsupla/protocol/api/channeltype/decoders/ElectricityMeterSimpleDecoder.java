@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.ElectricMeterPhaseFlag.*;
 
 import java.util.Set;
 import pl.grzeslowski.jsupla.protocol.api.BigDecimalDivider;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterSimpleValue;
 import pl.grzeslowski.jsupla.protocol.api.decoders.ElectricityMeterValueDecoder;
@@ -18,6 +19,11 @@ public class ElectricityMeterSimpleDecoder
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_ELECTRICITY_METER);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(ChannelFunction.SUPLA_CHANNELFNC_ELECTRICITY_METER);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static java.lang.String.format;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelFunction.*;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTANCE;
 
 import java.util.List;
 import java.util.Set;
-import pl.grzeslowski.jsupla.protocol.api.BitFunction;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.Preconditions;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.ChannelDescription;
@@ -16,87 +17,87 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
     private static final List<SemanticRelayValue> SEMANTIC_RELAY_VALUES =
             List.of(
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATEWAYLOCK,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEGATEWAYLOCK,
                             GatewayLockValue.class,
                             GatewayLockValue.UNLOCKED,
                             GatewayLockValue.LOCKED),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEGATE,
                             GateValue.class,
                             GateValue.OPEN,
                             GateValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGARAGEDOOR,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEGARAGEDOOR,
                             GarageDoorValue.class,
                             GarageDoorValue.OPEN,
                             GarageDoorValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEDOORLOCK,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEDOORLOCK,
                             DoorLockValue.class,
                             DoorLockValue.UNLOCKED,
                             DoorLockValue.LOCKED),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROLLERSHUTTER,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEROLLERSHUTTER,
                             RollerShutterValue.class,
                             RollerShutterValue.OPEN,
                             RollerShutterValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_POWERSWITCH,
+                            SUPLA_CHANNELFNC_POWERSWITCH,
                             PowerSwitchValue.class,
                             PowerSwitchValue.ON,
                             PowerSwitchValue.OFF),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_LIGHTSWITCH,
+                            SUPLA_CHANNELFNC_LIGHTSWITCH,
                             LightSwitchValue.class,
                             LightSwitchValue.ON,
                             LightSwitchValue.OFF),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_STAIRCASETIMER,
+                            SUPLA_CHANNELFNC_STAIRCASETIMER,
                             StaircaseTimerValue.class,
                             StaircaseTimerValue.ON,
                             StaircaseTimerValue.OFF),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROOFWINDOW,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEROOFWINDOW,
                             RoofWindowValue.class,
                             RoofWindowValue.OPEN,
                             RoofWindowValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEFACADEBLIND,
+                            SUPLA_CHANNELFNC_CONTROLLINGTHEFACADEBLIND,
                             FacadeBlindValue.class,
                             FacadeBlindValue.OPEN,
                             FacadeBlindValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_TERRACE_AWNING,
+                            SUPLA_CHANNELFNC_TERRACE_AWNING,
                             TerraceAwningValue.class,
                             TerraceAwningValue.OPEN,
                             TerraceAwningValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_PROJECTOR_SCREEN,
+                            SUPLA_CHANNELFNC_PROJECTOR_SCREEN,
                             ProjectorScreenValue.class,
                             ProjectorScreenValue.OPEN,
                             ProjectorScreenValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_CURTAIN,
+                            SUPLA_CHANNELFNC_CURTAIN,
                             CurtainValue.class,
                             CurtainValue.OPEN,
                             CurtainValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_VERTICAL_BLIND,
+                            SUPLA_CHANNELFNC_VERTICAL_BLIND,
                             VerticalBlindValue.class,
                             VerticalBlindValue.OPEN,
                             VerticalBlindValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_ROLLER_GARAGE_DOOR,
+                            SUPLA_CHANNELFNC_ROLLER_GARAGE_DOOR,
                             RollerGarageDoorValue.class,
                             RollerGarageDoorValue.OPEN,
                             RollerGarageDoorValue.CLOSE),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_PUMPSWITCH,
+                            SUPLA_CHANNELFNC_PUMPSWITCH,
                             PumpSwitchValue.class,
                             PumpSwitchValue.ON,
                             PumpSwitchValue.OFF),
                     new SemanticRelayValue(
-                            BitFunction.SUPLA_BIT_FUNC_HEATORCOLDSOURCESWITCH,
+                            SUPLA_CHANNELFNC_HEATORCOLDSOURCESWITCH,
                             HeatOrColdSourceSwitchValue.class,
                             HeatOrColdSourceSwitchValue.ON,
                             HeatOrColdSourceSwitchValue.OFF));
@@ -112,6 +113,11 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
                 SUPLA_CHANNELTYPE_2XRELAYG5LA1A,
                 SUPLA_CHANNELTYPE_RELAY,
                 SUPLA_CHANNELTYPE_BINARYSENSOR);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.copyOf(supportedSemanticFunctions());
     }
 
     @Override
@@ -160,13 +166,24 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
         return semanticRelayValue != null ? semanticRelayValue.type() : OnOffValue.class;
     }
 
-    static List<BitFunction> supportedSemanticFunctions() {
+    static List<ChannelFunction> supportedSemanticFunctions() {
         return SEMANTIC_RELAY_VALUES.stream().map(SemanticRelayValue::function).toList();
     }
 
     private SemanticRelayValue semanticRelayValue(final ChannelDescription description) {
         if (description == null || description.functions() == null) {
             return null;
+        }
+        var selectedValue =
+                description
+                        .selectedFunction()
+                        .flatMap(
+                                selected ->
+                                        SEMANTIC_RELAY_VALUES.stream()
+                                                .filter(value -> value.function() == selected)
+                                                .findAny());
+        if (selectedValue.isPresent()) {
+            return selectedValue.get();
         }
         var values =
                 SEMANTIC_RELAY_VALUES.stream()
@@ -179,7 +196,7 @@ class RelayTypeDecoder implements ChannelValueDecoder<OnOffValue> {
     }
 
     private record SemanticRelayValue(
-            BitFunction function,
+            ChannelFunction function,
             Class<? extends ChannelValue> type,
             ChannelValue active,
             ChannelValue inactive) {}

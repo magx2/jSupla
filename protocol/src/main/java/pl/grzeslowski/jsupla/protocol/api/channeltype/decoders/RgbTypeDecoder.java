@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.ProtocolHelpers.toUnsignedByte;
 
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RgbValue.Command;
@@ -19,6 +20,15 @@ class RgbTypeDecoder implements ChannelValueDecoder<RgbValue> {
                 SUPLA_CHANNELTYPE_RGBLEDCONTROLLER,
                 SUPLA_CHANNELTYPE_DIMMERANDRGBLED,
                 SUPLA_CHANNELTYPE_DISTANCESENSOR);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(
+                ChannelFunction.SUPLA_CHANNELFNC_RGBLIGHTING,
+                ChannelFunction.SUPLA_CHANNELFNC_DIMMERANDRGBLIGHTING,
+                ChannelFunction.SUPLA_CHANNELFNC_DIMMER_CCT,
+                ChannelFunction.SUPLA_CHANNELFNC_DIMMER_CCT_AND_RGB);
     }
 
     @Override

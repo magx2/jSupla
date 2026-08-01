@@ -1,13 +1,17 @@
 package pl.grzeslowski.jsupla.protocol.api.channeltype.decoders;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.grzeslowski.jsupla.protocol.api.BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelFunction.SUPLA_CHANNELFNC_CONTROLLINGTHEGATE;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelFunction.SUPLA_CHANNELFNC_LIGHTSWITCH;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelFunction.SUPLA_CHANNELFNC_NOTIFICATION;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_ELECTRICITY_METER;
 
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -71,7 +75,9 @@ class ChannelTypeDecoderTest {
     void shouldDecodeUnknownTypeAsUnknownValue() {
         // when
         ChannelValue value =
-                decoder.decode(new ChannelDescription(null, Set.of(), Set.of()), new byte[0]);
+                decoder.decode(
+                        new ChannelDescription(null, Set.of(), List.of(), Optional.empty()),
+                        new byte[0]);
 
         // then
         assertThat(value).isInstanceOf(UnknownValue.class);
@@ -110,14 +116,54 @@ class ChannelTypeDecoderTest {
                 new ChannelDescription(
                         ChannelType.SUPLA_CHANNELTYPE_RELAY,
                         Set.of(),
-                        Set.of(SUPLA_BIT_FUNC_CONTROLLINGTHEGATE));
+                        List.of(),
+                        Optional.of(SUPLA_CHANNELFNC_CONTROLLINGTHEGATE));
 
         assertThat(decoder.decode(description, new byte[] {1})).isEqualTo(GateValue.OPEN);
         assertThat(decoder.findClass(description)).isEqualTo(GateValue.class);
     }
 
+    @Test
+    void shouldDecodeSingleMatchingFunctionAsGateValue() {
+        var description =
+                new ChannelDescription(
+                        ChannelType.SUPLA_CHANNELTYPE_RELAY,
+                        Set.of(),
+                        List.of(SUPLA_CHANNELFNC_CONTROLLINGTHEGATE),
+                        Optional.empty());
+
+        assertThat(decoder.decode(description, new byte[] {1})).isEqualTo(GateValue.OPEN);
+        assertThat(decoder.findClass(description)).isEqualTo(GateValue.class);
+    }
+
+    @Test
+    void shouldFallbackToChannelTypeForMultipleMatchingFunctions() {
+        var description =
+                new ChannelDescription(
+                        ChannelType.SUPLA_CHANNELTYPE_RELAY,
+                        Set.of(),
+                        List.of(SUPLA_CHANNELFNC_CONTROLLINGTHEGATE, SUPLA_CHANNELFNC_LIGHTSWITCH),
+                        Optional.empty());
+
+        assertThat(decoder.decode(description, new byte[] {1})).isEqualTo(OnOffValue.ON);
+        assertThat(decoder.findClass(description)).isEqualTo(OnOffValue.class);
+    }
+
+    @Test
+    void shouldFallbackToChannelTypeForUnsupportedFunction() {
+        var description =
+                new ChannelDescription(
+                        ChannelType.SUPLA_CHANNELTYPE_RELAY,
+                        Set.of(),
+                        List.of(SUPLA_CHANNELFNC_NOTIFICATION),
+                        Optional.empty());
+
+        assertThat(decoder.decode(description, new byte[] {1})).isEqualTo(OnOffValue.ON);
+        assertThat(decoder.findClass(description)).isEqualTo(OnOffValue.class);
+    }
+
     private static ChannelDescription description(ChannelType type) {
-        return new ChannelDescription(type, Set.of(), Set.of());
+        return new ChannelDescription(type, Set.of(), List.of(), Optional.empty());
     }
 
     @ParameterizedTest(name = "{index}: should find only 0 or 1 decoder for channel type {0}")

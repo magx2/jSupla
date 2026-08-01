@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
 import pl.grzeslowski.jsupla.protocol.api.HvacMode;
@@ -26,6 +27,18 @@ public class HvacTypeDecoder implements ChannelValueDecoder<HvacValue> {
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_HVAC);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_THERMOSTAT,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_THERMOSTAT_HEAT_COOL,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_DRYER,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_FAN,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_THERMOSTAT_DIFFERENTIAL,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_DOMESTIC_HOT_WATER,
+                ChannelFunction.SUPLA_CHANNELFNC_HVAC_HRV);
     }
 
     @Override

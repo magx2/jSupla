@@ -5,6 +5,7 @@ import static pl.grzeslowski.jsupla.protocol.api.ChannelType.SUPLA_CHANNELTYPE_T
 
 import java.math.BigDecimal;
 import java.util.Set;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.ThermostatValueFlag;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.HeatpolThermostatValue;
@@ -16,6 +17,11 @@ public class HeatpolThermostatTypeDecoder implements ChannelValueDecoder<Heatpol
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_THERMOSTAT_HEATPOL_HOMEPLUS);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(ChannelFunction.SUPLA_CHANNELFNC_THERMOSTAT_HEATPOL_HOMEPLUS);
     }
 
     @Override
