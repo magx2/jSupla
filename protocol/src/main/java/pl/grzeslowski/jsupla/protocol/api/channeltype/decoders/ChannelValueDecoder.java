@@ -11,9 +11,7 @@ public interface ChannelValueDecoder<ChannelValueT extends ChannelValue>
         extends Decoder<ChannelValueT> {
     Set<ChannelType> supportedChannelValueTypes();
 
-    default Set<ChannelFunction> supportedChannelFunctions() {
-        return Set.of();
-    }
+    Set<ChannelFunction> supportedChannelFunctions();
 
     Class<ChannelValueT> getChannelValueType();
 

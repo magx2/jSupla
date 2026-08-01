@@ -4,6 +4,7 @@ import static pl.grzeslowski.jsupla.protocol.api.ChannelType.EV_TYPE_TIMER_STATE
 
 import java.time.Duration;
 import java.util.Set;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.structs.TimerStateExtendedValue;
 
@@ -19,5 +20,10 @@ class TimerSecDecoder extends TimerAbstractDecoder {
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(EV_TYPE_TIMER_STATE_V1_SEC);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of();
     }
 }

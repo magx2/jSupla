@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.Duration;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TimerValue;
 import pl.grzeslowski.jsupla.protocol.api.consts.ProtoConsts;
@@ -47,6 +48,11 @@ class TimerAbstractDecoderTest {
 
         @Override
         public Set<ChannelType> supportedChannelValueTypes() {
+            return Set.of();
+        }
+
+        @Override
+        public Set<ChannelFunction> supportedChannelFunctions() {
             return Set.of();
         }
     }
