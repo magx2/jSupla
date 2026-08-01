@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import pl.grzeslowski.jsupla.protocol.api.BigDecimalDivider;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.ElectricityMeterValue.PhaseSequence;
@@ -50,6 +51,11 @@ class ElectricityMeterV3Decoder implements ChannelValueDecoder<ElectricityMeterV
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(EV_TYPE_ELECTRICITY_METER_MEASUREMENT_V3);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of();
     }
 
     @Override
