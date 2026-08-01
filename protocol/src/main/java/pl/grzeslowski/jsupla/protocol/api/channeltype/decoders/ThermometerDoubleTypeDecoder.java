@@ -6,6 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTA
 
 import java.util.Set;
 import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.TemperatureDoubleValue;
 
@@ -21,6 +22,11 @@ class ThermometerDoubleTypeDecoder implements ChannelValueDecoder<TemperatureDou
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_THERMOMETER, SUPLA_CHANNELTYPE_THERMOMETERDS18B20);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(ChannelFunction.SUPLA_CHANNELFNC_THERMOMETER);
     }
 
     @Override

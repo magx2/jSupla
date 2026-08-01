@@ -3,6 +3,7 @@ package pl.grzeslowski.jsupla.protocol.api.channeltype;
 import static java.math.RoundingMode.HALF_UP;
 import static java.util.function.Predicate.not;
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelFunction.*;
 import static pl.grzeslowski.jsupla.protocol.api.ChannelType.*;
 import static pl.grzeslowski.jsupla.protocol.api.HvacFlag.*;
 
@@ -16,7 +17,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
-import pl.grzeslowski.jsupla.protocol.api.BitFunction;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.HvacFlag;
 import pl.grzeslowski.jsupla.protocol.api.HvacMode;
@@ -26,42 +27,41 @@ import pl.grzeslowski.jsupla.protocol.api.channeltype.encoders.ChannelTypeEncode
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.*;
 
 class EncodeAndDecodeTest {
-    private static final Map<Class<? extends ChannelValue>, BitFunction> SEMANTIC_RELAY_FUNCTIONS =
-            Map.ofEntries(
-                    Map.entry(
-                            GatewayLockValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATEWAYLOCK),
-                    Map.entry(GateValue.class, BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGATE),
-                    Map.entry(
-                            GarageDoorValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEGARAGEDOOR),
-                    Map.entry(
-                            DoorLockValue.class, BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEDOORLOCK),
-                    Map.entry(
-                            RollerShutterValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROLLERSHUTTER),
-                    Map.entry(PowerSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_POWERSWITCH),
-                    Map.entry(LightSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_LIGHTSWITCH),
-                    Map.entry(StaircaseTimerValue.class, BitFunction.SUPLA_BIT_FUNC_STAIRCASETIMER),
-                    Map.entry(
-                            RoofWindowValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEROOFWINDOW),
-                    Map.entry(
-                            FacadeBlindValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_CONTROLLINGTHEFACADEBLIND),
-                    Map.entry(TerraceAwningValue.class, BitFunction.SUPLA_BIT_FUNC_TERRACE_AWNING),
-                    Map.entry(
-                            ProjectorScreenValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_PROJECTOR_SCREEN),
-                    Map.entry(CurtainValue.class, BitFunction.SUPLA_BIT_FUNC_CURTAIN),
-                    Map.entry(VerticalBlindValue.class, BitFunction.SUPLA_BIT_FUNC_VERTICAL_BLIND),
-                    Map.entry(
-                            RollerGarageDoorValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_ROLLER_GARAGE_DOOR),
-                    Map.entry(PumpSwitchValue.class, BitFunction.SUPLA_BIT_FUNC_PUMPSWITCH),
-                    Map.entry(
-                            HeatOrColdSourceSwitchValue.class,
-                            BitFunction.SUPLA_BIT_FUNC_HEATORCOLDSOURCESWITCH));
+    private static final Map<Class<? extends ChannelValue>, ChannelFunction>
+            SEMANTIC_RELAY_FUNCTIONS =
+                    Map.ofEntries(
+                            Map.entry(
+                                    GatewayLockValue.class,
+                                    SUPLA_CHANNELFNC_CONTROLLINGTHEGATEWAYLOCK),
+                            Map.entry(GateValue.class, SUPLA_CHANNELFNC_CONTROLLINGTHEGATE),
+                            Map.entry(
+                                    GarageDoorValue.class,
+                                    SUPLA_CHANNELFNC_CONTROLLINGTHEGARAGEDOOR),
+                            Map.entry(DoorLockValue.class, SUPLA_CHANNELFNC_CONTROLLINGTHEDOORLOCK),
+                            Map.entry(
+                                    RollerShutterValue.class,
+                                    SUPLA_CHANNELFNC_CONTROLLINGTHEROLLERSHUTTER),
+                            Map.entry(PowerSwitchValue.class, SUPLA_CHANNELFNC_POWERSWITCH),
+                            Map.entry(LightSwitchValue.class, SUPLA_CHANNELFNC_LIGHTSWITCH),
+                            Map.entry(StaircaseTimerValue.class, SUPLA_CHANNELFNC_STAIRCASETIMER),
+                            Map.entry(
+                                    RoofWindowValue.class,
+                                    SUPLA_CHANNELFNC_CONTROLLINGTHEROOFWINDOW),
+                            Map.entry(
+                                    FacadeBlindValue.class,
+                                    SUPLA_CHANNELFNC_CONTROLLINGTHEFACADEBLIND),
+                            Map.entry(TerraceAwningValue.class, SUPLA_CHANNELFNC_TERRACE_AWNING),
+                            Map.entry(
+                                    ProjectorScreenValue.class, SUPLA_CHANNELFNC_PROJECTOR_SCREEN),
+                            Map.entry(CurtainValue.class, SUPLA_CHANNELFNC_CURTAIN),
+                            Map.entry(VerticalBlindValue.class, SUPLA_CHANNELFNC_VERTICAL_BLIND),
+                            Map.entry(
+                                    RollerGarageDoorValue.class,
+                                    SUPLA_CHANNELFNC_ROLLER_GARAGE_DOOR),
+                            Map.entry(PumpSwitchValue.class, SUPLA_CHANNELFNC_PUMPSWITCH),
+                            Map.entry(
+                                    HeatOrColdSourceSwitchValue.class,
+                                    SUPLA_CHANNELFNC_HEATORCOLDSOURCESWITCH));
 
     final Random random;
     final Logger log = org.slf4j.LoggerFactory.getLogger(EncodeAndDecodeTest.class);
@@ -129,9 +129,9 @@ class EncodeAndDecodeTest {
             ChannelType type, Class<? extends ChannelValue> channelValueClass) {
         var functions =
                 Optional.ofNullable(SEMANTIC_RELAY_FUNCTIONS.get(channelValueClass))
-                        .map(Set::of)
-                        .orElseGet(Set::of);
-        return new ChannelDescription(type, Set.of(), functions);
+                        .map(List::of)
+                        .orElseGet(List::of);
+        return new ChannelDescription(type, Set.of(), functions, Optional.empty());
     }
 
     class ClassToObject implements ChannelClassSwitch.Callback<ChannelValue> {

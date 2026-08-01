@@ -6,6 +6,7 @@ import static pl.grzeslowski.jsupla.protocol.api.decoders.PrimitiveDecoder.INSTA
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.val;
+import pl.grzeslowski.jsupla.protocol.api.ChannelFunction;
 import pl.grzeslowski.jsupla.protocol.api.ChannelType;
 import pl.grzeslowski.jsupla.protocol.api.channeltype.value.RainValue;
 
@@ -20,6 +21,11 @@ class RainTypeDecoder implements ChannelValueDecoder<RainValue> {
     @Override
     public Set<ChannelType> supportedChannelValueTypes() {
         return Set.of(SUPLA_CHANNELTYPE_RAINSENSOR);
+    }
+
+    @Override
+    public Set<ChannelFunction> supportedChannelFunctions() {
+        return Set.of(ChannelFunction.SUPLA_CHANNELFNC_RAINSENSOR);
     }
 
     @Override
