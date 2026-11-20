@@ -1,9 +1,11 @@
 package pl.grzeslowski.jsupla.protocol.api.decoders.dsc;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static pl.grzeslowski.jsupla.protocol.api.ChannelStateField.SUPLA_CHANNELSTATE_FIELD_BATTERY_STATE;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import pl.grzeslowski.jsupla.protocol.api.structs.dsc.ChannelState;
 
 class ChannelStateDecoderTest {
     ChannelStateDecoder decoder = ChannelStateDecoder.INSTANCE;
@@ -46,5 +48,20 @@ class ChannelStateDecoderTest {
         assertThat(decode.operatingTime()).isNull();
         assertThat(decode.eOL()).isOne();
         assertThat(decode.emptySpace()).isEqualTo(new byte[] {0});
+    }
+
+    @Test
+    void shouldDecodeBatteryStateFromSharedBatteryField() {
+        byte[] data = new byte[ChannelState.SIZE];
+        int fields = SUPLA_CHANNELSTATE_FIELD_BATTERY_STATE.getValue();
+        for (int i = 0; i < Integer.BYTES; i++) {
+            data[8 + i] = (byte) (fields >>> (i * Byte.SIZE));
+        }
+        data[40] = 1;
+
+        val decoded = decoder.decode(data);
+
+        assertThat(decoded.batteryHealth()).isNull();
+        assertThat(decoded.batteryState()).isEqualTo((short) 1);
     }
 }

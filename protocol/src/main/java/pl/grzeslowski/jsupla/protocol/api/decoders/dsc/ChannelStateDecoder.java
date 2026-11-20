@@ -69,7 +69,15 @@ public class ChannelStateDecoder
         long connectionUptime = PrimitiveDecoder.INSTANCE.parseUnsignedInt(bytes, offset);
         offset += INT_SIZE;
 
-        short batteryHealth = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        short batteryValue = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
+        Short batteryHealth =
+                (fields & SUPLA_CHANNELSTATE_FIELD_BATTERY_STATE.getValue()) == 0
+                        ? batteryValue
+                        : null;
+        Short batteryState =
+                (fields & SUPLA_CHANNELSTATE_FIELD_BATTERY_STATE.getValue()) != 0
+                        ? batteryValue
+                        : null;
         offset += BYTE_SIZE;
 
         short lastConnectionResetCause = PrimitiveDecoder.INSTANCE.parseUnsignedByte(bytes, offset);
@@ -126,6 +134,7 @@ public class ChannelStateDecoder
                 uptime,
                 connectionUptime,
                 batteryHealth,
+                batteryState,
                 lastConnectionResetCause,
                 lightSourceLifespan,
                 lightSourceLifespanLeft,
