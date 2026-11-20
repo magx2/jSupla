@@ -457,8 +457,14 @@ static String mapValue(String value) {
 	if (value.matches(/\(1ULL << \d+\)/)) {
 		return value.replaceAll(/(1ULL) << (\d+)/, '1L << $2')
 	}
+	if (value.matches(/\(1U << \d+\)/)) {
+		return value.replaceAll(/1U << (\d+)/, '1 << $1')
+	}
 	if (value.matches(/\(1 << \d+\)/)) {
 		return value.replaceAll(/(1) << (\d+)/, '1 << $2')
+	}
+	if (value.matches(/\([A-Z][A-Z0-9_]* - [A-Z][A-Z0-9_]*\)/)) {
+		return value
 	}
 	if (value.startsWith("0x")) {
 		return needsLongHexLiteral(value) ? "${value}L" : value
@@ -484,6 +490,9 @@ static String findType(String value) {
 		return "long"
 	}
 	if (value.contains("<<")) {
+		return "int"
+	}
+	if (value.matches(/\([A-Z][A-Z0-9_]* - [A-Z][A-Z0-9_]*\)/)) {
 		return "int"
 	}
 	if (value.startsWith("0x")) {
